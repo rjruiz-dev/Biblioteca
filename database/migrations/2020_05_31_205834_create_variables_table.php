@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateVariablesTable extends Migration
 {
     /**
-     * Run the migrations hola hola assdasds.
+     * Run the migrations.
      *
      * @return void
      */
