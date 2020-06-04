@@ -14,10 +14,11 @@ class CreateDocumentsTable extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id'); 
 
-            $table->string('suitable')->unsigned();
-            $table->string('lenguajes')->unsigned();
+            $table->string('adequacies_id')->unsigned();
+            $table->string('lenguajes_id')->unsigned();
+            $table->string('document_types_id')->unsigned();
 
             $table->string('title')->nullable();
             $table->string('original_title')->nullable();
@@ -37,10 +38,26 @@ class CreateDocumentsTable extends Migration
             $table->string('location')->nullable();
             $table->string('observation')->nullable();
             $table->string('note')->nullable();
+            $table->mediumText('synopsis')->nullable();
+            $table->string('photo')->nullable();
+        
             
 
-
             $table->timestamps();
+
+
+            $table->foreign('adequacies_id')->references('id')->on('adequacies')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('lenguajes_id')->references('id')->on('lenguajes')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('document_types_id')->references('id')->on('document_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
         });
     }
 
