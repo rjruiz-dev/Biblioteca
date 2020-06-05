@@ -15,14 +15,14 @@ class CreateAdequaciesTable extends Migration
     {
         Schema::create('adequacies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('adequacy_description');
+            $table->string('adequacy_description')->nullable();
             
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrationss.
      *
      * @return void
      */
