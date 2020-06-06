@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->increments('id'); 
 
             $table->string('adequacies_id')->unsigned();
-            $table->string('lenguajes_id')->unsigned();
+            $table->string('lenguages_id')->unsigned();
             $table->string('document_types_id')->unsigned();
 
             $table->string('title')->unique();
