@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function statu()
+    {
+        return $this->belongsTo(Statu::class);
+    }
+
+    public function movement_types()
+    {
+        return $this->hasMany(Movement_type::class);
+    }
+
 }
