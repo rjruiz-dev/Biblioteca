@@ -22,7 +22,7 @@ class CreateMusicTable extends Migration
             $table->string('format')->nullable();
             $table->string('sound')->nullable();
             $table->string('gender')->nullable();
-            $table->string('producer')->nullable();
+            $table->string('producer');
             $table->timestamps();
 
             $table->foreign('documents_id')->references('id')->on('documents')

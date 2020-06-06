@@ -15,7 +15,7 @@ class CreateAdequaciesTable extends Migration
     {
         Schema::create('adequacies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('adequacy_description')->nullable();
+            $table->string('adequacy_description')->unique();
             
             $table->timestamps();
         });

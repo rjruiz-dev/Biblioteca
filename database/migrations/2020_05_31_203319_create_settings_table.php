@@ -18,7 +18,7 @@ class CreateSettingsTable extends Migration
 
             $table->integer('fines_id')->unsigned();    
 
-            $table->string('library_name');
+            $table->string('library_name')->unique();
             $table->integer('loan_day');
             $table->integer('loan_limit');
             $table->timestamps();

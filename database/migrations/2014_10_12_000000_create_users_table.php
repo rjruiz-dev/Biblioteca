@@ -20,16 +20,16 @@ class CreateUsersTable extends Migration
 
             $table->string('name');
             $table->string('surname');  
-            $table->string('nickname');              
+            $table->string('nickname')->unique();              
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');                    
-            $table->string('gender');
-            $table->timestamps('birthdate');
-            $table->string('address');
-            $table->integer('postcode');           
-            $table->string('phone');
-            $table->string('user_photo');
+            $table->string('gender')->nullable();
+            $table->timestamps('birthdate')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('postcode')->nullable();           
+            $table->string('phone')->nullable();
+            $table->string('user_photo')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

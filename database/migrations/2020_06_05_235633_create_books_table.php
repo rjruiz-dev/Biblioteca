@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->integer('book_types')->unsigned();
             $table->integer('genders_id')->unsigned();
 
+            $table->string('author')->nullable();
             $table->string('subtitle')->nullable(); 
             $table->string('second_author')->nullable();
             $table->string('third_author')->nullable();

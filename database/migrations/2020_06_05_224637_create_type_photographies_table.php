@@ -15,7 +15,7 @@ class CreateTypePhotographiesTable extends Migration
     {
         Schema::create('type_photographies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('photography_description')->nullable();
+            $table->string('photography_description')->unique();
 
             $table->timestamps();
         });

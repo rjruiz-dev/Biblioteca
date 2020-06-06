@@ -20,12 +20,12 @@ class CreateDocumentsTable extends Migration
             $table->string('lenguajes_id')->unsigned();
             $table->string('document_types_id')->unsigned();
 
-            $table->string('title')->nullable();
+            $table->string('title')->unique();
             $table->string('original_title')->nullable();
             $table->string('acquired')->nullable();
             $table->string('document_status')->nullable();
             $table->string('let_author')->nullable();
-            $table->string('cdu')->nullable();
+            $table->string('cdu')->unique();
             $table->string('let_title')->nullable();
             $table->string('assessment')->nullable();
             $table->string('desidherata')->nullable();
@@ -40,11 +40,7 @@ class CreateDocumentsTable extends Migration
             $table->string('note')->nullable();
             $table->mediumText('synopsis')->nullable();
             $table->string('photo')->nullable();
-        
-            
-
             $table->timestamps();
-
 
             $table->foreign('adequacies_id')->references('id')->on('adequacies')
             ->onDelete('cascade')

@@ -19,7 +19,6 @@ class CreatePhotographiesTable extends Migration
             $table->integer('documents_id')->unsigned();
             $table->integer('type_photographies_id')->unsigned();
 
-
             $table->string('subtitle')->nullable();
             $table->string('author')->nullable();
             $table->string('second_author')->nullable();

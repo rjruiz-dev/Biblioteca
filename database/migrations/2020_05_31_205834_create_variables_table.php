@@ -18,7 +18,7 @@ class CreateVariablesTable extends Migration
 
             $table->integer('fines_id')->unsigned();
 
-            $table->string('variable_description');
+            $table->string('variable_description')->unique();
             $table->integer('value');      
             $table->timestamps();
 

@@ -19,12 +19,11 @@ class CreateMultimediaTable extends Migration
             $table->integer('documents_id')->unsigned();
             $table->integer('multimedia_types_id')->unsigned();
 
-
-            $table->string('subtitle')->nullable();
             $table->string('author')->nullable();
+            $table->string('subtitle')->nullable();            
             $table->string('second_author')->nullable();
             $table->string('third_author')->nullable();
-            $table->string('isbn')->nullable();
+            $table->string('isbn')->unique();
             $table->string('gender')->nullable();
             $table->string('edition')->nullable();
             $table->string('size')->nullable();

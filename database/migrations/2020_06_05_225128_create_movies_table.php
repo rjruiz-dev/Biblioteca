@@ -18,11 +18,10 @@ class CreateMoviesTable extends Migration
 
             $table->integer('documents_id')->unsigned();
 
-
             $table->string('subtitle')->nullable();
             $table->string('director')->nullable();
             $table->string('distribution')->nullable();
-            $table->string('original_title')->nullable();
+            $table->string('original_title')->unique();
             $table->string('script')->nullable();
             $table->string('specific_content')->nullable();
             $table->string('gender')->nullable();
