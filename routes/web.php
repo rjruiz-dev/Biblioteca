@@ -19,6 +19,4 @@ Route::get('admin', function () {
     return view('admin.dashboard');
 });
 
-// Route::get('admin', function () {
-//     return view('admin.layout');
-// });
+Auth::routes(['register' => false]);
