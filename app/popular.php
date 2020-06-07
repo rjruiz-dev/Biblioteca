@@ -4,7 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class popular extends Model
+class Popular extends Model
 {
-    //
+    protected $fillable = ['music_id', 'album_title', 'subtitle', 'artist', 
+    'other_artists', 'music_populars'];
+    
+    public function music()
+    {
+        return $this->belongsTo(Music::class);
+    }
 }

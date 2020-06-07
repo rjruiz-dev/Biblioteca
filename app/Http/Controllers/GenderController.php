@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\gender;
+use App\Gender;
 use Illuminate\Http\Request;
 
 class GenderController extends Controller

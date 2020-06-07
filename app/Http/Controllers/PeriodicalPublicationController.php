@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\periodical_publication;
+use App\Periodical_publication;
 use Illuminate\Http\Request;
 
 class PeriodicalPublicationController extends Controller

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\type_photography;
+use App\Type_photography;
 use Illuminate\Http\Request;
 
 class TypePhotographyController extends Controller

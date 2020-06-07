@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\adequacy;
+use App\Adequacy;
 use Illuminate\Http\Request;
 
 class AdequacyController extends Controller

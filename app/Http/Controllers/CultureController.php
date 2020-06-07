@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\culture;
+use App\Culture;
 use Illuminate\Http\Request;
 
 class CultureController extends Controller

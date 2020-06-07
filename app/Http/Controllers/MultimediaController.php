@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\multimedia;
+use App\Multimedia;
 use Illuminate\Http\Request;
 
 class MultimediaController extends Controller

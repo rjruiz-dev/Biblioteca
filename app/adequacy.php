@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class adequacy extends Model
-{
+class Adequacy extends Model
+{ 
     protected $fillable = ['adecuacy_description'];
 
     public function documents()

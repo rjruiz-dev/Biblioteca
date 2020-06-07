@@ -16,35 +16,41 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
+        'status_id', 'surname', 'nickname','email','email_verified_at'
+        ,'password','gender','birthdate','address','postcode','phone'
+        ,'user_photo'];
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
+   /*  protected $hidden = [
         'password', 'remember_token',
-    ];
+    ]; */
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = [
+    /* protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+    ]; */
 
     public function statu()
     {
         return $this->belongsTo(Statu::class);
     }
 
-    public function movement_types()
+    public function user_movements()
     {
-        return $this->hasMany(Movement_type::class);
-    }
+        return $this->hasMany(User_movement::class);
+    } 
 
+    public function book_movements()
+    {  
+        return $this->hasMany(Book_movement::class);
+    }
+    
 }
+

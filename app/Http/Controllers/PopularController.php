@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\popular;
+use App\Popular;
 use Illuminate\Http\Request;
 
 class PopularController extends Controller

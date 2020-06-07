@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\book_type;
+use App\Book_type;
 use Illuminate\Http\Request;
 
 class BookTypeController extends Controller
