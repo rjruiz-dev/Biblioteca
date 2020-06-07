@@ -17,9 +17,10 @@ class CreateUserMovementsTable extends Migration
             $table->increments('id');
            
             $table->integer('actions_id')->unsigned();
-            $table->integer('users_id')->unsigned();    
-
-            $table->timestamps('date');
+            $table->integer('users_id')->unsigned();   
+             
+            $table->timestamp('date');
+            $table->timestamps();
 
             $table->foreign('actions_id')->references('id')->on('actions')
             ->onDelete('cascade')

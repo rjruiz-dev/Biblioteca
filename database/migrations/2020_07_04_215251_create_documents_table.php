@@ -16,9 +16,9 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id'); 
 
-            $table->string('adequacies_id')->unsigned();
-            $table->string('lenguages_id')->unsigned();
-            $table->string('document_types_id')->unsigned();
+            $table->integer('adequacies_id')->unsigned();
+            $table->integer('lenguages_id')->unsigned();
+            $table->integer('document_types_id')->unsigned();
 
             $table->string('title')->unique();
             $table->string('original_title')->nullable();
@@ -46,7 +46,7 @@ class CreateDocumentsTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('lenguajes_id')->references('id')->on('lenguajes')
+            $table->foreign('lenguages_id')->references('id')->on('lenguages')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

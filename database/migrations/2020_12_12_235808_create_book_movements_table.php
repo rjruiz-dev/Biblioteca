@@ -17,12 +17,12 @@ class CreateBookMovementsTable extends Migration
             $table->increments('id');
 
             $table->integer('movement_types_id')->unsigned();
-            $table->integer('users_id')->unsigned();
+            $table->integer('users_id')->unsigned();            
             $table->integer('copies_id')->unsigned();
-            $table->integer('courses_id')->unsigned();            
+            $table->integer('courses_id')->unsigned();   
 
-            $table->timestamps('date');
-            $table->timestamps('date_until');
+            $table->timestamp('date');
+            $table->timestamp('date_until')->nullable()->default(null);
             $table->integer('active');   
             $table->timestamps();
 

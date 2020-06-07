@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMultimediaTable extends Migration
+class CreateBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,21 @@ class CreateMultimediaTable extends Migration
      */
     public function up()
     {
-        Schema::create('multimedia', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('documents_id')->unsigned();
-            $table->integer('multimedia_types_id')->unsigned();
+            $table->integer('book_types_id')->unsigned();
+            $table->integer('genders_id')->unsigned();
 
             $table->string('author')->nullable();
-            $table->string('subtitle')->nullable();            
+            $table->string('subtitle')->nullable(); 
             $table->string('second_author')->nullable();
             $table->string('third_author')->nullable();
-            $table->string('isbn')->unique();
-            $table->string('gender')->nullable();
+            $table->string('translator')->nullable();
             $table->string('edition')->nullable();
             $table->string('size')->nullable();
-            $table->string('edition')->nullable();
-            
-            
+
 
             $table->timestamps();
 
@@ -37,7 +35,11 @@ class CreateMultimediaTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('multimedia_types_id')->references('id')->on('multimedia_types')
+            $table->foreign('book_types_id')->references('id')->on('book_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('genders_id')->references('id')->on('genders')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });
@@ -50,6 +52,6 @@ class CreateMultimediaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('multimedia');
+        Schema::dropIfExists('books');
     }
 }
