@@ -27,7 +27,7 @@ class Document extends Model
         return $this->belongsTo(Document_type::class);
     }
     
-    public function copy()
+    public function copies()
     {
         return $this->hasMany(Copy::class);
     } 

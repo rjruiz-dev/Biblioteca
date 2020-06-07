@@ -8,7 +8,7 @@ class Type_photography extends Model
 {
     protected $fillable = ['photography_description'];
     
-     public function photographys()
+     public function photographies()
     {
         return $this->hasMany(Photography::class);
     }
