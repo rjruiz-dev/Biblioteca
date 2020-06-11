@@ -12,11 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('home', function () {
-    return view('admin.dashboard');
-});
+// Route::get('home', function () {
+//     return view('admin.dashboard');
+// });
 
 Auth::routes(['register' => false]);
+
+Route::group([
+    'prefix'     => 'admin',
+    'namespace'  => 'Admin',
+    'middleware' => 'auth'],   
+function(){    
+    Route::get('/',          'AdminController@index')->name('dashboard');         
+    Route::resource('users', 'UserController',['as' => 'admin']);   
+});
