@@ -89,13 +89,17 @@ class UserController extends Controller
 
     public function dataTable()
     {
-        $usuarios = User::query()
+                    //User::with(statu)
+        $usuarios = User::wquery()
        
         // ->allowed()
         ->get();
         // dd($usuarios);
         return dataTables::of($usuarios)
-            
+                
+            // ->addColumn('status_id', function ($usuarios){
+            //     return $usuarios->statu['statu_description'];
+            // })    
             ->addColumn('created_at', function ($usuarios){
                 return $usuarios->created_at->format('d-m-y');
             })                 
@@ -109,7 +113,7 @@ class UserController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['created_at', 'accion'])                
+            ->rawColumns(['created_at', 'accion']) //'status_id'    
             ->make(true);  
     }
 }

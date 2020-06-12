@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'nickname'  => 'GB_Admin',
             'email'     => 'admin@gmail.com',
             'password'  => bcrypt('123456'),
-            'status_id' => '1'
+            'status_id' => factory(App\Statu::class)->create()->id,
 
         ]);
     }

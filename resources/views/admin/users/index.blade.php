@@ -27,7 +27,7 @@
                         <th>ID</th>
                         <th>Nombre</th> 
                         <th>Usuario</th>                         
-                        <th>Email</th>                        
+                        <th>Email</th>          //estado              
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -74,7 +74,7 @@
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},               
                 {data: 'nickname', name: 'ninckname'},
-                {data: 'email', name: 'email'},             
+                {data: 'email', name: 'email'},   //statu_id          
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]
