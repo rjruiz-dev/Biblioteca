@@ -26,7 +26,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();          
+        
+        return view('admin.users.partials.form', compact('user'));
     }
 
     /**
