@@ -8,8 +8,8 @@ class Statu extends Model
 {    
     protected $fillable = ['state_description'];
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class);
     } 
 }

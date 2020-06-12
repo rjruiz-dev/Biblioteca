@@ -20,14 +20,20 @@
     </ul>
     </li>
 
-    <li class="treeview">
-        <a href="#"><i class="fa fa-users"></i> <span>Socios</span>
+    <li class="treeview {{ setActiveRoute('admin.users.index') }}">                
+        <a href="#"><i class="fa fa-users"></i> <span>Administrar Socios</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
-        </a>
-    <ul class="treeview-menu">
-        <li><a href="#">Alta manual de socios</a></li>   
-    </ul>
-    </li>
+        </a>       
+        <ul class="treeview-menu">             
+            <li class="{{ setActiveRoute('admin.users.index') }}">
+                <a href="{{ route('admin.users.index') }}">
+                    <i class="fa fa-user"></i><span> Alta manual de socios</span>
+                </a>
+            </li>                     
+        </ul>
+    </li> 
+
+   
 </ul>
