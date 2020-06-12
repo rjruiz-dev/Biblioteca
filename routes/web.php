@@ -23,9 +23,11 @@ Auth::routes(['register' => false]);
 
 Route::group([
     'prefix'     => 'admin',
-    'namespace'  => 'Admin',
+    // 'namespace'  => 'Admin',
     'middleware' => 'auth'],   
 function(){    
-    Route::get('/',          'AdminController@index')->name('dashboard');         
-    Route::resource('users', 'UserController',['as' => 'admin']);   
+    Route::get('/',             'AdminController@index')->name('dashboard');         
+    Route::resource('users',    'UserController',['as' => 'admin']); 
 });
+
+Route::get('users/table',   'UserController@dataTable')->name('users.table'); 

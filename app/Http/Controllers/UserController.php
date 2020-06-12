@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use DataTables;
 use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -13,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.users.index');
     }
 
     /**
@@ -80,5 +83,31 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dataTable()
+    {
+        $usuarios = User::query()
+       
+        // ->allowed()
+        ->get();
+        // dd($usuarios);
+        return dataTables::of($usuarios)
+            
+            ->addColumn('created_at', function ($usuarios){
+                return $usuarios->created_at->format('d-m-y');
+            })                 
+            
+            ->addColumn('accion', function ($usuarios) {
+                return view('admin.users.partials._action', [
+                    'usuarios' => $usuarios,
+                    'url_show' => route('admin.users.show', $usuarios->id),                        
+                    'url_edit' => route('admin.users.edit', $usuarios->id),                              
+                    'url_destroy' => route('admin.users.destroy', $usuarios->id)
+                ]);
+            })           
+            ->addIndexColumn()   
+            ->rawColumns(['created_at', 'accion'])                
+            ->make(true);  
     }
 }
