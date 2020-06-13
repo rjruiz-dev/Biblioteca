@@ -26,9 +26,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User();          
+        $user = new User();      
+                             
+        return view('admin.users.partials.form', [
+            'gender'    => User::pluck('gender', 'gender'),           
+            'user'     => $user
+        ]);
+
+        // $user = new User();          
         
-        return view('admin.users.partials.form', compact('user'));
+        // return view('admin.users.partials.form', compact('user'));
     }
 
     /**

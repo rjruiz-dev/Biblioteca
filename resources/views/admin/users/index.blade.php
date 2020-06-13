@@ -44,11 +44,13 @@
 @include('admin.users.partials._modal')
 
 @push('styles')
+    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
     <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">    
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">    
 @endpush
 
-@push('scripts')   
+@push('scripts')  
+    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
     <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 

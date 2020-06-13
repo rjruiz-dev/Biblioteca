@@ -15,6 +15,11 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);
             
+            $('#gender').select2({
+                placeholder: 'Selecciona un genero',
+                tags: true,
+                tokenSeparators: [',']
+            });
             // $('#dpassword').css('visibility', 'hidden');
             // $('#dpassword_confirmation').css('visibility', 'hidden');
 

@@ -65,17 +65,17 @@
             <div class="box-body">
                 <div class="form-group">
                     {!! Form::label('address', 'Dirección') !!}                
-                    {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'Dirección']) !!}
+                    {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'Dirección', 'placeholder' => 'Dirección']) !!}
                 </div>  
 
                 <div class="form-group">
                     {!! Form::label('postcode', 'Código Postal') !!}                
-                    {!! Form::text('postcode', null, ['class' => 'form-control', 'id' => 'Código Postal']) !!}
+                    {!! Form::text('postcode', null, ['class' => 'form-control', 'id' => 'Código Postal', 'placeholder' => 'Código Postal']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('phone', 'Telefono') !!}               
-                    {!! Form::text('phone', null, ['class' => 'form-control', 'id' => 'Telefono']) !!}
+                    {!! Form::text('phone', null, ['class' => 'form-control', 'id' => 'Telefono',  'placeholder' => 'Telefono']) !!}
                 </div>               
             </div>
         </div>       
@@ -88,18 +88,18 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::label('gender', 'Género') !!}                
-                    {!! Form::checkbox('gender', 'value', true, ['class' => 'form-control', 'id' => 'Genero']) !!}
+                    {!! Form::label('gender', 'Género') !!}
+                    {!! Form::select('gender', $gender, null, ['class' => 'form-control select2', 'id' => 'gender', 'placeholder' => 'Genero']) !!}
                 </div>  
 
                 <div class="form-group">
                     {!! Form::label('birthdate', 'Fecha de Nacimiento') !!}                
-                    {!! Form::text('birthdate', null, ['class' => 'form-control', 'id' => 'Fecha de Nacimiento']) !!}
+                    {!! Form::text('birthdate', null, ['class' => 'form-control', 'id' => 'Fecha de Nacimiento', 'placeholder' => 'Fecha de Nacimiento']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('user_photo', 'Imagen de Perfil') !!}               
-                    {!! Form::text('user_photo', null, ['class' => 'form-control', 'id' => 'Imagen de Perfil']) !!}
+                    {!! Form::text('user_photo', null, ['class' => 'form-control', 'id' => 'Imagen de Perfil', 'placeholder' => 'Imagen de Perfil']) !!}
                 </div>
             </div>
         </div>       
