@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Statu;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -29,8 +30,9 @@ class UserController extends Controller
         $user = new User();      
                              
         return view('admin.users.partials.form', [
-            'gender'    => User::pluck('gender', 'gender'),           
-            'user'     => $user
+            'gender'    => User::pluck('gender', 'gender'),
+            'status'    => Statu::pluck('state_description', 'id'),           
+            'user'      => $user
         ]);
 
         // $user = new User();          

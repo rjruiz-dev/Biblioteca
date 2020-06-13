@@ -93,14 +93,35 @@
                 </div>  
 
                 <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>                      
+                        <input name="birthdate"
+                            class="form-control pull-right"                                                       
+                            value="{{ old('birthdate', $user->birthdate ? $user->birthdate->format('m/d/Y') : null) }}"                            
+                            type="text"
+                            id="datepicker"
+                            placeholder= "Selecciona una fecha">                       
+                    </div>                  
+                </div>
+
+                <!-- <div class="form-group">
                     {!! Form::label('birthdate', 'Fecha de Nacimiento') !!}                
                     {!! Form::text('birthdate', null, ['class' => 'form-control', 'id' => 'Fecha de Nacimiento', 'placeholder' => 'Fecha de Nacimiento']) !!}
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     {!! Form::label('user_photo', 'Imagen de Perfil') !!}               
                     {!! Form::text('user_photo', null, ['class' => 'form-control', 'id' => 'Imagen de Perfil', 'placeholder' => 'Imagen de Perfil']) !!}
                 </div>
+
+                <div class="form-group">
+                {!! Form::label('status_id', 'Estado') !!}
+                    {!! Form::select('status_id', $status, null, ['class' => 'form-control select2', 'id' => 'status_id', 'placeholder' => 'Estado usuario']) !!}
+                </div>
+
             </div>
         </div>       
     </div>

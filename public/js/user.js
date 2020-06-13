@@ -20,6 +20,19 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,
                 tokenSeparators: [',']
             });
+
+            $('#status_id').select2({
+                placeholder: 'Selecciona un genero',
+                tags: true,
+                tokenSeparators: [',']
+            });
+
+            $('#datepicker').datepicker({
+                autoclose: true,
+                todayHighlight: true,  
+                // startDate: date,              
+                language: 'es'
+            });   
             // $('#dpassword').css('visibility', 'hidden');
             // $('#dpassword_confirmation').css('visibility', 'hidden');
 

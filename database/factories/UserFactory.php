@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
     return [
-        'status_id' => factory(App\Statu::class)->create()->id,
+        'status_id' => $faker->randomElement(['1','2','3']),
         'name'      => $faker->name,
         'surname'   => $faker->lastName,
         'nickname'  => $faker->userName,
