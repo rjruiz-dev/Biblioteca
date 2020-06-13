@@ -27,7 +27,8 @@
                         <th>ID</th>
                         <th>Nombre</th> 
                         <th>Usuario</th>                         
-                        <th>Email</th>          //estado              
+                        <th>Email</th>   
+                        <th>Estado</th>  
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -67,14 +68,45 @@
             serverSide: true,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                    }
+                }
+                
+            ],             
             ajax: "{{ route('users.table') }}",            
             columns: [                
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},               
                 {data: 'nickname', name: 'ninckname'},
-                {data: 'email', name: 'email'},   //statu_id          
+                {data: 'email', name: 'email'}, 
+                {data: 'status_id', name: 'status_id'}, 
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

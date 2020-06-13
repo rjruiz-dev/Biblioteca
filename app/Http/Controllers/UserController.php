@@ -50,7 +50,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::with('statu')->findOrFail($id);
+      
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -84,22 +86,21 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::with('statu')->findOrFail($id);        
+        $user->delete();                
     }
 
     public function dataTable()
-    {
-                    //User::with(statu)
-        $usuarios = User::wquery()
-       
+    {                    
+        $usuarios = User::with('statu')       
         // ->allowed()
         ->get();
-        // dd($usuarios);
+      
         return dataTables::of($usuarios)
                 
-            // ->addColumn('status_id', function ($usuarios){
-            //     return $usuarios->statu['statu_description'];
-            // })    
+            ->addColumn('status_id', function ($usuarios){
+                return $usuarios->statu['state_description'];
+            })    
             ->addColumn('created_at', function ($usuarios){
                 return $usuarios->created_at->format('d-m-y');
             })                 
@@ -113,7 +114,7 @@ class UserController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['created_at', 'accion']) //'status_id'    
+            ->rawColumns(['status_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

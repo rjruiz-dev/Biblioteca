@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function statu()
     {
-        return $this->belongsTo(Statu::class);
+        return $this->belongsTo(Statu::class,'status_id');
     }
 
     public function user_movements()
