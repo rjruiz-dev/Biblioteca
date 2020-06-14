@@ -17,14 +17,13 @@ $('body').on('click', '.modal-show', function (event) {
             
             $('#gender').select2({
                 placeholder: 'Selecciona un genero',
-                tags: true,
-                tokenSeparators: [',']
+                // tags: true,
+                // tokenSeparators: [',']
             });
 
             $('#status_id').select2({
                 placeholder: 'Selecciona un genero',
-                tags: true,
-                tokenSeparators: [',']
+                tags: true,                
             });
 
             $('#datepicker').datepicker({
@@ -32,28 +31,7 @@ $('body').on('click', '.modal-show', function (event) {
                 todayHighlight: true,  
                 // startDate: date,              
                 language: 'es'
-            });   
-            // $('#dpassword').css('visibility', 'hidden');
-            // $('#dpassword_confirmation').css('visibility', 'hidden');
-
-            // $('body').on('click', '#btn-btn-edit', function (event) {       
-    
-               
-            //     $('#dpassword').css('visibility', 'visible');
-            //     $('#dpassword_confirmation').css('visibility', 'visible');
-               
-            // });
-           
-            
-            // $('#status').change( function() {
-            //     if( $(this).val() == 'NO TERMINADO'){
-            //         $('#motivo').css('visibility', 'visible');
-            //     }else{
-            //         $('#motivo').css('visibility', 'hidden');
-            //     }
-            // });
-            // $("#dpassword").css("display", "none");
-            // $("#dpassword_confirmation").css("display", "none")         
+            });             
                  
         }
     });

@@ -8,7 +8,18 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Datos personales</h3>
             </div>
-            <div class="box-body">                      
+            <div class="box-body">
+
+                @if (!$user->exists)
+                    @php 
+                        $visible = "display:none"
+                    @endphp
+                @else
+                    @php  
+                        $visible = ""
+                    @endphp
+                @endif       
+
                 <div class="form-group">              
                     {!! Form::label('name', 'Nombre') !!}                    
                     {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nombre']) !!}
@@ -27,21 +38,19 @@
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}             
                     {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email']) !!}
-                </div>
+                </div>              
 
-                <div id="dpassword" class="form-group">
+                <div id="dpassword" class="form-group" style="{{{ $visible }}}">
                     {!! Form::label('password', 'Contraseña') !!}                                                              
-                    {!! Form::password('password', array('class' => 'form-control', 'id' => 'password', 'placeholder' => 'Contraseña')) !!}        
-                    
-                    <!-- <span class="help-block">Dejar en blanco para no cambiar la contraseña</span>    -->
+                    {!! Form::password('password', array('class' => 'form-control', 'id' => 'password', 'placeholder' => 'Contraseña')) !!}                    
+                    <span class="help-block">Dejar en blanco para no cambiar la contraseña</span>   
                 </div> 
 
-                    <div id="dpassword_confirmation"  class="form-group" >
+                    <div id="dpassword_confirmation"  class="form-group" style="{{{ $visible }}}">
                     {!! Form::label('password_confirmation', 'Repite la Contraseña') !!}                                                                     
                     {!! Form::password('password_confirmation', array('class' => 'form-control', 'id' => 'password_confirmation', 'placeholder' => 'Repite la Contraseña')) !!}   
-                </div> 
-                
-                <!-- <span class="help-block">La contraseña será generada y enviada al nuevo usuario vía email</span>                  -->
+                </div>                 
+                <span class="help-block">La contraseña será generada y enviada al nuevo usuario vía email</span>                 
             </div>
         </div>
         <!-- <div class="box box-primary">
@@ -127,6 +136,7 @@
     </div>
 {!! Form::close() !!}    
 </div>
+
 
 
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Statu;
 use DataTables;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveUserRequest;
 
 class UserController extends Controller
 {
@@ -34,10 +36,7 @@ class UserController extends Controller
             'status'    => Statu::pluck('state_description', 'id'),           
             'user'      => $user
         ]);
-
-        // $user = new User();          
-        
-        // return view('admin.users.partials.form', compact('user'));
+  
     }
 
     /**
@@ -48,7 +47,47 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();               
+
+                // Validar el formulario
+                $data = $request->validate([
+                    'name'      => 'required|string|max:255',
+                    'surname'   => 'required|string|max:255',
+                    'email'     => 'required|string|email|max:255|unique:users',                  
+                    // 'password'  => 'required|string|min:6|confirmed',
+                ]);
+                    
+                // Generar una contraseña
+                $data['password'] = str_random(8);
+    
+                // Creamos el usuario            
+                $user = new User;   
+                $user->name         = $request->get('name');
+                $user->surname      = $request->get('surname');
+                $user->nickname     = $request->get('nickname');
+                $user->email        = $request->get('email');        
+                $user->password     = $request->get('password');
+                $user->gender       = $request->get('gender');  
+                $user->address      = $request->get('address');
+                $user->postcode     = $request->get('postcode');  
+                $user->phone        = $request->get('phone');
+                $user->user_photo   = $request->get('user_photo');  
+                $user->birthdate    = Carbon::parse($request->get('birthdate'));                      
+                $user->status_id    = $request->get('status_id');           
+                $user->save();
+
+                // $user = User::create($data);
+
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }    
     }
 
     /**
@@ -82,9 +121,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveUserRequest $request,  User $user)
     {
-        //
+        if ($request->ajax()){
+            try {
+                // Transacciones
+                DB::beginTransaction();  
+                
+                // Actualizamos el usuario
+                $user->update($request->validated()); 
+                         
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }         
+
     }
 
     /**
