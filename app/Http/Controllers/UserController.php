@@ -7,6 +7,7 @@ use App\Statu;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Providers\UserWasCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
 
@@ -28,15 +29,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
         $user = new User();      
                              
         return view('admin.users.partials.form', [
-            'gender'    => User::pluck('gender', 'gender'),
+            'genders'   => User::pluck('gender', 'gender'),
+            'provinces' => User::pluck('province','province'),
             'status'    => Statu::pluck('state_description', 'id'),           
             'user'      => $user
-        ]);
-  
+        ]);  
     }
 
     /**
@@ -45,24 +46,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveUserRequest $request)
     {
         if ($request->ajax()){
             try {
                 //  Transacciones
-                DB::beginTransaction();               
+                DB::beginTransaction();
 
-                // Validar el formulario
-                $data = $request->validate([
-                    'name'      => 'required|string|max:255',
-                    'surname'   => 'required|string|max:255',
-                    'email'     => 'required|string|email|max:255|unique:users',                  
-                    // 'password'  => 'required|string|min:6|confirmed',
-                ]);
-                    
-                // Generar una contraseña
-                $data['password'] = str_random(8);
-    
+               
                 // Creamos el usuario            
                 $user = new User;   
                 $user->name         = $request->get('name');
@@ -73,14 +64,25 @@ class UserController extends Controller
                 $user->gender       = $request->get('gender');  
                 $user->address      = $request->get('address');
                 $user->postcode     = $request->get('postcode');  
+                $user->city         = $request->get('city');
+                $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');
-                $user->user_photo   = $request->get('user_photo');  
+                $user->user_photo   = $request->file('user_photo')->store('public');  
                 $user->birthdate    = Carbon::parse($request->get('birthdate'));                      
-                $user->status_id    = $request->get('status_id');           
+                $user->status_id    = $request->get('status_id');                  
+               
+
+                // if ($request->hasFile('user_photo'))
+                // {
+                //     $user->user_photo = $request->file('user_photo')->store('public');
+                // }
+                //  dd($user);
                 $user->save();
 
-                // $user = User::create($data);
-
+                // Enviamos el email
+                // UserWasCreated::dispatch($user, $data['password']);
+                //$user->update($request->validated()); 
+    
                 DB::commit();
 
             } catch (Exception $e) {
@@ -111,7 +113,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::with('statu')->findOrFail($id);
+                             
+        return view('admin.users.partials.form', [
+            'genders'   => User::pluck('gender', 'gender'),
+            'provinces' => User::pluck('province','province'),
+            'status'    => Statu::pluck('state_description', 'id'),           
+            'user'      => $user
+        ]);  
     }
 
     /**
@@ -121,16 +130,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveUserRequest $request,  User $user)
+    public function update(SaveUserRequest $request, $id)
     {
         if ($request->ajax()){
             try {
                 // Transacciones
-                DB::beginTransaction();  
+                DB::beginTransaction();
+                
+                $user = User::with('statu')->findOrFail($id); 
                 
                 // Actualizamos el usuario
-                $user->update($request->validated()); 
-                         
+                $user->name         = $request->get('name');
+                $user->surname      = $request->get('surname');
+                $user->nickname     = $request->get('nickname');
+                $user->email        = $request->get('email');        
+                $user->password     = $request->get('password');
+                $user->gender       = $request->get('gender');  
+                $user->address      = $request->get('address');
+                $user->postcode     = $request->get('postcode'); 
+                $user->city         = $request->get('city');
+                $user->province     = $request->get('province');  
+                $user->phone        = $request->get('phone');
+                $user->user_photo   = $request->get('user_photo');  
+                $user->birthdate    = Carbon::parse($request->get('birthdate'));                      
+                $user->status_id    = $request->get('status_id'); 
+                $user->save();
+                       
                 DB::commit();
 
             } catch (Exception $e) {
@@ -160,9 +185,28 @@ class UserController extends Controller
         ->get();
       
         return dataTables::of($usuarios)
-                
+            ->addColumn('name', function ($usuarios){
+                return
+                    '<i class="fa fa-user"></i>'.' '.$usuarios->name."<br>";            
+            }) 
+            ->addColumn('email', function ($usuarios){
+                return                    
+                    '<i class="fa fa-envelope"></i>'.' '.$usuarios->email;              
+            })             
             ->addColumn('status_id', function ($usuarios){
-                return $usuarios->statu['state_description'];
+
+                if($usuarios->statu['state_description'] == 'Inactivo'){    
+
+                    return '<span class="label label-danger sm">'.$usuarios->statu['state_description'].'</span>';
+                }
+                if ($usuarios->statu['state_description'] == 'Pendiente'){
+
+                    return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';
+
+                }else{
+
+                    return '<span class="label label-success sm">'.$usuarios->statu['state_description'].'</span>';
+                }              
             })    
             ->addColumn('created_at', function ($usuarios){
                 return $usuarios->created_at->format('d-m-y');
@@ -177,7 +221,7 @@ class UserController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['status_id', 'created_at', 'accion']) 
+            ->rawColumns(['name', 'email', 'status_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

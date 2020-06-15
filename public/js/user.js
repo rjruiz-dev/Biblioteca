@@ -16,14 +16,17 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);
             
             $('#gender').select2({
-                placeholder: 'Selecciona un genero',
-                // tags: true,
-                // tokenSeparators: [',']
+                placeholder: 'Selecciona un Género',
+                tags: true,               
             });
 
             $('#status_id').select2({
-                placeholder: 'Selecciona un genero',
-                tags: true,                
+                placeholder: 'Selecciona un Estado',                                    
+            });
+
+            $('#province').select2({
+                placeholder: 'Selecciona una Provincia',
+                tags: true,                            
             });
 
             $('#datepicker').datepicker({
@@ -80,8 +83,7 @@ $('#modal-btn-save').click(function (event) {
 
 $('body').on('click', '.btn-btn-edit-user', function (event) {
 
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');
-    // $('#dpassword_confirmation').css('visibility', 'visible');
+    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
 
 });
 
@@ -116,52 +118,6 @@ $('body').on('click', '.btn-delete', function (event) {
                         type: 'success',
                         title: '¡Éxito!',
                         text: '¡Los datos han sido eliminados!'
-                    });
-                },
-                error: function (xhr) {
-                    swal({
-                        type: 'error',
-                        title: 'Ups...',
-                        text: '¡Algo salió mal!'
-                    });
-                }
-            });
-        }
-    });
-});
-
-
-$('body').on('click', '.btn-restore', function (event) {
-    event.preventDefault();
-
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title'),
-        csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-    swal({
-        title: '¿Seguro que quieres restaurar a : ' + title + ' ?',
-        text: '¡Seguro que quieres revertir esto!',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, restauralo!'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    '_method': 'GET',
-                    '_token': csrf_token
-                },
-                success: function (response) {
-                    $('#datatable').DataTable().ajax.reload();
-                    swal({
-                        type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Los datos han sido restaurados!'
                     });
                 },
                 error: function (xhr) {

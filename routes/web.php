@@ -19,6 +19,11 @@ Route::get('/', function () {
 //     return view('admin.dashboard');
 // });
 
+Route::get('email', function () {
+    return new App\Mail\LoginCredentials(App\User::first(), 'asd123');
+});
+
+
 Auth::routes(['register' => false]);
 
 Route::group([
