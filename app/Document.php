@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $fillable = [ 
-        'adequacies_id', 'lengueges_id', 'document_types_id', 'title', 'original_title', 'acquired', 'document_status',
+        'adequacies_id', 'lengueges_id', 'document_types_id', 'creators_id', 'title', 'original_title', 'acquired', 'document_status',
         'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
         'observation', 'note', 'synopsis', 'photo'
     ];
@@ -20,6 +20,11 @@ class Document extends Model
     public function lenguage()
     {
         return $this->belongsTo(Lenguage::class);
+    }
+
+    public function creators()
+    {
+        return $this->belongsTo(Creator::class);
     }
 
     public function document_type()

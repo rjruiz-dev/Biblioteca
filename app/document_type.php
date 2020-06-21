@@ -12,4 +12,9 @@ class Document_type extends Model
     {
         return $this->hasMany(Document::class);
     } 
+
+    public function creators()
+    {
+        return $this->hasMany(Creator::class);
+    } 
 }

@@ -27,8 +27,6 @@ class CreatePhotographiesTable extends Migration
             $table->string('edition')->nullable();
             $table->string('format')->nullable();
             
-
-
             $table->timestamps();
 
 

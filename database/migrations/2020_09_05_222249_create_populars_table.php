@@ -20,7 +20,7 @@ class CreatePopularsTable extends Migration
             
             $table->string('album_title')->unique();
             $table->string('subtitle')->nullable();
-            $table->string('artist')->nullable();
+            $table->string('artist');
             $table->string('other_artists')->nullable();
             $table->string('music_populars')->nullable();
 

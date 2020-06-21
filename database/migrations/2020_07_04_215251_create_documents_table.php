@@ -19,24 +19,26 @@ class CreateDocumentsTable extends Migration
             $table->integer('adequacies_id')->unsigned();
             $table->integer('lenguages_id')->unsigned();
             $table->integer('document_types_id')->unsigned();
+            $table->integer('creators_id')->unsigned();
 
             $table->string('title')->unique();
+            $table->string('registry number')->unique();
             $table->string('original_title')->nullable();
-            $table->string('acquired')->nullable();
+            $table->timestamp('acquired')->nullable();
             $table->string('document_status')->nullable();
             $table->string('let_author')->nullable();
             $table->string('cdu')->unique();
             $table->string('let_title')->nullable();
             $table->string('assessment')->nullable();
-            $table->string('desidherata')->nullable();
-            $table->string('published')->nullable();
+            $table->string('desidherata');
+            $table->timestamp('published')->nullable();
             $table->string('made_by')->nullable();
-            $table->integer('year')->nullable();
+            $table->timestamp('year')->nullable();
             $table->string('volume')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('collection')->nullable();
-            $table->string('location')->nullable();
-            $table->string('observation')->nullable();
+            $table->string('location');
+            $table->mediumText('observation')->nullable();
             $table->string('note')->nullable();
             $table->mediumText('synopsis')->nullable();
             $table->string('photo')->nullable();
@@ -51,6 +53,10 @@ class CreateDocumentsTable extends Migration
             ->onUpdate('cascade');
 
             $table->foreign('document_types_id')->references('id')->on('document_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('creators_id')->references('id')->on('creators')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

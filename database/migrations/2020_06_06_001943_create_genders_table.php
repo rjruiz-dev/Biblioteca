@@ -15,7 +15,7 @@ class CreateGendersTable extends Migration
     {
         Schema::create('genders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description_genre_book')->nullable();
+            $table->string('description_genre')->nullable();
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ class CreatePeriodicalPublicationsTable extends Migration
 
             $table->integer('books_id')->unsigned();
 
-            $table->string('volume_number_date')->nullable();
-            $table->string('ISSN')->nullable();
+            $table->string('volume_number_date');
+            $table->string('ISSN');
             $table->string('periodicity')->nullable();
             
             $table->timestamps();

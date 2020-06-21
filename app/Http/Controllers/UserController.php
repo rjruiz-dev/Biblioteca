@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Statu;
 use DataTables;
@@ -10,6 +11,10 @@ use Illuminate\Http\Request;
 use App\Providers\UserWasCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
+use Illuminate\Http\UploadedFile;
 
 class UserController extends Controller
 {
@@ -46,14 +51,26 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveUserRequest $request)
+    public function store(Request $request)
     {
-        if ($request->ajax()){
+        // dd($request->file('user_photo'));      
+        dd($request->hasFile('user_photo'));
+        // if ($request->ajax()){
             try {
                 //  Transacciones
                 DB::beginTransaction();
 
-               
+                 // Validar el formulario
+                 $data = $request->validate([
+                    'name'      => 'required|string|max:255',
+                    'email'     => 'required|string|email|max:255|unique:users',                  
+                    // 'password'  => 'required|string|min:6|confirmed',
+                ]);
+                
+                // Generar una contraseña
+                $data['password'] = str_random(8);
+                // if(Input::has('file'))
+            
                 // Creamos el usuario            
                 $user = new User;   
                 $user->name         = $request->get('name');
@@ -65,23 +82,16 @@ class UserController extends Controller
                 $user->address      = $request->get('address');
                 $user->postcode     = $request->get('postcode');  
                 $user->city         = $request->get('city');
-                $user->province     = $request->get('province');  
+                $user->province     = $request->get('province');
                 $user->phone        = $request->get('phone');
-                $user->user_photo   = $request->file('user_photo')->store('public');  
-                $user->birthdate    = Carbon::parse($request->get('birthdate'));                      
-                $user->status_id    = $request->get('status_id');                  
-               
-
-                // if ($request->hasFile('user_photo'))
-                // {
-                //     $user->user_photo = $request->file('user_photo')->store('public');
-                // }
-                //  dd($user);
+                $user->user_photo   = $request->file('user_photo');
+                $user->status_id    = $request->get('status_id'); 
                 $user->save();
-
+               
+               
                 // Enviamos el email
-                // UserWasCreated::dispatch($user, $data['password']);
-                //$user->update($request->validated()); 
+                UserWasCreated::dispatch($user, $data['password']);
+                // $user->update($request->validated()); 
     
                 DB::commit();
 
@@ -89,7 +99,7 @@ class UserController extends Controller
                 // anula la transacion
                 DB::rollBack();
             }
-        }    
+        // }    
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentTypesTable extends Migration
+class CreateCreatorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class CreateDocumentTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_types', function (Blueprint $table) {
+        Schema::create('creators', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('document_description');
+            $table->integer('document_types_id')->unsigned();
+            $table->string('creator_name');
             $table->timestamps();
+            
+            $table->foreign('document_types_id')->references('id')->on('document_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
         });
     }
 
@@ -27,6 +33,6 @@ class CreateDocumentTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_types');
+        Schema::dropIfExists('creators');
     }
 }

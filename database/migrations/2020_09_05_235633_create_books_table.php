@@ -20,15 +20,14 @@ class CreateBooksTable extends Migration
             $table->integer('book_types_id')->unsigned();
             $table->integer('genders_id')->unsigned();
 
-            $table->string('author')->nullable();
+            $table->string('author');
             $table->string('subtitle')->nullable(); 
             $table->string('second_author')->nullable();
             $table->string('third_author')->nullable();
             $table->string('translator')->nullable();
-            $table->string('edition')->nullable();
+            $table->string('edition');
             $table->string('size')->nullable();
-
-
+            $table->string('isbn')->unique();
             $table->timestamps();
 
             $table->foreign('documents_id')->references('id')->on('documents')

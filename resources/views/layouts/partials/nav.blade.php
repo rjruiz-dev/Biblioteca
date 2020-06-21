@@ -34,6 +34,12 @@
             </li>                     
         </ul>
     </li> 
+       
+    <li class="{{ setActiveRoute('admin.documents.index') }}">
+        <a href="{{ route('admin.documents.index') }}">
+            <i class="fa fa-dashboard"></i> <span>Catalogo</span>
+        </a>
+    </li>
 
    
 </ul>

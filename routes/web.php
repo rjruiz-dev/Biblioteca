@@ -32,6 +32,8 @@ Route::group([
 function(){    
     Route::get('/',             'AdminController@index')->name('dashboard');         
     Route::resource('users',    'UserController',['as' => 'admin']); 
+    Route::resource('documents', 'DocumentController',['as' => 'admin']); 
 });
 
-Route::get('users/table',   'UserController@dataTable')->name('users.table'); 
+Route::get('users/table',     'UserController@dataTable')->name('users.table'); 
+Route::get('documents/table', 'DocumentsController@dataTable')->name('documents.table'); 

@@ -26,6 +26,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'address'   => $faker->secondaryAddress,
         'postcode'  => $faker->postcode,
         'phone'     => $faker->e164PhoneNumber, 
+        'membership'=> $faker->unique()->numberBetween($min = 00000, $max = 100000),
         'user_photo'=> $faker->imageUrl($width = 150, $heigth = 150), 
         'birthdate' => $faker->date($format = 'Y-m-d', $max = 'now'), 
         'email'     => $faker->unique()->safeEmail,

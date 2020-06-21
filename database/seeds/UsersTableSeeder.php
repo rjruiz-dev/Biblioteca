@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'nickname'  => 'GB_Admin',
             'email'     => 'admin@gmail.com',
             'password'  => '123456',
+            'membership' => '23.456.567',
             'status_id' => 1
 
         ]);

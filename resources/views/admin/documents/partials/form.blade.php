@@ -1,6 +1,8 @@
 <div class="row">
-
-{!! Form::model($user, ['route' => ['admin.users.store',  $user->id], 'method' => 'POST', 'files' => true, 'enctype'=>'multipart/form-data']) !!}
+{!! Form::model($user, [
+    'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
+    'method' => $user->exists ? 'PUT' : 'POST'
+]) !!}
 
     <div class="col-md-4">
         <div class="box box-primary">
@@ -49,7 +51,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Perfil</h3>                
             </div>
-            <div class="box-body"> 
+            <div class="box-body">                   
+              
+             
                 <div class="form-group">              
                     {!! Form::label('nickname', 'Nickname') !!}                    
                     {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
@@ -76,10 +80,6 @@
                 {!! Form::label('status_id', 'Estado') !!}
                     {!! Form::select('status_id', $status, null, ['class' => 'form-control select2', 'id' => 'status_id']) !!}
                 </div>
-                <div class="form-group"> 
-                    <label for="user_photo">Imagen de Perfil</label>
-                    <input type="file" id="user_photo" name="user_photo">
-                </div> 
             </div>
         </div>       
     </div> 

@@ -2,8 +2,8 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\document_type::class, function (Faker $faker) {
-    return [
-        //
+$factory->define(App\Document_type::class, function (Faker $faker) {
+    return [        
+        'document_description'  => $faker->randomElement(['Libro', 'Cine', 'Multimedia', 'Musica', 'Fotografia']),    
     ];
 });
