@@ -94,7 +94,7 @@ class BookController extends Controller
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
                 $document->save();
 
-                // Creamos el usuario            
+                // Creamos el libro           
                 $book = new Book;   
                 $book->subtitle         = $request->get('subtitle');
                 $book->second_author    = $request->get('second_author');
@@ -133,9 +133,23 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(book $book)
+    public function edit($id)
     {
-        //
+        $book= Book::with('document', 'generate_book')->findOrFail($id);
+                                 
+        return view('admin.books.partials.form', [
+            'documents' => Document_type::pluck( 'document_description', 'id'),
+            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
+            'authors'   => Creator::pluck('creator_name', 'id'),
+            'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
+            'genders' => Generate_book::pluck('genre_book', 'id'),
+            'publications' => Document::pluck('published', 'published'),
+            'editorials' => Document::pluck('made_by', 'made_by'),
+            'editions' => Book::pluck('edition', 'id'),
+            'volumes' => Document::pluck('volume', 'id'),
+            'languages' => Lenguage::pluck('leguage_description', 'id'),
+            'book'      => $book
+        ]);    
     }
 
     /**
@@ -145,9 +159,63 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, book $book)
+    public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                            
+                $book = Book::findOrFail($id);
+                $document = Document::findOrFail($book->documents_id);
+                // Actualizamos el documento                
+                $document->title            = $request->get('title');
+                $document->registry_number  = $request->get('registry_number');
+                $document->original_title   = $request->get('original_title');
+                $document->acquired         = Carbon::parse($request->get('acquired'));        
+                $document->drop             = Carbon::parse($request->get('drop'));        
+                $document->let_author       = $request->get('let_author');
+                $document->cdu              = $request->get('cdu');  
+                $document->let_title        = $request->get('let_title');
+                $document->assessment       = $request->get('assessment');  
+                $document->desidherata      = $request->get('desidherata');
+                $document->published        = $request->get('published');
+                $document->made_by          = $request->get('made_by');
+                $document->year             = Carbon::parse($request->get('year'));
+                $document->volume           = $request->get('volume');
+                $document->page             = $request->get('page');
+                $document->collection       = $request->file('collection');
+                $document->location         = $request->get('location');
+                $document->observation      = $request->get('observation');
+                $document->note             = $request->file('note');
+                $document->synopsis         = $request->get('synopsis');
+                $document->photo            = $request->get('photo');
+                $document->adequacies_id    = $request->get('adequacies_id');
+                $document->lenguages_id     = $request->get('lenguages_id');
+                $document->creators_id      = $request->get('creators_id'); 
+                $document->document_types_id    = $request->get('document_types_id');
+                $document->document_subtypes_id = $request->get('document_subtypes_id'); 
+                $document->save();
+
+                // Actualizamos el libro               
+                $book->subtitle         = $request->get('subtitle');
+                $book->second_author    = $request->get('second_author');
+                $book->third_author     = $request->get('third_author');
+                $book->translator       = $request->get('translator');        
+                $book->edition          = $request->get('edition');
+                $book->size             = $request->get('size');  
+                $book->isbn             = $request->get('isbn');               
+                $book->generate_books_id    = $request->get('generate_books_id'); 
+                $book->documents_id = $document->id;
+                $book->save();
+                 
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }  
     }
 
     /**
@@ -156,9 +224,12 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(book $book)
+    public function destroy($id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $document = Document::findOrFail($book->documents_id);    
+        $book->delete(); 
+        $document->delete();     
     }
 
     public function dataTable()
