@@ -15,15 +15,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::get('home', function () {
-//     return view('admin.dashboard');
-// });
-
-Route::get('email', function () {
-    return new App\Mail\LoginCredentials(App\User::first(), 'asd123');
-});
-
-
 Auth::routes(['register' => false]);
 
 Route::group([
@@ -32,8 +23,17 @@ Route::group([
 function(){    
     Route::get('/',             'AdminController@index')->name('dashboard');         
     Route::resource('users',    'UserController',['as' => 'admin']); 
-    Route::resource('documents', 'DocumentController',['as' => 'admin']); 
+    Route::resource('books',    'BookController',['as' => 'admin']); 
 });
 
-Route::get('users/table',     'UserController@dataTable')->name('users.table'); 
-Route::get('documents/table', 'DocumentsController@dataTable')->name('documents.table'); 
+Route::get('users/table',  'UserController@dataTable')->name('users.table'); 
+Route::get('books/table',  'BookController@dataTable')->name('books.table'); 
+
+
+// Route::get('home', function () {
+//     return view('admin.dashboard');
+// });
+
+// Route::get('email', function () {
+//     return new App\Mail\LoginCredentials(App\User::first(), 'asd123');
+// });

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use App\Document_type;
+use DataTables;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -14,7 +17,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.documents.index');
     }
 
     /**
@@ -85,61 +88,43 @@ class DocumentController extends Controller
 
     public function dataTable()
     {                    
-        $documentos = Document::with('document_type','creators') 
-        if($documentos->document_types_id == 'Inactivo'){    
-
-            return '<span class="label label-danger sm">'.$documentos->statu['state_description'].'</span>';
-        }      
+        $documentos = Document::with('document_type','creators')          
         // ->allowed()
         ->get();
-      
+        // dd($documentos);       
         return dataTables::of($documentos)
             ->addColumn('document_types_id', function ($documentos){
                 return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$documentos->document_types['document_description'];              
+                    '<i class="fa fa-envelope"></i>'.' '.$documentos->document_type['document_description'];              
             })   
             ->addColumn('title', function ($documentos){
                 return
                     '<i class="fa fa-user"></i>'.' '.$documentos->title."<br>";            
             }) 
-            ->addColumn('registry_number', function ($documentos){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$documentos->registry_number."<br>";            
-            }) 
+            // ->addColumn('registry_number', function ($documentos){
+            //     return
+            //         '<i class="fa fa-user"></i>'.' '.$documentos->registry_number."<br>";            
+            // }) 
             ->addColumn('creators_id', function ($documentos){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$documentos->creators['creator_name']."<br>";            
+                return 
+                    '<i class="fa fa-user"></i>'.' '.$documentos->creators->creator_name."<br>";     
+                             
             }) 
-                     
-            ->addColumn('status_id', function ($documentos){
-
-                if($documentos->statu['state_description'] == 'Inactivo'){    
-
-                    return '<span class="label label-danger sm">'.$documentos->statu['state_description'].'</span>';
-                }
-                if ($documentos->statu['state_description'] == 'Pendiente'){
-
-                    return '<span class="label label-warning sm">'.$documentos->statu['state_description'].'</span>';
-
-                }else{
-
-                    return '<span class="label label-success sm">'.$documentos->statu['state_description'].'</span>';
-                }              
-            })    
+            
             ->addColumn('created_at', function ($documentos){
                 return $documentos->created_at->format('d-m-y');
             })                 
             
             ->addColumn('accion', function ($documentos) {
-                return view('admin.users.partials._action', [
-                    'usuarios' => $documentos,
-                    'url_show' => route('admin.users.show', $documentos->id),                        
-                    'url_edit' => route('admin.users.edit', $documentos->id),                              
-                    'url_destroy' => route('admin.users.destroy', $documentos->id)
+                return view('admin.documents.partials._action', [
+                    'documentos' => $documentos,
+                    'url_show' => route('admin.documents.show', $documentos->id),                        
+                    'url_edit' => route('admin.documents.edit', $documentos->id),                              
+                    'url_destroy' => route('admin.documents.destroy', $documentos->id)
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['name', 'email', 'status_id', 'created_at', 'accion']) 
+            ->rawColumns(['document_types_id', 'title', 'creators_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

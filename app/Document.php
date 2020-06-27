@@ -7,29 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $fillable = [ 
-        'adequacies_id', 'lengueges_id', 'document_types_id', 'creators_id', 'title', 'original_title', 'acquired', 'document_status',
+        'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'title', 'registry_number', 'original_title', 'acquired', 'drop', 'document_status',
         'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
         'observation', 'note', 'synopsis', 'photo'
     ];
 
+    protected $dates = ['acquired', 'drop', 'year'];
+
     public function adequacy()
     {
-        return $this->belongsTo(Adequacy::class);
+        return $this->belongsTo(Adequacy::class, 'adequacies_id');
     }
 
     public function lenguage()
     {
-        return $this->belongsTo(Lenguage::class);
+        return $this->belongsTo(Lenguage::class, 'lenguages_id');
     }
 
-    public function creators()
+    public function creator()
     {
-        return $this->belongsTo(Creator::class);
+        return $this->belongsTo(Creator::class, 'creators_id');
     }
 
     public function document_type()
     {
-        return $this->belongsTo(Document_type::class);
+        return $this->belongsTo(Document_type::class, 'document_types_id');
+    }
+
+    public function document_subtype()
+    {
+        return $this->belongsTo(Document_subtype::class, 'document_subtypes_id');
     }
     
     public function copies()

@@ -17,4 +17,9 @@ class Document_type extends Model
     {
         return $this->hasMany(Creator::class);
     } 
+
+    public function document_subtypes()
+    {
+        return $this->hasMany(Document_subtype::class);
+    } 
 }

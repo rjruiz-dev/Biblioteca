@@ -124,6 +124,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::with('statu')->findOrFail($id);
+        
                              
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),

@@ -6,26 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $fillable = ['documents_id', 'book_types', 'genders_id', 'author', 
+    protected $fillable = ['documents_id', 'generate_books_id', 'author', 
     'subtitle', 'second_author', 'third_author', 'translator', 'edition', 
     'size'];
 
     public function document()
     {
-        return $this->belongsTo(Document::class);
+        return $this->belongsTo(Document::class, 'documents_id');
     }
 
-    public function book_type()
+    public function generate_book()
     {
-        return $this->belongsTo(Book_type::class);
+        return $this->belongsTo(Generate_book::class, 'generate_books_id');
     }
-
-    public function gender()
-    {
-        return $this->belongsTo(Gender::class);
-    }
-
-    
+  
     public function periodical_publication()
     {
         return $this->hasOne(Periodical_publication::class);

@@ -8,8 +8,8 @@ class Lenguage extends Model
 {
     protected $fillable = ['lenguage_description'];
 
-    public function lenguages()
+    public function documents()
     {
-        return $this->hasMany(Lenguage::class);
+        return $this->hasMany(Document::class);
     } 
 }

@@ -33,13 +33,21 @@
                 </a>
             </li>                     
         </ul>
-    </li> 
-       
-    <li class="{{ setActiveRoute('admin.documents.index') }}">
-        <a href="{{ route('admin.documents.index') }}">
-            <i class="fa fa-dashboard"></i> <span>Catalogo</span>
-        </a>
     </li>
 
+    <li class="treeview {{ setActiveRoute('admin.books.index') }}">                
+        <a href="#"><i class="fa fa-list"></i> <span>Administrar Catálogo</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">             
+            <li class="{{ setActiveRoute('admin.books.index') }}">
+                <a href="{{ route('admin.books.index') }}">
+                    <i class="fa fa-book"></i><span> Libros</span>
+                </a>
+            </li>                     
+        </ul>
+    </li>
    
 </ul>
