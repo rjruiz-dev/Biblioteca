@@ -1,9 +1,8 @@
-
 <?php
 
 use Illuminate\Database\Seeder;
 
-class DocumentsTableSeeder extends Seeder
+class MusicsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class DocumentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Document::class, 10)->create();
+        factory(App\Music::class, 10)->create();
     }
 }

@@ -54,8 +54,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request->file('user_photo'));      
-        dd($request->hasFile('user_photo'));
-        // if ($request->ajax()){
+        //dd($request->hasFile('user_photo'));
+        if ($request->ajax()){
             try {
                 //  Transacciones
                 DB::beginTransaction();
@@ -99,7 +99,7 @@ class UserController extends Controller
                 // anula la transacion
                 DB::rollBack();
             }
-        // }    
+         }    
     }
 
     /**

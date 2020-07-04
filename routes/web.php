@@ -23,12 +23,17 @@ Route::group([
 function(){    
     Route::get('/',             'AdminController@index')->name('dashboard');         
     Route::resource('users',    'UserController',['as' => 'admin']); 
-    Route::resource('books',    'BookController',['as' => 'admin']); 
+    Route::resource('books',    'BookController',['as' => 'admin']);
+    Route::resource('music',    'MusicController',['as' => 'admin']);
+    Route::resource('fastprocess',    'FastProcessController',['as' => 'admin']);
+
 });
 
 Route::get('users/table',  'UserController@dataTable')->name('users.table'); 
 Route::get('books/table',  'BookController@dataTable')->name('books.table'); 
-
+Route::get('music/table',  'MusicController@dataTable')->name('music.table');
+Route::get('fastprocess/table',  'FastProcessController@dataTable')->name('fastprocess.table');
+Route::get('fastprocess/table',  'FastProcessController@dataTable2')->name('fastprocess.table');
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');

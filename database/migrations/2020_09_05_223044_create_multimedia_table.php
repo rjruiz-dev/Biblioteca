@@ -18,6 +18,7 @@ class CreateMultimediaTable extends Migration
 
             $table->integer('documents_id')->unsigned();
             $table->integer('multimedia_types_id')->unsigned();
+            $table->integer('formats_id')->unsigned();
 
             $table->string('author')->nullable();
             $table->string('subtitle')->nullable();            
@@ -34,6 +35,10 @@ class CreateMultimediaTable extends Migration
             ->onUpdate('cascade');
 
             $table->foreign('multimedia_types_id')->references('id')->on('multimedia_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('formats_id')->references('id')->on('formats')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

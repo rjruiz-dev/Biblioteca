@@ -11,6 +11,6 @@ class Document_SubtypeTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Document_subtype::class, 3)->create();
+        factory(App\Document_subtype::class, 5)->create();
     }
 }

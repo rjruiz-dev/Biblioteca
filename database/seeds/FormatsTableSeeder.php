@@ -1,9 +1,8 @@
-
 <?php
 
 use Illuminate\Database\Seeder;
 
-class DocumentsTableSeeder extends Seeder
+class FormatsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class DocumentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Document::class, 10)->create();
+        factory(App\Formats::class, 5)->create();
     }
 }

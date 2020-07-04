@@ -17,11 +17,10 @@ class CreateMusicTable extends Migration
             $table->increments('id');
 
             $table->integer('documents_id')->unsigned();
-            $table->integer('music_types_id')->unsigned();
+            $table->integer('generate_musics_id')->unsigned();
+            $table->integer('formats_id')->unsigned();
             
-            $table->string('format')->nullable();
             $table->string('sound')->nullable();
-            $table->string('gender')->nullable();
             $table->string('producer');
             $table->timestamps();
 
@@ -29,7 +28,11 @@ class CreateMusicTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('music_types_id')->references('id')->on('music_types')
+            $table->foreign('generate_musics_id')->references('id')->on('generate_musics')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('formats_id')->references('id')->on('formats')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

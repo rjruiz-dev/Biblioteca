@@ -17,6 +17,7 @@ class CreateMoviesTable extends Migration
             $table->increments('id');
 
             $table->integer('documents_id')->unsigned();
+            $table->integer('formats_id')->unsigned();
 
             $table->string('subtitle')->nullable();
             $table->string('director');
@@ -33,6 +34,10 @@ class CreateMoviesTable extends Migration
             $table->timestamps();
 
             $table->foreign('documents_id')->references('id')->on('documents')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('formats_id')->references('id')->on('formats')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

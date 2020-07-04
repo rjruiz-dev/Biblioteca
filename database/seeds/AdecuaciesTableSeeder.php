@@ -11,6 +11,6 @@ class AdecuaciesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Adequacy::class, 2)->create();
+        factory(App\Adequacy::class, 5)->create();
     }
 }

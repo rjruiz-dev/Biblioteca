@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Multimedia extends Model
 {
-    protected $fillable = ['documents_id', 'multimedia_types_id', 'author',
+    protected $fillable = ['documents_id', 'multimedia_types_id', 'formats_id', 'author',
     'subtitle', 'second_author', 'third_author', 'isbn', 'gender', 'edition'
     ,'size','edition'];
 
@@ -18,6 +18,10 @@ class Multimedia extends Model
     public function multimedia_type()
     {
         return $this->belongsTo(Multimedia_type::class);
+    }
+    public function format()
+    {
+        return $this->belongsTo(Formats::class, 'format_id');
     }
 }
  

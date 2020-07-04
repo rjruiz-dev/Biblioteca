@@ -22,14 +22,15 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'published' => $faker->state,
         'made_by' => $faker->company, 
         'year' => $faker->year($max = 'now'), 
-        'volume'=> $faker->numerify('# Vol.'), 
+        'volumes'=> $faker->numerify('# Vol.'), 
         'page' => $faker->numerify('### Pag.'), 
         'collection'     => $faker->name,
         'location'=> $faker->name, 
         'observation' => $faker->sentence($nbWords = 6, $variableNbWords = true), 
         'note'     => $faker->sentence($nbWords = 6, $variableNbWords = true),
         'synopsis' => $faker->sentence($nbWords = 6, $variableNbWords = true), 
-        'photo'     => $faker->name,  
+        'photo'     => $faker->name, 
+        'quantity_generic'     => $faker->randomElement(['1','2','3','4','5','6']),   
         'registry_number'  => $faker->unique()->numberBetween($min = 0000, $max = 9000),      
     ];
 });

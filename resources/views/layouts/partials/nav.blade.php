@@ -20,6 +20,33 @@
     </ul>
     </li>
 
+
+    
+    <li class="treeview {{ setActiveRoute('admin.fastprocess.index') }}">                
+        <a href="#"><i class="fa fa-users"></i> <span>Proceso rapido</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">             
+            <li class="{{ setActiveRoute('admin.fastprocess.index') }}">
+                <a href="{{ route('admin.fastprocess.index') }}">
+                    <i class="fa fa-user"></i><span> Socios</span>
+                </a>
+            </li> 
+            <li class="{{ setActiveRoute('admin.fastprocess.index2') }}">
+                <a href="{{ route('admin.fastprocess.index2') }}">
+                    <i class="fa fa-user"></i><span> Docs</span>
+                </a>
+            </li>                    
+        </ul>
+    </li>
+
+
+         
+
+
+
     <li class="treeview {{ setActiveRoute('admin.users.index') }}">                
         <a href="#"><i class="fa fa-users"></i> <span>Administrar Socios</span>
             <span class="pull-right-container">
@@ -46,8 +73,14 @@
                 <a href="{{ route('admin.books.index') }}">
                     <i class="fa fa-book"></i><span> Libros</span>
                 </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.music.index') }}">
+                <a href="{{ route('admin.music.index') }}">
+                    <i class="fa fa-book"></i><span> Musica</span> 
+                </a>
             </li>                     
         </ul>
+  
     </li>
    
 </ul>

@@ -22,8 +22,8 @@ class CreateDocumentsTable extends Migration
             $table->integer('document_subtypes_id')->unsigned();
             $table->integer('creators_id')->unsigned();
 
-            $table->string('title')->unique();
-            $table->integer('registry_number')->unique();
+            $table->string('title')->nullable();
+            $table->integer('registry_number')->nullable();
             $table->string('original_title')->nullable();
             $table->timestamp('acquired')->nullable();
             $table->timestamp('drop')->nullable();
@@ -32,11 +32,11 @@ class CreateDocumentsTable extends Migration
             $table->string('cdu')->unique();
             $table->string('let_title')->nullable();
             $table->string('assessment')->nullable();
-            $table->string('desidherata');
+            $table->string('desidherata')->nullable();
             $table->string('published')->nullable();
             $table->string('made_by')->nullable();
             $table->timestamp('year')->nullable();
-            $table->string('volume')->nullable();
+            $table->string('volumes')->nullable();
             $table->string('page')->nullable();
             $table->string('collection')->nullable();
             $table->string('location');
@@ -44,6 +44,7 @@ class CreateDocumentsTable extends Migration
             $table->string('note')->nullable();
             $table->mediumText('synopsis')->nullable();
             $table->string('photo')->nullable();
+            $table->integer('quantity_generic')->nullable();
             $table->timestamps();
 
             $table->foreign('adequacies_id')->references('id')->on('adequacies')
