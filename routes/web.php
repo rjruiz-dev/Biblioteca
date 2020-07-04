@@ -21,13 +21,18 @@ Route::group([
     'prefix'     => 'admin',   
     'middleware' => 'auth'],   
 function(){    
-    Route::get('/',             'AdminController@index')->name('dashboard');         
-    Route::resource('users',    'UserController',['as' => 'admin']); 
-    Route::resource('books',    'BookController',['as' => 'admin']); 
+    Route::get('/',                 'AdminController@index')->name('dashboard');         
+    Route::resource('users',        'UserController',['as' => 'admin']); 
+    Route::resource('books',        'BookController',['as' => 'admin']); 
+    Route::resource('languages',    'LenguageController', ['except' => 'show', 'as' => 'admin']);  
+    Route::resource('periodics',    'PeriodicalPublicationController', ['except' => 'show', 'as' => 'admin']);  
+
 });
 
-Route::get('users/table',  'UserController@dataTable')->name('users.table'); 
-Route::get('books/table',  'BookController@dataTable')->name('books.table'); 
+Route::get('users/table',       'UserController@dataTable')->name('users.table'); 
+Route::get('books/table',       'BookController@dataTable')->name('books.table');
+Route::get('languages/table',   'LenguageController@dataTable')->name('languages.table'); 
+Route::get('periodics/table',   'PeriodicalPublicationController@dataTable')->name('periodics.table'); 
 
 
 // Route::get('home', function () {

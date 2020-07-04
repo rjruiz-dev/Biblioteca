@@ -24,20 +24,21 @@ class CreateDocumentsTable extends Migration
 
             $table->string('title')->unique();
             $table->integer('registry_number')->unique();
+
             $table->string('original_title')->nullable();
             $table->timestamp('acquired')->nullable();
             $table->timestamp('drop')->nullable();
             $table->string('document_status')->nullable();
-            $table->string('let_author')->nullable();
-            $table->string('cdu')->unique();
+            $table->string('let_author')->nullable();          
             $table->string('let_title')->nullable();
+            $table->string('cdu')->unique();
             $table->string('assessment')->nullable();
-            $table->string('desidherata');
+            $table->string('desidherata')->nullable();
             $table->string('published')->nullable();
             $table->string('made_by')->nullable();
             $table->timestamp('year')->nullable();
             $table->string('volume')->nullable();
-            $table->string('page')->nullable();
+            $table->integer('quantity_generic')->nullable();
             $table->string('collection')->nullable();
             $table->string('location');
             $table->mediumText('observation')->nullable();

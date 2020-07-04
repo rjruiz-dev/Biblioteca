@@ -23,7 +23,7 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'made_by' => $faker->company, 
         'year' => $faker->year($max = 'now'), 
         'volume'=> $faker->numerify('# Vol.'), 
-        'page' => $faker->numerify('### Pag.'), 
+        'quantity_generic' => $faker->numberBetween($min = 000, $max = 999),
         'collection'     => $faker->name,
         'location'=> $faker->name, 
         'observation' => $faker->sentence($nbWords = 6, $variableNbWords = true), 

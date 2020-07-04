@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Lenguage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveLenguageRequest;
 
 class LenguageController extends Controller
 {
@@ -14,7 +18,7 @@ class LenguageController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.languages.index');
     }
 
     /**
@@ -24,7 +28,11 @@ class LenguageController extends Controller
      */
     public function create()
     {
-        //
+        $language = new Lenguage();      
+                             
+        return view('admin.languages.partials.form', [           
+            'language'      => $language
+        ]);  
     }
 
     /**
@@ -33,9 +41,25 @@ class LenguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveLenguageRequest $request)
     {
-        //
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+
+                // Creamos el idioma           
+                $language = new Lenguage;   
+                $language->leguage_description  = $request->get('leguage_description');           
+                $language->save();
+
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }  
     }
 
     /**
@@ -55,9 +79,13 @@ class LenguageController extends Controller
      * @param  \App\Lenguage  $lenguage
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lenguage $lenguage)
+    public function edit($id)
     {
-        //
+        $language = Lenguage::findOrFail($id);
+                             
+        return view('admin.languages.partials.form', [           
+            'language'      => $language
+        ]); 
     }
 
     /**
@@ -67,9 +95,27 @@ class LenguageController extends Controller
      * @param  \App\Lenguage  $lenguage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lenguage $lenguage)
+    public function update(SaveLenguageRequest $request, $id)
     {
-        //
+        
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                            
+                $language = Lenguage::findOrFail($id);
+
+                // Actualizamos el idioma               
+                $language->leguage_description  = $request->get('leguage_description');           
+                $language->save();
+                 
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }  
     }
 
     /**
@@ -78,8 +124,37 @@ class LenguageController extends Controller
      * @param  \App\Lenguage  $lenguage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lenguage $lenguage)
+    public function destroy($id)
     {
-        //
+       $language = Lenguage::findOrFail($id);        
+       $language->delete();  
+    }
+
+    public function dataTable()
+    {       
+        $lenguajes = Lenguage::query()      
+        ->get();
+         
+        return dataTables::of($lenguajes)
+           
+            ->addColumn('leguage_description', function ($lenguajes){
+
+                return'<i class="fa  fa-globe"></i>'.' '.$lenguajes->leguage_description;         
+            })            
+            ->addColumn('created_at', function ($lenguajes){
+                return $lenguajes->created_at->format('d-m-y');
+            })                 
+            
+            ->addColumn('accion', function ($lenguajes) {
+                return view('admin.languages.partials._action', [
+                    'lenguajes' => $lenguajes,
+
+                    'url_edit' => route('admin.languages.edit', $lenguajes->id),                              
+                    'url_destroy' => route('admin.languages.destroy', $lenguajes->id)
+                ]);
+            })           
+            ->addIndexColumn()   
+            ->rawColumns(['leguage_description', 'created_at', 'accion']) 
+            ->make(true);  
     }
 }

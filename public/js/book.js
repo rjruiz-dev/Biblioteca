@@ -53,7 +53,7 @@ $('body').on('click', '.modal-show', function (event) {
                 // startDate: date,              
                 language: 'es'
             });  
-            
+
             $('#adequacies_id').select2({
                 placeholder: 'Selecciona una Adecuación',
                 tags: true,               
@@ -61,6 +61,11 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#generate_books_id').select2({
                 placeholder: 'Selecciona un Género',
+                tags: true,               
+            });
+
+            $('#published').select2({
+                placeholder: 'Selecciona Lugar de Publicacíon',
                 tags: true,               
             });
 
@@ -209,5 +214,17 @@ $('body').on('click', '.btn-show', function (event) {
 
     $('#modal').modal('show');
 });
+
+function yesnoCheck() {
+    if (document.getElementById("document_subtypes_id").value == 1) {
+        document.getElementById("book_periodical").style.display = "block";
+        document.getElementById("book_not_periodical").style.display = "none";
+    } else {
+        document.getElementById("book_not_periodical").style.display = "block";
+        document.getElementById("book_periodical").style.display = "none";
+    }
+}
+
+
 
 

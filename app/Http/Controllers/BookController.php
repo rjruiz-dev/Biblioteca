@@ -13,6 +13,7 @@ use App\Generate_book;
 use App\Document_type;
 use App\Document_subtype;
 use Illuminate\Http\Request;
+use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
@@ -45,6 +46,7 @@ class BookController extends Controller
             'publications' => Document::pluck('published', 'published'),
             'editorials' => Document::pluck('made_by', 'made_by'),
             'editions' => Book::pluck('edition', 'id'),
+            'periodicities' => Periodical_publication::pluck('periodicity', 'periodicity'),
             'volumes' => Document::pluck('volume', 'id'),
             'languages' => Lenguage::pluck('leguage_description', 'id'),
             'book'      => $book
@@ -63,9 +65,23 @@ class BookController extends Controller
             try {
                 //  Transacciones
                 DB::beginTransaction();
-                              
+                
                 // Creamos el documento            
                 $document = new Document;   
+                        
+                if( is_numeric($request->get('creators_id'))) 
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name      = $request->get('creators_id');
+                    $creator->document_types_id = 3;
+                    $creator->save();
+                    $document->creators_id = $creator->id;
+                }
+            
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
@@ -80,7 +96,7 @@ class BookController extends Controller
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::parse($request->get('year'));
                 $document->volume           = $request->get('volume');
-                $document->page             = $request->get('page');
+                $document->quantity_generic = $request->get('quantity_generic');
                 $document->collection       = $request->file('collection');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
@@ -88,10 +104,9 @@ class BookController extends Controller
                 $document->synopsis         = $request->get('synopsis');
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
-                $document->lenguages_id     = $request->get('lenguages_id');
-                $document->creators_id      = $request->get('creators_id'); 
-                $document->document_types_id    = $request->get('document_types_id');
-                $document->document_subtypes_id = $request->get('document_subtypes_id'); 
+                $document->lenguages_id     = $request->get('lenguages_id');                
+                $document->document_types_id    = 3;
+                $document->document_subtypes_id = $request->get('document_subtypes_id');
                 $document->save();
 
                 // Creamos el libro           
@@ -106,7 +121,7 @@ class BookController extends Controller
                 $book->generate_books_id    = $request->get('generate_books_id'); 
                 $book->documents_id = $document->id;
                 $book->save();
-                 
+
                 DB::commit();
 
             } catch (Exception $e) {
@@ -146,6 +161,7 @@ class BookController extends Controller
             'publications' => Document::pluck('published', 'published'),
             'editorials' => Document::pluck('made_by', 'made_by'),
             'editions' => Book::pluck('edition', 'id'),
+            'periodicities' => Periodical_publication::pluck('periodicity', 'periodicity'),
             'volumes' => Document::pluck('volume', 'id'),
             'languages' => Lenguage::pluck('leguage_description', 'id'),
             'book'      => $book
@@ -168,7 +184,19 @@ class BookController extends Controller
                             
                 $book = Book::findOrFail($id);
                 $document = Document::findOrFail($book->documents_id);
-                // Actualizamos el documento                
+                // Actualizamos el documento   
+                if( is_numeric($request->get('creators_id'))) 
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name      = $request->get('creators_id');
+                    $creator->document_types_id = 3;
+                    $creator->save();
+                    $document->creators_id = $creator->id;
+                }             
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
@@ -183,7 +211,7 @@ class BookController extends Controller
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::parse($request->get('year'));
                 $document->volume           = $request->get('volume');
-                $document->page             = $request->get('page');
+                $document->quantity_generic = $request->get('quantity_generic');
                 $document->collection       = $request->file('collection');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
@@ -191,9 +219,8 @@ class BookController extends Controller
                 $document->synopsis         = $request->get('synopsis');
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
-                $document->lenguages_id     = $request->get('lenguages_id');
-                $document->creators_id      = $request->get('creators_id'); 
-                $document->document_types_id    = $request->get('document_types_id');
+                $document->lenguages_id     = $request->get('lenguages_id');          
+                $document->document_types_id    = 3;
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
                 $document->save();
 
