@@ -22,6 +22,11 @@ class Book extends Model
   
     public function periodical_publication()
     {
-        return $this->hasOne(Periodical_publication::class);
+        return $this->hasOne(Periodical_publication::class, 'books_id');
     }
+
+    // public function periodical_publication()
+    // {
+    //     return $this->belongsTo(Periodical_publication::class, 'books_id');
+    // } 
 }

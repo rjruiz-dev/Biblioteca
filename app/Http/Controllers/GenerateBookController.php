@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+use App\Book;
+use Carbon\Carbon;
 use App\Generate_book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveLiteratureRequest;
 
 class GenerateBookController extends Controller
 {
@@ -14,7 +19,7 @@ class GenerateBookController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.literatures.index');
     }
 
     /**
@@ -24,7 +29,11 @@ class GenerateBookController extends Controller
      */
     public function create()
     {
-        //
+        $literature = new Generate_book();      
+                             
+        return view('admin.literatures.partials.form', [           
+            'literature'  => $literature
+        ]);  
     }
 
     /**
@@ -33,9 +42,25 @@ class GenerateBookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveLiteratureRequest $request)
     {
-        //
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+
+                // Creamos el genero           
+                $literature = new Generate_book;  
+                $literature->genre_book  = $request->get('genre_book');           
+                $literature->save();
+
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }  
     }
 
     /**
@@ -55,9 +80,13 @@ class GenerateBookController extends Controller
      * @param  \App\Generate_book  $generate_book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Generate_book $generate_book)
+    public function edit($id)
     {
-        //
+        $literature = Generate_book::findOrFail($id);
+                             
+        return view('admin.literatures.partials.form', [           
+            'literature'  => $literature
+        ]); 
     }
 
     /**
@@ -67,9 +96,26 @@ class GenerateBookController extends Controller
      * @param  \App\Generate_book  $generate_book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Generate_book $generate_book)
+    public function update(SaveLiteratureRequest $request, $id)
     {
-        //
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                            
+                $literature = Generate_book::findOrFail($id);
+
+                // Actualizamos el genero               
+                $literature->genre_book  = $request->get('genre_book');          
+                $literature->save();
+                 
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }  
     }
 
     /**
@@ -78,8 +124,47 @@ class GenerateBookController extends Controller
      * @param  \App\Generate_book  $generate_book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Generate_book $generate_book)
+    public function destroy($id)
     {
-        //
+        $genre = Book::where('generate_books_id', $id)->get();
+      
+        if($genre->isEmpty())
+        {  
+            $bandera = 1;
+            $literature = Generate_book::findOrFail($id);
+            $literature->delete();
+
+        }else{          
+            $bandera = 0;            
+        }
+        return response()->json(['data' => $bandera]);          
+    }
+
+    public function dataTable()
+    {       
+        $literarios = Generate_book::query()      
+        ->get();
+         
+        return dataTables::of($literarios)
+           
+            ->addColumn('genre_book', function ($literarios){
+
+                return'<i class="fa fa-check-square"></i>'.' '.$literarios->genre_book;         
+            })            
+            ->addColumn('created_at', function ($literarios){
+                return $literarios->created_at->format('d-m-y');
+            })                 
+            
+            ->addColumn('accion', function ($literarios) {
+                return view('admin.literatures.partials._action', [
+                    'literarios' => $literarios,
+
+                    'url_edit' => route('admin.literatures.edit', $literarios->id),                              
+                    'url_destroy' => route('admin.literatures.destroy', $literarios->id)
+                ]);
+            })           
+            ->addIndexColumn()   
+            ->rawColumns(['genre_book', 'created_at', 'accion']) 
+            ->make(true);  
     }
 }

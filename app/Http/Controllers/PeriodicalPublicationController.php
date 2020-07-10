@@ -14,7 +14,7 @@ class PeriodicalPublicationController extends Controller
      */
     public function index()
     {
-        //
+      
     }
 
     /**
@@ -24,7 +24,7 @@ class PeriodicalPublicationController extends Controller
      */
     public function create()
     {
-        //
+         
     }
 
     /**
@@ -35,7 +35,7 @@ class PeriodicalPublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         
     }
 
     /**
@@ -55,9 +55,9 @@ class PeriodicalPublicationController extends Controller
      * @param  \App\periodical_publication  $periodical_publication
      * @return \Illuminate\Http\Response
      */
-    public function edit(periodical_publication $periodical_publication)
+    public function edit($id)
     {
-        //
+       
     }
 
     /**
@@ -67,9 +67,9 @@ class PeriodicalPublicationController extends Controller
      * @param  \App\periodical_publication  $periodical_publication
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, periodical_publication $periodical_publication)
+    public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**
@@ -78,8 +78,10 @@ class PeriodicalPublicationController extends Controller
      * @param  \App\periodical_publication  $periodical_publication
      * @return \Illuminate\Http\Response
      */
-    public function destroy(periodical_publication $periodical_publication)
+    public function destroy($id)
     {
-        //
+      
     }
+
+   
 }

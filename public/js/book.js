@@ -43,6 +43,7 @@ $('body').on('click', '.modal-show', function (event) {
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
+                // format: 'd/m/Y',
                 // startDate: date,              
                 language: 'es'
             });  
@@ -88,6 +89,11 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#volume').select2({
                 placeholder: 'Selecciona un Volúmen',              
+                tags: true,                                 
+            });
+
+            $('#periodicity_name').select2({
+                placeholder: 'Selecciona una periodicidad',              
                 tags: true,                                 
             });
 
@@ -215,15 +221,15 @@ $('body').on('click', '.btn-show', function (event) {
     $('#modal').modal('show');
 });
 
-function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 1) {
-        document.getElementById("book_periodical").style.display = "block";
-        document.getElementById("book_not_periodical").style.display = "none";
-    } else {
-        document.getElementById("book_not_periodical").style.display = "block";
-        document.getElementById("book_periodical").style.display = "none";
-    }
-}
+// function yesnoCheck() {
+//     if (document.getElementById("document_subtypes_id").value == 1) {
+//         document.getElementById("book_periodical").style.display = "block";
+//         document.getElementById("book_not_periodical").style.display = "none";
+//     } else {
+//         document.getElementById("book_not_periodical").style.display = "block";
+//         document.getElementById("book_periodical").style.display = "none";
+//     }
+// }
 
 
 

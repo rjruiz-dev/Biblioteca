@@ -17,7 +17,8 @@ class CreatePhotographiesTable extends Migration
             $table->increments('id');
 
             $table->integer('documents_id')->unsigned();
-            $table->integer('type_photographies_id')->unsigned();
+            // $table->integer('type_photographies_id')->unsigned();
+            $table->integer('generate_formats_id')->unsigned();
 
             $table->string('subtitle')->nullable();
             $table->string('author')->nullable();
@@ -25,7 +26,7 @@ class CreatePhotographiesTable extends Migration
             $table->string('third_author')->nullable();
             $table->string('producer')->nullable();
             $table->string('edition')->nullable();
-            $table->string('format')->nullable();
+            // $table->string('format')->nullable();
             
             $table->timestamps();
 
@@ -34,7 +35,11 @@ class CreatePhotographiesTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('type_photographies_id')->references('id')->on('type_photographies')
+            // $table->foreign('type_photographies_id')->references('id')->on('type_photographies')
+            // ->onDelete('cascade')
+            // ->onUpdate('cascade');
+
+            $table->foreign('generate_formats_id')->references('id')->on('generate_formats')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

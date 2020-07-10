@@ -126,8 +126,20 @@ class LenguageController extends Controller
      */
     public function destroy($id)
     {
-       $language = Lenguage::findOrFail($id);        
-       $language->delete();  
+        $document = Document::where('lenguages_id', $id)->get();
+      
+        if( $document->isEmpty())
+        {  
+            $bandera = 1;
+            $language = Lenguage::findOrFail($id);        
+            $language->delete();  
+
+
+        }else{          
+            $bandera = 0;            
+        }
+        return response()->json(['data' => $bandera]);  
+      
     }
 
     public function dataTable()
@@ -139,7 +151,7 @@ class LenguageController extends Controller
            
             ->addColumn('leguage_description', function ($lenguajes){
 
-                return'<i class="fa  fa-globe"></i>'.' '.$lenguajes->leguage_description;         
+                return'<i class="fa fa-check-square"></i>'.' '.$lenguajes->leguage_description;         
             })            
             ->addColumn('created_at', function ($lenguajes){
                 return $lenguajes->created_at->format('d-m-y');

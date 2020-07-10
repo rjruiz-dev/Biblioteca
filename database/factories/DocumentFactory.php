@@ -10,7 +10,7 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'creators_id' => $faker->randomElement(['1','2',]),
         'document_subtypes_id' => $faker->randomElement(['1','2',]),
         'title'      => $faker->name,
-        'original_title'   => $faker->name,
+        'original_title'   => $faker->title,
         'acquired'  => $faker->date($format = 'Y-m-d', $max = 'now'),
         'drop'  => $faker->date($format = 'Y-m-d', $max = 'now'),
         'document_status'    => $faker->name,

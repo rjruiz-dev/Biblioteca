@@ -50,23 +50,53 @@
         </ul>
     </li>
     
-    <li class="treeview {{ setActiveRoute(['admin.languages.index', 'admin.times.index']) }}">                
+    <li class="treeview {{ setActiveRoute([
+                                            'admin.languages.index', 'admin.periodicals.index',
+                                            'admin.literatures.index', 'admin.adequacies.index',
+                                            'admin.musicals.index', 'admin.cinematographics.index',
+                                            'admin.formats.index'
+                                        ]) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>Mantenimiento</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>       
         <ul class="treeview-menu">             
-            <li class="{{ setActiveRoute('admin.languages.index') }}">
-                <a href="{{ route('admin.languages.index') }}">
-                    <i class="fa fa-globe"></i><span> Idiomas</span>
+            <li class="{{ setActiveRoute('admin.formats.index') }}">
+                <a href="{{ route('admin.formats.index') }}">
+                    <i class="fa fa-check-square"></i><span> Formatos Gráficos</span>
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.languages.index') }}">
                 <a href="{{ route('admin.languages.index') }}">
-                    <i class="fa fa-globe"></i><span> Publicaciónes Periodicas</span>
+                    <i class="fa fa-check-square"></i><span> Idiomas</span>
                 </a>
-            </li>                     
+            </li> 
+            <li class="{{ setActiveRoute('admin.periodicals.index') }}">
+                <a href="{{ route('admin.periodicals.index') }}">
+                    <i class="fa fa-check-square"></i><span> Publicaciónes Periodicas</span>
+                </a>
+            </li> 
+            <li class="{{ setActiveRoute('admin.literatures.index') }}">
+                <a href="{{ route('admin.literatures.index') }}">
+                    <i class="fa fa-check-square"></i><span> Géneros Literarios</span>
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.musicals.index') }}">
+                <a href="{{ route('admin.musicals.index') }}">
+                    <i class="fa fa-check-square"></i><span> Géneros Musicales</span>
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.cinematographics.index') }}">
+                <a href="{{ route('admin.cinematographics.index') }}">
+                    <i class="fa fa-check-square"></i><span> Géneros Cinematográficos</span>
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.adequacies.index') }}">
+                <a href="{{ route('admin.adequacies.index') }}">
+                    <i class="fa fa-check-square"></i><span> Personas Adecuadas</span>
+                </a>
+            </li>          
         </ul>
     </li>
    

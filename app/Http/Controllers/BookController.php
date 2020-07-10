@@ -9,6 +9,7 @@ use App\Creator;
 use App\Adequacy;
 use App\Document;
 use App\Lenguage;
+use App\Periodicity;
 use App\Generate_book;
 use App\Document_type;
 use App\Document_subtype;
@@ -40,13 +41,13 @@ class BookController extends Controller
         return view('admin.books.partials.form', [
             'documents' => Document_type::pluck( 'document_description', 'id'),
             'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'   => Creator::pluck('creator_name', 'id'),
+            'authors'   => Creator::pluck('creator_name', 'id')->toArray(),
             'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
             'genders' => Generate_book::pluck('genre_book', 'id'),
             'publications' => Document::pluck('published', 'published'),
             'editorials' => Document::pluck('made_by', 'made_by'),
-            'editions' => Book::pluck('edition', 'id'),
-            'periodicities' => Periodical_publication::pluck('periodicity', 'periodicity'),
+            'editions' => Book::pluck('edition', 'id'),         
+            'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes' => Document::pluck('volume', 'id'),
             'languages' => Lenguage::pluck('leguage_description', 'id'),
             'book'      => $book
@@ -97,10 +98,10 @@ class BookController extends Controller
                 $document->year             = Carbon::parse($request->get('year'));
                 $document->volume           = $request->get('volume');
                 $document->quantity_generic = $request->get('quantity_generic');
-                $document->collection       = $request->file('collection');
+                $document->collection       = $request->get('collection');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
-                $document->note             = $request->file('note');
+                $document->note             = $request->get('note');
                 $document->synopsis         = $request->get('synopsis');
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
@@ -118,7 +119,7 @@ class BookController extends Controller
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  
                 $book->isbn             = $request->get('isbn');               
-                $book->generate_books_id    = $request->get('generate_books_id'); 
+                $book->generate_books_id    = $request->get('generate_books_id');         
                 $book->documents_id = $document->id;
                 $book->save();
 
@@ -150,21 +151,22 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $book= Book::with('document', 'generate_book')->findOrFail($id);
-                                 
+        $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
+      
         return view('admin.books.partials.form', [
             'documents' => Document_type::pluck( 'document_description', 'id'),
             'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'   => Creator::pluck('creator_name', 'id'),
+            'authors'   => Creator::pluck('creator_name', 'id')->toArray(),
             'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
             'genders' => Generate_book::pluck('genre_book', 'id'),
             'publications' => Document::pluck('published', 'published'),
             'editorials' => Document::pluck('made_by', 'made_by'),
             'editions' => Book::pluck('edition', 'id'),
-            'periodicities' => Periodical_publication::pluck('periodicity', 'periodicity'),
+            'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes' => Document::pluck('volume', 'id'),
             'languages' => Lenguage::pluck('leguage_description', 'id'),
             'book'      => $book
+            // 'periodical' => $periodical
         ]);    
     }
 
@@ -212,10 +214,10 @@ class BookController extends Controller
                 $document->year             = Carbon::parse($request->get('year'));
                 $document->volume           = $request->get('volume');
                 $document->quantity_generic = $request->get('quantity_generic');
-                $document->collection       = $request->file('collection');
+                $document->collection       = $request->get('collection');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
-                $document->note             = $request->file('note');
+                $document->note             = $request->get('note');
                 $document->synopsis         = $request->get('synopsis');
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');

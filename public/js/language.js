@@ -87,11 +87,23 @@ $('body').on('click', '.btn-delete', function (event) {
                 },
                 success: function (response) {
                     $('#datatable').DataTable().ajax.reload();
-                    swal({
-                        type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Los datos han sido eliminados!'
-                    });
+                    var info = response.data;
+                    if(info == 1)
+                    {
+                        swal({
+                            type: 'success',
+                            title: '¡Éxito!',
+                            text: '¡El idioma ha sido eliminado!'
+                        });
+
+                    }else
+                    {
+                        swal({
+                            type: 'warning',
+                            title: '¡Advertencia!',
+                            text: '¡No puede eliminar este idioma, esta siendo utilizado por uno o mas Documentos!'
+                        });
+                    }
                 },
                 error: function (xhr) {
                     swal({
