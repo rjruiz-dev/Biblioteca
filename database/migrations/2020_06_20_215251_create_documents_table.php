@@ -36,13 +36,13 @@ class CreateDocumentsTable extends Migration
             $table->string('published')->nullable();
             $table->string('made_by')->nullable();
             $table->timestamp('year')->nullable();
-            $table->string('volumes')->nullable();
+            $table->string('volume')->nullable();
             $table->string('page')->nullable();
             $table->string('collection')->nullable();
             $table->string('location');
             $table->mediumText('observation')->nullable();
             $table->string('note')->nullable();
-            $table->mediumText('synopsis')->nullable();
+            $table->string('synopsis')->nullable();
             $table->string('photo')->nullable();
             $table->integer('quantity_generic')->nullable();
             $table->timestamps();

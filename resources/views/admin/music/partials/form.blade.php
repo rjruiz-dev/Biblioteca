@@ -21,84 +21,65 @@
                     @endphp
                 @endif
 
-                <div class="form-group"><!-- documents V -->
-                    {!! Form::label('document_types_id', 'Documento') !!}
-                    {!! Form::select('document_types_id', $documents,  $music->document['document_types_id'], ['class' => 'form-control select2', 'id' => 'document_types_id']) !!}
-                </div>
+                <!-- <div class="form-group"> -->
+                <!-- documents V -->
+                    <!-- {!! Form::label('document_types_id', 'Documento') !!}
+                    {!! Form::select('document_types_id', $documents,  $music->document['document_types_id'], ['class' => 'form-control select2', 'id' => 'document_types_id']) !!} -->
+                <!-- </div> -->
 
                 <div class="form-group"><!-- documents V -->
-                    {!! Form::label('document_subtypes_id', 'Subtipo') !!}
+                    {!! Form::label('document_subtypes_id', 'Tipo de musica') !!}
                     {!! Form::select('document_subtypes_id', $subtypes, $music->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'onchange' => 'yesnoCheck()']) !!}
                 </div>
+                <div class="form-group">               
+                    {!! Form::label('title', 'Título', ['id' => 'l_title']) !!}                    
+                    {!! Form::text('title', $music->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('creators_id', 'Artista', ['id' => 'l_creators_id']) !!}             
+                    {!! Form::select('creators_id', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id']) !!}
+                </div> 
 
 <div id="culta" style="display:block;"> 
-
-       <div class="form-group"> <!-- documents V -->               
-                    {!! Form::label('title', 'Título de la obra') !!}                    
-                    {!! Form::text('title', $music->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título de la Obra']) !!}
-                </div>
-                <!-- titulo del disco se guarda en tabla culture. LISTO-->
+                <!-- CAMPOS PROPIOS DE CULTURA-->
                 <div class="form-group">              
                     {!! Form::label('album_title', 'Título del Disco') !!}                    
                     {!! Form::text('album_title', $music->culture['album_title'], ['class' => 'form-control', 'id' => 'album_title', 'placeholder' => 'Título del Disco']) !!}
                 </div>
-                <!-- compositor va a tabla culture. LISTO-->
-    
-                <div class="form-group"><!-- documents V -->
-                    {!! Form::label('creators_id', 'Compositor') !!}
-                    {!! Form::select('creators_id', $authors, $music->document['creators_id'], ['class' => 'form-control select2', 'id' => 'creators_id']) !!}
-                </div>
-
-
-                <!-- director va a tabla culture. LISTO-->
                 <div class="form-group">              
                     {!! Form::label('director', 'Director') !!}                    
                     {!! Form::text('director', $music->culture['director'], ['class' => 'form-control', 'id' => 'director', 'placeholder' => 'Director']) !!}
                 </div>
-                <!-- orquesta va a tabla culture. LISTO-->
                 <div class="form-group">              
                     {!! Form::label('orchestra', 'Orquesta') !!}                    
                     {!! Form::text('orchestra', $music->culture['orchestra'], ['class' => 'form-control', 'id' => 'orchestra', 'placeholder' => 'Orquesta']) !!}
                 </div> 
-                <!-- solista va a tabla culture. LISTO-->
                 <div class="form-group">              
                     {!! Form::label('soloist', 'Solista') !!}                    
                     {!! Form::text('soloist', $music->culture['soloist'], ['class' => 'form-control', 'id' => 'soloist', 'placeholder' => 'Solista']) !!}
-                </div> 
-                
+                </div>               
 </div>
+
 <div id="popular" style="display:none;"> 
-<!-- titulo  va al campo titulo de documentos solo cambia el label. LISTO-->
-<div class="form-group">               
-                    {!! Form::label('title', 'Título') !!}                    
-                    {!! Form::text('title', $music->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título de la Obra']) !!}
-                </div>
-                <!-- subtitulo  va al campo subtitulo de tabla populares . LISTO-->
+<!-- CAMPOS PROPIOS DE POPULAR -->
         <div class="form-group">              
                     {!! Form::label('subtitle', 'Subtítulo') !!}                    
                     {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
                 </div>
-                <!-- creator_id  va al campo creator_id de tabla documentos . LISTO-->             
-                <div class="form-group">
-                    {!! Form::label('creators_id', 'Artista') !!}             
-                    {!! Form::select('creators_id', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id']) !!}
-                </div> 
-                <!-- other_artists  va al campo other_artists de tabla populares . LISTO-->
-                <div class="form-group">
+        <div class="form-group">
                     {!! Form::label('other_artists', 'Otros Artistas') !!}             
-                    {!! Form::select('other_artists', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'other_artists']) !!}
+                    {!! Form::select('other_artists', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'other_artists', 'style' => 'width: 100%']) !!}
                 </div>
-                <!-- music_populars  va al campo music_populars de tabla populares . LISTO-->
-                <div class="form-group">
+        <div class="form-group">
                     {!! Form::label('music_populars', 'Musica') !!}             
                     {!! Form::text('music_populars', null, ['class' => 'form-control', 'id' => 'music_populars', 'placeholder' => 'Musica']) !!}
                  </div>
-                 <div class="form-group">
+        <div class="form-group">
                     {!! Form::label('original_title', 'Título Original') !!} 
                     {!! Form::text('original_title', null, ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
                 </div>
-             
 </div>          
+                
                 <div class="form-group">
                     {!! Form::label('producer', 'Productor') !!}                    
                     {!! Form::text('producer', null, ['class' => 'form-control', 'id' => 'producer', 'placeholder' => 'Productor']) !!}
@@ -207,7 +188,7 @@
                 </div>
                 <div class="form-group">                   
                     {!! Form::label('volumes', 'Volumenes') !!}               
-                    {!! Form::text('volumes', null, ['class' => 'form-control', 'id' => 'volumes', 'placeholder' => 'Volumenes']) !!}
+                    {!! Form::text('volumes', $music->document['volumes'], ['class' => 'form-control', 'id' => 'volumes', 'placeholder' => 'Volumenes']) !!}
                 </div>
                 <div class="form-group">                 
                     {!! Form::label('quantity_generic', 'Duracion') !!}               
@@ -251,7 +232,11 @@
             <div class="box-body">
                 <div class="form-group">
                     <label>Contenido de la publicación</label>
-                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $music->document['synopsis'])}}</textarea>
+                    <textarea name="synopsis" id="synopsis"></textarea>
+                    <script>
+                    CKEDITOR.replace( 'synopsis' );
+                    </script>
+                
                 </div>
                               
             </div>

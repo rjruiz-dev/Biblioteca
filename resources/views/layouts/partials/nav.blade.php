@@ -34,11 +34,7 @@
                     <i class="fa fa-user"></i><span> Socios</span>
                 </a>
             </li> 
-            <li class="{{ setActiveRoute('admin.fastprocess.index2') }}">
-                <a href="{{ route('admin.fastprocess.index2') }}">
-                    <i class="fa fa-user"></i><span> Docs</span>
-                </a>
-            </li>                    
+                               
         </ul>
     </li>
 
@@ -78,7 +74,22 @@
                 <a href="{{ route('admin.music.index') }}">
                     <i class="fa fa-book"></i><span> Musica</span> 
                 </a>
-            </li>                     
+            </li> 
+            <li class="{{ setActiveRoute('admin.multimedias.index') }}">
+                <a href="{{ route('admin.multimedias.index') }}">
+                    <i class="fa fa-book"></i><span> Multimedia</span> 
+                </a>
+            </li>   
+            <li class="{{ setActiveRoute('admin.movies.index') }}">
+                <a href="{{ route('admin.movies.index') }}">
+                    <i class="fa fa-book"></i><span> Cines</span> 
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.photographs.index') }}">
+                <a href="{{ route('admin.photographs.index') }}">
+                    <i class="fa fa-book"></i><span> Fotografia</span> 
+                </a>
+            </li>                    
         </ul>
   
     </li>

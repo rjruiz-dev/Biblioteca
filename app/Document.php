@@ -8,7 +8,7 @@ class Document extends Model
 {
     protected $fillable = [ 
         'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'title', 'registry_number', 'original_title', 'acquired', 'drop', 'document_status',
-        'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volumes', 'quantity', 'collection', 'location',
+        'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
         'observation', 'note', 'synopsis', 'photo','quantity_generic'
     ];
 

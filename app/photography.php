@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photography extends Model
 {
-    protected $fillable = ['documents_id', 'type_photographies_id', 'subtitle',
-     'author', 'second_author', 'third_author', 'producer', 'edition', 'format'];
+    protected $fillable = ['documents_id', 'formats_id', 'second_author_id', 'third_author_id', 
+    'subtitle', 'producer', 'edition'];
     
      public function document()
      {
-         return $this->belongsTo(Document::class);
+         return $this->belongsTo(Document::class, 'documents_id');
      }
     
-     public function type_photography()
+    public function format()
     {
-        return $this->belongsTo(Type_photography::class);
+        return $this->belongsTo(Formats::class, 'formats_id');
     }
 }

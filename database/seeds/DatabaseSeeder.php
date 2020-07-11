@@ -15,13 +15,18 @@ class DatabaseSeeder extends Seeder
         $this->call(LenguagesTableSeeder::class);                 
         $this->call(Document_TypesTableSeeder::class);
         $this->call(Document_SubtypeTableSeeder::class);        
-        $this->call(CreatorsTableSeeder::class);
+        // $this->call(CreatorsTableSeeder::class);
         $this->call(Generate_bookTableSeeder::class);
-        $this->call(Generate_musicTableSeeder::class);     
-        $this->call(DocumentsTableSeeder::class);
-        $this->call(BooksTableSeeder::class);
+        $this->call(Generate_musicTableSeeder::class);  
+        $this->call(Generate_multimediaTableSeeder::class);    
+        $this->call(Generate_moviesTableSeeder::class);
+        $this->call(AdaptationsTableSeeder::class);  
+        $this->call(PhotographyMoviesTableSeeder::class);  
+        // $this->call(DocumentsTableSeeder::class);
+        // $this->call(BooksTableSeeder::class);
         $this->call(FormatsTableSeeder::class);
-        $this->call(MusicsTableSeeder::class);
+        // $this->call(MultimediasTableSeeder::class);
+        // $this->call(MusicsTableSeeder::class);
         $this->call(StatusTableSeeder::class);        
         $this->call(UsersTableSeeder::class);
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentSubtypesTable extends Migration
+class CreateGenerateMultimediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateDocumentSubtypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_subtypes', function (Blueprint $table) {
+        Schema::create('generate_multimedia', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('document_types_id')->nullable();
-            $table->string('subtype_name'); 
+            $table->string('genre_multimedia')->nullable(); 
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateDocumentSubtypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_subtypes');
+        Schema::dropIfExists('generate_multimedia');
     }
 }

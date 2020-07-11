@@ -19,4 +19,10 @@ class Creator extends Model
     {
         return $this->hasMany(Document::class);
     } 
+
+    public function multimedias()
+    {
+        return $this->hasMany(Multimedia::class);
+    } 
+    
 }

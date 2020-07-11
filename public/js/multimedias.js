@@ -15,26 +15,24 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);
             
+          
 
-            $('#sound').select2({
-                placeholder: 'Selecciona un Sonido',
-                tags: true,               
-            });
-
-            $('#other_artists').select2({
-                tags: true,               
-            });
+            // $('#document_subtypes_id').select2({
+            //     placeholder: 'Selecciona un subtipo de Documento',
+            //     tags: true,               
+            // });
 
             $('#creators_id').select2({
+                placeholder: 'Selecciona un Autor',
                 tags: true,               
             });
 
-            $('#second_author').select2({
+            $('#second_author_id').select2({
                 placeholder: 'Selecciona un Segundo Autor',
                 tags: true,               
             });
 
-            $('#third_author').select2({
+            $('#third_author_id').select2({
                 placeholder: 'Selecciona un Tercer Autor',
                 tags: true,               
             });
@@ -75,24 +73,23 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });  
            
-            $('#edition').select2({
-                placeholder: 'Selecciona Número de Edición',
-                tags: true,               
-            });
-
-            $('#volume').select2({
-                placeholder: 'Selecciona un Volúmen',              
-                tags: true,                                 
-            });
-
-            // $('#lenguages_id').select2({
-            //     placeholder: 'Selecciona un Idioma',
-            //     tags: true,                            
+            // $('#edition').select2({
+            //     placeholder: 'Selecciona Número de Edición',
+            //     tags: true,               
             // });
 
+            // $('#volume').select2({
+            //     placeholder: 'Selecciona un Volúmen',              
+            //     tags: true,                                 
+            // });
+
+            $('#lenguages_id').select2({
+                placeholder: 'Selecciona un Idioma',
+                tags: true,                            
+            });
+
             // CKEDITOR.replace('synopsis');
-            // CKEDITOR.config.height = 190;  
-             
+            // CKEDITOR.config.height = 190;   
         }
     });
 
@@ -211,16 +208,12 @@ $('body').on('click', '.btn-show', function (event) {
 });
 
     function yesnoCheck() {
-        if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
+        if (document.getElementById("document_subtypes_id").value == 3) {
             document.getElementById("popular").style.display = "block";
             document.getElementById("culta").style.display = "none";
-            document.getElementById("l_title").innerHTML = 'Titulo';
-            document.getElementById("l_creators_id").innerHTML = 'Compositor';
-        } else { // si es culta
+        } else {
             document.getElementById("culta").style.display = "block";
             document.getElementById("popular").style.display = "none";
-            document.getElementById("l_title").innerHTML = 'Titulo de la obra';
-            document.getElementById("l_creators_id").innerHTML = 'Artista';
         }
     }
 

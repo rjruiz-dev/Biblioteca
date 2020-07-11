@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\multimedia_type::class, function (Faker $faker) {
+$factory->define(App\Adaptations::class, function (Faker $faker) {
     return [
         //
     ];

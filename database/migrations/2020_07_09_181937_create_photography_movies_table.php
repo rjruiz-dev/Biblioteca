@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMultimediaTypesTable extends Migration
+class CreatePhotographyMoviesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateMultimediaTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('multimedia_types', function (Blueprint $table) {
+        Schema::create('photography_movies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('multimedia_description')->unique();
-
+            $table->string('photography_movies_name')->nullable(); 
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateMultimediaTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('multimedia_types');
+        Schema::dropIfExists('photography_movies');
     }
 }

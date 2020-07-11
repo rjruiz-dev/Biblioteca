@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Music;
 use App\Culture;
+use App\Popular;
 use App\Lenguage;
 use App\Formats;
 use App\Creator;
@@ -48,7 +49,7 @@ class MusicController extends Controller
              'sounds' => Music::pluck('sound', 'sound'),
              'formats' => Formats::pluck('format_name', 'id'),
             // 'editions' => Music::pluck('edition', 'id'),
-            'volumes' => Document::pluck('volumes', 'volumes'),
+            'volumes' => Document::pluck('volume', 'volume'),
             'languages' => Lenguage::pluck('leguage_description', 'id'),
             'music'      => $music
         ]); 
@@ -69,7 +70,8 @@ class MusicController extends Controller
                               
                 // Creamos el documento            
                 $document = new Document;
-                $document->document_types_id    = $request->get('document_types_id');
+                // $document->document_types_id    = $request->get('document_types_id');
+                $document->document_types_id    = 1; // 1 tipo de documento: musica.
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
                 $document->title            = $request->get('title');
                 $document->acquired         = Carbon::parse($request->get('acquired'));        
@@ -87,12 +89,26 @@ class MusicController extends Controller
                 $document->quantity_generic  = $request->get('quantity_generic');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
-                $document->note             = $request->file('note');
+                $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');
                 $document->photo            = $request->get('photo');
-                $document->synopsis         = $request->get('synopsis');
+                $document->synopsis = $request->synopsis;
 
-                $document->creators_id         = $request->get('creators_id');
+                // $document->creators_id         = $request->get('creators_id');
+
+                 if( is_numeric($request->get('creators_id'))) 
+                 {                
+                     $document->creators_id    = $request->get('creators_id');    
+ 
+                 }else
+                 {
+                     $creator = new Creator;
+                     $creator->creator_name = $request->get('creators_id');
+                     $creator->document_types_id = 1;
+                     $creator->save();
+                     $document->creators_id = $creator->id;
+                 }
+
 
                 $document->save();
 
@@ -162,8 +178,8 @@ class MusicController extends Controller
      */
     public function edit($id)
     {
-        $music = Music::with('document', 'generate_music')->findOrFail($id);
-                                 
+        $musics = Music::with('document', 'generate_music')->findOrFail($id);
+                               
         return view('admin.music.partials.form', [
             'documents' => Document_type::pluck( 'document_description', 'id'),
             'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
@@ -171,11 +187,10 @@ class MusicController extends Controller
             'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
             'genders' => Generate_musics::pluck('genre_music', 'id'),
             'publications' => Document::pluck('published', 'published'),
-            // 'editorials' => Document::pluck('made_by', 'made_by'),
-            // 'editions' => Book::pluck('edition', 'id'),
-            // 'volumes' => Document::pluck('volume', 'id'),
-            // 'languages' => Lenguage::pluck('leguage_description', 'id'),
-            'music'      => $music
+            'sounds' => Music::pluck('sound', 'sound'),
+            'formats' => Formats::pluck('format_name', 'id'),
+            'languages' => Lenguage::pluck('leguage_description', 'id'),
+            'music'      => $musics
         ]); 
     }
 
@@ -186,9 +201,104 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Music $music)
+    public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction(); 
+
+                $music = Music::findOrFail($id);
+                $document = Document::findOrFail($music->documents_id);
+                // Actualizamos el documento
+                // $document->document_types_id    = $request->get('document_types_id');
+                $document->document_subtypes_id = $request->get('document_subtypes_id'); 
+                $document->title            = $request->get('title');
+                $document->acquired         = Carbon::parse($request->get('acquired'));        
+                $document->drop             = Carbon::parse($request->get('drop'));        
+                $document->adequacies_id    = $request->get('adequacies_id');
+                $document->let_author       = $request->get('let_author');
+                $document->let_title        = $request->get('let_title');
+                $document->cdu              = $request->get('cdu');  
+                $document->assessment       = $request->get('assessment'); 
+                $document->desidherata      = $request->get('desidherata'); 
+                $document->published        = $request->get('published');
+                $document->made_by          = $request->get('made_by');
+                $document->year             = Carbon::parse($request->get('year'));
+                $document->volumes           = $request->get('volumes');
+                $document->quantity_generic  = $request->get('quantity_generic');
+                $document->location         = $request->get('location');
+                $document->observation      = $request->get('observation');
+                $document->note             = $request->get('note');
+                $document->lenguages_id     = $request->get('lenguages_id');
+                $document->photo            = $request->get('photo');
+                $document->synopsis         = $request->get('synopsis');
+                
+                // $document->creators_id         = $request->get('creators_id');
+
+                if( is_numeric($request->get('creators_id'))) 
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('creators_id');
+                    $creator->document_types_id = 1;
+                    $creator->save();
+                    $document->creators_id = $creator->id;
+                }
+
+                $document->save();
+
+                 // actualizamos en la tabla musica  
+                $music->producer         = $request->get('producer');
+                $music->generate_musics_id    = $request->get('generate_musics_id');
+                $music->sound     = $request->get('sound');
+                $music->formats_id       = $request->get('formats_id');        
+                
+                $music->documents_id = $document->id;//guardamos el id del documento
+                
+                $music->save();
+
+                // evaluamos si se eligio culta o popular y en base a eso insertamos en la 
+                //respectiva tabla
+
+                if($request->get('document_subtypes_id') == 3){ // si es popular 
+                // $popular = Popular::findOrFail($id); 
+                $popular = Popular::where('id', $id)->first();
+                if(!is_null($popular)) {
+                $popular->subtitle      = $request->get('subtitle');
+                $popular->other_artists    = $request->get('other_artists');
+                $popular->director     = $request->get('music_populars');
+
+                $popular->music_id = $music->id; //guardamos el id del libro
+
+                $popular->save();
+                }
+                }else{ // si es culta        
+                // $culture = Culture::findOrFail($id); 
+                $culture = Culture::where('id', $id)->first();
+                if(!is_null($culture)) {
+                $culture->album_title     = $request->get('album_title');
+                // $culture->composer    = $request->get('composer');
+                $culture->director     = $request->get('director');
+                $culture->orchestra       = $request->get('orchestra');        
+                $culture->soloist          = $request->get('soloist');
+
+                $culture->music_id = $music->id; //guardamos el id del libro
+
+                $culture->save();
+                }
+                }
+                 
+                DB::commit();
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
     }
 
     /**
