@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveFormatRequest extends FormRequest
@@ -24,16 +24,9 @@ class SaveFormatRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
+            'genre_format' => 'required|string|unique:generate_formats'
         ];
-
-        if($this->method() !== 'PUT')
-        {
-            
-            $rules ['genre_format'] = 'required|string|unique:generate_formats,genre_format' . $this->id;                 
-            
-        }
-        return $rules;
     }
 
     public function messages()

@@ -16,6 +16,8 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id'); 
 
+            $table->integer('generate_subjects_id')->unsigned();
+            $table->integer('generate_references_id')->unsigned();
             $table->integer('adequacies_id')->unsigned();
             $table->integer('lenguages_id')->unsigned();
             $table->integer('document_types_id')->unsigned();
@@ -30,8 +32,7 @@ class CreateDocumentsTable extends Migration
             $table->timestamp('drop')->nullable();
             $table->string('document_status')->nullable();
             $table->string('let_author')->nullable();          
-            $table->string('let_title')->nullable();
-            $table->string('cdu')->unique();
+            $table->string('let_title')->nullable();           
             $table->string('assessment')->nullable();
             $table->string('desidherata')->nullable();
             $table->string('published')->nullable();
@@ -46,6 +47,14 @@ class CreateDocumentsTable extends Migration
             $table->mediumText('synopsis')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
+
+            $table->foreign('generate_subjects_id')->references('id')->on('generate_subjects')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('generate_references_id')->references('id')->on('generate_references')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
 
             $table->foreign('adequacies_id')->references('id')->on('adequacies')
             ->onDelete('cascade')

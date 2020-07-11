@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['course_name'];
+    protected $fillable = ['course_name', 'group'];
 
     public function book_movements()
     {

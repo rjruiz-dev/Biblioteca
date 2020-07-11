@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SavePeriodicityRequest extends FormRequest
@@ -24,16 +23,9 @@ class SavePeriodicityRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
+            'periodicity_name' => 'required|string|unique:periodicities'
         ];
-
-        if($this->method() !== 'PUT')
-        {
-            
-            $rules ['periodicity_name'] = 'required|string|unique:periodicities,periodicity_name' . $this->id;                 
-            
-        }
-        return $rules;
     }
 
     public function messages()

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveLenguageRequest extends FormRequest
@@ -24,16 +23,9 @@ class SaveLenguageRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
+            'leguage_description' => 'required|string|unique:lenguages'
         ];
-
-        if($this->method() !== 'PUT')
-        {
-            
-            $rules ['leguage_description'] = 'required|string|unique:lenguages,leguage_description' . $this->id;                 
-            
-        }
-        return $rules;  
     }
 
     public function messages()

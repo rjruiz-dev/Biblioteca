@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveMusicalRequest extends FormRequest
@@ -24,16 +23,9 @@ class SaveMusicalRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
+            'genre_music' => 'required|string|unique:generate_musics'
         ];
-
-        if($this->method() !== 'PUT')
-        {
-            
-            $rules ['genre_music'] = 'required|string|unique:generate_musics,genre_music' . $this->id;                 
-            
-        }
-        return $rules;
     }
 
     public function messages()

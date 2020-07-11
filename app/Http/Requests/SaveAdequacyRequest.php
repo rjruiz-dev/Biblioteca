@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveAdequacyRequest extends FormRequest
@@ -24,16 +23,9 @@ class SaveAdequacyRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
+            'adequacy_description' => 'required|string|unique:adequacies'
         ];
-
-        if($this->method() !== 'PUT')
-        {
-            
-            $rules ['adequacy_description'] = 'required|string|unique:adequacies,adequacy_description' . $this->id;                 
-            
-        }
-        return $rules;
     }
 
     public function messages()

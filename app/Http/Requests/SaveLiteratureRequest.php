@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveLiteratureRequest extends FormRequest
@@ -24,16 +23,9 @@ class SaveLiteratureRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
+            'genre_book' => 'required|string|unique:generate_books'
         ];
-
-        if($this->method() !== 'PUT')
-        {
-            
-            $rules ['genre_book'] = 'required|string|unique:generate_books,genre_book' . $this->id;                 
-            
-        }
-        return $rules;
     }
 
     public function messages()

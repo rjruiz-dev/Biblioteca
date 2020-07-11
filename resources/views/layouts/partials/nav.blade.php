@@ -54,14 +54,26 @@
                                             'admin.languages.index', 'admin.periodicals.index',
                                             'admin.literatures.index', 'admin.adequacies.index',
                                             'admin.musicals.index', 'admin.cinematographics.index',
-                                            'admin.formats.index'
+                                            'admin.formats.index',  'admin.references.index',
+                                            'admin.courses.index', 'admin.subjects.index',
+                                            'admin.letters.index'
                                         ]) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>Mantenimiento</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>       
-        <ul class="treeview-menu">             
+        <ul class="treeview-menu"> 
+            <li class="{{ setActiveRoute('admin.courses.index') }}">
+                <a href="{{ route('admin.courses.index') }}">
+                    <i class="fa fa-check-square"></i><span> Cursos</span>
+                </a>
+            </li>   
+            <li class="{{ setActiveRoute('admin.references.index') }}">
+                <a href="{{ route('admin.references.index') }}">
+                    <i class="fa fa-check-square"></i><span> Maestros de Referencias</span>
+                </a>
+            </li>             
             <li class="{{ setActiveRoute('admin.formats.index') }}">
                 <a href="{{ route('admin.formats.index') }}">
                     <i class="fa fa-check-square"></i><span> Formatos Gráficos</span>
@@ -96,7 +108,17 @@
                 <a href="{{ route('admin.adequacies.index') }}">
                     <i class="fa fa-check-square"></i><span> Personas Adecuadas</span>
                 </a>
-            </li>          
+            </li>
+            <li class="{{ setActiveRoute('admin.subjects.index') }}">
+                <a href="{{ route('admin.subjects.index') }}">
+                    <i class="fa fa-check-square"></i><span> Materias</span>
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.letters.index') }}">
+                <a href="{{ route('admin.letters.index') }}">
+                    <i class="fa fa-check-square"></i><span> Modelos de Cartas</span>
+                </a>
+            </li>
         </ul>
     </li>
    

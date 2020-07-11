@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Carbon\Carbon;
+use App\Music;
+use App\Movies;
+use App\Photography;
 use App\Generate_format;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -124,16 +127,19 @@ class GenerateFormatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $genre = Book::where('generate_formats_id', $id)->get();
-      
-        if($genre->isEmpty())
+    {       
+        $format_music = Music::where('generate_formats_id', $id)->get();
+        $format_movie = Movies::where('generate_formats_id', $id)->get();
+        $format_photography = Photography::where('generate_formats_id', $id)->get();
+
+        if($format_music->isEmpty() && $format_movie->isEmpty() &&  $format_photography->isEmpty())        
         {  
             $bandera = 1;
             $format = Generate_format::findOrFail($id);
             $format->delete();
 
-        }else{          
+        }else{      
+
             $bandera = 0;            
         }
         return response()->json(['data' => $bandera]);  

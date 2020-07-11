@@ -4,6 +4,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Document::class, function (Faker $faker) {    
     return [
+        'generate_subjects_id' => $faker->randomElement(['1','2']),
+        'generate_references_id' => $faker->randomElement(['1','2']),
         'adequacies_id' => $faker->randomElement(['1','2']),
         'lenguages_id' => $faker->randomElement(['1','2']),
         'document_types_id' => $faker->randomElement(['1','2']),
@@ -15,7 +17,7 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'drop'  => $faker->date($format = 'Y-m-d', $max = 'now'),
         'document_status'    => $faker->name,
         'let_author'      => $faker->name,
-        'cdu'  => $faker->e164PhoneNumber,
+        // 'cdu'  => $faker->e164PhoneNumber,
         'let_title'   => $faker->name,
         'assessment'  => $faker->numberBetween($min = 00, $max = 10),
         'desidherata'     => $faker->name, 

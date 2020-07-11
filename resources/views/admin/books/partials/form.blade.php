@@ -20,6 +20,7 @@
                 <h3 class="box-title">Area de Titulo</h3>
             </div>
             <div class="box-body">
+                {{ csrf_field() }}
                 <div class="form-group">
                     {!! Form::label('document_subtypes_id', 'Subtipo') !!}
                     {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id' ]) !!}
@@ -208,9 +209,12 @@
                 <div class="form-group">
                     <label>Contenido de la publicación</label>
                     <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $book->document['synopsis'])}}</textarea>
-                </div>
-                              
+                </div>                              
             </div>
+            <!-- <div class="form-group">
+                <label>Contenido de la publicación</label>
+                <textarea name="body" id="body" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('body', $post->body)}}</textarea>
+            </div>    -->
         </div>       
     </div>   
 {!! Form::close() !!}    
