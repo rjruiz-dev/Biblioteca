@@ -23,7 +23,7 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     {!! Form::label('document_subtypes_id', 'Subtipo') !!}
-                    {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id' ]) !!}
+                    {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'onchange' => 'yesnoCheck()']) !!}
 
                 </div>
                
@@ -31,11 +31,40 @@
                     {!! Form::label('title', 'Título') !!}                    
                     {!! Form::text('title', $book->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título' ]) !!}
                 </div>
-
                 <div class="form-group">              
-                    {!! Form::label('subtitle', 'Tema de Portada') !!}                  
+                    {!! Form::label('subtitle', 'Subtitulo', ['id' => 'l_subtitle']) !!}                  
                     {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Tema de Portada']) !!}
                 </div>
+                <div id="pub_periodica" style="display:none;"> 
+
+                    <div class="form-group">                       
+                        {!! Form::label('periodicities_id', 'Periodicidad') !!} 
+                        {!! Form::select('periodicities_id', $periodicities, $book->periodical_publication['periodicities_id'], ['class' => 'form-control select2', 'id' => 'periodicities_id']) !!}                                      
+                    </div>
+                 
+                    <div class="form-group">              
+                        {!! Form::label('volume_number_date', 'Volumen, Número y Fecha') !!}                  
+                        {!! Form::text('volume_number_date', null, ['class' => 'form-control', 'id' => 'volume_number_date', 'placeholder' => 'Volumen, Número y Fecha']) !!}
+                    </div>
+                    <div class="form-group">              
+                        {!! Form::label('issn', 'Issn') !!}                  
+                        {!! Form::text('issn', null, ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
+                    </div>
+                </div>
+
+                <div id="resto" style="display:block;">
+                    
+                    <div class="form-group">              
+                        {!! Form::label('isbn', 'Isbn') !!}                    
+                        {!! Form::text('isbn', null, ['class' => 'form-control', 'id' => 'isbn', 'placeholder' => 'Isbn']) !!}
+                    </div> 
+                    <div class="form-group">
+                        {!! Form::label('generate_books_id', 'Genero') !!}             
+                        {!! Form::select('generate_books_id', $genders, $book->generate_book['generate_books_id'], ['class' => 'form-control  select2', 'id' => 'generate_books_id', 'style' => 'width:100%;']) !!}
+                    </div>
+                </div>
+
+               
               
                             
                 <div class="form-group">
@@ -43,13 +72,15 @@
                     {!! Form::select('creators_id', $authors, $book->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id']) !!}
                 </div> 
                 <div class="form-group">
-                    {!! Form::label('second_author', 'Segundo Autor') !!}             
-                    {!! Form::select('second_author', $authors, null, ['class' => 'form-control  select2', 'id' => 'second_author']) !!}
+                    {!! Form::label('second_author_id', 'Segundo Artista') !!}             
+                    {!! Form::select('second_author_id', $authors, null, ['class' => 'form-control  select2', 'id' => 'second_author_id']) !!}
                 </div>
+
                 <div class="form-group">
-                    {!! Form::label('third_author', 'Tercer Autor') !!}  
-                    {!! Form::select('third_author', [' ' => 'Seleccione Tercer Autor'] + $authors, null, ['class' => 'form-control  select2', 'id' => 'third_author', 'style' => 'width:100%;']) !!}
-                </div>
+                    {!! Form::label('third_author_id', 'Tercer Autor') !!}                    
+                    {!! Form::select('third_author_id', $authors, null, ['class' => 'form-control select2', 'id' => 'third_author_id']) !!}
+                </div> 
+
                                
                 <div class="form-group">
                     {!! Form::label('original_title', 'Título Original') !!} 
@@ -59,10 +90,7 @@
                     {!! Form::label('translator', 'Traductor') !!}                    
                     {!! Form::text('translator', null, ['class' => 'form-control', 'id' => 'translator', 'placeholder' => 'Traductor']) !!}
                 </div> 
-                <div class="form-group">              
-                    {!! Form::label('isbn', 'Isbn') !!}                    
-                    {!! Form::text('isbn', null, ['class' => 'form-control', 'id' => 'isbn', 'placeholder' => 'Isbn']) !!}
-                </div> 
+               
                 <div class="form-group">
                     <label>Adquirido</label>
                     <div class="input-group date">
@@ -95,10 +123,7 @@
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $book->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id']) !!}
                 </div>
-                <div class="form-group">
-                    {!! Form::label('generate_books_id', 'Genero') !!}             
-                    {!! Form::select('generate_books_id', $genders, $book->generate_book['generate_books_id'], ['class' => 'form-control  select2', 'id' => 'generate_books_id', 'style' => 'width:100%;']) !!}
-                </div>
+              
                 <div class="form-group">              
                     {!! Form::label('registry_number', 'Número de Registro') !!}                    
                     {!! Form::text('registry_number', $book->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
@@ -111,10 +136,10 @@
                     {!! Form::label('let_title', 'let_title') !!}                    
                     {!! Form::text('let_title', $book->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del titulo']) !!}
                 </div>
-                <div class="form-group">              
-                    {!! Form::label('cdu', 'Cdu') !!}                    
-                    {!! Form::text('cdu', $book->document['cdu'], ['class' => 'form-control', 'id' => 'cdu', 'placeholder' => 'Cdu']) !!}
-                </div>
+                <div class="form-group">
+                    {!! Form::label('generate_subjects_id', 'Cdu') !!}             
+                    {!! Form::select('generate_subjects_id', $subjects, null, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'style' => 'width:100%;']) !!}
+                </div> 
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
                     {!! Form::text('assessment', $book->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
@@ -182,6 +207,10 @@
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $book->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id']) !!}                     
                 </div>
+                <div class="form-group">
+                    {!! Form::label('generate_references_id', 'Referencia') !!} 
+                    {!! Form::select('generate_references_id', $references, $book->document['generate_references_id'], ['class' => 'form-control  select2', 'id' => 'generate_references_id', 'style' => 'width:100%;']) !!}                     
+                </div>
              
                 <div class="form-group">
                     <label>Observación</label>
@@ -211,10 +240,7 @@
                     <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $book->document['synopsis'])}}</textarea>
                 </div>                              
             </div>
-            <!-- <div class="form-group">
-                <label>Contenido de la publicación</label>
-                <textarea name="body" id="body" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('body', $post->body)}}</textarea>
-            </div>    -->
+         
         </div>       
     </div>   
 {!! Form::close() !!}    

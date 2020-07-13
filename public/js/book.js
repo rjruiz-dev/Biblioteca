@@ -30,12 +30,12 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
 
-            $('#second_author').select2({
+            $('#second_author_id').select2({
                 placeholder: 'Selecciona un Segundo Autor',
                 tags: true,               
             });
 
-            $('#third_author').select2({
+            $('#third_author_id').select2({
                 placeholder: 'Selecciona un Tercer Autor',
                 tags: true,               
             });
@@ -101,6 +101,9 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona un Idioma',
                 tags: true,                            
             });
+
+           
+           
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
@@ -222,16 +225,20 @@ $('body').on('click', '.btn-show', function (event) {
     $('#modal').modal('show');
 });
 
-// function yesnoCheck() {
-//     if (document.getElementById("document_subtypes_id").value == 1) {
-//         document.getElementById("book_periodical").style.display = "block";
-//         document.getElementById("book_not_periodical").style.display = "none";
-//     } else {
-//         document.getElementById("book_not_periodical").style.display = "block";
-//         document.getElementById("book_periodical").style.display = "none";
-//     }
-// }
 
+function yesnoCheck() {
+    if (document.getElementById("document_subtypes_id").value == 2) { // si es pub. periodica
+        document.getElementById("pub_periodica").style.display = "block";
+        document.getElementById("resto").style.display = "none";
+        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';     
+    
+    } else { // si es otro o literatura
+        document.getElementById("resto").style.display = "block";
+        document.getElementById("pub_periodica").style.display = "none";
+        document.getElementById("l_subtitle").innerHTML = 'Subtitulo';  
+       
+    }
+}
 
 
 

@@ -24,7 +24,10 @@ function(){
     Route::get('/',                 'AdminController@index')->name('dashboard');         
     Route::resource('users',        'UserController',['as' => 'admin']); 
     Route::resource('books',        'BookController',['as' => 'admin']); 
+    Route::resource('music',        'MusicController',['as' => 'admin']);
     Route::resource('movies',       'MoviesController',['as' => 'admin']);
+    Route::resource('photographs',  'PhotographyController',['as' => 'admin']);
+    Route::resource('multimedias',  'MultimediaController',['as' => 'admin']);
     Route::resource('languages',    'LenguageController', ['except' => 'show', 'as' => 'admin']);  
     Route::resource('periodicals',  'PeriodicityController', ['except' => 'show', 'as' => 'admin']);  
     Route::resource('literatures',  'GenerateBookController', ['except' => 'show', 'as' => 'admin']);  
@@ -51,7 +54,10 @@ Route::get('cinematographics/table','GenerateFilmController@dataTable')->name('c
 Route::get('courses/table',         'CourseController@dataTable')->name('courses.table'); 
 Route::get('subjects/table',        'GenerateSubjectsController@dataTable')->name('subjects.table'); 
 Route::get('letters/table',         'GenerateLetterController@dataTable')->name('letters.table'); 
-
+Route::get('movies/table',          'MoviesController@dataTable')->name('movies.table');
+Route::get('music/table',           'MusicController@dataTable')->name('music.table');
+Route::get('photographs/table',     'PhotographyController@dataTable')->name('photographs.table');
+Route::get('multimedias/table',     'MultimediaController@dataTable')->name('multimedias.table');
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');

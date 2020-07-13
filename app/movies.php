@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movies extends Model
 {
-    protected $fillable = ['documents_id', 'generate_films_id', 'generate_formats_id', 'subtitle', 'director', 'distribution', 
-    'original_title', 'script', 'specific_content', 'photography', 
-    'awards', 'distributor'];
+    protected $fillable = ['documents_id', 'generate_films_id', 'generate_formats_id', 'generate_subjects_id',  'adaptations_id', 'photography_movies_id', 'subtitle',  'distribution', 
+    'script', 'specific_content', 'awards', 'distributor'];
 
     public function document()
     {
-        return $this->belongsTo(Document::class);
+        return $this->belongsTo(Document::class, 'documents_id');
     }
 
     public function generate_movie()
@@ -23,5 +22,16 @@ class Movies extends Model
     public function generate_format()
     {
         return $this->belongsTo(Generate_format::class, 'generate_formats_id');
+    }   
+     
+
+    public function adaptation()
+    {
+        return $this->belongsTo(Adaptations::class, 'adaptations_id');
+    }
+
+    public function photography_movie()
+    {
+        return $this->belongsTo(photography_movies::class, 'photography_movies_id');
     }
 }

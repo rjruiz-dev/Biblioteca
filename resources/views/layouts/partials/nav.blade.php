@@ -35,7 +35,11 @@
         </ul>
     </li>
 
-    <li class="treeview {{ setActiveRoute('admin.books.index') }}">                
+    <li class="treeview {{ setActiveRoute([
+                                            'admin.books.index', 'admin.movies.index',
+                                            'admin.music.index', 'admin.photographs.index',
+                                            'admin.multimedias.index'                                           
+                                        ]) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>Catálogo</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -45,6 +49,26 @@
             <li class="{{ setActiveRoute('admin.books.index') }}">
                 <a href="{{ route('admin.books.index') }}">
                     <i class="fa fa-book"></i><span> Libros</span>
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.movies.index') }}">
+                <a href="{{ route('admin.movies.index') }}">
+                    <i class="fa fa-book"></i><span> Cines</span> 
+                </a>
+            </li> 
+            <li class="{{ setActiveRoute('admin.music.index') }}">
+                <a href="{{ route('admin.music.index') }}">
+                    <i class="fa fa-book"></i><span> Musica</span> 
+                </a>
+            </li>   
+            <li class="{{ setActiveRoute('admin.photographs.index') }}">
+                <a href="{{ route('admin.photographs.index') }}">
+                    <i class="fa fa-book"></i><span> Fotografias</span> 
+                </a>
+            </li> 
+            <li class="{{ setActiveRoute('admin.multimedias.index') }}">
+                <a href="{{ route('admin.multimedias.index') }}">
+                    <i class="fa fa-book"></i><span> Multimedias</span> 
                 </a>
             </li>                     
         </ul>

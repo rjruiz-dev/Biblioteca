@@ -15,13 +15,13 @@ class CreateDocumentSubtypesTable extends Migration
     {
         Schema::create('document_subtypes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('document_types_id')->unsigned();
+            $table->integer('document_types_id')->nullable();
             $table->string('subtype_name'); 
             $table->timestamps();
 
-            $table->foreign('document_types_id')->references('id')->on('document_types')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            // $table->foreign('document_types_id')->references('id')->on('document_types')
+            // ->onDelete('cascade')
+            // ->onUpdate('cascade');
         });
     }
 

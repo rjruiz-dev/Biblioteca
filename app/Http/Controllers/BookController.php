@@ -13,6 +13,8 @@ use App\Periodicity;
 use App\Generate_book;
 use App\Document_type;
 use App\Document_subtype;
+use App\Generate_subjects;
+use App\Generate_reference;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
@@ -39,18 +41,20 @@ class BookController extends Controller
         $book = new Book();      
                              
         return view('admin.books.partials.form', [
-            'documents' => Document_type::pluck( 'document_description', 'id'),
-            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'   => Creator::pluck('creator_name', 'id')->toArray(),
-            'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
-            'genders' => Generate_book::pluck('genre_book', 'id'),
-            'publications' => Document::pluck('published', 'published'),
-            'editorials' => Document::pluck('made_by', 'made_by'),
-            'editions' => Book::pluck('edition', 'id'),         
+            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'documents'     => Document_type::pluck( 'document_description', 'id'),
+            'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
+            'authors'       => Creator::pluck('creator_name', 'id')->toArray(),
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'genders'       => Generate_book::pluck('genre_book', 'id'),
+            'publications'  => Document::pluck('published', 'published'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),
+            'editions'      => Book::pluck('edition', 'id'),         
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
-            'volumes' => Document::pluck('volume', 'id'),
-            'languages' => Lenguage::pluck('leguage_description', 'id'),
-            'book'      => $book
+            'volumes'       => Document::pluck('volume', 'id'),
+            'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'book'          => $book
         ]);  
     }
 
@@ -69,27 +73,15 @@ class BookController extends Controller
                 
                 // Creamos el documento            
                 $document = new Document;   
-                        
-                if( is_numeric($request->get('creators_id'))) 
-                {                
-                    $document->creators_id    = $request->get('creators_id');    
-
-                }else
-                {
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('creators_id');
-                    $creator->document_types_id = 3;
-                    $creator->save();
-                    $document->creators_id = $creator->id;
-                }
-            
+                $document->document_types_id        = 3; // 1 tipo de documento: musica.
+                $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
                 $document->acquired         = Carbon::parse($request->get('acquired'));        
                 $document->drop             = Carbon::parse($request->get('drop'));        
                 $document->let_author       = $request->get('let_author');
-                $document->cdu              = $request->get('cdu');  
+                $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
                 $document->assessment       = $request->get('assessment');  
                 $document->desidherata      = $request->get('desidherata');
@@ -103,9 +95,24 @@ class BookController extends Controller
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
                 $document->synopsis         = $request->get('synopsis');
+              
+                if( is_numeric($request->get('creators_id'))) 
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name      = $request->get('creators_id');
+                    $creator->document_types_id = 3;
+                    $creator->save();
+                    $document->creators_id = $creator->id;
+                }
+                
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
-                $document->lenguages_id     = $request->get('lenguages_id');                
+                $document->lenguages_id     = $request->get('lenguages_id');    
+                $document->generate_references_id     = $request->get('generate_references_id');            
                 $document->document_types_id    = 3;
                 $document->document_subtypes_id = $request->get('document_subtypes_id');
                 $document->save();
@@ -113,8 +120,32 @@ class BookController extends Controller
                 // Creamos el libro           
                 $book = new Book;   
                 $book->subtitle         = $request->get('subtitle');
-                $book->second_author    = $request->get('second_author');
-                $book->third_author     = $request->get('third_author');
+                if( is_numeric($request->get('second_author_id'))) 
+                {                
+                    $book->second_author_id    = $request->get('second_author_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('second_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $book->second_author_id = $creator->id;
+                }
+               // $book->third_author    = $request->get('third_author');
+               if( is_numeric($request->get('third_author_id'))) 
+                {                
+                    $book->third_author_id    = $request->get('third_author_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('third_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $book->third_author_id = $creator->id;
+                }
+                
                 $book->translator       = $request->get('translator');        
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  
@@ -154,18 +185,20 @@ class BookController extends Controller
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
       
         return view('admin.books.partials.form', [
-            'documents' => Document_type::pluck( 'document_description', 'id'),
-            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'   => Creator::pluck('creator_name', 'id')->toArray(),
-            'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
-            'genders' => Generate_book::pluck('genre_book', 'id'),
-            'publications' => Document::pluck('published', 'published'),
-            'editorials' => Document::pluck('made_by', 'made_by'),
-            'editions' => Book::pluck('edition', 'id'),
+            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'documents'     => Document_type::pluck( 'document_description', 'id'),
+            'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
+            'authors'       => Creator::pluck('creator_name', 'id')->toArray(),
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'genders'       => Generate_book::pluck('genre_book', 'id'),
+            'publications'  => Document::pluck('published', 'published'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),
+            'editions'      => Book::pluck('edition', 'id'),
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
-            'volumes' => Document::pluck('volume', 'id'),
-            'languages' => Lenguage::pluck('leguage_description', 'id'),
-            'book'      => $book
+            'volumes'       => Document::pluck('volume', 'id'),
+            'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'book'          => $book
             // 'periodical' => $periodical
         ]);    
     }
@@ -205,7 +238,7 @@ class BookController extends Controller
                 $document->acquired         = Carbon::parse($request->get('acquired'));        
                 $document->drop             = Carbon::parse($request->get('drop'));        
                 $document->let_author       = $request->get('let_author');
-                $document->cdu              = $request->get('cdu');  
+                $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
                 $document->assessment       = $request->get('assessment');  
                 $document->desidherata      = $request->get('desidherata');
@@ -221,15 +254,42 @@ class BookController extends Controller
                 $document->synopsis         = $request->get('synopsis');
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
-                $document->lenguages_id     = $request->get('lenguages_id');          
+                $document->lenguages_id     = $request->get('lenguages_id');     
+                $document->generate_references_id     = $request->get('generate_references_id');     
                 $document->document_types_id    = 3;
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
                 $document->save();
 
+
+
                 // Actualizamos el libro               
                 $book->subtitle         = $request->get('subtitle');
-                $book->second_author    = $request->get('second_author');
-                $book->third_author     = $request->get('third_author');
+                if( is_numeric($request->get('second_author_id'))) 
+                {                
+                    $book->second_author_id    = $request->get('second_author_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('second_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $book->second_author_id = $creator->id;
+                }
+               // $book->third_author    = $request->get('third_author');
+               if( is_numeric($request->get('third_author_id'))) 
+                {                
+                    $book->third_author_id    = $request->get('third_author_id');    
+
+                }else
+                {
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('third_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $book->third_author_id = $creator->id;
+                }
+               
                 $book->translator       = $request->get('translator');        
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  

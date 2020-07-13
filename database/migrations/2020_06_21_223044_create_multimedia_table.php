@@ -17,15 +17,15 @@ class CreateMultimediaTable extends Migration
             $table->increments('id');
 
             $table->integer('documents_id')->unsigned();
-            $table->integer('multimedia_types_id')->unsigned();
+            $table->integer('second_author_id')->unsigned(); 
+            $table->integer('third_author_id')->unsigned(); 
 
-            $table->string('author')->nullable();
-            $table->string('subtitle')->nullable();            
-            $table->string('second_author')->nullable();
-            $table->string('third_author')->nullable();
+            
+            $table->string('subtitle')->nullable();           
             $table->string('isbn')->unique();
             $table->string('gender')->nullable();
             $table->string('edition')->nullable();
+            $table->string('translator')->nullable();
             $table->string('size')->nullable();        
             $table->timestamps();
 
@@ -33,9 +33,15 @@ class CreateMultimediaTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('multimedia_types_id')->references('id')->on('multimedia_types')
+            $table->foreign('second_author_id')->references('id')->on('creators')
             ->onDelete('cascade')
             ->onUpdate('cascade');
+
+            
+            $table->foreign('third_author_id')->references('id')->on('creators')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+           
         });
     }
 

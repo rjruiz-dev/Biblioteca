@@ -25,7 +25,7 @@ class CreateDocumentsTable extends Migration
             $table->integer('creators_id')->unsigned();
 
             $table->string('title')->unique();
-            $table->integer('registry_number')->unique();
+            $table->integer('registry_number')->nullable();
 
             $table->string('original_title')->nullable();
             $table->timestamp('acquired')->nullable();
@@ -39,7 +39,7 @@ class CreateDocumentsTable extends Migration
             $table->string('made_by')->nullable();
             $table->timestamp('year')->nullable();
             $table->string('volume')->nullable();
-            $table->integer('quantity_generic')->nullable();
+            $table->string('quantity_generic')->nullable();
             $table->string('collection')->nullable();
             $table->string('location');
             $table->mediumText('observation')->nullable();

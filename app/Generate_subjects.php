@@ -12,4 +12,5 @@ class Generate_subjects extends Model
     {
         return $this->hasOne(Document::class);
     }
+    
 }

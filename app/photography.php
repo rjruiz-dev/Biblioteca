@@ -11,7 +11,7 @@ class Photography extends Model
     
      public function document()
      {
-         return $this->belongsTo(Document::class);
+         return $this->belongsTo(Document::class, 'documents_id');
      }
     
      public function type_photography()
