@@ -4,6 +4,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Document::class, function (Faker $faker) {    
     return [
+        // 'generate_subjects_id' => $faker->randomElement(['5','7']),
+        // 'generate_references_id' => $faker->randomElement(['5','7']),
         'adequacies_id' => $faker->randomElement(['1','2']),
         'lenguages_id' => $faker->randomElement(['1','2']),
         'document_types_id' => $faker->randomElement(['1','2']),
@@ -22,7 +24,7 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'published' => $faker->state,
         'made_by' => $faker->company, 
         'year' => $faker->year($max = 'now'), 
-        'volumes'=> $faker->numerify('# Vol.'), 
+        'volume'=> $faker->numerify('# Vol.'), 
         'page' => $faker->numerify('### Pag.'), 
         'collection'     => $faker->name,
         'location'=> $faker->name, 

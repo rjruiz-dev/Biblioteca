@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Culture extends Model
 {
-    protected $fillable = ['music_id', 'album_title', 'soloist', 'orchestra', 'director', 'composer'];
+    protected $fillable = ['music_id', 'album_title', 'director', 'orchestra', 'soloist'];
 
     public function music()
     {

@@ -17,14 +17,17 @@ class CreatePeriodicalPublicationsTable extends Migration
             $table->increments('id');
 
             $table->integer('books_id')->unsigned();
+            $table->integer('periodicities_id')->unsigned();
 
             $table->string('volume_number_date');
-            $table->string('ISSN');
-            $table->string('periodicity')->nullable();
-            
+            $table->string('issn');
             $table->timestamps();
 
             $table->foreign('books_id')->references('id')->on('books')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('periodicities_id')->references('id')->on('periodicities')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

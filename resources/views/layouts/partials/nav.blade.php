@@ -22,15 +22,15 @@
 
 
     
-    <li class="treeview {{ setActiveRoute('admin.fastprocess.index') }}">                
+    <li class="treeview {{ setActiveRoute('admin.FPSocios.index') }}">                
         <a href="#"><i class="fa fa-users"></i> <span>Proceso rapido</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>       
         <ul class="treeview-menu">             
-            <li class="{{ setActiveRoute('admin.fastprocess.index') }}">
-                <a href="{{ route('admin.fastprocess.index') }}">
+            <li class="{{ setActiveRoute('admin.FPSocios.index') }}">
+                <a href="{{ route('admin.FPSocios.index') }}">
                     <i class="fa fa-user"></i><span> Socios</span>
                 </a>
             </li> 

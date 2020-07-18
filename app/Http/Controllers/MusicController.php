@@ -41,7 +41,7 @@ class MusicController extends Controller
                               
         return view('admin.music.partials.form', [
             'documents' => Document_type::pluck( 'document_description', 'id'),
-            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
+             'subtypes'       => Document_subtype :: where ( 'document_types_id' , 1 ) -> get () -> pluck ( 'subtype_name' , 'id' ),
             'authors'   => Creator::pluck('creator_name', 'id'),
             'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
             'genders' => Generate_musics::pluck('genre_music', 'id'),
@@ -85,7 +85,7 @@ class MusicController extends Controller
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::parse($request->get('year'));
-                $document->volumes           = $request->get('volumes');
+                $document->volume           = $request->get('volumes');
                 $document->quantity_generic  = $request->get('quantity_generic');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
@@ -127,11 +127,11 @@ class MusicController extends Controller
                 // evaluamos si se eligio culta o popular y en base a eso insertamos en la 
                 //respectiva tabla
 
-                if($request->get('document_subtypes_id') == 3){ // si es popular
-                    $popular = new Popular;   
+                if($request->get('document_subtypes_id') == 2){ // si es popular  
+                $popular = new Popular;   
                 $popular->subtitle      = $request->get('subtitle');
                 $popular->other_artists    = $request->get('other_artists');
-                $popular->director     = $request->get('music_populars');
+                $popular->music_populars     = $request->get('music_populars');
 
                 $popular->music_id = $music->id; //guardamos el id del libro
 
@@ -140,8 +140,8 @@ class MusicController extends Controller
                 }else{         
                 $culture = new Culture;   
                 $culture->album_title      = $request->get('album_title');
-                // $culture->composer    = $request->get('composer');
-                $culture->director     = $request->get('director');
+                // $culture->composer    = $request->get('composer'); ->>creadores
+                $culture->director     = $request->get('director');//
                 $culture->orchestra       = $request->get('orchestra');        
                 $culture->soloist          = $request->get('soloist');
 
@@ -182,7 +182,7 @@ class MusicController extends Controller
                                
         return view('admin.music.partials.form', [
             'documents' => Document_type::pluck( 'document_description', 'id'),
-            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
+            'subtypes'       => Document_subtype :: where ( 'document_types_id' , 1 ) -> get () -> pluck ( 'subtype_name' , 'id' ),
             'authors'   => Creator::pluck('creator_name', 'id'),
             'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
             'genders' => Generate_musics::pluck('genre_music', 'id'),
@@ -225,7 +225,7 @@ class MusicController extends Controller
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::parse($request->get('year'));
-                $document->volumes           = $request->get('volumes');
+                $document->volume           = $request->get('volumes');
                 $document->quantity_generic  = $request->get('quantity_generic');
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');

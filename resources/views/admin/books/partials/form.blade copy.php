@@ -22,11 +22,6 @@
                 @endif
 
                 <div class="form-group">
-                    {!! Form::label('document_types_id', 'Documento') !!}
-                    {!! Form::select('document_types_id', $documents,  $book->document['document_types_id'], ['class' => 'form-control select2', 'id' => 'document_types_id']) !!}
-                </div>
-
-                <div class="form-group">
                     {!! Form::label('document_subtypes_id', 'Subtipo') !!}
                     {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id']) !!}
                 </div>

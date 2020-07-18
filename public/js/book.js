@@ -26,17 +26,17 @@ $('body').on('click', '.modal-show', function (event) {
             });
 
             $('#creators_id').select2({
-                placeholder: 'Selecciona un Autor',
+                placeholder: 'Seleccione o ingrese un Autor',
                 tags: true,               
             });
 
-            $('#second_author').select2({
-                placeholder: 'Selecciona un Segundo Autor',
+            $('#second_author_id').select2({
+                placeholder: 'Seleccione o ingrese un Segundo Autor',
                 tags: true,               
             });
 
-            $('#third_author').select2({
-                placeholder: 'Selecciona un Tercer Autor',
+            $('#third_author_id').select2({
+                placeholder: 'Seleccione o ingrese un Tercer Autor',
                 tags: true,               
             });
 
@@ -53,14 +53,29 @@ $('body').on('click', '.modal-show', function (event) {
                 // startDate: date,              
                 language: 'es'
             });  
-            
+
             $('#adequacies_id').select2({
                 placeholder: 'Selecciona una Adecuación',
+                tags: false,               
+            });
+
+            $('#generate_subjects_id').select2({
+                placeholder: 'Selecciona una Materia',
+                tags: true,               
+            });
+
+            $('#generate_references_id').select2({
+                placeholder: 'Seleccione o ingrese una Referencia',
                 tags: true,               
             });
 
             $('#generate_books_id').select2({
                 placeholder: 'Selecciona un Género',
+                tags: false,               
+            });
+
+            $('#published').select2({
+                placeholder: 'Selecciona Lugar de Publicacíon',
                 tags: true,               
             });
 
@@ -91,8 +106,42 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,                            
             });
 
-            CKEDITOR.replace('synopsis');
-            CKEDITOR.config.height = 190;   
+            if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+                //CAMBIO DE LABEL
+                document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
+                document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+                //FORM GROUP MOSTRAR
+                document.getElementById("din_volume_number_date").style.display = "block";
+                document.getElementById("din_periodicities_id").style.display = "block";
+                document.getElementById("din_issn").style.display = "block";
+                //FORM GROUP NO MOSTRAR
+                document.getElementById("din_isbn").style.display = "none";
+                document.getElementById("din_generate_books_id").style.display = "none";
+                document.getElementById("din_third_author_id").style.display = "none";
+
+            } else { //si NOO es publ periodica
+                
+                if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
+                //CAMBIO DE LABEL
+                document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+                }else{
+                document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
+                }
+
+                //CAMBIO DE LABEL
+                document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
+                 //FORM GROUP NO MOSTRAR
+                document.getElementById("din_volume_number_date").style.display = "none";
+                document.getElementById("din_periodicities_id").style.display = "none";
+                document.getElementById("din_issn").style.display = "none";
+                //FORM GROUP MOSTRAR
+                document.getElementById("din_isbn").style.display = "block";
+                document.getElementById("din_generate_books_id").style.display = "block";
+                document.getElementById("din_third_author_id").style.display = "block";
+            }
+
+            // CKEDITOR.replace('synopsis');
+            // CKEDITOR.config.height = 190;   
         }
     });
 
@@ -210,4 +259,39 @@ $('body').on('click', '.btn-show', function (event) {
     $('#modal').modal('show');
 });
 
+function yesnoCheck() {
+    if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+        //CAMBIO DE LABEL
+        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
+        document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+        //FORM GROUP MOSTRAR
+        document.getElementById("din_volume_number_date").style.display = "block";
+        document.getElementById("din_periodicities_id").style.display = "block";
+        document.getElementById("din_issn").style.display = "block";
+        //FORM GROUP NO MOSTRAR
+        document.getElementById("din_isbn").style.display = "none";
+        document.getElementById("din_generate_books_id").style.display = "none";
+        document.getElementById("din_third_author_id").style.display = "none";
+
+    } else { //si NOO es publ periodica
+        
+        if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
+        //CAMBIO DE LABEL
+        document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+        }else{
+        document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
+        }
+
+        //CAMBIO DE LABEL
+        document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
+         //FORM GROUP NO MOSTRAR
+        document.getElementById("din_volume_number_date").style.display = "none";
+        document.getElementById("din_periodicities_id").style.display = "none";
+        document.getElementById("din_issn").style.display = "none";
+        //FORM GROUP MOSTRAR
+        document.getElementById("din_isbn").style.display = "block";
+        document.getElementById("din_generate_books_id").style.display = "block";
+        document.getElementById("din_third_author_id").style.display = "block";
+    }
+}
 

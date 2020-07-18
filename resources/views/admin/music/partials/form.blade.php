@@ -35,50 +35,70 @@
                     {!! Form::label('title', 'Título', ['id' => 'l_title']) !!}                    
                     {!! Form::text('title', $music->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título']) !!}
                 </div>
-                <div class="form-group">
-                    {!! Form::label('creators_id', 'Artista', ['id' => 'l_creators_id']) !!}             
-                    {!! Form::select('creators_id', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id']) !!}
-                </div> 
-
-<div id="culta" style="display:block;"> 
-                <!-- CAMPOS PROPIOS DE CULTURA-->
-                <div class="form-group">              
-                    {!! Form::label('album_title', 'Título del Disco') !!}                    
-                    {!! Form::text('album_title', $music->culture['album_title'], ['class' => 'form-control', 'id' => 'album_title', 'placeholder' => 'Título del Disco']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('director', 'Director') !!}                    
-                    {!! Form::text('director', $music->culture['director'], ['class' => 'form-control', 'id' => 'director', 'placeholder' => 'Director']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('orchestra', 'Orquesta') !!}                    
-                    {!! Form::text('orchestra', $music->culture['orchestra'], ['class' => 'form-control', 'id' => 'orchestra', 'placeholder' => 'Orquesta']) !!}
-                </div> 
-                <div class="form-group">              
-                    {!! Form::label('soloist', 'Solista') !!}                    
-                    {!! Form::text('soloist', $music->culture['soloist'], ['class' => 'form-control', 'id' => 'soloist', 'placeholder' => 'Solista']) !!}
-                </div>               
-</div>
-
-<div id="popular" style="display:none;"> 
-<!-- CAMPOS PROPIOS DE POPULAR -->
-        <div class="form-group">              
+                <!-- popular  -->
+                <div class="form-group" id="din_subtitle">              
                     {!! Form::label('subtitle', 'Subtítulo') !!}                    
                     {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
                 </div>
-        <div class="form-group">
+                <!-- culta  -->
+                <div class="form-group" id="din_album_title">             
+                    {!! Form::label('album_title', 'Título del Disco') !!}                    
+                    {!! Form::text('album_title', $music->culture['album_title'], ['class' => 'form-control', 'id' => 'album_title', 'placeholder' => 'Título del Disco']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('creators_id', 'Artista', ['id' => 'l_creators_id']) !!}             
+                    {!! Form::select('creators_id', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id', 'style' => 'width: 100%']) !!}
+                </div>
+
+                <!-- popular  -->
+                <div class="form-group" id="din_other_artists">
                     {!! Form::label('other_artists', 'Otros Artistas') !!}             
                     {!! Form::select('other_artists', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'other_artists', 'style' => 'width: 100%']) !!}
                 </div>
-        <div class="form-group">
+                <!-- popular  -->
+                <div class="form-group" id="din_music_populars">
                     {!! Form::label('music_populars', 'Musica') !!}             
                     {!! Form::text('music_populars', null, ['class' => 'form-control', 'id' => 'music_populars', 'placeholder' => 'Musica']) !!}
                  </div>
-        <div class="form-group">
+                 <!-- popular  -->
+                 <div class="form-group" id="din_original_title">
                     {!! Form::label('original_title', 'Título Original') !!} 
                     {!! Form::text('original_title', null, ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
                 </div>
-</div>          
+                 <!-- culta  -->
+                <div class="form-group" id="din_director">              
+                    {!! Form::label('director', 'Director') !!}                    
+                    {!! Form::text('director', $music->culture['director'], ['class' => 'form-control', 'id' => 'director', 'placeholder' => 'Director']) !!}
+                </div>
+                <!-- culta  -->
+                <div class="form-group" id="din_orchestra">              
+                    {!! Form::label('orchestra', 'Orquesta') !!}                    
+                    {!! Form::text('orchestra', $music->culture['orchestra'], ['class' => 'form-control', 'id' => 'orchestra', 'placeholder' => 'Orquesta']) !!}
+                </div> 
+                <!-- culta  -->
+                <div class="form-group" id="din_soloist">              
+                    {!! Form::label('soloist', 'Solista') !!}                    
+                    {!! Form::text('soloist', $music->culture['soloist'], ['class' => 'form-control', 'id' => 'soloist', 'placeholder' => 'Solista']) !!}
+                </div>
+                
+
+<!-- <div id="culta" style="display:block;">  -->
+<!-- <div id="culta">
+                CAMPOS PROPIOS DE CULTURA
+               
+            
+                               
+</div> -->
+
+<!-- <div id="popular" style="display:none;">  -->
+<!-- <div id="popular"> 
+CAMPOS PROPIOS DE POPULAR
+       
+        
+        
+        
+</div>           -->
                 
                 <div class="form-group">
                     {!! Form::label('producer', 'Productor') !!}                    
@@ -183,7 +203,7 @@
                 
               
                 <div class="form-group">                  
-                {!! Form::label('sound', 'Sonido') !!}             
+                {!! Form::label('sound', 'Fotografia') !!}             
                     {!! Form::select('sound', $sounds, null, ['class' => 'form-control  select2', 'id' => 'sound']) !!}
                 </div>
                 <div class="form-group">                   
@@ -197,6 +217,10 @@
                 <div class="form-group">                  
                 {!! Form::label('formats_id', 'Formato') !!}             
                     {!! Form::select('formats_id', $formats, null, ['class' => 'form-control  select2', 'id' => 'formats_id']) !!}
+                </div>
+                <div class="form-group" id="din_collection">                 
+                    {!! Form::label('collection', 'Coleccion') !!}               
+                    {!! Form::text('collection', $music->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Coleccion']) !!}
                 </div>
                 <div class="form-group">                 
                     {!! Form::label('location', 'Ubicacion') !!}               

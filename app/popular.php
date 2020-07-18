@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Popular extends Model
 {
-    protected $fillable = ['music_id', 'album_title', 'subtitle', 'artist', 
-    'other_artists', 'music_populars'];
+    protected $fillable = ['music_id', 'subtitle', 'other_artists', 'music_populars'];
     
     public function music()
     {

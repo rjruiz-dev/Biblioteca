@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function book_movements()
     {  
-        return $this->hasMany(Book_movement::class);
+        return $this->hasOne(Book_movement::class);
     }
     
 }
