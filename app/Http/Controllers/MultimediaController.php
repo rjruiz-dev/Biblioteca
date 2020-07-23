@@ -14,6 +14,7 @@ use App\Generate_subjects;
 use App\Generate_reference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveDocumentRequest;
 
 class MultimediaController extends Controller
 {
@@ -37,15 +38,17 @@ class MultimediaController extends Controller
         $multimedia = new Multimedia();      
                               
         return view('admin.multimedias.partials.form', [   
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::pluck('reference_description', 'id'),        
-            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'   => Creator::pluck('creator_name', 'id'),
-            'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
-            
-            'volumes' => Document::pluck('volume', 'volume'),
-            'languages' => Lenguage::pluck('leguage_description', 'id'),
-            'multimedia'      => $multimedia
+            'subtypes'      => Document_subtype::pluck('subtype_name', 'id'),
+            'authors'       => Creator::pluck('creator_name', 'id'),
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),            
+            'volumes'       => Document::pluck('volume', 'volume'),
+            'publications'  => Document::pluck('published', 'published'),      
+            'editions'      =>  Multimedia::pluck('edition', 'id'),         
+            'editorials'    => Document::pluck('made_by', 'made_by'),
+            'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'multimedia'    => $multimedia
         ]); 
     }
 
@@ -55,7 +58,7 @@ class MultimediaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveDocumentRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -66,27 +69,26 @@ class MultimediaController extends Controller
                 $document = new Document;
                 $document->document_types_id    = 2; // 2 tipo de documento: multimedia.
                 $document->document_subtypes_id = 9; // 0 sub-tipo de documento: no tiene. 
-                $document->title            = $request->get('title');
+                $document->title                = $request->get('title');
                 
                 // $document->creators_id = $request->get('creators_id');
 
                 if( is_numeric($request->get('creators_id'))) 
                  {                
-                     $document->creators_id    = $request->get('creators_id');    
+                     $document->creators_id = $request->get('creators_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name = $request->get('creators_id');
-                     $creator->document_types_id = 1;
+                 }else{
+                     
+                    $creator = new Creator;
+                     $creator->creator_name         = $request->get('creators_id');
+                     $creator->document_types_id    = 1;
                      $creator->save();
-                     $document->creators_id = $creator->id;
+                     $document->creators_id         = $creator->id;
                  }
 
-                 $document->original_title    = $request->get('original_title');
-
-                $document->acquired         = Carbon::parse($request->get('acquired'));        
-                $document->drop             = Carbon::parse($request->get('drop'));        
+                $document->original_title   = $request->get('original_title');
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop')); 
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');
@@ -97,16 +99,15 @@ class MultimediaController extends Controller
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::parse($request->get('year'));
                 $document->volume           = $request->get('volume');
-                $document->quantity_generic  = $request->get('quantity_generic'); 
-                $document->collection      = $request->get('collection');
-                $document->location      = $request->get('location');
+                $document->quantity_generic = $request->get('quantity_generic'); 
+                $document->collection       = $request->get('collection');
+                $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');
                 $document->generate_references_id     = $request->get('generate_references_id');
                 $document->photo            = $request->get('photo');
                 $document->synopsis         = $request->get('synopsis');
-
                 $document->save();
 
                  // insertamos en la tabla multimedia
@@ -116,37 +117,34 @@ class MultimediaController extends Controller
                 // $multimedia->second_author         = $request->get('second_author');
                 if( is_numeric($request->get('second_author_id'))) 
                  {                
-                     $multimedia->second_author_id    = $request->get('second_author_id');    
+                     $multimedia->second_author_id  = $request->get('second_author_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name = $request->get('second_author_id');
-                     $creator->document_types_id = 2;
-                     $creator->save();
-                     $multimedia->second_author_id = $creator->id;
+                 }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('second_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $multimedia->second_author_id = $creator->id;
                  }
                 // $multimedia->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
-                 {                
-                     $multimedia->third_author_id    = $request->get('third_author_id');    
+                {                
+                    $multimedia->third_author_id    = $request->get('third_author_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name = $request->get('third_author_id');
-                     $creator->document_types_id = 2;
-                     $creator->save();
-                     $multimedia->third_author_id = $creator->id;
-                 }
+                }else{
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('third_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $multimedia->third_author_id = $creator->id;
+                }
                  
-                $multimedia->translator     = $request->get('translator');
-                $multimedia->isbn     = $request->get('isbn');
-                $multimedia->edition     = $request->get('edition');
-                $multimedia->size         = $request->get('size');
-             
-                $multimedia->documents_id = $document->id;//guardamos el id del documento
-                
+                $multimedia->translator = $request->get('translator');
+                $multimedia->isbn       = $request->get('isbn');
+                $multimedia->edition    = $request->get('edition');
+                $multimedia->size       = $request->get('size');             
+                $multimedia->documents_id = $document->id;//guardamos el id del documento               
                 $multimedia->save();
    
                 DB::commit();
@@ -181,15 +179,17 @@ class MultimediaController extends Controller
         $multimedia = Multimedia::with('document')->findOrFail($id);    
                               
         return view('admin.multimedias.partials.form', [
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::pluck('reference_description', 'id'),        
-            'subtypes'  => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'   => Creator::pluck('creator_name', 'id'),
-            'adaptations' => Adequacy::pluck('adequacy_description', 'id'),
-                 
-            'volumes' => Document::pluck('volume', 'volume'),
-            'languages' => Lenguage::pluck('leguage_description', 'id'),
-            'multimedia'      => $multimedia
+            'subtypes'      => Document_subtype::pluck('subtype_name', 'id'),
+            'authors'       => Creator::pluck('creator_name', 'id'),
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'volumes'       => Document::pluck('volume', 'volume'),
+            'publications'  => Document::pluck('published', 'published'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),            
+            'editions'      => Multimedia::pluck('edition', 'id'),         
+            'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'multimedia'    => $multimedia
         ]);  
     }
 
@@ -200,7 +200,7 @@ class MultimediaController extends Controller
      * @param  \App\multimedia  $multimedia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveDocumentRequest $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -208,29 +208,26 @@ class MultimediaController extends Controller
                 DB::beginTransaction();
                               
                 $multimedia = Multimedia::findOrFail($id);
-                $document = Document::findOrFail($multimedia->documents_id);
+                $document   = Document::findOrFail($multimedia->documents_id);
                 
-                $document->title            = $request->get('title');
-                
-                // $document->creators_id = $request->get('creators_id');
-
+                $document->title = $request->get('title');
+              
                 if( is_numeric($request->get('creators_id'))) 
                  {                
                      $document->creators_id    = $request->get('creators_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name = $request->get('creators_id');
-                     $creator->document_types_id = 1;
-                     $creator->save();
-                     $document->creators_id = $creator->id;
+                 }else{
+                     
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('creators_id');
+                    $creator->document_types_id = 1;
+                    $creator->save();
+                    $document->creators_id = $creator->id;
                  }
 
-                 $document->original_title    = $request->get('original_title');
-
-                $document->acquired         = Carbon::parse($request->get('acquired'));        
-                $document->drop             = Carbon::parse($request->get('drop'));        
+                $document->original_title   = $request->get('original_title');
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));     
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');
@@ -250,46 +247,42 @@ class MultimediaController extends Controller
                 $document->generate_references_id     = $request->get('generate_references_id');
                 $document->photo                = $request->get('photo');
                 $document->synopsis             = $request->get('synopsis');
-
                 $document->save();
 
                  // insertamos en la tabla multimedia
-
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
                 if( is_numeric($request->get('second_author_id'))) 
-                 {                
-                     $multimedia->second_author_id    = $request->get('second_author_id');    
- 
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name = $request->get('second_author_id');
-                     $creator->document_types_id = 2;
-                     $creator->save();
-                     $multimedia->second_author_id = $creator->id;
-                 }
+                {                
+                    $multimedia->second_author_id = $request->get('second_author_id');    
+
+                }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name      = $request->get('second_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $multimedia->second_author_id = $creator->id;
+                }
                 // $multimedia->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
-                 {                
-                     $multimedia->third_author_id    = $request->get('third_author_id');    
- 
-                 }else
-                 {
+                {                
+                    $multimedia->third_author_id = $request->get('third_author_id');    
+
+                }else{
+                    
                      $creator = new Creator;
-                     $creator->creator_name         = $request->get('third_author_id');
-                     $creator->document_types_id    = 2;
+                     $creator->creator_name       = $request->get('third_author_id');
+                     $creator->document_types_id  = 2;
                      $creator->save();
-                     $multimedia->third_author_id   = $creator->id;
+                     $multimedia->third_author_id = $creator->id;
                  }
                  
                 $multimedia->translator     = $request->get('translator');
                 $multimedia->isbn           = $request->get('isbn');
                 $multimedia->edition        = $request->get('edition');
-                $multimedia->size           = $request->get('size');
-             
-                $multimedia->documents_id   = $document->id;//guardamos el id del documento
-                
+                $multimedia->size           = $request->get('size');             
+                $multimedia->documents_id   = $document->id;//guardamos el id del documento                
                 $multimedia->save();
    
                 DB::commit();
@@ -318,25 +311,16 @@ class MultimediaController extends Controller
         $multimedia = Multimedia::with('document.creator') 
         // ->allowed()
         ->get();
-        // dd($multimedia);       
+         
         return dataTables::of($multimedia)
-            // ->addColumn('registry_number', function ($multimedia){
-            //     return
-            //         '<i class="fa fa-user"></i>'.' '.$multimedia->registry_number."<br>";            
-            // }) 
-            // ->addColumn('formats_id', function ($multimedia){
-
-            //     return  $multimedia->format['format_name'];              
-            // })  
+            ->addColumn('registry_number', function ($libros){
+                return $libros->document['registry_number']."<br>";            
+            })             
             ->addColumn('documents_id', function ($multimedia){
                 return
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator->creator_name."<br>";         
-            }) 
-            // ->addColumn('lenguages_id', function ($multimedia){
-
-            //     return'<i class="fa  fa-globe"></i>'.' '.$multimedia->document->lenguage->leguage_description;         
-            // })            
+            })                        
             ->addColumn('created_at', function ($multimedia){
                 return $multimedia->created_at->format('d-m-y');
             })                 
@@ -350,7 +334,7 @@ class MultimediaController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['documents_id', 'created_at', 'accion']) 
+            ->rawColumns(['registry_number','documents_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

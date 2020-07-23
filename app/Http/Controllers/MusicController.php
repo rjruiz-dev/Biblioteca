@@ -19,6 +19,7 @@ use App\Generate_format;
 use App\Generate_music;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveDocumentRequest;
 
 class MusicController extends Controller
 {
@@ -44,13 +45,14 @@ class MusicController extends Controller
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 1)->get()->pluck('subtype_name', 'id'),
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
-            'authors'       => Creator::pluck('creator_name', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
+            'authors'       => Creator::pluck('creator_name', 'id'),            
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
             'references'    => Generate_reference::pluck('reference_description', 'id'),
             'genders'       => Generate_music::pluck('genre_music', 'id'),
             'publications'  => Document::pluck('published', 'published'),
             'sounds'        => Music::pluck('sound', 'sound'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
@@ -64,7 +66,7 @@ class MusicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveDocumentRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -72,13 +74,12 @@ class MusicController extends Controller
                 DB::beginTransaction();
                               
                 // Creamos el documento            
-                $document = new Document;
-                // $document->document_types_id    = $request->get('document_types_id');
+                $document = new Document;              
                 $document->document_types_id        = 1; // 1 tipo de documento: musica.
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
-                $document->acquired                 = Carbon::parse($request->get('acquired'));        
-                $document->drop                     = Carbon::parse($request->get('drop'));        
+                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop                     = Carbon::createFromFormat('d/m/Y', $request->get('drop'));      
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
                 $document->let_title                = $request->get('let_title');
@@ -88,36 +89,31 @@ class MusicController extends Controller
                 $document->published                = $request->get('published');
                 $document->made_by                  = $request->get('made_by');
                 $document->year                     = Carbon::parse($request->get('year'));
-                $document->volume                  = $request->get('volume');
+                $document->volume                   = $request->get('volume');
                 $document->quantity_generic         = $request->get('quantity_generic');
                 $document->location                 = $request->get('location');
                 $document->observation              = $request->get('observation');
                 $document->note                     = $request->get('note');
                 $document->lenguages_id             = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
+                $document->generate_references_id   = $request->get('generate_references_id');
                 $document->photo                    = $request->get('photo');
                 $document->synopsis                 = $request->synopsis;
 
-                // $document->creators_id         = $request->get('creators_id');
-
-                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id = $request->get('creators_id');    
+                if( is_numeric($request->get('creators_id'))) 
+                {                
+                    $document->creators_id = $request->get('creators_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('creators_id');
-                     $creator->document_types_id    = 1;
-                     $creator->save();
-                     $document->creators_id         = $creator->id;
+                }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name         = $request->get('creators_id');
+                    $creator->document_types_id    = 1;
+                    $creator->save();
+                    $document->creators_id         = $creator->id;
                  }
 
 
                 $document->save();
-
-                 // insertamos en la tabla musica
-                
                 $music = new Music;   
                 $music->producer                = $request->get('producer');
                 $music->generate_musics_id      = $request->get('generate_musics_id');
@@ -139,8 +135,7 @@ class MusicController extends Controller
 
                 }else{         
                     $culture = new Culture;   
-                    $culture->album_title   = $request->get('album_title');
-                    // $culture->composer    = $request->get('composer');
+                    $culture->album_title   = $request->get('album_title');                  
                     $culture->director      = $request->get('director');
                     $culture->orchestra     = $request->get('orchestra');        
                     $culture->soloist       = $request->get('soloist');
@@ -181,11 +176,12 @@ class MusicController extends Controller
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'references'    => Generate_reference::pluck('reference_description', 'id'),
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 1)->get()->pluck('subtype_name', 'id'),
-            'authors'       => Creator::pluck('creator_name', 'id'),
+            'authors'       => Creator::pluck('creator_name', 'id'),            
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'genders'       => Generate_music::pluck('genre_music', 'id'),
             'publications'  => Document::pluck('published', 'published'),
@@ -202,7 +198,7 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RequesSaveDocumentRequestt $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -215,8 +211,8 @@ class MusicController extends Controller
               
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
-                $document->acquired                 = Carbon::parse($request->get('acquired'));        
-                $document->drop                     = Carbon::parse($request->get('drop'));        
+                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop                     = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
                 $document->let_title                = $request->get('let_title');
@@ -226,13 +222,13 @@ class MusicController extends Controller
                 $document->published                = $request->get('published');
                 $document->made_by                  = $request->get('made_by');
                 $document->year                     = Carbon::parse($request->get('year'));
-                $document->volume                  = $request->get('volume');
+                $document->volume                   = $request->get('volume');
                 $document->quantity_generic         = $request->get('quantity_generic');
                 $document->location                 = $request->get('location');
                 $document->observation              = $request->get('observation');
                 $document->note                     = $request->get('note');
                 $document->lenguages_id             = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
+                $document->generate_references_id   = $request->get('generate_references_id');
                 $document->photo                    = $request->get('photo');
                 $document->synopsis                 = $request->get('synopsis');
                 
@@ -242,23 +238,21 @@ class MusicController extends Controller
                 {                
                     $document->creators_id  = $request->get('creators_id');    
 
-                }else
-                {
+                }else{
+
                     $creator = new Creator;
                     $creator->creator_name      = $request->get('creators_id');
                     $creator->document_types_id = 1;
                     $creator->save();
-                    $document->creators_id = $creator->id;
+                    $document->creators_id      = $creator->id;
                 }
-
                 $document->save();
 
                  // actualizamos en la tabla musica  
                 $music->producer            = $request->get('producer');
-                $music->generate_formats_id     = $request->get('generate_formats_id');
+                $music->generate_formats_id = $request->get('generate_formats_id');
                 $music->generate_musics_id  = $request->get('generate_musics_id');
-                $music->sound               = $request->get('sound');
-                            
+                $music->sound               = $request->get('sound');                            
                 $music->documents_id        = $document->id;//guardamos el id del documento                
                 $music->save();
 
@@ -268,6 +262,7 @@ class MusicController extends Controller
                 if($request->get('document_subtypes_id') == 3){ // si es popular 
                     // $popular = Popular::findOrFail($id); 
                     $popular = Popular::where('id', $id)->first();
+
                     if(!is_null($popular)) {
                         $popular->subtitle      = $request->get('subtitle');
                         $popular->other_artists = $request->get('other_artists');
@@ -276,16 +271,15 @@ class MusicController extends Controller
                         $popular->save();
                     }
                 }else{ // si es culta        
-                // $culture = Culture::findOrFail($id); 
+               
                     $culture = Culture::where('id', $id)->first();
                     if(!is_null($culture)) {
-                    $culture->album_title   = $request->get('album_title');
-                    // $culture->composer    = $request->get('composer');
-                    $culture->director      = $request->get('director');
-                    $culture->orchestra     = $request->get('orchestra');        
-                    $culture->soloist       = $request->get('soloist');
-                    $culture->music_id      = $music->id; //guardamos el id del libro
-                    $culture->save();
+                        $culture->album_title   = $request->get('album_title');                    
+                        $culture->director      = $request->get('director');
+                        $culture->orchestra     = $request->get('orchestra');        
+                        $culture->soloist       = $request->get('soloist');
+                        $culture->music_id      = $music->id; //guardamos el id del libro
+                        $culture->save();
                     }
                 }
                  
@@ -311,15 +305,15 @@ class MusicController extends Controller
 
     public function dataTable()
     {   
-        $musica = Music::with('document.creator', 'document.document_subtype','generate_music') 
+        $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music') 
         // ->allowed()
         ->get();
         // dd($musica);       
         return dataTables::of($musica)
-            // ->addColumn('registry_number', function ($musica){
-            //     return
-            //         '<i class="fa fa-user"></i>'.' '.$musica->registry_number."<br>";            
-            // }) 
+            ->addColumn('registry_number', function ($musica){
+                return
+                    '<i class="fa fa-user"></i>'.' '.$musica->registry_number."<br>";            
+            })           
             ->addColumn('document_subtypes_id', function ($musica){
 
                 return  $musica->document->document_subtype->subtype_name;              
@@ -332,10 +326,10 @@ class MusicController extends Controller
                     '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
             }) 
-            // ->addColumn('lenguages_id', function ($musica){
+            ->addColumn('lenguages_id', function ($libros){
 
-            //     return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage->leguage_description;         
-            // })            
+                return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage->leguage_description;         
+            })              
             ->addColumn('created_at', function ($musica){
                 return $musica->created_at->format('d-m-y');
             })                 
@@ -349,7 +343,7 @@ class MusicController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['document_subtypes_id', 'generate_musics_id', 'documents_id', 'created_at', 'accion']) 
+            ->rawColumns(['registry_number', 'document_subtypes_id', 'generate_musics_id', 'documents_id', 'lenguages_id','created_at', 'accion']) 
             ->make(true);  
     }
 }

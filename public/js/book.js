@@ -13,63 +13,60 @@ $('body').on('click', '.modal-show', function (event) {
         url: url,
         dataType: 'html',
         success: function (response) {
-            $('#modal-body').html(response);
-            
-            $('#document_types_id').select2({
-                placeholder: 'Selecciona un tipo de Documento',
-                tags: true,               
-            });
+            $('#modal-body').html(response);           
 
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un subtipo de Documento',
-                tags: true,               
+                placeholder: 'Selecciona un subtipo de Documento'                       
+            });
+            $('#periodicities_id').select2({
+                placeholder: 'Selecciona una periodicidad'                                             
+            });
+            $('#lenguages_id').select2({
+                placeholder: 'Selecciona un Idioma'                                       
+            });
+            $('#adequacies_id').select2({
+                placeholder: 'Selecciona una Adecuación',                        
             });
 
+            $('#generate_books_id').select2({
+                placeholder: 'Selecciona un Género',                            
+            });
+            $('#generate_subjects_id').select2({
+                placeholder: 'Selecciona Cdu'                    
+            });
+          
             $('#creators_id').select2({
-                placeholder: 'Selecciona un Autor',
+                placeholder: 'Seleccione o Ingrese Autor',
                 tags: true,               
             });
 
             $('#second_author_id').select2({
-                placeholder: 'Selecciona un Segundo Autor',
+                placeholder: 'Seleccione o Ingrese Segundo Autor',
                 tags: true,               
             });
 
             $('#third_author_id').select2({
-                placeholder: 'Selecciona un Tercer Autor',
+                placeholder: 'Seleccione o Ingrese Tercer Autor',
                 tags: true,               
             });
 
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // format: 'd/m/Y',
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                 
                 language: 'es'
             });  
 
             $('#drop').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                
                 language: 'es'
-            });  
-
-            $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',
-                tags: true,               
-            });
-
-            $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',
-                tags: true,               
-            });
-
+            }); 
             $('#published').select2({
                 placeholder: 'Selecciona Lugar de Publicacíon',
                 tags: true,               
             });
-
             $('#made_by').select2({
                 placeholder: 'Selecciona una Editorial',
                 tags: true,               
@@ -78,32 +75,19 @@ $('body').on('click', '.modal-show', function (event) {
             $('#year').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",                    
                 language: 'es'
-            });  
-           
+            });             
             $('#edition').select2({
                 placeholder: 'Selecciona Número de Edición',
                 tags: true,               
             });
-
             $('#volume').select2({
                 placeholder: 'Selecciona un Volúmen',              
                 tags: true,                                 
             });
-
-            $('#periodicity_name').select2({
-                placeholder: 'Selecciona una periodicidad',              
-                tags: true,                                 
-            });
-
-            $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma',
-                tags: true,                            
-            });
-
-           
-           
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
@@ -121,6 +105,11 @@ $('#modal-btn-save').click(function (event) {
         url = form.attr('action'),
         method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
+    for(instance in CKEDITOR.instances)
+    {
+        CKEDITOR.instances[instance].updateElement();
+    }
+
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
@@ -132,12 +121,13 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
+            $('#modal2').modal('show');
 
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
-            });
+            // swal({
+            //     type : 'success',
+            //     title : '¡Éxito!',
+            //     text : '¡Se han guardado los datos!'
+            // });
         },
         error : function (xhr) {
             var res = xhr.responseJSON;
@@ -151,12 +141,6 @@ $('#modal-btn-save').click(function (event) {
             }
         }
     })
-});
-
-$('body').on('click', '.btn-btn-edit-user', function (event) {
-
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
-
 });
 
 $('body').on('click', '.btn-delete', function (event) {
@@ -227,7 +211,7 @@ $('body').on('click', '.btn-show', function (event) {
 
 
 function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 2) { // si es pub. periodica
+    if (document.getElementById("document_subtypes_id").value == 4) { // si es pub. periodica
         document.getElementById("pub_periodica").style.display = "block";
         document.getElementById("resto").style.display = "none";
         document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';     

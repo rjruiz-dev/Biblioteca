@@ -8,7 +8,23 @@
     </li>   
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
     
-    <li class="treeview">
+    <li class="treeview {{ setActiveRoute('admin.fastprocess.index') }}">                
+        <a href="#"><i class="fa fa-th-large"></i> <span>Gestión</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">             
+            <li class="{{ setActiveRoute('admin.fastprocess.index') }}">
+                <a href="{{ route('admin.fastprocess.index') }}">
+                    <i class="fa fa-plane"></i><span> Proceso rápido</span>
+                </a>
+            </li>
+                                     
+        </ul>
+    </li>
+
+    <!-- <li class="treeview">
         <a href="#"><i class="fa fa-bars"></i> <span>Gestión</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -18,7 +34,7 @@
         <li><a href="#">Proceso rápido</a></li>
         <li><a href="#">Prestamos desde la web</a></li>
     </ul>
-    </li>
+    </li> -->
 
     <li class="treeview {{ setActiveRoute('admin.users.index') }}">                
         <a href="#"><i class="fa fa-users"></i> <span>Socios</span>
@@ -53,22 +69,22 @@
             </li>
             <li class="{{ setActiveRoute('admin.movies.index') }}">
                 <a href="{{ route('admin.movies.index') }}">
-                    <i class="fa fa-book"></i><span> Cines</span> 
+                    <i class="fa fa-video-camera"></i><span> Cines</span> 
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.music.index') }}">
                 <a href="{{ route('admin.music.index') }}">
-                    <i class="fa fa-book"></i><span> Musica</span> 
+                    <i class="fa fa-music"></i><span> Musica</span> 
                 </a>
             </li>   
             <li class="{{ setActiveRoute('admin.photographs.index') }}">
                 <a href="{{ route('admin.photographs.index') }}">
-                    <i class="fa fa-book"></i><span> Fotografias</span> 
+                    <i class="fa fa-photo"></i><span> Fotografias</span> 
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.multimedias.index') }}">
                 <a href="{{ route('admin.multimedias.index') }}">
-                    <i class="fa fa-book"></i><span> Multimedias</span> 
+                    <i class="fa fa-youtube-play"></i><span> Multimedias</span> 
                 </a>
             </li>                     
         </ul>
@@ -82,7 +98,7 @@
                                             'admin.courses.index', 'admin.subjects.index',
                                             'admin.letters.index'
                                         ]) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Mantenimiento</span>
+        <a href="#"><i class="fa fa-wrench"></i> <span>Mantenimiento</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>

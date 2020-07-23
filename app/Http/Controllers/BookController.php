@@ -18,6 +18,7 @@ use App\Generate_reference;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveDocumentRequest;
 
 class BookController extends Controller
 {
@@ -40,8 +41,8 @@ class BookController extends Controller
     {
         $book = new Book();      
                              
-        return view('admin.books.partials.form', [
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+        return view('admin.books.partials.form', [           
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::pluck('reference_description', 'id'),
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
@@ -52,7 +53,7 @@ class BookController extends Controller
             'editorials'    => Document::pluck('made_by', 'made_by'),
             'editions'      => Book::pluck('edition', 'id'),         
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
-            'volumes'       => Document::pluck('volume', 'id'),
+            'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
             'book'          => $book
         ]);  
@@ -64,7 +65,7 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveDocumentRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -78,8 +79,8 @@ class BookController extends Controller
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::parse($request->get('acquired'));        
-                $document->drop             = Carbon::parse($request->get('drop'));        
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
                 $document->let_author       = $request->get('let_author');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
@@ -94,14 +95,14 @@ class BookController extends Controller
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
-                $document->synopsis         = $request->get('synopsis');
+                $document->synopsis         = $request->input('synopsis');
               
                 if( is_numeric($request->get('creators_id'))) 
                 {                
                     $document->creators_id    = $request->get('creators_id');    
 
-                }else
-                {
+                }else{
+
                     $creator = new Creator;
                     $creator->creator_name      = $request->get('creators_id');
                     $creator->document_types_id = 3;
@@ -119,39 +120,38 @@ class BookController extends Controller
 
                 // Creamos el libro           
                 $book = new Book;   
-                $book->subtitle         = $request->get('subtitle');
+                $book->subtitle = $request->get('subtitle');
                 if( is_numeric($request->get('second_author_id'))) 
                 {                
-                    $book->second_author_id    = $request->get('second_author_id');    
+                    $book->second_author_id = $request->get('second_author_id');    
 
-                }else
-                {
+                }else{
                     $creator = new Creator;
-                    $creator->creator_name = $request->get('second_author_id');
+                    $creator->creator_name      = $request->get('second_author_id');
                     $creator->document_types_id = 2;
                     $creator->save();
-                    $book->second_author_id = $creator->id;
+                    $book->second_author_id     = $creator->id;
                 }
-               // $book->third_author    = $request->get('third_author');
+               
                if( is_numeric($request->get('third_author_id'))) 
                 {                
-                    $book->third_author_id    = $request->get('third_author_id');    
+                    $book->third_author_id = $request->get('third_author_id');    
 
-                }else
-                {
+                }else{
+                    
                     $creator = new Creator;
-                    $creator->creator_name = $request->get('third_author_id');
+                    $creator->creator_name      = $request->get('third_author_id');
                     $creator->document_types_id = 2;
                     $creator->save();
-                    $book->third_author_id = $creator->id;
+                    $book->third_author_id      = $creator->id;
                 }
                 
                 $book->translator       = $request->get('translator');        
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  
                 $book->isbn             = $request->get('isbn');               
-                $book->generate_books_id    = $request->get('generate_books_id');         
-                $book->documents_id = $document->id;
+                $book->generate_books_id= $request->get('generate_books_id');         
+                $book->documents_id     = $document->id;
                 $book->save();
 
                 DB::commit();
@@ -184,8 +184,8 @@ class BookController extends Controller
     {
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
       
-        return view('admin.books.partials.form', [
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+        return view('admin.books.partials.form', [          
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::pluck('reference_description', 'id'),
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
@@ -210,7 +210,7 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveDocumentRequest $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -222,12 +222,12 @@ class BookController extends Controller
                 // Actualizamos el documento   
                 if( is_numeric($request->get('creators_id'))) 
                 {                
-                    $document->creators_id    = $request->get('creators_id');    
+                    $document->creators_id = $request->get('creators_id');    
 
                 }else
                 {
                     $creator = new Creator;
-                    $creator->creator_name      = $request->get('creators_id');
+                    $creator->creator_name  = $request->get('creators_id');
                     $creator->document_types_id = 3;
                     $creator->save();
                     $document->creators_id = $creator->id;
@@ -235,8 +235,8 @@ class BookController extends Controller
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::parse($request->get('acquired'));        
-                $document->drop             = Carbon::parse($request->get('drop'));        
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));  
                 $document->let_author       = $request->get('let_author');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
@@ -251,7 +251,7 @@ class BookController extends Controller
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
-                $document->synopsis         = $request->get('synopsis');
+                $document->synopsis         = $request->input('synopsis');
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->lenguages_id     = $request->get('lenguages_id');     
@@ -263,26 +263,26 @@ class BookController extends Controller
 
 
                 // Actualizamos el libro               
-                $book->subtitle         = $request->get('subtitle');
+                $book->subtitle = $request->get('subtitle');
                 if( is_numeric($request->get('second_author_id'))) 
                 {                
-                    $book->second_author_id    = $request->get('second_author_id');    
+                    $book->second_author_id = $request->get('second_author_id');    
 
-                }else
-                {
+                }else{
+                    
                     $creator = new Creator;
-                    $creator->creator_name = $request->get('second_author_id');
+                    $creator->creator_name      = $request->get('second_author_id');
                     $creator->document_types_id = 2;
                     $creator->save();
-                    $book->second_author_id = $creator->id;
+                    $book->second_author_id     = $creator->id;
                 }
                // $book->third_author    = $request->get('third_author');
                if( is_numeric($request->get('third_author_id'))) 
                 {                
-                    $book->third_author_id    = $request->get('third_author_id');    
+                    $book->third_author_id  = $request->get('third_author_id');    
 
-                }else
-                {
+                }else{
+                    
                     $creator = new Creator;
                     $creator->creator_name = $request->get('third_author_id');
                     $creator->document_types_id = 2;
@@ -294,8 +294,8 @@ class BookController extends Controller
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  
                 $book->isbn             = $request->get('isbn');               
-                $book->generate_books_id    = $request->get('generate_books_id'); 
-                $book->documents_id = $document->id;
+                $book->generate_books_id= $request->get('generate_books_id'); 
+                $book->documents_id     = $document->id;
                 $book->save();
                  
                 DB::commit();
@@ -315,8 +315,8 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $book = Book::findOrFail($id);
-        $document = Document::findOrFail($book->documents_id);    
+        $book       = Book::findOrFail($id);
+        $document   = Document::findOrFail($book->documents_id);    
         $book->delete(); 
         $document->delete();     
     }
@@ -328,10 +328,9 @@ class BookController extends Controller
         ->get();
         // dd($libros);       
         return dataTables::of($libros)
-            // ->addColumn('registry_number', function ($libros){
-            //     return
-            //         '<i class="fa fa-user"></i>'.' '.$libros->registry_number."<br>";            
-            // }) 
+            ->addColumn('registry_number', function ($libros){
+                return $libros->document['registry_number']."<br>";            
+            }) 
             ->addColumn('document_subtypes_id', function ($libros){
 
                 return  $libros->document->document_subtype->subtype_name;              
@@ -361,7 +360,7 @@ class BookController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['document_subtypes_id', 'generate_books_id', 'documents_id', 'lenguages_id', 'created_at', 'accion']) 
+            ->rawColumns(['document_subtypes_id', 'registry_number', 'generate_books_id', 'documents_id', 'lenguages_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

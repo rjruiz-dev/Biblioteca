@@ -17,12 +17,12 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma',
-                tags: true,                            
+                                 
             });
 
             $('#generate_references_id').select2({
                 placeholder: 'Selecciona un Referencia',
-                tags: true,                            
+               
             });
 
             $('#generate_subjects_id').select2({
@@ -32,82 +32,97 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#photography_movies_id').select2({
                 placeholder: 'Seleccione una Fotografia',
-                tags: false,               
+                  
             });
 
             $('#generate_formats_id').select2({
                 placeholder: 'Seleccione un Formato',
-                tags: false,               
+                             
             });
 
             $('#generate_films_id').select2({
                 placeholder: 'Seleccione un Genero',
-                tags: true,               
+                    
             });
 
-            $('#distribution').select2({
-                placeholder: 'Seleccione o ingrese un reparto',
+            // $('#distribution').select2({
+            //     placeholder: 'Seleccione o ingrese un reparto',
+            //     tags: true,               
+            // }); 
+            $('#actors').select2({
+                tags: true
+            });
+            
+            $('#distributor').select2({
+                placeholder: 'Seleccione o ingrese un Distribuidor',
                 tags: true,               
-            });            
+            }); 
 
-        
+            $('#adequacies_id').select2({
+                placeholder: 'Selecciona una Adecuación',                        
+            });
 
-            $('#adaptation_id').select2({
+            $('#adaptations_id').select2({
                 placeholder: 'Tiene adaptacion ?',
                 tags: false,               
             });
-
+            $('#published').select2({
+                placeholder: 'Selecciona Lugar de Publicacíon',
+                tags: true,               
+            });
+            $('#made_by').select2({
+                placeholder: 'Selecciona una Editorial',
+                tags: true,               
+            });
             $('#document_subtypes_id').select2({
                 placeholder: 'Selecciona un subtipo de Documento',
                 tags: true,               
             });
-
             $('#creators_id').select2({
-                placeholder: 'Seleccione o ingrese un Autor',
+                placeholder: 'Seleccione o Ingrese un Autor',
                 tags: true,               
             });
 
             $('#second_author_id').select2({
-                placeholder: 'Selecciona un Segundo Autor',
+                placeholder: 'Seleccione o Ingrese Segundo Autor',
                 tags: true,               
             });
 
             $('#third_author_id').select2({
-                placeholder: 'Selecciona un Tercer Autor',
+                placeholder: 'Seleccione o Ingrese Tercer Autor',
                 tags: true,               
             });
 
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                      
                 language: 'es'
             });  
 
             $('#drop').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                      
                 language: 'es'
             });  
             
 
-            $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',
-                tags: true,               
+            $('#generate_films_id').select2({
+                placeholder: 'Selecciona un Género',                   
             });
 
             $('#year').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",                    
                 language: 'es'
             });  
-
             
-
-            // CKEDITOR.replace('synopsis');
-            // CKEDITOR.config.height = 190;   
+            CKEDITOR.replace('synopsis');
+            CKEDITOR.config.height = 190;   
         }
     });
 
@@ -123,6 +138,12 @@ $('#modal-btn-save').click(function (event) {
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
+
+    for(instance in CKEDITOR.instances)
+    {
+        CKEDITOR.instances[instance].updateElement();
+    }
+
 
     $.ajax({
         url : url,

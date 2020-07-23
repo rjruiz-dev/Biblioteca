@@ -9,7 +9,7 @@ $factory->define(App\Movies::class, function (Faker $faker) {
         'generate_formats_id'   => $faker->randomElement(['1', '2', '3', '4', '5', '6']),     
         'subtitle'              => $faker->title,
         // 'director'              => $faker->name,
-        'distribution'          => $faker->state,
+        // 'distribution'          => $faker->state,
         // 'original_title'        => $faker->name,
         'script'                => $faker->name,
         'specific_content'      => $faker->sentence,

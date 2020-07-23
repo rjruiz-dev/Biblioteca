@@ -25,10 +25,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <!-- <th>N° Registro</th>  -->
-                        <!-- <th>Subtipo</th>                -->
-                        <th>Titulo y Autor</th>    
-                        <th>Subtitulo</th>  
+                        <th>N° Registro</th>                      
+                        <th>Titulo y Autor</th>                         
                         <th>ISBN</th>                     
                         <th>Agregado</th>                                
                         <th>Acciones</th>
@@ -77,31 +75,31 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3]
                     }
                 }
                 
@@ -109,8 +107,7 @@
             ajax: "{{ route('multimedias.table') }}",        
             columns: [                
                 {data: 'id', name: 'id'},                                 
-                {data: 'documents_id', name: 'documents_id'}, 
-                {data: 'subtitle', name: 'subtitle'}, 
+                {data: 'documents_id', name: 'documents_id'},         
                 {data: 'isbn', name: 'isbn'},             
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          

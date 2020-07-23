@@ -25,11 +25,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <!-- <th>N° Registro</th>  -->
+                        <th>N° Registro</th> 
                         <th>Subtipo</th>
                         <th>Genero</th>               
-                        <th>Titulo y Autor</th>    
-                        <!-- <th>Formato</th>                        -->
+                        <th>Titulo y Compositor</th>    
+                        <th>Idioma</th>                       
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -77,42 +77,43 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }
                 
             ],             
             ajax: "{{ route('music.table') }}",        
             columns: [                
-                {data: 'id', name: 'id'},   
+                {data: 'id', name: 'id'},  
+                {data: 'registry_number', name: 'registry_number'},  
                 {data: 'document_subtypes_id', name: 'document_subtypes_id'},       
                 {data: 'generate_musics_id', name: 'generate_musics_id'},                     
                 {data: 'documents_id', name: 'documents_id'}, 
-                // {data: 'lenguages_id', name: 'lenguages_id'},             
+                {data: 'lenguages_id', name: 'lenguages_id'},             
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

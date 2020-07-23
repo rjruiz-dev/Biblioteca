@@ -14,73 +14,28 @@ $('body').on('click', '.modal-show', function (event) {
         dataType: 'html',
         success: function (response) {
             $('#modal-body').html(response);
-           
-            $('#creators_id').select2({
-                placeholder: 'Seleccione o Ingrese Autor',
+            
+            $('#gender').select2({
+                placeholder: 'Selecciona un Género',
                 tags: true,               
             });
 
-            $('#second_author_id').select2({
-                placeholder: 'Seleccione o Ingrese Segundo Autor',
-                tags: true,               
+            $('#status_id').select2({
+                placeholder: 'Selecciona un Estado',                                    
             });
 
-            $('#third_author_id').select2({
-                placeholder: 'Seleccione o Ingrese Tercer Autor',
-                tags: true,               
+            $('#province').select2({
+                placeholder: 'Selecciona una Provincia',
+                tags: true,                            
             });
 
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                format: 'dd/mm/yyyy',            
+                // startDate: date,              
                 language: 'es'
-            });  
-            $('#edition').select2({
-                placeholder: 'Selecciona Número de Edición',
-                tags: true,               
-            });
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',            
-                language: 'es'
-            });  
-            $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación'              
-            });
-            $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
-            });
-            $('#published').select2({
-                placeholder: 'Selecciona Lugar de Publicacíon',
-                tags: true,               
-            });
-            $('#made_by').select2({
-                placeholder: 'Selecciona una Editorial',
-                tags: true,               
-            });
-            $('#year').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: "yyyy",
-                viewMode: "years", 
-                minViewMode: "years",                    
-                language: 'es'
-            }); 
-
-            $('#volume').select2({
-                placeholder: 'Selecciona un Volúmen',              
-                tags: true,                                 
-            });
-
-            $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma',
-                tags: false,                            
-            });
-
-            CKEDITOR.replace('synopsis');
-            CKEDITOR.config.height = 190;   
+            });             
+                 
         }
     });
 
@@ -97,12 +52,6 @@ $('#modal-btn-save').click(function (event) {
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
-    for(instance in CKEDITOR.instances)
-    {
-        CKEDITOR.instances[instance].updateElement();
-    }
-
-
     $.ajax({
         url : url,
         method: method,
@@ -110,7 +59,8 @@ $('#modal-btn-save').click(function (event) {
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            // $('#datatable').DataTable().ajax.reload();
+            $("#recargar").load(" #recargar");
 
             swal({
                 type : 'success',
@@ -132,11 +82,6 @@ $('#modal-btn-save').click(function (event) {
     })
 });
 
-$('body').on('click', '.btn-btn-edit-user', function (event) {
-
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
-
-});
 
 $('body').on('click', '.btn-delete', function (event) {
     event.preventDefault();
@@ -203,13 +148,3 @@ $('body').on('click', '.btn-show', function (event) {
 
     $('#modal').modal('show');
 });
-
-function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 3) {
-        document.getElementById("popular").style.display = "block";
-        document.getElementById("culta").style.display = "none";
-    } else {
-        document.getElementById("culta").style.display = "block";
-        document.getElementById("popular").style.display = "none";
-    }
-}

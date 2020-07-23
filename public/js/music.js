@@ -16,91 +16,78 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);
             
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un Subtipo',
-                tags: false,               
+                placeholder: 'Selecciona un Subtipo',                  
             });
 
             $('#sound').select2({
                 placeholder: 'Selecciona un Sonido',
                 tags: true,               
             });
-
-            $('#other_artists').select2({
-                tags: true,               
-            });
-
+         
             $('#creators_id').select2({
+                placeholder: 'Selecciona un Compositor',
                 tags: true,               
             });
 
-            $('#second_author').select2({
-                placeholder: 'Selecciona un Segundo Autor',
+            $('#generate_subjects_id').select2({
+                placeholder: 'Selecciona Referencia',
                 tags: true,               
             });
-
-            $('#third_author').select2({
-                placeholder: 'Selecciona un Tercer Autor',
-                tags: true,               
-            });
-
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                 
                 language: 'es'
             });  
-
             $('#drop').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                 
                 language: 'es'
-            });  
-            
-            // $('#adequacies_id').select2({
-            //     placeholder: 'Selecciona una Adecuación',
-            //     tags: true,               
-            // });
-
-            $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',
-                tags: true,               
+            });             
+            $('#adequacies_id').select2({
+                placeholder: 'Selecciona una Adecuación'               
             });
-
-            // $('#made_by').select2({
-            //     placeholder: 'Selecciona una Editorial',
-            //     tags: true,               
-            // });
-
+            $('#generate_formats_id').select2({
+                placeholder: 'Selecciona un Formato'           
+            });
+            $('#generate_musics_id').select2({
+                placeholder: 'Selecciona un Género'
+            });
             $('#year').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",                    
                 language: 'es'
-            });  
-           
-            $('#edition').select2({
-                placeholder: 'Selecciona Número de Edición',
+            });             
+            $('#published').select2({
+                placeholder: 'Selecciona Lugar de Edición',
                 tags: true,               
             });
-
             $('#volume').select2({
                 placeholder: 'Selecciona un Volúmen',              
                 tags: true,                                 
             });
+            $('#lenguages_id').select2({
+                placeholder: 'Selecciona un Idioma'                                    
+            });
+             $('#generate_references_id').select2({
+                placeholder: 'Selecciona una  o mas referencias'                                    
+            });
+            $('#made_by').select2({
+                placeholder: 'Ingresar el Sello Discografico',
+                tags: true,               
+            });
+
+            CKEDITOR.replace('synopsis');
+            CKEDITOR.config.height = 190;  
 
             document.getElementById("culta").style.display = "block";
             document.getElementById("popular").style.display = "none";
             document.getElementById("l_title").innerHTML = 'Titulo de la obra';        
-            document.getElementById("l_creators_id").innerHTML = 'Compositor';
-
-            // $('#lenguages_id').select2({
-            //     placeholder: 'Selecciona un Idioma',
-            //     tags: true,                            
-            // });
-
-            // CKEDITOR.replace('synopsis');
-            // CKEDITOR.config.height = 190;  
+            document.getElementById("l_creators_id").innerHTML = 'Compositor';                
              
         }
     });
@@ -117,6 +104,11 @@ $('#modal-btn-save').click(function (event) {
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
+
+    for(instance in CKEDITOR.instances)
+    {
+        CKEDITOR.instances[instance].updateElement();
+    }
 
     $.ajax({
         url : url,

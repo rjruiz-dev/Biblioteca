@@ -16,6 +16,7 @@ use App\Generate_reference;
 use App\Generate_format;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveDocumentRequest;
 
 class PhotographyController extends Controller
 {
@@ -40,11 +41,13 @@ class PhotographyController extends Controller
                               
         return view('admin.photographs.partials.form', [
           
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),   
+            'publications'  => Document::pluck('published', 'published'),        
             'references'    => Generate_reference::pluck('reference_description', 'id'),
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 5)->get()->pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),           
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
@@ -58,7 +61,7 @@ class PhotographyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveDocumentRequest $request)
     {
         
         if ($request->ajax()){
@@ -69,28 +72,25 @@ class PhotographyController extends Controller
                 // Creamos el documento            
                 $document = new Document;
                 $document->document_types_id    = 5; // 3 tipo de documento: cine.
-                $document->document_subtypes_id = $request->get('document_subtypes_id'); 
-                 
+                $document->document_subtypes_id = $request->get('document_subtypes_id');                 
                 $document->title                = $request->get('title');
-                
-                // $document->creators_id = $request->get('creators_id');
-
+            
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id    = $request->get('creators_id');    
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('creators_id');
-                     $creator->document_types_id    = 1;
-                     $creator->save();
-                     $document->creators_id         = $creator->id;
+                 }else{
+                     
+                    $creator = new Creator;
+                    $creator->creator_name      = $request->get('creators_id');
+                    $creator->document_types_id = 1;
+                    $creator->save();
+                    $document->creators_id      = $creator->id;
                  }
 
                 $document->original_title   = $request->get('original_title'); 
-                $document->acquired         = Carbon::parse($request->get('acquired'));        
-                $document->drop             = Carbon::parse($request->get('drop')); 
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->let_author       = $request->get('let_author');
@@ -109,45 +109,42 @@ class PhotographyController extends Controller
                 $document->lenguages_id               = $request->get('lenguages_id');
                 $document->generate_references_id     = $request->get('generate_references_id');
                 $document->photo                      = $request->get('photo');
-                $document->synopsis                   = $request->get('synopsis');
-                 
+                $document->synopsis                   = $request->get('synopsis');                 
                 $document->save();
 
                  // insertamos en la tabla photograph
                 
                 $photograph = new Photography;
-                $photograph->subtitle               = $request->get('subtitle');
+                $photograph->subtitle = $request->get('subtitle');
                 if( is_numeric($request->get('second_author_id'))) 
-                 {                
-                     $photograph->second_author_id  = $request->get('second_author_id');    
- 
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('second_author_id');
-                     $creator->document_types_id    = 2;
-                     $creator->save();
-                     $photograph->second_author_id  = $creator->id;
-                 }
-                // $photograph->third_author    = $request->get('third_author');
+                {                
+                    $photograph->second_author_id  = $request->get('second_author_id');    
+
+                }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name         = $request->get('second_author_id');
+                    $creator->document_types_id    = 2;
+                    $creator->save();
+                    $photograph->second_author_id  = $creator->id;
+                }
+                
                 if( is_numeric($request->get('third_author_id'))) 
-                 {                
-                     $photograph->third_author_id    = $request->get('third_author_id');    
+                {                
+                    $photograph->third_author_id    = $request->get('third_author_id');    
  
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name = $request->get('third_author_id');
-                     $creator->document_types_id = 2;
-                     $creator->save();
-                     $photograph->third_author_id = $creator->id;
-                 }
-                 $photograph->producer     = $request->get('producer');
-                 $photograph->edition     = $request->get('edition');
-                 $photograph->generate_formats_id     = $request->get('generate_formats_id');      
-                
-                $photograph->documents_id = $document->id;//guardamos el id del documento
-                
+                }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name = $request->get('third_author_id');
+                    $creator->document_types_id = 2;
+                    $creator->save();
+                    $photograph->third_author_id = $creator->id;
+                }
+                $photograph->producer     = $request->get('producer');
+                $photograph->edition     = $request->get('edition');
+                $photograph->generate_formats_id     = $request->get('generate_formats_id');              
+                $photograph->documents_id = $document->id;//guardamos el id del documento                
                 $photograph->save();
    
                 DB::commit();
@@ -182,10 +179,12 @@ class PhotographyController extends Controller
                               
         return view('admin.photographs.partials.form', [
             
-            'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'publications'  => Document::pluck('published', 'published'),          
             'references'    => Generate_reference::pluck('reference_description', 'id'),
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 5)->get()->pluck('subtype_name', 'id'),
+            'editorials'    => Document::pluck('made_by', 'made_by'),
             'authors'       => Creator::pluck('creator_name', 'id'),
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),          
             'volumes'       => Document::pluck('volume', 'volume'),
@@ -201,7 +200,7 @@ class PhotographyController extends Controller
      * @param  \App\photography  $photography
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveDocumentRequest $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -217,26 +216,26 @@ class PhotographyController extends Controller
                 // $document->creators_id = $request->get('creators_id');
 
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id = $request->get('creators_id');    
- 
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('creators_id');
-                     $creator->document_types_id    = 1;
-                     $creator->save();
-                     $document->creators_id         = $creator->id;
-                 }
+                {                
+                    $document->creators_id = $request->get('creators_id');    
 
-                 $document->original_title      = $request->get('original_title'); 
-                 $document->acquired            = Carbon::parse($request->get('acquired'));        
-                $document->drop                 = Carbon::parse($request->get('drop')); 
+                }else{
+                    
+                    $creator = new Creator;
+                    $creator->creator_name         = $request->get('creators_id');
+                    $creator->document_types_id    = 1;
+                    $creator->save();
+                    $document->creators_id         = $creator->id;
+                }
+
+                $document->original_title       = $request->get('original_title'); 
+                $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
+                $document->drop                 = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
                 $document->adequacies_id        = $request->get('adequacies_id');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_author           = $request->get('let_author');
                 $document->let_title            = $request->get('let_title');
-                $document->generate_subjects_id     = $request->get('generate_subjects_id');  
+                $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->assessment           = $request->get('assessment'); 
                 $document->desidherata          = $request->get('desidherata'); 
                 $document->published            = $request->get('published');
@@ -258,35 +257,34 @@ class PhotographyController extends Controller
             
                 $photograph->subtitle = $request->get('subtitle');
                 if( is_numeric($request->get('second_author_id'))) 
-                 {                
-                     $photograph->second_author_id  = $request->get('second_author_id');    
- 
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('second_author_id');
-                     $creator->document_types_id    = 2;
-                     $creator->save();
-                     $photograph->second_author_id  = $creator->id;
-                 }
+                {                
+                    $photograph->second_author_id  = $request->get('second_author_id');    
+
+                }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name         = $request->get('second_author_id');
+                    $creator->document_types_id    = 2;
+                    $creator->save();
+                    $photograph->second_author_id  = $creator->id;
+                }
                 // $photograph->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
-                 {                
-                     $photograph->third_author_id = $request->get('third_author_id');    
- 
-                 }else
-                 {
-                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('third_author_id');
-                     $creator->document_types_id    = 2;
-                     $creator->save();
-                     $photograph->third_author_id   = $creator->id;
-                 }
-                 $photograph->producer              = $request->get('producer');
-                 $photograph->edition               = $request->get('edition');
-                 $photograph->generate_formats_id   = $request->get('generate_formats_id');      
-                
-                $photograph->documents_id           = $document->id;//guardamos el id del documento
+                {                
+                    $photograph->third_author_id = $request->get('third_author_id');    
+
+                }else{
+
+                    $creator = new Creator;
+                    $creator->creator_name         = $request->get('third_author_id');
+                    $creator->document_types_id    = 2;
+                    $creator->save();
+                    $photograph->third_author_id   = $creator->id;
+                }
+                $photograph->producer              = $request->get('producer');
+                $photograph->edition               = $request->get('edition');
+                $photograph->generate_formats_id   = $request->get('generate_formats_id');               
+                $photograph->documents_id          = $document->id;//guardamos el id del documento
                 $photograph->save();
    
                 DB::commit();
@@ -312,15 +310,18 @@ class PhotographyController extends Controller
 
     public function dataTable()
     {   
-        $photograph = Photography::with('document.creator','generate_format') 
+        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_formats_id') 
         // ->allowed()
         ->get();
-        // dd($photograph);       
+       
         return dataTables::of($photograph)
-            // ->addColumn('registry_number', function ($photograph){
-            //     return
-            //         '<i class="fa fa-user"></i>'.' '.$photograph->registry_number."<br>";            
-            // }) 
+            ->addColumn('registry_number', function ($photograph){
+                return $photograph->document['registry_number']."<br>";            
+            }) 
+            ->addColumn('document_subtypes_id', function ($photograph){
+
+                return  $photograph->document->document_subtype->subtype_name;              
+            }) 
             ->addColumn('generate_formats_id', function ($photograph){
 
                 return  $photograph->generate_format->genre_format;              
@@ -330,10 +331,7 @@ class PhotographyController extends Controller
                     '<i class="fa fa-music"></i>'.' '.$photograph->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$photograph->document->creator->creator_name."<br>";         
             }) 
-            // ->addColumn('lenguages_id', function ($photograph){
-
-            //     return'<i class="fa  fa-globe"></i>'.' '.$photograph->document->lenguage->leguage_description;         
-            // })            
+                
             ->addColumn('created_at', function ($photograph){
                 return $photograph->created_at->format('d-m-y');
             })                 
@@ -347,7 +345,7 @@ class PhotographyController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['documents_id','generate_formats_id', 'created_at', 'accion']) 
+            ->rawColumns(['registry_number', 'generate_formats_id', 'document_subtypes_id', 'documents_id',  'created_at', 'accion']) 
             ->make(true);  
     }
 }

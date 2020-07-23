@@ -28,7 +28,7 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: false,               
             });
 
-            $('#formats_id').select2({
+            $('#generate_formats_id').select2({
                 placeholder: 'Seleccione un Formato',
                 tags: false,               
             });
@@ -43,59 +43,63 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: false,               
             });
 
-            // $('#document_subtypes_id').select2({
-            //     placeholder: 'Selecciona un subtipo de Documento',
-            //     tags: true,               
-            // });
+            $('#document_subtypes_id').select2({
+                placeholder: 'Selecciona un Tipo de Fotografía'                
+            });
 
             $('#creators_id').select2({
-                placeholder: 'Seleccione o ingrese un Autor',
+                placeholder: 'Seleccione o Ingrese un Autor',
                 tags: true,               
             });
 
             $('#second_author_id').select2({
-                placeholder: 'Selecciona un Segundo Autor',
+                placeholder: 'Selecciona o Ingrese Segundo Autor',
                 tags: true,               
             });
 
             $('#third_author_id').select2({
-                placeholder: 'Selecciona un Tercer Autor',
+                placeholder: 'Selecciona o Ingrese Tercer Autor',
                 tags: true,               
             });
 
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',    
                 language: 'es'
             });  
 
             $('#drop').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',    
                 language: 'es'
             });  
             
-            // $('#adequacies_id').select2({
-            //     placeholder: 'Selecciona una Adecuación',
-            //     tags: true,               
-            // });
-
-            $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',
+            $('#adequacies_id').select2({
+                placeholder: 'Selecciona una Adecuación'                
+            });
+            $('#generate_subjects_id').select2({
+                placeholder: 'Selecciona Cdu'                    
+            });
+            $('#published').select2({
+                placeholder: 'Selecciona o Ingresa Lugar de Publicación',
                 tags: true,               
             });
-
-            // $('#made_by').select2({
-            //     placeholder: 'Selecciona una Editorial',
-            //     tags: true,               
-            // });
-
+            $('#made_by').select2({
+                placeholder: 'Ingresar el Sello Discografico',
+                tags: true,               
+            });
+            $('#volume').select2({
+                placeholder: 'Selecciona un Volúmen',              
+                tags: true,                                 
+            });
             $('#year').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",                    
                 language: 'es'
             });  
            
@@ -114,8 +118,8 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: false,                            
             });
 
-            // CKEDITOR.replace('synopsis');
-            // CKEDITOR.config.height = 190;   
+            CKEDITOR.replace('synopsis');
+            CKEDITOR.config.height = 190;   
         }
     });
 
@@ -131,6 +135,11 @@ $('#modal-btn-save').click(function (event) {
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
+
+    for(instance in CKEDITOR.instances)
+    {
+        CKEDITOR.instances[instance].updateElement();
+    }
 
     $.ajax({
         url : url,
@@ -233,12 +242,12 @@ $('body').on('click', '.btn-show', function (event) {
     $('#modal').modal('show');
 });
 
-    function yesnoCheck() {
-        if (document.getElementById("document_subtypes_id").value == 3) {
-            document.getElementById("popular").style.display = "block";
-            document.getElementById("culta").style.display = "none";
-        } else {
-            document.getElementById("culta").style.display = "block";
-            document.getElementById("popular").style.display = "none";
-        }
-    }
+// function yesnoCheck() {
+//     if (document.getElementById("document_subtypes_id").value == 3) {
+//         document.getElementById("popular").style.display = "block";
+//         document.getElementById("culta").style.display = "none";
+//     } else {
+//         document.getElementById("culta").style.display = "block";
+//         document.getElementById("popular").style.display = "none";
+//     }
+// }

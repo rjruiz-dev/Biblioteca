@@ -10,17 +10,17 @@ class Book_movement extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function movement_type()
     {
-        return $this->belongsTo(Movement_type::class);
+        return $this->belongsTo(Movement_type::class, 'movement_types_id');
     }
 
     public function copy()
     {
-        return $this->belongsTo(Copy::class);
+        return $this->belongsTo(Copy::class, 'copies_id');
     }
 
     public function course()

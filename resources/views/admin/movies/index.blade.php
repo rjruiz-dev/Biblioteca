@@ -24,10 +24,12 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                  
-                        <th>Titulo y Autor</th>    
+                        <th>ID</th>
+                        <th>N° Registro</th>                      
+                        <th>Titulo y Director</th>  
+                        <th>Genero</th>  
                         <th>Formato</th>  
-                        <th>ISBN</th>                     
+                        <th>Idioma</th>                     
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -75,41 +77,43 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }
                 
             ],             
             ajax: "{{ route('movies.table') }}",        
             columns: [                
-                {data: 'id', name: 'id'},                                           
+                {data: 'id', name: 'id'},
+                {data: 'registry_number', name: 'registry_number'},                                            
                 {data: 'documents_id', name: 'documents_id'}, 
+                {data: 'generate_films_id', name: 'generate_films_id'}, 
                 {data: 'generate_formats_id', name: 'generate_formats_id'}, 
-                {data: 'subtitle', name: 'subtitle'},             
+                {data: 'lenguages_id', name: 'lenguages_id'},             
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]
