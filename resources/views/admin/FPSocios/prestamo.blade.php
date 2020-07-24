@@ -69,7 +69,8 @@
                         'method' => 'POST'
                         ]) !!}
         <li class="list-group-item">
-                    <div class="row"> 
+        <b>id movimiento: {{ $docs_of_use->id }} </b>
+            <div class="row"> 
                 <div class="col-md-12">
                         <h3 class="profile-username text-center">{{ $docs_of_use->copy->document->id }} - {{ $docs_of_use->copy->document->title }}</h3>
                 
@@ -99,7 +100,7 @@
                     <a href="{{ route('FPSocios.vista_devo_reno', ['id_copy' =>  $docs_of_use->id, 'bandera' =>  2 ]) }}" title="Renovar: {{ $docs_of_use->copy->document->title }}" class="btn btn-success modal-show">Renovacion</a>
                     </div>  
                 </div> 
-                    </li> 
+      </li> 
                    @php 
                    $indice = $indice + 1
                     @endphp

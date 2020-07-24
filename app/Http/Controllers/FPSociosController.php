@@ -32,6 +32,11 @@ class FPSociosController extends Controller
         return view('admin.FPSocios.index');
     }
 
+    public function index2()
+    {
+        return view('admin.FPSocios.index2');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -143,7 +148,10 @@ class FPSociosController extends Controller
         $user = User::findOrFail($id); //datos del socio 
         
         $docs_of_user = Book_movement::with('movement_type','copy.document.creator')
-        ->where('movement_types_id', 1)->orWhere('movement_types_id', 4) // QUE ESTEN PRESTADOS = 1
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 4);
+        })
         ->where('active', 1) 
         ->where('users_id', $id)->get();
         //   dd($docs_of_user);
@@ -154,6 +162,28 @@ class FPSociosController extends Controller
             'user'          => $user,
             'docs_of_user'          => $docs_of_user
         //     // 'periodical' => $periodical
+        ]);    
+    }
+
+    public function edit2($id)
+    {
+        $documento = Document::with('document_type','document_subtype','creator')
+        ->findOrFail($id); 
+        
+        $copies = Book_movement::with('movement_type','user')
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id);
+        
+        })
+        ->where('active', 1)
+        ->get();
+
+        // dd($copies);
+
+        return view('admin.FPSocios.prestamo2', [
+            'documento'          => $documento,
+            'copies'          => $copies
         ]);    
     }
 
@@ -224,6 +254,39 @@ class FPSociosController extends Controller
             })           
             ->addIndexColumn()   
             ->rawColumns(['name', 'email', 'status_id', 'created_at', 'accion']) 
+            ->make(true);  
+    }
+
+    public function dataTable2()
+    {                    
+        $documentos = Document::with('document_type','document_subtype')       
+        // ->allowed()
+        ->get();
+      
+        return dataTables::of($documentos)
+            ->addColumn('tipo_documento', function ($documentos){
+                return
+                    '<i class="fa fa-user"></i>'.' '.$documentos->document_type['document_description']."<br>";            
+            }) 
+            ->addColumn('sub_tipo_documento', function ($documentos){
+                return                    
+                    '<i class="fa fa-envelope"></i>'.' '.$documentos->document_subtype['subtype_name'];              
+            })             
+         
+            ->addColumn('created_at', function ($documentos){
+                return $documentos->created_at->format('d-m-y');
+            })                 
+            
+            ->addColumn('accion', function ($documentos) {
+                return view('admin.FPSocios.partials._action2', [
+                    'documentos' => $documentos,
+                                            
+                    'url_edit' => route('FPSocios.edit2', $documentos->id),                              
+                    
+                ]);
+            })           
+            ->addIndexColumn()   
+            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

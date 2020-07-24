@@ -7,23 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $fillable = [ 
-        // 'generate_subjects_id', 'generate_references_id',
         'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'title', 'registry_number', 'original_title', 'acquired', 'drop', 'document_status',
         'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
         'observation', 'note', 'synopsis', 'photo','quantity_generic'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($document){
+
+            $document->references()->detach()->delete();
+        });
+    }
+
     protected $dates = ['acquired', 'drop', 'year'];
 
-    // public function references()
-    // {
-    //     return $this->belongsTo(Generate_reference::class, 'generate_references_id');
-    // }
+    
 
-    // public function subjects()
-    // {
-    //     return $this->belongsTo(Generate_subjects::class, 'generate_subjects_id');
-    // }
+    public function subjects()
+    {
+        return $this->belongsTo(Generate_subjects::class, 'generate_subjects_id');
+    }
 
     public function adequacy()
     {
@@ -69,8 +75,27 @@ class Document extends Model
         return $this->hasOne(Photography::class);
     }
 
+    public function book()
+    {
+        return $this->hasOne(Book::class);
+    }
+
     public function multimedia()
     {
         return $this->hasOne(Multimedia::class);
+    }
+
+    public function references()
+    {        
+        return $this->belongsToMany('App\Reference', 'document_reference', 'document_id', 'reference_id'); 
+    }
+
+    public function syncReferences($references)
+    {
+       $referencesIds = collect($references)->map(function($reference){
+            return  Reference::find($reference) ? $reference : Reference::create(['reference_description' => $reference])->id;
+        });                
+
+        return $this->references()->sync($referencesIds);
     }
 }

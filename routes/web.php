@@ -34,6 +34,9 @@ function(){
     Route::post('FPSocios/grabar',  'FPSociosController@grabar')->name('FPSocios.grabar');
     Route::get('FPSocios/vista_devo_reno/{id}/{bandera}',  'FPSociosController@vista_devo_reno')->name('FPSocios.vista_devo_reno');
     
+    Route::get('FPSocios/edit2/{id}',  'FPSociosController@edit2')->name('FPSocios.edit2');
+    
+    
     
     
 });
@@ -46,6 +49,10 @@ Route::get('movies/table',  'MoviesController@dataTable')->name('movies.table');
 Route::get('photographs/table',  'PhotographyController@dataTable')->name('photographs.table'); 
 
 Route::get('FPSocios/table',  'FPSociosController@dataTable')->name('FPSocios.table');
+Route::get('FPSocios/table2',  'FPSociosController@dataTable2')->name('FPSocios.table2');
+
+Route::get('FPSocios/index2',  'FPSociosController@index2')->name('FPSocios.index2');
+
 
  
 

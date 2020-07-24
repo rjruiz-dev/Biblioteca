@@ -18,10 +18,10 @@ class CreateBooksTable extends Migration
 
             $table->integer('documents_id')->unsigned();           
             $table->integer('generate_books_id')->unsigned();
+            $table->integer('second_author_id')->unsigned();
+            $table->integer('third_author_id')->unsigned();
            
             $table->string('subtitle')->nullable(); 
-            $table->string('second_author')->nullable();
-            $table->string('third_author')->nullable();
             $table->string('translator')->nullable();
             $table->string('edition');
             $table->string('size')->nullable();
@@ -33,6 +33,14 @@ class CreateBooksTable extends Migration
             ->onUpdate('cascade');
 
             $table->foreign('generate_books_id')->references('id')->on('generate_books')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('second_author_id')->references('id')->on('creators')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('third_author_id')->references('id')->on('creators')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

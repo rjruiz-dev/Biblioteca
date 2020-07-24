@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenerateReferencesTable extends Migration
+class CreateReferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGenerateReferencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('generate_references', function (Blueprint $table) {
+        Schema::create('references', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference_description')->nullable();
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateGenerateReferencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generate_references');
+        Schema::dropIfExists('references');
     }
 }

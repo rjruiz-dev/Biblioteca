@@ -11,6 +11,6 @@ class Generate_referenceTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Generate_reference::class, 6)->create();       
+        factory(App\Reference::class, 6)->create();       
     }
 }

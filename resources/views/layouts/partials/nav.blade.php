@@ -34,8 +34,14 @@
                     <i class="fa fa-user"></i><span> Socios</span>
                 </a>
             </li> 
+            <li class="{{ setActiveRoute('FPSocios.index2') }}">
+                <a href="{{ route('FPSocios.index2') }}">
+                    <i class="fa fa-book"></i><span> Documentos</span> 
+                </a>
+            </li>  
                                
         </ul>
+        
     </li>
 
 

@@ -14,7 +14,7 @@ use App\Generate_book;
 use App\Document_type;
 use App\Document_subtype;
 use App\Generate_subjects;
-use App\Generate_reference;
+use App\Reference;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
@@ -38,11 +38,12 @@ class BookController extends Controller
      */
     public function create()
     {
-        $book = new Book();      
+        $book = new Book(); 
+        $document = new Document();       
                              
         return view('admin.books.partials.form', [
             'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
-            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'references'    => Reference::all(),
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id')->toArray(),
@@ -54,7 +55,8 @@ class BookController extends Controller
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes'       => Document::pluck('volume', 'id'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'book'          => $book
+            'book'          => $book,
+            'document'          => $document
         ]);  
     }
 
@@ -112,10 +114,12 @@ class BookController extends Controller
                 $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->lenguages_id     = $request->get('lenguages_id');    
-                $document->generate_references_id     = $request->get('generate_references_id');            
+                // $document->generate_references_id     = $request->get('generate_references_id');            
                 $document->document_types_id    = 3;
                 $document->document_subtypes_id = $request->get('document_subtypes_id');
                 $document->save();
+
+                $document->syncReferences($request->get('references'));
 
                 // Creamos el libro           
                 $book = new Book;   
@@ -154,6 +158,7 @@ class BookController extends Controller
                 $book->documents_id = $document->id;
                 $book->save();
 
+
                 DB::commit();
 
             } catch (Exception $e) {
@@ -186,7 +191,7 @@ class BookController extends Controller
       
         return view('admin.books.partials.form', [
             'subjects'      => Generate_subjects::pluck('subject_name', 'id'),
-            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'references'    => Reference::pluck('reference_description', 'id'),
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id')->toArray(),

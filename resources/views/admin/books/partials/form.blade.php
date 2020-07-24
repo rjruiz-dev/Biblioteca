@@ -198,8 +198,14 @@
                     {!! Form::text('location', $book->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicación']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('generate_references_id', 'Referencia') !!} 
-                    {!! Form::select('generate_references_id', $references, $book->document['generate_references_id'], ['class' => 'form-control  select2', 'id' => 'generate_references_id', 'style' => 'width:100%;']) !!}                     
+                    <label>Referencia</label>
+                    <select name="references[]" id="references" class="form-control select2" 
+                            multiple="multiple"                            
+                            data-placeholder="Selecciona o Ingresa uno o mas Actores" style="width: 100%;">
+                        @foreach($references as $reference)
+                            <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
+                        @endforeach
+                    </select>
                 </div>
              
                 <div class="form-group">
@@ -217,7 +223,7 @@
                 <div class="form-group">
                     {!! Form::label('photo', 'Imagen') !!}                    
                     {!! Form::file('photo') !!}
-                </div>
+                </div> 
 
             </div>
         </div>       

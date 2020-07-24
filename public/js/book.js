@@ -64,10 +64,10 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
 
-            $('#generate_references_id').select2({
-                placeholder: 'Seleccione o ingrese una Referencia',
-                tags: true,               
-            });
+            // $('#generate_references_id').select2({
+            //     placeholder: 'Seleccione o ingrese una Referencia',
+            //     tags: true,               
+            // });
 
             $('#generate_books_id').select2({
                 placeholder: 'Selecciona un Género',
@@ -104,6 +104,10 @@ $('body').on('click', '.modal-show', function (event) {
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma',
                 tags: true,                            
+            });
+
+            $('#references').select2({
+                tags: true
             });
 
             if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
@@ -166,12 +170,13 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
-
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
-            });
+            
+            $('#modal2').modal('show');
+            // swal({
+            //     type : 'success',
+            //     title : '¡Éxito!',
+            //     text : '¡Se han guardado los datos!'
+            // });
         },
         error : function (xhr) {
             var res = xhr.responseJSON;
