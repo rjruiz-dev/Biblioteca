@@ -89,16 +89,16 @@
                         <b>Sancion de:   </b><a class="pull-right"> $ {{ $docs_of_use->created_at->addDays(3)->diffInDays(Carbon\Carbon::now())*10 }}</a>
                     </div>
                      
-                    <div class="col-md-6 text-center" style="padding-top: 1rem;">
+                <div class="col-md-6 text-center" style="padding-top: 1rem;">
                     <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Devolucion</button> -->
                     <a href="{{ route('FPSocios.vista_devo_reno', ['id' =>  $docs_of_use->id, 'bandera' =>  1 ]) }}" title="Devolver: {{ $docs_of_use->copy->document->title }}" class="btn btn-success modal-show">Devolucion</a>
                     <!-- id="btn-btn-create" class="btn btn-success pull-right modal-show" -->
-                     </div>
-                    <div class="col-md-6 text-center" style="padding-top: 1rem;">
+                </div>
+                <div class="col-md-6 text-center" style="padding-top: 1rem;">
                     <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Renovacion</button> --> 
 
                     <a href="{{ route('FPSocios.vista_devo_reno', ['id_copy' =>  $docs_of_use->id, 'bandera' =>  2 ]) }}" title="Renovar: {{ $docs_of_use->copy->document->title }}" class="btn btn-success modal-show">Renovacion</a>
-                    </div>  
+                </div>  
                 </div> 
       </li> 
                    @php 
