@@ -91,7 +91,40 @@ $('body').on('click', '.modal-show', function (event) {
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
-                 
+
+            if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+                //CAMBIO DE LABEL
+                document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
+                document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+                //FORM GROUP MOSTRAR
+                document.getElementById("din_volume_number_date").style.display = "block";
+                document.getElementById("din_periodicities_id").style.display = "block";
+                document.getElementById("din_issn").style.display = "block";
+                //FORM GROUP NO MOSTRAR
+                document.getElementById("din_isbn").style.display = "none";
+                document.getElementById("din_generate_books_id").style.display = "none";
+                document.getElementById("din_third_author_id").style.display = "none";
+
+            } else { //si NOO es publ periodica
+                
+                if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
+                //CAMBIO DE LABEL
+                document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+                }else{
+                document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
+                }
+
+                //CAMBIO DE LABEL
+                document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
+                 //FORM GROUP NO MOSTRAR
+                document.getElementById("din_volume_number_date").style.display = "none";
+                document.getElementById("din_periodicities_id").style.display = "none";
+                document.getElementById("din_issn").style.display = "none";
+                //FORM GROUP MOSTRAR
+                document.getElementById("din_isbn").style.display = "block";
+                document.getElementById("din_generate_books_id").style.display = "block";
+                document.getElementById("din_third_author_id").style.display = "block";
+            }
         }
     });
 
@@ -211,17 +244,40 @@ $('body').on('click', '.btn-show', function (event) {
 
 
 function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 4) { // si es pub. periodica
-        document.getElementById("pub_periodica").style.display = "block";
-        document.getElementById("resto").style.display = "none";
-        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';     
-    
-    } else { // si es otro o literatura
-        document.getElementById("resto").style.display = "block";
-        document.getElementById("pub_periodica").style.display = "none";
-        document.getElementById("l_subtitle").innerHTML = 'Subtitulo';  
-       
+    if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+        //CAMBIO DE LABEL
+        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
+        document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+        //FORM GROUP MOSTRAR
+        document.getElementById("din_volume_number_date").style.display = "block";
+        document.getElementById("din_periodicities_id").style.display = "block";
+        document.getElementById("din_issn").style.display = "block";
+        //FORM GROUP NO MOSTRAR
+        document.getElementById("din_isbn").style.display = "none";
+        document.getElementById("din_generate_books_id").style.display = "none";
+        document.getElementById("din_third_author_id").style.display = "none";
+
+    } else { //si NOO es publ periodica
+        
+        if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
+        //CAMBIO DE LABEL
+        document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+        }else{
+        document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
+        }
+
+        //CAMBIO DE LABEL
+        document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
+         //FORM GROUP NO MOSTRAR
+        document.getElementById("din_volume_number_date").style.display = "none";
+        document.getElementById("din_periodicities_id").style.display = "none";
+        document.getElementById("din_issn").style.display = "none";
+        //FORM GROUP MOSTRAR
+        document.getElementById("din_isbn").style.display = "block";
+        document.getElementById("din_generate_books_id").style.display = "block";
+        document.getElementById("din_third_author_id").style.display = "block";
     }
+
 }
 
 

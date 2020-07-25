@@ -15,26 +15,7 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);
             
-            $('#gender').select2({
-                placeholder: 'Selecciona un Género',
-                tags: true,               
-            });
-
-            $('#status_id').select2({
-                placeholder: 'Selecciona un Estado',                                    
-            });
-
-            $('#province').select2({
-                placeholder: 'Selecciona una Provincia',
-                tags: true,                            
-            });
-
-            $('#acquired').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                // startDate: date,              
-                language: 'es'
-            });             
+          
                  
         }
     });

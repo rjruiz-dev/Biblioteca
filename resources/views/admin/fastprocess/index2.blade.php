@@ -2,19 +2,18 @@
 
 @section('header')    
     <h1>
-       SOCIOS
+       DOCUMENTOS
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Socios</li>
+        <li class="active">Documentos</li>
     </ol> 
 @stop
-
 @section('content')
     <div class="panel panel-primary">        
         <div class="panel-heading">
-            <h3 class="panel-title">Listado de Socios Activos 
+            <h3 class="panel-title">Listado de Documentos Disponibles   
             </h3>
         </div>
         <div class="panel-body">
@@ -22,10 +21,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th> 
-                        <th>Usuario</th>                         
-                        <th>Email</th>   
-                        <th>Estado</th>  
+                        <th>Titulo</th> 
+                        <th>Tipo Doc</th>                         
+                        <th>Sub Tipo Doc</th>                        
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -101,13 +99,12 @@
                 }
                 
             ],             
-            ajax: "{{ route('fastprocess.table') }}",            
+            ajax: "{{ route('fastprocess.table2') }}",            
             columns: [                
                 {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},               
-                {data: 'nickname', name: 'ninckname'},
-                {data: 'email', name: 'email'}, 
-                {data: 'status_id', name: 'status_id'}, 
+                {data: 'title', name: 'title'},               
+                {data: 'tipo_documento', name: 'tipo_documento'}, 
+                {data: 'sub_tipo_documento', name: 'sub_tipo_documento'}, 
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

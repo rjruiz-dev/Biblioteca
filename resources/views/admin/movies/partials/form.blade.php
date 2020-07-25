@@ -42,7 +42,7 @@
                             multiple="multiple"                            
                             data-placeholder="Selecciona o Ingresa uno o mas Actores" style="width: 100%;">
                         @foreach($actors as $actor)
-                            <option {{ collect( old('actors', $post->actors->pluck('id')))->contains($actor->id) ? 'selected' : '' }} value="{{ $actor->id}}"> {{ $actor->actor_name }} </option>
+                            <option {{ collect( old('actors', $movie->actors->pluck('id')))->contains($actor->id) ? 'selected' : '' }} value="{{ $actor->id}}"> {{ $actor->actor_name }} </option>
                         @endforeach
                     </select>
                 </div>  

@@ -12,12 +12,12 @@ class MovementTypesTableSeeder extends Seeder
     public function run()
     {
         App\Movement_type::create([           
-            'book_status'           => '-',
+            'book_status'           => 'PRESTADO',
             'description_movement'  => 'PRESTADO',
         ]);
 
         App\Movement_type::create([            
-            'book_status'           => '-',
+            'book_status'           => 'DISPONIBLE',
             'description_movement'  => 'DEVUELTO',
         ]);
     }

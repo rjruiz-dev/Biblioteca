@@ -256,6 +256,7 @@ class MoviesController extends Controller
                 $movie->distributor             = $request->get('distributor');
                 $movie->documents_id            = $document->id;//guardamos el id del documento                
                 $movie->save();
+                $movie->syncActors($request->get('actors'));
    
                 DB::commit();
 

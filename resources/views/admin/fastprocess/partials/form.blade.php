@@ -3,18 +3,20 @@
     
     @if ($bandera == 1)
         @php 
-            $mensaje = "Devuelto en "
+            $mensaje = "Devuelto en ";
+            $mensaje2 = "Asignar Fecha Devolución ";
         @endphp
     @else
         @php  
-            $mensaje = "Renovado hasta "
+            $mensaje = "Renovado hasta ";
+            $mensaje2 = "Asignar Fecha Renovación ";
         @endphp
     @endif
   
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Asignar Nuevo Prestamo</h3>
+                <h3 class="box-title">{{ $mensaje2 }}</h3>
             </div>
             <div class="box-body">
             {!! Form::hidden('bandera', $bandera) !!}

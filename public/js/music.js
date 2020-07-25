@@ -83,11 +83,40 @@ $('body').on('click', '.modal-show', function (event) {
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;  
+            
+            if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
+                // document.getElementById("popular").style.display = "block";
+                // document.getElementById("culta").style.display = "none";
 
-            document.getElementById("culta").style.display = "block";
-            document.getElementById("popular").style.display = "none";
-            document.getElementById("l_title").innerHTML = 'Titulo de la obra';        
-            document.getElementById("l_creators_id").innerHTML = 'Compositor';                
+                document.getElementById("l_title").innerHTML = 'Titulo';
+                document.getElementById("l_creators_id").innerHTML = 'Artista';
+
+                document.getElementById("din_album_title").style.display = "none";
+                document.getElementById("din_director").style.display = "none";
+                document.getElementById("din_orchestra").style.display = "none";
+                document.getElementById("din_soloist").style.display = "none";
+
+                document.getElementById("din_subtitle").style.display = "block";
+                document.getElementById("din_other_artists").style.display = "block";
+                document.getElementById("din_music_populars").style.display = "block";
+                document.getElementById("din_original_title").style.display = "block";
+            } else { // si es culta
+                // document.getElementById("culta").style.display = "block";
+                // document.getElementById("popular").style.display = "none";
+        
+                document.getElementById("l_title").innerHTML = 'Titulo de la obra';
+                document.getElementById("l_creators_id").innerHTML = 'Compositor';
+
+                document.getElementById("din_album_title").style.display = "block";
+                document.getElementById("din_director").style.display = "block";
+                document.getElementById("din_orchestra").style.display = "block";
+                document.getElementById("din_soloist").style.display = "block";
+
+                document.getElementById("din_subtitle").style.display = "none";
+                document.getElementById("din_other_artists").style.display = "none";
+                document.getElementById("din_music_populars").style.display = "none";
+                document.getElementById("din_original_title").style.display = "none";
+            } 
              
         }
     });
@@ -213,14 +242,36 @@ $('body').on('click', '.btn-show', function (event) {
 
 function yesnoCheck() {
     if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
-        document.getElementById("popular").style.display = "block";
-        document.getElementById("culta").style.display = "none";
+        // document.getElementById("popular").style.display = "block";
+        // document.getElementById("culta").style.display = "none";
+
         document.getElementById("l_title").innerHTML = 'Titulo';
         document.getElementById("l_creators_id").innerHTML = 'Artista';
+
+        document.getElementById("din_album_title").style.display = "none";
+        document.getElementById("din_director").style.display = "none";
+        document.getElementById("din_orchestra").style.display = "none";
+        document.getElementById("din_soloist").style.display = "none";
+
+        document.getElementById("din_subtitle").style.display = "block";
+        document.getElementById("din_other_artists").style.display = "block";
+        document.getElementById("din_music_populars").style.display = "block";
+        document.getElementById("din_original_title").style.display = "block";
     } else { // si es culta
-        document.getElementById("culta").style.display = "block";
-        document.getElementById("popular").style.display = "none";
-        document.getElementById("l_title").innerHTML = 'Titulo de la obra';        
+        // document.getElementById("culta").style.display = "block";
+        // document.getElementById("popular").style.display = "none";
+
+        document.getElementById("l_title").innerHTML = 'Titulo de la obra';
         document.getElementById("l_creators_id").innerHTML = 'Compositor';
-    }
+
+        document.getElementById("din_album_title").style.display = "block";
+        document.getElementById("din_director").style.display = "block";
+        document.getElementById("din_orchestra").style.display = "block";
+        document.getElementById("din_soloist").style.display = "block";
+
+        document.getElementById("din_subtitle").style.display = "none";
+        document.getElementById("din_other_artists").style.display = "none";
+        document.getElementById("din_music_populars").style.display = "none";
+        document.getElementById("din_original_title").style.display = "none";
+    } 
 }

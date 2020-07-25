@@ -97,6 +97,7 @@
                     @forelse ($docs_of_user as $docs_of_use)
                         {!! Form::model($docs_of_user, ['route' => ['admin.fastprocess.store', count($docs_of_user)],'method' => 'POST']) !!}
                     <li class="list-group-item">
+                    <b>{{ $docs_of_use->id }}</b>
                         <div class="row"> 
                             <div class="col-md-12">
                                 <h3 class="profile-username text-center"> <b>{{ $docs_of_use->copy->document->id }} - {{ $docs_of_use->copy->document->title }}</b></h3>
@@ -139,8 +140,8 @@
 
 @include('admin.fastprocess.partials._modal')
 
-@push('scripts')  
-   
-    <script src="{{ asset('js/fastprocess.js') }}"></script>
-    
+
+@push('scripts')   
+    <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('js/fastprocess.js') }}"></script>  
 @endpush

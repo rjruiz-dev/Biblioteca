@@ -35,34 +35,11 @@
                     {!! Form::label('subtitle', 'Subtitulo', ['id' => 'l_subtitle']) !!}                  
                     {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Tema de Portada']) !!}
                 </div>
-                <div id="pub_periodica" style="display:none;"> 
-
-                    <div class="form-group">                       
-                        {!! Form::label('periodicities_id', 'Periodicidad') !!} 
-                        {!! Form::select('periodicities_id', $periodicities, $book->periodical_publication['periodicities_id'], ['class' => 'form-control select2', 'id' => 'periodicities_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                                      
-                    </div>
-                 
-                    <div class="form-group">              
-                        {!! Form::label('volume_number_date', 'Volumen, Número y Fecha') !!}                  
-                        {!! Form::text('volume_number_date', null, ['class' => 'form-control', 'id' => 'volume_number_date', 'placeholder' => 'Volumen, Número y Fecha']) !!}
-                    </div>
-                    <div class="form-group">              
-                        {!! Form::label('issn', 'Issn') !!}                  
-                        {!! Form::text('issn', null, ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
-                    </div>
-                </div>
-
-                <div id="resto" style="display:block;">                    
-                    <div class="form-group">              
-                        {!! Form::label('isbn', 'Isbn') !!}                    
-                        {!! Form::text('isbn', null, ['class' => 'form-control', 'id' => 'isbn', 'placeholder' => 'Isbn']) !!}
-                    </div> 
-                    <div class="form-group">
-                        {!! Form::label('generate_books_id', 'Genero') !!}             
-                        {!! Form::select('generate_books_id', $genders, $book->generate_book['generate_books_id'], ['class' => 'form-control  select2', 'id' => 'generate_books_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
-                    </div>
-                </div>
-                            
+                <!-- pub periodica -->
+                <div class="form-group" id="din_volume_number_date">               
+                    {!! Form::label('volume_number_date', 'Volumen, Número y Fecha') !!}                  
+                    {!! Form::text('volume_number_date', null, ['class' => 'form-control', 'id' => 'volume_number_date', 'placeholder' => 'Volumen, Número y Fecha']) !!}
+                </div>      
                 <div class="form-group">
                     {!! Form::label('creators_id', 'Autor') !!}             
                     {!! Form::select('creators_id', $authors, $book->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
@@ -71,11 +48,10 @@
                     {!! Form::label('second_author_id', 'Segundo Autor') !!}             
                     {!! Form::select('second_author_id', $authors, null, ['class' => 'form-control  select2', 'id' => 'second_author_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
-
-                <div class="form-group">
+                <div class="form-group" id="din_third_author_id"> 
                     {!! Form::label('third_author_id', 'Tercer Autor') !!}                    
                     {!! Form::select('third_author_id', $authors, null, ['class' => 'form-control select2', 'id' => 'third_author_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
-                </div>                               
+                </div>                                        
                 <div class="form-group">
                     {!! Form::label('original_title', 'Título Original') !!} 
                     {!! Form::text('original_title', $book->document['original_title'], ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
@@ -83,6 +59,10 @@
                 <div class="form-group">
                     {!! Form::label('translator', 'Traductor') !!}                    
                     {!! Form::text('translator', null, ['class' => 'form-control', 'id' => 'translator', 'placeholder' => 'Traductor']) !!}
+                </div> 
+                <div class="form-group" id="din_isbn">              
+                    {!! Form::label('isbn', 'Isbn') !!}                    
+                    {!! Form::text('isbn', null, ['class' => 'form-control', 'id' => 'isbn', 'placeholder' => 'Isbn']) !!}
                 </div> 
                
                 <div class="form-group">
@@ -117,7 +97,20 @@
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $book->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div>
-              
+                <!-- lit o otros -->
+                <div class="form-group" id="din_generate_books_id"> 
+                    {!! Form::label('generate_books_id', 'Otros', ['id' => 'l_generate_books_id']) !!}             
+                    {!! Form::select('generate_books_id', $genders, $book->generate_book['generate_books_id'], ['class' => 'form-control  select2', 'id' => 'generate_books_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                </div>
+                <div class="form-group"  id="din_periodicities_id">                       
+                    {!! Form::label('periodicities_id', 'Periodicidad') !!} 
+                    {!! Form::select('periodicities_id', $periodicities, $book->periodical_publication['periodicities_id'], ['class' => 'form-control select2', 'id' => 'periodicities_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                                      
+                </div>
+                <div class="form-group" id="din_issn">              
+                    {!! Form::label('issn', 'Issn') !!}                  
+                    {!! Form::text('issn', null, ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
+                </div>
+
                 <div class="form-group">              
                     {!! Form::label('registry_number', 'Número de Registro') !!}                    
                     {!! Form::text('registry_number', $book->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
