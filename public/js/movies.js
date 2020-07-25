@@ -79,19 +79,19 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
             $('#creators_id').select2({
-                placeholder: 'Seleccione o Ingrese un Autor',
+                placeholder: 'Seleccione o Ingrese un Director',
                 tags: true,               
             });
 
-            $('#second_author_id').select2({
-                placeholder: 'Seleccione o Ingrese Segundo Autor',
-                tags: true,               
-            });
+            // $('#second_author_id').select2({
+            //     placeholder: 'Seleccione o Ingrese Segundo Director',
+            //     tags: true,               
+            // });
 
-            $('#third_author_id').select2({
-                placeholder: 'Seleccione o Ingrese Tercer Autor',
-                tags: true,               
-            });
+            // $('#third_author_id').select2({
+            //     placeholder: 'Seleccione o Ingrese Tercer Director',
+            //     tags: true,               
+            // });
 
             $('#acquired').datepicker({
                 autoclose: true,

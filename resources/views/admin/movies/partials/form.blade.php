@@ -27,8 +27,8 @@
                     {!! Form::text('title', $movie->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título' ]) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('subtitle', 'Subtitulo') !!}                  
-                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Tema de Portada']) !!}
+                    {!! Form::label('subtitle', 'Subtítulo') !!}                  
+                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
                 </div>                         
                 <div class="form-group">
                     {!! Form::label('creators_id', 'Director') !!}             
@@ -56,8 +56,8 @@
                     {!! Form::select('adaptations_id', $adaptations_bis, null, ['class' => 'form-control  select2', 'id' => 'adaptations_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
                 <div class="form-group">
-                    {!! Form::label('script', 'Guion') !!}             
-                    {!! Form::text('script', null, ['class' => 'form-control', 'id' => 'script', 'placeholder' => 'Guion']) !!}
+                    {!! Form::label('script', 'Guión') !!}             
+                    {!! Form::text('script', null, ['class' => 'form-control', 'id' => 'script', 'placeholder' => 'Guión']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('specific_content', 'Cont. Específico') !!}             
@@ -74,23 +74,10 @@
                             value="{{ old('acquired', $movie->document['acquired'] ? $movie->document['acquired']->format('d/m/Y') : null) }}"                            
                             type="text"
                             id="acquired"
-                            placeholder= "Selecciona una Fecha">                       
+                            placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
                 </div>
-                <div class="form-group">
-                    <label>Baja</label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>                      
-                        <input name="drop"
-                            class="form-control pull-right"                                                       
-                            value="{{ old('drop', $movie->document['drop'] ? $movie->document['drop']->format('d/m/Y') : null) }}"                            
-                            type="text"
-                            id="drop"
-                            placeholder= "Selecciona una Fecha">                       
-                    </div>                  
-                </div> 
+                
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $movie->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
