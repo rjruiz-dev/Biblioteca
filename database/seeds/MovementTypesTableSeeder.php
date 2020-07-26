@@ -17,6 +17,11 @@ class MovementTypesTableSeeder extends Seeder
         ]);
 
         App\Movement_type::create([            
+            'book_status'           => 'PRESTADO',
+            'description_movement'  => 'RENOVADO',
+        ]);
+        
+        App\Movement_type::create([            
             'book_status'           => 'DISPONIBLE',
             'description_movement'  => 'DEVUELTO',
         ]);

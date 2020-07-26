@@ -104,7 +104,7 @@ class FastPartnerProcessController extends Controller
         
                 if($request->get('bandera') == '1')
                 {
-                    $new_movement->movement_types_id = 1; //DEVOLUCION (valores correspondientes a la base)
+                    $new_movement->movement_types_id = 3; //DEVOLUCION (valores correspondientes a la base)
                 }else{
                     $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
                 }

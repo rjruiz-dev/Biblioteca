@@ -29,8 +29,10 @@ class DatabaseSeeder extends Seeder
         $this->call(PeriodicitiesTableSeeder::class);
 
         $this->call(MovementTypesTableSeeder::class);   
-
+       
+        
         $this->call(DocumentsTableSeeder::class);
+        $this->call(CopiesTableSeeder::class);   
         // $this->call(BooksTableSeeder::class);
         // $this->call(MusicTableSeeder::class);
         // $this->call(MoviesTableSeeder::class);
