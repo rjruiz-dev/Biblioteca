@@ -35,20 +35,22 @@ class MultimediaController extends Controller
      */
     public function create()
     {
-        $multimedia = new Multimedia();      
+        $multimedia = new Multimedia();    
+        $document = new Document();              
                               
         return view('admin.multimedias.partials.form', [   
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'references'    => Generate_reference::pluck('reference_description', 'id'),        
+            'references'    => Generate_reference::all(), 
             'subtypes'      => Document_subtype::pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id'),
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),            
             'volumes'       => Document::pluck('volume', 'volume'),
             'publications'  => Document::pluck('published', 'published'),      
-            'editions'      =>  Multimedia::pluck('edition', 'id'),         
+            'editions'      => Multimedia::pluck('edition', 'id'),         
             'editorials'    => Document::pluck('made_by', 'made_by'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'multimedia'    => $multimedia
+            'multimedia'    => $multimedia,
+            'document'      => $document               
         ]); 
     }
 
@@ -87,12 +89,12 @@ class MultimediaController extends Controller
                  }
 
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop')); 
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));           
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');
-                $document->generate_subjects_id     = $request->get('generate_subjects_id');  
+                $document->registry_number  = $request->get('registry_number');
+                $document->generate_subjects_id = $request->get('generate_subjects_id'); 
                 $document->assessment       = $request->get('assessment'); 
                 $document->desidherata      = $request->get('desidherata'); 
                 $document->published        = $request->get('published');
@@ -104,11 +106,11 @@ class MultimediaController extends Controller
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
-                $document->lenguages_id     = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
+                $document->lenguages_id     = $request->get('lenguages_id');             
                 $document->photo            = $request->get('photo');
                 $document->synopsis         = $request->get('synopsis');
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                  // insertamos en la tabla multimedia
                 
@@ -176,11 +178,12 @@ class MultimediaController extends Controller
     public function edit($id)
     {
         // $multimedia = new Multimedia();  
-        $multimedia = Multimedia::with('document')->findOrFail($id);    
+        $multimedia = Multimedia::with('document')->findOrFail($id);
+        $document   = Document::findOrFail($multimedia->documents_id);      
                               
         return view('admin.multimedias.partials.form', [
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'references'    => Generate_reference::pluck('reference_description', 'id'),        
+            'references'    => Generate_reference::all(),     
             'subtypes'      => Document_subtype::pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id'),
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
@@ -189,7 +192,8 @@ class MultimediaController extends Controller
             'editorials'    => Document::pluck('made_by', 'made_by'),            
             'editions'      => Multimedia::pluck('edition', 'id'),         
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'multimedia'    => $multimedia
+            'multimedia'    => $multimedia,
+            'document'      => $document
         ]);  
     }
 
@@ -226,11 +230,11 @@ class MultimediaController extends Controller
                  }
 
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));     
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                 
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');
+                $document->registry_number  = $request->get('registry_number');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->assessment       = $request->get('assessment'); 
                 $document->desidherata      = $request->get('desidherata'); 
@@ -243,11 +247,11 @@ class MultimediaController extends Controller
                 $document->location             = $request->get('location');
                 $document->observation          = $request->get('observation');
                 $document->note                 = $request->get('note');
-                $document->lenguages_id         = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
+                $document->lenguages_id         = $request->get('lenguages_id');              
                 $document->photo                = $request->get('photo');
                 $document->synopsis             = $request->get('synopsis');
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                  // insertamos en la tabla multimedia
                 $multimedia->subtitle = $request->get('subtitle');

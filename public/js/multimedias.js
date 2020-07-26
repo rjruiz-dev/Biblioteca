@@ -37,8 +37,12 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });  
             $('#edition').select2({
-                placeholder: 'Selecciona Número de Edición',
+                placeholder: 'Selecciona o Ingresa Edición',
                 tags: true,               
+            });
+            $('#references').select2({
+                tags: false,
+               
             });
             $('#drop').datepicker({
                 autoclose: true,
@@ -50,14 +54,15 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona una Adecuación'              
             });
             $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
+                placeholder: 'Selecciona Cdu',
+                                        
             });
             $('#published').select2({
-                placeholder: 'Selecciona Lugar de Publicacíon',
+                placeholder: 'Selecciona o Ingresa Lugar de Publicacíon',
                 tags: true,               
             });
             $('#made_by').select2({
-                placeholder: 'Selecciona una Editorial',
+                placeholder: 'Selecciona o Ingresa una Editorial',
                 tags: true,               
             });
             $('#year').datepicker({
@@ -70,7 +75,7 @@ $('body').on('click', '.modal-show', function (event) {
             }); 
 
             $('#volume').select2({
-                placeholder: 'Selecciona un Volúmen',              
+                placeholder: 'Selecciona o Ingresa un Volúmen',              
                 tags: true,                                 
             });
 

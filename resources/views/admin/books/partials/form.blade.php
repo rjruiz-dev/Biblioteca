@@ -110,7 +110,6 @@
                     {!! Form::label('issn', 'Issn') !!}                  
                     {!! Form::text('issn', null, ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
                 </div>
-
                 <div class="form-group">              
                     {!! Form::label('registry_number', 'Número de Registro') !!}                    
                     {!! Form::text('registry_number', $book->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}

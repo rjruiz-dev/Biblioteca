@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->increments('id'); 
 
             $table->integer('generate_subjects_id')->unsigned();
-            $table->integer('generate_references_id')->unsigned();
+            // $table->integer('generate_references_id')->unsigned();
             $table->integer('adequacies_id')->unsigned();
             $table->integer('lenguages_id')->unsigned();
             $table->integer('document_types_id')->unsigned();
@@ -52,9 +52,9 @@ class CreateDocumentsTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('generate_references_id')->references('id')->on('generate_references')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            // $table->foreign('generate_references_id')->references('id')->on('generate_references')
+            // ->onDelete('cascade')
+            // ->onUpdate('cascade');
 
             $table->foreign('adequacies_id')->references('id')->on('adequacies')
             ->onDelete('cascade')

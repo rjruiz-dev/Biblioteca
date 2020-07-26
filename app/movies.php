@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movies extends Model
 {
-    protected $fillable = ['documents_id', 'generate_films_id', 'generate_formats_id', 'generate_subjects_id',  'adaptations_id', 'photography_movies_id', 'subtitle', 
+    protected $fillable = ['documents_id', 'generate_films_id', 'generate_formats_id', 'adaptations_id', 'photography_movies_id', 'subtitle', 
     'script', 'specific_content', 'awards', 'distributor'];
 
     protected static function boot()
@@ -41,7 +41,7 @@ class Movies extends Model
 
     public function photography_movie()
     {
-        return $this->belongsTo(photography_movies::class, 'photography_movies_id');
+        return $this->belongsTo(Photography_movie::class, 'photography_movies_id');
     }
 
     public function actors()

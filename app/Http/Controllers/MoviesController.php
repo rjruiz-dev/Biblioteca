@@ -40,7 +40,8 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        $movie = new Movies();      
+        $movie = new Movies(); 
+        $document = new Document();            
                               
         return view('admin.movies.partials.form', [           
             'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
@@ -48,10 +49,9 @@ class MoviesController extends Controller
             'adaptations'       => Adequacy::pluck('adequacy_description', 'id'),
             'genders'           => Generate_film::pluck('genre_film', 'id'),
             'subjects'          => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'publications'      => Document::pluck('published', 'published'),
-            'references'        => Generate_reference::pluck('reference_description', 'id'),
-            // 'distributions'     => Movies::pluck('distribution', 'distribution'),
-            'actors'            => Actor::all(),                
+            'publications'      => Document::pluck('published', 'published'),      
+            'actors'            => Actor::all(),
+            'references'        => Generate_reference::all(),                                 
             'distributors'      => Movies::pluck('distributor', 'distributor'),
             'editorials'        => Document::pluck('made_by', 'made_by'),
             'adaptations_bis'   => Adaptation::pluck('adaptation_name', 'id'),
@@ -59,7 +59,8 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
-            'movie'             => $movie
+            'movie'             => $movie,
+            'document'          => $document
            
         ]); 
     }
@@ -99,8 +100,8 @@ class MoviesController extends Controller
 
                  }
                 $document->original_title   = $request->get('original_title'); 
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
+                $document->registry_number  = $request->get('registry_number');
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));             
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');
@@ -114,10 +115,10 @@ class MoviesController extends Controller
                 $document->location         = $request->get('location');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
                 $document->photo            = $request->get('photo');
                 $document->synopsis         = $request->get('synopsis'); 
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                  // insertamos en la tabla multimedia
                 
@@ -125,9 +126,8 @@ class MoviesController extends Controller
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
                 $movie->generate_films_id       = $request->get('generate_films_id');
                 $movie->adaptations_id          = $request->get('adaptations_id');
-                // $movie->photography_movies_id   = $request->get('photography_movies_id');                 
-                $movie->subtitle                = $request->get('subtitle');
-                // $movie->distribution            = $request->get('distribution');               
+                $movie->photography_movies_id   = $request->get('photography_movies_id');                 
+                $movie->subtitle                = $request->get('subtitle');               
                 $movie->script                  = $request->get('script');
                 $movie->specific_content        = $request->get('specific_content');
                 $movie->awards                  = $request->get('awards');
@@ -165,7 +165,10 @@ class MoviesController extends Controller
      */
     public function edit($id)
     {
-        $movie = Movies::with('document')->findOrFail($id);        
+        $movie = Movies::with('document','document.subjects', 'document.references')->findOrFail($id);    
+        $document = Document::findOrFail($movie->documents_id);   
+        
+        // dd($movie);
      
         return view('admin.movies.partials.form', [
            
@@ -175,9 +178,9 @@ class MoviesController extends Controller
             'genders'           => Generate_film::pluck('genre_film', 'id'), 
             'subjects'          => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'publications'      => Document::pluck('published', 'published'),
-            'references'        => Generate_reference::pluck('reference_description', 'id'),
-            // 'distributions'     => Movies::pluck('distribution', 'distribution'),       
-            'actors'            => Actor::all(),                     
+            'references'        => Generate_reference::pluck('reference_description', 'id'),          
+            'actors'            => Actor::all(),  
+            'references'        => Generate_reference::all(),                      
             'distributors'      => Movies::pluck('distributor', 'distributor'),
             'editorials'        => Document::pluck('made_by', 'made_by'),
             'adaptations_bis'   => Adaptation::pluck('adaptation_name', 'id'),
@@ -185,7 +188,8 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
-            'movie'             => $movie
+            'movie'             => $movie,
+            'document'          => $document
            
         ]); 
     }
@@ -223,8 +227,8 @@ class MoviesController extends Controller
                  }
 
                 $document->original_title       = $request->get('original_title'); 
-                $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop                 = Carbon::createFromFormat('d/m/Y', $request->get('drop')); 
+                $document->registry_number      = $request->get('registry_number');
+                $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id        = $request->get('adequacies_id');
                 $document->let_author           = $request->get('let_author');
                 $document->let_title            = $request->get('let_title');
@@ -237,19 +241,18 @@ class MoviesController extends Controller
                 $document->quantity_generic     = $request->get('quantity_generic'); 
                 $document->location             = $request->get('location');
                 $document->note                 = $request->get('note');
-                $document->lenguages_id         = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
+                $document->lenguages_id         = $request->get('lenguages_id');              
                 $document->photo                = $request->get('photo');
                 $document->synopsis             = $request->get('synopsis'); 
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                 // insertamos en la tabla movies
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
                 $movie->generate_films_id       = $request->get('generate_films_id');
                 $movie->adaptations_id          = $request->get('adaptations_id');
                 $movie->photography_movies_id   = $request->get('photography_movies_id'); 
-                $movie->subtitle                = $request->get('subtitle');
-                // $movie->distribution            = $request->get('distribution');
+                $movie->subtitle                = $request->get('subtitle');              
                 $movie->script                  = $request->get('script');
                 $movie->specific_content        = $request->get('specific_content');
                 $movie->awards                  = $request->get('awards');

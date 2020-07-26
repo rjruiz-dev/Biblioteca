@@ -12,5 +12,10 @@ class Generate_reference extends Model
     {
         return $this->hasOne(Document::class);
     }
+
+    public function documents()
+    {        
+        return $this->belongsToMany('App\Generate_reference', 'document_generate_reference', 'document_id', 'generate_reference_id');  
+    }
 }
 

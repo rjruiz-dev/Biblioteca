@@ -7,12 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $fillable = [ 
-        'generate_subjects_id', 'generate_references_id', 'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'title', 'registry_number', 'original_title', 'acquired', 'drop', 'document_status',
+        'generate_subjects_id', 'generate_references_id', 'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'title', 'registry_number', 'original_title', 'acquired', 'document_status',
         'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
         'observation', 'note', 'synopsis', 'photo', 'quantity_generic'
     ];
 
     protected $dates = ['acquired', 'drop', 'year'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($movie){
+
+            $movie->references()->detach()->delete();
+        });
+    }
 
     public function adequacy()
     {
@@ -39,10 +49,10 @@ class Document extends Model
         return $this->belongsTo(Document_subtype::class, 'document_subtypes_id');
     }
 
-    public function references()
-    {
-        return $this->belongsTo(Generate_reference::class, 'generate_references_id');
-    }
+    // public function references()
+    // {
+    //     return $this->belongsTo(Generate_reference::class, 'generate_references_id');
+    // }
 
     public function subjects()
     {
@@ -71,5 +81,19 @@ class Document extends Model
     public function multimedia()
     {
         return $this->hasOne(Multimedia::class);
+    }
+
+    public function references()
+    {
+        return $this->belongsToMany('App\Generate_reference', 'document_generate_reference', 'document_id', 'generate_reference_id'); 
+    }
+    
+    public function syncReferences($references)
+    {
+       $referencesIds = collect($references)->map(function($reference){
+            return  Generate_reference::find($reference) ? $reference : Generate_reference::create(['reference_description' => $reference])->id;
+        });                
+
+        return $this->references()->sync($referencesIds);
     }
 }

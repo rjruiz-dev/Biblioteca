@@ -21,7 +21,7 @@ $('body').on('click', '.modal-show', function (event) {
             });
 
             $('#generate_references_id').select2({
-                placeholder: 'Selecciona un Referencia',
+                placeholder: 'Selecciona o Ingrese un Referencia',
                
             });
 
@@ -31,8 +31,7 @@ $('body').on('click', '.modal-show', function (event) {
             });
 
             $('#photography_movies_id').select2({
-                placeholder: 'Seleccione una Fotografia',
-                  
+                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',                  
             });
 
             $('#generate_formats_id').select2({
@@ -41,20 +40,21 @@ $('body').on('click', '.modal-show', function (event) {
             });
 
             $('#generate_films_id').select2({
-                placeholder: 'Seleccione un Genero',
+                placeholder: 'Seleccione un Género',
                     
             });
 
-            // $('#distribution').select2({
-            //     placeholder: 'Seleccione o ingrese un reparto',
-            //     tags: true,               
-            // }); 
             $('#actors').select2({
                 tags: true
             });
+
+            $('#references').select2({
+                tags: false,
+               
+            });
             
             $('#distributor').select2({
-                placeholder: 'Seleccione o ingrese un Distribuidor',
+                placeholder: 'Seleccione o Ingrese una Distribuidora',
                 tags: true,               
             }); 
 
@@ -67,11 +67,11 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: false,               
             });
             $('#published').select2({
-                placeholder: 'Selecciona Lugar de Publicacíon',
+                placeholder: 'Selecciona Nacionalidad',
                 tags: true,               
             });
             $('#made_by').select2({
-                placeholder: 'Selecciona una Editorial',
+                placeholder: 'Selecciona una Productora',
                 tags: true,               
             });
             $('#document_subtypes_id').select2({
@@ -83,15 +83,7 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
 
-            // $('#second_author_id').select2({
-            //     placeholder: 'Seleccione o Ingrese Segundo Director',
-            //     tags: true,               
-            // });
-
-            // $('#third_author_id').select2({
-            //     placeholder: 'Seleccione o Ingrese Tercer Director',
-            //     tags: true,               
-            // });
+         
 
             $('#acquired').datepicker({
                 autoclose: true,

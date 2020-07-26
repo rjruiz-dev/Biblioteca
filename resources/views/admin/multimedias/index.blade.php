@@ -106,7 +106,8 @@
             ],             
             ajax: "{{ route('multimedias.table') }}",        
             columns: [                
-                {data: 'id', name: 'id'},                                 
+                {data: 'id', name: 'id'},  
+                {data: 'registry_number', name: 'registry_number'},                                    
                 {data: 'documents_id', name: 'documents_id'},         
                 {data: 'isbn', name: 'isbn'},             
                 {data: 'created_at', name: 'agregado'},                  

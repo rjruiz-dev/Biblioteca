@@ -20,8 +20,7 @@
                 <h3 class="box-title">Area de Titulo</h3>
             </div>
             <div class="box-body">
-                {{ csrf_field() }}
-                             
+                {{ csrf_field() }}                             
                 <div class="form-group" >              
                     {!! Form::label('title', 'Título') !!}                    
                     {!! Form::text('title', $movie->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título' ]) !!}
@@ -34,8 +33,6 @@
                     {!! Form::label('creators_id', 'Director') !!}             
                     {!! Form::select('creators_id', $authors, $movie->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
-         
-
                 <div class="form-group">
                     <label>Reparto</label>
                     <select name="actors[]" id="actors" class="form-control select2" 
@@ -45,8 +42,7 @@
                             <option {{ collect( old('actors', $movie->actors->pluck('id')))->contains($actor->id) ? 'selected' : '' }} value="{{ $actor->id}}"> {{ $actor->actor_name }} </option>
                         @endforeach
                     </select>
-                </div>  
-
+                </div> 
                 <div class="form-group">
                     {!! Form::label('original_title', 'Título Original') !!} 
                     {!! Form::text('original_title', $movie->document['original_title'], ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
@@ -77,39 +73,34 @@
                             placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
                 </div>
-                
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $movie->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
+                <div class="form-group">
+                    {!! Form::label('generate_films_id', 'Género') !!}             
+                    {!! Form::select('generate_films_id', $genders, null, ['class' => 'form-control  select2', 'id' => 'generate_films_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
+                </div> 
                 <div class="form-group">              
                     {!! Form::label('registry_number', 'Número de Registro') !!}                    
                     {!! Form::text('registry_number', $movie->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
                 </div>
-
-                <div class="form-group">
-                    {!! Form::label('generate_films_id', 'Genero') !!}             
-                    {!! Form::select('generate_films_id', $genders, null, ['class' => 'form-control  select2', 'id' => 'generate_films_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
-                </div> 
                 <div class="form-group">              
-                    {!! Form::label('let_author', 'Siglas Autor') !!}                    
-                    {!! Form::text('let_author', $movie->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}
+                    {!! Form::label('let_author', 'Siglas Director') !!}                    
+                    {!! Form::text('let_author', $movie->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del Director']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('let_title', 'Siglas Titulo') !!}                    
-                    {!! Form::text('let_title', $movie->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del titulo']) !!}
+                    {!! Form::text('let_title', $movie->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del Título']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
-                    {!! Form::select('generate_subjects_id', $subjects, null, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('generate_subjects_id', $subjects, $movie->document->generate_subjects_id, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
-                
-
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
                     {!! Form::text('assessment', $movie->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
                 </div>
-
                 <div class="form-group">      
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
                     {!! Form::checkbox('desidherata', $movie->document['desidherata'])!!}
@@ -125,10 +116,10 @@
             <div class="box-body">   
                 <div class="form-group">                       
                     {!! Form::label('published', 'Nacionalidad') !!} 
-                    {!! Form::text('published', $movie->document['published'], ['class' => 'form-control', 'id' => 'published', 'placeholder' => 'Publicado en']) !!}                                      
+                    {!! Form::select('published', $publications, $movie->document['published'], ['class' => 'form-control', 'id' => 'published', 'placeholder' => '', 'style' => 'width:100%;']) !!}                                      
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('made_by', 'Editorial') !!}        
+                    {!! Form::label('made_by', 'Productora') !!}        
                     {!! Form::select('made_by', $editorials, $movie->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div>       
                 <div class="form-group">
@@ -148,15 +139,14 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('photography_movies_id', 'Fotografia') !!}             
-                    {!! Form::select('photography_movies_id', $photographs, null, ['class' => 'form-control  select2', 'id' => 'photography_movies_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
-                </div> 
-            
+                    {!! Form::select('photography_movies_id', $photographs, $movie->photography_movie['photography_movies_id'], ['class' => 'form-control  select2', 'id' => 'photography_movies_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                </div>             
                 <div class="form-group">                 
-                    {!! Form::label('quantity_generic', 'Duracion') !!}               
+                    {!! Form::label('quantity_generic', 'Duración') !!}               
                     {!! Form::text('quantity_generic', $movie->document['quantity_generic'], ['class' => 'form-control', 'id' => '', 'placeholder' => 'Duración']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('generate_formats_id', 'Formatos') !!}             
+                    {!! Form::label('generate_formats_id', 'Formato') !!}             
                     {!! Form::select('generate_formats_id', $formats, null, ['class' => 'form-control  select2', 'id' => 'generate_formats_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
                 <div class="form-group">
@@ -164,29 +154,31 @@
                     {!! Form::select('distributor', $distributors, null, ['class' => 'form-control', 'id' => 'distributor', 'placeholder' => '']) !!}
                 </div>
                 <div class="form-group">                 
-                    {!! Form::label('location', 'Ubicacion') !!}               
-                    {!! Form::text('location', $movie->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicacion']) !!}
+                    {!! Form::label('location', 'Ubicación') !!}               
+                    {!! Form::text('location', $movie->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicación']) !!}
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('awards', 'Premios') !!}             
                     {!! Form::text('awards', null, ['class' => 'form-control', 'id' => 'awards', 'placeholder' => 'Premios']) !!}
                  </div>
                  <div class="form-group">
-                    <label>Nota</label>
+                    <label>Notas</label>
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $movie->document['note'])}}</textarea>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $movie->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 </div>
-
                 <div class="form-group">
-                    {!! Form::label('generate_references_id', 'Referencia') !!} 
-                    {!! Form::select('generate_references_id', $references, $movie->document['generate_references_id'], ['class' => 'form-control  select2', 'id' => 'generate_references_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}                     
-                </div>
-
+                    <label>Referencia</label>
+                    <select name="references[]" id="references" class="form-control select2" 
+                            multiple="multiple"                            
+                            data-placeholder="Selecciona o Ingresa uno o mas Referencias" style="width: 100%;">
+                        @foreach($references as $reference)
+                            <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
+                        @endforeach
+                    </select>
+                </div>  
                 <div class="form-group">
                     {!! Form::label('photo', 'Imagen') !!}                    
                     {!! Form::file('photo') !!}
@@ -201,11 +193,10 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Contenido de la publicación</label>
-                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $movie->document['synopsis'])}}</textarea>
+                    <label>Contenido, Sinopsis o Índice</label>
+                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el Contenido, Sinopsis o Índice">{{ old('synopsis', $movie->document['synopsis'])}}</textarea>
                 </div>                              
-            </div>
-            
+            </div>            
         </div>       
     </div>   
 {!! Form::close() !!}    

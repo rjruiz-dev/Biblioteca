@@ -21,10 +21,6 @@
                     @endphp
                 @endif
 
-        
-
-                
-
                 <div class="form-group">               
                     {!! Form::label('title', 'Título') !!}                    
                     {!! Form::text('title', $multimedia->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título']) !!}
@@ -41,7 +37,7 @@
                 </div> 
 
                 <div class="form-group">
-                    {!! Form::label('second_author_id', 'Segundo Artista') !!}             
+                    {!! Form::label('second_author_id', 'Segundo Autor') !!}             
                     {!! Form::select('second_author_id', $authors, null, ['class' => 'form-control  select2', 'id' => 'second_author_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div>
 
@@ -77,24 +73,9 @@
                             value="{{ old('acquired', $multimedia->document['acquired'] ? $multimedia->document['acquired']->format('d/m/Y') : null) }}"                            
                             type="text"
                             id="acquired"
-                            placeholder= "Selecciona una Fecha">                       
+                            placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
                 </div>
-                <div class="form-group">
-                    <label>Baja</label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>                      
-                        <input name="drop"
-                            class="form-control pull-right"                                                       
-                            value="{{ old('drop', $multimedia->document['drop'] ? $multimedia->document['drop']->format('d/m/Y') : null) }}"                            
-                            type="text"
-                            id="drop"
-                            placeholder= "Selecciona una Fecha">                       
-                    </div>                  
-                </div> 
-
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $multimedia->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
@@ -116,7 +97,7 @@
 
                 <div class="form-group">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
-                    {!! Form::select('generate_subjects_id', $subjects, null, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
+                    {!! Form::select('generate_subjects_id', $subjects, $multimedia->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
@@ -127,8 +108,6 @@
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
                     {!! Form::checkbox('desidherata', $multimedia->document['desidherata'])!!}
                 </div>
-
-                
             </div>
         </div>       
     </div>
@@ -172,8 +151,8 @@
                 </div>
                 
                 <div class="form-group">                 
-                    {!! Form::label('quantity_generic', 'Duracion') !!}               
-                    {!! Form::text('quantity_generic', $multimedia->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Duracion de la multimedia']) !!}
+                    {!! Form::label('quantity_generic', 'Duración') !!}               
+                    {!! Form::text('quantity_generic', $multimedia->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Duración']) !!}
                 </div>
 
                 <div class="form-group">                   
@@ -182,13 +161,13 @@
                 </div>
                 
                 <div class="form-group">                 
-                    {!! Form::label('collection', 'Coleccion') !!}               
-                    {!! Form::text('collection', $multimedia->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Coleccion']) !!}
+                    {!! Form::label('collection', 'Colección') !!}               
+                    {!! Form::text('collection', $multimedia->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Colección']) !!}
                 </div>
 
                 <div class="form-group">                 
-                    {!! Form::label('location', 'Ubicacion') !!}               
-                    {!! Form::text('location', $multimedia->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicacion']) !!}
+                    {!! Form::label('location', 'Ubicación') !!}               
+                    {!! Form::text('location', $multimedia->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicación']) !!}
                 </div>
 
                 <div class="form-group">
@@ -196,19 +175,25 @@
                     <textarea name='observation' id='observation' rows="3" class="form-control" placeholder="Ingresa una observación">{{ old('observation', $multimedia->document['observation'])}}</textarea>
                 </div>                
                 <div class="form-group">
-                    <label>Nota</label>
+                    <label>Notas</label>
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $multimedia->document['note'])}}</textarea>
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $multimedia->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
-                </div>
-                <div class="form-group">
-                    {!! Form::label('generate_references_id', 'Referencia') !!} 
-                    {!! Form::select('generate_references_id', $references, $multimedia->document['generate_references_id'], ['class' => 'form-control  select2', 'id' => 'generate_references_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
-                </div>
+                </div>               
 
+                <div class="form-group">
+                    <label>Referencia</label>
+                    <select name="references[]" id="references" class="form-control select2" 
+                            multiple="multiple"                            
+                            data-placeholder="Selecciona o Ingresa uno o mas Referencias" style="width: 100%;">
+                        @foreach($references as $reference)
+                            <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
+                        @endforeach
+                    </select>
+                </div>  
                 <div class="form-group">
                     {!! Form::label('photo', 'Imagen') !!}                    
                     {!! Form::file('photo') !!}
@@ -223,8 +208,8 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Contenido de la publicación</label>
-                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $multimedia->document['synopsis'])}}</textarea>
+                    <label>Contenido, Sinopsis o Índice</label>
+                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el Contenido, Sinopsis o Índice">{{ old('synopsis', $multimedia->document['synopsis'])}}</textarea>
                 </div>
                               
             </div>

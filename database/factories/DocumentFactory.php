@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Document::class, function (Faker $faker) {    
     return [
         'generate_subjects_id' => $faker->randomElement(['1','2']),
-        'generate_references_id' => $faker->randomElement(['1','2']),
+        // 'generate_references_id' => $faker->randomElement(['1','2']),
         'adequacies_id' => $faker->randomElement(['1','2']),
         'lenguages_id' => $faker->randomElement(['1','2']),
         'document_types_id' => $faker->randomElement(['1','2']),
