@@ -5,7 +5,12 @@
         <a href="{{ route('dashboard') }}">
             <i class="fa fa-dashboard"></i> <span>Inicio</span>
         </a>
-    </li>   
+    </li>  
+    <li class="{{ setActiveRoute('admin.loanmanual.index') }}">
+        <a href="{{ route('admin.loanmanual.index') }}">
+            <i class="fa fa-dashboard"></i> <span>Prestamos Manuales</span>
+        </a>
+    </li> 
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
     
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                
