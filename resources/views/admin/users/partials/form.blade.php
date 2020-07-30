@@ -1,24 +1,14 @@
-<div class="row">
-
-{!! Form::model($user, ['route' => ['admin.users.store',  $user->id], 'method' => 'POST', 'files' => true, 'enctype'=>'multipart/form-data']) !!}
-
+<div class="row">  
+    
+    {!! Form::open(['route' => 'admin.users.store', 'method' => 'PATCH', 'files'=>true, 'enctype'=>'multipart/form-data']) !!}
+   
+    {{ csrf_field() }}
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Datos personales</h3>
             </div>
             <div class="box-body">
-
-                @if (!$user->exists)
-                    @php 
-                        $visible = "display:none"
-                    @endphp
-                @else
-                    @php  
-                        $visible = ""
-                    @endphp
-                @endif       
-
                 <div class="form-group">              
                     {!! Form::label('name', 'Nombre') !!}                    
                     {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nombre']) !!}
@@ -53,12 +43,12 @@
                             placeholder= "Selecciona una Fecha">                       
                     </div>                  
                 </div>
-                <div id="dpassword" class="form-group" style="{{{ $visible }}}">
+                <div id="dpassword" class="form-group" >
                     {!! Form::label('password', 'Contraseña') !!}                                                              
                     {!! Form::password('password', array('class' => 'form-control', 'id' => 'password', 'placeholder' => 'Contraseña')) !!}                    
                     <span class="help-block">Dejar en blanco para no cambiar la contraseña</span>   
                 </div> 
-                <div id="dpassword_confirmation"  class="form-group" style="{{{ $visible }}}">
+                <div id="dpassword_confirmation"  class="form-group" >
                     {!! Form::label('password_confirmation', 'Repite la Contraseña') !!}                                                                     
                     {!! Form::password('password_confirmation', array('class' => 'form-control', 'id' => 'password_confirmation', 'placeholder' => 'Repite la Contraseña')) !!}   
                 </div>                 
@@ -77,10 +67,16 @@
                     {!! Form::label('status_id', 'Estado') !!}
                     {!! Form::select('status_id', $status, null, ['class' => 'form-control select2', 'id' => 'status_id', 'style' => 'width:100%;']) !!}
                 </div>
-                <div class="form-group"> 
+                <div class="form-group">
+                    <!-- {{ Form::label('user_photo', 'Imagen de Perfil') }}
+                    {{ Form::file('user_photo') }} -->
                     <label for="user_photo">Imagen de Perfil</label>
                     <input type="file" id="user_photo" name="user_photo">
+                </div>
+                <!-- <div class="form-group">              
+                   <div class="dropzone"></div>
                 </div> 
+              -->
             </div>
         </div>       
     </div> 
@@ -113,10 +109,36 @@
             </div>
         </div>       
     </div>   
-{!! Form::close() !!}    
+
+    {!! Form::close() !!}  
 </div>
+<!-- 
+<script>
+    var myDropzone = new Dropzone('.dropzone', { 
+          
+        url: '/admin/users/photos',
+        paramName: 'photo',
+        acceptedFiles: 'image/*',    
+        addRemoveLinks: true,
+        dictRemoveFile: "Eliminar imagen" ,
+        maxFilesize: 2, //2
+        headers: {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+        },
+        dictDefaultMessage: 'Arrastra las imagenes aqui para subirlas'     
+    });          
+    
+    myDropzone.on('error', function(file, res){  
+        // file.previewElement.classList.add("dz-error");     
+        var msg = res.photo;         
+        // console.log(res);      
+        $('.dz-error-message:last > span').text(msg);
+    });
 
-
+    
+    Dropzone.autoDiscover = false;
+   
+</script> -->
 
 
 

@@ -99,7 +99,7 @@ class MultimediaController extends Controller
                 $document->desidherata      = $request->get('desidherata'); 
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
-                $document->year             = Carbon::parse($request->get('year'));
+                $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume           = $request->get('volume');
                 $document->quantity_generic = $request->get('quantity_generic'); 
                 $document->collection       = $request->get('collection');
@@ -240,7 +240,7 @@ class MultimediaController extends Controller
                 $document->desidherata      = $request->get('desidherata'); 
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
-                $document->year             = Carbon::parse($request->get('year'));
+                $document->year                 = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume               = $request->get('volume');
                 $document->quantity_generic     = $request->get('quantity_generic'); 
                 $document->collection           = $request->get('collection');

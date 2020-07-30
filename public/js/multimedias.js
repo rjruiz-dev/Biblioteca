@@ -66,8 +66,7 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
             $('#year').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
+                autoclose: true,               
                 format: "yyyy",
                 viewMode: "years", 
                 minViewMode: "years",                    

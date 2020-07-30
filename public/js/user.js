@@ -34,7 +34,8 @@ $('body').on('click', '.modal-show', function (event) {
                 todayHighlight: true,  
                 // startDate: date,              
                 language: 'es'
-            });             
+            });   
+                   
                  
         }
     });

@@ -49,11 +49,6 @@ class Document extends Model
         return $this->belongsTo(Document_subtype::class, 'document_subtypes_id');
     }
 
-    // public function references()
-    // {
-    //     return $this->belongsTo(Generate_reference::class, 'generate_references_id');
-    // }
-
     public function subjects()
     {
         return $this->belongsTo(Generate_subjects::class, 'generate_subjects_id');

@@ -110,12 +110,13 @@ class MoviesController extends Controller
                 $document->desidherata      = $request->get('desidherata'); 
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
-                $document->year             = Carbon::parse($request->get('year'));
+                $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->quantity_generic = $request->get('quantity_generic'); 
                 $document->location         = $request->get('location');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');
                 $document->photo            = $request->get('photo');
+                $document->collection       = $request->get('collection'); 
                 $document->synopsis         = $request->get('synopsis'); 
                 $document->save();
                 $document->syncReferences($request->get('references'));
@@ -167,8 +168,6 @@ class MoviesController extends Controller
     {
         $movie = Movies::with('document','document.subjects', 'document.references')->findOrFail($id);    
         $document = Document::findOrFail($movie->documents_id);   
-        
-        // dd($movie);
      
         return view('admin.movies.partials.form', [
            
@@ -237,12 +236,13 @@ class MoviesController extends Controller
                 $document->desidherata          = $request->get('desidherata'); 
                 $document->published            = $request->get('published');
                 $document->made_by              = $request->get('made_by');
-                $document->year                 = Carbon::parse($request->get('year'));
+                $document->year                 = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->quantity_generic     = $request->get('quantity_generic'); 
                 $document->location             = $request->get('location');
                 $document->note                 = $request->get('note');
                 $document->lenguages_id         = $request->get('lenguages_id');              
                 $document->photo                = $request->get('photo');
+                $document->collection       = $request->get('collection'); 
                 $document->synopsis             = $request->get('synopsis'); 
                 $document->save();
                 $document->syncReferences($request->get('references'));

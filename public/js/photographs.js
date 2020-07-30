@@ -13,15 +13,12 @@ $('body').on('click', '.modal-show', function (event) {
         url: url,
         dataType: 'html',
         success: function (response) {
-            $('#modal-body').html(response);
-            
-          
+            $('#modal-body').html(response);          
 
             $('#distribution').select2({
                 placeholder: 'Seleccione o ingrese un reparto',
                 tags: true,               
-            });
-            
+            });            
 
             $('#photography_movies_id').select2({
                 placeholder: 'Seleccione una Fotografia',
@@ -61,18 +58,11 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona o Ingrese Tercer Autor',
                 tags: true,               
             });
-
+            
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                format: 'dd/mm/yyyy',    
-                language: 'es'
-            });  
-
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',    
+                format: 'dd/mm/yyyy',                      
                 language: 'es'
             });  
             
@@ -83,25 +73,28 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona Cdu'                    
             });
             $('#published').select2({
-                placeholder: 'Selecciona o Ingresa Lugar de Publicación',
+                placeholder: 'Selecciona o Ingresa Lugar de Edición',
                 tags: true,               
             });
             $('#made_by').select2({
-                placeholder: 'Ingresar el Sello Discografico',
+                placeholder: 'Ingresar el Sello Discográfico',
                 tags: true,               
             });
             $('#volume').select2({
-                placeholder: 'Selecciona un Volúmen',              
+                placeholder: 'Selecciona o Ingresa un Volúmen',              
                 tags: true,                                 
             });
             $('#year').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
+                autoclose: true,              
                 format: "yyyy",
                 viewMode: "years", 
                 minViewMode: "years",                    
                 language: 'es'
             });  
+            $('#references').select2({
+                tags: false,
+               
+            });
            
             // $('#edition').select2({
             //     placeholder: 'Selecciona Número de Edición',

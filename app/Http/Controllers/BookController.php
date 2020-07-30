@@ -79,8 +79,7 @@ class BookController extends Controller
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));             
                 $document->let_author       = $request->get('let_author');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
@@ -88,7 +87,7 @@ class BookController extends Controller
                 $document->desidherata      = $request->get('desidherata');
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
-                $document->year             = Carbon::parse($request->get('year'));
+                $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume           = $request->get('volume');
                 $document->quantity_generic = $request->get('quantity_generic');
                 $document->collection       = $request->get('collection');
@@ -235,8 +234,7 @@ class BookController extends Controller
                 $document->title            = $request->get('title');
                 $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));  
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                    
                 $document->let_author       = $request->get('let_author');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
@@ -244,7 +242,7 @@ class BookController extends Controller
                 $document->desidherata      = $request->get('desidherata');
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
-                $document->year             = Carbon::parse($request->get('year'));
+                $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume           = $request->get('volume');
                 $document->quantity_generic = $request->get('quantity_generic');
                 $document->collection       = $request->get('collection');

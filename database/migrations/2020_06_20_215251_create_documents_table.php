@@ -24,12 +24,11 @@ class CreateDocumentsTable extends Migration
             $table->integer('document_subtypes_id')->unsigned();
             $table->integer('creators_id')->unsigned();
 
-            $table->string('title')->unique();
+            $table->string('title')->nullable();
             $table->integer('registry_number')->nullable();
 
             $table->string('original_title')->nullable();
-            $table->timestamp('acquired')->nullable();
-            $table->timestamp('drop')->nullable();
+            $table->timestamp('acquired')->nullable();        
             $table->string('document_status')->nullable();
             $table->string('let_author')->nullable();          
             $table->string('let_title')->nullable();           
@@ -41,7 +40,7 @@ class CreateDocumentsTable extends Migration
             $table->string('volume')->nullable();
             $table->string('quantity_generic')->nullable();
             $table->string('collection')->nullable();
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->mediumText('observation')->nullable();
             $table->string('note')->nullable();
             $table->mediumText('synopsis')->nullable();

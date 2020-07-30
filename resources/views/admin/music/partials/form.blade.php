@@ -67,8 +67,7 @@
                 <div class="form-group">
                     {!! Form::label('producer', 'Productor') !!}                    
                     {!! Form::text('producer', null, ['class' => 'form-control', 'id' => 'producer', 'placeholder' => 'Productor']) !!}
-                </div>  
-            
+                </div>              
                 <div class="form-group">
                     <label>Adquirido</label>
                     <div class="input-group date">
@@ -80,23 +79,9 @@
                             value="{{ old('acquired', $music->document['acquired'] ? $music->document['acquired']->format('d/m/Y') : null) }}"                            
                             type="text"
                             id="acquired"
-                            placeholder= "Selecciona una Fecha">                       
+                            placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
-                </div>
-                <div class="form-group">
-                    <label>Baja</label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>                      
-                        <input name="drop"
-                            class="form-control pull-right"                                                       
-                            value="{{ old('drop', $music->document['drop'] ? $music->document['drop']->format('d/m/Y') : null) }}"                            
-                            type="text"
-                            id="drop"
-                            placeholder= "Selecciona una Fecha">                       
-                    </div>                  
-                </div> 
+                </div>    
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $music->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
@@ -119,7 +104,7 @@
                 </div>              
                 <div class="form-group">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
-                    {!! Form::select('generate_subjects_id', $subjects, null, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('generate_subjects_id', $subjects, $music->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
@@ -144,20 +129,20 @@
                     {!! Form::select('published', $publications, $music->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '', 'style' => 'width:100%;']) !!}                                                                       
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('made_by', 'Sello Discografico') !!}                    
-                    {!! Form::text('made_by', $music->document['made_by'], ['class' => 'form-control', 'id' => 'made_by', 'placeholder' => 'Ingresar el Sello Discografico', 'style' => 'width:100%;']) !!}
-               
-                </div>
+                    {!! Form::label('made_by', 'Productora') !!}        
+                    {!! Form::select('made_by', $editorials, $music->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
+                </div> 
                             
                 <div class="form-group">
-                    <label>Fecha de Publicación</label>
+                    <label>Año de Publicación</label>
                     <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>                      
                         <input name="year"
                             class="form-control pull-right"                                                       
-                            value="{{ old('year', $music->document['year'] ? $music->document['year']->format('d/m/Y') : null) }}"                            
+                            value="{{ old('year', $music->document['year'] ? $music->document['year']->format('Y') : null) }}"                            
+                            type="text"
                             type="text"
                             id="year"
                             placeholder= "Selecciona Año de Publicación">                       
@@ -181,21 +166,19 @@
                     {!! Form::select('generate_formats_id', $formats, null, ['class' => 'form-control  select2', 'id' => 'generate_formats_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
                 <div class="form-group" id="din_collection">                 
-                    {!! Form::label('collection', 'Coleccion') !!}               
-                    {!! Form::text('collection', $music->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Coleccion']) !!}
+                    {!! Form::label('collection', 'Colección') !!}               
+                    {!! Form::text('collection', $music->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Colección']) !!}
                 </div>
                 <div class="form-group">                 
                     {!! Form::label('location', 'Ubicación') !!}               
                     {!! Form::text('location', $music->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicación']) !!}
                 </div>
-                
-             
                 <div class="form-group">
                     <label>Observación</label>
                     <textarea name='observation' id='observation' rows="3" class="form-control" placeholder="Ingresa una observación">{{ old('observation', $music->document['observation'])}}</textarea>
                 </div>                
                 <div class="form-group">
-                    <label>Nota</label>
+                    <label>Notas</label>
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $music->document['note'])}}</textarea>
                 </div>
                 <div class="form-group">
@@ -203,9 +186,15 @@
                     {!! Form::select('lenguages_id', $languages, $music->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}                     
                 </div>
                 <div class="form-group">
-                    {!! Form::label('generate_references_id', 'Referencia') !!} 
-                    {!! Form::select('generate_references_id', $references, $music->document['generate_references_id'], ['class' => 'form-control  select2', 'id' => 'generate_references_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}                     
-                </div>
+                    <label>Referencia</label>
+                    <select name="references[]" id="references" class="form-control select2" 
+                            multiple="multiple"                            
+                            data-placeholder="Selecciona o Ingresa uno o mas Referencias" style="width: 100%;">
+                        @foreach($references as $reference)
+                            <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
+                        @endforeach
+                    </select>
+                </div> 
                 <div class="form-group">
                     {!! Form::label('photo', 'Imagen') !!}                    
                     {!! Form::file('photo') !!}
@@ -221,8 +210,8 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Contenido de la publicación</label>
-                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $music->document['synopsis'])}}</textarea>
+                <label>Contenido, Sinopsis o Índice</label>
+                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el Contenido, Sinopsis o Índice">{{ old('synopsis', $music->document['synopsis'])}}</textarea>
                 </div>                              
             </div>
         </div>       

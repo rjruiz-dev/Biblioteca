@@ -25,13 +25,12 @@ $('body').on('click', '.modal-show', function (event) {
             });
          
             $('#creators_id').select2({
-                placeholder: 'Selecciona un Compositor',
+                placeholder: 'Selecciona o Ingresa un Compositor',
                 tags: true,               
             });
 
             $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Referencia',
-                tags: true,               
+                placeholder: 'Selecciona Cdu'                    
             });
             $('#acquired').datepicker({
                 autoclose: true,
@@ -55,15 +54,14 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona un Género'
             });
             $('#year').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
+                autoclose: true,              
                 format: "yyyy",
                 viewMode: "years", 
                 minViewMode: "years",                    
                 language: 'es'
-            });             
+            });              
             $('#published').select2({
-                placeholder: 'Selecciona Lugar de Edición',
+                placeholder: 'Selecciona o Ingresa Lugar de Edición',
                 tags: true,               
             });
             $('#volume').select2({
@@ -73,11 +71,12 @@ $('body').on('click', '.modal-show', function (event) {
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma'                                    
             });
-             $('#generate_references_id').select2({
-                placeholder: 'Selecciona una  o mas referencias'                                    
+            $('#references').select2({
+                tags: false,
+               
             });
             $('#made_by').select2({
-                placeholder: 'Ingresar el Sello Discografico',
+                placeholder: 'Ingresar el Sello Discográfico',
                 tags: true,               
             });
 
@@ -85,8 +84,7 @@ $('body').on('click', '.modal-show', function (event) {
             CKEDITOR.config.height = 190;  
             
             if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
-                // document.getElementById("popular").style.display = "block";
-                // document.getElementById("culta").style.display = "none";
+               
 
                 document.getElementById("l_title").innerHTML = 'Titulo';
                 document.getElementById("l_creators_id").innerHTML = 'Artista';
@@ -101,8 +99,7 @@ $('body').on('click', '.modal-show', function (event) {
                 document.getElementById("din_music_populars").style.display = "block";
                 document.getElementById("din_original_title").style.display = "block";
             } else { // si es culta
-                // document.getElementById("culta").style.display = "block";
-                // document.getElementById("popular").style.display = "none";
+              
         
                 document.getElementById("l_title").innerHTML = 'Titulo de la obra';
                 document.getElementById("l_creators_id").innerHTML = 'Compositor';

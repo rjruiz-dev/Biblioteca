@@ -37,13 +37,14 @@ class PhotographyController extends Controller
      */
     public function create()
     {
-        $photograph = new Photography();      
+        $photograph = new Photography();
+        $document = new Document();                  
                               
         return view('admin.photographs.partials.form', [
           
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),   
             'publications'  => Document::pluck('published', 'published'),        
-            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'references'    => Generate_reference::all(),   
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 5)->get()->pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id'),
@@ -51,7 +52,8 @@ class PhotographyController extends Controller
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),           
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'photograph'    => $photograph
+            'photograph'    => $photograph,
+            'document'      => $document
         ]); 
     }
 
@@ -89,8 +91,8 @@ class PhotographyController extends Controller
                  }
 
                 $document->original_title   = $request->get('original_title'); 
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop             = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));
+                $document->registry_number  = $request->get('registry_number');                     
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->let_author       = $request->get('let_author');
@@ -99,18 +101,18 @@ class PhotographyController extends Controller
                 $document->desidherata      = $request->get('desidherata'); 
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
-                $document->year             = Carbon::parse($request->get('year'));
+                $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume           = $request->get('volume'); 
                 $document->quantity_generic = $request->get('quantity_generic'); 
                 $document->collection       = $request->get('collection'); 
                 $document->location         = $request->get('location');
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
-                $document->lenguages_id               = $request->get('lenguages_id');
-                $document->generate_references_id     = $request->get('generate_references_id');
-                $document->photo                      = $request->get('photo');
-                $document->synopsis                   = $request->get('synopsis');                 
+                $document->lenguages_id     = $request->get('lenguages_id');           
+                $document->photo            = $request->get('photo');
+                $document->synopsis         = $request->get('synopsis');                 
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                  // insertamos en la tabla photograph
                 
@@ -175,13 +177,13 @@ class PhotographyController extends Controller
      */
     public function edit($id)
     { 
-        $photograph = Photography::with('document')->findOrFail($id);     
+        $photograph = Photography::with('document')->findOrFail($id);   
+        $document = Document::findOrFail($photograph->documents_id);    
                               
-        return view('admin.photographs.partials.form', [
-            
+        return view('admin.photographs.partials.form', [            
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'publications'  => Document::pluck('published', 'published'),          
-            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'references'    => Generate_reference::all(),  
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 5)->get()->pluck('subtype_name', 'id'),
             'editorials'    => Document::pluck('made_by', 'made_by'),
@@ -189,7 +191,8 @@ class PhotographyController extends Controller
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),          
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'photograph'    => $photograph
+            'photograph'    => $photograph,
+            'document'      => $document
         ]);
     }
 
@@ -229,8 +232,8 @@ class PhotographyController extends Controller
                 }
 
                 $document->original_title       = $request->get('original_title'); 
-                $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop                 = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
+                $document->registry_number      = $request->get('registry_number');
+                $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));               
                 $document->adequacies_id        = $request->get('adequacies_id');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_author           = $request->get('let_author');
@@ -240,18 +243,18 @@ class PhotographyController extends Controller
                 $document->desidherata          = $request->get('desidherata'); 
                 $document->published            = $request->get('published');
                 $document->made_by              = $request->get('made_by');
-                $document->year                 = Carbon::parse($request->get('year'));
+                $document->year                 = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume               = $request->get('volume'); 
                 $document->quantity_generic     = $request->get('quantity_generic'); 
                 $document->collection           = $request->get('collection'); 
                 $document->location             = $request->get('location');
                 $document->observation          = $request->get('observation');
                 $document->note                 = $request->get('note');
-                $document->lenguages_id         = $request->get('lenguages_id');
-                $document->generate_references_id   = $request->get('generate_references_id');
+                $document->lenguages_id         = $request->get('lenguages_id');          
                 $document->photo                = $request->get('photo');
                 $document->synopsis             = $request->get('synopsis');
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                  // insertamos en la tabla photograph
             
@@ -310,7 +313,7 @@ class PhotographyController extends Controller
 
     public function dataTable()
     {   
-        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_formats_id') 
+        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format') 
         // ->allowed()
         ->get();
        

@@ -63,17 +63,18 @@
                  </div>
 
                  <div class="form-group">
-                    <label>Adquirido</label>
+                    <label>Año de Publicación</label>
                     <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>                      
-                        <input name="acquired"
+                        <input name="year"
                             class="form-control pull-right"                                                       
-                            value="{{ old('acquired', $multimedia->document['acquired'] ? $multimedia->document['acquired']->format('d/m/Y') : null) }}"                            
+                            value="{{ old('year', $multimedia->document['year'] ? $multimedia->document['year']->format('Y') : null) }}"                            
                             type="text"
-                            id="acquired"
-                            placeholder= "Selecciona una Fecha de Adquisición">                       
+                            type="text"
+                            id="year"
+                            placeholder= "Selecciona Año de Publicación">                       
                     </div>                  
                 </div>
                 <div class="form-group">

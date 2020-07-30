@@ -95,7 +95,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
-                    {!! Form::select('generate_subjects_id', $subjects, $movie->document->generate_subjects_id, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('generate_subjects_id', $subjects, $movie->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
@@ -130,7 +130,7 @@
                         </div>                      
                         <input name="year"
                             class="form-control pull-right"                                                       
-                            value="{{ old('year', $movie->document['year'] ? $movie->document['year']->format('m/d/Y') : null) }}"                            
+                            value="{{ old('year', $movie->document['year'] ? $movie->document['year']->format('Y') : null) }}"                            
                             type="text"
                             type="text"
                             id="year"

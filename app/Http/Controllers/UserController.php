@@ -53,8 +53,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->file('user_photo'));      
-        dd($request->hasFile('user_photo'));
+        
+             
+        
         // if ($request->ajax()){
             try {
                 //  Transacciones
@@ -69,30 +70,39 @@ class UserController extends Controller
                 
                 // Generar una contraseña
                 $data['password'] = str_random(8);
-                // if(Input::has('file'))
-            
+             
+                
+
                 // Creamos el usuario            
-                $user = new User;   
-                $user->name         = $request->get('name');
-                $user->surname      = $request->get('surname');
-                $user->nickname     = $request->get('nickname');
-                $user->email        = $request->get('email');        
-                $user->password     = $request->get('password');
-                $user->gender       = $request->get('gender');  
-                $user->address      = $request->get('address');
-                $user->postcode     = $request->get('postcode');  
-                $user->city         = $request->get('city');
-                $user->province     = $request->get('province');
-                $user->phone        = $request->get('phone');
-                $user->user_photo   = $request->file('user_photo');
-                $user->status_id    = $request->get('status_id'); 
-                $user->save();
-               
-               
+                
+
+                if (request()->hasFile('user_photo')) {
+                    $file = request()->file('user_photo')->store('public');
+                    dd($file);
+                    $user = new User;   
+                    $user->name         = $request->get('name');
+                    $user->surname      = $request->get('surname');
+                    $user->nickname     = $request->get('nickname');
+                    $user->email        = $request->get('email');        
+                    $user->password     = $request->get('password');
+                    $user->gender       = $request->get('gender');  
+                    $user->address      = $request->get('address');
+                    $user->postcode     = $request->get('postcode');  
+                    $user->city         = $request->get('city');
+                    $user->province     = $request->get('province');
+                    $user->phone        = $request->get('phone');   
+                    $user->user_photo   = $file;
+                   
+                    $user->save();
+                    
+                  
+
                 // Enviamos el email
                 UserWasCreated::dispatch($user, $data['password']);
                 // $user->update($request->validated()); 
-    
+                }else{
+                    return 'no llego nada';
+                }
                 DB::commit();
 
             } catch (Exception $e) {
@@ -101,6 +111,23 @@ class UserController extends Controller
             }
         // }    
     }
+
+    // public function photo(Request $request)
+    // {
+    //     $this->validate(request(),[
+    //         // jpg, png, bmp, gif, o svg            
+    //         'photo' => 'required|image|max:2048' 
+    //     ]);
+
+    //     $photo = request()->file('user_photo')->store('public');
+
+    //     User::create([
+    //         'user_photo' => Storage::url($photo)
+            
+    //     ]);     
+    
+    // }
+
 
     /**
      * Display the specified resource.

@@ -83,8 +83,6 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
 
-         
-
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
@@ -92,21 +90,12 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });  
 
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                      
-                language: 'es'
-            });  
-            
-
             $('#generate_films_id').select2({
                 placeholder: 'Selecciona un Género',                   
             });
 
             $('#year').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
+                autoclose: true,            
                 format: "yyyy",
                 viewMode: "years", 
                 minViewMode: "years",                    

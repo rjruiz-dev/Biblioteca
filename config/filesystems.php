@@ -46,15 +46,16 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            // 'root' => public_path('img'),         
         ],
 
         'public' => [
-            'driver' => 'local',         
-            // 'root'   => public_path().'/uploads',
-            // 'url' => env('APP_URL').'/public',
+            'driver' => 'local',     
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
+            'url' => env('APP_URL').'/storage', 
+            'visibility' => 'public',   
+            // 'root'   => public_path(),
+            // 'url' => env('APP_URL').'/storage',
         ],
 
         's3' => [

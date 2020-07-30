@@ -40,7 +40,8 @@ function(){
     Route::resource('subjects',             'GenerateSubjectsController', ['except' => 'show', 'as' => 'admin']);
     Route::resource('letters',              'GenerateLetterController', ['except' => 'show', 'as' => 'admin']);
     Route::resource('fastprocess',          'FastPartnerProcessController',['as' => 'admin']);
-    Route::resource('loanmanual',          'LoanManualController',['as' => 'admin']);
+    Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
+    // Route::post('users/photos',             'UserController@photo')->name('admin.posts.photo');
 
     Route::post('fastprocess/grabar',       'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
     Route::get('fastprocess/vista_devo_reno/{id}/{bandera}',  'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
@@ -68,10 +69,9 @@ Route::get('music/table',               'MusicController@dataTable')->name('musi
 Route::get('photographs/table',         'PhotographyController@dataTable')->name('photographs.table');
 Route::get('multimedias/table',         'MultimediaController@dataTable')->name('multimedias.table');
 Route::get('fastprocess/table',         'FastPartnerProcessController@dataTable')->name('fastprocess.table');
-Route::get('fastprocess/table2',  'FastPartnerProcessController@dataTable2')->name('fastprocess.table2');
-Route::get('fastprocess/index2',         'FastPartnerProcessController@index2')->name('fastprocess.index2');
-
-Route::get('loanmanual/table',         'LoanManualController@dataTable')->name('loanmanual.table');
+Route::get('fastprocess/table2',        'FastPartnerProcessController@dataTable2')->name('fastprocess.table2');
+Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->name('fastprocess.index2');
+Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
 
 
 

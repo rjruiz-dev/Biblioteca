@@ -44,7 +44,7 @@
                 </div> 
 
                 <div class="form-group">
-                    {!! Form::label('second_author_id', 'Segundo Artista') !!}             
+                    {!! Form::label('second_author_id', 'Segundo Autor') !!}             
                     {!! Form::select('second_author_id', $authors, null, ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'second_author_id', 'style' => 'width:100%;']) !!}
                 </div>
 
@@ -74,23 +74,9 @@
                             value="{{ old('acquired', $photograph->document['acquired'] ? $photograph->document['acquired']->format('d/m/Y') : null) }}"                            
                             type="text"
                             id="acquired"
-                            placeholder= "Selecciona una Fecha">                       
+                            placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
-                </div>
-                <div class="form-group">
-                    <label>Baja</label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>                      
-                        <input name="drop"
-                            class="form-control pull-right"                                                       
-                            value="{{ old('drop', $photograph->document['drop'] ? $photograph->document['drop']->format('d/m/Y') : null) }}"                            
-                            type="text"
-                            id="drop"
-                            placeholder= "Selecciona una Fecha">                       
-                    </div>                  
-                </div> 
+                </div>             
 
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
@@ -103,16 +89,16 @@
                 </div>
 
                 <div class="form-group">              
-                    {!! Form::label('let_author', 'Siglas Director') !!}                    
-                    {!! Form::text('let_author', $photograph->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}
+                    {!! Form::label('let_author', 'Siglas Autor') !!}                    
+                    {!! Form::text('let_author', $photograph->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del Autor']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('let_title', 'Siglas Título') !!}                    
-                    {!! Form::text('let_title', $photograph->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del titulo']) !!}
+                    {!! Form::text('let_title', $photograph->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del Título']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
-                    {!! Form::select('generate_subjects_id', $subjects, null, ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'generate_subjects_id', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('generate_subjects_id', $subjects, $photograph->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
@@ -133,7 +119,7 @@
             </div>
             <div class="box-body">   
                 <div class="form-group">                       
-                    {!! Form::label('published', 'Publicado En') !!} 
+                    {!! Form::label('published', 'Editado En') !!} 
                     {!! Form::select('published', $publications, $photograph->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '',  'style' => 'width:100%;']) !!}                                      
                 </div>
                 <div class="form-group">              
@@ -142,14 +128,15 @@
                 </div>
                             
                 <div class="form-group">
-                    <label>Fecha de Publicación</label>
+                    <label>Año de Publicación</label>
                     <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>                      
                         <input name="year"
                             class="form-control pull-right"                                                       
-                            value="{{ old('year', $photograph->document['year'] ? $photograph->document['year']->format('d/m/Y') : null) }}"                            
+                            value="{{ old('year', $photograph->document['year'] ? $photograph->document['year']->format('Y') : null) }}"                            
+                            type="text"
                             type="text"
                             id="year"
                             placeholder= "Selecciona Año de Publicación">                       
@@ -167,7 +154,7 @@
 
                 <div class="form-group">                 
                     {!! Form::label('quantity_generic', 'N° Diapositivas') !!}               
-                    {!! Form::text('quantity_generic', $photograph->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Duración']) !!}
+                    {!! Form::text('quantity_generic', $photograph->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'N° Diapositivas']) !!}
                 </div>
 
                 <div class="form-group">                  
@@ -176,13 +163,13 @@
                 </div>
 
                 <div class="form-group">                 
-                    {!! Form::label('collection', 'Coleccion') !!}               
-                    {!! Form::text('collection', $photograph->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Coleccion']) !!}
+                    {!! Form::label('collection', 'Colección') !!}               
+                    {!! Form::text('collection', $photograph->document['collection'], ['class' => 'form-control', 'id' => 'collection', 'placeholder' => 'Colección']) !!}
                 </div>
 
                 <div class="form-group">                 
-                    {!! Form::label('location', 'Ubicacion') !!}               
-                    {!! Form::text('location', $photograph->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicacion']) !!}
+                    {!! Form::label('location', 'Ubicación') !!}               
+                    {!! Form::text('location', $photograph->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Ubicación']) !!}
                 </div>
 
                 <div class="form-group">
@@ -191,18 +178,24 @@
                 </div> 
 
                 <div class="form-group">
-                    <label>Nota</label>
+                    <label>Notas</label>
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $photograph->document['note'])}}</textarea>
                 </div>
             
                 <div class="form-group">
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $photograph->document['lenguages_id'], ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'lenguages_id', 'style' => 'width:100%;']) !!}                     
-                </div>
+                </div>               
                 <div class="form-group">
-                    {!! Form::label('generate_references_id', 'Referencia') !!} 
-                    {!! Form::select('generate_references_id', $references, $photograph->document['generate_references_id'], ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'generate_references_id', 'style' => 'width:100%;']) !!}                     
-                </div>
+                    <label>Referencia</label>
+                    <select name="references[]" id="references" class="form-control select2" 
+                            multiple="multiple"                            
+                            data-placeholder="Selecciona o Ingresa uno o mas Referencias" style="width: 100%;">
+                        @foreach($references as $reference)
+                            <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
+                        @endforeach
+                    </select>
+                </div>  
                 <div class="form-group">
                     {!! Form::label('photo', 'Imagen') !!}                    
                     {!! Form::file('photo') !!}
@@ -217,8 +210,8 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Contenido de la publicación</label>
-                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $photograph->document['synopsis'])}}</textarea>
+                <label>Contenido, Sinopsis o Índice</label>
+                    <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el Contenido, Sinopsis o Índice">{{ old('synopsis', $photograph->document['synopsis'])}}</textarea>
                 </div>
                               
             </div>

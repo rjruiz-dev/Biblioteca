@@ -40,7 +40,8 @@ class MusicController extends Controller
      */
     public function create()
     {
-        $music = new Music();      
+        $music = new Music();    
+        $document = new Document();      
                               
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
@@ -48,7 +49,7 @@ class MusicController extends Controller
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id'),            
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
-            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'references'    => Generate_reference::all(),            
             'genders'       => Generate_music::pluck('genre_music', 'id'),
             'publications'  => Document::pluck('published', 'published'),
             'sounds'        => Music::pluck('sound', 'sound'),
@@ -56,7 +57,8 @@ class MusicController extends Controller
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'music'         => $music
+            'music'         => $music,
+            'document'      => $document
         ]); 
     }
 
@@ -78,8 +80,8 @@ class MusicController extends Controller
                 $document->document_types_id        = 1; // 1 tipo de documento: musica.
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
-                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop                     = Carbon::createFromFormat('d/m/Y', $request->get('drop'));      
+                $document->registry_number          = $request->get('registry_number');
+                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
                 $document->let_title                = $request->get('let_title');
@@ -88,15 +90,15 @@ class MusicController extends Controller
                 $document->desidherata              = $request->get('desidherata'); 
                 $document->published                = $request->get('published');
                 $document->made_by                  = $request->get('made_by');
-                $document->year                     = Carbon::parse($request->get('year'));
+                $document->year                     = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume                   = $request->get('volume');
                 $document->quantity_generic         = $request->get('quantity_generic');
                 $document->location                 = $request->get('location');
                 $document->observation              = $request->get('observation');
                 $document->note                     = $request->get('note');
-                $document->lenguages_id             = $request->get('lenguages_id');
-                $document->generate_references_id   = $request->get('generate_references_id');
+                $document->lenguages_id             = $request->get('lenguages_id');          
                 $document->photo                    = $request->get('photo');
+                $document->collection               = $request->get('collection'); 
                 $document->synopsis                 = $request->synopsis;
 
                 if( is_numeric($request->get('creators_id'))) 
@@ -114,6 +116,8 @@ class MusicController extends Controller
 
 
                 $document->save();
+                $document->syncReferences($request->get('references'));
+
                 $music = new Music;   
                 $music->producer                = $request->get('producer');
                 $music->generate_musics_id      = $request->get('generate_musics_id');
@@ -121,6 +125,7 @@ class MusicController extends Controller
                 $music->generate_formats_id     = $request->get('generate_formats_id');             
                 $music->documents_id            = $document->id;//guardamos el id del documento                
                 $music->save();
+                
 
                 // evaluamos si se eligio culta o popular y en base a eso insertamos en la 
                 //respectiva tabla
@@ -172,10 +177,11 @@ class MusicController extends Controller
     public function edit($id)
     {
         $musics = Music::with('document', 'generate_music')->findOrFail($id);
+        $document = Document::findOrFail($musics->documents_id);   
                                
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
-            'references'    => Generate_reference::pluck('reference_description', 'id'),
+            'references'    => Generate_reference::all(),            
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 1)->get()->pluck('subtype_name', 'id'),
@@ -187,7 +193,8 @@ class MusicController extends Controller
             'publications'  => Document::pluck('published', 'published'),
             'sounds'        => Music::pluck('sound', 'sound'),        
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'music'         => $musics
+            'music'         => $musics,
+            'document'      => $document
         ]); 
     }
 
@@ -198,7 +205,7 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function update(RequesSaveDocumentRequestt $request, $id)
+    public function update(SaveDocumentRequest $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -211,25 +218,25 @@ class MusicController extends Controller
               
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
-                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                
-                $document->drop                     = Carbon::createFromFormat('d/m/Y', $request->get('drop'));
+                $document->registry_number          = $request->get('registry_number');
+                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
                 $document->let_title                = $request->get('let_title');
-                $document->generate_subjects_id = $request->get('generate_subjects_id');  
+                $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->assessment               = $request->get('assessment'); 
                 $document->desidherata              = $request->get('desidherata'); 
                 $document->published                = $request->get('published');
                 $document->made_by                  = $request->get('made_by');
-                $document->year                     = Carbon::parse($request->get('year'));
+                $document->year                     = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume                   = $request->get('volume');
                 $document->quantity_generic         = $request->get('quantity_generic');
                 $document->location                 = $request->get('location');
                 $document->observation              = $request->get('observation');
                 $document->note                     = $request->get('note');
-                $document->lenguages_id             = $request->get('lenguages_id');
-                $document->generate_references_id   = $request->get('generate_references_id');
+                $document->lenguages_id             = $request->get('lenguages_id');            
                 $document->photo                    = $request->get('photo');
+                $document->collection               = $request->get('collection'); 
                 $document->synopsis                 = $request->get('synopsis');
                 
                 // $document->creators_id         = $request->get('creators_id');
@@ -247,6 +254,7 @@ class MusicController extends Controller
                     $document->creators_id      = $creator->id;
                 }
                 $document->save();
+                $document->syncReferences($request->get('references'));
 
                  // actualizamos en la tabla musica  
                 $music->producer            = $request->get('producer');
@@ -311,8 +319,7 @@ class MusicController extends Controller
         // dd($musica);       
         return dataTables::of($musica)
             ->addColumn('registry_number', function ($musica){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$musica->registry_number."<br>";            
+                return $musica->document['registry_number']."<br>";            
             })           
             ->addColumn('document_subtypes_id', function ($musica){
 
@@ -326,7 +333,7 @@ class MusicController extends Controller
                     '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
             }) 
-            ->addColumn('lenguages_id', function ($libros){
+            ->addColumn('lenguages_id', function ($musica){
 
                 return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage->leguage_description;         
             })              
