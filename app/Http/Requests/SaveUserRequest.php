@@ -30,6 +30,7 @@ class SaveUserRequest extends FormRequest
             'status_id' => 'required',
             'birthdate' => 'required',
             'gender'    => 'required',
+          
             'province'  => 'required',
         ];
 

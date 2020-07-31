@@ -1,6 +1,6 @@
 <div class="row">  
     
-    {!! Form::open(['route' => 'admin.users.store', 'method' => 'PATCH', 'files'=>true, 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['route' => 'admin.users.store', 'method' => 'POST', 'enctype'=>'multipart/form-data']) !!}
    
     {{ csrf_field() }}
     <div class="col-md-4">
