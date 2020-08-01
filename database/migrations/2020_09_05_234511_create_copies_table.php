@@ -15,13 +15,21 @@ class CreateCopiesTable extends Migration
     {
         Schema::create('copies', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->integer('documents_id')->unsigned();            
+            $table->integer('status_copy_id')->unsigned();
+
+            $table->integer('registry_number')->nullable();  
+            
             $table->timestamps();
 
             $table->foreign('documents_id')->references('id')->on('documents')
             ->onDelete('cascade')
-            ->onUpdate('cascade'); 
+            ->onUpdate('cascade');
+            
+            $table->foreign('status_copy_id')->references('id')->on('movement_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

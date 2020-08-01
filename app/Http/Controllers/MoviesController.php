@@ -140,6 +140,8 @@ class MoviesController extends Controller
                
                 DB::commit();
 
+                return response()->json(['data' => $document->id, 'bandera' => 1]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -315,7 +317,8 @@ class MoviesController extends Controller
                 return view('admin.movies.partials._action', [
                     'movie' => $movie,
                     'url_show' => route('admin.movies.show', $movie->id),                        
-                    'url_edit' => route('admin.movies.edit', $movie->id),                              
+                    'url_edit' => route('admin.movies.edit', $movie->id),  
+                    'url_copy' => route('genericcopies.copies', $movie->document->id),                              
                     'url_destroy' => route('admin.movies.destroy', $movie->id)
                 ]);
             })           

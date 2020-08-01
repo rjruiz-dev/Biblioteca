@@ -74,10 +74,11 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona una Productora',
                 tags: true,               
             });
-            $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un subtipo de Documento',
-                tags: true,               
+            $('#status_copy_id').select2({
+                placeholder: 'Selecciona un estado para la copia',
+                tags: false,               
             });
+            
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese un Director',
                 tags: true,               
@@ -134,25 +135,12 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
-            var id_new_doc = response.data;
-            var bandera = response.bandera;
-            console.log("id: " + id_new_doc);
-            console.log("bandera: " + bandera);
-            if (bandera == 1){
+
             swal({
                 type : 'success',
                 title : '¡Éxito!',
-                text : '¡Se han guardado el documento! Ahora debe registrar las copias del mismo',
-            }).then(function() {
-                window.location = "../admin/genericcopies/copies/" + id_new_doc;
+                text : '¡Se han guardado los datos!'
             });
-        }else{
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se ha actualizado el documento!'
-            });
-        }
         },
         error : function (xhr) {
             var res = xhr.responseJSON;

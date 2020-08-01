@@ -12,18 +12,45 @@ class MovementTypesTableSeeder extends Seeder
     public function run()
     {
         App\Movement_type::create([           
-            'book_status'           => 'PRESTADO',
-            'description_movement'  => 'PRESTADO',
+            'book_status_priv'           => 'PRESTADO',
+            'book_status_public'           => 'PRESTADO',
+            'description_movement'  => 'PRESTAMO',
+            'view'  => 0,
         ]);
 
         App\Movement_type::create([            
-            'book_status'           => 'PRESTADO',
-            'description_movement'  => 'RENOVADO',
-        ]);
+            'book_status_priv'           => 'RENOVADO',
+            'book_status_public'           => 'PRESTADO',
+            'description_movement'  => 'RENOVACION',
+            'view'  => 0,
+            ]);
         
         App\Movement_type::create([            
-            'book_status'           => 'DISPONIBLE',
-            'description_movement'  => 'DEVUELTO',
+            'book_status_priv'           => 'DISPONIBLE',
+            'book_status_public'           => 'DISPONIBLE',
+            'description_movement'  => 'DEVOLUCION',
+            'view'  => 0,
+        ]);
+
+        App\Movement_type::create([            
+            'book_status_priv'           => 'BAJA',
+            'book_status_public'           => 'BAJA',
+            'description_movement'  => 'EN BAJA',
+            'view'  => 1,
+        ]);
+
+        App\Movement_type::create([            
+            'book_status_priv'           => 'MANTENIMIENTO',
+            'book_status_public'           => 'MANTENIMIENTO',
+            'description_movement'  => 'MANTENIMIENTO',
+            'view'  => 1,
+        ]);
+
+        App\Movement_type::create([            
+            'book_status_priv'           => 'DISPONIBLE',
+            'book_status_public'           => 'DISPONIBLE',
+            'description_movement'  => 'DISPONIBILIDAD',
+            'view'  => 1,
         ]);
     }
 }

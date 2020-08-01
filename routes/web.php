@@ -41,6 +41,7 @@ function(){
     Route::resource('letters',              'GenerateLetterController', ['except' => 'show', 'as' => 'admin']);
     Route::resource('fastprocess',          'FastPartnerProcessController',['as' => 'admin']);
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
+    Route::resource('genericcopies',           'GenericCopiesController',['as' => 'admin']);
     // Route::post('users/photos',             'UserController@photo')->name('admin.posts.photo');
 
     Route::post('fastprocess/grabar',       'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
@@ -48,6 +49,10 @@ function(){
     Route::get('fastprocess/edit2/{id}',       'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
 
     Route::get('loanmanual/prestar/{id}',       'LoanManualController@prestar')->name('loanmanual.prestar');
+
+    Route::get('genericcopies/copies/{id}',         'GenericCopiesController@copies')->name('genericcopies.copies');
+
+    Route::get('/newcopies/{id}',         'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
 
 });
 
@@ -72,6 +77,9 @@ Route::get('fastprocess/table',         'FastPartnerProcessController@dataTable'
 Route::get('fastprocess/table2',        'FastPartnerProcessController@dataTable2')->name('fastprocess.table2');
 Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->name('fastprocess.index2');
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
+
+Route::get('genericcopies/table/{id}',         'GenericCopiesController@dataTable')->name('genericcopies.table');
+
 
 
 

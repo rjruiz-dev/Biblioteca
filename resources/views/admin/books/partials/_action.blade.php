@@ -7,4 +7,6 @@
 
     <a href="{{ $url_destroy }}" class="btn-delete" title="{{ $libros->name}}"><i class="fa fa-trash text-danger"></i></a>
 
+    <a href="{{ $url_copy }}" title="{{ Copias de $libros->name }}"><i class="fa fa-trash text-danger"></i></a>
+
 

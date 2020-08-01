@@ -14,7 +14,7 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'title'      => $faker->name,
         'original_title'   => $faker->title,
         'acquired'  => $faker->date($format = 'Y-m-d', $max = 'now'),
-        'drop'  => $faker->date($format = 'Y-m-d', $max = 'now'),
+        // 'drop'  => $faker->date($format = 'Y-m-d', $max = 'now'),
         'document_status'    => $faker->name,
         'let_author'      => $faker->name,
         // 'cdu'  => $faker->e164PhoneNumber,

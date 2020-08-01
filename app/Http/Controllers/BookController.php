@@ -353,7 +353,8 @@ class BookController extends Controller
                 return view('admin.books.partials._action', [
                     'libros' => $libros,
                     'url_show' => route('admin.books.show', $libros->id),                        
-                    'url_edit' => route('admin.books.edit', $libros->id),                              
+                    'url_edit' => route('admin.books.edit', $libros->id),
+                    'url_copy' => route('admin.copies.index', $libros->document->id),                             
                     'url_destroy' => route('admin.books.destroy', $libros->id)
                 ]);
             })           
