@@ -56,139 +56,35 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('user_id', 'Usuario') !!}
+                               
                                 {!! Form::select('user_id', $users, null, ['class' => 'form-control select2', 'id' => 'user_id', 'placeholder' => 'Elija el Socio']) !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::label('user_id', 'Usuario') !!}
-                                {!! Form::select('user_id', $users, null, ['class' => 'form-control select2', 'id' => 'user_id', 'placeholder' => 'Elija el Socio']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('user_id', 'Usuario') !!}
-                                {!! Form::select('user_id', $users, null, ['class' => 'form-control select2', 'id' => 'user_id', 'placeholder' => 'Elija el Socio']) !!}
-                            </div>
+
                             <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item" id="nickname"> 
-                                    @if ( $users->nickname  === NULL )       
-                                        <b>Nickname</b> <a class="pull-right"><small class="tex-muted">No tiene nickname asignado</small></a> 
-                                    @else
-                                        <b>Nickname</b> <a class="pull-right">{{ $users->nickname  }}</a>                                                    
-                                    @endif    
-                                </li>
-                                <li class="list-group-item" id="name"> 
-                                    @if ( $users->name  === NULL )       
-                                        <b>Nombre</b> <a class="pull-right"><small class="tex-muted">No tiene nombre asignado</small></a> 
-                                    @else
-                                        <b>Nombre</b> <a class="pull-right">{{ $users->name  }}</a>                                                    
-                                    @endif    
-                                </li>        
-                                <li class="list-group-item" id="surname"> 
-                                    @if ( $users->surname  === NULL )       
-                                        <b>Apellido</b> <a class="pull-right"><small class="tex-muted">No tiene apellido asignado</small></a> 
-                                    @else
-                                        <b>Apellido</b> <a class="pull-right">{{ $users->surname  }}</a>                                                    
-                                    @endif    
+                                <li class="list-group-item" id="nickname">                               
+                                    <b>Nickname</b> <a class="pull-right"></a> 
+                                </li>                                   
+                                <li class="list-group-item" id="surname">
+                                    <b>Apellido</b> <a class="pull-right"></a>  
                                 </li>                                 
                                 <li class="list-group-item" id="email">
-                                    <b>Email</b> <a class="pull-right">{{ $users->email  }}</a>
-                                </li>
-                                <li class="list-group-item" id="phone">
-                                    @if ( $users->phone   === NULL )       
-                                        <b>Telefono</b> <a class="pull-right"><small class="tex-muted">No tiene número de telefono asignado</small></a> 
-                                    @else
-                                        <b>Telefono</b> <a class="pull-right">{{ $users->phone  }}</a>                                                    
-                                    @endif                        
-                                </li> 
-                                <li class="list-group-item" id="address">
-                                    @if ( $users->address   === NULL )       
-                                        <b>Dirección</b> <a class="pull-right"><small class="tex-muted">No tiene dirección asignada</small></a> 
-                                    @else
-                                        <b>Dirección</b> <a class="pull-right">{{ $users->address  }}</a>                                                    
-                                    @endif                      
-                                </li> 
-                                <li class="list-group-item" id="postcode">
-                                    @if (  $users->postcode   === NULL )       
-                                        <b>Codigo Postal</b> <a class="pull-right"><small class="tex-muted">No tiene codigo postal asignado</small></a> 
-                                    @else
-                                        <b>Codigo Postal</b> <a class="pull-right">{{  $users->postcode  }}</a>                                                    
-                                    @endif                       
-                                </li>     
-                                <li class="list-group-item" id="city">
-                                    @if (  $users->city   === NULL )       
-                                        <b>Ciudad</b> <a class="pull-right"><small class="tex-muted">No tiene ciudad asignada</small></a> 
-                                    @else
-                                        <b>Ciudad</b> <a class="pull-right">{{  $users->city  }}</a>                                                    
-                                    @endif                          
-                                </li>   
-                                <li class="list-group-item" id="province">
-                                    @if ( $users->province  === NULL )       
-                                        <b>Provincia</b> <a class="pull-right"><small class="tex-muted">No tiene provinicia asignada</small></a> 
-                                    @else
-                                        <b>Provincia</b> <a class="pull-right">{{ $users->province }}</a>                                                    
-                                    @endif                      
-                                </li>     
+                                    <b>Email</b> <a class="pull-right"></a>
+                                </li>  
+                                <li class="list-group-item" id="loan">
+                                    <b>Prestamo</b> <a class="pull-right"></a>
+                                </li>                              
                             </ul>
 
-                            <!-- <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item" id="nickname"> 
-                                    @if ( $users->user['nickname']  === NULL )       
-                                        <b>Nickname</b> <a class="pull-right"><small class="tex-muted">No tiene nickname asignado</small></a> 
-                                    @else
-                                        <b>Nickname</b> <a class="pull-right">{{ $users->user['nickname']  }}</a>                                                    
-                                    @endif    
-                                </li>
-                                <li class="list-group-item" id="name"> 
-                                    @if ( $users->user['name']  === NULL )       
-                                        <b>Nombre</b> <a class="pull-right"><small class="tex-muted">No tiene nombre asignado</small></a> 
-                                    @else
-                                        <b>Nombre</b> <a class="pull-right">{{ $users->user['name']  }}</a>                                                    
-                                    @endif    
-                                </li>        
-                                <li class="list-group-item" id="surname"> 
-                                    @if ( $users->user['surname']  === NULL )       
-                                        <b>Apellido</b> <a class="pull-right"><small class="tex-muted">No tiene apellido asignado</small></a> 
-                                    @else
-                                        <b>Apellido</b> <a class="pull-right">{{ $users->user['surname']  }}</a>                                                    
-                                    @endif    
-                                </li>                                 
-                                <li class="list-group-item" id="email">
-                                    <b>Email</b> <a class="pull-right">{{ $users->user['email']  }}</a>
-                                </li>
-                                <li class="list-group-item" id="phone">
-                                    @if ( $users->user['phone']   === NULL )       
-                                        <b>Telefono</b> <a class="pull-right"><small class="tex-muted">No tiene número de telefono asignado</small></a> 
-                                    @else
-                                        <b>Telefono</b> <a class="pull-right">{{ $users->user['phone']  }}</a>                                                    
-                                    @endif                        
-                                </li> 
-                                <li class="list-group-item" id="address">
-                                    @if ( $users->user['address']   === NULL )       
-                                        <b>Dirección</b> <a class="pull-right"><small class="tex-muted">No tiene dirección asignada</small></a> 
-                                    @else
-                                        <b>Dirección</b> <a class="pull-right">{{ $users->user['address']  }}</a>                                                    
-                                    @endif                      
-                                </li> 
-                                <li class="list-group-item" id="postcode">
-                                    @if (  $users->user['postcode']   === NULL )       
-                                        <b>Codigo Postal</b> <a class="pull-right"><small class="tex-muted">No tiene codigo postal asignado</small></a> 
-                                    @else
-                                        <b>Codigo Postal</b> <a class="pull-right">{{  $users->user['postcode']  }}</a>                                                    
-                                    @endif                       
-                                </li>     
-                                <li class="list-group-item" id="city">
-                                    @if (  $users->user['city']   === NULL )       
-                                        <b>Ciudad</b> <a class="pull-right"><small class="tex-muted">No tiene ciudad asignada</small></a> 
-                                    @else
-                                        <b>Ciudad</b> <a class="pull-right">{{  $users->user['city']  }}</a>                                                    
-                                    @endif                          
-                                </li>   
-                                <li class="list-group-item" id="province">
-                                    @if ( $users->user['province']  === NULL )       
-                                        <b>Provincia</b> <a class="pull-right"><small class="tex-muted">No tiene provinicia asignada</small></a> 
-                                    @else
-                                        <b>Provincia</b> <a class="pull-right">{{ $users->user['province'] }}</a>                                                    
-                                    @endif                      
-                                </li>     
-                            </ul>       -->
+                            <!-- <div class="form-group">                            
+                               {!! Form::label('nickname', 'Nickname', ['id' => 'nickname']) !!} 
+                            </div>                         
+                            <div class="form-group"> 
+                                {!! Form::label('surname', 'Surname', ['id' => 'surname']) !!}                                
+                            </div>
+                            <div class="form-group">   
+                                {!! Form::label('email', 'Email', ['id' => 'email']) !!}                              
+                            </div> -->
+                           
                             <div class="form-group">
                                 {!! Form::label('course_id', 'Curso') !!}
                                 {!! Form::select('course_id', $courses, null, ['class' => 'form-control select2', 'id' => 'course_id', 'placeholder' => 'Elija el Curso']) !!}
@@ -236,7 +132,7 @@
 </div>  
 @stop
 
-@include('admin.fastprocess.partials._modal')
+
 
 
 @push('styles')
@@ -245,28 +141,38 @@
  
 
 @push('scripts')   
-    <!-- <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
-    <script src="{{ asset('js/prestar.js') }}"></script>   -->
-<script>
-  
+    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
+    <!-- <script src="{{ asset('js/prestar.js') }}"></script>   -->
+    <script>
 
-   
+            $('#copy_id').select2({
+                placeholder: 'Selecciona un Numero de Copia',
+                tags: false                 
+
+            });
+
+            $('#user_id').select2({
+                placeholder: 'Selecciona un Socio',
+                tags: false                 
+
+            });
+
             var user_idSelect = $('#user_id');
-            var nickname = $('#nickname');
-            var name = $('#name');
+            var nickname = $('#nickname');           
             var surname = $('#surname');
             var email = $('#email');   
-            var phone = $('#phone');
-            var address = $('#address');
-            var postcode = $('#postcode');
-            var city = $('#city');         
-            var province = $('#province');         
+            // var phone = $('#phone');
+            // var address = $('#address');
+            // var postcode = $('#postcode');
+            // var city = $('#city');         
+            // var province = $('#province');    
+            var loan = $('#loan');         
             var csrf_token = $('meta[name="csrf-token"]').attr('content');    
             console.log (user_idSelect);
             user_idSelect.on('change', function() {
-                console.log ('la compañía ha cambiado');
+                // console.log ('la compañía ha cambiado');
                 var id = $(this).val();
-                console.log('id del Partner seleccionado: ' + id);
+                // console.log('id del Partner seleccionado: ' + id);
                 obtenerDetalleDePartner(id)
                
             });
@@ -281,7 +187,7 @@
                     dataType: 'json',
                     success: function (response) {
                         // acá podés loguear la respuesta del servidor
-                        console.log(response);
+                        // console.log(response);
                         // le pasás la data a la función que llena los otros inputs
                         llenarInputs(response);
                     },
@@ -292,9 +198,16 @@
                 })
             }
            
-            function llenarInputs(data) {                
-                // nickname.val(data.nickname);
-                // name.val(data.name);
+            function llenarInputs(data) {    
+                // console.log(data); 
+                $('#nickname').text(data.nickname);  
+                $('#surname').text(data.surname);  
+                $('#email').text(data.email);  
+                $('#loan').text(data.loan);  
+                // document.getElementById('#nickname').innerHTML = data.nickname;  
+                // document.getElementById('#surname').innerHTML = data.surname;         
+                // document.getElementById('#email').innerHTML = data.email;  
+                // nickname.val(data.nickname);             
                 // surname.val(data.surname);
                 // email.val(data.email);   
                 // phone.val(data.phone);
@@ -303,20 +216,17 @@
                 // city.val(data.city);         
                 // province.val(data.province);        
                 
-                nickname.val(data.user.nickname);
-                name.val(data.user.name);
-                surname.val(data.user.surname);
-                email.val(data.user.email);   
-                phone.val(data.user.phone);
-                address.val(data.user.address);
-                postcode.val(data.user.postcode);
-                city.val(data.user.city);         
-                province.val(data.user.province);        
+                // nickname.val(data.user.nickname);
+                // name.val(data.user.name);
+                // surname.val(data.user.surname);
+                // email.val(data.user.email);   
+                // phone.val(data.user.phone);
+                // address.val(data.user.address);
+                // postcode.val(data.user.postcode);
+                // city.val(data.user.city);         
+                // province.val(data.user.province);        
             } 
-        }
-    });
-
+       
    
-});
 </script>
 @endpush

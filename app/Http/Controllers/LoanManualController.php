@@ -61,12 +61,25 @@ class LoanManualController extends Controller
 
     public function showPartner(Request $request, $id)
     {
-        $partner = Book_movement::with('user')->findOrFail($id);    
-        // $partner = User::findOrFail($id);    
+        $partner = User::findOrFail($id);
+        $count = Book_movement::where('users_id', $partner->id) //FILTRAR POR EL USUARIO ESE 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })->where('active', 1)
+        ->select(DB::raw('count(*) as count_of_prestamos'))
+        ->get(); 
+        // dd($count);       
      
         if($request->ajax())
         {
-            return $partner->toJson();
+            return response()->json(
+                $partner->toArray(),
+                $count->toArray()
+            );
+            // return [$partner,$count]->toJson();
+            // return $count->toJson();
+          
         }  
 
         return response()->json(['message' => 'recibimos el request pero no es ajax']);
@@ -92,6 +105,7 @@ class LoanManualController extends Controller
         ->pluck('registry_number', 'id');
         
         $users = User::where('status_id', 1)->get()->pluck('name', 'id');
+        // $partners = User::where('status_id', 1)->get();
         // $partner = User::findOrFail($id);
         // $users = Book_movement::with('user')->where('users_id', $partner->id)
         // ->where(function ($query) {
@@ -108,6 +122,7 @@ class LoanManualController extends Controller
             'documento'     => $documento,
             'copies'        => $copies,
             'users'         => $users,
+            // 'partners'      => $partners,
             'courses'       => $courses,
             // 'groups'          => $groups,
             // 'turnos'          => $turnos

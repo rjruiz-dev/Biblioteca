@@ -1,9 +1,12 @@
 <div class="row">  
-    <form method="POST" action="{{route('admin.users.store')}}" accept-charset="UTF-8" enctype="multipart/form-data">
-
-    @csrf
+    <!-- <form method="POST" action="{{route('admin.users.store')}}" accept-charset="UTF-8" enctype="multipart/form-data"> -->
+    {!! Form::model($user, [
+        'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
+        'method' => $user->exists ? 'PUT' : 'POST'
+    ]) !!} 
+    <!-- @csrf -->
    
-    <!-- {{ csrf_field() }} -->
+    {{ csrf_field() }}
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -121,8 +124,8 @@
             </div>
         </div>       
     </div>      
-    </form>
-
+    <!-- </form> -->
+    {!! Form::close() !!}    
 </div>
 <!-- 
 <script>

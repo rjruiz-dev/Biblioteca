@@ -23,7 +23,7 @@ $('body').on('click', '.modal-show', function (event) {
 
             var user_idSelect = $('#user_id');
             var nickname = $('#nickname');
-            var name = $('#name');
+   
             var surname = $('#surname');
             var email = $('#email');   
             var phone = $('#phone');
@@ -31,6 +31,7 @@ $('body').on('click', '.modal-show', function (event) {
             var postcode = $('#postcode');
             var city = $('#city');         
             var province = $('#province');         
+            var loan = $('#loan');         
             var csrf_token = $('meta[name="csrf-token"]').attr('content');    
             console.log (user_idSelect);
             user_idSelect.on('change', function() {
@@ -63,25 +64,25 @@ $('body').on('click', '.modal-show', function (event) {
             }
            
             function llenarInputs(data) {                
-                // nickname.val(data.nickname);
-                // name.val(data.name);
-                // surname.val(data.surname);
-                // email.val(data.email);   
+                nickname.val(data.nickname);                
+                surname.val(data.surname);
+                email.val(data.email);   
                 // phone.val(data.phone);
                 // address.val(data.address);
                 // postcode.val(data.postcode);
                 // city.val(data.city);         
-                // province.val(data.province);        
+                // province.val(data.province);  
+                loan.val(data.email);               
                 
-                nickname.val(data.user.nickname);
-                name.val(data.user.name);
-                surname.val(data.user.surname);
-                email.val(data.user.email);   
-                phone.val(data.user.phone);
-                address.val(data.user.address);
-                postcode.val(data.user.postcode);
-                city.val(data.user.city);         
-                province.val(data.user.province);        
+                // nickname.val(data.user.nickname);
+                // name.val(data.user.name);
+                // surname.val(data.user.surname);
+                // email.val(data.user.email);   
+                // phone.val(data.user.phone);
+                // address.val(data.user.address);
+                // postcode.val(data.user.postcode);
+                // city.val(data.user.city);         
+                // province.val(data.user.province);        
             } 
         }
     });
@@ -112,7 +113,7 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
-            $('#modal2').modal('show');
+           
 
             // swal({
             //     type : 'success',
