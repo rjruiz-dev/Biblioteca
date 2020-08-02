@@ -59,6 +59,19 @@ class LoanManualController extends Controller
         //
     }
 
+    public function showPartner(Request $request, $id)
+    {
+        $partner = Book_movement::with('user')->findOrFail($id);    
+        // $partner = User::findOrFail($id);    
+     
+        if($request->ajax())
+        {
+            return $partner->toJson();
+        }  
+
+        return response()->json(['message' => 'recibimos el request pero no es ajax']);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -67,23 +80,35 @@ class LoanManualController extends Controller
      */
     public function edit($id)
     {
-        $documento = Document::with('document_type','document_subtype','creator')
-        ->findOrFail($id); 
+ 
+        $documento = Document::with('document_type','document_subtype','creator')->findOrFail($id); 
+                
+        $copies = Copy::where('documents_id', $documento->id)
+        ->where(function ($query) {
+            $query->where('status_copy_id', '=', 3)
+                  ->orWhere('status_copy_id', '=', 6);
+        })
+        ->get()
+        ->pluck('registry_number', 'id');
         
-        $copies = Copy::where('documents_id', $documento->id)->get()->pluck('id', 'id');
+        $users = User::where('status_id', 1)->get()->pluck('name', 'id');
+        // $partner = User::findOrFail($id);
+        // $users = Book_movement::with('user')->where('users_id', $partner->id)
+        // ->where(function ($query) {
+        //     $query->where('status_id', '=', 1);
+                 
+        // })
+        // ->get()
+        // ->pluck('name', 'id');
+        // dd($users);
         
-        $users = User::where('status_id', 3)->get()->pluck('name', 'id');
-
         $courses = Course::all()->pluck('course_name', 'id');
 
-        
-        // dd($copies);
-
         return view('admin.loanmanual.prestar', [
-            'documento'          => $documento,
-            'copies'          => $copies,
-            'users'          => $users,
-            'courses'          => $courses,
+            'documento'     => $documento,
+            'copies'        => $copies,
+            'users'         => $users,
+            'courses'       => $courses,
             // 'groups'          => $groups,
             // 'turnos'          => $turnos
         ]);    
@@ -98,7 +123,7 @@ class LoanManualController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

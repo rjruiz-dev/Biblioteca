@@ -21,10 +21,10 @@ Route::group([
     'prefix'     => 'admin',   
     'middleware' => 'auth'],   
 function(){    
-    Route::get('/',                 'AdminController@index')->name('dashboard');         
-    Route::resource('users',        'UserController',['as' => 'admin']); 
-    Route::resource('books',        'BookController',['as' => 'admin']); 
-    Route::resource('music',        'MusicController',['as' => 'admin']);
+    Route::get('/',                         'AdminController@index')->name('dashboard');         
+    Route::resource('users',                'UserController',['as' => 'admin']); 
+    Route::resource('books',                'BookController',['as' => 'admin']); 
+    Route::resource('music',                'MusicController',['as' => 'admin']);
     Route::resource('movies',               'MoviesController',['as' => 'admin']);
     Route::resource('photographs',          'PhotographyController',['as' => 'admin']);
     Route::resource('multimedias',          'MultimediaController',['as' => 'admin']);
@@ -41,18 +41,20 @@ function(){
     Route::resource('letters',              'GenerateLetterController', ['except' => 'show', 'as' => 'admin']);
     Route::resource('fastprocess',          'FastPartnerProcessController',['as' => 'admin']);
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
-    Route::resource('genericcopies',           'GenericCopiesController',['as' => 'admin']);
-    // Route::post('users/photos',             'UserController@photo')->name('admin.posts.photo');
+    Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
+    // Route::post('users/photos',           'UserController@photo')->name('admin.posts.photo');
+
+    Route::get('loanmanual/showPartner/{id}', 'LoanManualController@showPartner');
 
     Route::post('fastprocess/grabar',       'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
     Route::get('fastprocess/vista_devo_reno/{id}/{bandera}',  'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
     Route::get('fastprocess/edit2/{id}',       'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
 
-    Route::get('loanmanual/prestar/{id}',       'LoanManualController@prestar')->name('loanmanual.prestar');
+    Route::get('loanmanual/prestar/{id}',   'LoanManualController@prestar')->name('loanmanual.prestar');
 
-    Route::get('genericcopies/copies/{id}',         'GenericCopiesController@copies')->name('genericcopies.copies');
+    Route::get('genericcopies/copies/{id}', 'GenericCopiesController@copies')->name('genericcopies.copies');
 
-    Route::get('/newcopies/{id}',         'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
+    Route::get('/newcopies/{id}',           'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
 
 });
 
@@ -78,7 +80,7 @@ Route::get('fastprocess/table2',        'FastPartnerProcessController@dataTable2
 Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->name('fastprocess.index2');
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
 
-Route::get('genericcopies/table/{id}',         'GenericCopiesController@dataTable')->name('genericcopies.table');
+Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
 
 
 

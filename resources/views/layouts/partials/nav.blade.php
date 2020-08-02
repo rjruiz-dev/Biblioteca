@@ -8,7 +8,7 @@
     </li>  
     <li class="{{ setActiveRoute('admin.loanmanual.index') }}">
         <a href="{{ route('admin.loanmanual.index') }}">
-            <i class="fa fa-dashboard"></i> <span>Prestamos Manuales</span>
+            <i class="fa fa-pencil"></i> <span>Prestamos Manuales</span>
         </a>
     </li> 
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
@@ -22,12 +22,12 @@
         <ul class="treeview-menu">             
             <li class="{{ setActiveRoute('admin.fastprocess.index') }}">
                 <a href="{{ route('admin.fastprocess.index') }}">
-                    <i class="fa fa-plane"></i><span> Socios</span>
+                    <i class="fa fa-users"></i><span> Socios</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('fastprocess.index2') }}">
                 <a href="{{ route('fastprocess.index2') }}">
-                    <i class="fa fa-plane"></i><span> Documentos</span>
+                    <i class="fa fa-folder-open"></i><span> Documentos</span>
                 </a>
             </li>
                                      

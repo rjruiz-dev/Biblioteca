@@ -80,7 +80,7 @@ class MoviesController extends Controller
                               
                 // Creamos el documento            
                 $document = new Document;
-                $document->document_types_id    = 3; // 3 tipo de documento: cine.
+                $document->document_types_id    = 2; // 3 tipo de documento: cine.
                 $document->document_subtypes_id = 9; // 9 sub-tipo de documento: no tiene. 
                 $document->title                = $request->get('title');
                 

@@ -57,16 +57,16 @@ class UserController extends Controller
              
         
         // if ($request->ajax()){
-            try {
-                //  Transacciones
-                DB::beginTransaction();
+            // try {
+            //     //  Transacciones
+            //     DB::beginTransaction();
 
                  // Validar el formulario
                  $data = $request->validate([
                     'name'      => 'required|string|max:255',
                     'email'     => 'required|string|email|max:255|unique:users',     
-                    'user_photo' => 'required|file',                  
-                    // 'password'  => 'required|string|min:6|confirmed',
+                    // 'user_photo' => 'required|file',                  
+                 
                 ]);
                 
                 // Generar una contraseña
@@ -76,10 +76,10 @@ class UserController extends Controller
 
                 // Creamos el usuario            
                 
-
-                if (request()->hasFile('user_photo')) {
-                    $file = request()->file('user_photo')->store('public');
-                    dd($file);
+                // dd($request->all());
+                if ($request->hasFile('user_photo')) {               
+                    $file = $request->file('user_photo')->store('public');
+                    
                     $user = new User;   
                     $user->name         = $request->get('name');
                     $user->surname      = $request->get('surname');
@@ -92,25 +92,26 @@ class UserController extends Controller
                     $user->city         = $request->get('city');
                     $user->province     = $request->get('province');
                     $user->phone        = $request->get('phone');   
-                    $user->user_photo   = $file;
-                   
+                    $user->user_photo   = $file;           
                     $user->save();
-                    
-                  
+                    // dd($user);
+                    dd($file);
 
                 // Enviamos el email
-                UserWasCreated::dispatch($user, $data['password']);
+                // UserWasCreated::dispatch($user, $data['password']);
                 // $user->update($request->validated()); 
-                }else{
-                    return 'no llego nada';
-                }
-                DB::commit();
+                // }
+                // else{
 
-            } catch (Exception $e) {
-                // anula la transacion
-                DB::rollBack();
-            }
-        // }    
+                //     return 'no se recibio nada';
+                // }
+            //     DB::commit();
+
+            // } catch (Exception $e) {
+            //     // anula la transacion
+            //     DB::rollBack();
+            // }
+        }    
     }
 
     // public function photo(Request $request)
