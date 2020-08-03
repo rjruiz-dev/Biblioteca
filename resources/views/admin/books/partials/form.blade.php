@@ -79,20 +79,7 @@
                             placeholder= "Selecciona una Fecha">                       
                     </div>                  
                 </div>
-                <div class="form-group">
-                    <label>Baja</label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>                      
-                        <input name="drop"
-                            class="form-control pull-right"                                                       
-                            value="{{ old('drop', $book->document['drop'] ? $book->document['drop']->format('d/m/Y') : null) }}"                            
-                            type="text"
-                            id="drop"
-                            placeholder= "Selecciona una Fecha">                       
-                    </div>                  
-                </div> 
+                
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $book->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}

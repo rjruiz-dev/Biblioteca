@@ -49,6 +49,7 @@ $('#modal-btn-save').click(function (event) {
     var form = $('#modal-body form'),
         url = form.attr('action'),
         method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        contentType = 'multipart/form-data',
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
@@ -57,6 +58,9 @@ $('#modal-btn-save').click(function (event) {
         url : url,
         method: method,
         data : form.serialize(),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');

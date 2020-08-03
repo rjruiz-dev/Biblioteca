@@ -59,6 +59,32 @@ class LoanManualController extends Controller
         //
     }
 
+    public function showPartner(Request $request, $id)
+    {
+        $partner = User::findOrFail($id);
+        $count = Book_movement::where('users_id', $partner->id) //FILTRAR POR EL USUARIO ESE 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })->where('active', 1)
+        ->select(DB::raw('count(*) as count_of_prestamos'))
+        ->get(); 
+        // dd($count);       
+     
+        if($request->ajax())
+        {
+            return response()->json(
+                $partner->toArray(),
+                $count->toArray()
+            );
+            // return [$partner,$count]->toJson();
+            // return $count->toJson();
+          
+        }  
+
+        return response()->json(['message' => 'recibimos el request pero no es ajax']);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -67,23 +93,37 @@ class LoanManualController extends Controller
      */
     public function edit($id)
     {
-        $documento = Document::with('document_type','document_subtype','creator')
-        ->findOrFail($id); 
+ 
+        $documento = Document::with('document_type','document_subtype','creator')->findOrFail($id); 
+                
+        $copies = Copy::where('documents_id', $documento->id)
+        ->where(function ($query) {
+            $query->where('status_copy_id', '=', 3)
+                  ->orWhere('status_copy_id', '=', 6);
+        })
+        ->get()
+        ->pluck('registry_number', 'id');
         
-        $copies = Copy::where('documents_id', $documento->id)->get()->pluck('id', 'id');
+        $users = User::where('status_id', 1)->get()->pluck('name', 'id');
+        // $partners = User::where('status_id', 1)->get();
+        // $partner = User::findOrFail($id);
+        // $users = Book_movement::with('user')->where('users_id', $partner->id)
+        // ->where(function ($query) {
+        //     $query->where('status_id', '=', 1);
+                 
+        // })
+        // ->get()
+        // ->pluck('name', 'id');
+        // dd($users);
         
-        $users = User::where('status_id', 3)->get()->pluck('name', 'id');
-
         $courses = Course::all()->pluck('course_name', 'id');
 
-        
-        // dd($copies);
-
         return view('admin.loanmanual.prestar', [
-            'documento'          => $documento,
-            'copies'          => $copies,
-            'users'          => $users,
-            'courses'          => $courses,
+            'documento'     => $documento,
+            'copies'        => $copies,
+            'users'         => $users,
+            // 'partners'      => $partners,
+            'courses'       => $courses,
             // 'groups'          => $groups,
             // 'turnos'          => $turnos
         ]);    
@@ -98,7 +138,7 @@ class LoanManualController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

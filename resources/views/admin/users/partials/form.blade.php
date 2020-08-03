@@ -1,6 +1,10 @@
 <div class="row">  
-    
-    {!! Form::open(['route' => 'admin.users.store', 'method' => 'POST', 'enctype'=>'multipart/form-data']) !!}
+    <!-- <form method="POST" action="{{route('admin.users.store')}}" accept-charset="UTF-8" enctype="multipart/form-data"> -->
+    {!! Form::model($user, [
+        'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
+        'method' => $user->exists ? 'PUT' : 'POST'
+    ]) !!} 
+    <!-- @csrf -->
    
     {{ csrf_field() }}
     <div class="col-md-4">
@@ -43,12 +47,23 @@
                             placeholder= "Selecciona una Fecha">                       
                     </div>                  
                 </div>
-                <div id="dpassword" class="form-group" >
+
+                @if (!$user->exists)
+                    @php 
+                        $visible = "display:none"
+                    @endphp
+                @else
+                    @php  
+                        $visible = ""
+                    @endphp
+                @endif   
+
+                <div id="dpassword" class="form-group" style="{{{ $visible }}}">
                     {!! Form::label('password', 'Contraseña') !!}                                                              
                     {!! Form::password('password', array('class' => 'form-control', 'id' => 'password', 'placeholder' => 'Contraseña')) !!}                    
                     <span class="help-block">Dejar en blanco para no cambiar la contraseña</span>   
                 </div> 
-                <div id="dpassword_confirmation"  class="form-group" >
+                <div id="dpassword_confirmation"  class="form-group" style="{{{ $visible }}}">
                     {!! Form::label('password_confirmation', 'Repite la Contraseña') !!}                                                                     
                     {!! Form::password('password_confirmation', array('class' => 'form-control', 'id' => 'password_confirmation', 'placeholder' => 'Repite la Contraseña')) !!}   
                 </div>                 
@@ -108,9 +123,9 @@
                 </div>        
             </div>
         </div>       
-    </div>   
-
-    {!! Form::close() !!}  
+    </div>      
+    <!-- </form> -->
+    {!! Form::close() !!}    
 </div>
 <!-- 
 <script>

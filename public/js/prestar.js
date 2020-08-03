@@ -15,126 +15,75 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);           
 
-            $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un subtipo de Documento'                       
-            });
-            $('#periodicities_id').select2({
-                placeholder: 'Selecciona una periodicidad'                                             
-            });
-            $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma'                                       
-            });
-            $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',                        
-            });
-
-            $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',                            
-            });
-            $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
-            });
-          
-            $('#creators_id').select2({
-                placeholder: 'Seleccione o Ingrese Autor',
-                tags: true,               
-            });
-
-            $('#second_author_id').select2({
-                placeholder: 'Seleccione o Ingrese Segundo Autor',
-                tags: true,               
-            });
-
             $('#copy_id').select2({
-                placeholder: 'Seleccione una Copia',
-                tags: false,               
+                placeholder: 'Selecciona un Numero de Copia',
+                tags: false                 
+
             });
 
-            $('#user_id').select2({
-                placeholder: 'Seleccione una Usuario',
-                tags: false,               
+            var user_idSelect = $('#user_id');
+            var nickname = $('#nickname');
+   
+            var surname = $('#surname');
+            var email = $('#email');   
+            var phone = $('#phone');
+            var address = $('#address');
+            var postcode = $('#postcode');
+            var city = $('#city');         
+            var province = $('#province');         
+            var loan = $('#loan');         
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');    
+            console.log (user_idSelect);
+            user_idSelect.on('change', function() {
+                console.log ('la compañía ha cambiado');
+                var id = $(this).val();
+                console.log('id del Partner seleccionado: ' + id);
+                obtenerDetalleDePartner(id)
+               
             });
-
-            $('#course_id').select2({
-                placeholder: 'Seleccione una Curso',
-                tags: false,               
-            });
-
-            $('#acquired').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                 
-                language: 'es'
-            });  
-
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                
-                language: 'es'
-            }); 
-            $('#published').select2({
-                placeholder: 'Selecciona Lugar de Publicacíon',
-                tags: true,               
-            });
-            $('#made_by').select2({
-                placeholder: 'Selecciona una Editorial',
-                tags: true,               
-            });
-
-            $('#year').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: "yyyy",
-                viewMode: "years", 
-                minViewMode: "years",                    
-                language: 'es'
-            });             
-            $('#edition').select2({
-                placeholder: 'Selecciona Número de Edición',
-                tags: true,               
-            });
-            $('#volume').select2({
-                placeholder: 'Selecciona un Volúmen',              
-                tags: true,                                 
-            });
-
-            CKEDITOR.replace('synopsis');
-            CKEDITOR.config.height = 190;
-
-            if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
-                //CAMBIO DE LABEL
-                document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
-                document.getElementById("l_generate_books_id").innerHTML = 'Genero';
-                //FORM GROUP MOSTRAR
-                document.getElementById("din_volume_number_date").style.display = "block";
-                document.getElementById("din_periodicities_id").style.display = "block";
-                document.getElementById("din_issn").style.display = "block";
-                //FORM GROUP NO MOSTRAR
-                document.getElementById("din_isbn").style.display = "none";
-                document.getElementById("din_generate_books_id").style.display = "none";
-                document.getElementById("din_third_author_id").style.display = "none";
-
-            } else { //si NOO es publ periodica
-                
-                if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
-                //CAMBIO DE LABEL
-                document.getElementById("l_generate_books_id").innerHTML = 'Otros';
-                }else{
-                document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
-                }
-
-                //CAMBIO DE LABEL
-                document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
-                 //FORM GROUP NO MOSTRAR
-                document.getElementById("din_volume_number_date").style.display = "none";
-                document.getElementById("din_periodicities_id").style.display = "none";
-                document.getElementById("din_issn").style.display = "none";
-                //FORM GROUP MOSTRAR
-                document.getElementById("din_isbn").style.display = "block";
-                document.getElementById("din_generate_books_id").style.display = "block";
-                document.getElementById("din_third_author_id").style.display = "block";
+            
+            function obtenerDetalleDePartner(id) {
+                $.ajax({                    
+                    url: '/admin/loanmanual/showPartner/' + id,
+                    type: 'GET',
+                    data: {            
+                        '_token': csrf_token
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        // acá podés loguear la respuesta del servidor
+                        console.log(response);
+                        // le pasás la data a la función que llena los otros inputs
+                        llenarInputs(response);
+                    },
+                    error: function () { 
+                        console.log(error);
+                        alert('Hubo un error obteniendo el detalle de la Compañía!');
+                    }
+                })
             }
+           
+            function llenarInputs(data) {                
+                nickname.val(data.nickname);                
+                surname.val(data.surname);
+                email.val(data.email);   
+                // phone.val(data.phone);
+                // address.val(data.address);
+                // postcode.val(data.postcode);
+                // city.val(data.city);         
+                // province.val(data.province);  
+                loan.val(data.email);               
+                
+                // nickname.val(data.user.nickname);
+                // name.val(data.user.name);
+                // surname.val(data.user.surname);
+                // email.val(data.user.email);   
+                // phone.val(data.user.phone);
+                // address.val(data.user.address);
+                // postcode.val(data.user.postcode);
+                // city.val(data.user.city);         
+                // province.val(data.user.province);        
+            } 
         }
     });
 
@@ -164,7 +113,7 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
-            $('#modal2').modal('show');
+           
 
             // swal({
             //     type : 'success',
@@ -251,44 +200,3 @@ $('body').on('click', '.btn-show', function (event) {
 
     $('#modal').modal('show');
 });
-
-
-function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
-        //CAMBIO DE LABEL
-        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
-        document.getElementById("l_generate_books_id").innerHTML = 'Genero';
-        //FORM GROUP MOSTRAR
-        document.getElementById("din_volume_number_date").style.display = "block";
-        document.getElementById("din_periodicities_id").style.display = "block";
-        document.getElementById("din_issn").style.display = "block";
-        //FORM GROUP NO MOSTRAR
-        document.getElementById("din_isbn").style.display = "none";
-        document.getElementById("din_generate_books_id").style.display = "none";
-        document.getElementById("din_third_author_id").style.display = "none";
-
-    } else { //si NOO es publ periodica
-        
-        if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
-        //CAMBIO DE LABEL
-        document.getElementById("l_generate_books_id").innerHTML = 'Otros';
-        }else{
-        document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
-        }
-
-        //CAMBIO DE LABEL
-        document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
-         //FORM GROUP NO MOSTRAR
-        document.getElementById("din_volume_number_date").style.display = "none";
-        document.getElementById("din_periodicities_id").style.display = "none";
-        document.getElementById("din_issn").style.display = "none";
-        //FORM GROUP MOSTRAR
-        document.getElementById("din_isbn").style.display = "block";
-        document.getElementById("din_generate_books_id").style.display = "block";
-        document.getElementById("din_third_author_id").style.display = "block";
-    }
-
-}
-
-
-
