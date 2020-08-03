@@ -62,22 +62,22 @@ class LoanManualController extends Controller
     public function showPartner(Request $request, $id)
     {
         $partner = User::findOrFail($id);
-        $count = Book_movement::where('users_id', $partner->id) //FILTRAR POR EL USUARIO ESE 
-        ->where(function ($query) {
-            $query->where('movement_types_id', '=', 3)
-                  ->orWhere('movement_types_id', '=', 6);
-        })->where('active', 1)
-        ->select(DB::raw('count(*) as count_of_prestamos'))
-        ->get(); 
-        // dd($count);       
+        // $count = Book_movement::where('users_id', $partner->id) //FILTRAR POR EL USUARIO ESE 
+        // ->where(function ($query) {
+        //     $query->where('movement_types_id', '=', 3)
+        //           ->orWhere('movement_types_id', '=', 6);
+        // })->where('active', 1)
+        // ->select(DB::raw('count(*) as count_of_prestamos'))
+        // ->get(); 
+        // // dd($count);       
      
         if($request->ajax())
         {
-            return response()->json(
-                $partner->toArray(),
-                $count->toArray()
-            );
-            // return [$partner,$count]->toJson();
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+            return $partner->toJson();
             // return $count->toJson();
           
         }  

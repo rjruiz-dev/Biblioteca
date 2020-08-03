@@ -2,7 +2,8 @@
     <!-- <form method="POST" action="{{route('admin.users.store')}}" accept-charset="UTF-8" enctype="multipart/form-data"> -->
     {!! Form::model($user, [
         'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
-        'method' => $user->exists ? 'PUT' : 'POST'
+        'method' => $user->exists ? 'PUT' : 'POST',
+        'enctype' => 'multipart/form-data'
     ]) !!} 
     <!-- @csrf -->
    
@@ -83,10 +84,10 @@
                     {!! Form::select('status_id', $status, null, ['class' => 'form-control select2', 'id' => 'status_id', 'style' => 'width:100%;']) !!}
                 </div>
                 <div class="form-group">
-                    <!-- {{ Form::label('user_photo', 'Imagen de Perfil') }}
-                    {{ Form::file('user_photo') }} -->
-                    <label for="user_photo">Imagen de Perfil</label>
-                    <input type="file" id="user_photo" name="user_photo">
+                    {{ Form::label('user_photo', 'Imagen de Perfil') }}
+                    {{ Form::file('user_photo' ,null) }}
+                    <!-- <label for="user_photo">Imagen de Perfil</label>
+                    <input type="file" id="user_photo" name="user_photo"> -->
                 </div>
                 <!-- <div class="form-group">              
                    <div class="dropzone"></div>

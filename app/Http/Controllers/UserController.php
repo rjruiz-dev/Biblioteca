@@ -53,9 +53,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-             
-        
         // if ($request->ajax()){
             // try {
             //     //  Transacciones
@@ -71,15 +68,13 @@ class UserController extends Controller
                 
                 // Generar una contraseña
                 $data['password'] = str_random(8);
-             
-                
 
-                // Creamos el usuario            
-                
                 // dd($request->all());
+  
+
                 if ($request->hasFile('user_photo')) {               
-                    $file = $request->file('user_photo')->store('public');
-                    // dd($file);
+                    $file = $request->file('user_photo')->store('public');                  
+                    // Creamos el usuario            
                     $user = new User;   
                     $user->name         = $request->get('name');
                     $user->surname      = $request->get('surname');
@@ -92,6 +87,7 @@ class UserController extends Controller
                     $user->city         = $request->get('city');
                     $user->province     = $request->get('province');
                     $user->phone        = $request->get('phone');   
+                    $user->status_id    = $request->get('status_id'); 
                     $user->user_photo   = $file;           
                     $user->save();
                     // dd($user);
@@ -172,13 +168,15 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, $id)
     {
-        if ($request->ajax()){
-            try {
-                // Transacciones
-                DB::beginTransaction();
+        // if ($request->ajax()){
+        //     try {
+        //         // Transacciones
+        //         DB::beginTransaction();
                 
                 $user = User::with('statu')->findOrFail($id); 
                 
+                if ($request->hasFile('user_photo')) {               
+                $file = $request->file('user_photo')->store('public');      
                 // Actualizamos el usuario
                 $user->name         = $request->get('name');
                 $user->surname      = $request->get('surname');
@@ -191,18 +189,22 @@ class UserController extends Controller
                 $user->city         = $request->get('city');
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');
-                $user->user_photo   = $request->get('user_photo');  
+                $user->user_photo   = $file;         
                 $user->birthdate    = Carbon::parse($request->get('birthdate'));                      
                 $user->status_id    = $request->get('status_id'); 
                 $user->save();
                        
-                DB::commit();
+                // DB::commit();
+                }else{
 
-            } catch (Exception $e) {
-                // anula la transacion
-                DB::rollBack();
-            }
-        }         
+                    return 'no se recibio nada';
+                }
+
+        //     } catch (Exception $e) {
+        //         // anula la transacion
+        //         DB::rollBack();
+        //     }
+        // }         
 
     }
 

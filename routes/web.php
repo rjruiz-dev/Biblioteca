@@ -43,6 +43,7 @@ function(){
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     // Route::post('users/photos',           'UserController@photo')->name('admin.posts.photo');
+    // Route::post('users',           'UserController@store')->name('admin.users.store');
 
     Route::get('loanmanual/showPartner/{id}', 'LoanManualController@showPartner');
 
