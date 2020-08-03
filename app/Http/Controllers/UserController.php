@@ -65,7 +65,7 @@ class UserController extends Controller
                  $data = $request->validate([
                     'name'      => 'required|string|max:255',
                     'email'     => 'required|string|email|max:255|unique:users',     
-                    'user_photo' => 'required|file',                  
+                    // 'user_photo' => 'required|file',                  
                  
                 ]);
                 
@@ -100,10 +100,10 @@ class UserController extends Controller
                 // Enviamos el email
                 // UserWasCreated::dispatch($user, $data['password']);
                 // $user->update($request->validated()); 
-                // }
-                // else{
+                }
+                else{
 
-                //     return 'no se recibio nada';
+                    return 'no se recibio nada';
                 // }
             //     DB::commit();
 

@@ -46,7 +46,7 @@
             </div>
             <div class="box-body">          
                 <ul class="list-group list-group-unbordered">               
-                    {!! Form::model($documento, ['route' => ['loanmanual.prestar',  $documento->id],'method' => 'POST']) !!}
+                    {!! Form::model($documento, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
                     <li class="list-group-item">
                         <b></b>
                         <div class="row"  style="margin: 5px;"> 
@@ -61,17 +61,17 @@
                             </div>
 
                             <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item" id="nickname">                               
-                                    <b>Nickname</b> <a class="pull-right"></a> 
+                                <li class="list-group-item">                               
+                                    <b>Nickname</b> <a class="pull-right" id="nickname"></a> 
                                 </li>                                   
-                                <li class="list-group-item" id="surname">
-                                    <b>Apellido</b> <a class="pull-right"></a>  
+                                <li class="list-group-item">
+                                    <b>Apellido</b> <a class="pull-right" id="surname"></a>  
                                 </li>                                 
-                                <li class="list-group-item" id="email">
-                                    <b>Email</b> <a class="pull-right"></a>
+                                <li class="list-group-item">
+                                    <b>Email</b> <a class="pull-right" id="email"></a>
                                 </li>  
-                                <li class="list-group-item" id="loan">
-                                    <b>Prestamo</b> <a class="pull-right"></a>
+                                <li class="list-group-item">
+                                    <b>Prestamo actuales</b> <a class="pull-right" id="loan"></a>
                                 </li>                              
                             </ul>
 
@@ -91,7 +91,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Grupo</label>
-                                <select name="select">
+                                <select name="select" style="width:100%;">
                                     <option value="A">A</option> 
                                     <option value="B">B</option>
                                     <option value="C">C</option>
@@ -99,7 +99,7 @@
                             </div>                            
                             <div class="form-group">
                                 <label>Turno</label>
-                                <select name="select">
+                                <select name="select" style="width:100%;">
                                     <option value="Dia">Dia</option> 
                                     <option value="Noche">Noche</option>
                                     <option value="Tarde">Tarde</option>
@@ -122,7 +122,7 @@
                         </div>                        
                     </li> 
                     <div class="modal-footer" id="modal-footer">                  
-                        <button type="button" class="btn btn-primary" id="modal-btn-save">Prestar</button>
+                        <button type="submit" class="btn btn-primary" id="modal-btn-save">Prestar</button>
                     </div>     
                     {!! Form::close() !!}                                                   
                 </ul>  
@@ -187,7 +187,7 @@
                     dataType: 'json',
                     success: function (response) {
                         // acá podés loguear la respuesta del servidor
-                        // console.log(response);
+                        console.log(response);
                         // le pasás la data a la función que llena los otros inputs
                         llenarInputs(response);
                     },
@@ -199,11 +199,11 @@
             }
            
             function llenarInputs(data) {    
-                // console.log(data); 
-                $('#nickname').text(data.nickname);  
-                $('#surname').text(data.surname);  
-                $('#email').text(data.email);  
-                $('#loan').text(data.loan);  
+                // console.log(data);
+                $('#nickname').text(data.partner.nickname);  
+                $('#surname').text(data.partner.surname);  
+                $('#email').text(data.partner.email);  
+                $('#loan').text(data.count.count_of_prestamos);   
                 // document.getElementById('#nickname').innerHTML = data.nickname;  
                 // document.getElementById('#surname').innerHTML = data.surname;         
                 // document.getElementById('#email').innerHTML = data.email;  

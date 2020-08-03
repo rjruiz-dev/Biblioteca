@@ -61,23 +61,27 @@ class LoanManualController extends Controller
 
     public function showPartner(Request $request, $id)
     {
-        $partner = User::findOrFail($id);
-        $count = Book_movement::where('users_id', $partner->id) //FILTRAR POR EL USUARIO ESE 
+        $partner = User::findOrFail($id)->toArray();
+
+        $count = Book_movement::where('users_id', $id) //FILTRAR POR EL USUARIO ESE 
         ->where(function ($query) {
             $query->where('movement_types_id', '=', 3)
                   ->orWhere('movement_types_id', '=', 6);
         })->where('active', 1)
         ->select(DB::raw('count(*) as count_of_prestamos'))
-        ->get(); 
+        ->get()->first()
+        ->toArray();
+
         // dd($count);       
      
         if($request->ajax())
         {
-            return response()->json(
-                $partner->toArray(),
-                $count->toArray()
-            );
-            // return [$partner,$count]->toJson();
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+            // return $partner->toJson();
+            return response()->json(array('partner'=>$partner,'count'=>$count));
             // return $count->toJson();
           
         }  
@@ -149,7 +153,40 @@ class LoanManualController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($request->ajax()){
+            try {
+            
+                //  Transacciones
+                DB::beginTransaction();
+                $movement_doc = Book_movement::findOrFail($request->get('id'));
+                $movement_doc->active = 0;
+                //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
+                //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
+
+                 //CREO UN NUEVO MOVIMIENTO EN ESTA TABLA PARA INDICAR QUE SE DEVOLVIO EL MISMO EN ESTE CASO.
+                $new_movement = new Book_movement;
+        
+                if($request->get('bandera') == '1')
+                {
+                    $new_movement->movement_types_id = 3; //DEVOLUCION (valores correspondientes a la base)
+                }else{
+                    $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
+                }
+
+                $new_movement->users_id = $movement_doc->users_id;
+                $new_movement->copies_id = $movement_doc->copies_id;
+                $new_movement->courses_id = 1; //le pongo 1 xq ni idea si va o no
+                $new_movement->active = 1;
+                $movement_doc->save();
+                $new_movement->save();
+
+                DB::commit();
+
+                } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            } 
+        }
     }
 
     public function dataTable()
