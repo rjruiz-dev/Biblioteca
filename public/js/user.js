@@ -46,21 +46,31 @@ $('body').on('click', '.modal-show', function (event) {
 $('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
+    $avatarInput = $('#user_photo') ;
+
+    var formData = new FormData ();
+
+    formData.append('user_photo', $avatarInput[0].files[0]);
     var form = $('#modal-body form'),
         url = form.attr('action'),
         method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
-        contentType = 'multipart/form-data',
+        // contentType = 'multipart/form-data',
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
-    $.ajax({
-        url : url,
-        method: method,
-        data : form.serialize(),
+    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
+        },
+    });
+
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        data : formData,
+        processData: false,
+        contentType: false,
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');

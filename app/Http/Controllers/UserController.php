@@ -56,10 +56,10 @@ class UserController extends Controller
         
              
         
-        // if ($request->ajax()){
-            // try {
-            //     //  Transacciones
-            //     DB::beginTransaction();
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
 
                  // Validar el formulario
                  $data = $request->validate([
@@ -79,6 +79,7 @@ class UserController extends Controller
                 // dd($request->all());
                 if ($request->hasFile('user_photo')) {               
                     $file = $request->file('user_photo')->store('public');
+                }
                     // dd($file);
                     $user = new User;   
                     $user->name         = $request->get('name');
@@ -91,7 +92,8 @@ class UserController extends Controller
                     $user->postcode     = $request->get('postcode');  
                     $user->city         = $request->get('city');
                     $user->province     = $request->get('province');
-                    $user->phone        = $request->get('phone');   
+                    $user->phone        = $request->get('phone');  
+                    $user->status_id    = $request->get('status_id');  
                     $user->user_photo   = $file;           
                     $user->save();
                     // dd($user);
@@ -100,17 +102,15 @@ class UserController extends Controller
                 // Enviamos el email
                 // UserWasCreated::dispatch($user, $data['password']);
                 // $user->update($request->validated()); 
-                }
-                else{
+                
+                
+                DB::commit();
 
-                    return 'no se recibio nada';
-                // }
-            //     DB::commit();
-
-            // } catch (Exception $e) {
-            //     // anula la transacion
-            //     DB::rollBack();
-            // }
+            } catch (Exception $e) {
+                 // anula la transacion
+                DB::rollBack();
+            }
+            
         }    
     }
 

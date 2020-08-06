@@ -44,12 +44,13 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Datos del prestamo</h3>                
             </div>
-            <div class="box-body">          
+            <div class="box-body" id="form_prestamo">          
                 <ul class="list-group list-group-unbordered">               
                     {!! Form::model($documento, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
                     <li class="list-group-item">
                         <b></b>
-                        <div class="row"  style="margin: 5px;"> 
+                        <div class="row"  style="margin: 5px;">
+                        {{ Form::hidden('bandera', $bandera ) }} 
                             <div class="form-group">
                                 {!! Form::label('copy_id', 'Número de Registro') !!}
                                 {!! Form::select('copy_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'copy_id']) !!}
@@ -91,7 +92,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Grupo</label>
-                                <select name="select" style="width:100%;">
+                                <select name="grupo" style="width:100%;">
                                     <option value="A">A</option> 
                                     <option value="B">B</option>
                                     <option value="C">C</option>
@@ -99,7 +100,7 @@
                             </div>                            
                             <div class="form-group">
                                 <label>Turno</label>
-                                <select name="select" style="width:100%;">
+                                <select name="turno" style="width:100%;">
                                     <option value="Dia">Dia</option> 
                                     <option value="Noche">Noche</option>
                                     <option value="Tarde">Tarde</option>
@@ -122,7 +123,7 @@
                         </div>                        
                     </li> 
                     <div class="modal-footer" id="modal-footer">                  
-                        <button type="submit" class="btn btn-primary" id="modal-btn-save">Prestar</button>
+                        <button type="submit" class="btn btn-primary" id="modal-btn-save-prestar">Prestar</button>
                     </div>     
                     {!! Form::close() !!}                                                   
                 </ul>  
@@ -141,92 +142,9 @@
  
 
 @push('scripts')   
-    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
-    <!-- <script src="{{ asset('js/prestar.js') }}"></script>   -->
-    <script>
+    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('js/prestar.js') }}"></script>  
+    
 
-            $('#copy_id').select2({
-                placeholder: 'Selecciona un Numero de Copia',
-                tags: false                 
-
-            });
-
-            $('#user_id').select2({
-                placeholder: 'Selecciona un Socio',
-                tags: false                 
-
-            });
-
-            var user_idSelect = $('#user_id');
-            var nickname = $('#nickname');           
-            var surname = $('#surname');
-            var email = $('#email');   
-            // var phone = $('#phone');
-            // var address = $('#address');
-            // var postcode = $('#postcode');
-            // var city = $('#city');         
-            // var province = $('#province');    
-            var loan = $('#loan');         
-            var csrf_token = $('meta[name="csrf-token"]').attr('content');    
-            console.log (user_idSelect);
-            user_idSelect.on('change', function() {
-                // console.log ('la compañía ha cambiado');
-                var id = $(this).val();
-                // console.log('id del Partner seleccionado: ' + id);
-                obtenerDetalleDePartner(id)
-               
-            });
-            
-            function obtenerDetalleDePartner(id) {
-                $.ajax({                    
-                    url: '/admin/loanmanual/showPartner/' + id,
-                    type: 'GET',
-                    data: {            
-                        '_token': csrf_token
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        // acá podés loguear la respuesta del servidor
-                        console.log(response);
-                        // le pasás la data a la función que llena los otros inputs
-                        llenarInputs(response);
-                    },
-                    error: function () { 
-                        console.log(error);
-                        alert('Hubo un error obteniendo el detalle de la Compañía!');
-                    }
-                })
-            }
-           
-            function llenarInputs(data) {    
-                // console.log(data);
-                $('#nickname').text(data.partner.nickname);  
-                $('#surname').text(data.partner.surname);  
-                $('#email').text(data.partner.email);  
-                $('#loan').text(data.count.count_of_prestamos);   
-                // document.getElementById('#nickname').innerHTML = data.nickname;  
-                // document.getElementById('#surname').innerHTML = data.surname;         
-                // document.getElementById('#email').innerHTML = data.email;  
-                // nickname.val(data.nickname);             
-                // surname.val(data.surname);
-                // email.val(data.email);   
-                // phone.val(data.phone);
-                // address.val(data.address);
-                // postcode.val(data.postcode);
-                // city.val(data.city);         
-                // province.val(data.province);        
-                
-                // nickname.val(data.user.nickname);
-                // name.val(data.user.name);
-                // surname.val(data.user.surname);
-                // email.val(data.user.email);   
-                // phone.val(data.user.phone);
-                // address.val(data.user.address);
-                // postcode.val(data.user.postcode);
-                // city.val(data.user.city);         
-                // province.val(data.user.province);        
-            } 
-       
-   
-</script>
 @endpush

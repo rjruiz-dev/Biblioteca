@@ -39,10 +39,15 @@
             </div>
         </div>
     </div>
+    
+
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Cantidad de Copias Habilitadas: {{ $documento->title }}:</h3>                
+                <h3 class="box-title">Prestadas: {{ count($copies) }} | Disponibles: 5</h3> 
+                           
+                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa fa-user-plus"></i> Nuevo Prestamo</a>
+                    
             </div>
             <div class="box-body">          
                 <ul class="list-group list-group-unbordered">
@@ -76,7 +81,12 @@
                             <div class="col-md-6" style="padding-top: 1rem;">
                                 <b>Sancion de:   </b><a class="pull-right"> $ {{ $copie->created_at->addDays(3)->diffInDays(Carbon\Carbon::now())*10 }}</a>
                             </div>
-                           
+                            <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->id, 'bandera' =>  1 ]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
+                            </div> 
+                            <div class="col-md-6 text-center" style="padding-top: 1rem;">
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->id, 'bandera' =>  2 ]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
+                            </div>
                         </div> 
                     </li> 
                     @php 
@@ -89,7 +99,8 @@
             </div>  
         </div>      
         {!! Form::close() !!} 
-    </div>   
+    </div>
+
 </div>
   
 @stop

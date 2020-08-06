@@ -95,7 +95,47 @@ class LoanManualController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // public function edit($id)
+    // {
+ 
+    //     $documento = Document::with('document_type','document_subtype','creator')->findOrFail($id); 
+                
+    //     $copies = Copy::where('documents_id', $documento->id)
+    //     ->where(function ($query) {
+    //         $query->where('status_copy_id', '=', 3)
+    //               ->orWhere('status_copy_id', '=', 6);
+    //     })
+    //     ->get()
+    //     ->pluck('registry_number', 'id');
+
+    //     // dd($copies);
+        
+    //     $users = User::where('status_id', 1)->get()->pluck('name', 'id');
+    //     // $partners = User::where('status_id', 1)->get();
+    //     // $partner = User::findOrFail($id);
+    //     // $users = Book_movement::with('user')->where('users_id', $partner->id)
+    //     // ->where(function ($query) {
+    //     //     $query->where('status_id', '=', 1);
+                 
+    //     // })
+    //     // ->get()
+    //     // ->pluck('name', 'id');
+    //     // dd($users);
+        
+    //     $courses = Course::all()->pluck('course_name', 'id');
+
+    //     return view('admin.loanmanual.prestar', [
+    //         'documento'     => $documento,
+    //         'copies'        => $copies,
+    //         'users'         => $users,
+    //         // 'partners'      => $partners,
+    //         'courses'       => $courses,
+    //         // 'bandera'          => $bandera,
+    //         // 'turnos'          => $turnos
+    //     ]);    
+    // }
+
+    public function abm_prestamo($id, $bandera)
     {
  
         $documento = Document::with('document_type','document_subtype','creator')->findOrFail($id); 
@@ -107,6 +147,8 @@ class LoanManualController extends Controller
         })
         ->get()
         ->pluck('registry_number', 'id');
+
+        // dd($copies);
         
         $users = User::where('status_id', 1)->get()->pluck('name', 'id');
         // $partners = User::where('status_id', 1)->get();
@@ -128,7 +170,7 @@ class LoanManualController extends Controller
             'users'         => $users,
             // 'partners'      => $partners,
             'courses'       => $courses,
-            // 'groups'          => $groups,
+            'bandera'          => $bandera,
             // 'turnos'          => $turnos
         ]);    
     }
@@ -142,7 +184,52 @@ class LoanManualController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->ajax()){
+            try {
+            
+                //  Transacciones
+                DB::beginTransaction();
+                $movement_doc = Book_movement::where('copies_id', $request->get('copy_id'))->get();
+                if(!$movement_doc->isEmpty()){//si encuentra movimientos.
+                   if(count($movement_doc) == 1){
+                    $movement_doc->active = 0;
+                   }else{
+                       //hacer funcion para que retorne un mensaje de error 
+                   } 
+                        
+                
+                }
+                //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
+                //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
+
+                 //CREO UN NUEVO MOVIMIENTO EN ESTA TABLA PARA INDICAR QUE SE DEVOLVIO EL MISMO EN ESTE CASO.
+                $new_movement = new Book_movement;
         
+                
+                    $new_movement->movement_types_id = 1; //DEVOLUCION
+                
+
+                $new_movement->users_id = $request->get('user_id');
+                $new_movement->copies_id = $request->get('copy_id');
+                $new_movement->courses_id = $request->get('course_id');
+                $new_movement->grupo = $request->get('grupo');
+                $new_movement->turno = $request->get('turno'); 
+                $new_movement->active = 1; //LO PONGO EN ACTIVO PARA SEÑALAR
+                if(!$movement_doc->isEmpty()){
+                $movement_doc->save();
+                }
+                $new_movement->save();
+
+                DB::commit();
+
+                // return response()->json(['bandera' => $request->get('bandera')]);
+                return response()->json(array('bandera' => $request->get('bandera'),'id' => $id));
+                // array('partner'=>$partner,'count'=>$count)
+                } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            } 
+        }
     }
 
     /**
@@ -212,9 +299,8 @@ class LoanManualController extends Controller
             ->addColumn('accion', function ($documentos) {
                 return view('admin.loanmanual.partials._action', [
                     'documentos' => $documentos,
-                                            
-                    'url_edit' => route('admin.loanmanual.edit', $documentos->id),                              
-                    
+                                             
+                    'url_edit' => route('loanmanual.abm_prestamo', ['id' =>  $documentos->id, 'bandera' =>  1 ]),        
                 ]);
             })           
             ->addIndexColumn()   

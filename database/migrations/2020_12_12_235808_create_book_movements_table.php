@@ -21,9 +21,11 @@ class CreateBookMovementsTable extends Migration
             $table->integer('copies_id')->unsigned();
             $table->integer('courses_id')->unsigned();   
 
+            $table->string('grupo')->nullable();
+            $table->string('turno')->nullable();
+            $table->integer('active');
             $table->timestamp('date');
-            $table->timestamp('date_until')->nullable()->default(null);
-            $table->integer('active');   
+            $table->timestamp('date_until')->nullable()->default(null);   
             $table->timestamps();
 
             $table->foreign('movement_types_id')->references('id')->on('movement_types')

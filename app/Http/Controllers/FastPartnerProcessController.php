@@ -157,7 +157,7 @@ class FastPartnerProcessController extends Controller
         $documento = Document::with('document_type','document_subtype','creator')
         ->findOrFail($id); 
         
-        $copies = Book_movement::with('movement_type','user')
+        $copies = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id)
         {
             $q->where('documents_id', '=', $id);
