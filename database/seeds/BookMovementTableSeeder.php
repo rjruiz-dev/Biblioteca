@@ -11,6 +11,44 @@ class BookMovementTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        App\Book_movement::create([           
+            'movement_types_id'    => 10,
+            'users_id'    => 3,
+            'copies_id'    => 1,
+            'courses_id'    => 1,
+            'grupo'    => 'A',
+            'turno'    => 'T',
+            'active'    => 1,
+        ]);
+
+        App\Book_movement::create([           
+            'movement_types_id'    => 10,
+            'users_id'    => 3,
+            'copies_id'    => 2,
+            'courses_id'    => 1,
+            'grupo'    => 'A',
+            'turno'    => 'T',
+            'active'    => 1,
+        ]);
+
+        App\Book_movement::create([           
+            'movement_types_id'    => 10,
+            'users_id'    => 3,
+            'copies_id'    => 3,
+            'courses_id'    => 1,
+            'grupo'    => 'A',
+            'turno'    => 'T',
+            'active'    => 1,
+        ]);
+
+        App\Book_movement::create([           
+            'movement_types_id'    => 10,
+            'users_id'    => 3,
+            'copies_id'    => 4,
+            'courses_id'    => 1,
+            'grupo'    => 'A',
+            'turno'    => 'T',
+            'active'    => 1,
+        ]);
     }
 }

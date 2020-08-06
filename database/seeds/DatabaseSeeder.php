@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
        
         
         $this->call(DocumentsTableSeeder::class);
-        $this->call(CopiesTableSeeder::class);   
+        $this->call(CopiesTableSeeder::class);
+        $this->call(BookMovementTableSeeder::class);   
         // $this->call(BooksTableSeeder::class);
         // $this->call(MusicTableSeeder::class);
         // $this->call(MoviesTableSeeder::class);
