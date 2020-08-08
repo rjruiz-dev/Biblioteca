@@ -56,7 +56,11 @@ class RequestsController extends Controller
      */
     public function show($id)
     {
-        //
+        $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($id);       
+      
+        return view('admin.requests.show', [          
+            'prestamo_solicitado'          => $prestamo_solicitado
+           ]);
     }
 
     /**
@@ -67,7 +71,7 @@ class RequestsController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -94,33 +98,48 @@ class RequestsController extends Controller
     }
     public function dataTable()
     {                    
-        $documentos = Document::with('document_type','document_subtype')       
+        $prestamos_solicitados = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')       
         // ->allowed()
         ->get();
       
-        return dataTables::of($documentos)
-            ->addColumn('tipo_documento', function ($documentos){
+        return dataTables::of($prestamos_solicitados)
+            ->addColumn('tipo_movimiento', function ($prestamos_solicitados){
                 return
-                    '<i class="fa fa-user"></i>'.' '.$documentos->document_type['document_description']."<br>";            
+                    '<i class="fa fa-user"></i>'.' '.$prestamos_solicitados->movement_type['description_movement']."<br>";            
             }) 
-            ->addColumn('sub_tipo_documento', function ($documentos){
+            ->addColumn('usuario_solicitante', function ($prestamos_solicitados){
                 return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$documentos->document_subtype['subtype_name'];              
+                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->user['nickname'];              
+            })
+            ->addColumn('documento_solicitado', function ($prestamos_solicitados){
+                return                    
+                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->copy->document['title'];               
+            })             
+            ->addColumn('tipo_solicitado', function ($prestamos_solicitados){
+                return                    
+                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->copy->document->document_type['document_description'];               
+            })             
+            ->addColumn('sub_tipo_solicitado', function ($prestamos_solicitados){
+                return                    
+                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->copy->document->document_subtype['subtype_name'];               
+            })             
+            ->addColumn('curso', function ($prestamos_solicitados){
+                return                    
+                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->course['course_name'];               
             })             
          
-            ->addColumn('created_at', function ($documentos){
-                return $documentos->created_at->format('d-m-y');
+            ->addColumn('created_at', function ($prestamos_solicitados){
+                return $prestamos_solicitados->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($documentos) {
-                return view('admin.loanmanual.partials._action', [
-                    'documentos' => $documentos,
-                                             
-                    'url_edit' => route('loanmanual.abm_prestamo', ['id' =>  $documentos->id, 'bandera' =>  1 ]),        
+            ->addColumn('accion', function ($prestamos_solicitados) {
+                return view('admin.requests.partials._action', [
+                    'prestamos_solicitados' => $prestamos_solicitados,
+                    'url_show' => route('admin.requests.show', $prestamos_solicitados->id),        
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'created_at', 'accion']) 
+            ->rawColumns(['tipo_movimiento', 'usuario_solicitante', 'tipo_solicitado', 'sub_tipo_solicitado', 'documento_solicitado', 'curso', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

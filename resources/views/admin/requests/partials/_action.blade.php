@@ -1,7 +1,6 @@
 
     
-
-    <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar: {{ $documentos->title}}"><i class="fa fa-edit text-success btn-btn-edit-user"></i></a>
+<a href="{{ $url_show }}" class="btn-show" title="Solicitud de: {{ $prestamos_solicitados->copy->document['title']}}"><i class="fa fa-eye text-primary"></i></a>  
 
 
     

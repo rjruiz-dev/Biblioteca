@@ -29,10 +29,10 @@ class DatabaseSeeder extends Seeder
         $this->call(PeriodicitiesTableSeeder::class);
 
         $this->call(MovementTypesTableSeeder::class);   
-       
-        
         $this->call(DocumentsTableSeeder::class);
         $this->call(CopiesTableSeeder::class);
+        $this->call(StatusTableSeeder::class);        
+        $this->call(UsersTableSeeder::class);
         $this->call(BookMovementTableSeeder::class);   
         // $this->call(BooksTableSeeder::class);
         // $this->call(MusicTableSeeder::class);
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(PhotographyTableSeeder::class);
         // $this->call(PublicationsTableSeeder::class); 
         $this->call(Generate_bookTableSeeder::class);           
-        $this->call(StatusTableSeeder::class);        
-        $this->call(UsersTableSeeder::class);
+        // $this->call(StatusTableSeeder::class);        
+        // $this->call(UsersTableSeeder::class);
     }
 }

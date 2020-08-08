@@ -52,5 +52,12 @@ class MovementTypesTableSeeder extends Seeder
             'description_movement'  => 'DISPONIBILIDAD',
             'view'  => 1,
         ]);
+
+        App\Movement_type::create([            
+            'book_status_priv'           => 'RESERVADO',
+            'book_status_public'           => 'RESERVADO',
+            'description_movement'  => 'SOLICITUD',
+            'view'  => 1,
+        ]);
     }
 }

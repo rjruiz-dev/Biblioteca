@@ -57,7 +57,7 @@ function(){
 
     Route::get('/newcopies/{id}',           'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
 
-    Route::get('loanmanual/abm_prestamo/{id}/{bandera}',  'LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
+    Route::get('loanmanual/abm_prestamo/{id}/{bandera}/{n_mov}',  'LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
     
 });
 

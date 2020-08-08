@@ -44,9 +44,9 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Prestadas: {{ count($copies) }} | Disponibles: 5</h3> 
+                <h3 class="box-title">Prestadas: {{ count($copies) }} | Disponibles: 5</h3>  
                            
-                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa fa-user-plus"></i> Nuevo Prestamo</a>
+                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa fa-user-plus"></i> Nuevo Prestamo</a>
                     
             </div>
             <div class="box-body">          

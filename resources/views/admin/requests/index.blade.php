@@ -25,10 +25,12 @@
                 <thead>
                     <tr>
                     <th>ID</th>
-                        <th>Documento</th> 
-                        <th>Tipo Documento</th>                         
-                        <th>Sub Tipo Documento</th>
-                        <th>Solicitante</th>                        
+                        <th>Tipo Mov(provis)</th> 
+                        <th>Socio</th>                         
+                        <th>Documento</th>
+                        <th>Tipo Doc</th>
+                        <th>Sub-Tipo Doc</th>
+                        <th>Curso</th>                        
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -64,7 +66,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-   
+    <script src="{{ asset('js/requests.js') }}"></script> 
     
     <script>
         $('#datatable').DataTable({
@@ -108,9 +110,12 @@
             ajax: "{{ route('requests.table') }}",        
             columns: [                
                 {data: 'id', name: 'id'},
-                {data: 'title', name: 'title'},               
-                {data: 'tipo_documento', name: 'tipo_documento'}, 
-                {data: 'sub_tipo_documento', name: 'sub_tipo_documento'}, 
+                {data: 'tipo_movimiento', name: 'tipo_movimiento'},               
+                {data: 'usuario_solicitante', name: 'usuario_solicitante'}, 
+                {data: 'documento_solicitado', name: 'documento_solicitado'}, 
+                {data: 'tipo_solicitado', name: 'tipo_solicitado'},
+                {data: 'sub_tipo_solicitado', name: 'sub_tipo_solicitado'}, 
+                {data: 'curso', name: 'curso'},
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                         
             ]

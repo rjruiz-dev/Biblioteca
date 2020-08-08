@@ -135,9 +135,15 @@ class LoanManualController extends Controller
     //     ]);    
     // }
 
-    public function abm_prestamo($id, $bandera)
+    public function abm_prestamo($id, $bandera, $n_mov)
     {
- 
+        if($n_mov != 0){
+        $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($n_mov);       
+        }else{
+            $prestamo_solicitado = null;  
+        }
+
+        
         $documento = Document::with('document_type','document_subtype','creator')->findOrFail($id); 
                 
         $copies = Copy::where('documents_id', $documento->id)
@@ -171,7 +177,8 @@ class LoanManualController extends Controller
             // 'partners'      => $partners,
             'courses'       => $courses,
             'bandera'          => $bandera,
-            // 'turnos'          => $turnos
+            'prestamo_solicitado' => $prestamo_solicitado, 
+            'n_mov'          => $n_mov
         ]);    
     }
 
@@ -189,15 +196,10 @@ class LoanManualController extends Controller
             
                 //  Transacciones
                 DB::beginTransaction();
-                $movement_doc = Book_movement::where('copies_id', $request->get('copy_id'))->get();
-                if(!$movement_doc->isEmpty()){//si encuentra movimientos.
-                   if(count($movement_doc) == 1){
-                    $movement_doc->active = 0;
-                   }else{
-                       //hacer funcion para que retorne un mensaje de error 
-                   } 
-                        
-                
+                $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->first();
+                // dd($movement_doc);
+                if($movement_doc){//si encuentra movimientos.
+                    $movement_doc->active = 0; 
                 }
                 //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
                 //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
@@ -209,17 +211,18 @@ class LoanManualController extends Controller
                     $new_movement->movement_types_id = 1; //DEVOLUCION
                 
 
-                $new_movement->users_id = $request->get('user_id');
-                $new_movement->copies_id = $request->get('copy_id');
+                $new_movement->users_id = $request->get('users_id');
+                $new_movement->copies_id = $request->get('copies_id');
                 $new_movement->courses_id = $request->get('course_id');
                 $new_movement->grupo = $request->get('grupo');
                 $new_movement->turno = $request->get('turno'); 
                 $new_movement->active = 1; //LO PONGO EN ACTIVO PARA SEÑALAR
-                if(!$movement_doc->isEmpty()){
-                $movement_doc->save();
-                }
+                
                 $new_movement->save();
-
+                
+                if($movement_doc){
+                    $movement_doc->save();
+                    }
                 DB::commit();
 
                 // return response()->json(['bandera' => $request->get('bandera')]);
@@ -300,7 +303,7 @@ class LoanManualController extends Controller
                 return view('admin.loanmanual.partials._action', [
                     'documentos' => $documentos,
                                              
-                    'url_edit' => route('loanmanual.abm_prestamo', ['id' =>  $documentos->id, 'bandera' =>  1 ]),        
+                    'url_edit' => route('loanmanual.abm_prestamo', ['id' =>  $documentos->id, 'bandera' =>  1 , 'n_mov' =>  0 ]),        
                 ]);
             })           
             ->addIndexColumn()   

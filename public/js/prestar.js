@@ -31,13 +31,23 @@ $('#modal-btn-save-prestar').click(function (event) {
                 // window.location = "../";
                 window.location="/admin/loanmanual/";
             });
-        }else{
+        }
+        if(info == 0){
             swal({
                 type : 'success',
                 title : '¡Éxito!',
                 text : '¡El prestamos se ha realizakkkk de manera exitosa!',
             }).then(function() {
                 window.location = "/admin/fastprocess/edit2/" + info2;
+            });
+        }
+        if(info == 3){
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡El prestamos se ha realizadoSoli de manera exitosa!',
+            }).then(function() {
+                window.location="/admin/requests/";
             });
         }
  
@@ -56,19 +66,25 @@ $('#modal-btn-save-prestar').click(function (event) {
     })
 });
 
-            $('#copy_id').select2({
+if( $("#bandera").val() == 3){
+    
+        var id_usuario_traido = $('#users_id').val();
+        // alert(id_usuario_traido);
+    obtenerDetalleDePartner(id_usuario_traido);
+}
+            $('#copies_id').select2({
                 placeholder: 'Selecciona un Numero de Copia',
                 tags: false                 
 
             });
 
-            $('#user_id').select2({
+            $('#users_id').select2({
                 placeholder: 'Selecciona un Socio',
                 tags: false                 
 
             });
 
-            var user_idSelect = $('#user_id');
+            var user_idSelect = $('#users_id');
             var nickname = $('#nickname');           
             var surname = $('#surname');
             var email = $('#email');   
