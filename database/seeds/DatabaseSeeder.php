@@ -28,10 +28,11 @@ class DatabaseSeeder extends Seeder
         $this->call(SubjectsTableSeeder::class);
         $this->call(PeriodicitiesTableSeeder::class);
 
-        $this->call(MovementTypesTableSeeder::class);   
+        $this->call(MovementTypesTableSeeder::class);
+        $this->call(StatusDocumentTableSeeder::class);    
         $this->call(DocumentsTableSeeder::class);
         $this->call(CopiesTableSeeder::class);
-        $this->call(StatusTableSeeder::class);        
+        $this->call(StatusTableSeeder::class);         
         $this->call(UsersTableSeeder::class);
         $this->call(BookMovementTableSeeder::class);   
         // $this->call(BooksTableSeeder::class);

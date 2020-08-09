@@ -15,6 +15,7 @@ use App\Adaptation;
 use App\Document;
 use App\Lenguage;
 use App\Generate_subjects;
+use App\StatusDocument;
 use App\Document_subtype;
 use App\Photography_movie;
 use Illuminate\Http\Request;
@@ -59,6 +60,7 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'movie'             => $movie,
             'document'          => $document
            
@@ -107,7 +109,18 @@ class MoviesController extends Controller
                 $document->let_title        = $request->get('let_title');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->assessment       = $request->get('assessment'); 
-                $document->desidherata      = $request->get('desidherata'); 
+
+                // dd($request->get('desidherata'));
+                if($request->get('desidherata') == null){
+                    $document->desidherata = 0;
+                    $document->status_documents_id = 1;
+
+                }else{
+                    $document->desidherata = 1;
+                    $document->status_documents_id = 3;
+                }
+                 
+                
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
@@ -189,6 +202,7 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'movie'             => $movie,
             'document'          => $document
            
@@ -234,8 +248,16 @@ class MoviesController extends Controller
                 $document->let_author           = $request->get('let_author');
                 $document->let_title            = $request->get('let_title');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
-                $document->assessment           = $request->get('assessment'); 
-                $document->desidherata          = $request->get('desidherata'); 
+                $document->assessment           = $request->get('assessment');
+                
+                if($request->get('status_documents_id') == 3){
+                    $document->status_documents_id = $request->get('status_documents_id');
+                    $document->desidherata = 1;   
+                }else{
+                    $document->status_documents_id = $request->get('status_documents_id');
+                    $document->desidherata = 0; 
+                }
+          
                 $document->published            = $request->get('published');
                 $document->made_by              = $request->get('made_by');
                 $document->year                 = Carbon::createFromFormat('Y', $request->get('year'));

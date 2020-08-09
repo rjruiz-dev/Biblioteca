@@ -44,7 +44,7 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Prestadas: {{ count($copies) }} | Disponibles: 5</h3>  
+                <h3 class="box-title">Prestadas: {{ count($copies_prestadas) }} | Disponibles: {{ count($copies_disponibles) }}</h3>  
                            
                 <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa fa-user-plus"></i> Nuevo Prestamo</a>
                     
@@ -54,8 +54,8 @@
                     @php 
                         $indice = 1
                     @endphp
-                    @forelse ($copies  as $copie)
-                        {!! Form::model($copies, ['route' => ['admin.fastprocess.store',  count($copies)],'method' => 'POST']) !!}
+                    @forelse ($copies_prestadas  as $copie)
+                        {!! Form::model($copies_prestadas, ['route' => ['admin.fastprocess.store',  count($copies_prestadas)],'method' => 'POST']) !!}
                     <li class="list-group-item">
                     <b>{{ $copie->id }}</b>
                         <div class="row"> 

@@ -23,13 +23,13 @@ class CreateDocumentsTable extends Migration
             $table->integer('document_types_id')->unsigned();
             $table->integer('document_subtypes_id')->unsigned();
             $table->integer('creators_id')->unsigned();
+            $table->integer('status_documents_id')->unsigned();
 
             $table->string('title')->nullable();
             $table->integer('registry_number')->nullable();
 
             $table->string('original_title')->nullable();
             $table->timestamp('acquired')->nullable();        
-            $table->string('document_status')->nullable();
             $table->string('let_author')->nullable();          
             $table->string('let_title')->nullable();           
             $table->string('assessment')->nullable();
@@ -72,6 +72,10 @@ class CreateDocumentsTable extends Migration
             ->onUpdate('cascade');
 
             $table->foreign('creators_id')->references('id')->on('creators')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('status_documents_id')->references('id')->on('status_documents')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

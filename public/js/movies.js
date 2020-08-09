@@ -58,6 +58,11 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             }); 
 
+            $('#status_documents_id').select2({
+                // placeholder: 'Seleccione o Ingrese una Distribuidora',
+                tags: false,               
+            });
+
             $('#adequacies_id').select2({
                 placeholder: 'Selecciona una Adecuación',                        
             });
