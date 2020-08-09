@@ -59,7 +59,7 @@
                 <div class="form-group">
                     {!! Form::label('gender', 'Género') !!}
                     {!! Form::select('gender', $genders, null, ['class' => 'form-control select2', 'id' => 'gender', 'placeholder' => '', 'style' => 'width:100%;']) !!}
-                </div>            
+                </div>           
                       
                 <div class="form-group">
                     <label>Fecha de Nacimiento</label>
