@@ -176,13 +176,15 @@ class UserController extends Controller
                 
                 $user = User::with('statu')->findOrFail($id); 
                
-                // dd($request->hasFile('user_photo'));
+                $name = $user->user_photo;
+                
+
                 if ($request->hasFile('user_photo')) {               
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);                     
                     // $user->save(); 
-                }    
+                } 
 
            
             

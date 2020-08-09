@@ -25,8 +25,7 @@ class SaveUserRequest extends FormRequest
     public function rules()
     {
         $rules = [ 
-            'user_photo' => 'nullable|image|mimes:jpeg,bmp,png,jpg',
-            'status_id' => 'required'
+          
         ];        
 
         if($this->filled('password'))
@@ -36,7 +35,8 @@ class SaveUserRequest extends FormRequest
 
         // Si es diferente a Post
         if($this->method() !== 'PUT')
-        {           
+    {       $rules ['user_photo']   = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+            $rules ['status_id']    = 'required'. $this->id;
             $rules ['email']        = 'required|string|email|max:255|unique:users,email' . $this->id;
             $rules ['nickname']     = 'required|string||min:3|max:50|unique:users,nickname' . $this->id;                   
             $rules ['membership']   = 'required|numeric|min:000000|max:99999999|unique:users,membership' . $this->id;           
