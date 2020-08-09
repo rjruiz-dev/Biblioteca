@@ -32,7 +32,7 @@ $('body').on('click', '.modal-show', function (event) {
             $('#datepicker').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                       
                 language: 'es'
             });   
                    
@@ -48,12 +48,14 @@ $('#modal-btn-save').click(function (event) {
 
     $avatarInput = $('#user_photo');
 
-    var formData  = new FormData();
-        
+    var formData  = new FormData();        
         formData.append('user_photo', $avatarInput[0].files[0]);
+        // formData.append('_method', 'PUT');
+
     var form = $('#modal-body form'), 
         url = form.attr('action'),
-        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
        
 
     form.find('.help-block').remove();
@@ -70,7 +72,8 @@ $('#modal-btn-save').click(function (event) {
     $.ajax({
         url : url + '?' + form.serialize(),
         method: method,
-        data : formData,      
+        data : formData, 
+        cache: false,     
         processData: false,
         contentType: false,
         success: function (response) {

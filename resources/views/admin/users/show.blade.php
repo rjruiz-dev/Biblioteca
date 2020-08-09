@@ -3,8 +3,10 @@
         <div class="box box-primary">        
             <div class="box-body box-profile">            
                 <img class="profile-user-img img-responsive img-circle" 
-                    src="/adminlte/img/user4-128x128.jpg" 
-                    alt="{{ $user->name}}">
+                    src="/images/{{ $user->user_photo }}" 
+                    alt="{{ $user->name}}"
+                    width="100px">
+                    
                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
                 
                 <p class="text-muted text-center">{{ $user->surname }}</p>

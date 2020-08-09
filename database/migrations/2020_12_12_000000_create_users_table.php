@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
 
             $table->integer('status_id')->unsigned();          
 
-            $table->string('membership')->nullable();
-            $table->string('name');
-            $table->string('surname');  
+            $table->string('membership')->unique();
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();  
             $table->string('nickname')->unique();              
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
