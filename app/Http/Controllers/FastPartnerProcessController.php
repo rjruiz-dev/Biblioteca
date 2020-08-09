@@ -157,20 +157,39 @@ class FastPartnerProcessController extends Controller
         $documento = Document::with('document_type','document_subtype','creator')
         ->findOrFail($id); 
         
-        $copies = Book_movement::with('movement_type','user')
+        $copies_prestadas = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id)
         {
-            $q->where('documents_id', '=', $id);
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2);
+            });
         
         })
-        ->where('active', 1)
+        ->where('active', 1)    
         ->get();
+        // traemos todas las copias prestadas actualmente. se incluyen las que estan en PRESTAMOS como en 
+     // RENOVACION. osea tipo movimiento 1 y 2 en tabla tipos de movimientos.
 
-        // dd($copies);
+     $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        
+        })
+        ->where('active', 1)    
+        ->get();
+        // traemos todas las copias prestadas actualmente. se incluyen las que estan en DEVOLUCION como en 
+     // DISPONIBILIDAD. osea tipo movimiento 3 y 6 en tabla tipos de movimientos.
+
 
         return view('admin.fastprocess.prestamo2', [
             'documento'          => $documento,
-            'copies'          => $copies
+            'copies_prestadas'          => $copies_prestadas,
+            'copies_disponibles'          => $copies_disponibles
         ]);    
     }
 

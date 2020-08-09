@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $fillable = [ 
-        'generate_subjects_id', 'generate_references_id', 'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'title', 'registry_number', 'original_title', 'acquired', 'document_status',
+        'generate_subjects_id', 'generate_references_id', 'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'status_documents_id', 'title', 'registry_number', 'original_title', 'acquired',
         'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
         'observation', 'note', 'synopsis', 'photo', 'quantity_generic'
     ];
@@ -57,7 +57,12 @@ class Document extends Model
     public function copies()
     {
         return $this->hasMany(Copy::class);
-    } 
+    }
+    
+    public function status_document()
+    {
+        return $this->belongTo(StatusDocument::class, 'status_documents_id');
+    }
 
     public function music()
     {

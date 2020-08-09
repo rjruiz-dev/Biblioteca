@@ -15,27 +15,7 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);
             
-            $('#gender').select2({
-                placeholder: 'Selecciona un Género',
-                tags: true,               
-            });
-
-            $('#status_id').select2({
-                placeholder: 'Selecciona un Estado',                                    
-            });
-
-            $('#province').select2({
-                placeholder: 'Selecciona una Provincia',
-                tags: true,                            
-            });
-
-            $('#datepicker').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                       
-                language: 'es'
-            });   
-                   
+          
                  
         }
     });
@@ -46,37 +26,22 @@ $('body').on('click', '.modal-show', function (event) {
 $('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
-    $avatarInput = $('#user_photo');
-
-    var formData  = new FormData();        
-        formData.append('user_photo', $avatarInput[0].files[0]);
-        // formData.append('_method', 'PUT');
-
-    var form = $('#modal-body form'), 
+    var form = $('#modal-body form'),
         url = form.attr('action'),
-        method =  'POST' ;
-        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-    });
-    
     $.ajax({
-        url : url + '?' + form.serialize(),
+        url : url,
         method: method,
-        data : formData, 
-        cache: false,  
-        processData: false,
-        contentType: false,
+        data : form.serialize(),
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            // $('#datatable').DataTable().ajax.reload();
+            $("#recargar").load(" #recargar");
 
             swal({
                 type : 'success',
@@ -98,11 +63,6 @@ $('#modal-btn-save').click(function (event) {
     })
 });
 
-$('body').on('click', '.btn-btn-edit-user', function (event) {
-
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
-
-});
 
 $('body').on('click', '.btn-delete', function (event) {
     event.preventDefault();
@@ -169,5 +129,3 @@ $('body').on('click', '.btn-show', function (event) {
 
     $('#modal').modal('show');
 });
-
-

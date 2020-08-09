@@ -6,11 +6,13 @@
 
     @if (!$movie->exists)
         @php 
-            $visible = "display:none"
+            $visible_status_doc = "display:none";
+            $visible_desidherata = ""; 
         @endphp
     @else
         @php  
-            $visible = ""
+            $visible_status_doc = "";
+            $visible_desidherata = "display:none";
         @endphp
     @endif       
 
@@ -101,10 +103,16 @@
                     {!! Form::label('assessment', 'Valoración') !!}                    
                     {!! Form::text('assessment', $movie->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
                 </div>
-                <div class="form-group">      
+                <div class="form-group" style="{{{ $visible_desidherata }}}">      
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
-                    {!! Form::checkbox('desidherata', $movie->document['desidherata'])!!}
+                    {!! Form::checkbox('desidherata', '1')!!}
                 </div>
+
+                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                {!! Form::label('status_documents_id', 'Estado') !!}             
+                {!! Form::select('status_documents_id', $status_documents, $movie->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}    
+                </div> 
+
             </div>
         </div>       
     </div>

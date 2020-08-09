@@ -15,6 +15,7 @@ use App\Document_type;
 use App\Document_subtype;
 use App\Generate_subjects;
 use App\Generate_reference;
+use App\StatusDocument;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +56,7 @@ class BookController extends Controller
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'book'          => $book
         ]);  
     }
@@ -197,6 +199,7 @@ class BookController extends Controller
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes'       => Document::pluck('volume', 'id'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'book'          => $book
             // 'periodical' => $periodical
         ]);    

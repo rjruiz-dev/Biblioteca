@@ -45,50 +45,20 @@
                 <h3 class="box-title">Datos del prestamo</h3>                
             </div>
             <div class="box-body" id="form_prestamo">          
-                <ul class="list-group list-group-unbordered"> 
-
-
-
-    @if ($n_mov == 0)
-    {!! Form::model($documento, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
-        @php
-         
-      
-        $visible = false;
-        $var_copy = '';
-        $var_user = '';
-
-        @endphp
-        @else
-        {!! Form::model($prestamo_solicitado, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
-        @php
-      
-     
-        $visible = true;
-        $id_copy = $prestamo_solicitado->copies_id;
-        $id_user = $prestamo_solicitado->users_id;
-        $var_copy = Form::hidden('copies_id', $id_copy );
-        $var_user = Form::hidden('users_id', $id_user );
-
-        @endphp
-    @endif           
+                <ul class="list-group list-group-unbordered">               
+                    {!! Form::model($documento, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
                     <li class="list-group-item">
                         <b></b>
                         <div class="row"  style="margin: 5px;">
-                        {{ Form::hidden('bandera', $bandera,['id' => 'bandera']) }} 
+                        {{ Form::hidden('bandera', $bandera ) }} 
                             <div class="form-group">
-                                {!! Form::label('copies_id', 'Número de Registro') !!}
-                                {!! Form::select('copies_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'copies_id',  $visible ? 'disabled' : '' ]) !!}
-                               
-                                {!! $var_copy !!}
-                                                        
+                                {!! Form::label('copy_id', 'Número de Registro') !!}
+                                {!! Form::select('copy_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'copy_id']) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::label('users_id', 'Usuario') !!} 
-                                {!! Form::select('users_id', $users, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'users_id',  $visible ? 'disabled' : '' ]) !!}
+                                {!! Form::label('user_id', 'Usuario') !!}
                                
-                               {!! $var_user !!}
-
+                                {!! Form::select('user_id', $users, null, ['class' => 'form-control select2', 'id' => 'user_id', 'placeholder' => 'Elija el Socio']) !!}
                             </div>
 
                             <ul class="list-group list-group-unbordered">
@@ -176,4 +146,5 @@
     <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="{{ asset('js/prestar.js') }}"></script>  
     
+
 @endpush

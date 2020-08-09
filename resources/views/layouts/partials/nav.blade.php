@@ -10,6 +10,11 @@
         <a href="{{ route('admin.loanmanual.index') }}">
             <i class="fa fa-pencil"></i> <span>Prestamos Manuales</span>
         </a>
+    </li>
+    <li class="{{ setActiveRoute('admin.requests.index') }}">
+        <a href="{{ route('admin.requests.index') }}">
+            <i class="fa fa-pencil"></i> <span>Solicitudes desde la web</span>
+        </a>
     </li> 
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
     

@@ -53,6 +53,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         // if ($request->ajax()){
             // try {
             //     //  Transacciones
@@ -66,6 +67,7 @@ class UserController extends Controller
                     'email'         => 'required|string|email|max:255|unique:users,email',  
                     'user_photo'    => 'nullable|image|mimes:jpeg,bmp,png,jpg', 
                     'status_id'     => 'required'                
+
                 ]);
 
                 // Generar una contraseña
@@ -73,11 +75,13 @@ class UserController extends Controller
 
                 // dd($request->hasFile('user_photo'));
                 if ($request->hasFile('user_photo')) {               
+
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }               
                     // Creamos el usuario            
+
                     $user = new User;   
                     $user->name         = $request->get('name');
                     $user->surname      = $request->get('surname');
@@ -94,6 +98,7 @@ class UserController extends Controller
                     $user->membership   = $request->get('membership');   
                     $user->status_id    = $request->get('status_id'); 
                     $user->user_photo   = $name;           
+
                     $user->save();
                     // dd($user);
                 
@@ -101,6 +106,7 @@ class UserController extends Controller
                 // Enviamos el email
                 // UserWasCreated::dispatch($user, $data['password']);
                 // $user->update($request->validated()); 
+
              
                
             //     DB::commit();
@@ -110,6 +116,7 @@ class UserController extends Controller
             //     DB::rollBack();
             // }
         
+
     }
 
     // public function photo(Request $request)
