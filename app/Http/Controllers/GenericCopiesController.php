@@ -29,7 +29,7 @@ class GenericCopiesController extends Controller
 
     public function copies($id)
     {
-        $document = Document::findOrFail($id);
+        $document = Document::with('document_type','document_subtype')->findOrFail($id);
         
         return view('admin.genericcopies.index', [
             'document'          => $document

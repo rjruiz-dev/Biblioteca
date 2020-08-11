@@ -61,7 +61,7 @@ class Document extends Model
     
     public function status_document()
     {
-        return $this->belongTo(StatusDocument::class, 'status_documents_id');
+        return $this->belongsTo(StatusDocument::class, 'status_documents_id');
     }
 
     public function music()

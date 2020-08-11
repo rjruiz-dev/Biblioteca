@@ -12,13 +12,16 @@ class StatusDocumentTableSeeder extends Seeder
     public function run()
     {
       App\StatusDocument::create([           
-            'name_status'    => 'Activo'
+            'name_status'    => 'Activo',
+            'color'    => 'badge badge-success'
         ]);
         App\StatusDocument::create([           
-            'name_status'    => 'Baja'
+            'name_status'    => 'Baja',
+            'color'    => 'badge badge-danger'
         ]);
         App\StatusDocument::create([           
-            'name_status'    => 'Desidherata'
+            'name_status'    => 'Desidherata',
+            'color'    => 'badge badge-warning'
         ]);
     }
 }

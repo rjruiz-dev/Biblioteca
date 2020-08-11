@@ -179,7 +179,7 @@ $('body').on('click', '.btn-btn-edit-user', function (event) {
 
 });
 
-$('body').on('click', '.btn-delete', function (event) {
+$('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja xq es dinamico y puede servir. Rodri salaminnn jajjaj
     event.preventDefault();
    
     var me = $(this),
@@ -187,14 +187,24 @@ $('body').on('click', '.btn-delete', function (event) {
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
+        console.log("url:sdfdsf " + url)
+
+        if(title == 'Baja'){
+            title_noti = 'dar de baja';
+            title_noti_fin = 'dado de baja';
+        }else{
+            title_noti = 'reactivar';
+            title_noti_fin = 'reactivado';
+        }
     swal({
-        title: '¿Seguro que quieres eliminar a : ' + title + ' ?',
-        text: '¡No podrás revertir esto!',
+        
+        title: '¿Seguro que quieres ' + title_noti + ' el documento ?',
+        // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!'
+        confirmButtonText: 'Sí!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -209,8 +219,8 @@ $('body').on('click', '.btn-delete', function (event) {
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
-                        text: '¡Los datos han sido eliminados!'
-                    });
+                        text: '¡Se ha el '+ title_noti_fin +' el documento!'
+                    }); 
                 },
                 error: function (xhr) {
                     swal({
@@ -223,6 +233,145 @@ $('body').on('click', '.btn-delete', function (event) {
         }
     });
 });
+
+$('body').on('click', '.btn-desidherata', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+       console.log("url: " + url)
+    swal({
+        
+        title: '¿Seguro que quieres poner en desidherata el documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡El documento se ha puesto en desidherata!'
+                    }); 
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
+$('body').on('click', '.btn-baja', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+      
+    swal({
+        
+        title: '¿Seguro que quieres dar de baja el documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se ha dado de baja el documento!'
+                    }); 
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
+$('body').on('click', '.btn-reactivar', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+      
+    swal({
+        
+        title: '¿Seguro que quieres reactivar el documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se ha reactivado el documento!'
+                    }); 
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
 
 $('body').on('click', '.btn-show', function (event) {
     event.preventDefault();

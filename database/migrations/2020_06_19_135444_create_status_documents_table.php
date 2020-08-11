@@ -16,6 +16,7 @@ class CreateStatusDocumentsTable extends Migration
         Schema::create('status_documents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name_status')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

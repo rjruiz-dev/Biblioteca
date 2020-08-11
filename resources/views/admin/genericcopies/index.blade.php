@@ -2,8 +2,8 @@
 
 @section('header')    
     <h1>
-       COPIAS DEL DOCUMENTO {{ $document->title }} 
-        <small>tipo del documento</small>
+       {{ $document->title }} 
+        <small>{{ $document->document_type->document_description }} - {{ $document->document_subtype->subtype_name }}</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>

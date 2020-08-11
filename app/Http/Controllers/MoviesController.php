@@ -300,18 +300,68 @@ class MoviesController extends Controller
      * @param  \App\movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function destroy(movies $movies)
+    public function destroy($id)
     {
-        //
+        $document = Document::findOrFail($id);
+
+        if($document->status_documents_id == 1){ //si esta activo lo doy de baja
+            $document->status_documents_id = 2;
+            $document->desidherata = 0;
+            $document->save();   
+        }else{
+            if($document->status_documents_id == 2){ //si esta en baja lo doy de alta
+                $document->status_documents_id = 1;
+                $document->desidherata = 0;
+                $document->save();   
+            }
+        }
     }
+
+    public function desidherata($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 3;
+        $document->desidherata = 1;    
+        $document->save();
+    }
+    
+
+    public function baja($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 2;
+        $document->desidherata = 0;   
+        $document->save();
+    }
+
+    public function baja2($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 3;
+        $document->desidherata = 1;   
+        $document->save();
+    }
+
+    public function reactivar($id)
+    {
+        $document = Document::findOrFail($id);
+        // dd($document);
+        $document->status_documents_id = 1;
+        $document->desidherata = 0;   
+        $document->save();
+    }
+    
 
     public function dataTable()
     {   
-        $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage') 
+        $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
         // ->allowed()
         ->get();
      
         return dataTables::of($movie)
+            ->addColumn('id_doc', function ($movie){
+                return $movie->document['id']."<br>";            
+            }) 
             ->addColumn('registry_number', function ($movie){
                 return $movie->document['registry_number']."<br>";            
             })             
@@ -330,22 +380,30 @@ class MoviesController extends Controller
             ->addColumn('lenguages_id', function ($movie){
 
                 return'<i class="fa  fa-globe"></i>'.' '.$movie->document->lenguage->leguage_description;         
+            })
+            ->addColumn('status', function ($movie){
+
+                return'<span class="'.$movie->document->status_document->color.'">'.' '.$movie->document->status_document->name_status.'</span>';
+                // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
             })            
             ->addColumn('created_at', function ($movie){
                 return $movie->created_at->format('d-m-y');
             })                 
             
             ->addColumn('accion', function ($movie) {
+                // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
                 return view('admin.movies.partials._action', [
                     'movie' => $movie,
                     'url_show' => route('admin.movies.show', $movie->id),                        
                     'url_edit' => route('admin.movies.edit', $movie->id),  
                     'url_copy' => route('genericcopies.copies', $movie->document->id),                              
-                    'url_destroy' => route('admin.movies.destroy', $movie->id)
-                ]);
+                    'url_desidherata' => route('movies.desidherata', $movie->document->id),
+                    'url_baja' => route('movies.baja', $movie->document->id),
+                    'url_reactivar' => route('movies.reactivar', $movie->document->id)
+                     ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['registry_number','documents_id', 'generate_films_id', 'generate_formats_id', 'lenguages_id', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc','registry_number','documents_id', 'generate_films_id', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 
