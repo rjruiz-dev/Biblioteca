@@ -175,7 +175,7 @@ class MoviesController extends Controller
      */
     public function show($id)
     {
-        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
+        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         return view('admin.movies.show', compact('movie'));
     }

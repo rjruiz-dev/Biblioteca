@@ -1,4 +1,23 @@
 <div class="row">
+    <div  class="col-md-12">
+        <nav class="navbar navbar-default navbar-dark ">
+            <div class="container-fluid">               
+           
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                     
+                        <li><a href="#">{{ $movie->document->let_author }}</a></li>   
+                        <li><a href="#">{{ $movie->document->let_title }}</a></li>                        
+                        <li><a href="#">{{ $movie->document->subjects->cdu }}</a></li>                        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li> 
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
     <div class="col-md-6">    
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -134,12 +153,18 @@
                     <hr>
                 </div>
 
-                <!-- <div class="col-md-12">
-                    <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
-                    <p class="text-muted">{{ $movie->specific_content }}</p>
-                    <hr>
-                </div> -->
-
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
+                        <p class="text-muted">{{ $movie->specific_content }}</p>
+                        <hr>
+                    </div>               
+                    <div class="col-md-6">
+                        <strong><i class="fa fa-video-camera margin-r-5"></i> Fotografia:</strong>
+                        <p class="text-muted">{{ $movie->photography_movie->photography_movies_name }}</p>
+                        <hr>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <strong><i class="fa fa-file-text-o margin-r-5"></i> Notas:</strong>
                     @php 
@@ -201,27 +226,18 @@
                     <p class="text-muted">{{ $reparto }}</p>
                     <hr>
                 </div>
-
                 <div class="col-md-12">  
                     <button type="button" class="btn btn-danger btn-flat btn-block"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</button>
                 </div>
-                <!-- <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-                <p>
-                    <span class="label label-danger">UI Design</span>
-                    <span class="label label-success">Coding</span>
-                    <span class="label label-info">Javascript</span>
-                    <span class="label label-warning">PHP</span>
-                    <span class="label label-primary">Node.js</span>
-                </p>
-                <hr>
-
-              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p> -->
             </div>       
           </div>
     </div>
 
 </div>
-    
+
+
+   
+
+
+
+

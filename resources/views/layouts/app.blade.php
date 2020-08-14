@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/adminlte/bower_components/Ionicons/css/ionicons.min.css">
   <!-- <link rel="stylesheet" href="/adminlte/css/main.css"> -->
 
+
   @stack('styles')
 
   <!-- Theme style -->

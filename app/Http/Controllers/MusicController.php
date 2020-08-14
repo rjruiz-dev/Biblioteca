@@ -165,7 +165,9 @@ class MusicController extends Controller
      */
     public function show(Music $music)
     {
-        //
+        $music = Music::with('document.creator', 'actors', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+      
+        return view('admin.movies.show', compact('music'));
     }
 
     /**
