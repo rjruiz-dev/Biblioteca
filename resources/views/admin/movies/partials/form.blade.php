@@ -1,9 +1,10 @@
 <div class="row">
-{!! Form::model($movie, [
-    'route' => $movie->exists ? ['admin.movies.update', $movie->id] : 'admin.movies.store',   
-    'method' => $movie->exists ? 'PUT' : 'POST'
-]) !!}
-
+    {!! Form::model($movie, [
+        'route' => $movie->exists ? ['admin.movies.update', $movie->id] : 'admin.movies.store',   
+        'method' => $movie->exists ? 'PUT' : 'POST',
+        'enctype' => 'multipart/form-data'
+    ]) !!}
+    
     @if (!$movie->exists)
         @php 
             $visible_status_doc = "display:none";

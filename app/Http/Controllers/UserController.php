@@ -54,69 +54,60 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        // if ($request->ajax()){
-            // try {
-            //     //  Transacciones
-            //     DB::beginTransaction();
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
 
                  // Validar el formulario
-                 $data = $request->validate([
+                $data = $request->validate([
                     'membership'    => 'required|numeric|min:000000|max:99999999|unique:users,membership',
                     'name'          => 'required|string|max:100',
                     'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
                     'email'         => 'required|string|email|max:255|unique:users,email',  
                     'user_photo'    => 'nullable|image|mimes:jpeg,bmp,png,jpg', 
-                    'status_id'     => 'required'                
-
+                    'status_id'     => 'required'       
                 ]);
 
                 // Generar una contraseña
                 $data['password'] = str_random(8);
-
-                // dd($request->hasFile('user_photo'));
+              
                 if ($request->hasFile('user_photo')) {               
 
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }               
-                    // Creamos el usuario            
-
-                    $user = new User;   
-                    $user->name         = $request->get('name');
-                    $user->surname      = $request->get('surname');
-                    $user->nickname     = $request->get('nickname');
-                    $user->email        = $request->get('email');        
-                    $user->password     = $request->get('password');
-                    $user->gender       = $request->get('gender');  
-                    $user->address      = $request->get('address');
-                    $user->postcode     = $request->get('postcode');  
-                    $user->city         = $request->get('city');
-                    $user->province     = $request->get('province');
-                    $user->phone        = $request->get('phone');   
-                    $user->birthdate    =  Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
-                    $user->membership   = $request->get('membership');   
-                    $user->status_id    = $request->get('status_id'); 
-                    $user->user_photo   = $name;           
-
-                    $user->save();
-                    // dd($user);
-                
-
+                // Creamos el usuario 
+                $user = new User;   
+                $user->name         = $request->get('name');
+                $user->surname      = $request->get('surname');
+                $user->nickname     = $request->get('nickname');
+                $user->email        = $request->get('email');        
+                $user->password     = $request->get('password');
+                $user->gender       = $request->get('gender');  
+                $user->address      = $request->get('address');
+                $user->postcode     = $request->get('postcode');  
+                $user->city         = $request->get('city');
+                $user->province     = $request->get('province');
+                $user->phone        = $request->get('phone');   
+                $user->birthdate    =  Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->membership   = $request->get('membership');   
+                $user->status_id    = $request->get('status_id'); 
+                $user->user_photo   = $name;    
+                $user->save();
+                   
                 // Enviamos el email
-                // UserWasCreated::dispatch($user, $data['password']);
-                // $user->update($request->validated()); 
+                UserWasCreated::dispatch($user, $data['password']);
+                $user->update($request->validated()); 
 
-             
-               
-            //     DB::commit();
+                DB::commit();
 
-            // } catch (Exception $e) {
-            //     // anula la transacion
-            //     DB::rollBack();
-            // }
-        
-
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
     }
 
     // public function photo(Request $request)
@@ -176,28 +167,21 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, $id)
     {
-        // if ($request->ajax()){
-        //     try {
-        //         // Transacciones
-        //         DB::beginTransaction();
+        if ($request->ajax()){
+            try {
+                // Transacciones
+                DB::beginTransaction();
                 
                 $user = User::with('statu')->findOrFail($id); 
-               
-                $name = $user->user_photo;
-                
+
+                $name = $user->user_photo;                
 
                 if ($request->hasFile('user_photo')) {               
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
-                    $file->move(public_path().'/images/', $name);                     
-                    // $user->save(); 
+                    $file->move(public_path().'/images/', $name);    
                 } 
 
-           
-            
-
-                // if ($request->hasFile('user_photo')) {               
-                // $file = $request->file('user_photo')->store('public');      
                 // Actualizamos el usuario
                 $user->name         = $request->get('name');
                 $user->surname      = $request->get('surname');
@@ -216,17 +200,13 @@ class UserController extends Controller
                 $user->user_photo   = $name;
                 $user->save();
                        
-                // DB::commit();
-                // }else{
-
-                //     return 'no se recibio nada';
-                // }
-
-        //     } catch (Exception $e) {
-        //         // anula la transacion
-        //         DB::rollBack();
-        //     }
-        // }         
+                DB::commit();
+               
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }         
 
     }
 

@@ -118,9 +118,16 @@ $('body').on('click', '.modal-show', function (event) {
 $('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
+    $avatarInput = $('#photo');
+
+    var formData  = new FormData();        
+        formData.append('photo', $avatarInput[0].files[0]);
+        
+
     var form = $('#modal-body form'),
         url = form.attr('action'),
-        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
@@ -130,34 +137,45 @@ $('#modal-btn-save').click(function (event) {
         CKEDITOR.instances[instance].updateElement();
     }
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
 
     $.ajax({
-        url : url,
+        url : url + '?' + form.serialize(),
         method: method,
-        data : form.serialize(),
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,     
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
+
             var id_new_doc = response.data;
             var bandera = response.bandera;
+
             console.log("id: " + id_new_doc);
             console.log("bandera: " + bandera);
             if (bandera == 1){
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado el documento! Ahora debe registrar las copias del mismo',
-            }).then(function() {
-                window.location = "../admin/genericcopies/copies/" + id_new_doc;
-            });
-        }else{
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se ha actualizado el documento!'
-            });
-        }
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡Se han guardado el documento! Ahora debe registrar las copias del mismo',
+                }).then(function() {
+                    window.location = "../admin/genericcopies/copies/" + id_new_doc;
+                });
+            }else{
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡Se ha actualizado el documento!'
+                });
+            }
         },
         error : function (xhr) {
             var res = xhr.responseJSON;
@@ -171,12 +189,6 @@ $('#modal-btn-save').click(function (event) {
             }
         }
     })
-});
-
-$('body').on('click', '.btn-btn-edit-user', function (event) {
-
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
-
 });
 
 $('body').on('click', '.btn-delete', function (event) {
@@ -245,12 +257,12 @@ $('body').on('click', '.btn-show', function (event) {
     $('#modal').modal('show');
 });
 
-    function yesnoCheck() {
-        if (document.getElementById("document_subtypes_id").value == 3) {
-            document.getElementById("popular").style.display = "block";
-            document.getElementById("culta").style.display = "none";
-        } else {
-            document.getElementById("culta").style.display = "block";
-            document.getElementById("popular").style.display = "none";
-        }
+function yesnoCheck() {
+    if (document.getElementById("document_subtypes_id").value == 3) {
+        document.getElementById("popular").style.display = "block";
+        document.getElementById("culta").style.display = "none";
+    } else {
+        document.getElementById("culta").style.display = "block";
+        document.getElementById("popular").style.display = "none";
     }
+}

@@ -20,6 +20,7 @@ use App\Document_subtype;
 use App\Photography_movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveDocumentRequest;
 
 class MoviesController extends Controller
@@ -60,7 +61,7 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
             'movie'             => $movie,
             'document'          => $document
            
@@ -85,22 +86,20 @@ class MoviesController extends Controller
                 $document->document_types_id    = 2; // 3 tipo de documento: cine.
                 $document->document_subtypes_id = 9; // 9 sub-tipo de documento: no tiene. 
                 $document->title                = $request->get('title');
-                
-                // $document->creators_id = $request->get('creators_id');
 
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
+                {                
                     $document->creators_id = $request->get('creators_id');    
  
-                 }else{
+                }else{
                      
                     $creator = new Creator;
                     $creator->creator_name         = $request->get('creators_id');
                     $creator->document_types_id    = 1;
                     $creator->save();
                     $document->creators_id = $creator->id;
+                }
 
-                 }
                 $document->original_title   = $request->get('original_title'); 
                 $document->registry_number  = $request->get('registry_number');
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));             
@@ -109,18 +108,18 @@ class MoviesController extends Controller
                 $document->let_title        = $request->get('let_title');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->assessment       = $request->get('assessment'); 
-
-                // dd($request->get('desidherata'));
+            
                 if($request->get('desidherata') == null){
+
                     $document->desidherata = 0;
                     $document->status_documents_id = 1;
 
                 }else{
+
                     $document->desidherata = 1;
                     $document->status_documents_id = 3;
                 }
                  
-                
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
@@ -128,14 +127,21 @@ class MoviesController extends Controller
                 $document->location         = $request->get('location');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');
-                $document->photo            = $request->get('photo');
+
+                if ($request->hasFile('photo')) {               
+
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);   
+                }  
+
+                $document->photo            = $name;
                 $document->collection       = $request->get('collection'); 
                 $document->synopsis         = $request->get('synopsis'); 
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
-                 // insertamos en la tabla multimedia
-                
+                // insertamos en la tabla multimedia                
                 $movie = new Movies; 
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
                 $movie->generate_films_id       = $request->get('generate_films_id');
@@ -146,8 +152,7 @@ class MoviesController extends Controller
                 $movie->specific_content        = $request->get('specific_content');
                 $movie->awards                  = $request->get('awards');
                 $movie->distributor             = $request->get('distributor');             
-                $movie->documents_id            = $document->id;//guardamos el id del documento                
-             
+                $movie->documents_id            = $document->id;//guardamos el id del documento 
                 $movie->save();
                 $movie->syncActors($request->get('actors'));
                
@@ -168,9 +173,11 @@ class MoviesController extends Controller
      * @param  \App\movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function show(movies $movies)
+    public function show($id)
     {
-        //
+        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
+      
+        return view('admin.movies.show', compact('movie'));
     }
 
     /**
@@ -224,14 +231,22 @@ class MoviesController extends Controller
                 DB::beginTransaction();
 
                 $movie      = Movies::findOrFail($id);
-                $document   = Document::findOrFail($movie->documents_id);                
+                $document   = Document::findOrFail($movie->documents_id);    
+                
+                $name = $movie->photo; 
+                if ($request->hasFile('photo')) {               
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);    
+                } 
+
                 $document->title  = $request->get('title');           
 
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id  = $request->get('creators_id');    
+                {                
+                    $document->creators_id  = $request->get('creators_id');    
  
-                 }else{
+                }else{
 
                     $creator = new Creator;
                     $creator->creator_name         = $request->get('creators_id');
@@ -264,9 +279,9 @@ class MoviesController extends Controller
                 $document->quantity_generic     = $request->get('quantity_generic'); 
                 $document->location             = $request->get('location');
                 $document->note                 = $request->get('note');
-                $document->lenguages_id         = $request->get('lenguages_id');              
-                $document->photo                = $request->get('photo');
-                $document->collection       = $request->get('collection'); 
+                $document->lenguages_id         = $request->get('lenguages_id');
+                $document->photo                = $name;
+                $document->collection           = $request->get('collection'); 
                 $document->synopsis             = $request->get('synopsis'); 
                 $document->save();
                 $document->syncReferences($request->get('references'));
@@ -305,6 +320,20 @@ class MoviesController extends Controller
         //
     }
 
+    public function exportPdf()
+    {
+        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
+
+        $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+       
+        return $pdf->download('cine.pdf');
+   
+    	// $users = User::get();
+    	// $pdf   = PDF::loadView('pdf.users', compact('users'));
+
+    	// return $pdf->download('user-list.pdf');
+    }
+
     public function dataTable()
     {   
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage') 
@@ -338,10 +367,11 @@ class MoviesController extends Controller
             ->addColumn('accion', function ($movie) {
                 return view('admin.movies.partials._action', [
                     'movie' => $movie,
-                    'url_show' => route('admin.movies.show', $movie->id),                        
-                    'url_edit' => route('admin.movies.edit', $movie->id),  
-                    'url_copy' => route('genericcopies.copies', $movie->document->id),                              
-                    'url_destroy' => route('admin.movies.destroy', $movie->id)
+                    'url_show'      => route('admin.movies.show', $movie->id),                        
+                    'url_edit'      => route('admin.movies.edit', $movie->id),  
+                    'url_copy'      => route('genericcopies.copies', $movie->document->id),                              
+                    'url_destroy'   => route('admin.movies.destroy', $movie->id),
+                    'url_print'     => route('cine.pdf', $movie->id)   
                 ]);
             })           
             ->addIndexColumn()   

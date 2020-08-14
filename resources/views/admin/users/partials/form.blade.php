@@ -1,5 +1,4 @@
 <div class="row">  
-
     {!! Form::model($user, [
         'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
         'method' => $user->exists ? 'PUT' : 'POST',

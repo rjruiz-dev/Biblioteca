@@ -7,7 +7,10 @@
 
 <a href="{{ $url_destroy }}" class="btn-delete" title="{{ $movie->document['title'] }}"><i class="fa fa-trash text-danger"></i></a> | 
 
-<a href="{{ $url_copy }}"><i class="fa fa-copy text-danger"></i></a>
+<a href="{{ $url_copy }}"><i class="fa fa-copy text-danger"></i></a> |
+
+<a href="{{ $url_print }}" title="Imprimir: {{ $movie->document['title'] }}"><i class="fa fa-download text-success"></i></a> |  
+
 
 
 

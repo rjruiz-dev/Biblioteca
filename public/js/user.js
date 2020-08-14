@@ -50,8 +50,7 @@ $('#modal-btn-save').click(function (event) {
 
     var formData  = new FormData();        
         formData.append('user_photo', $avatarInput[0].files[0]);
-        // formData.append('_method', 'PUT');
-
+        
     var form = $('#modal-body form'), 
         url = form.attr('action'),
         method =  'POST' ;

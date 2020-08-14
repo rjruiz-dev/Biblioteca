@@ -20,11 +20,7 @@ class GenericCopiesController extends Controller
      */
     public function index()
     {
-        // $document = Document::findOrFail($id);
-        
-        // return view('admin.genericcopies.index', [
-        //     'document'          => $document
-        // ]);
+      
     }
 
     public function copies($id)
@@ -74,14 +70,12 @@ class GenericCopiesController extends Controller
                 $copy->save();
 
                 $new_movement = new Book_movement;
-
-                    $new_movement->movement_types_id = 6; //Disponibilidad inicial
-                
-                    $new_movement->users_id = 1; //referencia a usuario NO USUARIO
-                    $new_movement->copies_id = $copy->id;
-                    $new_movement->courses_id = 1; //referencia a curso NO CURSO
-                    $new_movement->active = 1;
-                    $new_movement->save();
+                $new_movement->movement_types_id = 6; //Disponibilidad inicial            
+                $new_movement->users_id = 1; //referencia a usuario NO USUARIO
+                $new_movement->copies_id = $copy->id;
+                $new_movement->courses_id = 1; //referencia a curso NO CURSO
+                $new_movement->active = 1;
+                $new_movement->save();
 
                 DB::commit();
 
@@ -139,19 +133,19 @@ class GenericCopiesController extends Controller
                      
                 // $copy->documents_id = $request->get('id_docu');
 
-                if($copy->status_copy_id == $request->get('status_copy_id')){ //si cambio el estado inserto movimiento sino no
-        
+                if($copy->status_copy_id == $request->get('status_copy_id'))
+                { 
+                    //si cambio el estado inserto movimiento sino no        
                 }else{
                     $new_movement = new Book_movement;
-
                     $new_movement->movement_types_id = $request->get('status_copy_id'); //RENOVACION (valores correspondientes a la base)
-                
                     $new_movement->users_id = 1; //referencia a usuario NO USUARIO
                     $new_movement->copies_id = $copy->id;
                     $new_movement->courses_id = 1; //referencia a curso NO CURSO
                     $new_movement->active = 1;
                     $new_movement->save();
                 }
+
                 $copy->status_copy_id = $request->get('status_copy_id');
                 $copy->registry_number = $request->get('registry_number');
                 $copy->save();
@@ -178,30 +172,27 @@ class GenericCopiesController extends Controller
 
     public function dataTable($id)
     {   
-        $copies = Copy::with('movement_type')->where('documents_id', $id)->get();
+        $copies = Copy::with('movement_type', 'document')->where('documents_id', $id)->get();
 
-
-     
         return dataTables::of($copies)
               
         ->addColumn('status', function ($copies){
             return $copies->movement_type->book_status_public;              
         }) 
-            ->addColumn('created_at', function ($copies){
-                return $copies->created_at->format('d-m-y');
-            })                 
-            
-            ->addColumn('accion', function ($copies) {
-                return view('admin.genericcopies.partials._action', [
-                    'copies' => $copies,
-                    // 'url_show' => route('admin.genericcopies.show', $copies->id),                        
-                    'url_edit' => route('admin.genericcopies.edit', $copies->id),                              
-                    // 'url_destroy' => route('admin.genericcopies.destroy', $copies->id)
-                ]);
-            })           
-            ->addIndexColumn()   
-            ->rawColumns(['status','created_at', 'accion']) 
-            ->make(true);  
+        ->addColumn('created_at', function ($copies){
+            return $copies->created_at->format('d-m-y');
+        })         
+        ->addColumn('accion', function ($copies) {
+            return view('admin.genericcopies.partials._action', [
+                'copies' => $copies,
+                // 'url_show' => route('admin.genericcopies.show', $copies->id),                        
+                'url_edit' => route('admin.genericcopies.edit', $copies->id),                              
+                // 'url_destroy' => route('admin.genericcopies.destroy', $copies->id)
+            ]);
+        })           
+        ->addIndexColumn()   
+        ->rawColumns(['status','created_at', 'accion']) 
+        ->make(true);  
     }
 
 }

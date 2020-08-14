@@ -35,7 +35,8 @@ class SaveUserRequest extends FormRequest
 
         // Si es diferente a Post
         if($this->method() !== 'PUT')
-    {       $rules ['user_photo']   = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+        {   
+            $rules ['user_photo']   = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
             $rules ['status_id']    = 'required'. $this->id;
             $rules ['email']        = 'required|string|email|max:255|unique:users,email' . $this->id;
             $rules ['nickname']     = 'required|string||min:3|max:50|unique:users,nickname' . $this->id;                   
@@ -45,24 +46,6 @@ class SaveUserRequest extends FormRequest
 
         return $rules;  
 
-        // $rules = [
-        //     'name'      => 'required|string|max:255',
-        //     'surname'   => 'required|string|max:255',
-        //     'nickname'  => 'required|string|max:255',
-        //     'status_id' => 'required',
-        //     'datepicker'=> 'required',
-        //     'gender'    => 'required',
-        //     'province'  => 'required',
-        //     'phone'     => ['required','string',Rule::unique('users')->ignore($this->route('user')->id)],
-        //     'email'     => ['required','string','max:255',Rule::unique('users')->ignore($this->route('user')->id)]
-        // ];
-      
-        // if($this->filled('password'))
-        // {
-        //     $rules['password'] = ['confirmed','min:6'];
-        // }
-        
-        // return $rules;
     }
 
     public function messages()
