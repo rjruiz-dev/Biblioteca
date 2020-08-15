@@ -44,7 +44,10 @@ function(){
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
  
-    Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');    
+    Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
+    Route::get('music/exportpdf/{id}',      'MusicController@exportPdf')->name('musica.pdf');  
+    Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
+    Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
 
     Route::get('loanmanual/showPartner/{id}', 'LoanManualController@showPartner');
 

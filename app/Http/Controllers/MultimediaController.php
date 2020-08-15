@@ -14,6 +14,7 @@ use App\Generate_subjects;
 use App\Generate_reference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveDocumentRequest;
 
 class MultimediaController extends Controller
@@ -92,8 +93,7 @@ class MultimediaController extends Controller
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));           
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
-                $document->let_title        = $request->get('let_title');
-                $document->registry_number  = $request->get('registry_number');
+                $document->let_title        = $request->get('let_title');               
                 $document->generate_subjects_id = $request->get('generate_subjects_id'); 
                 $document->assessment       = $request->get('assessment'); 
                 $document->desidherata      = $request->get('desidherata'); 
@@ -164,9 +164,11 @@ class MultimediaController extends Controller
      * @param  \App\multimedia  $multimedia
      * @return \Illuminate\Http\Response
      */
-    public function show(multimedia $multimedia)
+    public function show($id)
     {
-        //
+        $multimedia = Multimedia::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+      
+        return view('admin.multimedias.show', compact('multimedia'));
     }
 
     /**
@@ -234,7 +236,6 @@ class MultimediaController extends Controller
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');
-                $document->registry_number  = $request->get('registry_number');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->assessment       = $request->get('assessment'); 
                 $document->desidherata      = $request->get('desidherata'); 
@@ -310,6 +311,15 @@ class MultimediaController extends Controller
         //
     }
 
+    public function exportPdf()
+    {
+        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
+
+        $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+       
+        return $pdf->download('cine.pdf');
+    }
+
     public function dataTable()
     {   
         $multimedia = Multimedia::with('document.creator') 
@@ -332,9 +342,10 @@ class MultimediaController extends Controller
             ->addColumn('accion', function ($multimedia) {
                 return view('admin.multimedias.partials._action', [
                     'multimedia' => $multimedia,
-                    'url_show' => route('admin.multimedias.show', $multimedia->id),                        
-                    'url_edit' => route('admin.multimedias.edit', $multimedia->id),                              
-                    'url_destroy' => route('admin.multimedias.destroy', $multimedia->id)
+                    'url_show'      => route('admin.multimedias.show', $multimedia->id),                        
+                    'url_edit'      => route('admin.multimedias.edit', $multimedia->id),                              
+                    'url_destroy'   => route('admin.multimedias.destroy', $multimedia->id),
+                    'url_print'     => route('multimedia.pdf', $multimedia->id)   
                 ]);
             })           
             ->addIndexColumn()   

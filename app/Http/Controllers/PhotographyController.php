@@ -16,6 +16,7 @@ use App\Generate_reference;
 use App\Generate_format;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveDocumentRequest;
 
 class PhotographyController extends Controller
@@ -91,8 +92,7 @@ class PhotographyController extends Controller
                  }
 
                 $document->original_title   = $request->get('original_title'); 
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));
-                $document->registry_number  = $request->get('registry_number');                     
+                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                                
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->let_author       = $request->get('let_author');
@@ -164,9 +164,11 @@ class PhotographyController extends Controller
      * @param  \App\photography  $photography
      * @return \Illuminate\Http\Response
      */
-    public function show(photography $photography)
+    public function show($id)
     {
-        //
+        $photograph = Photography::with('document.creator', 'actors', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+      
+        return view('admin.photographs.show', compact('photograph'));
     }
 
     /**
@@ -232,7 +234,6 @@ class PhotographyController extends Controller
                 }
 
                 $document->original_title       = $request->get('original_title'); 
-                $document->registry_number      = $request->get('registry_number');
                 $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));               
                 $document->adequacies_id        = $request->get('adequacies_id');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
@@ -311,6 +312,16 @@ class PhotographyController extends Controller
         //
     }
 
+    
+    public function exportPdf()
+    {     
+        $photograph = Photography::with('document.creator', 'actors', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
+
+        $pdf = PDF::loadView('admin.photographs.show', compact('photograph'));  
+       
+        return $pdf->download('cine.pdf');
+    }
+
     public function dataTable()
     {   
         $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format') 
@@ -344,7 +355,8 @@ class PhotographyController extends Controller
                     'photograph' => $photograph,
                     'url_show' => route('admin.photographs.show', $photograph->id),                        
                     'url_edit' => route('admin.photographs.edit', $photograph->id),                              
-                    'url_destroy' => route('admin.photographs.destroy', $photograph->id)
+                    'url_destroy' => route('admin.photographs.destroy', $photograph->id),
+                    'url_print'     => route('fotografia.pdf', $photograph->id)   
                 ]);
             })           
             ->addIndexColumn()   

@@ -31,7 +31,6 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'observation' => $faker->sentence($nbWords = 6, $variableNbWords = true), 
         'note'     => $faker->sentence($nbWords = 6, $variableNbWords = true),
         'synopsis' => $faker->sentence($nbWords = 6, $variableNbWords = true), 
-        'photo'     => $faker->name,  
-        'registry_number'  => $faker->unique()->numberBetween($min = 0000, $max = 9000),      
+        'photo'     => $faker->name,               
     ];
 });

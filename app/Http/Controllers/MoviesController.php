@@ -21,6 +21,7 @@ use App\Photography_movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SaveDocumentRequest;
 
 class MoviesController extends Controller
@@ -100,8 +101,7 @@ class MoviesController extends Controller
                     $document->creators_id = $creator->id;
                 }
 
-                $document->original_title   = $request->get('original_title'); 
-                $document->registry_number  = $request->get('registry_number');
+                $document->original_title   = $request->get('original_title');                 
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));             
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
@@ -256,8 +256,7 @@ class MoviesController extends Controller
 
                  }
 
-                $document->original_title       = $request->get('original_title'); 
-                $document->registry_number      = $request->get('registry_number');
+                $document->original_title       = $request->get('original_title');                
                 $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id        = $request->get('adequacies_id');
                 $document->let_author           = $request->get('let_author');
@@ -324,14 +323,11 @@ class MoviesController extends Controller
     {
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
 
+
+
         $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
        
         return $pdf->download('cine.pdf');
-   
-    	// $users = User::get();
-    	// $pdf   = PDF::loadView('pdf.users', compact('users'));
-
-    	// return $pdf->download('user-list.pdf');
     }
 
     public function dataTable()
