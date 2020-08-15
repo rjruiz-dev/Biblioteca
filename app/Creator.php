@@ -19,4 +19,9 @@ class Creator extends Model
     {
         return $this->hasMany(Document::class);
     } 
+
+    public function popular()
+    {
+        return $this->hasMany(Popular::class);
+    } 
 }

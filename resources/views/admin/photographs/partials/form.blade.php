@@ -1,7 +1,8 @@
 <div class="row">
 {!! Form::model($photograph, [
     'route' => $photograph->exists ? ['admin.photographs.update', $photograph->id] : 'admin.photographs.store',   
-    'method' => $photograph->exists ? 'PUT' : 'POST'
+    'method' => $photograph->exists ? 'PUT' : 'POST',
+        'enctype' => 'multipart/form-data'
 ]) !!}
 
     <div class="col-md-6">

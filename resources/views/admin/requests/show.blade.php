@@ -30,16 +30,21 @@
     </div>     
     <div class="col-md-6">
         <div class="box box-primary">
-            <div class="box-header with-border">
+            <div class="box-header with-border text-center">
                 <h3 class="box-title">Acciones</h3>
             </div>
             <div class="box-body">
                          
                 <ul class="list-group list-group-unbordered"> 
-                    <li class="list-group-item">                    
-                    <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  3, 'n_mov' =>  $prestamo_solicitado->id ]) }}" title="Aceptar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-warning"  type="button">Aceptar Solicitud</a>       
+                    <li class="list-group-item text-center">                    
+                    <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  3, 'n_mov' =>  $prestamo_solicitado->id ]) }}" title="Aceptar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-success"  type="button">Aceptar Solicitud</a>       
+                    </li>                      
+                </ul> 
+                <ul class="list-group list-group-unbordered"> 
+                    <li class="list-group-item text-center">                    
+                    <a href="{{ route('requests.desestimar', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  1 ]) }}" title="Rechazar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-warning"  type="button">Rechazar Solicitud</a>       
                     </li>                     
-                     </ul> 
+                </ul>  
                 
             </div>
         </div>

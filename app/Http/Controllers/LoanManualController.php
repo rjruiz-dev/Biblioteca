@@ -140,7 +140,7 @@ class LoanManualController extends Controller
 
     public function abm_prestamo($id, $bandera, $n_mov)
     {
-        if($n_mov != 0){
+        if($n_mov != 0){ // si se pasa n_mov con NO 0 es xq carga una solicitud
         $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($n_mov);       
         }else{
             $prestamo_solicitado = null;  
@@ -148,7 +148,19 @@ class LoanManualController extends Controller
 
         
         $documento = Document::with('document_type','document_subtype','creator')->findOrFail($id); 
-                
+        
+        if($n_mov != 0){ // si se pasa n_mov con NO 0 es xq carga una solicitud y tiene que cargar solo una copia
+
+            $copies = Copy::where('documents_id', $documento->id)
+            ->where('status_copy_id', '=', 7)
+            ->first() 
+            // se le pone first para que si o si cargue una sola copia y no explote la pantalla y 
+            //muestre al menos el template de prestamos para luego en tal caso mostrar el error 
+            //cuando se de boton "Prestar"
+            ->pluck('registry_number', 'id');
+
+         }else{// sino que cargue el listado de copias disponibles y devueltas(osea tmb disponibles).
+            
         $copies = Copy::where('documents_id', $documento->id)
         ->where(function ($query) {
             $query->where('status_copy_id', '=', 3)
@@ -156,20 +168,9 @@ class LoanManualController extends Controller
         })
         ->get()
         ->pluck('registry_number', 'id');
-
-        // dd($copies);
+    }
         
         $users = User::where('status_id', 1)->get()->pluck('name', 'id');
-        // $partners = User::where('status_id', 1)->get();
-        // $partner = User::findOrFail($id);
-        // $users = Book_movement::with('user')->where('users_id', $partner->id)
-        // ->where(function ($query) {
-        //     $query->where('status_id', '=', 1);
-                 
-        // })
-        // ->get()
-        // ->pluck('name', 'id');
-        // dd($users);
         
         $courses = Course::all()->pluck('course_name', 'id');
 
@@ -193,44 +194,51 @@ class LoanManualController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {       // el id que es el id del documento se pasa solo para direccionar a ese documento si se accede a esta vista
+            // desde la pantalla prestamos y devoluciones.
         if ($request->ajax()){
             try {
-            
-                //  Transacciones
+
                 DB::beginTransaction();
-                $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->first();
-                // dd($movement_doc);
-                if($movement_doc){//si encuentra movimientos.
-                    $movement_doc->active = 0; 
-                }
-                //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
-                //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
+                
+                
+                // $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->first();
+                $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->get();
+                $error = 1; // error en 1 es error Si osea HAY ERROR
+                if($movement_doc->count() == 1){
+                    
+                    $copy = Copy::findOrFail($request->get('copies_id'));
+                    $copy->status_copy_id = 1;
+                    $copy->save(); 
 
-                 //CREO UN NUEVO MOVIMIENTO EN ESTA TABLA PARA INDICAR QUE SE DEVOLVIO EL MISMO EN ESTE CASO.
-                $new_movement = new Book_movement;
-        
-                
-                    $new_movement->movement_types_id = 1; //DEVOLUCION
-                
+                    foreach($movement_doc as $t){
+                        $t->active = 0;
+                        $t->save(); 
+                    } 
 
-                $new_movement->users_id = $request->get('users_id');
-                $new_movement->copies_id = $request->get('copies_id');
-                $new_movement->courses_id = $request->get('course_id');
-                $new_movement->grupo = $request->get('grupo');
-                $new_movement->turno = $request->get('turno'); 
-                $new_movement->active = 1; //LO PONGO EN ACTIVO PARA SEÑALAR
-                
-                $new_movement->save();
-                
-                if($movement_doc){
-                    $movement_doc->save();
+                    $new_movement = new Book_movement;
+                    $new_movement->movement_types_id = 1; //PRESTAMO
+            
+                    $new_movement->users_id = $request->get('users_id');
+                    $new_movement->copies_id = $request->get('copies_id');
+                    $new_movement->courses_id = $request->get('course_id');
+                    $new_movement->grupo = $request->get('grupo');
+                    $new_movement->turno = $request->get('turno'); 
+                    $new_movement->active = 1; 
+            
+                    $new_movement->save();
+            
+            
+                    DB::commit();
+
+                    $error = 0; // error en 0 es error NO osea NO hay ERROR
+                    }else{ 
+                        $error = 1; // error en 1 es error Si osea HAY ERROR
+
                     }
-                DB::commit();
 
-                // return response()->json(['bandera' => $request->get('bandera')]);
-                return response()->json(array('bandera' => $request->get('bandera'),'id' => $id));
-                // array('partner'=>$partner,'count'=>$count)
+                    return response()->json(array('bandera' => $request->get('bandera'),'id' => $id,'error' => $error));
+                
                 } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();

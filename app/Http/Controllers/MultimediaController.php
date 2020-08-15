@@ -12,6 +12,7 @@ use App\Lenguage;
 use App\Document;
 use App\Generate_subjects;
 use App\Generate_reference;
+use App\StatusDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -50,6 +51,7 @@ class MultimediaController extends Controller
             'editions'      => Multimedia::pluck('edition', 'id'),         
             'editorials'    => Document::pluck('made_by', 'made_by'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'multimedia'    => $multimedia,
             'document'      => $document               
         ]); 
@@ -70,7 +72,7 @@ class MultimediaController extends Controller
                               
                 // Creamos el documento            
                 $document = new Document;
-                $document->document_types_id    = 2; // 2 tipo de documento: multimedia.
+                $document->document_types_id    = 4; // 4 tipo de documento: multimedia.
                 $document->document_subtypes_id = 9; // 0 sub-tipo de documento: no tiene. 
                 $document->title                = $request->get('title');
                 
@@ -96,7 +98,17 @@ class MultimediaController extends Controller
                 $document->let_title        = $request->get('let_title');               
                 $document->generate_subjects_id = $request->get('generate_subjects_id'); 
                 $document->assessment       = $request->get('assessment'); 
-                $document->desidherata      = $request->get('desidherata'); 
+                
+                // dd($request->get('desidherata'));
+                if($request->get('desidherata') == null){
+                    $document->desidherata = 0;
+                    $document->status_documents_id = 1;
+
+                }else{
+                    $document->desidherata = 1;
+                    $document->status_documents_id = 3;
+                }
+                
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
                 $document->year             = Carbon::createFromFormat('Y', $request->get('year'));
@@ -107,8 +119,20 @@ class MultimediaController extends Controller
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');             
-                $document->photo            = $request->get('photo');
+                // $document->photo            = $request->get('photo');
                 $document->synopsis         = $request->get('synopsis');
+
+                if ($request->hasFile('photo')) {               
+
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);   
+                }else{
+                    $name = null; // se asigno null pero se le podria ingresar una imagen por defecto si no carga nada 
+                }  
+
+                $document->photo            = $name;
+
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -194,6 +218,7 @@ class MultimediaController extends Controller
             'editorials'    => Document::pluck('made_by', 'made_by'),            
             'editions'      => Multimedia::pluck('edition', 'id'),         
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'multimedia'    => $multimedia,
             'document'      => $document
         ]);  
@@ -238,7 +263,15 @@ class MultimediaController extends Controller
                 $document->let_title        = $request->get('let_title');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->assessment       = $request->get('assessment'); 
-                $document->desidherata      = $request->get('desidherata'); 
+                
+                if($request->get('status_documents_id') == 3){
+                    $document->status_documents_id = $request->get('status_documents_id');
+                    $document->desidherata = 1;   
+                }else{
+                    $document->status_documents_id = $request->get('status_documents_id');
+                    $document->desidherata = 0; 
+                }
+                
                 $document->published        = $request->get('published');
                 $document->made_by          = $request->get('made_by');
                 $document->year                 = Carbon::createFromFormat('Y', $request->get('year'));
@@ -249,8 +282,17 @@ class MultimediaController extends Controller
                 $document->observation          = $request->get('observation');
                 $document->note                 = $request->get('note');
                 $document->lenguages_id         = $request->get('lenguages_id');              
-                $document->photo                = $request->get('photo');
+                // $document->photo                = $request->get('photo');
                 $document->synopsis             = $request->get('synopsis');
+
+                $name = $document->photo; 
+                if ($request->hasFile('photo')) {               
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);    
+                }
+                $document->photo = $name;
+
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -319,14 +361,54 @@ class MultimediaController extends Controller
        
         return $pdf->download('cine.pdf');
     }
+    
+    public function desidherata($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 3;
+        $document->desidherata = 1;    
+        $document->save();
+    }
+    
+
+    public function baja($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 2;
+        $document->desidherata = 0;   
+        $document->save();
+    }
+
+    public function reactivar($id)
+    {
+        $document = Document::findOrFail($id);
+        // dd($document);
+        $document->status_documents_id = 1;
+        $document->desidherata = 0;   
+        $document->save();
+    }
+
+    public function copy($id)
+    {
+        
+        $document = Document::findOrFail($id);
+        if($document->status_documents_id == 2){
+            return response()->json(['data' => 0]);      
+        }else{
+            return response()->json(['data' => $document->id]); 
+        }  
+    }
 
     public function dataTable()
     {   
-        $multimedia = Multimedia::with('document.creator') 
+        $multimedia = Multimedia::with('document.creator', 'document.status_document') 
         // ->allowed()
         ->get();
          
         return dataTables::of($multimedia)
+            ->addColumn('id_doc', function ($multimedia){
+            return $multimedia->document['id']."<br>";            
+            }) 
             ->addColumn('registry_number', function ($libros){
                 return $libros->document['registry_number']."<br>";            
             })             
@@ -334,7 +416,12 @@ class MultimediaController extends Controller
                 return
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator->creator_name."<br>";         
-            })                        
+            })
+            ->addColumn('status', function ($multimedia){
+
+                return'<span class="'.$multimedia->document->status_document->color.'">'.' '.$multimedia->document->status_document->name_status.'</span>';
+                // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
+            })                       
             ->addColumn('created_at', function ($multimedia){
                 return $multimedia->created_at->format('d-m-y');
             })                 
@@ -342,14 +429,19 @@ class MultimediaController extends Controller
             ->addColumn('accion', function ($multimedia) {
                 return view('admin.multimedias.partials._action', [
                     'multimedia' => $multimedia,
-                    'url_show'      => route('admin.multimedias.show', $multimedia->id),                        
-                    'url_edit'      => route('admin.multimedias.edit', $multimedia->id),                              
-                    'url_destroy'   => route('admin.multimedias.destroy', $multimedia->id),
+
+                    'url_show' => route('admin.multimedias.show', $multimedia->id),                        
+                    'url_edit' => route('admin.multimedias.edit', $multimedia->id),                              
+                    'url_copy' => route('multimedias.copy', $multimedia->document->id),                              
+                    'url_desidherata' => route('multimedias.desidherata', $multimedia->document->id),
+                    'url_baja' => route('multimedias.baja', $multimedia->document->id),
+                    'url_reactivar' => route('multimedias.reactivar', $multimedia->document->id),
                     'url_print'     => route('multimedia.pdf', $multimedia->id)   
-                ]);
+                    ]);
+
             })           
             ->addIndexColumn()   
-            ->rawColumns(['registry_number','documents_id', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc','registry_number','documents_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

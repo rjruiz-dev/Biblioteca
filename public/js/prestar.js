@@ -17,11 +17,13 @@ $('#modal-btn-save-prestar').click(function (event) {
         success: function (response) {
             var info = response.bandera;
             var info2 = response.id;
+            var error = response.error;
             console.log("id" + info2);
             console.log("ALGO" + info);
             form.trigger('reset');
             // $('#modal').modal('hide');
             // $('#datatable').DataTable().ajax.reload();
+            if(error == 0){
             if(info == 1){
             swal({
                 type : 'success',
@@ -50,7 +52,13 @@ $('#modal-btn-save-prestar').click(function (event) {
                 window.location="/admin/requests/";
             });
         }
- 
+        }else{
+            swal({
+                type : 'error',
+                title : '¡Error!',
+                text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+            }); 
+        }
         },
         error : function (xhr) {
             var res = xhr.responseJSON;

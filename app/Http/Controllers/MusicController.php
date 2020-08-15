@@ -17,6 +17,7 @@ use App\Generate_reference;
 use App\Document_subtype;
 use App\Generate_format;
 use App\Generate_music;
+use App\StatusDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -58,6 +59,7 @@ class MusicController extends Controller
             'formats'       => Generate_format::pluck('genre_format', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'music'         => $music,
             'document'      => $document
         ]); 
@@ -87,7 +89,17 @@ class MusicController extends Controller
                 $document->let_title                = $request->get('let_title');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->assessment               = $request->get('assessment'); 
-                $document->desidherata              = $request->get('desidherata'); 
+                
+                // dd($request->get('desidherata'));
+                if($request->get('desidherata') == null){
+                    $document->desidherata = 0;
+                    $document->status_documents_id = 1;
+
+                }else{
+                    $document->desidherata = 1;
+                    $document->status_documents_id = 3;
+                }
+                
                 $document->published                = $request->get('published');
                 $document->made_by                  = $request->get('made_by');
                 $document->year                     = Carbon::createFromFormat('Y', $request->get('year'));
@@ -97,7 +109,7 @@ class MusicController extends Controller
                 $document->observation              = $request->get('observation');
                 $document->note                     = $request->get('note');
                 $document->lenguages_id             = $request->get('lenguages_id');          
-                $document->photo                    = $request->get('photo');
+                // $document->photo                    = $request->get('photo');
                 $document->collection               = $request->get('collection'); 
                 $document->synopsis                 = $request->synopsis;
 
@@ -106,14 +118,26 @@ class MusicController extends Controller
                     $document->creators_id = $request->get('creators_id');    
  
                 }else{
-
+                    if($request->get('creators_id') != null){
                     $creator = new Creator;
                     $creator->creator_name         = $request->get('creators_id');
                     $creator->document_types_id    = 1;
                     $creator->save();
                     $document->creators_id         = $creator->id;
                  }
+                }
 
+
+                if ($request->hasFile('photo')) {               
+
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);   
+                }else{
+                    $name = null; // se asigno null pero se le podria ingresar una imagen por defecto si no carga nada 
+                }  
+
+                $document->photo            = $name;
 
                 $document->save();
                 $document->syncReferences($request->get('references'));
@@ -130,20 +154,21 @@ class MusicController extends Controller
                 // evaluamos si se eligio culta o popular y en base a eso insertamos en la 
                 //respectiva tabla
 
-                if($request->get('document_subtypes_id') == 3){ // si es popular
+                if($request->get('document_subtypes_id') == 2){ // si es popular
                     $popular = new Popular;   
                     $popular->subtitle      = $request->get('subtitle');
                     $popular->other_artists = $request->get('other_artists');
-                    $popular->director      = $request->get('music_populars');
+                    $popular->music_populars      = $request->get('music_populars');
+                    $popular->original_title      = $request->get('original_title');
                     $popular->music_id      = $music->id; //guardamos el id del libro
                     $popular->save();
 
                 }else{         
                     $culture = new Culture;   
-                    $culture->album_title   = $request->get('album_title');                  
-                    $culture->director      = $request->get('director');
-                    $culture->orchestra     = $request->get('orchestra');        
+                    $culture->album_title   = $request->get('album_title');
                     $culture->soloist       = $request->get('soloist');
+                    $culture->orchestra     = $request->get('orchestra');                    
+                    $culture->director      = $request->get('director');      
                     $culture->music_id      = $music->id; //guardamos el id del libro
                     $culture->save();
                 }
@@ -195,6 +220,7 @@ class MusicController extends Controller
             'publications'  => Document::pluck('published', 'published'),
             'sounds'        => Music::pluck('sound', 'sound'),        
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
+            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'music'         => $musics,
             'document'      => $document
         ]); 
@@ -217,7 +243,8 @@ class MusicController extends Controller
                 $music = Music::findOrFail($id);
                 $document = Document::findOrFail($music->documents_id);
                 // Actualizamos el documento
-              
+                $subtypes_id = $document->document_subtypes_id;
+
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
                 $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
@@ -226,7 +253,15 @@ class MusicController extends Controller
                 $document->let_title                = $request->get('let_title');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->assessment               = $request->get('assessment'); 
-                $document->desidherata              = $request->get('desidherata'); 
+                
+                if($request->get('status_documents_id') == 3){
+                    $document->status_documents_id = $request->get('status_documents_id');
+                    $document->desidherata = 1;   
+                }else{
+                    $document->status_documents_id = $request->get('status_documents_id');
+                    $document->desidherata = 0; 
+                }
+
                 $document->published                = $request->get('published');
                 $document->made_by                  = $request->get('made_by');
                 $document->year                     = Carbon::createFromFormat('Y', $request->get('year'));
@@ -236,7 +271,7 @@ class MusicController extends Controller
                 $document->observation              = $request->get('observation');
                 $document->note                     = $request->get('note');
                 $document->lenguages_id             = $request->get('lenguages_id');            
-                $document->photo                    = $request->get('photo');
+                // $document->photo                    = $request->get('photo');
                 $document->collection               = $request->get('collection'); 
                 $document->synopsis                 = $request->get('synopsis');
                 
@@ -248,12 +283,25 @@ class MusicController extends Controller
 
                 }else{
 
+                    if($request->get('creators_id') != null){   
                     $creator = new Creator;
                     $creator->creator_name      = $request->get('creators_id');
                     $creator->document_types_id = 1;
                     $creator->save();
                     $document->creators_id      = $creator->id;
+                    }
                 }
+
+
+                $name = $document->photo; 
+                if ($request->hasFile('photo')) {               
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);    
+                }
+                $document->photo = $name;
+
+
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -268,28 +316,49 @@ class MusicController extends Controller
                 // evaluamos si se eligio culta o popular y en base a eso insertamos en la 
                 //respectiva tabla
 
-                if($request->get('document_subtypes_id') == 3){ // si es popular 
-                    // $popular = Popular::findOrFail($id); 
-                    $popular = Popular::where('id', $id)->first();
+                if($request->get('document_subtypes_id') == 2){ // si es popular 
+                    // lo busco x si en algun momento fue popular y sobre escribo esos datos,
+                    // si nunca lo fue arroja null y valido eso y creo un registro nuevo.
+                    $popular = Popular::where('music_id', $id)->first();
+                    if($popular == null){
+                        $popular  = new Popular;
+                    }
+                    
+                    $popular->subtitle      = $request->get('subtitle');
 
-                    if(!is_null($popular)) {
-                        $popular->subtitle      = $request->get('subtitle');
-                        $popular->other_artists = $request->get('other_artists');
-                        $popular->director      = $request->get('music_populars');
+
+                        if( is_numeric($request->get('other_artists'))) 
+                        {                
+                        $popular->other_artists  = $request->get('other_artists');    
+
+                        }else{
+
+                        if($request->get('other_artists') != null){   
+                        $creator = new Creator;
+                        $creator->creator_name      = $request->get('other_artists');
+                        $creator->document_types_id = 1;
+                        $creator->save();
+                        $popular->other_artists  = $creator->id;
+                        }
+                        }
+
+                        $popular->music_populars      = $request->get('music_populars');
+                        $popular->original_title      = $request->get('original_title');
                         $popular->music_id      = $music->id; //guardamos el id del libro
                         $popular->save();
+                    
+                }else{ // si es culta   
+
+                    $culture = Culture::where('music_id', $id)->first();
+                    if($culture == null){
+                        $culture  = new Culture;
                     }
-                }else{ // si es culta        
-               
-                    $culture = Culture::where('id', $id)->first();
-                    if(!is_null($culture)) {
-                        $culture->album_title   = $request->get('album_title');                    
-                        $culture->director      = $request->get('director');
-                        $culture->orchestra     = $request->get('orchestra');        
+                        $culture->album_title   = $request->get('album_title');  
                         $culture->soloist       = $request->get('soloist');
+                        $culture->orchestra     = $request->get('orchestra');                  
+                        $culture->director      = $request->get('director');        
                         $culture->music_id      = $music->id; //guardamos el id del libro
                         $culture->save();
-                    }
                 }
                  
                 DB::commit();
@@ -320,14 +389,54 @@ class MusicController extends Controller
        
         return $pdf->download('cine.pdf');
     }
+    public function desidherata($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 3;
+        $document->desidherata = 1;    
+        $document->save();
+    }
+    
+
+    public function baja($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->status_documents_id = 2;
+        $document->desidherata = 0;   
+        $document->save();
+    }
+
+    public function copy($id)
+    {
+        
+        $document = Document::findOrFail($id);
+        if($document->status_documents_id == 2){
+            return response()->json(['data' => 0]);      
+        }else{
+            return response()->json(['data' => $document->id]); 
+        }  
+    }
+
+    public function reactivar($id)
+    {
+        $document = Document::findOrFail($id);
+        // dd($document);
+        $document->status_documents_id = 1;
+        $document->desidherata = 0;   
+        $document->save();
+    }
+    
 
     public function dataTable()
     {   
-        $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music') 
+        $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
         // ->allowed()
         ->get();
         // dd($musica);       
         return dataTables::of($musica)
+        ->addColumn('id_doc', function ($musica){
+            return $musica->document['id']."<br>";            
+        })
             ->addColumn('registry_number', function ($musica){
                 return $musica->document['registry_number']."<br>";            
             })           
@@ -336,7 +445,11 @@ class MusicController extends Controller
                 return  $musica->document->document_subtype->subtype_name;              
             }) 
             ->addColumn('generate_musics_id', function ($musica){
-                return $musica->generate_music['genre_music'];              
+                if($musica->generate_music['genre_music'] == null){
+                    return 'Sin Genero';
+                }else{
+                    return $musica->generate_music['genre_music']; 
+                }                 
             }) 
             ->addColumn('documents_id', function ($musica){
                 return
@@ -344,8 +457,16 @@ class MusicController extends Controller
                     '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
             }) 
             ->addColumn('lenguages_id', function ($musica){
+                if($musica->document->lenguage->leguage_description == null){
+                    return 'Sin Lenguaje';
+                }else{
+                    return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage->leguage_description;         
+                }
+            })
+            ->addColumn('status', function ($musica){
 
-                return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage->leguage_description;         
+                return'<span class="'.$musica->document->status_document->color.'">'.' '.$musica->document->status_document->name_status.'</span>';
+                // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
             })              
             ->addColumn('created_at', function ($musica){
                 return $musica->created_at->format('d-m-y');
@@ -354,14 +475,17 @@ class MusicController extends Controller
             ->addColumn('accion', function ($musica) {
                 return view('admin.music.partials._action', [
                     'musica' => $musica,
-                    'url_show'      => route('admin.music.show', $musica->id),                        
-                    'url_edit'      => route('admin.music.edit', $musica->id),                              
-                    'url_destroy'   => route('admin.music.destroy', $musica->id),
-                    'url_print'     => route('musica.pdf', $musica->id)   
-                ]);
+                    'url_show' => route('admin.music.show', $musica->id),                        
+                    'url_edit' => route('admin.music.edit', $musica->id),                              
+                    'url_copy' => route('music.copy', $musica->document->id),                              
+                    'url_desidherata' => route('music.desidherata', $musica->document->id),
+                    'url_baja' => route('music.baja', $musica->document->id),
+                    'url_reactivar' => route('music.reactivar', $musica->document->id),
+                    'url_print'     => route('musica.pdf', $musica->id) 
+                    ]); 
             })           
-            ->addIndexColumn()   
-            ->rawColumns(['registry_number', 'document_subtypes_id', 'generate_musics_id', 'documents_id', 'lenguages_id','created_at', 'accion']) 
+            ->addIndexColumn()    
+            ->rawColumns(['id_doc','registry_number', 'document_subtypes_id', 'generate_musics_id', 'documents_id', 'lenguages_id','status','created_at', 'accion']) 
             ->make(true);  
     }
 }

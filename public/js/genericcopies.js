@@ -102,9 +102,7 @@ $('body').on('click', '.modal-show', function (event) {
                 minViewMode: "years",                    
                 language: 'es'
             });  
-            
-            CKEDITOR.replace('synopsis');
-            CKEDITOR.config.height = 190;   
+              
         }
     });
 
@@ -121,10 +119,7 @@ $('#modal-btn-save').click(function (event) {
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
-    for(instance in CKEDITOR.instances)
-    {
-        CKEDITOR.instances[instance].updateElement();
-    }
+    
 
 
     $.ajax({
@@ -132,15 +127,42 @@ $('#modal-btn-save').click(function (event) {
         method: method,
         data : form.serialize(),
         success: function (response) {
+            var data = response.data;
+            var bandera = response.bandera;
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
-
+            if(bandera == 0){ // si es store 
+            if(data == true){
             swal({
                 type : 'success',
                 title : '¡Éxito!',
                 text : '¡Se han guardado los datos!'
             });
+        }else{
+            swal({
+                type : 'error',
+                title : '¡Error!',
+                text : '¡Error al guardar los datos!'
+            });
+        }
+
+        }else{ // si es update
+            if(data == true){
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡Se han actualizado los datos!'
+                });
+            }else{
+                swal({
+                    type : 'error',
+                    title : '¡Error!',
+                    text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+                });
+            }
+             
+        }
         },
         error : function (xhr) {
             var res = xhr.responseJSON;

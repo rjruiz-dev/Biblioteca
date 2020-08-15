@@ -1,16 +1,19 @@
 <div class="row">
 {!! Form::model($book, [
     'route' => $book->exists ? ['admin.books.update', $book->id] : 'admin.books.store',   
-    'method' => $book->exists ? 'PUT' : 'POST'
+    'method' => $book->exists ? 'PUT' : 'POST',
+        'enctype' => 'multipart/form-data'
 ]) !!}
 
     @if (!$book->exists)
         @php 
-            $visible = "display:none"
+        $visible_status_doc = "display:none";
+            $visible_desidherata = "";
         @endphp
     @else
         @php  
-            $visible = ""
+        $visible_status_doc = "";
+            $visible_desidherata = "display:none";
         @endphp
     @endif       
 
@@ -38,7 +41,7 @@
                 <!-- pub periodica -->
                 <div class="form-group" id="din_volume_number_date">               
                     {!! Form::label('volume_number_date', 'Volumen, Número y Fecha') !!}                  
-                    {!! Form::text('volume_number_date', null, ['class' => 'form-control', 'id' => 'volume_number_date', 'placeholder' => 'Volumen, Número y Fecha']) !!}
+                    {!! Form::text('volume_number_date', $book->periodical_publication['volume_number_date'], ['class' => 'form-control', 'id' => 'volume_number_date', 'placeholder' => 'Volumen, Número y Fecha']) !!}
                 </div>      
                 <div class="form-group">
                     {!! Form::label('creators_id', 'Autor') !!}             
@@ -95,7 +98,7 @@
                 </div>
                 <div class="form-group" id="din_issn">              
                     {!! Form::label('issn', 'Issn') !!}                  
-                    {!! Form::text('issn', null, ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
+                    {!! Form::text('issn', $book->periodical_publication['issn'], ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
                 </div>
               
                 <div class="form-group">              
@@ -108,15 +111,20 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
-                    {!! Form::select('generate_subjects_id', $subjects, null, ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('generate_subjects_id', $subjects, $book->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
                 <div class="form-group">   
                     {!! Form::label('assessment', 'Valoración') !!}                    
                     {!! Form::text('assessment', $book->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
                 </div>
-                <div class="form-group">      
+                <div class="form-group" style="{{{ $visible_desidherata }}}">      
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
-                    {!! Form::checkbox('desidherata', $book->document['desidherata'])!!}
+                    {!! Form::checkbox('desidherata', '1')!!}
+                </div>
+
+                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                {!! Form::label('status_documents_id', 'Estado') !!}             
+                {!! Form::select('status_documents_id', $status_documents, $book->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'style' => 'width:100%;']) !!}    
                 </div>
             </div>
         </div>       
@@ -129,7 +137,7 @@
             <div class="box-body">   
                 <div class="form-group">                       
                     {!! Form::label('published', 'Publicado En') !!} 
-                    {!! Form::select('published', $publications, $book->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '',  'style' => 'width:100%;']) !!}                                      
+                    {!! Form::select('published', $publications, $book->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'style' => 'width:100%;']) !!}                                      
                 </div>
                 <div class="form-group">              
                     {!! Form::label('made_by', 'Editorial') !!}        
@@ -143,7 +151,7 @@
                         </div>                      
                         <input name="year"
                             class="form-control pull-right"                                                       
-                            value="{{ old('year', $book->document['year'] ? $book->document['year']->format('d/m/Y') : null) }}"                            
+                            value="{{ old('year', $book->document['year'] ? $book->document['year']->format('Y') : null) }}"                            
                             type="text"
                             id="year"
                             placeholder= "Selecciona Año de Publicación">                       
@@ -178,8 +186,14 @@
                     {!! Form::select('lenguages_id', $languages, $book->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 </div>
                 <div class="form-group">
-                    {!! Form::label('generate_references_id', 'Referencia') !!} 
-                    {!! Form::select('generate_references_id', $references, $book->document['generate_references_id'], ['class' => 'form-control  select2', 'id' => 'generate_references_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
+                    <label>Referencia</label>
+                    <select name="references[]" id="references" class="form-control select2" 
+                            multiple="multiple"                            
+                            data-placeholder="Selecciona o Ingresa uno o mas Referencias" style="width: 100%;">
+                        @foreach($references as $reference)
+                            <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
+                        @endforeach
+                    </select>
                 </div>
              
                 <div class="form-group">
@@ -206,7 +220,7 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Contenido de la publicación</label>
+                <label>Contenido, Sinopsis o Índice</label>
                     <textarea name="synopsis" id="synopsis" rows="10" class="form-control" placeholder="Ingresa el contenido completo de la publicacion">{{ old('synopsis', $book->document['synopsis'])}}</textarea>
                 </div>                              
             </div>

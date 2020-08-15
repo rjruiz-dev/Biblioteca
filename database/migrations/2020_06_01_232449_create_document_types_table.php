@@ -16,6 +16,7 @@ class CreateDocumentTypesTable extends Migration
         Schema::create('document_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('document_description');
+            $table->string('route');
             $table->timestamps();
         });
     }

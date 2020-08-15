@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Statu;
+use App\Copy;
 use DataTables;
 use App\Document;
 use Carbon\Carbon;
@@ -91,33 +92,56 @@ class FastPartnerProcessController extends Controller
     {
         if ($request->ajax()){
             try {
-            
+                // dd($request->get('id'));
                 //  Transacciones
                 DB::beginTransaction();
-                $movement_doc = Book_movement::findOrFail($request->get('id'));
-                $movement_doc->active = 0;
+                $error = 1; //error en 1 es error SI
+                $movement_doc = Book_movement::where('copies_id', $request->get('id'))->where('active', 1)->get();
+                // $movement_doc = Book_movement::findOrFail($request->get('id'));
+                // dd($movement_doc->count());
+                if($movement_doc->count() == 1){
+
+                    $copy = Copy::findOrFail($request->get('id'));
+
+                    $new_movement = new Book_movement;
+
+                    foreach($movement_doc as $t){
+                        $t->active = 0;
+                        $new_movement->users_id = $t->users_id; 
+                        $new_movement->copies_id = $t->copies_id;
+                        $t->save();  
+                    }
                 //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
                 //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
 
                  //CREO UN NUEVO MOVIMIENTO EN ESTA TABLA PARA INDICAR QUE SE DEVOLVIO EL MISMO EN ESTE CASO.
-                $new_movement = new Book_movement;
+                
         
-                if($request->get('bandera') == '1')
+                if($request->get('bandera') == 1)
                 {
                     $new_movement->movement_types_id = 3; //DEVOLUCION (valores correspondientes a la base)
+                    $copy->status_copy_id = 3;
+                    $renodev = 3;
                 }else{
                     $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
+                    $copy->status_copy_id = 2;
+                    $renodev = 2;
                 }
 
-                $new_movement->users_id = $movement_doc->users_id;
-                $new_movement->copies_id = $movement_doc->copies_id;
                 $new_movement->courses_id = 1; //le pongo 1 xq ni idea si va o no
                 $new_movement->active = 1;
-                $movement_doc->save();
+                
+                $copy->save(); 
                 $new_movement->save();
+                $error = 0; //error en 0 es error NO
 
                 DB::commit();
-
+            }else{
+                $error = 1; //error en 1 es error SI
+                $renodev = 0; // le mando 0 pera que no rompa las bolas pero no sirve para nada
+            }
+            return response()->json(array('renodev' => $renodev,'error' => $error));
+                
                 } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -166,8 +190,13 @@ class FastPartnerProcessController extends Controller
             });
         
         })
-        ->where('active', 1)    
+        ->where('active', 1)
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2);
+        })   
         ->get();
+    //    dd($copies_prestadas);
         // traemos todas las copias prestadas actualmente. se incluyen las que estan en PRESTAMOS como en 
      // RENOVACION. osea tipo movimiento 1 y 2 en tabla tipos de movimientos.
 
@@ -180,16 +209,52 @@ class FastPartnerProcessController extends Controller
             });
         
         })
-        ->where('active', 1)    
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
         ->get();
         // traemos todas las copias prestadas actualmente. se incluyen las que estan en DEVOLUCION como en 
      // DISPONIBILIDAD. osea tipo movimiento 3 y 6 en tabla tipos de movimientos.
 
+     $copies_solicitadas = Book_movement::with('movement_type','copy.document.creator','user')
+     ->whereHas('copy', function($q) use ($id)
+     {
+         $q->where('documents_id', '=', $id)->where('status_copy_id', '=', 7);
+     
+     })
+     ->where('active', 1) 
+     ->where('movement_types_id', '=', 7)    
+     ->get();
+
+     $copies_mantenimiento = Book_movement::with('movement_type','copy.document.creator','user')
+     ->whereHas('copy', function($q) use ($id)
+     {
+         $q->where('documents_id', '=', $id)->where('status_copy_id', '=', 5);
+     
+     })
+     ->where('active', 1) 
+     ->where('movement_types_id', '=', 5)    
+     ->get();
+
+     $copies_baja = Book_movement::with('movement_type','copy.document.creator','user')
+     ->whereHas('copy', function($q) use ($id)
+     {
+         $q->where('documents_id', '=', $id)->where('status_copy_id', '=', 4);
+     
+     })
+     ->where('active', 1) 
+     ->where('movement_types_id', '=', 4)    
+     ->get();
 
         return view('admin.fastprocess.prestamo2', [
             'documento'          => $documento,
             'copies_prestadas'          => $copies_prestadas,
-            'copies_disponibles'          => $copies_disponibles
+            'copies_disponibles'          => $copies_disponibles,
+            'copies_solicitadas'          => $copies_solicitadas,
+            'copies_mantenimiento'          => $copies_mantenimiento,
+            'copies_baja'          => $copies_baja
         ]);    
     }
 

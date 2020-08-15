@@ -17,16 +17,20 @@ class CreatePopularsTable extends Migration
             $table->increments('id');
 
             $table->integer('music_id')->unsigned();
+            $table->integer('other_artists')->unsigned();
             
-            $table->string('album_title')->unique();
+            // $table->string('album_title')->unique();
             $table->string('subtitle')->nullable();
-            $table->string('artist');
-            $table->string('other_artists')->nullable();
             $table->string('music_populars')->nullable();
+            $table->string('original_title')->nullable();
 
             $table->timestamps();
 
             $table->foreign('music_id')->references('id')->on('music')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('other_artists')->references('id')->on('creators')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

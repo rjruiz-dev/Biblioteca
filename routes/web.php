@@ -63,6 +63,59 @@ function(){
 
     Route::get('loanmanual/abm_prestamo/{id}/{bandera}/{n_mov}',  'LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
     
+    //cine
+    
+    Route::delete('movies/desidherata/{id}',  'MoviesController@desidherata')->name('movies.desidherata');
+
+    Route::delete('movies/baja/{id}',  'MoviesController@baja')->name('movies.baja');
+    
+    Route::delete('movies/reactivar/{id}',  'MoviesController@reactivar')->name('movies.reactivar');
+ 
+    Route::delete('movies/copy/{id}',  'MoviesController@copy')->name('movies.copy'); 
+ 
+    //musica
+
+    Route::delete('music/desidherata/{id}',  'MusicController@desidherata')->name('music.desidherata');
+
+    Route::delete('music/baja/{id}',  'MusicController@baja')->name('music.baja');
+    
+    Route::delete('music/reactivar/{id}',  'MusicController@reactivar')->name('music.reactivar');
+
+    Route::delete('music/copy/{id}',  'MusicController@copy')->name('music.copy');
+
+    //libros
+    
+    Route::delete('books/desidherata/{id}',  'BookController@desidherata')->name('books.desidherata');
+
+    Route::delete('books/baja/{id}',  'BookController@baja')->name('books.baja');
+    
+    Route::delete('books/reactivar/{id}',  'BookController@reactivar')->name('books.reactivar');
+    
+    Route::delete('books/copy/{id}',  'BookController@copy')->name('books.copy');
+ 
+    //fotografia
+
+    Route::delete('photographs/desidherata/{id}',  'PhotographyController@desidherata')->name('photographs.desidherata');
+
+    Route::delete('photographs/baja/{id}',  'PhotographyController@baja')->name('photographs.baja');
+    
+    Route::delete('photographs/reactivar/{id}',  'PhotographyController@reactivar')->name('photographs.reactivar');
+
+    Route::delete('photographs/copy/{id}',  'PhotographyController@copy')->name('photographs.copy');
+
+    //multimedias
+
+    Route::delete('multimedias/desidherata/{id}',  'MultimediaController@desidherata')->name('multimedias.desidherata');
+
+    Route::delete('multimedias/baja/{id}',  'MultimediaController@baja')->name('multimedias.baja');
+    
+    Route::delete('multimedias/reactivar/{id}',  'MultimediaController@reactivar')->name('multimedias.reactivar');
+    
+    Route::delete('multimedias/copy/{id}',  'MultimediaController@copy')->name('multimedias.copy');
+
+    //desestimar en request(solicitudes desde la web)
+    Route::delete('requests/desestimar/{id}/{bandera}',  'RequestsController@desestimar')->name('requests.desestimar');
+
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

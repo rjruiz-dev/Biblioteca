@@ -17,9 +17,9 @@ class CreateBookMovementsTable extends Migration
             $table->increments('id');
 
             $table->integer('movement_types_id')->unsigned();
-            $table->integer('users_id')->unsigned();            
+            $table->integer('users_id')->nullable()->unsigned();            
             $table->integer('copies_id')->unsigned();
-            $table->integer('courses_id')->unsigned();   
+            $table->integer('courses_id')->nullable()->unsigned();   
 
             $table->string('grupo')->nullable();
             $table->string('turno')->nullable();

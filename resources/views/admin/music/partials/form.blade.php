@@ -1,8 +1,21 @@
 <div class="row">
 {!! Form::model($music, [
     'route' => $music->exists ? ['admin.music.update', $music->id] : 'admin.music.store',   
-    'method' => $music->exists ? 'PUT' : 'POST'
+    'method' => $music->exists ? 'PUT' : 'POST',
+        'enctype' => 'multipart/form-data'
 ]) !!}
+
+@if (!$music->exists)
+        @php 
+        $visible_status_doc = "display:none";
+            $visible_desidherata = "";
+        @endphp
+    @else
+        @php  
+        $visible_status_doc = "";
+            $visible_desidherata = "display:none";
+        @endphp
+    @endif
 
     <div class="col-md-6">
         <div class="box box-primary">
@@ -17,12 +30,12 @@
                 </div>               
                 <div class="form-group">               
                     {!! Form::label('title', 'Título', ['id' => 'l_title']) !!}                    
-                    {!! Form::text('title', $music->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Título']) !!}
+                    {!! Form::text('title', $music->document['title'], ['class' => 'form-control', 'id' => 'title']) !!} 
                 </div>
                 <!-- popular  -->
                 <div class="form-group" id="din_subtitle">              
                     {!! Form::label('subtitle', 'Subtítulo') !!}                    
-                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
+                    {!! Form::text('subtitle', $music->popular['subtitle'], ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
                 </div>
                 <!-- culta  -->
                 <div class="form-group" id="din_album_title">             
@@ -36,18 +49,18 @@
                 </div> 
                  <!-- popular  -->
                  <div class="form-group" id="din_other_artists">
-                    {!! Form::label('other_artists', 'Otros Artistas') !!}  
-                    {!! Form::select('other_artists', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'other_artists', 'placeholder' => '',  'style' => 'width: 100%']) !!}
+                    {!! Form::label('other_artists', 'Otro Artista') !!}  
+                    {!! Form::select('other_artists', $authors, $music->popular['other_artists'], ['class' => 'form-control  select2', 'id' => 'other_artists', 'placeholder' => '',  'style' => 'width: 100%']) !!}
                 </div>
                 <!-- popular  -->
                 <div class="form-group" id="din_music_populars">
                     {!! Form::label('music_populars', 'Musica') !!}             
-                    {!! Form::text('music_populars', null, ['class' => 'form-control', 'id' => 'music_populars', 'placeholder' => 'Musica']) !!}
+                    {!! Form::text('music_populars', $music->popular['music_populars'], ['class' => 'form-control', 'id' => 'music_populars', 'placeholder' => 'Musica']) !!}
                  </div>
                  <!-- popular  -->
                  <div class="form-group" id="din_original_title">
                     {!! Form::label('original_title', 'Título Original') !!} 
-                    {!! Form::text('original_title', null, ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
+                    {!! Form::text('original_title', $music->popular['original_title'], ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
                 </div>
                   <!-- culta  -->
                 <div class="form-group" id="din_director">              
@@ -91,7 +104,7 @@
                     {!! Form::select('generate_musics_id', $genders, $music->generate_music['generate_musics_id'], ['class' => 'form-control  select2', 'id' => 'generate_musics_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>              
                 <div class="form-group">              
-                    {!! Form::label('let_author', 'Siglas Autor') !!}                    
+                    {!! Form::label('let_author', 'Siglas Compositor') !!}                    
                     {!! Form::text('let_author', $music->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}
                 </div>
                 <div class="form-group">              
@@ -106,9 +119,14 @@
                     {!! Form::label('assessment', 'Valoración') !!}                    
                     {!! Form::text('assessment', $music->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
                 </div>
-                <div class="form-group">      
+                <div class="form-group" style="{{{ $visible_desidherata }}}">      
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
-                    {!! Form::checkbox('desidherata', $music->document['desidherata'])!!}
+                    {!! Form::checkbox('desidherata', '1')!!}
+                </div>
+
+                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                {!! Form::label('status_documents_id', 'Estado') !!}             
+                {!! Form::select('status_documents_id', $status_documents, $music->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'style' => 'width:100%;']) !!}    
                 </div>
             </div>
         </div>       
@@ -125,7 +143,7 @@
                     {!! Form::select('published', $publications, $music->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '', 'style' => 'width:100%;']) !!}                                                                       
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('made_by', 'Productora') !!}        
+                    {!! Form::label('made_by', 'Sello Discografico') !!}        
                     {!! Form::select('made_by', $editorials, $music->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div> 
                             
@@ -146,7 +164,7 @@
                 </div>
                             
                 <div class="form-group">                  
-                    {!! Form::label('sound', 'Sonido') !!}             
+                    {!! Form::label('sound', 'Fotografia') !!}             
                     {!! Form::select('sound', $sounds, null, ['class' => 'form-control  select2', 'id' => 'sound', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
                 <div class="form-group">                   
@@ -185,7 +203,7 @@
                     <label>Referencia</label>
                     <select name="references[]" id="references" class="form-control select2" 
                             multiple="multiple"                            
-                            data-placeholder="Selecciona o Ingresa uno o mas Referencias" style="width: 100%;">
+                            data-placeholder="Selecciona una o mas Referencias" style="width: 100%;">
                         @foreach($references as $reference)
                             <option {{ collect( old('references', $document->references->pluck('id')))->contains($reference->id) ? 'selected' : '' }} value="{{ $reference->id}}"> {{ $reference->reference_description }} </option>
                         @endforeach

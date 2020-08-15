@@ -22,7 +22,7 @@ class CreateCulturesTable extends Migration
             $table->string('soloist')->nullable();
             $table->string('orchestra')->nullable();
             $table->string('director')->nullable();
-            $table->string('composer')->nullable();
+
 
 
             $table->timestamps();

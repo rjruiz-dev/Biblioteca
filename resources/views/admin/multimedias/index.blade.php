@@ -7,7 +7,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Catálogo</li>
+        <!-- <li class="active">Catálogo</li>
+         -->
     </ol> 
 @stop
 
@@ -27,7 +28,8 @@
                         <th>ID</th>
                         <th>N° Registro</th>                      
                         <th>Titulo y Autor</th>                         
-                        <th>ISBN</th>                     
+                        <th>ISBN</th> 
+                        <th>Estado</th>                     
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -106,10 +108,11 @@
             ],             
             ajax: "{{ route('multimedias.table') }}",        
             columns: [                
-                {data: 'id', name: 'id'},  
+                {data: 'id_doc', name: 'id_doc'},  
                 {data: 'registry_number', name: 'registry_number'},                                    
                 {data: 'documents_id', name: 'documents_id'},         
-                {data: 'isbn', name: 'isbn'},             
+                {data: 'isbn', name: 'isbn'},   
+                {data: 'status', name: 'status'},           
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

@@ -13,4 +13,9 @@ class Popular extends Model
     {
         return $this->belongsTo(Music::class);
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(Creator::class, 'other_artists'); 
+    }
 }
