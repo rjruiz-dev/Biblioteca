@@ -74,6 +74,11 @@ class RequestsController extends Controller
 
     }
 
+    public function desestimar($id, $bandera)
+    {
+        
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -99,7 +104,7 @@ class RequestsController extends Controller
     public function dataTable()
     {                    
         $prestamos_solicitados = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')       
-        // ->allowed()
+        ->where('movement_types_id', '=', 7)
         ->get();
       
         return dataTables::of($prestamos_solicitados)

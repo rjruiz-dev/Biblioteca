@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                     <th>ID</th>
-                        <th>Tipo Mov(provis)</th> 
+                        <!-- <th>Tipo Mov(provis)</th>  -->
                         <th>Socio</th>                         
                         <th>Documento</th>
                         <th>Tipo Doc</th>
@@ -110,7 +110,7 @@
             ajax: "{{ route('requests.table') }}",        
             columns: [                
                 {data: 'id', name: 'id'},
-                {data: 'tipo_movimiento', name: 'tipo_movimiento'},               
+                // {data: 'tipo_movimiento', name: 'tipo_movimiento'},               
                 {data: 'usuario_solicitante', name: 'usuario_solicitante'}, 
                 {data: 'documento_solicitado', name: 'documento_solicitado'}, 
                 {data: 'tipo_solicitado', name: 'tipo_solicitado'},
