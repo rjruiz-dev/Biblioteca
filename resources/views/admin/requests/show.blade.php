@@ -44,12 +44,7 @@
                     <li class="list-group-item text-center">                    
                     <a href="{{ route('requests.desestimar', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  1 ]) }}" title="Rechazar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-warning"  type="button">Rechazar Solicitud</a>       
                     </li>                     
-                </ul> 
-                <ul class="list-group list-group-unbordered"> 
-                    <li class="list-group-item text-center">                    
-                    <a href="{{ route('requests.desestimar', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  0 ]) }}" title="Eliminar Solicitud de: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-danger"  type="button">Eliminar Solicitud</a>       
-                    </li>                     
-                </ul> 
+                </ul>  
                 
             </div>
         </div>
