@@ -7,7 +7,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Catálogo</li>
+        <!-- <li class="active">Catálogo</li>
+         -->
     </ol> 
 @stop
 
@@ -28,7 +29,8 @@
                         <th>N° Registro</th> 
                         <th>Subtipo</th>               
                         <th>Titulo y Autor</th>    
-                        <th>Formato</th>                          
+                        <th>Formato</th> 
+                        <th>Estado</th>                         
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -107,11 +109,12 @@
             ],             
             ajax: "{{ route('photographs.table') }}",        
             columns: [                
-                {data: 'id', name: 'id'},  
+                {data: 'id_doc', name: 'id_doc'}, 
                 {data: 'registry_number', name: 'registry_number'},    
                 {data: 'document_subtypes_id', name: 'document_subtypes_id'},              
                 {data: 'documents_id', name: 'documents_id'}, 
                 {data: 'generate_formats_id', name: 'generate_formats_id'},                     
+                {data: 'status', name: 'status'}, 
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

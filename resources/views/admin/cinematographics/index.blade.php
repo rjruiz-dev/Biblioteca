@@ -8,6 +8,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Géneros Cinematográficos</li>
+        
     </ol> 
 @stop
 

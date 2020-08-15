@@ -128,9 +128,21 @@ class MoviesController extends Controller
                 $document->location         = $request->get('location');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');
-                $document->photo            = $request->get('photo');
+                // $document->photo            = $request->get('photo');
                 $document->collection       = $request->get('collection'); 
                 $document->synopsis         = $request->get('synopsis'); 
+
+                if ($request->hasFile('photo')) {               
+
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);   
+                }else{
+                    $name = null; // se asigno null pero se le podria ingresar una imagen por defecto si no carga nada 
+                }  
+
+                $document->photo            = $name;
+
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -192,7 +204,6 @@ class MoviesController extends Controller
             'genders'           => Generate_film::pluck('genre_film', 'id'), 
             'subjects'          => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'publications'      => Document::pluck('published', 'published'),
-            'references'        => Generate_reference::pluck('reference_description', 'id'),          
             'actors'            => Actor::all(),  
             'references'        => Generate_reference::all(),                      
             'distributors'      => Movies::pluck('distributor', 'distributor'),
@@ -265,9 +276,19 @@ class MoviesController extends Controller
                 $document->location             = $request->get('location');
                 $document->note                 = $request->get('note');
                 $document->lenguages_id         = $request->get('lenguages_id');              
-                $document->photo                = $request->get('photo');
+                // $document->photo                = $request->get('photo');
                 $document->collection       = $request->get('collection'); 
                 $document->synopsis             = $request->get('synopsis'); 
+
+ 
+                $name = $document->photo; 
+                if ($request->hasFile('photo')) {               
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);    
+                }
+                $document->photo = $name; 
+
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -300,7 +321,7 @@ class MoviesController extends Controller
      * @param  \App\movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) //se deja pero no se usa xq en algun futuro puede servir ok ? rodri salamin jajaj
     {
         $document = Document::findOrFail($id);
 
@@ -334,12 +355,15 @@ class MoviesController extends Controller
         $document->save();
     }
 
-    public function baja2($id)
+    public function copy($id)
     {
+        
         $document = Document::findOrFail($id);
-        $document->status_documents_id = 3;
-        $document->desidherata = 1;   
-        $document->save();
+        if($document->status_documents_id == 2){
+            return response()->json(['data' => 0]);      
+        }else{
+            return response()->json(['data' => $document->id]); 
+        }  
     }
 
     public function reactivar($id)
@@ -371,16 +395,26 @@ class MoviesController extends Controller
                     '<i class="fa fa-user"></i>'.' '.$movie->document->creator->creator_name."<br>";         
             }) 
             ->addColumn('generate_films_id', function ($movie){
-                return $movie->generate_movie->genre_film;              
+                if($movie->generate_movie->genre_film != null){
+                    return $movie->generate_movie->genre_film;
+                }else{
+                    return 'Sin Genero';
+                }             
             }) 
             ->addColumn('generate_formats_id', function ($movie){
-
-                return  $movie->generate_format->genre_format;              
+                if($movie->generate_format->genre_format != null){
+                    return $movie->generate_format->genre_format;
+                }else{
+                    return 'Sin Formato';
+                }              
             })  
             ->addColumn('lenguages_id', function ($movie){
-
+                if($movie->document->lenguage->leguage_description != null){
                 return'<i class="fa  fa-globe"></i>'.' '.$movie->document->lenguage->leguage_description;         
-            })
+                }else{
+                    return 'Sin Lenguaje';
+                }
+                })
             ->addColumn('status', function ($movie){
 
                 return'<span class="'.$movie->document->status_document->color.'">'.' '.$movie->document->status_document->name_status.'</span>';
@@ -396,7 +430,7 @@ class MoviesController extends Controller
                     'movie' => $movie,
                     'url_show' => route('admin.movies.show', $movie->id),                        
                     'url_edit' => route('admin.movies.edit', $movie->id),  
-                    'url_copy' => route('genericcopies.copies', $movie->document->id),                              
+                    'url_copy' => route('movies.copy', $movie->document->id),                              
                     'url_desidherata' => route('movies.desidherata', $movie->document->id),
                     'url_baja' => route('movies.baja', $movie->document->id),
                     'url_reactivar' => route('movies.reactivar', $movie->document->id)

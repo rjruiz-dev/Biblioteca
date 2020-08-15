@@ -38,16 +38,36 @@ $('#modal-btn-save').click(function (event) {
         method: method,
         data : form.serialize(),
         success: function (response) {
+            var renodev = response.renodev;
+            var error = response.error;
+
             form.trigger('reset');
             $('#modal').modal('hide');
             // $('#datatable').DataTable().ajax.reload();
             $("#recargar").load(" #recargar");
-
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
-            });
+            if(error == 0){
+            if(renodev == 3){ //Devolucion
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡La copia se ha devuelto!'
+                });
+            }
+            if(renodev == 2){ //Renovacion
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡La copia se ha renovado!'
+                });
+            }
+            }else{
+                swal({
+                    type : 'error',
+                    title : '¡Error!',
+                    text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+                });
+            }
+            
         },
         error : function (xhr) {
             var res = xhr.responseJSON;

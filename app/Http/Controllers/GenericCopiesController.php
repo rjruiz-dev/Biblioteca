@@ -64,7 +64,7 @@ class GenericCopiesController extends Controller
             try {
                 //  Transacciones
                 DB::beginTransaction();
-                
+                $error = false;
                 // Creamos el documento            
                 $copy = new Copy;   
                       
@@ -84,6 +84,10 @@ class GenericCopiesController extends Controller
                     $new_movement->save();
 
                 DB::commit();
+                 
+                $error = true;
+
+                return response()->json(array('data' => $error,'bandera' => 0)); // 0 = store
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -134,30 +138,47 @@ class GenericCopiesController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                 
-                // Creamos el documento            
-                $copy = Copy::findOrFail($id);  
-                     
-                // $copy->documents_id = $request->get('id_docu');
+                $copy = Copy::findOrFail($id);
+                $error = false;
+                if($copy->status_copy_id != $request->get('status_copy_id')){ //si cambio el estado inserto movimiento sino no
+                    
+                    $movement_doc = Book_movement::where('copies_id', $id)->where('active', 1)->get();
+                    // dd($movement_doc->count()); 
+                    if($movement_doc->count() == 1){//si encuentra movimientos.
+                        $error = true;
 
-                if($copy->status_copy_id == $request->get('status_copy_id')){ //si cambio el estado inserto movimiento sino no
-        
-                }else{
+                        foreach($movement_doc as $t){
+                            $t->active = 0;
+                            $t->save();  
+                        } 
+                      
+
                     $new_movement = new Book_movement;
-
                     $new_movement->movement_types_id = $request->get('status_copy_id'); //RENOVACION (valores correspondientes a la base)
-                
-                    $new_movement->users_id = 1; //referencia a usuario NO USUARIO
+                    // $new_movement->users_id = 1; //referencia a usuario NO USUARIO
                     $new_movement->copies_id = $copy->id;
-                    $new_movement->courses_id = 1; //referencia a curso NO CURSO
+                    // $new_movement->courses_id = 1; //referencia a curso NO CURSO
                     $new_movement->active = 1;
                     $new_movement->save();
+
+                    $copy->status_copy_id = $request->get('status_copy_id');
+
+                    }else{
+                        $error = false; 
+                    }
+                
+                }else{
+                    //no cambio estado asi que puede hacer los cambios
+                    $error = true;
                 }
-                $copy->status_copy_id = $request->get('status_copy_id');
+
+                if($error){
                 $copy->registry_number = $request->get('registry_number');
                 $copy->save();
-
                 DB::commit();
-
+                }
+                return response()->json(array('data' => $error,'bandera' => 1)); // 1 = update
+                           
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();

@@ -122,9 +122,16 @@ $('body').on('click', '.modal-show', function (event) {
 $('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
+    $avatarInput = $('#photo');
+
+    var formData  = new FormData();        
+        formData.append('photo', $avatarInput[0].files[0]);
+        
+
     var form = $('#modal-body form'),
         url = form.attr('action'),
-        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
@@ -134,10 +141,20 @@ $('#modal-btn-save').click(function (event) {
         CKEDITOR.instances[instance].updateElement();
     }
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
+
     $.ajax({
-        url : url,
+        url : url + '?' + form.serialize(),
         method: method,
-        data : form.serialize(),
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,  
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');
@@ -201,6 +218,184 @@ $('body').on('click', '.btn-delete', function (event) {
                         title: '¡Éxito!',
                         text: '¡Los datos han sido eliminados!'
                     });
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
+$('body').on('click', '.btn-copy', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+      
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    var info = response.data;
+                    console.log("asdas".info);
+                    if(info == 0){
+                        swal({
+                            type: 'warning',
+                            title: '¡Atencion! Este documento esta dado de baja',
+                            text: 'Para ver sus copias, debe estar activo o en desidherata'
+                        }); 
+                    }else{
+                        window.location="/admin/genericcopies/copies/" + info;
+                    }
+                    
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        
+});
+
+$('body').on('click', '.btn-desidherata', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+       console.log("url: " + url)
+    swal({
+        
+        title: '¿Seguro que quieres poner en desidherata el documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡El documento se ha puesto en desidherata!'
+                    }); 
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
+$('body').on('click', '.btn-baja', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+      
+    swal({
+        
+        title: '¿Seguro que quieres dar de baja el documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se ha dado de baja el documento!'
+                    }); 
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
+$('body').on('click', '.btn-reactivar', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+      
+    swal({
+        
+        title: '¿Seguro que quieres reactivar el documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se ha reactivado el documento!'
+                    }); 
                 },
                 error: function (xhr) {
                     swal({

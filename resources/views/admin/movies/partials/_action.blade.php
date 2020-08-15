@@ -4,7 +4,7 @@
 
 <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar"><i class="fa fa-edit text-success btn-btn-edit-user"></i></a> | 
 
-<a href="{{ $url_copy }}" title="Ver Copias"><i class="fa fa-copy text-danger"></i></a> |
+<a href="{{ $url_copy }}" class="btn-copy" title="Ver Copias"><i class="fa fa-copy text-danger"></i></a> |
 
 @if ($movie->document['status_documents_id'] != 3)
         @php 

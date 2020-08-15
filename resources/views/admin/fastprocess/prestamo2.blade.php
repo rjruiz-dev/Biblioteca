@@ -44,11 +44,31 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Prestadas: {{ count($copies_prestadas) }} | Disponibles: {{ count($copies_disponibles) }}</h3>  
-                           
-                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa fa-user-plus"></i> Nuevo Prestamo</a>
+        <div class="row"> 
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-2">
+                    <b title="Prestados">{{ count($copies_prestadas) }} <i class="fa ion-arrow-right-a text-primary"></i></b>  
+                    </div>
+                    <div class="col-md-2">
+                    <b title="Disponibles">{{ count($copies_disponibles) }} <i class="fa fa-arrow-up text-green"></i></b>  
+                    </div>
+                    <div class="col-md-2">
+                    <b title="De Baja">{{ count($copies_baja) }} <i class="fa fa-arrow-down text-danger"></i></b>  
+                    </div>
+                    <div class="col-md-2">
+                    <b title="En Mantenimiento">{{ count($copies_mantenimiento) }} <i class="fa ion-gear-a text-dark"></i></b>  
+                    </div>
+                    <div class="col-md-2">
+                    <b title="Solicitados">{{ count($copies_solicitadas) }} <i class="fa ion-pull-request text-warning"></i></b>  
+                    </div>
                     
+                </div>
             </div>
+            <div class="col-md-2">              
+                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa ion-android-add-circle"></i> Prestamo</a>
+            </div>        
+        </div>
             <div class="box-body">          
                 <ul class="list-group list-group-unbordered">
                     @php 
@@ -60,7 +80,7 @@
                     <b>{{ $copie->id }}</b>
                         <div class="row"> 
                             <div class="col-md-12">
-                                <h3 class="profile-username text-center">N° copia: {{ $copie->id }}</h3>   
+                                <h3 class="profile-username text-center">N° copia: {{ $copie->copies_id }}</h3>   
                                 <p class="text-muted text-center"></p>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
@@ -82,10 +102,10 @@
                                 <b>Sancion de:   </b><a class="pull-right"> $ {{ $copie->created_at->addDays(3)->diffInDays(Carbon\Carbon::now())*10 }}</a>
                             </div>
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->id, 'bandera' =>  1 ]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1 ]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
                             </div> 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->id, 'bandera' =>  2 ]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0 ]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
                             </div>
                         </div> 
                     </li> 

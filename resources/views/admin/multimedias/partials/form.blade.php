@@ -1,7 +1,8 @@
 <div class="row">
 {!! Form::model($multimedia, [
     'route' => $multimedia->exists ? ['admin.multimedias.update', $multimedia->id] : 'admin.multimedias.store',   
-    'method' => $multimedia->exists ? 'PUT' : 'POST'
+    'method' => $multimedia->exists ? 'PUT' : 'POST',
+        'enctype' => 'multipart/form-data'
 ]) !!}
 
     <div class="col-md-6">
@@ -12,14 +13,16 @@
             <div class="box-body">
 
                 @if (!$multimedia->exists)
-                    @php 
-                        $visible = "display:none"
-                    @endphp
+                @php 
+                $visible_status_doc = "display:none";
+                $visible_desidherata = ""; 
+                @endphp
                 @else
-                    @php  
-                        $visible = ""
-                    @endphp
-                @endif
+                 @php  
+                $visible_status_doc = "";
+                $visible_desidherata = "display:none";
+                 @endphp
+                @endif  
 
                 <div class="form-group">               
                     {!! Form::label('title', 'Título') !!}                    
@@ -61,22 +64,21 @@
                     {!! Form::label('isbn', 'ISBN') !!}             
                     {!! Form::text('isbn', null, ['class' => 'form-control', 'id' => 'isbn', 'placeholder' => 'isbn']) !!}
                  </div>
-
                  <div class="form-group">
-                    <label>Año de Publicación</label>
+                    <label>Adquirido</label>
                     <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>                      
-                        <input name="year"
+                        <input name="acquired"
                             class="form-control pull-right"                                                       
-                            value="{{ old('year', $multimedia->document['year'] ? $multimedia->document['year']->format('Y') : null) }}"                            
+                            value="{{ old('acquired', $multimedia->document['acquired'] ? $multimedia->document['acquired']->format('d/m/Y') : null) }}"                            
                             type="text"
-                            type="text"
-                            id="year"
-                            placeholder= "Selecciona Año de Publicación">                       
+                            id="acquired"
+                            placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
                 </div>
+                 
                 <div class="form-group">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $multimedia->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
@@ -105,9 +107,14 @@
                     {!! Form::text('assessment', $multimedia->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
                 </div>
 
-                <div class="form-group">      
+                <div class="form-group" style="{{{ $visible_desidherata }}}">      
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
-                    {!! Form::checkbox('desidherata', $multimedia->document['desidherata'])!!}
+                    {!! Form::checkbox('desidherata', '1')!!}
+                </div>
+
+                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                {!! Form::label('status_documents_id', 'Estado') !!}             
+                {!! Form::select('status_documents_id', $status_documents, $multimedia->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}    
                 </div>
             </div>
         </div>       
@@ -127,14 +134,15 @@
                     {!! Form::select('made_by', $editorials, $multimedia->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div>     
                 <div class="form-group">
-                    <label>Fecha de Publicación</label>
+                    <label>Año de Publicación</label>
                     <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>                      
                         <input name="year"
                             class="form-control pull-right"                                                       
-                            value="{{ old('year', $multimedia->document['year'] ? $multimedia->document['year']->format('m/d/Y') : null) }}"                            
+                            value="{{ old('year', $multimedia->document['year'] ? $multimedia->document['year']->format('Y') : null) }}"                            
+                            type="text"
                             type="text"
                             id="year"
                             placeholder= "Selecciona Año de Publicación">                       

@@ -6,15 +6,31 @@
         <small>{{ $document->document_type->document_description }} - {{ $document->document_subtype->subtype_name }}</small>
     </h1>
     <ol class="breadcrumb">
+        
+        @if($document->document_type->id == 1)  <!-- musica --> 
+        <li class="active"><a href="{{ route('admin.music.index') }}"><i class="fa fa-music"></i> Musica </a> </li>
+        @endif
+        @if($document->document_type->id == 2)  <!-- cine --> 
+        <li class="active"><a href="{{ route('admin.movies.index') }}"><i class="fa fa-video-camera"></i> Cines </a> </li>
+        @endif
+        @if($document->document_type->id == 3)  <!-- libro --> 
+        <li class="active"><a href="{{ route('admin.books.index') }}"><i class="fa fa-book"></i> Libros </a> </li>
+        @endif
+        @if($document->document_type->id == 4)  <!-- multimedia --> 
+        <li class="active"><a href="{{ route('admin.multimedias.index') }}"><i class="fa fa-youtube-play"></i> Multimedias </a> </li>
+        @endif
+        @if($document->document_type->id == 5)  <!-- fotografia --> 
+        <li class="active"><a href="{{ route('admin.photographs.index') }}"><i class="fa fa-photo"></i> Fotografias </a> </li>
+        @endif
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Catálogo</li>
+        
     </ol> 
 @stop
 
 @section('content')
     <div class="panel panel-primary">        
         <div class="panel-heading">
-            <h3 class="panel-title">Listado de copias del documento {{ $document->title }}     
+            <h3 class="panel-title">Listado de copias     
           
                 <a href="{{ route('genericcopies.newcopies', $document->id) }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Nueva copia para documento: {{ $document->title }}"><i class="fa fa-user-plus"></i> Agregar Copia</a>
     

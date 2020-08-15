@@ -118,9 +118,16 @@ $('body').on('click', '.modal-show', function (event) {
 $('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
+    $avatarInput = $('#photo');
+
+    var formData  = new FormData();        
+        formData.append('photo', $avatarInput[0].files[0]);
+        
+
     var form = $('#modal-body form'),
         url = form.attr('action'),
-        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
@@ -130,11 +137,20 @@ $('#modal-btn-save').click(function (event) {
         CKEDITOR.instances[instance].updateElement();
     }
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
 
     $.ajax({
-        url : url,
+        url : url + '?' + form.serialize(),
         method: method,
-        data : form.serialize(),
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false, 
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');
@@ -232,6 +248,46 @@ $('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja
             });
         }
     });
+});
+
+$('body').on('click', '.btn-copy', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+      
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    var info = response.data;
+                    console.log("asdas".info);
+                    if(info == 0){
+                        swal({
+                            type: 'warning',
+                            title: '¡Atencion! Este documento esta dado de baja',
+                            text: 'Para ver sus copias, debe estar activo o en desidherata'
+                        }); 
+                    }else{
+                        window.location="/admin/genericcopies/copies/" + info;
+                    }
+                    
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        
 });
 
 $('body').on('click', '.btn-desidherata', function (event) {
