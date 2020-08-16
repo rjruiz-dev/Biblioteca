@@ -168,6 +168,10 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        
+      
         /*
          * Application Service Providers...
          */
@@ -228,7 +232,7 @@ return [
         'DataTables' => Yajra\Datatables\Facades\DataTables::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

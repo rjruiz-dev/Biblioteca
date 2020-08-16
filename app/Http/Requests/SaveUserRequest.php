@@ -24,15 +24,9 @@ class SaveUserRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [           
-            'name'      => 'required|string|min:3|max:50',
-            'surname'   => 'required|string|min:3|max:50',
-            'status_id' => 'required',
-            'birthdate' => 'required',
-            'gender'    => 'required',
+        $rules = [ 
           
-            'province'  => 'required',
-        ];
+        ];        
 
         if($this->filled('password'))
         {
@@ -41,34 +35,17 @@ class SaveUserRequest extends FormRequest
 
         // Si es diferente a Post
         if($this->method() !== 'PUT')
-        {
-            $rules ['email']    = 'required|string|email|max:255|unique:users,email,' . $this->id;
-            $rules ['nickname'] = 'required|string||min:3|max:50|unique:users,nickname' . $this->id;            
-            $rules ['phone']    = 'required|string|unique:users,phone' . $this->id;   
-            // $rules ['membership']   = 'required|string|min:3|max:50|unique:users,membership' . $this->id;           
-                    
+        {   
+            $rules ['user_photo']   = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+            $rules ['status_id']    = 'required'. $this->id;
+            $rules ['email']        = 'required|string|email|max:255|unique:users,email' . $this->id;
+            $rules ['nickname']     = 'required|string||min:3|max:50|unique:users,nickname' . $this->id;                   
+            $rules ['membership']   = 'required|numeric|min:000000|max:99999999|unique:users,membership' . $this->id;           
+            
         }
 
         return $rules;  
 
-        // $rules = [
-        //     'name'      => 'required|string|max:255',
-        //     'surname'   => 'required|string|max:255',
-        //     'nickname'  => 'required|string|max:255',
-        //     'status_id' => 'required',
-        //     'datepicker'=> 'required',
-        //     'gender'    => 'required',
-        //     'province'  => 'required',
-        //     'phone'     => ['required','string',Rule::unique('users')->ignore($this->route('user')->id)],
-        //     'email'     => ['required','string','max:255',Rule::unique('users')->ignore($this->route('user')->id)]
-        // ];
-      
-        // if($this->filled('password'))
-        // {
-        //     $rules['password'] = ['confirmed','min:6'];
-        // }
-        
-        // return $rules;
     }
 
     public function messages()
@@ -79,23 +56,14 @@ class SaveUserRequest extends FormRequest
             'nickname.min'      => 'El nickname debe contener al menos 3 caracteres.',
             'nickname.max'      => 'El nickname debe contener un maximo 50 caracteres.',
 
-            'name.required'     => 'Debe introducir un nombre de usuario.',
-            'name.min'          => 'El nombre de usuario debe contener al menos 3 caracteres.',
-            'name.max'          => 'El nombre de usuario debe contener un maximo 50 caracteres.',
+            'user_photo.mimes'  => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',            
 
-            'surname.required'  => 'Debe introducir un apellido para el usuario',
-            'surname.min'       => 'El apellido de usuario debe contener al menos 3 caracteres.',
-            'surname.max'       => 'El apellido de usuario debe contener un maximo 50 caracteres.',                   
+            'name.required'     => 'Debe introducir un nombre.',            
+            'name.max'          => 'El nombre de usuario debe contener un maximo 100 caracteres.',  
 
             'email.required'    => 'Debe introducir un correo electronico.',        
             'email.unique'      => 'Este email ya ha sido registrado.',  
 
-            'phone.required'    => 'Debe introducir un numero de telefono valido.',
-            'phone.unique'      => 'El numero de telefono del usuario ya ha sido registrado.',
-
-            'province.required'   => 'Debe seleccionar una provincia.',        
-            'gender.required'     => 'Debe seleccionar un genero.',        
-            'birthdate.required'  => 'Debe seleccionar una fecha.',        
             'status_id.required'  => 'Debe seleccionar un estado.',
            
         ];

@@ -20,6 +20,7 @@ use App\Generate_music;
 use App\StatusDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveDocumentRequest;
 
 class MusicController extends Controller
@@ -81,8 +82,7 @@ class MusicController extends Controller
                 $document = new Document;              
                 $document->document_types_id        = 1; // 1 tipo de documento: musica.
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
-                $document->title                    = $request->get('title');
-                $document->registry_number          = $request->get('registry_number');
+                $document->title                    = $request->get('title');                
                 $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
@@ -192,7 +192,9 @@ class MusicController extends Controller
      */
     public function show(Music $music)
     {
-        //
+        $music = Music::with('document.creator', 'actors', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+      
+        return view('admin.movies.show', compact('music'));
     }
 
     /**
@@ -247,7 +249,6 @@ class MusicController extends Controller
 
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
-                $document->registry_number          = $request->get('registry_number');
                 $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
@@ -382,6 +383,14 @@ class MusicController extends Controller
         //
     }
 
+    public function exportPdf()
+    {
+        $music = Music::with('document.creator', 'actors', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
+
+        $pdf = PDF::loadView('admin.music.show', compact('music'));  
+       
+        return $pdf->download('cine.pdf');
+    }
     public function desidherata($id)
     {
         $document = Document::findOrFail($id);
@@ -473,7 +482,8 @@ class MusicController extends Controller
                     'url_copy' => route('music.copy', $musica->document->id),                              
                     'url_desidherata' => route('music.desidherata', $musica->document->id),
                     'url_baja' => route('music.baja', $musica->document->id),
-                    'url_reactivar' => route('music.reactivar', $musica->document->id)
+                    'url_reactivar' => route('music.reactivar', $musica->document->id),
+                    'url_print'     => route('musica.pdf', $musica->id) 
                     ]); 
             })           
             ->addIndexColumn()    

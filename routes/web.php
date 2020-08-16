@@ -42,8 +42,12 @@ function(){
     Route::resource('fastprocess',          'FastPartnerProcessController',['as' => 'admin']);
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
-    Route::resource('requests',        'RequestsController',['as' => 'admin']);
-    // Route::post('users/photos',           'UserController@photo')->name('admin.posts.photo');
+    Route::resource('requests',             'RequestsController',['as' => 'admin']);
+ 
+    Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
+    Route::get('music/exportpdf/{id}',      'MusicController@exportPdf')->name('musica.pdf');  
+    Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
+    Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
 
     Route::get('loanmanual/showPartner/{id}', 'LoanManualController@showPartner');
 

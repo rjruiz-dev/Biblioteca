@@ -31,9 +31,4 @@
         @endphp
 @endif 
 
-
-
-
-
-
-
+<a href="{{ $url_print }}" title="Imprimir: {{ $multimedia->document['title'] }}"><i class="fa fa-download text-success"></i></a> |  

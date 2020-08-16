@@ -2,7 +2,7 @@
 {!! Form::model($movie, [
     'route' => $movie->exists ? ['admin.movies.update', $movie->id] : 'admin.movies.store',   
     'method' => $movie->exists ? 'PUT' : 'POST',
-        'enctype' => 'multipart/form-data'
+    'enctype' => 'multipart/form-data'
 ]) !!}
 
     @if (!$movie->exists)
@@ -83,11 +83,7 @@
                 <div class="form-group">
                     {!! Form::label('generate_films_id', 'Género') !!}             
                     {!! Form::select('generate_films_id', $genders, null, ['class' => 'form-control  select2', 'id' => 'generate_films_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
-                </div> 
-                <div class="form-group">              
-                    {!! Form::label('registry_number', 'Número de Registro') !!}                    
-                    {!! Form::text('registry_number', $movie->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
-                </div>
+                </div>                
                 <div class="form-group">              
                     {!! Form::label('let_author', 'Siglas Director') !!}                    
                     {!! Form::text('let_author', $movie->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del Director']) !!}

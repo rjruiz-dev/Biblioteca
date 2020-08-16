@@ -73,6 +73,7 @@ class LoanManualController extends Controller
         ->toArray();
 
         // dd($count);       
+
      
         if($request->ajax())
         {
@@ -80,8 +81,10 @@ class LoanManualController extends Controller
             //     $partner->toArray(),
             //     $count->toArray()
             // );
+
             // return $partner->toJson();
             return response()->json(array('partner'=>$partner,'count'=>$count));
+
             // return $count->toJson();
           
         }  

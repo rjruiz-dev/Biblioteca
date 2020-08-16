@@ -25,9 +25,7 @@ class CreateDocumentsTable extends Migration
             $table->integer('creators_id')->unsigned();
             $table->integer('status_documents_id')->unsigned();
 
-            $table->string('title')->nullable();
-            $table->integer('registry_number')->nullable();
-
+            $table->string('title')->nullable(); 
             $table->string('original_title')->nullable();
             $table->timestamp('acquired')->nullable();        
             $table->string('let_author')->nullable();          

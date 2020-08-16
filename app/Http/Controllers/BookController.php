@@ -82,7 +82,6 @@ class BookController extends Controller
                 $document->document_types_id        = 3; // 1 tipo de documento: musica.
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title            = $request->get('title');
-                $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));             
                 $document->let_author       = $request->get('let_author');
@@ -284,7 +283,6 @@ class BookController extends Controller
                     }
                 }             
                 $document->title            = $request->get('title');
-                $document->registry_number  = $request->get('registry_number');
                 $document->original_title   = $request->get('original_title');
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                    
                 $document->let_author       = $request->get('let_author');

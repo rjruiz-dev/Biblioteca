@@ -53,65 +53,61 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-             
-        
+
         if ($request->ajax()){
             try {
                 //  Transacciones
                 DB::beginTransaction();
 
                  // Validar el formulario
-                 $data = $request->validate([
-                    'name'      => 'required|string|max:255',
-                    'email'     => 'required|string|email|max:255|unique:users',     
-                    // 'user_photo' => 'required|file',                  
-                 
+                $data = $request->validate([
+                    'membership'    => 'required|numeric|min:000000|max:99999999|unique:users,membership',
+                    'name'          => 'required|string|max:100',
+                    'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
+                    'email'         => 'required|string|email|max:255|unique:users,email',  
+                    'user_photo'    => 'nullable|image|mimes:jpeg,bmp,png,jpg', 
+                    'status_id'     => 'required'       
                 ]);
-                
+
                 // Generar una contraseña
                 $data['password'] = str_random(8);
-             
-                
-
-                // Creamos el usuario            
-                
-                // dd($request->all());
+              
                 if ($request->hasFile('user_photo')) {               
-                    $file = $request->file('user_photo')->store('public');
-                }
-                    // dd($file);
-                    $user = new User;   
-                    $user->name         = $request->get('name');
-                    $user->surname      = $request->get('surname');
-                    $user->nickname     = $request->get('nickname');
-                    $user->email        = $request->get('email');        
-                    $user->password     = $request->get('password');
-                    $user->gender       = $request->get('gender');  
-                    $user->address      = $request->get('address');
-                    $user->postcode     = $request->get('postcode');  
-                    $user->city         = $request->get('city');
-                    $user->province     = $request->get('province');
-                    $user->phone        = $request->get('phone');  
-                    $user->status_id    = $request->get('status_id');  
-                    $user->user_photo   = $file;           
-                    $user->save();
-                    // dd($user);
-                
 
+                    $file = $request->file('user_photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);   
+                }               
+                // Creamos el usuario 
+                $user = new User;   
+                $user->name         = $request->get('name');
+                $user->surname      = $request->get('surname');
+                $user->nickname     = $request->get('nickname');
+                $user->email        = $request->get('email');        
+                $user->password     = $request->get('password');
+                $user->gender       = $request->get('gender');  
+                $user->address      = $request->get('address');
+                $user->postcode     = $request->get('postcode');  
+                $user->city         = $request->get('city');
+                $user->province     = $request->get('province');
+                $user->phone        = $request->get('phone');   
+                $user->birthdate    =  Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->membership   = $request->get('membership');   
+                $user->status_id    = $request->get('status_id'); 
+                $user->user_photo   = $name;    
+                $user->save();
+                   
                 // Enviamos el email
-                // UserWasCreated::dispatch($user, $data['password']);
-                // $user->update($request->validated()); 
-                
-                
+                UserWasCreated::dispatch($user, $data['password']);
+                $user->update($request->validated()); 
+
                 DB::commit();
 
             } catch (Exception $e) {
-                 // anula la transacion
+                // anula la transacion
                 DB::rollBack();
             }
-            
-        }    
+        }
     }
 
     // public function photo(Request $request)
@@ -153,7 +149,6 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::with('statu')->findOrFail($id);
-        
                              
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
@@ -178,7 +173,15 @@ class UserController extends Controller
                 DB::beginTransaction();
                 
                 $user = User::with('statu')->findOrFail($id); 
-                
+
+                $name = $user->user_photo;                
+
+                if ($request->hasFile('user_photo')) {               
+                    $file = $request->file('user_photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);    
+                } 
+
                 // Actualizamos el usuario
                 $user->name         = $request->get('name');
                 $user->surname      = $request->get('surname');
@@ -190,14 +193,15 @@ class UserController extends Controller
                 $user->postcode     = $request->get('postcode'); 
                 $user->city         = $request->get('city');
                 $user->province     = $request->get('province');  
-                $user->phone        = $request->get('phone');
-                $user->user_photo   = $request->get('user_photo');  
-                $user->birthdate    = Carbon::parse($request->get('birthdate'));                      
+                $user->phone        = $request->get('phone');      
+                $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->membership   = $request->get('membership');                  
                 $user->status_id    = $request->get('status_id'); 
+                $user->user_photo   = $name;
                 $user->save();
                        
                 DB::commit();
-
+               
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();

@@ -30,4 +30,6 @@
         @endphp
 @endif 
 
+<a href="{{ $url_print }}" title="Imprimir: {{ $photograph->document['title'] }}"><i class="fa fa-download text-success"></i></a> |  
+
 

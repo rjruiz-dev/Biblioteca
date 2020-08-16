@@ -102,11 +102,7 @@
                 <div class="form-group">
                     {!! Form::label('generate_musics_id', 'Género') !!}             
                     {!! Form::select('generate_musics_id', $genders, $music->generate_music['generate_musics_id'], ['class' => 'form-control  select2', 'id' => 'generate_musics_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('registry_number', 'Número de Registro') !!}                    
-                    {!! Form::text('registry_number', $music->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
-                </div>
+                </div>              
                 <div class="form-group">              
                     {!! Form::label('let_author', 'Siglas Compositor') !!}                    
                     {!! Form::text('let_author', $music->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}

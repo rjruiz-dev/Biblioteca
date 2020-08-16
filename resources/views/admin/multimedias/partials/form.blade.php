@@ -83,12 +83,7 @@
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $multimedia->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div>
-
-                <div class="form-group">              
-                    {!! Form::label('registry_number', 'Número de Registro') !!}                    
-                    {!! Form::text('registry_number', $multimedia->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
-                </div>
-
+                           
                 <div class="form-group">              
                     {!! Form::label('let_author', 'Siglas Autor') !!}                    
                     {!! Form::text('let_author', $multimedia->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}

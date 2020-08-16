@@ -31,6 +31,7 @@
         @endphp
 @endif 
 
+<a href="{{ $url_print }}" title="Imprimir: {{ $musica->document['title'] }}"><i class="fa fa-download text-success"></i></a> | 
 
 
 

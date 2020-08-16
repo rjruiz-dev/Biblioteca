@@ -32,7 +32,7 @@ $('body').on('click', '.modal-show', function (event) {
             $('#datepicker').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                // startDate: date,              
+                format: 'dd/mm/yyyy',                       
                 language: 'es'
             });   
                    
@@ -46,15 +46,15 @@ $('body').on('click', '.modal-show', function (event) {
 $('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
-    $avatarInput = $('#user_photo') ;
+    $avatarInput = $('#user_photo');
 
-    var formData = new FormData ();
-
-    formData.append('user_photo', $avatarInput[0].files[0]);
-    var form = $('#modal-body form'),
+    var formData  = new FormData();        
+        formData.append('user_photo', $avatarInput[0].files[0]);
+        
+    var form = $('#modal-body form'), 
         url = form.attr('action'),
-        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
-        // contentType = 'multipart/form-data',
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
@@ -64,11 +64,12 @@ $('#modal-btn-save').click(function (event) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
     });
-
+    
     $.ajax({
         url : url + '?' + form.serialize(),
         method: method,
-        data : formData,
+        data : formData, 
+        cache: false,  
         processData: false,
         contentType: false,
         success: function (response) {

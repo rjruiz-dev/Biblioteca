@@ -100,10 +100,7 @@
                     {!! Form::label('issn', 'Issn') !!}                  
                     {!! Form::text('issn', $book->periodical_publication['issn'], ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
                 </div>
-                <div class="form-group">              
-                    {!! Form::label('registry_number', 'Número de Registro') !!}                    
-                    {!! Form::text('registry_number', $book->document['registry_number'], ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Número de Registro']) !!}
-                </div>
+              
                 <div class="form-group">              
                     {!! Form::label('let_author', 'Siglas Autor') !!}                    
                     {!! Form::text('let_author', $book->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}
