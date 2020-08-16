@@ -21,7 +21,8 @@
             </div> -->
             <div class="box-body">
                 {{ csrf_field() }}
-                {{ Form::hidden('id_docu', $id_doc) }}                             
+                {{ Form::hidden('id_docu', $id_doc) }} 
+                <label for="sugerido">Numero Sugerido: {{ $sugerido }}</label>                             
                 <div class="form-group" >              
                     {!! Form::label('registry_number', 'Numero de Registro') !!}                    
                     {!! Form::text('registry_number', null, ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Numero de Registro' ]) !!}

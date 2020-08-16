@@ -110,7 +110,7 @@ function(){
     Route::delete('multimedias/copy/{id}',  'MultimediaController@copy')->name('multimedias.copy');
 
     //desestimar en request(solicitudes desde la web)
-    Route::delete('requests/desestimar/{id}/{bandera}',  'RequestsController@desestimar')->name('requests.desestimar');
+    Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
 
 });
 
