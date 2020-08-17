@@ -15,7 +15,18 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);
             
-          
+            var date = new Date(); 
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+
+            $('#acquired').datepicker({
+                autoclose: true,
+                todayHighlight: true,  
+                format: 'dd/mm/yyyy',            
+                language: 'es',
+                startDate: today, 
+                endDate:0, 
+                autoclose: true
+            });
                  
         }
     });

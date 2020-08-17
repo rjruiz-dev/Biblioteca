@@ -137,19 +137,19 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Fecha de Devolución: </label>
+                                <label>Adquirido</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>                      
                                     <input name="acquired"
                                         class="form-control pull-right"                                                       
-                                        value="{{ old('acquired', Carbon\Carbon::now()->format('d/m/Y')) }}"                            
+                                        value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d/m/Y')) }}"                            
                                         type="text"
                                         id="acquired"
-                                        placeholder= "Selecciona una Fecha de Devolución">                       
-                                </div>                  
-                            </div>                
+                                        placeholder= "Selecciona una Fecha de Adquisición">                       
+                            </div>                  
+                </div>                
                         </div>                        
                     </li> 
                     <div class="modal-footer" id="modal-footer">                  
@@ -167,13 +167,15 @@
 
 
 @push('styles')
-    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">       
+    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
+    <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 @endpush
  
 
 @push('scripts')   
     <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
     <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('js/prestar.js') }}"></script>  
     
 @endpush

@@ -4,12 +4,16 @@
     @if ($bandera == 1)
         @php 
             $mensaje = "Devuelto en ";
-            $mensaje2 = "Asignar Fecha Devolución ";
+            $mensaje2 = "Fecha de Devolución ";
+            $var_acquired = Form::hidden('acquired', Carbon\Carbon::now()->format('d/m/Y') );
+            $visible = 'disabled';
         @endphp
     @else
         @php  
             $mensaje = "Renovado hasta ";
-            $mensaje2 = "Asignar Fecha Renovación ";
+            $mensaje2 = "Fecha de Renovación ";
+            $var_acquired = '';
+            $visible = '';
         @endphp
     @endif
   
@@ -28,13 +32,14 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>                      
-                        <input name="acquired"
+                        <input name="acquired" {{ $visible }}
                             class="form-control pull-right"                                                       
                             value="{{ old('acquired', Carbon\Carbon::now()->format('d/m/Y')) }}"                            
                             type="text"
                             id="acquired"
                             placeholder= "Selecciona una Fecha">                       
-                    </div>                  
+                    </div>
+                    {!! $var_acquired !!}                  
                 </div>                
             </div>
         </div>       

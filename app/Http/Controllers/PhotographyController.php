@@ -174,6 +174,8 @@ class PhotographyController extends Controller
    
                 DB::commit();
 
+                return response()->json(['data' => $document->id, 'bandera' => 1]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();

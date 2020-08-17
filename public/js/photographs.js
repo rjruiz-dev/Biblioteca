@@ -160,11 +160,21 @@ $('#modal-btn-save').click(function (event) {
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
 
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
-            });
+            if (bandera == 1){
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡Se han guardado el documento! Ahora debe registrar las copias del mismo',
+                }).then(function() {
+                    window.location = "../admin/genericcopies/copies/" + id_new_doc;
+                });
+            }else{
+                swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡Se ha actualizado el documento!'
+                });
+            }
         },
         error : function (xhr) {
             var res = xhr.responseJSON;

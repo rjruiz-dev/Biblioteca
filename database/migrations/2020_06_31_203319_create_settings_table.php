@@ -16,11 +16,11 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('fines_id')->unsigned();    
+            $table->integer('fines_id')->nullable()->unsigned();    
 
-            $table->string('library_name')->unique();
-            $table->integer('loan_day');
-            $table->integer('loan_limit');
+            $table->string('library_name')->nullable()->unique();
+            $table->integer('loan_day')->nullable();
+            $table->integer('loan_limit')->nullable();
             $table->timestamps();
 
             $table->foreign('fines_id')->references('id')->on('fines')

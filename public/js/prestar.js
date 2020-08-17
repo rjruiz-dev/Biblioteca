@@ -92,6 +92,21 @@ if( $("#bandera").val() == 3){
 
             });
 
+            $("#modal-btn-save-prestar").prop('disabled', true); //desabilito primero el boton prestar
+
+            var date = new Date(); 
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+
+            $('#acquired').datepicker({
+                autoclose: true,
+                todayHighlight: true,  
+                format: 'dd/mm/yyyy',            
+                language: 'es',
+                startDate: today, 
+                endDate:0, 
+                autoclose: true
+            });
+
             var user_idSelect = $('#users_id');
             var nickname = $('#nickname');           
             var surname = $('#surname');
@@ -138,7 +153,13 @@ if( $("#bandera").val() == 3){
                 $('#nickname').text(data.partner.nickname);  
                 $('#surname').text(data.partner.surname);  
                 $('#email').text(data.partner.email);  
-                $('#loan').text(data.count.count_of_prestamos);   
+                $('#loan').text(data.count.count_of_prestamos);
+                // console.log("prstamos: " + data.limit.loan_limit);
+                if(data.count.count_of_prestamos > data.limit.loan_limit){
+                    $("#modal-btn-save-prestar").prop('disabled', true); 
+                }else{
+                    $("#modal-btn-save-prestar").prop('disabled', false); 
+                }  
                 // document.getElementById('#nickname').innerHTML = data.nickname;  
                 // document.getElementById('#surname').innerHTML = data.surname;         
                 // document.getElementById('#email').innerHTML = data.email;  

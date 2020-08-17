@@ -64,7 +64,7 @@ $('#modal-btn-save').click(function (event) {
 });
 
 
-$('body').on('click', '.btn-delete', function (event) {
+$('body').on('click', '.btn-desestimar', function (event) {
     event.preventDefault();
    
     var me = $(this),
@@ -73,13 +73,13 @@ $('body').on('click', '.btn-delete', function (event) {
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
     swal({
-        title: '¿Seguro que quieres eliminar a : ' + title + ' ?',
-        text: '¡No podrás revertir esto!',
+        title: '¿Seguro que quieres rechazar esta solicitud ?',
+        // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!'
+        confirmButtonText: 'Sí, Rechazar!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -90,12 +90,22 @@ $('body').on('click', '.btn-delete', function (event) {
                     '_token': csrf_token
                 },
                 success: function (response) {
+                    var info = response.error;
+                    $('#modal').modal('hide');
                     $('#datatable').DataTable().ajax.reload();
+                    if(info == 0){
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
-                        text: '¡Los datos han sido eliminados!'
+                        text: '¡La solicitud ha sido rechazada!'
                     });
+                }else{
+                    swal({
+                        type : 'error',
+                        title : '¡Error!',
+                        text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+                    });
+                }
                 },
                 error: function (xhr) {
                     swal({

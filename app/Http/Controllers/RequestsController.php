@@ -74,9 +74,96 @@ class RequestsController extends Controller
 
     }
 
-    public function desestimar($id, $bandera)
+    public function desestimar($id)
     {
-        
+                DB::beginTransaction();
+                
+                // $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->first();
+                $movement_doc = Book_movement::where('copies_id', $id)->where('active', 1)->get();
+                $error = 1; // error en 1 es error Si osea HAY ERROR
+                if($movement_doc->count() == 1){
+                    
+                    $copy = Copy::findOrFail($id);
+                    $copy->status_copy_id = 8;
+                    $copy->save(); 
+
+                    foreach($movement_doc as $t){
+                        $t->active = 0;
+                        $t->save();
+
+                        $new_movement = new Book_movement;
+
+                        $new_movement->users_id = $t->users_id; 
+                    } 
+
+                    $new_movement->movement_types_id = 8; //PRESTAMO
+            
+                    $new_movement->copies_id = $id;
+                   
+                    $new_movement->active = 1; 
+            
+                    $new_movement->save();
+            
+            
+                    DB::commit();
+
+                    $error = 0; // error en 0 es error NO osea NO hay ERROR
+                    }else{ 
+                        $error = 1; // error en 1 es error Si osea HAY ERROR
+                    } 
+
+                    return response()->json(['error' => $error]); 
+    }
+
+
+    public function solicitud($id)
+    {           //recibimos como parametro id de documento
+                DB::beginTransaction();
+                
+                $error = 1; // error en 1 es error Si osea HAY ERROR
+                $copy = Copy::where('documents_id', $id)->where(function ($query) {
+                    $query->where('status_copy_id', '=', 3)
+                          ->orWhere('status_copy_id', '=', 6)
+                          ->orWhere('status_copy_id', '=', 8);
+                })
+                ->first();
+                if($copy){
+                // $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->first();
+                $movement_doc = Book_movement::where('copies_id', $copy->id)->where('active', 1)->get();
+                if($movement_doc->count() == 1){
+                    // dd($copy);
+                    $copy->status_copy_id = 7; //SOLICITUD
+                    $copy->save(); 
+
+                    foreach($movement_doc as $t){
+                        $t->active = 0;
+                        $t->save();
+
+                        $new_movement = new Book_movement;
+
+                        $new_movement->users_id = $t->users_id; 
+                    } 
+
+                    $new_movement->movement_types_id = 7; //SOLICITUD
+            
+                    $new_movement->copies_id = $copy->id;
+                   
+                    $new_movement->active = 1; 
+            
+                    $new_movement->save();
+            
+            
+                    DB::commit();
+
+                    $error = 0; // error en 0 es error NO osea NO hay ERROR
+                    }else{ 
+                        $error = 1; // error en 1 es error Si osea HAY ERROR
+                    }
+                }else{
+                    $error = 2; // error 2 = error xq no existe copias de ese doc
+                } 
+
+                    return response()->json(['error' => $error]); 
     }
 
     /**
@@ -105,6 +192,7 @@ class RequestsController extends Controller
     {                    
         $prestamos_solicitados = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')       
         ->where('movement_types_id', '=', 7)
+        ->where('active', '=', 1)
         ->get();
       
         return dataTables::of($prestamos_solicitados)
