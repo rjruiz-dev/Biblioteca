@@ -408,10 +408,7 @@ class MultimediaController extends Controller
         return dataTables::of($multimedia)
             ->addColumn('id_doc', function ($multimedia){
             return $multimedia->document['id']."<br>";            
-            }) 
-            ->addColumn('registry_number', function ($libros){
-                return $libros->document['registry_number']."<br>";            
-            })             
+            })                        
             ->addColumn('documents_id', function ($multimedia){
                 return
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
@@ -441,7 +438,7 @@ class MultimediaController extends Controller
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc','registry_number','documents_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'documents_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

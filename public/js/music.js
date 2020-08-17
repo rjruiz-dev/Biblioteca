@@ -456,7 +456,9 @@ function yesnoCheck() {
         document.getElementById("title").placeholder='Titulo';
         //PLACEHOLDERS DE SELECT
         $('#creators_id').select2({
-            placeholder: 'Selecciona o Ingresa un Artista',               
+            placeholder: 'Selecciona o Ingresa un Artista',
+            tags: true,    
+                               
         });
 
         document.getElementById("l_title").innerHTML = 'Titulo';
@@ -478,7 +480,8 @@ function yesnoCheck() {
          document.getElementById("title").placeholder='Titulo de la Obra';
          //PLACEHOLDERS DE SELECT
          $('#creators_id').select2({
-            placeholder: 'Selecciona o Ingresa un Compositor',               
+            placeholder: 'Selecciona o Ingresa un Compositor',      
+            tags: true,             
         });
         
 

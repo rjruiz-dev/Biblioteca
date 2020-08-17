@@ -434,12 +434,10 @@ class MusicController extends Controller
         ->get();
         // dd($musica);       
         return dataTables::of($musica)
-        ->addColumn('id_doc', function ($musica){
-            return $musica->document['id']."<br>";            
-        })
-            ->addColumn('registry_number', function ($musica){
-                return $musica->document['registry_number']."<br>";            
-            })           
+            ->addColumn('id_doc', function ($musica){
+                return $musica->document['id']."<br>";            
+            })
+                     
             ->addColumn('document_subtypes_id', function ($musica){
 
                 return  $musica->document->document_subtype->subtype_name;              

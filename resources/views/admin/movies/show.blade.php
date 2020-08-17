@@ -1,4 +1,3 @@
-
 <div class="row">
     <div  class="col-md-12">
         <nav class="navbar navbar-default navbar-dark ">
@@ -26,7 +25,7 @@
             </div>        
             <div class="box-body box-profile">
                                           
-                <img class="img-responsive" src="{{ asset('/images/'.$movie->document->photo) }}"  alt="{{ $movie->document->title }}" >
+                <img class="img-responsive" src="{{ asset('images/'.$movie->document->photo) }}" >
                 
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
@@ -236,4 +235,3 @@
     </div>
 
 </div>
-

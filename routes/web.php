@@ -44,6 +44,8 @@ function(){
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
  
+    //Print PDF
+    Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
     Route::get('music/exportpdf/{id}',      'MusicController@exportPdf')->name('musica.pdf');  
     Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
