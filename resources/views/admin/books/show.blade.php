@@ -85,7 +85,7 @@
             </div>
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Detalles el Documento </h3>
+                    <h3 class="box-title">Detalles del Documento </h3>
                 </div>
                 <div class="box-body"> 
 

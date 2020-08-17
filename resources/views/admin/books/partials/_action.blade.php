@@ -19,7 +19,7 @@
         @if ($libros->document['status_documents_id'] != 2)
                 @php 
                 @endphp
-                <a href="{{ $url_baja }}" class="btn-baja" title="Baja:{{ $libros->document->title }}"><i class="fa fa-arrow-down text-danger"></i></a> |  
+                <a href="{{ $url_baja }}" class="btn-baja" title="Baja: {{ $libros->document->title }}"><i class="fa fa-arrow-down text-danger"></i></a> |  
                 @php 
                 @endphp
         @endif 
