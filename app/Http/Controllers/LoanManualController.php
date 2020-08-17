@@ -10,6 +10,7 @@ use App\Document_type;
 use App\Document_subtype;
 use App\Book_movement;
 use App\Copy;
+use App\Setting;
 use App\User;
 use App\Course;
 use Illuminate\Support\Facades\DB;
@@ -72,7 +73,10 @@ class LoanManualController extends Controller
         ->get()->first()
         ->toArray();
 
-        // dd($count);       
+        $maximo_dias_parce = Setting::select('loan_limit')->first();
+        // $maximo_dias = $maximo_dias_parce->loan_limit;
+
+        // dd($maximo_dias);       
 
      
         if($request->ajax())
@@ -83,7 +87,7 @@ class LoanManualController extends Controller
             // );
 
             // return $partner->toJson();
-            return response()->json(array('partner'=>$partner,'count'=>$count));
+            return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
 
             // return $count->toJson();
           
@@ -174,12 +178,16 @@ class LoanManualController extends Controller
         
         $courses = Course::all()->pluck('course_name', 'id');
 
+        $hasta_prestamo_parce = Setting::select('loan_day')->first();
+        $hastaprestamo = $hasta_prestamo_parce->loan_day;
+
         return view('admin.loanmanual.prestar', [
             'documento'     => $documento,
             'copies'        => $copies,
             'users'         => $users,
             // 'partners'      => $partners,
             'courses'       => $courses,
+            'hastaprestamo'       => $hastaprestamo,
             'bandera'          => $bandera,
             'prestamo_solicitado' => $prestamo_solicitado, 
             'n_mov'          => $n_mov
@@ -223,7 +231,9 @@ class LoanManualController extends Controller
                     $new_movement->copies_id = $request->get('copies_id');
                     $new_movement->courses_id = $request->get('course_id');
                     $new_movement->grupo = $request->get('grupo');
-                    $new_movement->turno = $request->get('turno'); 
+                    $new_movement->turno = $request->get('turno');
+                    $new_movement->date = Carbon::now();
+                    $new_movement->date_until = Carbon::createFromFormat('d/m/Y', $request->get('acquired')); 
                     $new_movement->active = 1; 
             
                     $new_movement->save();

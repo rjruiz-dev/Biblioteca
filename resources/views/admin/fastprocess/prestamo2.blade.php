@@ -127,8 +127,12 @@
 
 @include('admin.fastprocess.partials._modal')
 
+@push('styles')
+    <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+@endpush
 
 @push('scripts')   
+    <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="{{ asset('js/fastprocess.js') }}"></script>  
 @endpush

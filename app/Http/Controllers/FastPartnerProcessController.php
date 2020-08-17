@@ -129,7 +129,9 @@ class FastPartnerProcessController extends Controller
                 }
 
                 $new_movement->courses_id = 1; //le pongo 1 xq ni idea si va o no
-                $new_movement->active = 1;
+                $new_movement->date = Carbon::now();
+                $new_movement->date_until = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));   
+                $new_movement->active = 1; 
                 
                 $copy->save(); 
                 $new_movement->save();
