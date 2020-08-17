@@ -151,7 +151,7 @@
                 <div class="row col-md-12">          
                     <div class="col-md-12">               
                         <strong><i class="fa fa-file-text margin-r-5"></i> Sinopsis:</strong>
-                        <p class="text-muted">{{ $book->document->synopsis }}</p>
+                        <p class="text-muted">{!! $book->document->synopsis !!}</p>
                         <hr>
                     </div>
                 </div>

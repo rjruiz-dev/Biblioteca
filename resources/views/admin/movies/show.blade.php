@@ -146,7 +146,7 @@
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-4">
-                            <strong><i class="fa fa-video-camera margin-r-5"></i> Fotografia:</strong>
+                            <strong><i class="fa fa-film margin-r-5"></i> Fotografia:</strong>
                             <p class="text-muted">{{ $movie->photography_movie->photography_movies_name }}</p>
                             <hr>
                         </div>
@@ -176,7 +176,7 @@
                     <div class="row col-md-12">
                         <div class="col-md-12">
                             <strong><i class="fa fa-info margin-r-5"></i> Sinopsis:</strong>
-                            <p class="text-muted">{{ $movie->document->synopsis }}</p>
+                            <p class="text-muted">{!! $movie->document->synopsis !!}</p>
                             <hr>
                         </div>       
                     </div>                  

@@ -190,7 +190,7 @@ class MultimediaController extends Controller
      */
     public function show($id)
     {
-        $multimedia = Multimedia::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         return view('admin.multimedias.show', compact('multimedia'));
     }
@@ -354,12 +354,12 @@ class MultimediaController extends Controller
     }
 
     public function exportPdf()
-    {
-        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
+    {      
+        $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
-        $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+        $pdf = PDF::loadView('admin.multimedias.show', compact('multimedia'));  
        
-        return $pdf->download('cine.pdf');
+        return $pdf->download('multimedia.pdf');
     }
     
     public function desidherata($id)
@@ -425,16 +425,15 @@ class MultimediaController extends Controller
             
             ->addColumn('accion', function ($multimedia) {
                 return view('admin.multimedias.partials._action', [
-                    'multimedia' => $multimedia,
-
-                    'url_show' => route('admin.multimedias.show', $multimedia->id),                        
-                    'url_edit' => route('admin.multimedias.edit', $multimedia->id),                              
-                    'url_copy' => route('multimedias.copy', $multimedia->document->id),                              
-                    'url_desidherata' => route('multimedias.desidherata', $multimedia->document->id),
-                    'url_baja' => route('multimedias.baja', $multimedia->document->id),
-                    'url_reactivar' => route('multimedias.reactivar', $multimedia->document->id),
-                    'url_print'     => route('multimedia.pdf', $multimedia->id)   
-                    ]);
+                    'multimedia'        => $multimedia,
+                    'url_show'          => route('admin.multimedias.show', $multimedia->id),                        
+                    'url_edit'          => route('admin.multimedias.edit', $multimedia->id),                              
+                    'url_copy'          => route('multimedias.copy', $multimedia->document->id),                              
+                    'url_desidherata'   => route('multimedias.desidherata', $multimedia->document->id),
+                    'url_baja'          => route('multimedias.baja', $multimedia->document->id),
+                    'url_reactivar'     => route('multimedias.reactivar', $multimedia->document->id),
+                    'url_print'         => route('multimedia.pdf', $multimedia->id)   
+                ]);
 
             })           
             ->addIndexColumn()   

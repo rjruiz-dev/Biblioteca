@@ -188,11 +188,11 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function show(Music $music)
+    public function show($id)
     {
-        $music = Music::with('document.creator', 'actors', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('admin.movies.show', compact('music'));
+        return view('admin.music.show', compact('music'));
     }
 
     /**
@@ -383,11 +383,11 @@ class MusicController extends Controller
 
     public function exportPdf()
     {
-        $music = Music::with('document.creator', 'actors', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
+        $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
         $pdf = PDF::loadView('admin.music.show', compact('music'));  
        
-        return $pdf->download('cine.pdf');
+        return $pdf->download('musica.pdf');
     }
     public function desidherata($id)
     {
@@ -472,15 +472,15 @@ class MusicController extends Controller
             
             ->addColumn('accion', function ($musica) {
                 return view('admin.music.partials._action', [
-                    'musica' => $musica,
-                    'url_show' => route('admin.music.show', $musica->id),                        
-                    'url_edit' => route('admin.music.edit', $musica->id),                              
-                    'url_copy' => route('music.copy', $musica->document->id),                              
-                    'url_desidherata' => route('music.desidherata', $musica->document->id),
-                    'url_baja' => route('music.baja', $musica->document->id),
-                    'url_reactivar' => route('music.reactivar', $musica->document->id),
-                    'url_print'     => route('musica.pdf', $musica->id) 
-                    ]); 
+                    'musica'            => $musica,
+                    'url_show'          => route('admin.music.show', $musica->id),                        
+                    'url_edit'          => route('admin.music.edit', $musica->id),                              
+                    'url_copy'          => route('music.copy', $musica->document->id),                              
+                    'url_desidherata'   => route('music.desidherata', $musica->document->id),
+                    'url_baja'          => route('music.baja', $musica->document->id),
+                    'url_reactivar'     => route('music.reactivar', $musica->document->id),
+                    'url_print'         => route('musica.pdf', $musica->id) 
+                ]); 
             })           
             ->addIndexColumn()    
             ->rawColumns(['id_doc','registry_number', 'document_subtypes_id', 'generate_musics_id', 'documents_id', 'lenguages_id','status','created_at', 'accion']) 
