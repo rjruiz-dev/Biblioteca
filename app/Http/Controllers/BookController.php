@@ -19,6 +19,7 @@ use App\StatusDocument;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveDocumentRequest;
 
 class BookController extends Controller

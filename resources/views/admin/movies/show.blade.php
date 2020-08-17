@@ -109,7 +109,7 @@
                     </div>
                     <div class="col-md-6">
                         <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
-                        <p class="text-muted">{{ $movie->document->year }}</p>
+                        <p class="text-muted">{{ Carbon\Carbon::parse($movie->document->year)->format('d-m-Y') }}</p>
                         <hr>
                     </div>
                 </div>           
@@ -129,7 +129,7 @@
                     <div class="row col-md-12">
                         <div class="col-md-4">
                             <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
-                            <p class="text-muted">{{ $movie->document->acquired }}</p>
+                            <p class="text-muted">{{ Carbon\Carbon::parse($movie->document->acquired)->format('d-m-Y') }}</p>
                             <hr>
                         </div>                      
                         <div class="col-md-4">

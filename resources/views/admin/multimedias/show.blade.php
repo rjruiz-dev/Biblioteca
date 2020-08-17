@@ -24,6 +24,7 @@
               <h3 class="box-title">Imagen de Portada </h3>
             </div>        
             <div class="box-body box-profile">
+              
                 <img class="img-responsive" src="/images/{{ $multimedia->document->photo }}"  alt="{{ $multimedia->document->title }}">
                 &nbsp;
                 &nbsp;
@@ -65,7 +66,7 @@
                     </div>
                     <div class="col-md-6">
                         <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
-                        <p class="text-muted">{{ $multimedia->document->year }}</p>
+                        <p class="text-muted">{{ Carbon\Carbon::parse($multimedia->document->year)->format('d-m-Y') }}</p>
                         <hr>
                     </div>                    
                 </div>
@@ -78,7 +79,7 @@
                     <div class="row col-md-12">
                         <div class="col-md-4">
                             <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
-                            <p class="text-muted">{{ $multimedia->document->acquired }}</p>
+                            <p class="text-muted">{{ Carbon\Carbon::parse($multimedia->document->acquired)->format('d-m-Y') }}</p>
                             <hr>
                         </div>                        
                         <div class="col-md-4">

@@ -79,16 +79,15 @@ class MultimediaController extends Controller
                 // $document->creators_id = $request->get('creators_id');
 
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id = $request->get('creators_id');    
- 
-                 }else{
+                {                
+                    $document->creators_id = $request->get('creators_id');    
+                }else{
                      
                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('creators_id');
-                     $creator->document_types_id    = 1;
-                     $creator->save();
-                     $document->creators_id         = $creator->id;
+                    $creator->creator_name         = $request->get('creators_id');
+                    $creator->document_types_id    = 1;
+                    $creator->save();
+                    $document->creators_id         = $creator->id;
                  }
 
                 $document->original_title   = $request->get('original_title');
@@ -119,7 +118,6 @@ class MultimediaController extends Controller
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');             
-                // $document->photo            = $request->get('photo');
                 $document->synopsis         = $request->get('synopsis');
 
                 if ($request->hasFile('photo')) {               
@@ -132,27 +130,25 @@ class MultimediaController extends Controller
                 }  
 
                 $document->photo            = $name;
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
-                 // insertamos en la tabla multimedia
+                // insertamos en la tabla multimedia
                 
                 $multimedia = new Multimedia; 
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
                 if( is_numeric($request->get('second_author_id'))) 
-                 {                
-                     $multimedia->second_author_id  = $request->get('second_author_id');    
- 
-                 }else{
+                {                
+                    $multimedia->second_author_id  = $request->get('second_author_id');    
+                }else{
 
                     $creator = new Creator;
                     $creator->creator_name = $request->get('second_author_id');
                     $creator->document_types_id = 2;
                     $creator->save();
                     $multimedia->second_author_id = $creator->id;
-                 }
+                }
                 // $multimedia->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
                 {                
@@ -165,7 +161,6 @@ class MultimediaController extends Controller
                     $creator->save();
                     $multimedia->third_author_id = $creator->id;
                 }
-                 
                 $multimedia->translator = $request->get('translator');
                 $multimedia->isbn       = $request->get('isbn');
                 $multimedia->edition    = $request->get('edition');
@@ -244,17 +239,17 @@ class MultimediaController extends Controller
                 $document->title = $request->get('title');
               
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id    = $request->get('creators_id');    
- 
-                 }else{
-                     
-                    $creator = new Creator;
-                    $creator->creator_name = $request->get('creators_id');
-                    $creator->document_types_id = 1;
-                    $creator->save();
-                    $document->creators_id = $creator->id;
-                 }
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
+
+                }else{
+
+                $creator = new Creator;
+                $creator->creator_name = $request->get('creators_id');
+                $creator->document_types_id = 1;
+                $creator->save();
+                $document->creators_id = $creator->id;
+                }
 
                 $document->original_title   = $request->get('original_title');
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                 
@@ -281,8 +276,7 @@ class MultimediaController extends Controller
                 $document->location             = $request->get('location');
                 $document->observation          = $request->get('observation');
                 $document->note                 = $request->get('note');
-                $document->lenguages_id         = $request->get('lenguages_id');              
-                // $document->photo                = $request->get('photo');
+                $document->lenguages_id         = $request->get('lenguages_id');                             
                 $document->synopsis             = $request->get('synopsis');
 
                 $name = $document->photo; 
@@ -296,7 +290,7 @@ class MultimediaController extends Controller
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
-                 // insertamos en la tabla multimedia
+                // insertamos en la tabla multimedia
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
                 if( is_numeric($request->get('second_author_id'))) 
@@ -318,12 +312,12 @@ class MultimediaController extends Controller
 
                 }else{
                     
-                     $creator = new Creator;
-                     $creator->creator_name       = $request->get('third_author_id');
-                     $creator->document_types_id  = 2;
-                     $creator->save();
-                     $multimedia->third_author_id = $creator->id;
-                 }
+                    $creator = new Creator;
+                    $creator->creator_name       = $request->get('third_author_id');
+                    $creator->document_types_id  = 2;
+                    $creator->save();
+                    $multimedia->third_author_id = $creator->id;
+                }
                  
                 $multimedia->translator     = $request->get('translator');
                 $multimedia->isbn           = $request->get('isbn');
@@ -358,6 +352,7 @@ class MultimediaController extends Controller
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
         $pdf = PDF::loadView('admin.multimedias.show', compact('multimedia'));  
+        dd($pdf);
        
         return $pdf->download('multimedia.pdf');
     }
