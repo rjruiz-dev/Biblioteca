@@ -79,16 +79,15 @@ class MultimediaController extends Controller
                 // $document->creators_id = $request->get('creators_id');
 
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id = $request->get('creators_id');    
- 
-                 }else{
+                {                
+                    $document->creators_id = $request->get('creators_id');    
+                }else{
                      
                     $creator = new Creator;
-                     $creator->creator_name         = $request->get('creators_id');
-                     $creator->document_types_id    = 1;
-                     $creator->save();
-                     $document->creators_id         = $creator->id;
+                    $creator->creator_name         = $request->get('creators_id');
+                    $creator->document_types_id    = 1;
+                    $creator->save();
+                    $document->creators_id         = $creator->id;
                  }
 
                 $document->original_title   = $request->get('original_title');
@@ -119,7 +118,6 @@ class MultimediaController extends Controller
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
                 $document->lenguages_id     = $request->get('lenguages_id');             
-                // $document->photo            = $request->get('photo');
                 $document->synopsis         = $request->get('synopsis');
 
                 if ($request->hasFile('photo')) {               
@@ -132,27 +130,25 @@ class MultimediaController extends Controller
                 }  
 
                 $document->photo            = $name;
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
-                 // insertamos en la tabla multimedia
+                // insertamos en la tabla multimedia
                 
                 $multimedia = new Multimedia; 
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
                 if( is_numeric($request->get('second_author_id'))) 
-                 {                
-                     $multimedia->second_author_id  = $request->get('second_author_id');    
- 
-                 }else{
+                {                
+                    $multimedia->second_author_id  = $request->get('second_author_id');    
+                }else{
 
                     $creator = new Creator;
                     $creator->creator_name = $request->get('second_author_id');
                     $creator->document_types_id = 2;
                     $creator->save();
                     $multimedia->second_author_id = $creator->id;
-                 }
+                }
                 // $multimedia->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
                 {                
@@ -165,7 +161,6 @@ class MultimediaController extends Controller
                     $creator->save();
                     $multimedia->third_author_id = $creator->id;
                 }
-                 
                 $multimedia->translator = $request->get('translator');
                 $multimedia->isbn       = $request->get('isbn');
                 $multimedia->edition    = $request->get('edition');
@@ -192,7 +187,7 @@ class MultimediaController extends Controller
      */
     public function show($id)
     {
-        $multimedia = Multimedia::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         return view('admin.multimedias.show', compact('multimedia'));
     }
@@ -246,17 +241,17 @@ class MultimediaController extends Controller
                 $document->title = $request->get('title');
               
                 if( is_numeric($request->get('creators_id'))) 
-                 {                
-                     $document->creators_id    = $request->get('creators_id');    
- 
-                 }else{
-                     
-                    $creator = new Creator;
-                    $creator->creator_name = $request->get('creators_id');
-                    $creator->document_types_id = 1;
-                    $creator->save();
-                    $document->creators_id = $creator->id;
-                 }
+                {                
+                    $document->creators_id    = $request->get('creators_id');    
+
+                }else{
+
+                $creator = new Creator;
+                $creator->creator_name = $request->get('creators_id');
+                $creator->document_types_id = 1;
+                $creator->save();
+                $document->creators_id = $creator->id;
+                }
 
                 $document->original_title   = $request->get('original_title');
                 $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                 
@@ -283,8 +278,7 @@ class MultimediaController extends Controller
                 $document->location             = $request->get('location');
                 $document->observation          = $request->get('observation');
                 $document->note                 = $request->get('note');
-                $document->lenguages_id         = $request->get('lenguages_id');              
-                // $document->photo                = $request->get('photo');
+                $document->lenguages_id         = $request->get('lenguages_id');                             
                 $document->synopsis             = $request->get('synopsis');
 
                 $name = $document->photo; 
@@ -298,7 +292,7 @@ class MultimediaController extends Controller
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
-                 // insertamos en la tabla multimedia
+                // insertamos en la tabla multimedia
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
                 if( is_numeric($request->get('second_author_id'))) 
@@ -320,12 +314,12 @@ class MultimediaController extends Controller
 
                 }else{
                     
-                     $creator = new Creator;
-                     $creator->creator_name       = $request->get('third_author_id');
-                     $creator->document_types_id  = 2;
-                     $creator->save();
-                     $multimedia->third_author_id = $creator->id;
-                 }
+                    $creator = new Creator;
+                    $creator->creator_name       = $request->get('third_author_id');
+                    $creator->document_types_id  = 2;
+                    $creator->save();
+                    $multimedia->third_author_id = $creator->id;
+                }
                  
                 $multimedia->translator     = $request->get('translator');
                 $multimedia->isbn           = $request->get('isbn');
@@ -356,12 +350,13 @@ class MultimediaController extends Controller
     }
 
     public function exportPdf()
-    {
-        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
+    {      
+        $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
-        $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+        $pdf = PDF::loadView('admin.multimedias.show', compact('multimedia'));  
+        dd($pdf);
        
-        return $pdf->download('cine.pdf');
+        return $pdf->download('multimedia.pdf');
     }
     
     public function desidherata($id)
@@ -410,10 +405,7 @@ class MultimediaController extends Controller
         return dataTables::of($multimedia)
             ->addColumn('id_doc', function ($multimedia){
             return $multimedia->document['id']."<br>";            
-            }) 
-            ->addColumn('registry_number', function ($libros){
-                return $libros->document['registry_number']."<br>";            
-            })             
+            })                        
             ->addColumn('documents_id', function ($multimedia){
                 return
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
@@ -430,20 +422,19 @@ class MultimediaController extends Controller
             
             ->addColumn('accion', function ($multimedia) {
                 return view('admin.multimedias.partials._action', [
-                    'multimedia' => $multimedia,
-
-                    'url_show' => route('admin.multimedias.show', $multimedia->id),                        
-                    'url_edit' => route('admin.multimedias.edit', $multimedia->id),                              
-                    'url_copy' => route('multimedias.copy', $multimedia->document->id),                              
-                    'url_desidherata' => route('multimedias.desidherata', $multimedia->document->id),
-                    'url_baja' => route('multimedias.baja', $multimedia->document->id),
-                    'url_reactivar' => route('multimedias.reactivar', $multimedia->document->id),
-                    'url_print'     => route('multimedia.pdf', $multimedia->id)   
-                    ]);
+                    'multimedia'        => $multimedia,
+                    'url_show'          => route('admin.multimedias.show', $multimedia->id),                        
+                    'url_edit'          => route('admin.multimedias.edit', $multimedia->id),                              
+                    'url_copy'          => route('multimedias.copy', $multimedia->document->id),                              
+                    'url_desidherata'   => route('multimedias.desidherata', $multimedia->document->id),
+                    'url_baja'          => route('multimedias.baja', $multimedia->document->id),
+                    'url_reactivar'     => route('multimedias.reactivar', $multimedia->document->id),
+                    'url_print'         => route('multimedia.pdf', $multimedia->id)   
+                ]);
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc','registry_number','documents_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'documents_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

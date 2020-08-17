@@ -156,7 +156,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('distributor', 'Distribuidora') !!}             
-                    {!! Form::select('distributor', $distributors, null, ['class' => 'form-control', 'id' => 'distributor', 'placeholder' => '']) !!}
+                    {!! Form::select('distributor', $distributors, null, ['class' => 'form-control', 'id' => 'distributor', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
                 <div class="form-group">                 
                     {!! Form::label('location', 'Ubicación') !!}               

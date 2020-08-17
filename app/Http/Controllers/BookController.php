@@ -19,6 +19,7 @@ use App\StatusDocument;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveDocumentRequest;
 
 class BookController extends Controller
@@ -162,19 +163,19 @@ class BookController extends Controller
                 }
                
                 if($request->get('document_subtypes_id') != 4){
-               if( is_numeric($request->get('third_author_id'))) 
-                {                 
-                    $book->third_author_id = $request->get('third_author_id');    
+                    if( is_numeric($request->get('third_author_id'))) 
+                        {                 
+                            $book->third_author_id = $request->get('third_author_id');    
 
-                }else{
-                    
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('third_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $book->third_author_id      = $creator->id;
+                        }else{
+                            
+                            $creator = new Creator;
+                            $creator->creator_name      = $request->get('third_author_id');
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $book->third_author_id      = $creator->id;
+                        }
                 }
-            }
                 
                 $book->translator       = $request->get('translator');        
                 $book->edition          = $request->get('edition');
@@ -212,9 +213,11 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(book $book)
+    public function show($id)
     {
-        //
+        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication.periodicidad')->findOrFail($id);
+      
+        return view('admin.books.show', compact('book'));
     }
 
     /**
@@ -231,7 +234,7 @@ class BookController extends Controller
 
         return view('admin.books.partials.form', [          
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'references'        => Generate_reference::all(),
+            'references'    => Generate_reference::all(),
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id')->toArray(),
@@ -245,8 +248,8 @@ class BookController extends Controller
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
             'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'book'          => $book,
-            'document'          => $document
-            // 'periodical' => $periodical
+            'document'      => $document
+          
         ]);    
     }
 
@@ -308,14 +311,10 @@ class BookController extends Controller
                 $document->observation      = $request->get('observation');
                 $document->note             = $request->get('note');
                 $document->synopsis         = $request->input('synopsis');
-                // $document->photo            = $request->get('photo');
                 $document->adequacies_id    = $request->get('adequacies_id');
-                $document->lenguages_id     = $request->get('lenguages_id');     
-                // $document->generate_references_id     = $request->get('generate_references_id');     
+                $document->lenguages_id     = $request->get('lenguages_id');    
                 $document->document_types_id    = 3;
-
                 $subtypes_id = $document->document_subtypes_id;
-
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
 
 
@@ -350,23 +349,23 @@ class BookController extends Controller
                     }
                 }
                // $book->third_author    = $request->get('third_author');
-               if($request->get('document_subtypes_id') != 4){// si es NO ES PUBL PERIODICA
-               if( is_numeric($request->get('third_author_id'))) 
-                {                
-                    $book->third_author_id  = $request->get('third_author_id');    
+                if($request->get('document_subtypes_id') != 4){// si es NO ES PUBL PERIODICA
+                    if( is_numeric($request->get('third_author_id'))) 
+                    {                
+                        $book->third_author_id  = $request->get('third_author_id');    
 
-                }else{
+                    }else{
 
-                    if($request->get('third_author_id') != null){
-                    $creator = new Creator;
-                    $creator->creator_name = $request->get('third_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $book->third_author_id = $creator->id;
+                        if($request->get('third_author_id') != null){
+                            $creator = new Creator;
+                            $creator->creator_name = $request->get('third_author_id');
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $book->third_author_id = $creator->id;
+                        }
+
+                    }
                 }
-
-                }
-            }
                
                 $book->translator       = $request->get('translator');        
                 $book->edition          = $request->get('edition');
@@ -413,6 +412,15 @@ class BookController extends Controller
     //     $document->delete();     
     // }
 
+    public function exportPdf()
+    {
+        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication.periodicidad')->first();
+
+        $pdf = PDF::loadView('admin.books.show', compact('book'));  
+       
+        return $pdf->download('libro.pdf');
+    }
+
     public function desidherata($id)
     {
         $document = Document::findOrFail($id);
@@ -457,12 +465,10 @@ class BookController extends Controller
         ->get();
         // dd($libros);       
         return dataTables::of($libros)
-        ->addColumn('id_doc', function ($libros){
-            return $libros->document['id']."<br>";            
-        }) 
-            ->addColumn('registry_number', function ($libros){
-                return $libros->document['registry_number']."<br>";            
+            ->addColumn('id_doc', function ($libros){
+                return $libros->document['id']."<br>";            
             }) 
+            
             ->addColumn('document_subtypes_id', function ($libros){
 
                 return  $libros->document->document_subtype->subtype_name;              
@@ -497,14 +503,15 @@ class BookController extends Controller
             
             ->addColumn('accion', function ($libros) {
                 return view('admin.books.partials._action', [
-                    'libros' => $libros,
-                    'url_show' => route('admin.books.show', $libros->id),                        
-                    'url_edit' => route('admin.books.edit', $libros->id),
-                    'url_copy' => route('books.copy', $libros->document->id),                              
-                    'url_desidherata' => route('books.desidherata', $libros->document->id),
-                    'url_baja' => route('books.baja', $libros->document->id),
-                    'url_reactivar' => route('books.reactivar', $libros->document->id)
-                    ]);
+                    'libros'            => $libros,
+                    'url_show'          => route('admin.books.show', $libros->id),                        
+                    'url_edit'          => route('admin.books.edit', $libros->id),
+                    'url_copy'          => route('books.copy', $libros->document->id),                              
+                    'url_desidherata'   => route('books.desidherata', $libros->document->id),
+                    'url_baja'          => route('books.baja', $libros->document->id),
+                    'url_reactivar'     => route('books.reactivar', $libros->document->id),
+                    'url_print'         => route('libro.pdf', $libros->id)   
+                ]);
             })           
             ->addIndexColumn()   
             ->rawColumns(['id_doc', 'document_subtypes_id', 'registry_number', 'generate_books_id', 'documents_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
