@@ -121,13 +121,18 @@ class RequestsController extends Controller
                 DB::beginTransaction();
                 
                 $error = 1; // error en 1 es error Si osea HAY ERROR
-                $copy = Copy::where('documents_id', $id)->first();
-                if(!$copy){
+                $copy = Copy::where('documents_id', $id)->where(function ($query) {
+                    $query->where('status_copy_id', '=', 3)
+                          ->orWhere('status_copy_id', '=', 6)
+                          ->orWhere('status_copy_id', '=', 8);
+                })
+                ->first();
+                if($copy){
                 // $movement_doc = Book_movement::where('copies_id', $request->get('copies_id'))->where('active', 1)->first();
                 $movement_doc = Book_movement::where('copies_id', $copy->id)->where('active', 1)->get();
                 if($movement_doc->count() == 1){
-                    
-                    $copy->status_copy_id = 8;
+                    // dd($copy);
+                    $copy->status_copy_id = 7; //SOLICITUD
                     $copy->save(); 
 
                     foreach($movement_doc as $t){
@@ -139,9 +144,9 @@ class RequestsController extends Controller
                         $new_movement->users_id = $t->users_id; 
                     } 
 
-                    $new_movement->movement_types_id = 8; //PRESTAMO
+                    $new_movement->movement_types_id = 7; //SOLICITUD
             
-                    $new_movement->copies_id = $id;
+                    $new_movement->copies_id = $copy->id;
                    
                     $new_movement->active = 1; 
             

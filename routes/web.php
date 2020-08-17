@@ -115,6 +115,7 @@ function(){
 
     //desestimar en request(solicitudes desde la web)
     Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
+    Route::delete('requests/solicitud/{id}',  'RequestsController@solicitud')->name('requests.solicitud');
 
 });
 

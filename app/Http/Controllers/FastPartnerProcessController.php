@@ -124,13 +124,13 @@ class FastPartnerProcessController extends Controller
                     $renodev = 3;
                 }else{
                     $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
+                    $new_movement->date_until = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));   
                     $copy->status_copy_id = 2;
                     $renodev = 2;
                 }
 
                 $new_movement->courses_id = 1; //le pongo 1 xq ni idea si va o no
                 $new_movement->date = Carbon::now();
-                $new_movement->date_until = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));   
                 $new_movement->active = 1; 
                 
                 $copy->save(); 
