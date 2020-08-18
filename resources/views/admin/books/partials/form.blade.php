@@ -2,7 +2,7 @@
 {!! Form::model($book, [
     'route' => $book->exists ? ['admin.books.update', $book->id] : 'admin.books.store',   
     'method' => $book->exists ? 'PUT' : 'POST',
-    'enctype' => 'multipart/form-data'
+        'enctype' => 'multipart/form-data'
 ]) !!}
 
     @if (!$book->exists)
@@ -167,7 +167,7 @@
                 </div>
                 <div class="form-group">                  
                     {!! Form::label('quantity_generic', 'Número de Paginas') !!}               
-                    {!! Form::number('quantity_generic', $book->document->quantity_generic, ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Número de Paginas']) !!}
+                    {!! Form::number('quantity_generic', $book->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Número de Paginas']) !!}
                 </div>
                 <div class="form-group">                   
                     {!! Form::label('size', 'Tamaño') !!}               

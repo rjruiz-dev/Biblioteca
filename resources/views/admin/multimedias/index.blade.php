@@ -25,7 +25,8 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                                   
+                        <th>ID</th>
+                        <th>N° Registro</th>                      
                         <th>Titulo y Autor</th>                         
                         <th>ISBN</th> 
                         <th>Estado</th>                     
@@ -107,7 +108,8 @@
             ],             
             ajax: "{{ route('multimedias.table') }}",        
             columns: [                
-                {data: 'id_doc', name: 'id_doc'},                                            
+                {data: 'id_doc', name: 'id_doc'},  
+                {data: 'registry_number', name: 'registry_number'},                                    
                 {data: 'documents_id', name: 'documents_id'},         
                 {data: 'isbn', name: 'isbn'},   
                 {data: 'status', name: 'status'},           

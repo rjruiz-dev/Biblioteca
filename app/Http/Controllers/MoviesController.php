@@ -397,7 +397,10 @@ class MoviesController extends Controller
         return dataTables::of($movie)
             ->addColumn('id_doc', function ($movie){
                 return $movie->document['id']."<br>";            
-            })              
+            }) 
+            ->addColumn('registry_number', function ($movie){
+                return $movie->document['registry_number']."<br>";            
+            })             
             ->addColumn('documents_id', function ($movie){
                 return
                     '<i class="fa fa-video-camera"></i>'.' '.$movie->document['title']."<br>".
@@ -436,19 +439,19 @@ class MoviesController extends Controller
             ->addColumn('accion', function ($movie) {
                 // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
                 return view('admin.movies.partials._action', [
-                    'movie'             => $movie,
-                    'url_show'          => route('admin.movies.show', $movie->id),                        
-                    'url_edit'          => route('admin.movies.edit', $movie->id),  
+                    'movie' => $movie,
+                    'url_show'      => route('admin.movies.show', $movie->id),                        
+                    'url_edit'      => route('admin.movies.edit', $movie->id),  
                     'url_copy'          => route('movies.copy', $movie->document->id),                              
-                    'url_desidherata'   => route('movies.desidherata', $movie->document->id),
-                    'url_baja'          => route('movies.baja', $movie->document->id),
-                    'url_reactivar'     => route('movies.reactivar', $movie->document->id),
-                    'url_print'         => route('cine.pdf', $movie->id)   
-                ]);
+                    'url_desidherata' => route('movies.desidherata', $movie->document->id),
+                    'url_baja' => route('movies.baja', $movie->document->id),
+                    'url_reactivar' => route('movies.reactivar', $movie->document->id),
+                    'url_print'     => route('cine.pdf', $movie->id)   
+                     ]);
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc','documents_id', 'generate_films_id', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc','registry_number','documents_id', 'generate_films_id', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 

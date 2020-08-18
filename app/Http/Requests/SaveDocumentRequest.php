@@ -28,10 +28,10 @@ class SaveDocumentRequest extends FormRequest
             'creators_id'   => 'required',        
         ];
      
-        if($this->method() !== 'PUT')
-        {
-            $rules ['creators_id'] = 'required|string|unique:documents,creators_id' . $this->id;          
-        }
+        // if($this->method() !== 'PUT')
+        // {
+        //     $rules ['registry_number'] = 'required|numeric|unique:documents,registry_number' . $this->id;          
+        // }
  
         return $rules;  
 
@@ -41,8 +41,8 @@ class SaveDocumentRequest extends FormRequest
     {
         return [
             'title.required'            => 'Debe introducir un Título para catalogar un documento.',            
-            'creators_id.required'      => 'Debe seleccionar o ingresar un Autor/Director/Compositor.',            
-            'creators_id.required'      => 'El Autor/Director/Compositor ya ha sido registrado.'
+            'creators_id.required'      => 'Debe seleccionar un Autor/Director/Compositor.',            
+            // 'registry_number.unique'    => 'Debe ingresar un Número de Registro para catalogar un documento.'
         ];
     }
 }

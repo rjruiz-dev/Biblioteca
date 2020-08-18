@@ -133,11 +133,13 @@ class PhotographyController extends Controller
                 }else{
                     $name = null; // se asigno null pero se le podria ingresar una imagen por defecto si no carga nada 
                 }  
+
                 $document->photo            = $name;
+
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
-                // insertamos en la tabla photograph
+                 // insertamos en la tabla photograph
                 
                 $photograph = new Photography;
                 $photograph->subtitle = $request->get('subtitle');
@@ -166,10 +168,10 @@ class PhotographyController extends Controller
                     $creator->save();
                     $photograph->third_author_id = $creator->id;
                 }
-                $photograph->producer       = $request->get('producer');
-                $photograph->edition        = $request->get('edition');
-                $photograph->generate_formats_id = $request->get('generate_formats_id');              
-                $photograph->documents_id  = $document->id;//guardamos el id del documento                
+                $photograph->producer     = $request->get('producer');
+                $photograph->edition     = $request->get('edition');
+                $photograph->generate_formats_id     = $request->get('generate_formats_id');              
+                $photograph->documents_id = $document->id;//guardamos el id del documento                
                 $photograph->save();
    
                 DB::commit();
@@ -409,10 +411,12 @@ class PhotographyController extends Controller
         ->get();
        
         return dataTables::of($photograph)
-            ->addColumn('id_doc', function ($photograph){
-                return $photograph->document['id']."<br>";            
+        ->addColumn('id_doc', function ($photograph){
+            return $photograph->document['id']."<br>";            
+        }) 
+            ->addColumn('registry_number', function ($photograph){
+                return $photograph->document['registry_number']."<br>";            
             }) 
-            
             ->addColumn('document_subtypes_id', function ($photograph){
 
                 return  $photograph->document->document_subtype->subtype_name;              
@@ -440,18 +444,18 @@ class PhotographyController extends Controller
             
             ->addColumn('accion', function ($photograph) {
                 return view('admin.photographs.partials._action', [
-                    'photograph'        => $photograph,
-                    'url_show'          => route('admin.photographs.show', $photograph->id),                        
-                    'url_edit'          => route('admin.photographs.edit', $photograph->id),                              
-                    'url_copy'          => route('photographs.copy', $photograph->document->id),                              
-                    'url_desidherata'   => route('photographs.desidherata', $photograph->document->id),
-                    'url_baja'          => route('photographs.baja', $photograph->document->id),
-                    'url_reactivar'     => route('photographs.reactivar', $photograph->document->id),
-                    'url_print'         => route('fotografia.pdf', $photograph->id)   
-                ]);
+                    'photograph' => $photograph,
+                    'url_show' => route('admin.photographs.show', $photograph->id),                        
+                    'url_edit' => route('admin.photographs.edit', $photograph->id),                              
+                    'url_copy' => route('photographs.copy', $photograph->document->id),                              
+                    'url_desidherata' => route('photographs.desidherata', $photograph->document->id),
+                    'url_baja' => route('photographs.baja', $photograph->document->id),
+                    'url_reactivar' => route('photographs.reactivar', $photograph->document->id),
+                    'url_print'     => route('fotografia.pdf', $photograph->id)   
+                    ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'generate_formats_id', 'document_subtypes_id', 'documents_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc','registry_number', 'generate_formats_id', 'document_subtypes_id', 'documents_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

@@ -25,7 +25,8 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                    
+                        <th>ID</th>
+                        <th>N° Registro</th> 
                         <th>Subtipo</th>
                         <th>Genero</th>               
                         <th>Titulo y Autor</th>    
@@ -109,7 +110,8 @@
             ],             
             ajax: "{{ route('books.table') }}",        
             columns: [                
-                {data: 'id_doc', name: 'id_doc'},                  
+                {data: 'id_doc', name: 'id_doc'},   
+                {data: 'registry_number', name: 'registry_number'},  
                 {data: 'document_subtypes_id', name: 'document_subtypes_id'},                          
                 {data: 'generate_books_id', name: 'generate_books_id'},                     
                 {data: 'documents_id', name: 'documents_id'}, 

@@ -25,7 +25,8 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                   
+                        <th>ID</th>
+                        <th>N° Registro</th> 
                         <th>Subtipo</th>               
                         <th>Titulo y Autor</th>    
                         <th>Formato</th> 
@@ -108,7 +109,8 @@
             ],             
             ajax: "{{ route('photographs.table') }}",        
             columns: [                
-                {data: 'id_doc', name: 'id_doc'},               
+                {data: 'id_doc', name: 'id_doc'}, 
+                {data: 'registry_number', name: 'registry_number'},    
                 {data: 'document_subtypes_id', name: 'document_subtypes_id'},              
                 {data: 'documents_id', name: 'documents_id'}, 
                 {data: 'generate_formats_id', name: 'generate_formats_id'},                     
