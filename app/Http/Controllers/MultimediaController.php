@@ -360,10 +360,14 @@ class MultimediaController extends Controller
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
 =======
         $pdf = PDF::loadView('admin.multimedias.show', compact('multimedia'));  
 >>>>>>> parent of 7dea2ed... finish detail book
+=======
+        $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
        
         return $pdf->download('cine.pdf');
     }

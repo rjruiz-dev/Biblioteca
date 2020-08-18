@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <div class="row">
     <div  class="col-md-12">
@@ -167,3 +168,5 @@
 
 </div>
 >>>>>>> parent of 7dea2ed... finish detail book
+=======
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos

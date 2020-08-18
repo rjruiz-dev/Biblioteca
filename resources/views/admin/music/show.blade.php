@@ -96,15 +96,21 @@
                         <hr>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
 
                     <div class="col-md-4">
                         <strong><i class="fa fa-info margin-r-5"></i>Volumen:</strong>
                         <p class="text-muted">{{  $music->document->volume }}</p>
+<<<<<<< HEAD
 =======
                     <div class="col-md-6">
                         <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
                         <p class="text-muted">{{ $music->document->year }}</p>
 >>>>>>> parent of 7dea2ed... finish detail book
+=======
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
                         <hr>
                     </div>
                 </div>
@@ -113,6 +119,7 @@
                     <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
                     <p class="text-muted">{{ $music->document->year }}</p>
                     <hr>
+<<<<<<< HEAD
                 </div>
 <<<<<<< HEAD
 
@@ -122,11 +129,22 @@
                     <hr>
                 </div>
 
+=======
+                </div>
+
+                <div class="col-md-6">
+                    <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
+                    <p class="text-muted">{{ $music->document->acquired }}</p>
+                    <hr>
+                </div>
+
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
                 <div class="col-md-12">
                     <div class="col-md-4">
                         <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
                         <p class="text-muted">{{ $music->generate_music->genre_music }}</p>
                         <hr>
+<<<<<<< HEAD
 =======
                 <div class="box-body">
                     <div class="row col-md-12">
@@ -141,12 +159,15 @@
                             <hr>
                         </div>
 >>>>>>> parent of 7dea2ed... finish detail book
+=======
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
                     </div>
 
                     <div class="col-md-4">
                         <strong><i class="fa fa-clock-o margin-r-5"></i> Formato:</strong>
                         <p class="text-muted">{{ $music->generate_format->genre_format }}</p>
                         <hr>
+<<<<<<< HEAD
                     </div>
 
                     <div class="col-md-4">
@@ -154,6 +175,15 @@
                         <p class="text-muted">{{ $music->document->quantity_generic }}</p>
                         <hr>
                     </div>
+=======
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-clock-o margin-r-5"></i> Duración:</strong>
+                        <p class="text-muted">{{ $music->document->quantity_generic }}</p>
+                        <hr>
+                    </div>
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
                 </div>
               
                 <div class="col-md-12">
@@ -161,6 +191,7 @@
                         <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
                         <p class="text-muted">{{ $music->document->lenguage->leguage_description }}</p>
                         <hr>
+<<<<<<< HEAD
                     </div>
 
                     <div class="col-md-4">
@@ -174,6 +205,21 @@
                         <p class="text-muted">{{ $music->document->assessment }}</p>
                         <hr>
                     </div>
+=======
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                        <p class="text-muted">{{ $music->document->adequacy->adequacy_description }}</p>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
+                        <p class="text-muted">{{ $music->document->assessment }}</p>
+                        <hr>
+                    </div>
+>>>>>>> parent of 4970df2... Merge remote-tracking branch 'origin/copia-17-08-20/rodrigo' into copia-17-8-2020-feature/Prestamos
                 </div>
 
                 <div class="col-md-12">               
