@@ -108,17 +108,42 @@
                     </div>
 
                     <div class="col-md-6">
+<<<<<<< HEAD
                         <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
                         <p class="text-muted">{{ $multimedia->document->acquired }}</p>
+=======
+                        <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
+                        <p class="text-muted">{{ $multimedia->document->year }}</p>
+>>>>>>> parent of 7dea2ed... finish detail book
                         <hr>
                     </div>
                 </div>
+<<<<<<< HEAD
 
                 <div class="col-md-12">
                     <div class="col-md-4">
                         <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
                         <p class="text-muted">{{ $multimedia->generate_format->genre_format }}</p>
                         <hr>
+=======
+                <div class="box-body">
+                    <div class="row col-md-12">
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
+                            <p class="text-muted">{{ $multimedia->document->acquired }}</p>
+                            <hr>
+                        </div>                        
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                            <p class="text-muted">{{ $multimedia->document->adequacy->adequacy_description }}</p>
+                            <hr>
+                        </div>
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
+                            <p class="text-muted">{{ $multimedia->document->assessment }}</p>
+                            <hr>
+                        </div>
+>>>>>>> parent of 7dea2ed... finish detail book
                     </div>
                     
                     <div class="col-md-4">

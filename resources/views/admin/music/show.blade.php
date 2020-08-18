@@ -95,10 +95,16 @@
                         <p class="text-muted">{{ $music->document->made_by }}</p>
                         <hr>
                     </div>
+<<<<<<< HEAD
 
                     <div class="col-md-4">
                         <strong><i class="fa fa-info margin-r-5"></i>Volumen:</strong>
                         <p class="text-muted">{{  $music->document->volume }}</p>
+=======
+                    <div class="col-md-6">
+                        <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
+                        <p class="text-muted">{{ $music->document->year }}</p>
+>>>>>>> parent of 7dea2ed... finish detail book
                         <hr>
                     </div>
                 </div>
@@ -108,6 +114,7 @@
                     <p class="text-muted">{{ $music->document->year }}</p>
                     <hr>
                 </div>
+<<<<<<< HEAD
 
                 <div class="col-md-6">
                     <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
@@ -120,6 +127,20 @@
                         <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
                         <p class="text-muted">{{ $music->generate_music->genre_music }}</p>
                         <hr>
+=======
+                <div class="box-body">
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
+                            <p class="text-muted">{{ $music->document->acquired }}</p>
+                            <hr>
+                        </div>                    
+                        <div class="col-md-6">
+                            <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                            <p class="text-muted">{{ $music->document->adequacy->adequacy_description }}</p>
+                            <hr>
+                        </div>
+>>>>>>> parent of 7dea2ed... finish detail book
                     </div>
 
                     <div class="col-md-4">

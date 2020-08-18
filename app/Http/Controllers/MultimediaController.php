@@ -359,7 +359,11 @@ class MultimediaController extends Controller
     {
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
 
+<<<<<<< HEAD
         $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+=======
+        $pdf = PDF::loadView('admin.multimedias.show', compact('multimedia'));  
+>>>>>>> parent of 7dea2ed... finish detail book
        
         return $pdf->download('cine.pdf');
     }

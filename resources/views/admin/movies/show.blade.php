@@ -162,6 +162,7 @@
                         <hr>
                     </div>               
                     <div class="col-md-6">
+<<<<<<< HEAD
                         <strong><i class="fa fa-video-camera margin-r-5"></i> Fotografia:</strong>
                         <p class="text-muted">{{ $movie->photography_movie->photography_movies_name }}</p>
                         <hr>
@@ -234,6 +235,84 @@
             
                 </div>
             </div>       
+=======
+                        <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
+                        <p class="text-muted">{{ $movie->document->year }}</p>
+                        <hr>
+                    </div>
+                </div>           
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
+                        <p class="text-muted">{{ $movie->document->lenguage->leguage_description }}</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Detalles de la Pelicula </h3>
+                </div>
+                <div class="box-body">
+                    <div class="row col-md-12">
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
+                            <p class="text-muted">{{ $movie->document->acquired }}</p>
+                            <hr>
+                        </div>                      
+                        <div class="col-md-4">
+                            <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
+                            <p class="text-muted">{{ $movie->generate_movie->genre_film }}</p>
+                            <hr>
+                        </div> 
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                            <p class="text-muted">{{ $movie->document->adequacy->adequacy_description }}</p>
+                            <hr>
+                        </div>
+                      
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-film margin-r-5"></i> Fotografia:</strong>
+                            <p class="text-muted">{{ $movie->photography_movie->photography_movies_name }}</p>
+                            <hr>
+                        </div>
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-clock-o margin-r-5"></i> Duración:</strong>
+                            <p class="text-muted">{{ $movie->document->quantity_generic }}</p>
+                            <hr>
+                        </div>
+                        <div class="col-md-4">
+                            <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
+                            <p class="text-muted">{{ $movie->document->assessment }}</p>
+                            <hr>
+                        </div>                   
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                            <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
+                            <p class="text-muted">{{ $movie->specific_content }}</p>
+                            <hr>
+                        </div>  
+                        <div class="col-md-6">               
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
+                            <p class="text-muted">{{ $movie->document->location }}</p>
+                            <hr>
+                        </div>                      
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-12">
+                            <strong><i class="fa fa-info margin-r-5"></i> Sinopsis:</strong>
+                            <p class="text-muted">{!! $movie->document->synopsis !!}</p>
+                            <hr>
+                        </div>       
+                    </div>                  
+                    <div class="col-md-12">  
+                        <button type="button" class="btn btn-danger btn-flat btn-block"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</button>
+                    </div>
+                </div>       
+>>>>>>> parent of 7dea2ed... finish detail book
           </div>
     </div>
 
