@@ -8,6 +8,7 @@ use App\Copy;
 use DataTables;
 use App\Document;
 use Carbon\Carbon;
+use App\Setting;
 use App\Book_movement;
 use App\Document_type;
 use App\Document_subtype;
@@ -80,11 +81,15 @@ class FastPartnerProcessController extends Controller
         //
     }
 
-    public function vista_devo_reno($id, $bandera)
+    public function vista_devo_reno($id, $bandera, $fecha)
     {
+        $setting = Setting::select('loan_day')->first();
+        $dias_de_prestamo = $setting->loan_day;
         return view('admin.fastprocess.partials.form', [         
             'id'        => $id,
-            'bandera'   => $bandera
+            'bandera'   => $bandera,
+            'fecha'   => $fecha,
+            'dias_de_prestamo'   => $dias_de_prestamo
         ]); 
     }
 

@@ -7,6 +7,7 @@
             $mensaje2 = "Fecha de Devolución ";
             $var_acquired = Form::hidden('acquired', Carbon\Carbon::now()->format('d/m/Y') );
             $visible = 'disabled';
+            $fecha_hasta = Carbon\Carbon::now()->format('d-m-Y');
         @endphp
     @else
         @php  
@@ -14,6 +15,7 @@
             $mensaje2 = "Fecha de Renovación ";
             $var_acquired = '';
             $visible = '';
+            $fecha_hasta = Carbon\Carbon::parse($fecha)->addDays($dias_de_prestamo)->format('d-m-Y');
         @endphp
     @endif
   
@@ -34,7 +36,7 @@
                         </div>                      
                         <input name="acquired" {{ $visible }}
                             class="form-control pull-right"                                                       
-                            value="{{ old('acquired', Carbon\Carbon::now()->format('d/m/Y')) }}"                            
+                            value="{{ old('acquired', $fecha_hasta) }}"                            
                             type="text"
                             id="acquired"
                             placeholder= "Selecciona una Fecha">                       

@@ -100,7 +100,7 @@ if( $("#bandera").val() == 3){
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                format: 'dd/mm/yyyy',            
+                format: 'dd-mm-yyyy',            
                 language: 'es',
                 startDate: today, 
                 endDate:0, 

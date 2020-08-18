@@ -110,8 +110,8 @@
                         $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(Carbon\Carbon::now()); 
                         @endphp
 
-                    <li class="list-group-item">
-                    <b>{{ $copie->id }}</b>
+                        <li class="list-group-item">
+                        <b>{{ $copie->id }}</b>
                         <div class="row"> 
                             <div class="col-md-12">
                                 <h3 class="profile-username text-center">N° copia: {{ $copie->copies_id }}</h3>   
@@ -139,16 +139,16 @@
                             </div>
 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1 ]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until ]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
                             </div> 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0 ]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until ]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
                             </div>
                         </div> 
-                    </li> 
-                    @php 
+                        </li> 
+                        @php 
                         $indice = $indice + 1
-                    @endphp
+                        @endphp
                     @empty
                         <li class="list-group-item"> <b>No Prestamos Asignados </b></li>                       
                     @endforelse                                                   
