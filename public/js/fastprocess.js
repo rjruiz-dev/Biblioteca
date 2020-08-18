@@ -27,6 +27,7 @@ $('body').on('click', '.modal-show', function (event) {
                 endDate:0, 
                 autoclose: true
             });
+           
                  
         }
     });

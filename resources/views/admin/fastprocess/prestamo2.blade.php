@@ -40,7 +40,15 @@
         </div>
     </div>
     
-
+    @if($copies_disponibles->count() > 0)
+        @php 
+        $disabled = '';
+        @endphp 
+    @else
+        @php 
+        $disabled = 'disabled';
+        @endphp
+    @endif
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -66,7 +74,7 @@
                 </div>
             </div>
             <div class="col-md-2">              
-                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right" title="Nuevo Prestamo"><i class="fa ion-android-add-circle"></i> Prestamo</a>
+                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right {{ $disabled }}" title="Nuevo Prestamo"><i class="fa ion-android-add-circle"></i> Prestamo</a>
             </div>        
         </div>
             <div class="box-body">          
