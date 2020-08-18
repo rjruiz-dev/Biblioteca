@@ -33,10 +33,5 @@ class Book extends Model
     public function third_author()
     {
         return $this->belongsTo(Creator::class, 'third_author_id');
-    } 
-
-    // public function periodical_publication()
-    // {
-    //     return $this->belongsTo(Periodical_publication::class, 'books_id');
-    // } 
+    }    
 }
