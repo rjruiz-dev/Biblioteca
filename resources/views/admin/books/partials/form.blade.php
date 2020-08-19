@@ -167,7 +167,7 @@
                 </div>
                 <div class="form-group">                  
                     {!! Form::label('quantity_generic', 'Número de Paginas') !!}               
-                    {!! Form::number('quantity_generic', $book->document->quantity_generic, ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Número de Paginas']) !!}
+                    {!! Form::number('quantity_generic', $book->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Número de Paginas']) !!}
                 </div>
                 <div class="form-group">                   
                     {!! Form::label('size', 'Tamaño') !!}               

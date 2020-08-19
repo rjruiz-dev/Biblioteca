@@ -98,6 +98,8 @@ $('body').on('click', '.modal-show', function (event) {
                
             });
 
+           
+
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
 
@@ -180,6 +182,12 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
+
+            var id_new_doc = response.data;
+            var bandera = response.bandera;
+
+            console.log("id: " + id_new_doc);
+            console.log("bandera: " + bandera);
             
             if (bandera == 1){
                 swal({

@@ -66,8 +66,8 @@ class LoanManualController extends Controller
 
         $count = Book_movement::where('users_id', $id) //FILTRAR POR EL USUARIO ESE 
         ->where(function ($query) {
-            $query->where('movement_types_id', '=', 3)
-                  ->orWhere('movement_types_id', '=', 6);
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2);
         })->where('active', 1)
         ->select(DB::raw('count(*) as count_of_prestamos'))
         ->get()->first()

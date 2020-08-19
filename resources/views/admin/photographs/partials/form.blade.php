@@ -26,7 +26,7 @@
 
                 <div class="form-group"><!-- documents V -->
                     {!! Form::label('document_subtypes_id', 'Tipo de Fotografia') !!}
-                    {!! Form::select('document_subtypes_id', $subtypes, $photograph->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '', 'onchange' => 'yesnoCheck()', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('document_subtypes_id', $subtypes, $photograph->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
 
                 <div class="form-group">               

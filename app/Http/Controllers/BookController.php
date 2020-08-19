@@ -391,6 +391,8 @@ class BookController extends Controller
                  
                 DB::commit();
 
+                return response()->json(['data' => $document->id, 'bandera' => 0]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
