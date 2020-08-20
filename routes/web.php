@@ -43,6 +43,7 @@ function(){
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
+    Route::resource('loansbydate',             'LoansbydateController',['as' => 'admin']);
  
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
@@ -120,6 +121,8 @@ Route::get('loanmanual/table',          'LoanManualController@dataTable')->name(
 Route::get('requests/table',          'RequestsController@dataTable')->name('requests.table');
 
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
+
+Route::get('loansbydate/table',          'LoansbydateController@dataTable')->name('loansbydate.table');
 
 
 
