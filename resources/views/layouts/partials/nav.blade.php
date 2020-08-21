@@ -21,6 +21,11 @@
             <i class="fa fa-pencil"></i> <span>Prestamos por rango de fecha</span>
         </a>
     </li>
+    <li class="{{ setActiveRoute('admin.loansbyclassroom.index') }}">
+        <a href="{{ route('admin.loansbyclassroom.index') }}">
+            <i class="fa fa-pencil"></i> <span>Prestamos por datos del aula</span>
+        </a>
+    </li>
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
     
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                

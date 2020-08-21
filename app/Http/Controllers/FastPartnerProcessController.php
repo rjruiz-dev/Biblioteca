@@ -129,7 +129,7 @@ class FastPartnerProcessController extends Controller
                     $renodev = 3;
                 }else{
                     $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
-                    $new_movement->date_until = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));   
+                    $new_movement->date_until = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));   
                     $copy->status_copy_id = 2;
                     $renodev = 2;
                 }

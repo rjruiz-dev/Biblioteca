@@ -44,6 +44,7 @@ function(){
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
     Route::resource('loansbydate',             'LoansbydateController',['as' => 'admin']);
+    Route::resource('loansbyclassroom',             'LoansbyclassroomController',['as' => 'admin']);
  
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
@@ -124,6 +125,7 @@ Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->na
 
 Route::get('loansbydate/table',          'LoansbydateController@dataTable')->name('loansbydate.table');
 
+Route::get('loansbyclassroom/table',          'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 
 
 

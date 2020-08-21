@@ -16,34 +16,24 @@
     <div class="panel panel-primary">        
         <div class="panel-heading">
         <div class="row">
-                <div  class="col-md-3">
-                <h3 class="panel-title" style="margin-top:8px; margin-bottom:8px;">Por rango de fecha de devolucion</h3>
+                <div  class="col-md-2">
+                <h3 class="panel-title" style="margin-top:25px; margin-bottom:8px;">Por datos del aula</h3>
                 </div>
-                <div  class="col-md-3" style="margin-bottom:5px;">
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>                      
-                                    <input name="desde"
-                                        class="form-control pull-right"                                                                                   
-                                        type="text"
-                                        id="desde"
-                                        placeholder= "Fecha desde">                       
-                                </div>
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                {!! Form::label('cursos', 'Cursos') !!} 
+                {!! Form::select('cursos', $cursos, null, ['class' => 'form-control  select2', 'id' => 'cursos', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
+                
                 </div>
-                    <div  class="col-md-3" style="margin-bottom:5px;">
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>                      
-                                        <input name="hasta"
-                                            class="form-control pull-right"                                                                                   
-                                            type="text"
-                                            id="hasta"
-                                            placeholder= "Fecha hasta">                       
-                                    </div>
-                    </div>
-            <div  class="col-md-3" style="margin-bottom:5px;">
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                {!! Form::label('letra', 'Letra') !!} 
+                {!! Form::select('letra', array('A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', 'G' => 'G'), null, ['class' => 'form-control  select2', 'id' => 'letra', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
+                
+                </div>    
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                {!! Form::label('turno', 'Turno') !!} 
+                {!! Form::select('turno', array('D' => 'D', 'T' => 'T', 'N' => 'N'), null, ['class' => 'form-control  select2', 'id' => 'turno', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
+                </div>
+            <div  class="col-md-4" style="margin-top:25px;margin-bottom:5px;">
             <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
             </div>
         </div>
@@ -53,11 +43,13 @@
                 <thead>
                     <tr>
                         <th>N° Registro</th>                                   
-                        <th>Titulo</th>  
+                        <th>Titulo</th>
+                        <th>Autor</th>   
                         <th>Tipo Doc</th>  
                         <th>Sub Tipo Doc</th>   
                         <th>N° Socio</th> 
-                        <th>Nombre</th>
+                        <th>Socio</th>
+                        <th>Curso</th>
                         <th>Fecha Prestamo</th>
                         <th>Fecha Devolucion</th>                                
                     </tr>
@@ -98,10 +90,10 @@
     <script>
         fill_datatable(); 
 
-    function fill_datatable(fecha_desde = "", fecha_hasta = ""){
+    function fill_datatable(curso = "", letra = "", turno = ""){
 
-            console.log("fecha_desde " + fecha_desde);
-            console.log("fecha_hasta " + fecha_hasta);
+            // console.log("fecha_desde " + fecha_desde);
+            // console.log("fecha_hasta " + fecha_hasta);
 
         var dataTable = $('#datatable').DataTable({
             responsive: true,
@@ -142,18 +134,19 @@
                 
             ],             
             ajax:{ 
-                url: "{{ route('loansbydate.table') }}", 
-                data: {fecha_desde:fecha_desde, fecha_hasta:fecha_hasta},
+                url: "{{ route('loansbyclassroom.table') }}", 
+                data: {curso:curso, letra:letra, turno:turno}, 
                 type: 'GET' 
                 },        
             columns: [                
                 {data: 'registry_number', name: 'registry_number'},                                                   
-                {data: 'documento', name: 'documento'}, 
+                {data: 'documento', name: 'documento'},
+                {data: 'creador', name: 'creador'}, 
                 {data: 'tipo', name: 'tipo'}, 
                 {data: 'subtipo', name: 'subtipo'}, 
                 {data: 'membership', name: 'membership'}, 
                 {data: 'usuario', name: 'usuario'}, 
-                // {data: 'tipo_movimiento', name: 'tipo_movimiento'},                                            
+                {data: 'curso', name: 'curso'},                                            
                 {data: 'date', name: 'date'},                          
                 {data: 'date_until', name: 'date_until'}                         
             ]
@@ -161,12 +154,13 @@
     }
 
     $('#filter').click(function(){
-        var fecha_desde = $('#desde').val();
-        var fecha_hasta = $('#hasta').val(); 
+        var cursos = $('#cursos').val();
+        var letra = $('#letra').val(); 
+        var turno = $('#turno').val(); 
 
-        if(fecha_desde != '' || fecha_hasta != ''){
+        if(cursos != '' || letra != '' || turno != ''){
             $('#datatable').DataTable().destroy();
-            fill_datatable(fecha_desde, fecha_hasta);
+            fill_datatable(cursos, letra, turno);
         }
         else{
             $('#datatable').DataTable().destroy();
@@ -175,19 +169,18 @@
 
     });
 
-    $('#desde').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                      
-                language: 'es'
-            }); 
-        
-    $('#hasta').datepicker({
-        autoclose: true,
-        todayHighlight: true,  
-        format: 'dd/mm/yyyy',                      
-        language: 'es'
-    }); 
+    // $('#cursos').select2({
+    //             placeholder: 'Curso',
+    //             tags: false,               
+    //         });
+    //         $('#letra').select2({
+    //             placeholder: 'Letra',
+    //             tags: false,               
+    //         });
+    //         $('#turno').select2({
+    //             placeholder: 'Turno',
+    //             tags: false,               
+    //         });
 
     </script>
 @endpush

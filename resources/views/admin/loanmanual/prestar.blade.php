@@ -144,7 +144,7 @@
                                     </div>                      
                                     <input name="acquired"
                                         class="form-control pull-right"                                                       
-                                        value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d/m/Y')) }}"                            
+                                        value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d-m-Y')) }}"                            
                                         type="text"
                                         id="acquired"
                                         placeholder= "Selecciona una Fecha de Adquisición">                       

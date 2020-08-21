@@ -88,47 +88,110 @@ class LoansbydateController extends Controller
     public function dataTable(Request $request)
     {   
         // dd($request->fecha_desde);
-        if ($request->ajax()){
-            // dd(->fecha_desde); 
-            $prestamos = Book_movement::with('copy.document','user','course')
-            // ->whereBetween('date_until', [$request->fecha_desde, $request->fecha_hasta] )
-            ->get();
+            // $from = '2020-09-01';
+            // $to = '2022-02-10';
+            if($request->get('fecha_desde') == '' && $request->get('fecha_hasta') == ''){
+            
+            
+                $prestamos = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              
+                ->where(function ($query) {
+                    $query->where('movement_types_id', '=', 1)
+                          ->orWhere('movement_types_id', '=', 2);
+                })
+                ->where('active', 1)  
+                ->get();
+
+            }else{
+                if($request->get('fecha_desde') != '' && $request->get('fecha_hasta') != ''){
+                    if($request->get('fecha_desde') == $request->get('fecha_hasta')){
+                        // tomo desde o hasta no importa xq en teoria son iguales
+                        $misma = Carbon::createFromFormat('d/m/Y', $request->get('fecha_desde'));
+        
+                        $prestamos = Book_movement::with('copy.document','user','course', 'copy.document', 'copy.document.document_type')
+                        ->whereDate('date_until', $misma)
+                        ->where(function ($query) {
+                            $query->where('movement_types_id', '=', 1)
+                                  ->orWhere('movement_types_id', '=', 2);
+                        })
+                        ->where('active', 1)                
+                        ->get();
+        
+                    }else{
+                        $from = Carbon::createFromFormat('d/m/Y', $request->get('fecha_desde'));
+                        $to = Carbon::createFromFormat('d/m/Y', $request->get('fecha_hasta'));
+                    
+                        $prestamos = Book_movement::with('copy.document','user','course', 'copy.document', 'copy.document.document_type')
+                        // ->whereBetween('date_until', [$request->get('fecha_desde'), $request->get('fecha_desde')])
+                        // ->whereBetween('date_until', []) 
+                        -> whereBetween ('date_until', [$from, $to])
+                        ->where(function ($query) {
+                            $query->where('movement_types_id', '=', 1)
+                                  ->orWhere('movement_types_id', '=', 2);
+                        })
+                        ->where('active', 1)                 
+                        ->get();
+                    }
+                }else{
+                    if($request->get('fecha_desde') != '' && $request->get('fecha_hasta') == ''){
+                        $fecha_desde = Carbon::createFromFormat('d/m/Y', $request->get('fecha_desde'));
+        
+                        $prestamos = Book_movement::with('copy.document','user','course', 'copy.document', 'copy.document.document_type')
+                        // ->whereDate('date_until', $fecha_desde)
+                        ->where('date_until', '>=', $fecha_desde)
+                        ->where(function ($query) {
+                            $query->where('movement_types_id', '=', 1)
+                                  ->orWhere('movement_types_id', '=', 2);
+                        })
+                        ->where('active', 1)                
+                        ->get();
+                    }
+
+                    if($request->get('fecha_desde') == '' && $request->get('fecha_hasta') != ''){
+                        $fecha_hasta = Carbon::createFromFormat('d/m/Y', $request->get('fecha_hasta'));
+        
+                        $prestamos = Book_movement::with('copy.document','user','course', 'copy.document', 'copy.document.document_type')
+                        // ->whereDate('date_until', $fecha_desde)
+                        ->where('date_until', '<=', $fecha_hasta)
+                        ->where(function ($query) {
+                            $query->where('movement_types_id', '=', 1)
+                                  ->orWhere('movement_types_id', '=', 2);
+                        })
+                        ->where('active', 1)                
+                        ->get();
+                    }
+
+                }
+                
+            }
+            
+
         
             return dataTables::of($prestamos)
-            // ->addColumn('id_doc', function ($prestamos){
-            //     return $prestamos->document['id']."<br>";            
-            // })              
-            // ->addColumn('documents_id', function ($prestamos){
-            //     return
-            //         '<i class="fa fa-video-camera"></i>'.' '.$prestamos->document['title']."<br>".
-            //         '<i class="fa fa-user"></i>'.' '.$prestamos->document->creator->creator_name."<br>";         
-            // }) 
-            // ->addColumn('generate_films_id', function ($prestamos){
-            //     if($prestamos->generate_prestamos->genre_film != null){
-            //         return $prestamos->generate_prestamos->genre_film;
-            //     }else{
-            //         return 'Sin Genero';
-            //     }             
-            // }) 
-            // ->addColumn('generate_formats_id', function ($prestamos){
-            //     if($prestamos->generate_format->genre_format != null){
-            //         return $prestamos->generate_format->genre_format;
-            //     }else{
-            //         return 'Sin Formato';
-            //     }              
-            // })  
-            // ->addColumn('lenguages_id', function ($prestamos){
-            //     if($prestamos->document->lenguage->leguage_description != null){
-            //     return'<i class="fa  fa-globe"></i>'.' '.$prestamos->document->lenguage->leguage_description;         
-            //     }else{
-            //         return 'Sin Lenguaje';
-            //     }
-            //     })
-            // ->addColumn('status', function ($prestamos){
 
-            //     return'<span class="'.$prestamos->document->status_document->color.'">'.' '.$prestamos->document->status_document->name_status.'</span>';
-            //     // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
-            // })            
+            ->addColumn('registry_number', function ($prestamos){
+                return $prestamos->copy->registry_number;            
+            })
+            ->addColumn('tipo_movimiento', function ($prestamos){
+                return $prestamos->movement_type['description_movement'];            
+            })
+            ->addColumn('documento', function ($prestamos){
+                return $prestamos->copy->document['title'];            
+            })
+            ->addColumn('tipo', function ($prestamos){
+                return $prestamos->copy->document->document_type['document_description'];               
+            })
+            ->addColumn('subtipo', function ($prestamos){
+                return $prestamos->copy->document->document_subtype['subtype_name'];               
+            }) 
+            ->addColumn('membership', function ($prestamos){
+                return $prestamos->user['membership'];               
+            })
+            ->addColumn('usuario', function ($prestamos){
+                return $prestamos->user['name'];               
+            })
+            // ->addColumn('curso', function ($prestamos){
+            //     return $prestamos->course['course_name'];               
+            // })                          
             ->addColumn('created_at', function ($prestamos){
                 return $prestamos->created_at->format('d-m-y');
             })                 
@@ -148,8 +211,8 @@ class LoansbydateController extends Controller
 
             // })           
             ->addIndexColumn()   
-            ->rawColumns(['created_at']) 
+            ->rawColumns(['registry_number', 'documento', 'tipo', 'subtipo','membership', 'usuario','tipo_movimiento']) 
             ->make(true);  
-        }
+        
     }
 }
