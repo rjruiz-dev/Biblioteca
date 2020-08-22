@@ -22,10 +22,12 @@
             <div class="box-body">
                 {{ csrf_field() }}
                 {{ Form::hidden('id_docu', $id_doc) }} 
-                <label for="sugerido">Numero Sugerido: {{ $sugerido }}</label>                             
+                <!-- <label for="sugerido">Numero Sugerido: {{ $sugerido }}</label>                              -->
                 <div class="form-group" >              
-                    {!! Form::label('registry_number', 'Numero de Registro') !!}                    
+                    {!! Form::label('registry_number', 'Número de Registro') !!}                    
                     {!! Form::text('registry_number', null, ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Numero de Registro' ]) !!}
+                    <span class="help-block">Número de Registro Sugerido para Asignar a Nuevo Ejemplar: <strong>{{ $sugerido }}</strong></span>
+                   
                 </div>
                 <div class="form-group">
                     {!! Form::label('status_copy_id', 'Estado') !!}             

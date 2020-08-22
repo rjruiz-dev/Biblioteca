@@ -111,10 +111,12 @@ $('body').on('click', '.modal-show', function (event) {
                 document.getElementById("din_volume_number_date").style.display = "block";
                 document.getElementById("din_periodicities_id").style.display = "block";
                 document.getElementById("din_issn").style.display = "block";
+                document.getElementById("ls_tema").style.display = "block";
                 //FORM GROUP NO MOSTRAR
                 document.getElementById("din_isbn").style.display = "none";
                 document.getElementById("din_generate_books_id").style.display = "none";
                 document.getElementById("din_third_author_id").style.display = "none";
+             
 
             } else { //si NOO es publ periodica
                 
@@ -131,6 +133,7 @@ $('body').on('click', '.modal-show', function (event) {
                 document.getElementById("din_volume_number_date").style.display = "none";
                 document.getElementById("din_periodicities_id").style.display = "none";
                 document.getElementById("din_issn").style.display = "none";
+                document.getElementById("ls_tema").style.display = "none";
                 //FORM GROUP MOSTRAR
                 document.getElementById("din_isbn").style.display = "block";
                 document.getElementById("din_generate_books_id").style.display = "block";
@@ -459,6 +462,23 @@ $('body').on('click', '.btn-show', function (event) {
             $('#modal-body').html(response);
         }
     });
+
+  
+    // if (document.getElementById("document_subtypes_id").value == '4') { //si es publ periodica
+     
+    //     //FORM GROUP MOSTRAR
+      
+    //     document.getElementById("ls_tema").style.display = "block";
+     
+
+    // } else { //si NOO es publ periodica
+        
+       
+    //      //FORM GROUP NO MOSTRAR
+       
+    //     document.getElementById("ls_tema").style.display = "none";
+      
+    // }
 
     $('#modal').modal('show');
 });

@@ -215,8 +215,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication.periodicidad')->findOrFail($id);
-      
+        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad')->findOrFail($id);
+     
         return view('admin.books.show', compact('book'));
     }
 
@@ -416,7 +416,7 @@ class BookController extends Controller
 
     public function exportPdf()
     {
-        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication.periodicidad')->first();
+        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype','periodical_publication', 'periodical_publication.periodicidad')->first();
 
         $pdf = PDF::loadView('admin.books.show', compact('book'));  
        

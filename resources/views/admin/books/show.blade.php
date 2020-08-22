@@ -35,9 +35,24 @@
                     <li class="list-group-item">
                         <b>Autor:</b> <a class="pull-right">{{ $book->document->creator->creator_name }}</a>
                     </li>
-                    <li class="list-group-item">
+                    <!-- Publ. periodica -->
+                    <li id="ls_tema" class="list-group-item">
+                    @if ( $book->subtitle === NULL )   
+                        <b>Tema de Portada:</b> <a class="pull-right"><p class="tex-muted">Sin Tema de Portada</p></a>                                                 
+                    @else
                         <b>Tema de Portada:</b> <a class="pull-right">{{ $book->subtitle }}</a>
+                    @endif 
                     </li>
+                    <!-- Publ. periodica  aca va el campo: volume_number_date-->
+                    
+                    <li class="list-group-item">
+                    @if ( $book->document->document_subtype->subtype_name === NULL )   
+                        <b>Subtipo del Documento:</b> <a class="pull-right"><p class="tex-muted">Sin Subtipo del Documento</p></a>                                                 
+                    @else
+                        <b>Subtipo del Documento:</b> <a class="pull-right">{{ $book->document->document_subtype->subtype_name }}</a>
+                    @endif 
+                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -49,23 +64,63 @@
             </div>
             <div class="box-body"> 
                 
-                <div class="col-md-12">
-                    <strong><i class="fa fa-book margin-r-5"></i> Subtipo del Documento:</strong>
-                    <p class="text-muted">{{ $book->document->document_subtype->subtype_name }}</p>
-                    <hr>
-                </div>
+                <!-- <div class="col-md-12">
+                    <strong><i class="fa fa-book margin-r-5"></i> Subtipo del Documento:</strong>    
+                    <p class="text-muted">{{ $book->document->document_subtype->subtype_name }}</p>                 
+                    <hr>               
+                </div> -->
 
+                <div class="row col-md-12">
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-info margin-r-5"></i> Título Original:</strong>
+                        @if (  $book->document->original_title === NULL )                            
+                            <p class="tex-muted"><a>Sin Título Original</a> </p>
+                        @else                           
+                            <p class="text-muted">{{ $book->document->original_title }}</p>
+                        @endif                          
+                        <hr>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-info margin-r-5"></i>Subtítulo:</strong>
+                        @if ( $book->subtitle === NULL )                            
+                            <p class="tex-muted"><a>Sin Subtítulo</a> </p>
+                        @else
+                            <p class="text-muted">{{ $book->subtitle }}</p>
+                        @endif                     
+                        <hr>
+                    </div>
+
+                    <!-- Pub. Periodica -->
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-users margin-r-5"></i>Otros Autores:</strong>
+                        @if ( $book->document->made_by === NULL )                            
+                            <p class="tex-muted"><a>No Tiene Otros Autores</a> </p>
+                        @else
+                            <p class="text-muted">{{ $book->document->made_by }}</p>
+                        @endif                     
+                        <hr>
+                    </div>                   
+                </div>
                 
                 <div class="row col-md-12">
                     <div class="col-md-4">
                         <strong><i class="fa fa-info margin-r-5"></i> Publicado En:</strong>
-                        <p class="text-muted">{{ $book->document->published }}</p>
+                        @if (  $book->document->published === NULL )                            
+                            <p class="tex-muted"><a>Sin Lugar de Publicación</a> </p>
+                        @else                           
+                            <p class="text-muted">{{ $book->document->published }}</p>
+                        @endif                          
                         <hr>
                     </div>
 
                     <div class="col-md-4">
                         <strong><i class="fa fa-info margin-r-5"></i> Editorial:</strong>
-                        <p class="text-muted">{{ $book->document->made_by }}</p>
+                        @if ( $book->document->made_by === NULL )                            
+                            <p class="tex-muted"><a>Sin Editorial</a> </p>
+                        @else
+                            <p class="text-muted">{{ $book->document->made_by }}</p>
+                        @endif                     
                         <hr>
                     </div>
                     <div class="col-md-4">
@@ -76,11 +131,28 @@
                 </div>
 
                 <div class="row col-md-12">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
                         <p class="text-muted">{{ $book->document->lenguage->leguage_description }}</p>
                         <hr>
-                    </div>        
+                    </div> 
+                    <div class="col-md-4">
+                        <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
+                        <p class="text-muted">{{ $book->isbn }}</p>
+                        <hr>
+                    </div>
+                    <!-- Publ. Periodica -->
+                    <!-- <div class="col-md-4">
+                        <strong><i class="fa fa-info margin-r-5"></i> Issn:</strong>
+                        <p class="text-muted">{{ $book->periodical_publication->issn }}</p>
+                        <hr>
+                    </div>   -->
+                     <!-- Publ. Periodica -->
+                    <!-- <div class="col-md-4">
+                        <strong><i class="fa fa-info margin-r-5"></i> Periodicidad:</strong>
+                        <p class="text-muted">{{ $book->periodical_publication->periodicity_name }}</p>
+                        <hr>
+                    </div>         -->
                 </div>
             </div>
             <div class="box box-primary">
@@ -92,7 +164,11 @@
                     <div class="row col-md-12">
                         <div class="col-md-6">
                             <strong><i class="fa fa-book margin-r-5"></i> Volúmen:</strong>
-                            <p class="text-muted">{{  $book->document->volume }}</p>
+                            @if ( $book->document->volume === NULL )                             
+                                <p class="tex-muted"><a>Sin Volúmen</a> </p>
+                            @else
+                                <p class="text-muted">{{  $book->document->volume }}</p>
+                            @endif                              
                             <hr>
                         </div>                        
                         <div class="col-md-6">
@@ -105,12 +181,20 @@
                     <div class="row col-md-12">                                
                         <div class="col-md-6">
                             <strong><i class="fa fa-book margin-r-5"></i> Número de Paginas:</strong>
-                            <p class="text-muted">{{ $book->document->quantity_generic }}</p>
+                            @if ( $book->document->quantity_generic === NULL )                                
+                                <p class="tex-muted"><a>Sin Número de Paginas</a> </p>
+                            @else
+                                <p class="text-muted">{{ $book->document->quantity_generic }}</p>
+                            @endif                             
                             <hr>
                         </div>
                         <div class="col-md-6">
                             <strong><i class="fa fa-book margin-r-5"></i> Tamaño:</strong>
-                            <p class="text-muted">{{ $book->size }}</p>
+                            @if ( $book->size === NULL )                                
+                                <p class="tex-muted"><a>Sin Tamaño</a> </p>
+                            @else
+                                <p class="text-muted">{{  $book->size }}</p>
+                            @endif
                             <hr>
                         </div>
                     </div>      
@@ -122,7 +206,11 @@
                         </div>  
                         <div class="col-md-6">
                             <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
-                            <p class="text-muted">{{ $book->document->assessment }}</p>
+                            @if ( $book->document->assessment === NULL )                                
+                                <p class="tex-muted"><a>Sin Valoración</a> </p>
+                            @else
+                                <p class="text-muted">{{ $book->document->assessment }}</p>
+                            @endif                           
                             <hr>
                         </div>
                     </div>
@@ -130,7 +218,11 @@
                     <div class="row col-md-12">          
                         <div class="col-md-12">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
-                            <p class="text-muted">{{ $book->document->location }}</p>
+                            @if ( $book->document->location === NULL )                            
+                                <p class="tex-muted"><a>Sin Ubicación:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $book->document->location }}</p>
+                            @endif                       
                             <hr>
                         </div>
                         
@@ -151,7 +243,12 @@
                 <div class="row col-md-12">          
                     <div class="col-md-12">               
                         <strong><i class="fa fa-file-text margin-r-5"></i> Sinopsis:</strong>
-                        <p class="text-muted">{!! $book->document->synopsis !!}</p>
+                        @if ( $book->document->synopsis === NULL )                            
+                            <p class="tex-muted"><a>Sin Sinopsis:</a> </p>
+                        @else
+                            <p class="text-muted">{!! $book->document->synopsis !!}</p>
+                        @endif   
+                       
                         <hr>
                     </div>
                 </div>
@@ -164,3 +261,4 @@
     </div>
 
 </div>
+
