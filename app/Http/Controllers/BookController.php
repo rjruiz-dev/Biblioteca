@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Http\Requests\SaveDocumentRequest;
+use App\Http\Requests\SaveBookRequest;
 
 class BookController extends Controller
 {
@@ -71,7 +71,7 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveDocumentRequest $request)
+    public function store(SaveBookRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -260,7 +260,7 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveDocumentRequest $request, $id)
+    public function update(SaveBookRequest $request, $id)
     {
         if ($request->ajax()){
             try {

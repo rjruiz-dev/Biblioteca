@@ -17,12 +17,12 @@ class CreateMultimediaTable extends Migration
             $table->increments('id');
 
             $table->integer('documents_id')->unsigned();
-            $table->integer('second_author_id')->unsigned(); 
-            $table->integer('third_author_id')->unsigned(); 
+            $table->integer('second_author_id')->nullable()->unsigned(); 
+            $table->integer('third_author_id')->nullable()->unsigned(); 
 
             
             $table->string('subtitle')->nullable();           
-            $table->string('isbn')->unique();
+            $table->string('isbn')->nullable();
             $table->string('gender')->nullable();
             $table->string('edition')->nullable();
             $table->string('translator')->nullable();

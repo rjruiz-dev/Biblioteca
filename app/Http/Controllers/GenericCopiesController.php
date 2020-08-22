@@ -10,6 +10,7 @@ use App\Book_movement;
 use App\Movement_type;
 use DataTables;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SaveCopyRequest;
 
 class GenericCopiesController extends Controller
 {
@@ -60,7 +61,7 @@ class GenericCopiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveCopyRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -137,7 +138,7 @@ class GenericCopiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveCopyRequest $request, $id)
     {
         if ($request->ajax()){
             try {

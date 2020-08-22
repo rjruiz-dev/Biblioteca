@@ -22,8 +22,7 @@ class CreateMoviesTable extends Migration
             $table->integer('adaptations_id')->unsigned();
             $table->integer('photography_movies_id')->unsigned();
 
-            $table->string('subtitle')->nullable();          
-            // $table->string('distribution')->nullable();     
+            $table->string('subtitle')->nullable(); 
             $table->string('script')->nullable();
             $table->string('specific_content')->nullable();          
             $table->string('photography')->nullable();

@@ -22,7 +22,7 @@ class CreateDocumentsTable extends Migration
             $table->integer('lenguages_id')->unsigned();
             $table->integer('document_types_id')->unsigned();
             $table->integer('document_subtypes_id')->unsigned();
-            $table->integer('creators_id')->unsigned();
+            $table->integer('creators_id')->nullable()->unsigned();
             $table->integer('status_documents_id')->unsigned();
 
             $table->string('title')->nullable(); 

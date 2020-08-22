@@ -16,25 +16,18 @@ class CreateMusicTable extends Migration
         Schema::create('music', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('documents_id')->unsigned();
-            // $table->integer('music_types_id')->unsigned();
+            $table->integer('documents_id')->unsigned();            
             $table->integer('generate_musics_id')->unsigned();
             $table->integer('generate_formats_id')->unsigned();
-            
 
-            // $table->string('format')->nullable();
             $table->string('sound')->nullable();         
-            $table->string('producer');
+            $table->string('producer')->nullable();
             $table->timestamps();
 
             $table->foreign('documents_id')->references('id')->on('documents')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-
-            // $table->foreign('music_types_id')->references('id')->on('music_types')
-            // ->onDelete('cascade')
-            // ->onUpdate('cascade');
-
+          
             $table->foreign('generate_musics_id')->references('id')->on('generate_musics')
             ->onDelete('cascade')
             ->onUpdate('cascade');

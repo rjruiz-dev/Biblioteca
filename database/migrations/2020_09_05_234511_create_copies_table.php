@@ -18,9 +18,7 @@ class CreateCopiesTable extends Migration
 
             $table->integer('documents_id')->unsigned();            
             $table->integer('status_copy_id')->unsigned();
-
-            $table->integer('registry_number')->nullable();  
-            
+            $table->integer('registry_number')->unique();              
             $table->timestamps();
 
             $table->foreign('documents_id')->references('id')->on('documents')

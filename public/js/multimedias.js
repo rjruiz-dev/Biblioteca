@@ -66,12 +66,12 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
             $('#year').datepicker({
-                autoclose: true,               
+                autoclose: true,             
                 format: "yyyy",
                 viewMode: "years", 
                 minViewMode: "years",                    
                 language: 'es'
-            }); 
+            });   
 
             $('#volume').select2({
                 placeholder: 'Selecciona o Ingresa un Volúmen',              

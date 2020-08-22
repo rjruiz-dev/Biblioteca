@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Copy;
 use Illuminate\Http\Request;
 
+
 class CopyController extends Controller
 {
     /**

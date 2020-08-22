@@ -16,7 +16,7 @@ class CreateCreatorsTable extends Migration
         Schema::create('creators', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('document_types_id')->unsigned();
-            $table->string('creator_name');
+            $table->string('creator_name')->nullable();
             $table->timestamps();
             
             $table->foreign('document_types_id')->references('id')->on('document_types')
