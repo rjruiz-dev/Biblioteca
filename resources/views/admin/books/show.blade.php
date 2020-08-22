@@ -141,18 +141,10 @@
                         <p class="text-muted">{{ $book->isbn }}</p>
                         <hr>
                     </div>
-                    <!-- Publ. Periodica -->
-                    <!-- <div class="col-md-4">
-                        <strong><i class="fa fa-info margin-r-5"></i> Issn:</strong>
-                        <p class="text-muted">{{ $book->periodical_publication->issn }}</p>
-                        <hr>
-                    </div>   -->
-                     <!-- Publ. Periodica -->
-                    <!-- <div class="col-md-4">
-                        <strong><i class="fa fa-info margin-r-5"></i> Periodicidad:</strong>
-                        <p class="text-muted">{{ $book->periodical_publication->periodicity_name }}</p>
-                        <hr>
-                    </div>         -->
+                    <!-- Publ. Periodica  Issn-->
+                  
+                    <!-- Publ. Periodica Periodicidad-->
+                  
                 </div>
             </div>
             <div class="box box-primary">

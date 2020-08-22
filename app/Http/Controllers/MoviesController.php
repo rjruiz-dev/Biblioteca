@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\SaveDocumentRequest;
+use App\Http\Requests\SaveMovieRequest;
 
 class MoviesController extends Controller
 {
@@ -75,7 +75,7 @@ class MoviesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveDocumentRequest $request)
+    public function store(SaveMovieRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -225,7 +225,7 @@ class MoviesController extends Controller
      * @param  \App\movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveDocumentRequest $request, $id)
+    public function update(SaveMovieRequest $request, $id)
     {
         if ($request->ajax()){
             try {

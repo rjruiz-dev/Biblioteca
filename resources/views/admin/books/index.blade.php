@@ -73,6 +73,7 @@
             responsive: true,
             processing: true,
             serverSide: true,
+            order: [ [0, 'desc'] ],     
             dom: 'Bfrtip',
             buttons: [
                 {

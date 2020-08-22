@@ -19,8 +19,8 @@ class CreateMoviesTable extends Migration
             $table->integer('documents_id')->unsigned();
             $table->integer('generate_films_id')->unsigned();
             $table->integer('generate_formats_id')->unsigned();
-            $table->integer('adaptations_id')->unsigned();
-            $table->integer('photography_movies_id')->unsigned();
+            $table->integer('adaptations_id')->nullable()->unsigned();
+            $table->integer('photography_movies_id')->nullable()->unsigned();
 
             $table->string('subtitle')->nullable(); 
             $table->string('script')->nullable();
@@ -43,8 +43,7 @@ class CreateMoviesTable extends Migration
             ->onUpdate('cascade');
 
             $table->foreign('adaptations_id')->references('id')->on('adaptations')
-            ->onDelete('cascade')
-            
+            ->onDelete('cascade')            
             ->onUpdate('cascade');
 
             $table->foreign('photography_movies_id')->references('id')->on('photography_movies')

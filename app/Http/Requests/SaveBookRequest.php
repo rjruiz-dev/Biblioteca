@@ -39,7 +39,7 @@ class SaveBookRequest extends FormRequest
      
         if($this->method() !== 'PUT')
         {          
-            $rules ['creators_id']          = 'required|alpha' . $this->id;      
+            $rules ['creators_id']          = 'required|string' . $this->id;      
             $rules ['adequacies_id']        = 'required' . $this->id;  
             $rules ['document_subtypes_id'] = 'required' . $this->id;  
             $rules ['generate_books_id']    = 'required' . $this->id;  
@@ -82,7 +82,7 @@ class SaveBookRequest extends FormRequest
             // 'published.required'    => 'Debe seleccionar lugar de Publicacíon para catalogar un documento.',            
             // 'made_by.required'      => 'Debe seleccionar Editorial para catalogar un documento.',        
             'year.required'         => 'Debe introducir Año para catalogar un documento.',        
-            'acquired.required'     => 'Debe introducir Fecha de adquisición Título para catalogar un documento.',        
+            'acquired.required'     => 'Debe introducir Fecha de adquisición para catalogar un documento.',        
             // 'edition.required'      => 'Debe introducir Edición para catalogar un documento.',        
             // 'volume.required'       => 'Debe introducir un Volumen para catalogar un documento.',        
             // 'location.required'     => 'Debe introducir una Ubicación para catalogar un documento.',
