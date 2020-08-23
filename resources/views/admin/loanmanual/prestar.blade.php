@@ -63,7 +63,7 @@
         {!! Form::model($prestamo_solicitado, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
         @php
       
-     
+      
         $visible = true;
         $id_copy = $prestamo_solicitado->copies_id;
         $id_user = $prestamo_solicitado->users_id;

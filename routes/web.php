@@ -45,6 +45,8 @@ function(){
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
     Route::resource('loansbydate',             'LoansbydateController',['as' => 'admin']);
     Route::resource('loansbyclassroom',             'LoansbyclassroomController',['as' => 'admin']);
+    Route::resource('infoofdatabase',             'infoofdatabaseController',['as' => 'admin']);
+    Route::resource('importfromrebeca',             'ImportfromrebecaController',['as' => 'admin']);
  
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
@@ -127,6 +129,7 @@ Route::get('loansbydate/table',          'LoansbydateController@dataTable')->nam
 
 Route::get('loansbyclassroom/table',          'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 
+Route::get('infoofdatabase/table',          'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
 
 
 // Route::get('home', function () {

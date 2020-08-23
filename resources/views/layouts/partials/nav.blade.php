@@ -26,6 +26,16 @@
             <i class="fa fa-pencil"></i> <span>Prestamos por datos del aula</span>
         </a>
     </li>
+    <li class="{{ setActiveRoute('admin.infoofdatabase.index') }}">
+        <a href="{{ route('admin.infoofdatabase.index') }}">
+            <i class="fa fa-pencil"></i> <span>Registros Base de Datos</span>
+        </a>
+    </li>
+    <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
+        <a href="{{ route('admin.importfromrebeca.index') }}">
+            <i class="fa fa-pencil"></i> <span>Importar REBECA</span>
+        </a>
+    </li>
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
     
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                

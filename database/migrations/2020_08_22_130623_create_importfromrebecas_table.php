@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoansbydatesTable extends Migration
+class CreateImportfromrebecasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLoansbydatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('loansbydates', function (Blueprint $table) {
+        Schema::create('importfromrebecas', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateLoansbydatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loansbydates');
+        Schema::dropIfExists('importfromrebecas');
     }
 }
