@@ -47,7 +47,7 @@
                     
                     <li class="list-group-item">
                     @if ( $book->document->document_subtype->subtype_name === NULL )   
-                        <b>Subtipo del Documento:</b> <a class="pull-right"><p class="tex-muted">Sin Subtipo del Documento</p></a>                                                 
+                        <b>Subtipo del Documento:</b> <a class="pull-right"><p class="tex-muted">Sin Subtipo</p></a>                                                 
                     @else
                         <b>Subtipo del Documento:</b> <a class="pull-right">{{ $book->document->document_subtype->subtype_name }}</a>
                     @endif 

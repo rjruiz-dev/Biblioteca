@@ -18,7 +18,7 @@ use App\StatusDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Http\Requests\SaveDocumentRequest;
+use App\Http\Requests\SavePhotographyRequest;
 
 class PhotographyController extends Controller
 {
@@ -66,7 +66,7 @@ class PhotographyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveDocumentRequest $request)
+    public function store(SavePhotographyRequest $request)
     {
         
         if ($request->ajax()){
@@ -191,7 +191,7 @@ class PhotographyController extends Controller
      */
     public function show($id)
     {
-        $photograph = Photography::with('document.creator', 'actors', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         return view('admin.photographs.show', compact('photograph'));
     }
@@ -231,7 +231,7 @@ class PhotographyController extends Controller
      * @param  \App\photography  $photography
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveDocumentRequest $request, $id)
+    public function update(SavePhotographyRequest $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -361,7 +361,7 @@ class PhotographyController extends Controller
     
     public function exportPdf()
     {     
-        $photograph = Photography::with('document.creator', 'actors', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
+        $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
         $pdf = PDF::loadView('admin.photographs.show', compact('photograph'));  
        

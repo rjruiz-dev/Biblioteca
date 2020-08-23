@@ -33,6 +33,13 @@
                     <li class="list-group-item">
                         <b>Autor:</b> <a class="pull-right">{{ $photograph->document->creator->creator_name }}</a>
                     </li>
+                    <li class="list-group-item">
+                    @if ( $photograph->document->document_subtype->subtype_name === NULL )   
+                        <b>Subtipo del Documento:</b> <a class="pull-right"><p class="tex-muted">Sin Subtipo</p></a>                                                 
+                    @else
+                        <b>Subtipo del Documento:</b> <a class="pull-right">{{ $photograph->document->document_subtype->subtype_name }}</a>
+                    @endif 
+                    </li>
                 </ul>
             </div>
         </div>
@@ -40,201 +47,68 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Sobre la Fotografia </h3>
+                <h3 class="box-title">Detalles de la Fotografia </h3>
             </div>
             <div class="box-body">
-                <!-- <div class="col-md-6">
-                    <strong><i class="fa fa-book margin-r-5"></i> Titulo Original:</strong>
-                    <p class="text-muted">{{ $photograph->document->original_title }}</p>
-                    <hr>
-                </div>
-
-                <div class="col-md-6">
-                    <strong><i class="fa fa-user margin-r-5"></i> Dirigido Por:</strong>
-                    <p class="text-muted">{{ $photograph->document->creator->creator_name }}</p>
-                    <hr>
-                </div> -->
-
-                <!-- <div class="col-md-12">
-                    <strong><i class="fa fa-users margin-r-5"></i> Reparto:</strong>
-                    @php 
-                        $reparto = '';
-                        $cantidad = 0;
-                    @endphp                
-                    @foreach($photograph->actors as $actor)
-
-                        @if($cantidad == 0)
-
-                        @php
-                            $reparto = $reparto . $actor->actor_name;
-                        @endphp
-
-                        @else
-
-                        @php
-                            $reparto = $reparto . ", ". $actor->actor_name;
-                        @endphp
-                        
-                        @endif
-
-                        @php
-                            $cantidad = $cantidad + 1 ;
-                        @endphp
-                        
-                    @endforeach 
-                    <p class="text-muted">{{ $reparto }}</p>
-                    <hr>
-                </div> -->
-
                 <div class="col-md-12">
-                    <div class="col-md-6">
-                        <strong><i class="fa fa-info margin-r-5"></i> Nacionalidad:</strong>
-                        <p class="text-muted">{{ $photograph->document->published }}</p>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6">
-                        <strong><i class="fa fa-info margin-r-5"></i> Editorial:</strong>
-                        <p class="text-muted">{{ $photograph->document->made_by }}</p>
-                        <hr>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
-                        <p class="text-muted">{{ $photograph->document->year }}</p>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
-                        <p class="text-muted">{{ $photograph->document->acquired }}</p>
+                        <p class="text-muted">{{ Carbon\Carbon::parse($photograph->document->acquired)->format('d-m-Y') }}</p>
                         <hr>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
-                        <p class="text-muted">{{ $photograph->generate_format->genre_format }}</p>
-                        <hr>
-                    </div>
-                    
-                    <div class="col-md-4">
-                            <strong><i class="fa fa-info margin-r-5"></i>Volumen:</strong>
-                            <p class="text-muted">{{ $photograph->document->volume }}</p>
-                            <hr>
-                        </div>
-
-                    <div class="col-md-4">
-                        <strong><i class="fa fa-clock-o margin-r-5"></i> Edición:</strong>
-                        <p class="text-muted">{{ $photograph->edition }}</p>
-                        <hr>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
+                    </div>  
                     <div class="col-md-4">
                         <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
                         <p class="text-muted">{{ $photograph->document->lenguage->leguage_description }}</p>
                         <hr>
                     </div>
-
                     <div class="col-md-4">
                         <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
                         <p class="text-muted">{{ $photograph->document->adequacy->adequacy_description }}</p>
                         <hr>
-                    </div>
-
-                    <div class="col-md-4">
-                        <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
-                        <p class="text-muted">{{ $photograph->document->assessment }}</p>
-                        <hr>
-                    </div>
+                    </div>                                       
                 </div>
-
-                <div class="col-md-12">
-                    <div class="col-md-6">               
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
-                        <p class="text-muted">{{ $photograph->document->location }}</p>
-                        <hr>
-                    </div>
-               
-                    <div class="col-md-6">
-                        <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
-                        <p class="text-muted">{{ $photograph->specific_content }}</p>
-                        <hr>
-                    </div>               
+                <div class=" col-md-12">                
+                    <strong><i class="fa fa-film margin-r-5"></i> Formato:</strong>
+                    @if ( $photograph->generate_format->genre_format  === NULL )                            
+                        <p class="tex-muted"><a>Sin Formato</a> </p>
+                    @else
+                        <p class="text-muted">{{ $photograph->generate_format->genre_format }}</p>
+                    @endif  
+                    <hr>
                 </div>
-                <div class="col-md-12">
+                <div class=" col-md-12">                
                     <strong><i class="fa fa-file-text-o margin-r-5"></i> Notas:</strong>
-                    @php 
-                        $reparto = '';
-                        $cantidad = 0;
-                    @endphp                
-                    @foreach($photograph->actors as $actor)
-
-                        @if($cantidad == 0)
-
-                        @php
-                            $reparto = $reparto . $actor->actor_name;
-                        @endphp
-
-                        @else
-
-                        @php
-                            $reparto = $reparto . ", ". $actor->actor_name;
-                        @endphp
-                        
-                        @endif
-
-                        @php
-                            $cantidad = $cantidad + 1 ;
-                        @endphp
-                        
-                    @endforeach 
-                    <p class="text-muted">{{ $reparto }}</p>
+                    @if ( $photograph->document->note  === NULL )                            
+                        <p class="tex-muted"><a>Sin Notas</a> </p>
+                    @else
+                        <p class="text-muted">{{ $photograph->document->note }}</p>
+                    @endif           
                     <hr>
                 </div>
-
-                <div class="col-md-12">
-                    <strong><i class="fa fa-quote-left margin-r-5"></i> Observaciones:</strong>
-                    @php 
-                        $reparto = '';
-                        $cantidad = 0;
-                    @endphp                
-                    @foreach($photograph->actors as $actor)
-
-                        @if($cantidad == 0)
-
-                        @php
-                            $reparto = $reparto . $actor->actor_name;
-                        @endphp
-
-                        @else
-
-                        @php
-                            $reparto = $reparto . ", ". $actor->actor_name;
-                        @endphp
-                        
-                        @endif
-
-                        @php
-                            $cantidad = $cantidad + 1 ;
-                        @endphp
-                        
-                    @endforeach 
-                    <p class="text-muted">{{ $reparto }}</p>
+                <div class=" col-md-12">
+                    <strong><i class="fa fa-quote-left margin-r-5"></i> Observaciones:</strong>      
+                    @if ( $photograph->document->observation  === NULL )                            
+                        <p class="tex-muted"><a>Sin Observaciones</a> </p>
+                    @else
+                        <p class="text-muted">{{ $photograph->document->observation }}</p>
+                    @endif  
                     <hr>
                 </div>
+                <div class="col-md-12">               
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
+                    @if ( $photograph->document->location  === NULL )                            
+                        <p class="tex-muted"><a>Sin Ubicación</a> </p>
+                    @else
+                        <p class="text-muted">{{ $photograph->document->location }}</p>
+                    @endif                               
+                    <hr>
+                </div>           
                 <div class="col-md-12">  
                     <button type="button" class="btn btn-danger btn-flat btn-block"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</button>
                 </div>
             </div>       
-          </div>
+        </div>
     </div>
-
 </div>
 
 
