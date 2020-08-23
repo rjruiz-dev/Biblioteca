@@ -1,24 +1,40 @@
 
-$('#modal-btn-save-prestar').click(function (event) {
+$('#modal-btn-save-importar').click(function (event) {
     event.preventDefault();
+
+    $avatarInput = $('#rebeca');
+
+    var formData  = new FormData();        
+        formData.append('rebeca', $avatarInput[0].files[0]);
 
     var form = $('#form_prestamo form'),
         url = form.attr('action'),
-        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+   
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
-    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
     $.ajax({
-        url : url,
+        url : url + '?' + form.serialize(),
         method: method,
-        data : form.serialize(),
+        data : formData,
+        cache: false,  
+        processData: false,
+        contentType: false,
         success: function (response) {
-            var info = response.bandera;
-            var info2 = response.id;
-            var error = response.error;
-            console.log("id" + info2);
+            var info = response.titulo;
+            // var info2 = response.id;
+            // var error = response.error;
+            // console.log("id" + info2);
             console.log("ALGO" + info);
             form.trigger('reset');
             // $('#modal').modal('hide');
@@ -73,6 +89,77 @@ $('#modal-btn-save-prestar').click(function (event) {
         }
     })
 });
+
+// $('#modal-btn-save').click(function (event) {
+//     event.preventDefault();
+
+//     $avatarInput = $('#photo');
+
+//     var formData  = new FormData();        
+//         formData.append('photo', $avatarInput[0].files[0]);
+        
+
+//     var form = $('#modal-body form'),
+//         url = form.attr('action'),
+//         method =  'POST' ;
+//         // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+//     form.find('.help-block').remove();
+//     form.find('.form-group').removeClass('has-error');
+
+//     for(instance in CKEDITOR.instances)
+//     {
+//         CKEDITOR.instances[instance].updateElement();
+//     }
+
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         },
+//     });
+
+
+//     $.ajax({
+//         url : url + '?' + form.serialize(),
+//         method: method,
+//         data : formData, 
+//         cache: false,  
+//         processData: false,
+//         contentType: false,    
+//         success: function (response) {
+//             form.trigger('reset');
+//             $('#modal').modal('hide');
+//             $('#datatable').DataTable().ajax.reload();
+            
+//             if (bandera == 1){
+//                 swal({
+//                     type : 'success',
+//                     title : '¡Éxito!',
+//                     text : '¡Se han guardado el documento! Ahora debe registrar las copias del mismo',
+//                 }).then(function() {
+//                     window.location = "../admin/genericcopies/copies/" + id_new_doc;
+//                 });
+//             }else{
+//                 swal({
+//                     type : 'success',
+//                     title : '¡Éxito!',
+//                     text : '¡Se ha actualizado el documento!'
+//                 });
+//             }
+//         },
+//         error : function (xhr) {
+//             var res = xhr.responseJSON;
+//             if ($.isEmptyObject(res) == false) {
+//                 $.each(res.errors, function (key, value) {
+//                     $('#' + key)
+//                         .closest('.form-group')
+//                         .addClass('has-error')
+//                         .append('<span class="help-block"><strong>' + value + '</strong></span>');
+//                 });
+//             }
+//         }
+//     })
+// });
 
 if( $("#bandera").val() == 3){
     

@@ -30,15 +30,8 @@
                 &nbsp;
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Título:</b> <a class="pull-right">{{ $movie->document->title }}</a>
+                        <b>Titulo Original:</b> <a class="pull-right">{{ $movie->document->original_title }}</a>
                     </li>
-                    <li class="list-group-item">
-                        @if ( $movie->document->original_title === NULL )   
-                            <b>Título Original:</b> <a class="pull-right"><p class="tex-muted">Sin Título Original</p></a>                                                 
-                        @else
-                            <b>Título Original:</b> <a class="pull-right">{{ $movie->document->original_title }}</a>
-                        @endif 
-                    </li>                    
                     <li class="list-group-item">
                         <b>Dirigido Por:</b> <a class="pull-right">{{ $movie->document->creator->creator_name }}</a>
                     </li>
@@ -49,9 +42,21 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Sobre la Película </h3>
+              <h3 class="box-title">Sobre la Pelicula </h3>
             </div>
             <div class="box-body">
+                <!-- <div class="col-md-6">
+                    <strong><i class="fa fa-book margin-r-5"></i> Titulo Original:</strong>
+                    <p class="text-muted">{{ $movie->document->original_title }}</p>
+                    <hr>
+                </div>
+
+                <div class="col-md-6">
+                    <strong><i class="fa fa-user margin-r-5"></i> Dirigido Por:</strong>
+                    <p class="text-muted">{{ $movie->document->creator->creator_name }}</p>
+                    <hr>
+                </div> -->
+
                 <div class="col-md-12">
                     <strong><i class="fa fa-users margin-r-5"></i> Reparto:</strong>
                     @php 
@@ -79,45 +84,27 @@
                         @endphp
                         
                     @endforeach 
-                    <!-- <p class="text-muted">{{ $reparto }}</p> -->
-                    @if ( $reparto == '' )                            
-                        <p class="tex-muted"><a>Sin Reparto</a> </p>
-                    @else                           
-                        <p class="text-muted">{{ $reparto }}</p>
-                    @endif  
+                    <p class="text-muted">{{ $reparto }}</p>
                     <hr>
                 </div>
 
                 <div class="row col-md-12">
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Nacionalidad:</strong>
-                        @if ( $movie->document->published === NULL )                            
-                            <p class="tex-muted"><a>Sin Nacionalidad</a> </p>
-                        @else
-                            <p class="text-muted">{{ $movie->document->published }}</p>
-                        @endif                       
+                        <p class="text-muted">{{ $movie->document->published }}</p>
                         <hr>
                     </div>
 
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Productora:</strong>
-                        @if ( $movie->document->made_by === NULL )                            
-                            <p class="tex-muted"><a>Sin Productora</a> </p>
-                        @else
-                            <p class="text-muted">{{ $movie->document->made_by }}</p>
-                        @endif  
+                        <p class="text-muted">{{ $movie->document->made_by }}</p>
                         <hr>
                     </div>
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Distribuidora:</strong>
-                        @if ( $movie->distributor === NULL )                            
-                            <p class="tex-muted"><a>Sin Distribuidora</a> </p>
-                        @else
-                            <p class="text-muted">{{ $movie->distributor }}</p>
-                        @endif
-                        
+                        <p class="text-muted">{{ $movie->distributor }}</p>
                         <hr>
                     </div>
                     <div class="col-md-6">
@@ -165,20 +152,12 @@
                         </div>
                         <div class="col-md-4">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Duración:</strong>
-                            @if ( $movie->document->quantity_generic === NULL )                            
-                                <p class="tex-muted"><a>Sin Duración</a> </p>
-                            @else
-                                <p class="text-muted">{{ $movie->document->quantity_generic }}</p>
-                            @endif                            
+                            <p class="text-muted">{{ $movie->document->quantity_generic }}</p>
                             <hr>
                         </div>
                         <div class="col-md-4">
                             <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
-                            @if ( $movie->document->assessment === NULL )                            
-                                <p class="tex-muted"><a>Sin Valoración</a> </p>
-                            @else
-                                <p class="text-muted">{{ $movie->document->assessment }}</p>
-                            @endif                            
+                            <p class="text-muted">{{ $movie->document->assessment }}</p>
                             <hr>
                         </div>                   
                     </div>
@@ -190,22 +169,14 @@
                         </div>  
                         <div class="col-md-6">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
-                            @if ( $movie->document->location  === NULL )                            
-                                <p class="tex-muted"><a>Sin Ubicación</a> </p>
-                            @else
-                                <p class="text-muted">{{ $movie->document->location }}</p>
-                            @endif                               
+                            <p class="text-muted">{{ $movie->document->location }}</p>
                             <hr>
                         </div>                      
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-12">
                             <strong><i class="fa fa-info margin-r-5"></i> Sinopsis:</strong>
-                            @if ( $movie->document->synopsis === NULL )                            
-                                <p class="tex-muted"><a>Sin Sinopsis</a> </p>
-                            @else
-                                <p class="text-muted">{!! $movie->document->synopsis !!}</p>
-                            @endif                               
+                            <p class="text-muted">{!! $movie->document->synopsis !!}</p>
                             <hr>
                         </div>       
                     </div>                  

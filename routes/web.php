@@ -43,6 +43,10 @@ function(){
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
+    Route::resource('loansbydate',             'LoansbydateController',['as' => 'admin']);
+    Route::resource('loansbyclassroom',             'LoansbyclassroomController',['as' => 'admin']);
+    Route::resource('infoofdatabase',             'infoofdatabaseController',['as' => 'admin']);
+    Route::resource('importfromrebeca',             'ImportfromrebecaController',['as' => 'admin']);
  
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
@@ -53,7 +57,7 @@ function(){
 
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
-    Route::get('fastprocess/vista_devo_reno/{id}/{bandera}',    'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
+    Route::get('fastprocess/vista_devo_reno/{id}/{bandera}/{fecha}',    'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
     Route::get('fastprocess/edit2/{id}',                        'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
     Route::get('loanmanual/prestar/{id}',                       'LoanManualController@prestar')->name('loanmanual.prestar');
     Route::get('genericcopies/copies/{id}',                     'GenericCopiesController@copies')->name('genericcopies.copies');
@@ -121,7 +125,11 @@ Route::get('requests/table',          'RequestsController@dataTable')->name('req
 
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
 
+Route::get('loansbydate/table',          'LoansbydateController@dataTable')->name('loansbydate.table');
 
+Route::get('loansbyclassroom/table',          'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
+
+Route::get('infoofdatabase/table',          'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
 
 
 // Route::get('home', function () {

@@ -63,7 +63,7 @@
         {!! Form::model($prestamo_solicitado, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
         @php
       
-     
+      
         $visible = true;
         $id_copy = $prestamo_solicitado->copies_id;
         $id_user = $prestamo_solicitado->users_id;
@@ -144,7 +144,7 @@
                                     </div>                      
                                     <input name="acquired"
                                         class="form-control pull-right"                                                       
-                                        value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d/m/Y')) }}"                            
+                                        value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d-m-Y')) }}"                            
                                         type="text"
                                         id="acquired"
                                         placeholder= "Selecciona una Fecha de Adquisición">                       
