@@ -28,14 +28,35 @@
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">
+                    <!-- Para Popular pasa a ser Titulo y Título de la Obra no va -->
                     <li class="list-group-item">
                         <b>Título de la Obra:</b> <a class="pull-right">{{ $music->document->title }}</a>
                     </li>
+                     <!-- Para Popular Título del Disco no va -->
                     <li class="list-group-item">
+                    @if ( $music->culture->album_title === NULL )   
+                        <b>Título del Disco:</b> <a class="pull-right"><p class="tex-muted">Sin Título del Disco</p></a>                                                 
+                    @else
                         <b>Título del Disco:</b> <a class="pull-right">{{ $music->culture->album_title }}</a>
+                    @endif 
+                    </li>
+                    <!-- Para Popular pasa a ser Autor  y Director no va-->
+                    <!-- <li class="list-group-item">
+                        <b>Autor:</b> <a class="pull-right"></a>
+                    </li> -->
+                    <li class="list-group-item">
+                    @if (  $music->culture->director  === NULL )   
+                        <b>Director:</b> <a class="pull-right"><p class="tex-muted">Sin Director</p></a>                                                 
+                    @else
+                        <b>Director:</b> <a class="pull-right">{{ $music->culture->director }}</a>
+                    @endif 
                     </li>
                     <li class="list-group-item">
-                        <b>Director:</b> <a class="pull-right">{{ $music->culture->director }}</a>
+                    @if ( $music->document->document_subtype->subtype_name === NULL )   
+                        <b>Subtipo del Documento:</b> <a class="pull-right"><p class="tex-muted">Sin Subtipo</p></a>                                                 
+                    @else
+                        <b>Subtipo del Documento:</b> <a class="pull-right">{{ $music->document->document_subtype->subtype_name }}</a>
+                    @endif 
                     </li>
                 </ul>
             </div>
@@ -54,20 +75,32 @@
                         <hr>
                     </div>
                     <div class="row col-md-6">
-                        <strong><i class="fa fa-users margin-r-5"></i> Orquesta:</strong>                   
-                        <p class="text-muted">{{ $music->culture->orchestra }}</p> 
+                        <strong><i class="fa fa-users margin-r-5"></i> Orquesta:</strong>  
+                        @if (  $music->culture->orchestra === NULL )                            
+                            <p class="tex-muted"><a>Sin Orquesta:</a> </p>
+                        @else
+                            <p class="text-muted">{{ $music->culture->orchestra }}</p> 
+                        @endif                 
                         <hr>
                     </div>
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Editado En:</strong>
-                        <p class="text-muted">{{ $music->document->published }}</p>
+                        @if ( $music->document->published === NULL )                            
+                            <p class="tex-muted"><a>Sin Edición:</a> </p>
+                        @else
+                            <p class="text-muted">{{ $music->document->published }}</p>
+                        @endif    
                         <hr>
                     </div>
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Sello Discográfico:</strong>
-                        <p class="text-muted">{{ $music->document->made_by }}</p>
+                        @if ( $music->document->made_by === NULL )                            
+                            <p class="tex-muted"><a>Sin Discográfico:</a> </p>
+                        @else
+                            <p class="text-muted">{{ $music->document->made_by }}</p>
+                        @endif  
                         <hr>
                     </div>                  
                 </div>
@@ -103,18 +136,27 @@
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-4">
-                            <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
+                            <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>  
+
                             <p class="text-muted">{{ $music->generate_music->genre_music }}</p>
                             <hr>
                         </div>
                         <div class="col-md-4">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Formato:</strong>
-                            <p class="text-muted">{{ $music->generate_format->genre_format }}</p>
+                            @if ( $music->generate_format->genre_format === NULL )                            
+                                <p class="tex-muted"><a>Sin Formato:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $music->generate_format->genre_format }}</p>
+                            @endif  
                             <hr>
                         </div>
                         <div class="col-md-4">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Duración:</strong>
-                            <p class="text-muted">{{ $music->document->quantity_generic }}</p>
+                            @if ( $music->document->quantity_generic === NULL )                            
+                                <p class="tex-muted"><a>Sin Duración:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $music->document->quantity_generic }}</p>
+                            @endif                            
                             <hr>
                         </div>
                     </div>
@@ -122,19 +164,31 @@
                     <div class="row col-md-12">
                         <div class="col-md-6">
                             <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
-                            <p class="text-muted">{{ $music->document->assessment }}</p>
+                            @if ( $music->document->assessment === NULL )                            
+                                <p class="tex-muted"><a>Sin Valoración:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $music->document->assessment }}</p>
+                            @endif      
                             <hr>
                         </div>
                         <div class="col-md-6">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
-                            <p class="text-muted">{{ $music->document->location }}</p>
+                            @if ( $music->document->location === NULL )                            
+                                <p class="tex-muted"><a>Sin Ubicación:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $music->document->location }}</p>
+                            @endif 
                             <hr>
                         </div>
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-12">
                             <strong><i class="fa fa-info margin-r-5"></i> Sinopsis:</strong>
-                            <p class="text-muted">{!! $music->document->synopsis !!}</p>
+                            @if ( $music->document->synopsis === NULL )                            
+                                <p class="tex-muted"><a>Sin Sinopsis:</a> </p>
+                            @else
+                                <p class="text-muted">{!! $music->document->synopsis !!}</p>
+                            @endif 
                             <hr>
                         </div>       
                     </div>  

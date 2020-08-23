@@ -18,7 +18,7 @@ class CreateCulturesTable extends Migration
 
             $table->integer('music_id')->unsigned();
             
-            $table->string('album_title')->unique();
+            $table->string('album_title')->nullable();
             $table->string('soloist')->nullable();
             $table->string('orchestra')->nullable();
             $table->string('director')->nullable();

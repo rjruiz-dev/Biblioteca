@@ -16,7 +16,7 @@ use App\StatusDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Http\Requests\SaveDocumentRequest;
+use App\Http\Requests\SaveMultimediaRequest;
 
 class MultimediaController extends Controller
 {
@@ -63,7 +63,7 @@ class MultimediaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveDocumentRequest $request)
+    public function store(SaveMultimediaRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -228,7 +228,7 @@ class MultimediaController extends Controller
      * @param  \App\multimedia  $multimedia
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveDocumentRequest $request, $id)
+    public function update(SaveMultimediaRequest $request, $id)
     {
         if ($request->ajax()){
             try {

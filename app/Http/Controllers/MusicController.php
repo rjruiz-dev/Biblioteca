@@ -21,7 +21,7 @@ use App\StatusDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Http\Requests\SaveDocumentRequest;
+use App\Http\Requests\SaveMusicalRequest;
 
 class MusicController extends Controller
 {
@@ -71,7 +71,7 @@ class MusicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveDocumentRequest $request)
+    public function store(SaveMusicalRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -235,7 +235,7 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveDocumentRequest $request, $id)
+    public function update(SaveMusicalRequest $request, $id)
     {
         if ($request->ajax()){
             try {

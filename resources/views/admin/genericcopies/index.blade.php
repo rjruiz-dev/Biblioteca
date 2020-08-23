@@ -30,9 +30,9 @@
 @section('content')
     <div class="panel panel-primary">        
         <div class="panel-heading">
-            <h3 class="panel-title">Listado de copias     
+            <h3 class="panel-title">Listado de Ejemplares     
           
-                <a href="{{ route('genericcopies.newcopies', $document->id) }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Nueva copia para documento: {{ $document->title }}"><i class="fa fa-user-plus"></i> Agregar Copia</a>
+                <a href="{{ route('genericcopies.newcopies', $document->id) }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Nuevo Ejemplar para el Documento: {{ $document->title }}"><i class="fa fa-user-plus"></i> Agregar Ejemplar</a>
     
             </h3>
         </div>

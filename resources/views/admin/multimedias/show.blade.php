@@ -48,12 +48,20 @@
                 <div class="row col-md-12">                   
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Nacionalidad:</strong>
+                        @if ( $multimedia->document->published === NULL )                            
+                            <p class="tex-muted"><a>Sin Nacionalidad</a> </p>
+                        @else                           
                         <p class="text-muted">{{ $multimedia->document->published }}</p>
+                        @endif                      
                         <hr>
                     </div>
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Editorial:</strong>
+                        @if ( $multimedia->document->made_by === NULL )                            
+                            <p class="tex-muted"><a>Sin Editorial</a> </p>
+                        @else
                         <p class="text-muted">{{ $multimedia->document->made_by }}</p>
+                        @endif                       
                         <hr>
                     </div>                    
                 </div>
@@ -89,31 +97,51 @@
                         </div>
                         <div class="col-md-4">
                             <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
-                            <p class="text-muted">{{ $multimedia->document->assessment }}</p>
+                            @if ( $multimedia->document->assessment === NULL )                                
+                                <p class="tex-muted"><a>Sin Valoración</a> </p>
+                            @else
+                                <p class="text-muted">{{ $multimedia->document->assessment }}</p>
+                            @endif                       
                             <hr>
                         </div>
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-4">
                             <strong><i class="fa  fa-filter margin-r-5"></i> Páginas:</strong>
-                            <p class="text-muted">{{ $multimedia->document->quantity_generic }}</p>
+                            @if ( $multimedia->document->quantity_generic === NULL )                            
+                                <p class="tex-muted"><a>Sin Páginas:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $multimedia->document->quantity_generic }}</p>
+                            @endif 
                             <hr>
                         </div>                    
                         <div class="col-md-4">
                             <strong><i class="fa fa-info margin-r-5"></i>Volumen:</strong>
-                            <p class="text-muted">{{ $multimedia->document->volume }}</p>
+                            @if ( $multimedia->document->volume === NULL )                            
+                                <p class="tex-muted"><a>Sin Volumen:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $multimedia->document->volume }}</p>
+                            @endif  
                             <hr>
                         </div>
                         <div class="col-md-4">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Edición:</strong>
-                            <p class="text-muted">{{ $multimedia->edition }}</p>
+                            @if ( $multimedia->edition === NULL )                            
+                                <p class="tex-muted"><a>Sin Edición:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $multimedia->edition }}</p>
+                            @endif
                             <hr>
                         </div>
                     </div>
                     <div class="row col-md-12">                      
                         <div class="col-md-12">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
-                            <p class="text-muted">{{ $multimedia->document->location }}</p>
+                            @if ( $multimedia->document->location === NULL )                            
+                                <p class="tex-muted"><a>Sin Ubicación:</a> </p>
+                            @else
+                                <p class="text-muted">{{ $multimedia->document->location }}</p>
+                            @endif    
                             <hr>
                         </div>
                     </div>              
