@@ -11,12 +11,12 @@ class InfoOfDataBaseTableSeeder extends Seeder
      */
     public function run()
     {
-        App\infoOfDataBase::create([
+        App\InfoOfDataBase::create([
             'numero'      => 1,
             'name_table'   => 'Prestamos'
         ]);
 
-        App\infoOfDataBase::create([
+        App\InfoOfDataBase::create([
             'numero'      => 2,
             'name_table'   => 'Prestamos desde Web'
         ]);
