@@ -22,7 +22,7 @@ class CreateMultimediaTable extends Migration
 
             
             $table->string('subtitle')->nullable();           
-            $table->string('isbn')->nullable();
+            $table->string('isbn')->nullable()->unique();
             $table->string('gender')->nullable();
             $table->string('edition')->nullable();
             $table->string('translator')->nullable();

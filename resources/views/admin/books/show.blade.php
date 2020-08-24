@@ -136,11 +136,11 @@
                         <p class="text-muted">{{ $book->document->lenguage->leguage_description }}</p>
                         <hr>
                     </div> 
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
                         <p class="text-muted">{{ $book->isbn }}</p>
                         <hr>
-                    </div>
+                    </div> -->
                     <!-- Publ. Periodica  Issn-->
                   
                     <!-- Publ. Periodica Periodicidad-->
@@ -193,7 +193,12 @@
                     <div class="row col-md-12">
                         <div class="col-md-6">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                            @if ( $book->document->adequacy->adequacy_description === NULL )                                
+                                <p class="tex-muted"><a>Sin Adecuación</a> </p>
+                            @else
                             <p class="text-muted">{{ $book->document->adequacy->adequacy_description }}</p>
+                            @endif  
+                          
                             <hr>
                         </div>  
                         <div class="col-md-6">

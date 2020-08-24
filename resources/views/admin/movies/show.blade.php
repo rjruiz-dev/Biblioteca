@@ -32,6 +32,7 @@
                     <li class="list-group-item">
                         <b>Título:</b> <a class="pull-right">{{ $movie->document->title }}</a>
                     </li>
+
                     <li class="list-group-item">
                         @if ( $movie->document->original_title === NULL )   
                             <b>Título Original:</b> <a class="pull-right"><p class="tex-muted">Sin Título Original</p></a>                                                 
@@ -127,11 +128,16 @@
                     </div>
                 </div>           
                 <div class="row col-md-12">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
                         <p class="text-muted">{{ $movie->document->lenguage->leguage_description }}</p>
                         <hr>
                     </div>
+                    <div class="col-md-6">
+                        <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
+                        <p class="text-muted">{{ $movie->generate_movie->genre_film }}</p>
+                        <hr>
+                    </div> 
                 </div>
             </div>
             <div class="box box-primary">
@@ -140,19 +146,19 @@
                 </div>
                 <div class="box-body">
                     <div class="row col-md-12">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
                             <p class="text-muted">{{ Carbon\Carbon::parse($movie->document->acquired)->format('d-m-Y') }}</p>
                             <hr>
                         </div>                      
-                        <div class="col-md-4">
-                            <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
-                            <p class="text-muted">{{ $movie->generate_movie->genre_film }}</p>
-                            <hr>
-                        </div> 
-                        <div class="col-md-4">
+                      
+                        <div class="col-md-6">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
-                            <p class="text-muted">{{ $movie->document->adequacy->adequacy_description }}</p>
+                            @if ( $movie->document->adequacy->adequacy_description === NULL )                            
+                                <p class="tex-muted"><a>Sin Adecuación</a> </p>
+                            @else
+                                <p class="text-muted">{{ $movie->document->adequacy->adequacy_description }}</p>
+                            @endif
                             <hr>
                         </div>
                       
@@ -183,12 +189,12 @@
                         </div>                   
                     </div>
                     <div class="row col-md-12">
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <strong><i class="fa fa-info margin-r-5"></i> Isbn:</strong>
                             <p class="text-muted">{{ $movie->specific_content }}</p>
                             <hr>
-                        </div>  
-                        <div class="col-md-6">               
+                        </div>   -->
+                        <div class="col-md-12">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
                             @if ( $movie->document->location  === NULL )                            
                                 <p class="tex-muted"><a>Sin Ubicación</a> </p>

@@ -105,14 +105,19 @@
                     </div>                  
                 </div>
                 <div class="row col-md-12">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
                         <p class="text-muted">{{ $music->document->lenguage->leguage_description }}</p>
                         <hr>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <strong><i class="fa fa-calendar margin-r-5"></i> Año:</strong>
                         <p class="text-muted">{{ Carbon\Carbon::parse($music->document->year)->format('d-m-Y') }}</p>
+                        <hr>
+                    </div>
+                    <div class="col-md-4">
+                        <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>
+                        <p class="text-muted">{{ $music->generate_music->genre_music }}</p>
                         <hr>
                     </div>
                 </div>
@@ -130,30 +135,29 @@
                         </div>                    
                         <div class="col-md-6">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                            @if ( $music->document->adequacy->adequacy_description === NULL )                            
+                                <p class="tex-muted"><a>No tiene Adecuación</a> </p>
+                            @else
                             <p class="text-muted">{{ $music->document->adequacy->adequacy_description }}</p>
+                            @endif  
+                            
                             <hr>
                         </div>
                     </div>
                     <div class="row col-md-12">
-                        <div class="col-md-4">
-                            <strong><i class="fa  fa-filter margin-r-5"></i> Género:</strong>  
-
-                            <p class="text-muted">{{ $music->generate_music->genre_music }}</p>
-                            <hr>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Formato:</strong>
                             @if ( $music->generate_format->genre_format === NULL )                            
-                                <p class="tex-muted"><a>Sin Formato:</a> </p>
+                                <p class="tex-muted"><a>Sin Formato</a> </p>
                             @else
                                 <p class="text-muted">{{ $music->generate_format->genre_format }}</p>
                             @endif  
                             <hr>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Duración:</strong>
                             @if ( $music->document->quantity_generic === NULL )                            
-                                <p class="tex-muted"><a>Sin Duración:</a> </p>
+                                <p class="tex-muted"><a>Sin Duración</a> </p>
                             @else
                                 <p class="text-muted">{{ $music->document->quantity_generic }}</p>
                             @endif                            
@@ -165,7 +169,7 @@
                         <div class="col-md-6">
                             <strong><i class="fa fa-star-half-empty margin-r-5"></i> Valoración:</strong>
                             @if ( $music->document->assessment === NULL )                            
-                                <p class="tex-muted"><a>Sin Valoración:</a> </p>
+                                <p class="tex-muted"><a>Sin Valoración</a> </p>
                             @else
                                 <p class="text-muted">{{ $music->document->assessment }}</p>
                             @endif      
@@ -174,7 +178,7 @@
                         <div class="col-md-6">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
                             @if ( $music->document->location === NULL )                            
-                                <p class="tex-muted"><a>Sin Ubicación:</a> </p>
+                                <p class="tex-muted"><a>Sin Ubicación</a> </p>
                             @else
                                 <p class="text-muted">{{ $music->document->location }}</p>
                             @endif 
@@ -185,7 +189,7 @@
                         <div class="col-md-12">
                             <strong><i class="fa fa-info margin-r-5"></i> Sinopsis:</strong>
                             @if ( $music->document->synopsis === NULL )                            
-                                <p class="tex-muted"><a>Sin Sinopsis:</a> </p>
+                                <p class="tex-muted"><a>Sin Sinopsis</a> </p>
                             @else
                                 <p class="text-muted">{!! $music->document->synopsis !!}</p>
                             @endif 

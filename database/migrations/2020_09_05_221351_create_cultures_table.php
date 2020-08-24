@@ -21,7 +21,7 @@ class CreateCulturesTable extends Migration
             $table->string('album_title')->nullable();
             $table->string('soloist')->nullable();
             $table->string('orchestra')->nullable();
-            $table->string('director')->nullable();
+            $table->string('director');
 
 
 

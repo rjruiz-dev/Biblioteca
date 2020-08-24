@@ -34,10 +34,8 @@ class SaveMovieRequest extends FormRequest
      
         if($this->method() !== 'PUT')
         {          
-            $rules ['creators_id']          = 'required|string' . $this->id;      
-            $rules ['adequacies_id']        = 'required' . $this->id;              
-            $rules ['generate_films_id']    = 'required' . $this->id; 
-            $rules ['generate_formats_id'] = 'required' . $this->id;
+            $rules ['creators_id']          = 'required|string' . $this->id;  
+            $rules ['generate_films_id']    = 'required' . $this->id;
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;              
             $rules ['photo']                = 'required|image|mimes:jpeg,bmp,png,jpg'. $this->id;             
@@ -62,9 +60,7 @@ class SaveMovieRequest extends FormRequest
             'photo.image'                       => 'Debe introducir un Imagen para Catalogar un Documento.',        
             'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',  
-            'adequacies_id.required'            => 'Debe seleccionar una Opción para Catalogar un Documento.',          
-            'generate_films_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',       
-            'generate_formats_id.required'      => 'Debe seleccionar un Formato para Catalogar un Documento.',          
+            'generate_films_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',
             'lenguages_id.required'             => 'Debe seleccionar un Idioma para Catalogar un Documento.',          
             'generate_subjects_id.required'     => 'Debe seleccionar Cdu para Catalogar un Documento.',     
             'year.required'                     => 'Debe introducir Año para catalogar un documento.',        

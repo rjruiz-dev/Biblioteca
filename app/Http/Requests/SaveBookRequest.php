@@ -27,27 +27,21 @@ class SaveBookRequest extends FormRequest
         $rules = [           
             'title'         => 'required|string',
             'let_author'    => 'required|alpha|min:3|max:3',
-            'let_title'     => 'required|alpha||min:3|max:3',
-            // 'published'     => 'required|string',
-            // 'made_by'       => 'required|string',
+            'let_title'     => 'required|alpha||min:3|max:3',            
             'year'          => 'required',
             'acquired'      => 'required',
-            // 'edition'       => 'required',
-            // 'volume'        => 'required',   
-            // 'location'      => 'required|string',                 
         ];
      
         if($this->method() !== 'PUT')
         {          
-            $rules ['creators_id']          = 'required|string' . $this->id;      
-            $rules ['adequacies_id']        = 'required' . $this->id;  
+            $rules ['creators_id']          = 'required|string' . $this->id;  
             $rules ['document_subtypes_id'] = 'required' . $this->id;  
             $rules ['generate_books_id']    = 'required' . $this->id;  
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;    
-            $rules ['isbn']                 = 'required|string|min:13|unique:books,isbn' . $this->id;
+            $rules ['isbn']                 = 'required|string|min:17|unique:books,isbn' . $this->id;
             $rules ['photo']                = 'required|image|mimes:jpeg,bmp,png,jpg'. $this->id; 
-            $rules ['issn']                 = 'nullable|string|min:13|unique:periodical_publications,issn'. $this->id;
+            $rules ['issn']                 = 'nullable|string|min:17|unique:periodical_publications,issn'. $this->id;
             // $rules ['issn']                 = 'exclude_unless:document_subtypes_id,4|string|min:13|unique:periodical_publications,issn'. $this->id;
         }
  
@@ -71,20 +65,12 @@ class SaveBookRequest extends FormRequest
             'photo.image'                       => 'Debe introducir un Imagen para Catalogar un Documento.',        
             'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',           
-            'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',          
-            'adequacies_id.required'            => 'Debe seleccionar una Opción para Catalogar un Documento.',          
+            'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',   
             'generate_books_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',          
             'lenguages_id.required'             => 'Debe seleccionar un Idioma para Catalogar un Documento.',          
-            'generate_subjects_id.required'     => 'Debe seleccionar Cdu para Catalogar un Documento.',          
-                   
-
-            // 'published.required'    => 'Debe seleccionar lugar de Publicacíon para catalogar un documento.',            
-            // 'made_by.required'      => 'Debe seleccionar Editorial para catalogar un documento.',        
-            'year.required'         => 'Debe introducir Año para catalogar un documento.',        
-            'acquired.required'     => 'Debe introducir Fecha de adquisición para catalogar un documento.',        
-            // 'edition.required'      => 'Debe introducir Edición para catalogar un documento.',        
-            // 'volume.required'       => 'Debe introducir un Volumen para catalogar un documento.',        
-            // 'location.required'     => 'Debe introducir una Ubicación para catalogar un documento.',
+            'generate_subjects_id.required'     => 'Debe seleccionar Cdu para Catalogar un Documento.',
+            'year.required'                     => 'Debe introducir Año para catalogar un documento.',        
+            'acquired.required'                 => 'Debe introducir Fecha de adquisición para catalogar un documento.',   
         ];
     }
 }

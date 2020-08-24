@@ -63,7 +63,12 @@
                     </div>
                     <div class="col-md-4">
                         <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
+                        @if ( $photograph->document->adequacy->adequacy_description  === NULL )                            
+                            <p class="tex-muted"><a>Sin Adecuación</a> </p>
+                        @else
                         <p class="text-muted">{{ $photograph->document->adequacy->adequacy_description }}</p>
+                        @endif 
+                       
                         <hr>
                     </div>                                       
                 </div>

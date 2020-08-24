@@ -34,9 +34,8 @@ class SaveMultimediaRequest extends FormRequest
      
         if($this->method() !== 'PUT')
         {          
-            $rules ['creators_id']          = 'required|string' . $this->id;      
-            $rules ['adequacies_id']        = 'required' . $this->id;
-            $rules ['isbn']                 = 'required|string|min:13|unique:books,isbn' . $this->id;
+            $rules ['creators_id']          = 'required|string' . $this->id;    
+            $rules ['isbn']                 = 'nullable|string|min:13|unique:books,isbn' . $this->id;
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;              
             $rules ['photo']                = 'required|image|mimes:jpeg,bmp,png,jpg'. $this->id;             

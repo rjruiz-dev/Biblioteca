@@ -46,7 +46,7 @@ class BookController extends Controller
                              
         return view('admin.books.partials.form', [           
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'references'        => Generate_reference::all(),
+            'references'    => Generate_reference::all(),
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'subtypes'      => Document_subtype::where('document_types_id', 3)->get()->pluck('subtype_name', 'id'),
             'authors'       => Creator::pluck('creator_name', 'id')->toArray(),
@@ -60,7 +60,7 @@ class BookController extends Controller
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
             'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'book'          => $book,
-            'document'          => $document
+            'document'      => $document
             
         ]);  
     }

@@ -30,18 +30,18 @@ class SaveMusicalRequest extends FormRequest
             'let_title'     => 'required|alpha||min:3|max:3',          
             'year'          => 'required',
             'acquired'      => 'required',
+            'director'      => 'required|string',
         ];
+        
      
         if($this->method() !== 'PUT')
         {          
             $rules ['creators_id']          = 'required|string' . $this->id;      
-            $rules ['adequacies_id']        = 'required' . $this->id;  
             $rules ['document_subtypes_id'] = 'required' . $this->id;  
             $rules ['generate_musics_id']   = 'required' . $this->id;  
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id; 
-            $rules ['generate_formats_id'] = 'required' . $this->id;   
-            // $rules ['isbn']                 = 'required|string|min:13|unique:books,isbn' . $this->id;
+            // $rules ['isbn']                 = 'required|string|min:17|unique:books,isbn' . $this->id;
             $rules ['photo']                = 'required|image|mimes:jpeg,bmp,png,jpg'. $this->id; 
            
         }
@@ -52,7 +52,8 @@ class SaveMusicalRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required'                    => 'Debe introducir un Título para Catalogar un Documento.',    
+            'title.required'                    => 'Debe introducir un Título para Catalogar un Documento.',   
+            'director.required'                 => 'Debe introducir un Director para Catalogar un Documento.',    
             'let_author.alpha'                  => 'Solo debe introducir letras para el campo Siglas Autor.',         
             'let_author.required'               => 'El campo Siglas Autor es requerido.',        
             'let_author.min'                    => 'El campo Siglas Autor debe contener 3 caracteres como minimo',        
@@ -66,10 +67,8 @@ class SaveMusicalRequest extends FormRequest
             'photo.image'                       => 'Debe introducir un Imagen para Catalogar un Documento.',        
             'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',           
-            'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',          
-            'adequacies_id.required'            => 'Debe seleccionar una Opción para Catalogar un Documento.',   
-            'generate_formats_id.required'      => 'Debe seleccionar un Formato para Catalogar un Documento.',           
-            'generate_musics_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',          
+            'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',
+            'generate_musics_id.required'       => 'Debe seleccionar un Género para Catalogar un Documento.',          
             'lenguages_id.required'             => 'Debe seleccionar un Idioma para Catalogar un Documento.',          
             'generate_subjects_id.required'     => 'Debe seleccionar Cdu para Catalogar un Documento.',     
             'year.required'                     => 'Debe introducir Año para catalogar un documento.',        

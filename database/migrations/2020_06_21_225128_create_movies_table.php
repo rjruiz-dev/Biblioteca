@@ -18,7 +18,7 @@ class CreateMoviesTable extends Migration
 
             $table->integer('documents_id')->unsigned();
             $table->integer('generate_films_id')->unsigned();
-            $table->integer('generate_formats_id')->unsigned();
+            $table->integer('generate_formats_id')->nullable()->unsigned();
             $table->integer('adaptations_id')->nullable()->unsigned();
             $table->integer('photography_movies_id')->nullable()->unsigned();
 

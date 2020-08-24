@@ -18,8 +18,8 @@ class CreateDocumentsTable extends Migration
 
             $table->integer('generate_subjects_id')->unsigned();
             // $table->integer('generate_references_id')->unsigned();
-            $table->integer('adequacies_id')->unsigned();
-            $table->integer('lenguages_id')->unsigned();
+            $table->integer('adequacies_id')->nullable()->unsigned();
+            $table->integer('lenguages_id')->nullable()->unsigned();
             $table->integer('document_types_id')->unsigned();
             $table->integer('document_subtypes_id')->unsigned();
             $table->integer('creators_id')->nullable()->unsigned();
