@@ -193,10 +193,10 @@
                     <div class="row col-md-12">
                         <div class="col-md-6">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
-                            @if ( $book->document->adequacy->adequacy_description === NULL )                                
+                            @if ( $book->document->adequacy['adequacy_description'] === NULL )                                
                                 <p class="tex-muted"><a>Sin Adecuación</a> </p>
                             @else
-                            <p class="text-muted">{{ $book->document->adequacy->adequacy_description }}</p>
+                            <p class="text-muted">{{ $book->document->adequacy['adequacy_description'] }}</p>
                             @endif  
                           
                             <hr>

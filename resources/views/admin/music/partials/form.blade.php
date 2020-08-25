@@ -49,8 +49,9 @@
                 </div> 
                  <!-- popular  -->
                  <div class="form-group" id="din_other_artists">
-                    {!! Form::label('other_artists', 'Otro Artista') !!}  
-                    {!! Form::select('other_artists', $authors, $music->popular['other_artists'], ['class' => 'form-control  select2', 'id' => 'other_artists', 'placeholder' => '',  'style' => 'width: 100%']) !!}
+                    {!! Form::label('other_artists', 'Otros Artistas') !!}  
+                   
+                    {!! Form::text('other_artists',  $music->popular['other_artists'], ['class' => 'form-control', 'id' => 'other_artists', 'placeholder' => 'Otros Artistas']) !!}
                 </div>
                 <!-- popular  -->
                 <div class="form-group" id="din_music_populars">

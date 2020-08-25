@@ -411,8 +411,8 @@ class MoviesController extends Controller
                 }             
             }) 
             ->addColumn('generate_formats_id', function ($movie){
-                if($movie->generate_format->genre_format != null){
-                    return $movie->generate_format->genre_format;
+                if($movie->generate_format['genre_format'] != null){
+                    return $movie->generate_format['genre_format'];
                 }else{
                     return 'Sin Formato';
                 }              

@@ -77,7 +77,7 @@
                     <div class="row col-md-6">
                         <strong><i class="fa fa-users margin-r-5"></i> Orquesta:</strong>  
                         @if (  $music->culture->orchestra === NULL )                            
-                            <p class="tex-muted"><a>Sin Orquesta:</a> </p>
+                            <p class="tex-muted"><a>Sin Orquesta</a> </p>
                         @else
                             <p class="text-muted">{{ $music->culture->orchestra }}</p> 
                         @endif                 
@@ -88,7 +88,7 @@
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Editado En:</strong>
                         @if ( $music->document->published === NULL )                            
-                            <p class="tex-muted"><a>Sin Edición:</a> </p>
+                            <p class="tex-muted"><a>Sin Edición</a> </p>
                         @else
                             <p class="text-muted">{{ $music->document->published }}</p>
                         @endif    
@@ -97,7 +97,7 @@
                     <div class="col-md-6">
                         <strong><i class="fa fa-info margin-r-5"></i> Sello Discográfico:</strong>
                         @if ( $music->document->made_by === NULL )                            
-                            <p class="tex-muted"><a>Sin Discográfico:</a> </p>
+                            <p class="tex-muted"><a>Sin Discográfico</a> </p>
                         @else
                             <p class="text-muted">{{ $music->document->made_by }}</p>
                         @endif  
@@ -135,10 +135,10 @@
                         </div>                    
                         <div class="col-md-6">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
-                            @if ( $music->document->adequacy->adequacy_description === NULL )                            
+                            @if ( $music->document->adequacy['adequacy_description'] === NULL )                            
                                 <p class="tex-muted"><a>No tiene Adecuación</a> </p>
                             @else
-                            <p class="text-muted">{{ $music->document->adequacy->adequacy_description }}</p>
+                            <p class="text-muted">{{ $music->document->adequacy['dequacy_description'] }}</p>
                             @endif  
                             
                             <hr>

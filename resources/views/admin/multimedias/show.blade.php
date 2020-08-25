@@ -92,10 +92,10 @@
                         </div>                        
                         <div class="col-md-4">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
-                            @if ( $multimedia->document->adequacy->adequacy_description === NULL )                                
+                            @if ( $multimedia->document->adequacy['adequacy_description'] === NULL )                                
                                 <p class="tex-muted"><a>Sin Adecuación</a> </p>
                             @else
-                                <p class="text-muted">{{ $multimedia->document->adequacy->adequacy_description }}</p>
+                                <p class="text-muted">{{ $multimedia->document->adequacy['adequacy_description'] }}</p>
                             @endif
                             
                             <hr>
@@ -114,7 +114,7 @@
                         <div class="col-md-4">
                             <strong><i class="fa  fa-filter margin-r-5"></i> Páginas:</strong>
                             @if ( $multimedia->document->quantity_generic === NULL )                            
-                                <p class="tex-muted"><a>Sin Páginas:</a> </p>
+                                <p class="tex-muted"><a>Sin Páginas</a> </p>
                             @else
                                 <p class="text-muted">{{ $multimedia->document->quantity_generic }}</p>
                             @endif 
@@ -123,7 +123,7 @@
                         <div class="col-md-4">
                             <strong><i class="fa fa-info margin-r-5"></i>Volumen:</strong>
                             @if ( $multimedia->document->volume === NULL )                            
-                                <p class="tex-muted"><a>Sin Volumen:</a> </p>
+                                <p class="tex-muted"><a>Sin Volumen</a> </p>
                             @else
                                 <p class="text-muted">{{ $multimedia->document->volume }}</p>
                             @endif  
@@ -132,7 +132,7 @@
                         <div class="col-md-4">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> Edición:</strong>
                             @if ( $multimedia->edition === NULL )                            
-                                <p class="tex-muted"><a>Sin Edición:</a> </p>
+                                <p class="tex-muted"><a>Sin Edición</a> </p>
                             @else
                                 <p class="text-muted">{{ $multimedia->edition }}</p>
                             @endif
@@ -143,7 +143,7 @@
                         <div class="col-md-12">               
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación:</strong>
                             @if ( $multimedia->document->location === NULL )                            
-                                <p class="tex-muted"><a>Sin Ubicación:</a> </p>
+                                <p class="tex-muted"><a>Sin Ubicación</a> </p>
                             @else
                                 <p class="text-muted">{{ $multimedia->document->location }}</p>
                             @endif    

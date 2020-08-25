@@ -154,10 +154,10 @@
                       
                         <div class="col-md-6">
                             <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
-                            @if ( $movie->document->adequacy->adequacy_description === NULL )                            
+                            @if ( $movie->document->adequacy['adequacy_description'] === NULL )                            
                                 <p class="tex-muted"><a>Sin Adecuación</a> </p>
                             @else
-                                <p class="text-muted">{{ $movie->document->adequacy->adequacy_description }}</p>
+                                <p class="text-muted">{{ $movie->document->adequacy['adequacy_description'] }}</p>
                             @endif
                             <hr>
                         </div>
@@ -166,7 +166,12 @@
                     <div class="row col-md-12">
                         <div class="col-md-4">
                             <strong><i class="fa fa-film margin-r-5"></i> Fotografia:</strong>
-                            <p class="text-muted">{{ $movie->photography_movie->photography_movies_name }}</p>
+                            <p class="text-muted">{{ $movie->photography_movie['photography_movies_name'] }}</p>
+                            @if ( $movie->photography_movie['photography_movies_name'] === NULL )                            
+                                <p class="tex-muted"><a>Sin Fotografia</a> </p>
+                            @else
+                                <p class="text-muted">{{ $movie->photography_movie['photography_movies_name'] }}</p>
+                            @endif     
                             <hr>
                         </div>
                         <div class="col-md-4">

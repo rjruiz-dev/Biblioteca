@@ -98,9 +98,8 @@ class UserController extends Controller
                 $user->save();
                    
                 // Enviamos el email
-                UserWasCreated::dispatch($user, $data['password']);
-                $user->update($request->validated()); 
-
+                // UserWasCreated::dispatch($user, $data['password']);
+                
                 DB::commit();
 
             } catch (Exception $e) {

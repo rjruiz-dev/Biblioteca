@@ -58,15 +58,20 @@
                     </div>  
                     <div class="col-md-4">
                         <strong><i class="fa fa-globe margin-r-5"></i> Idioma:</strong>
-                        <p class="text-muted">{{ $photograph->document->lenguage->leguage_description }}</p>
+                        <p class="text-muted">{{ $photograph->document->lenguage['leguage_description'] }}</p>
+                        @if (  $photograph->document->lenguage['leguage_description']  === NULL )                            
+                            <p class="tex-muted"><a>Sin Idioma</a> </p>
+                        @else
+                        <p class="text-muted">{{  $photograph->document->lenguage['leguage_description'] }}</p>
+                        @endif 
                         <hr>
                     </div>
                     <div class="col-md-4">
                         <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Adecuado Para:</strong>
-                        @if ( $photograph->document->adequacy->adequacy_description  === NULL )                            
+                        @if ( $photograph->document->adequacy['adequacy_description']  === NULL )                            
                             <p class="tex-muted"><a>Sin Adecuación</a> </p>
                         @else
-                        <p class="text-muted">{{ $photograph->document->adequacy->adequacy_description }}</p>
+                        <p class="text-muted">{{ $photograph->document->adequacy['adequacy_description'] }}</p>
                         @endif 
                        
                         <hr>

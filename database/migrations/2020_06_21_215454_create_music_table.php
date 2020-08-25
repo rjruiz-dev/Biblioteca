@@ -18,7 +18,7 @@ class CreateMusicTable extends Migration
 
             $table->integer('documents_id')->unsigned();            
             $table->integer('generate_musics_id')->unsigned();
-            $table->integer('generate_formats_id')->unsigned();
+            $table->integer('generate_formats_id')->nullable()->unsigned();
 
             $table->string('sound')->nullable();         
             $table->string('producer')->nullable();

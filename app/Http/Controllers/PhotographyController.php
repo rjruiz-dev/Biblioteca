@@ -418,12 +418,12 @@ class PhotographyController extends Controller
             ->addColumn('document_subtypes_id', function ($photograph){
 
                 return  $photograph->document->document_subtype->subtype_name;              
-            }) 
+            })            
             ->addColumn('generate_formats_id', function ($photograph){
-                if($photograph->generate_format->genre_format == null){
+                if($photograph->generate_format['genre_format'] == null){
                     return 'Sin Formato';
                 }else{
-                return  $photograph->generate_format->genre_format;              
+                return  $photograph->generate_format['genre_format'];              
                 }
             })  
             ->addColumn('documents_id', function ($photograph){

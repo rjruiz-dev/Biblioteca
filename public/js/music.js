@@ -19,10 +19,10 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona un Subtipo',                  
             });
 
-            $('#other_artists').select2({
-                placeholder: 'Seleccione o ingrese otro Artista',
-                tags: true,               
-            });
+            // $('#other_artists').select2({
+            //     placeholder: 'Seleccione o ingrese otro Artista',
+            //     tags: true,               
+            // });
 
             $('#status_documents_id').select2({
                 // placeholder: 'Selecciona un Volúmen',              

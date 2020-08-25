@@ -27,7 +27,7 @@
                     <tr>
                         <th>ID</th>                                   
                         <th>Titulo y Director</th>  
-                        <th>Genero</th>  
+                        <th>Género</th>  
                         <th>Formato</th>  
                         <th>Idioma</th> 
                         <th>Estado</th>                     
