@@ -1,3 +1,7 @@
+{{ Auth::user() != null  ? Auth::user()->name : 'No logueado' }}
+
+@if(Auth::user() != null && Auth::user()->getRoleNames() == 'Admin')
+
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">Navegación</li> 
 
@@ -198,3 +202,87 @@
     </li>
    
 </ul>
+@endif
+@if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">Navegación</li> 
+
+    <li class="{{ setActiveRoute('dashboard') }}">
+        <a href="{{ route('dashboard') }}">
+            <i class="fa fa-dashboard"></i> <span>Inicio</span>
+        </a>
+    </li>
+
+
+    <li class="{{ setActiveRoute('admin.books.index') }}">
+                <a href="{{ route('admin.books.index') }}">
+                    <i class="fa fa-book"></i><span> Libros</span>
+                </a>
+            </li>
+
+            <li class="{{ setActiveRoute('admin.movies.index') }}">
+                <a href="{{ route('admin.movies.index') }}">
+                    <i class="fa fa-video-camera"></i><span> Cines</span> 
+                </a>
+            </li>
+
+            <li class="{{ setActiveRoute('admin.music.index') }}">
+                <a href="{{ route('admin.music.index') }}">
+                    <i class="fa fa-music"></i><span> Musica</span> 
+                </a>
+            </li>
+
+            <li class="{{ setActiveRoute('admin.photographs.index') }}">
+                <a href="{{ route('admin.photographs.index') }}">
+                    <i class="fa fa-photo"></i><span> Fotografias</span> 
+                </a>
+            </li> 
+            <li class="{{ setActiveRoute('admin.multimedias.index') }}">
+                <a href="{{ route('admin.multimedias.index') }}">
+                    <i class="fa fa-youtube-play"></i><span> Multimedias</span> 
+                </a>
+            </li>    
+</ul>
+@endif
+
+@if(Auth::user() == null)
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">Navegación</li> 
+
+    <li class="{{ setActiveRoute('home') }}">
+        <a href="{{ route('home') }}">
+            <i class="fa fa-dashboard"></i> <span>Inicio</span>
+        </a>
+    </li>
+
+
+    <li class="{{ setActiveRoute('admin.books.index') }}">
+                <a href="{{ route('admin.books.index') }}">
+                    <i class="fa fa-book"></i><span> Libros</span>
+                </a>
+            </li>
+
+            <li class="{{ setActiveRoute('movies.index') }}">
+                <a href="{{ route('movies.index') }}">
+                    <i class="fa fa-video-camera"></i><span> Cines</span> 
+                </a>
+            </li>
+
+            <li class="{{ setActiveRoute('admin.music.index') }}">
+                <a href="{{ route('admin.music.index') }}">
+                    <i class="fa fa-music"></i><span> Musica</span> 
+                </a>
+            </li>
+
+            <li class="{{ setActiveRoute('admin.photographs.index') }}">
+                <a href="{{ route('admin.photographs.index') }}">
+                    <i class="fa fa-photo"></i><span> Fotografias</span> 
+                </a>
+            </li> 
+            <li class="{{ setActiveRoute('admin.multimedias.index') }}">
+                <a href="{{ route('admin.multimedias.index') }}">
+                    <i class="fa fa-youtube-play"></i><span> Multimedias</span> 
+                </a>
+            </li>    
+</ul>
+@endif

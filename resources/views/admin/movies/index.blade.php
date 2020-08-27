@@ -107,8 +107,8 @@
                     }
                 }
                 
-            ],             
-            ajax: "{{ route('movies.table') }}",        
+            ],          
+            ajax: "{{ route('vmovies.table') }}",        
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},                                                   
                 {data: 'documents_id', name: 'documents_id'}, 

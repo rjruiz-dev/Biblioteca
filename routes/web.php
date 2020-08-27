@@ -11,12 +11,31 @@
 |
 */
 
-Route::get('/', function () {
+// Route::redirect('/', 'catalogue');
+
+// Auth::routes();
+
+// Route::get('/catalogue', 'PagesController@catalogue')->name('catalogue');
+
+Route::group([
+    'prefix'     => '/'],   
+function(){    
+    Route::get('/',                         'HomeController@index')->name('home');         
+    // Route::resource('users',                'VUserController'); 
+    // Route::resource('books',                'VBookController'); 
+    // Route::resource('music',                'VMusicController');
+    // Route::resource('photographs',          'VPhotographyController');
+    Route::resource('movies',               'VMoviesController');
+    
+});
+
+// Cine
+Route::get('vmovies/table',              'VMoviesController@dataTable')->name('vmovies.table');
+
+Route::get('/login', function () {
     return view('auth.login');
 });
-Route::get('/', function () {
-    return view('la');
-});
+
 
 Auth::routes(['register' => false]);
 
@@ -124,7 +143,7 @@ Route::get('fastprocess/table',         'FastPartnerProcessController@dataTable'
 Route::get('fastprocess/table2',        'FastPartnerProcessController@dataTable2')->name('fastprocess.table2');
 Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->name('fastprocess.index2');
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
-Route::get('requests/table',          'RequestsController@dataTable')->name('requests.table');
+Route::get('requests/table',            'RequestsController@dataTable')->name('requests.table');
 
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
 
