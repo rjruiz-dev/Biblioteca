@@ -15,6 +15,8 @@ $('body').on('click', '.modal-show', function (event) {
         success: function (response) {
             $('#modal-body').html(response);
 
+            $('#loan').css('display', 'none');
+
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma',
                                  

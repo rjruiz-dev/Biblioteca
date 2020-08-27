@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/', function () {
+    return view('la');
+});
 
 Auth::routes(['register' => false]);
 
@@ -43,10 +46,10 @@ function(){
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
-    Route::resource('loansbydate',             'LoansbydateController',['as' => 'admin']);
-    Route::resource('loansbyclassroom',             'LoansbyclassroomController',['as' => 'admin']);
-    Route::resource('infoofdatabase',             'infoofdatabaseController',['as' => 'admin']);
-    Route::resource('importfromrebeca',             'ImportfromrebecaController',['as' => 'admin']);
+    Route::resource('loansbydate',          'LoansbydateController',['as' => 'admin']);
+    Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
+    Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
+    Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
  
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');

@@ -1,4 +1,5 @@
 <div class="row">
+       
     <div  class="col-md-12">
         <nav class="navbar navbar-default navbar-dark ">
             <div class="container-fluid">               
@@ -249,13 +250,25 @@
                         <hr>
                     </div>
                 </div>
-
-                <div class="col-md-12">  
-                    <button type="button" class="btn btn-danger btn-flat btn-block"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</button>
+                @if( auth()->user()->getRoleNames() == 'Admin' ||  auth()->user()->getRoleNames() == 'Librarian') 
+                @php                        
+                    $visible = "display:none"
+                @endphp
+                @else
+                    @php  
+                        $visible = ""
+                    @endphp
+                @endif 
+                <div class="col-md-12" >  
+                    <button type="button" class="btn btn-danger btn-flat btn-block" style="{{{ $visible }}}" id="loan"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</button>
                 </div>
             </div>       
           </div>
     </div>
 
 </div>
+
+<script>
+  $('#loan').css('display', 'none');
+</script>
 

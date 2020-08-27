@@ -60,6 +60,15 @@ class User extends Authenticatable
     {  
         return $this->hasOne(Book_movement::class);
     }
+
+    public function getRoleNames()
+    {
+        return $this->roles->pluck('name')->implode(', ');
+    }  
     
+    // public function getRoleDisplayNames()
+    // {
+    //     return $this->roles->pluck('display_name')->implode(', ');
+    // }  
 }
 
