@@ -33,7 +33,7 @@ class VMoviesController extends Controller
      */
     public function index()
     {
-        return view('admin.movies.index');
+        return view('movies.index');
     }
 
     /**
@@ -67,7 +67,7 @@ class VMoviesController extends Controller
     {
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('admin.movies.show', compact('movie'));
+        return view('movies.show', compact('movie'));
     }
 
     /**
@@ -151,7 +151,7 @@ class VMoviesController extends Controller
             
             ->addColumn('accion', function ($movie) {
                 // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
-                return view('admin.movies.partials._action', [
+                return view('movies.partials._action', [
                     'movie'             => $movie,
                     'url_show'          => route('movies.show', $movie->id),                          
                 ]);

@@ -17,7 +17,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">Listado de Cine   
           
-                <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
+             
     
             </h3>
         </div>
@@ -43,7 +43,7 @@
     </div> 
 @stop
 
-@include('admin.movies.partials._modal')
+@include('movies.partials._modal')
 
 @push('styles')
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
@@ -108,7 +108,7 @@
                 }
                 
             ],          
-            ajax: "{{ route('movies.table')  }}",         
+            ajax: "{{ route('movies.table') }}",    
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},                                                   
                 {data: 'documents_id', name: 'documents_id'}, 

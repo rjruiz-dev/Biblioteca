@@ -17,20 +17,12 @@
 
 // Route::get('/catalogue', 'PagesController@catalogue')->name('catalogue');
 
-Route::group([
-    'prefix'     => '/'],   
-function(){    
-    Route::get('/',                         'HomeController@index')->name('home');         
-    // Route::resource('users',                'VUserController'); 
-    // Route::resource('books',                'VBookController'); 
-    // Route::resource('music',                'VMusicController');
-    // Route::resource('photographs',          'VPhotographyController');
-    Route::resource('movies',               'VMoviesController');
-    
-});
 
+
+Route::get('/',                         'HomeController@index')->name('home'); 
+Route::resource('vmovies',               'VMoviesController');
 // Cine
-Route::get('vmovies/table',              'VMoviesController@dataTable')->name('vmovies.table');
+// Route::get('vmovies/vtable',              'VMoviesController@dataTable')->name('vmovies.vtable');
 
 Route::get('/login', function () {
     return view('auth.login');

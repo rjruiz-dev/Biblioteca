@@ -203,7 +203,7 @@
    
 </ul>
 @endif
-@if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
+@if(Auth::user() != null &&Auth::user()->getRoleNames() == 'Partner')
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">Navegación</li> 
 
@@ -262,8 +262,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActiveRoute('movies.index') }}">
-                <a href="{{ route('movies.index') }}">
+            <li class="{{ setActiveRoute('vmovies.index') }}">
+                <a href="{{ route('vmovies.index') }}">
                     <i class="fa fa-video-camera"></i><span> Cines</span> 
                 </a>
             </li>
