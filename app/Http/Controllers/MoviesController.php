@@ -33,6 +33,8 @@ class MoviesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', new Movies); 
+
         return view('admin.movies.index');
     }
 
@@ -44,7 +46,9 @@ class MoviesController extends Controller
     public function create()
     {
         $movie = new Movies(); 
-        $document = new Document();            
+        $document = new Document();      
+      
+        $this->authorize('create', $movie);            
                               
         return view('admin.movies.partials.form', [           
             'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
@@ -81,6 +85,8 @@ class MoviesController extends Controller
             try {
                 //  Transacciones
                 DB::beginTransaction();
+
+                $this->authorize('create', new Movies);
                               
                 // Creamos el documento            
                 $document = new Document;
@@ -180,6 +186,8 @@ class MoviesController extends Controller
     {
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $this->authorize('view', $movie);
+
         return view('admin.movies.show', compact('movie'));
     }
 
@@ -193,6 +201,8 @@ class MoviesController extends Controller
     {
         $movie = Movies::with('document','document.subjects', 'document.references')->findOrFail($id);    
         $document = Document::findOrFail($movie->documents_id);   
+
+        $this->authorize('update', $movie);
      
         return view('admin.movies.partials.form', [
            
@@ -211,7 +221,7 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
             'movie'             => $movie,
             'document'          => $document
            
@@ -233,7 +243,10 @@ class MoviesController extends Controller
                 DB::beginTransaction();
 
                 $movie      = Movies::findOrFail($id);
-                $document   = Document::findOrFail($movie->documents_id);    
+                $document   = Document::findOrFail($movie->documents_id); 
+                
+                $this->authorize('update', $movie);
+                
                 
                 $name = $movie->photo; 
                 if ($request->hasFile('photo')) {               
@@ -329,6 +342,8 @@ class MoviesController extends Controller
     {
         $document = Document::findOrFail($id);
 
+        $this->authorize('delete', $document);
+
         if($document->status_documents_id == 1){ //si esta activo lo doy de baja
             $document->status_documents_id = 2;
             $document->desidherata = 0;
@@ -342,9 +357,11 @@ class MoviesController extends Controller
         }
     }
 
-    public function exportPdf()
+    public function exportPdf($id)
     {
-        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->first();
+        $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
+
+        $this->authorize('download', $movie);
 
         $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
        
@@ -353,6 +370,9 @@ class MoviesController extends Controller
     public function desidherata($id)
     {
         $document = Document::findOrFail($id);
+
+        $this->authorize('desidherata', $document);
+
         $document->status_documents_id = 3;
         $document->desidherata = 1;    
         $document->save();
@@ -362,15 +382,20 @@ class MoviesController extends Controller
     public function baja($id)
     {
         $document = Document::findOrFail($id);
+
+        $this->authorize('status', $movie);
+
         $document->status_documents_id = 2;
         $document->desidherata = 0;   
         $document->save();
     }
 
     public function copy($id)
-    {
-        
+    {        
         $document = Document::findOrFail($id);
+
+        $this->authorize('copy', $movie);
+
         if($document->status_documents_id == 2){
             return response()->json(['data' => 0]);      
         }else{
@@ -381,6 +406,8 @@ class MoviesController extends Controller
     public function reactivar($id)
     {
         $document = Document::findOrFail($id);
+
+        $this->authorize('status', $document);
         // dd($document);
         $document->status_documents_id = 1;
         $document->desidherata = 0;   

@@ -37,19 +37,47 @@ class UsersTableSeeder extends Seeder
         // $partnerRole = Role::create(['name' => 'Partner', 'display_name' => 'Socio']);
 
         // Create permissions
-        $viewsLoanButtonPermission  = Permission::create([
-            'name' => 'View loanbutton',
+        $viewMoviesPermission   = Permission::create([
+            'name' => 'View movies',
+            // 'display_name' => 'Ver Ordenes'
+        ]);
+        $createMoviesPermission = Permission::create([            
+            'name' => 'Create movies',
+            // 'display_name' => 'Crear Ordenes'
+        ]);
+        $updateMoviesPermission = Permission::create([
+            'name' => 'Update movies',
+            // 'display_name' => 'Actualizar Ordenes'
+        ]);
+        $deleteMoviesPermission = Permission::create([            
+            'name' => 'Delete movies',
+            // 'display_name' => 'Eliminar Ordenes'
+        ]);
+        $copyMoviesPermission = Permission::create([
+            'name' => 'Copy',
             // 'display_name' => 'Ver boton de prestamo'
         ]);
-       
+        $statusMoviesPermission = Permission::create([
+            'name' => 'Status',
+            // 'display_name' => 'Ver boton de prestamo'
+        ]);
+        $desidherataMoviesPermission = Permission::create([
+            'name' => 'Desidherata',
+            // 'display_name' => 'Ver boton de prestamo'
+        ]);
+        $downloadMoviesLoanButtonPermission = Permission::create([
+            'name' => 'Download',
+            // 'display_name' => 'Ver boton de prestamo'
+        ]);
 
-        // create users
+
+        // Create users
         $admin = new User;
         $admin->name = 'Gonzalo';
         $admin->surname = 'Nadal';
         $admin->nickname = 'GB_Admin';
         $admin->membership = '23.456.567';
-        $admin->email = 'rjruizsf@gmail.com';        
+        $admin->email = 'admin@gmail.com';        
         $admin->password = '123456';    
         $admin->status_id = 1;
         $admin->save();

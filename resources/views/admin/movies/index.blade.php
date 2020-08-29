@@ -1,3 +1,8 @@
+<?php
+use App\Movies;
+?>
+
+
 @extends('layouts.app')
 
 @section('header')    
@@ -16,9 +21,9 @@
     <div class="panel panel-primary">        
         <div class="panel-heading">
             <h3 class="panel-title">Listado de Cine   
-          
+            @can('create', $movies = new Movies())      
                 <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
-    
+            @endcan  
             </h3>
         </div>
         <div class="panel-body">

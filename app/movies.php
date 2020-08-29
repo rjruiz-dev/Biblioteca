@@ -57,4 +57,7 @@ class Movies extends Model
 
         return $this->actors()->sync($actorsIds);
     }
+
+   
+
 }
