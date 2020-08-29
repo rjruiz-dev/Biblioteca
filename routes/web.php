@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', 'HomeController@index')->name('index'); 
+Route::resource('vmovies',   'VMoviesController');
+
+
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
 
 
 Auth::routes(['register' => false]);
@@ -100,7 +104,7 @@ function(){
     Route::delete('requests/solicitud/{id}',  'RequestsController@solicitud')->name('requests.solicitud');
 
 });
-
+Route::get('vmovies/table',              'VMoviesController@dataTable')->name('vmovies.table');
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
 Route::get('books/table',               'BookController@dataTable')->name('books.table');
 Route::get('languages/table',           'LenguageController@dataTable')->name('languages.table'); 

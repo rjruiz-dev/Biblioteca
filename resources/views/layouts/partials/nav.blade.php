@@ -1,5 +1,5 @@
 <ul class="sidebar-menu" data-widget="tree">
-    <li class="header">Navegación</li> 
+    <li class="header">Navegación</li>     
 
     <li class="{{ setActiveRoute('dashboard') }}">
         <a href="{{ route('dashboard') }}">
@@ -196,5 +196,20 @@
             </li>
         </ul>
     </li>
-   
+    
+    @if(Auth::user() == null)
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Navegación</li> 
+        <li class="{{ setActiveRoute('index') }}">
+            <a href="{{ route('index') }}">
+                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+            </a>
+        </li>
+        <li class="{{ setActiveRoute('vmovies.index') }}">
+            <a href="{{ route('vmovies.index') }}">
+                <i class="fa fa-video-camera"></i><span> Cines</span> 
+            </a>
+        </li>
+    </ul>
+    @endif   
 </ul>
