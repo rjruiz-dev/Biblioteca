@@ -65,10 +65,10 @@ class VMoviesController extends Controller
      */
     public function show($id)
     {
-        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('movies.show', compact('movie'));
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -150,10 +150,10 @@ class VMoviesController extends Controller
             })                 
             
             ->addColumn('accion', function ($movie) {
-                // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
+             
                 return view('movies.partials._action', [
                     'movie'             => $movie,
-                    'url_show'          => route('movies.show', $movie->id),                          
+                    'url_show'          => route('vmovies/vshow', $movie->id),                          
                 ]);
 
             })           

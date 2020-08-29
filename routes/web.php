@@ -20,9 +20,13 @@
 
 
 Route::get('/',                         'HomeController@index')->name('home'); 
-Route::resource('vmovies',               'VMoviesController');
+Route::resource('vmovies',              'VMoviesController');
+Route::resource('vbooks',               'VBookController'); 
+
 // Cine
-// Route::get('vmovies/vtable',              'VMoviesController@dataTable')->name('vmovies.vtable');
+Route::get('vmovies/table',             'VMoviesController@dataTable')->name('vmovies.table');
+
+
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -61,7 +65,9 @@ function(){
     Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
     Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
- 
+
+    Route::get('movies.show1',              'MoviesController@show1')->name('movies.show1');
+
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
@@ -127,7 +133,7 @@ Route::get('cinematographics/table',    'GenerateFilmController@dataTable')->nam
 Route::get('courses/table',             'CourseController@dataTable')->name('courses.table'); 
 Route::get('subjects/table',            'GenerateSubjectsController@dataTable')->name('subjects.table'); 
 Route::get('letters/table',             'GenerateLetterController@dataTable')->name('letters.table'); 
-Route::get('movies/table',              'MoviesController@dataTable')->name('movies.table');
+Route::get('movies/table/{bandera}',              'MoviesController@dataTable')->name('movies.table');
 Route::get('music/table',               'MusicController@dataTable')->name('music.table');
 Route::get('photographs/table',         'PhotographyController@dataTable')->name('photographs.table');
 Route::get('multimedias/table',         'MultimediaController@dataTable')->name('multimedias.table');

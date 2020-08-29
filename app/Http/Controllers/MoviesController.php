@@ -183,6 +183,13 @@ class MoviesController extends Controller
         return view('admin.movies.show', compact('movie'));
     }
 
+    public function show1($id)
+    {
+        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+      
+        return view('movies.show', compact('movie'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -388,7 +395,7 @@ class MoviesController extends Controller
     }
     
 
-    public function dataTable()
+    public function dataTable($bandera)
     {   
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
         // ->allowed()
@@ -433,18 +440,29 @@ class MoviesController extends Controller
                 return $movie->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($movie) {
+            ->addColumn('accion', function ($movie) use($bandera) {
                 // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
-                return view('admin.movies.partials._action', [
-                    'movie'             => $movie,
-                    'url_show'          => route('admin.movies.show', $movie->id),                        
-                    'url_edit'          => route('admin.movies.edit', $movie->id),  
-                    'url_copy'          => route('movies.copy', $movie->document->id),                              
-                    'url_desidherata'   => route('movies.desidherata', $movie->document->id),
-                    'url_baja'          => route('movies.baja', $movie->document->id),
-                    'url_reactivar'     => route('movies.reactivar', $movie->document->id),
-                    'url_print'         => route('cine.pdf', $movie->id)   
-                ]);
+               
+                if($bandera == 1)
+                {
+                    return view('movies.partials._action', [
+                        'movie'             => $movie,
+                        'url_show'          => route('movies.show1', $movie->id),                        
+                        
+                    ]);
+    
+                }else{
+                    return view('admin.movies.partials._action', [
+                        'movie'             => $movie,
+                        'url_show'          => route('admin.movies.show', $movie->id),                        
+                        'url_edit'          => route('admin.movies.edit', $movie->id),  
+                        'url_copy'          => route('movies.copy', $movie->document->id),                              
+                        'url_desidherata'   => route('movies.desidherata', $movie->document->id),
+                        'url_baja'          => route('movies.baja', $movie->document->id),
+                        'url_reactivar'     => route('movies.reactivar', $movie->document->id),
+                        'url_print'         => route('cine.pdf', $movie->id)   
+                    ]);
+                }
 
             })           
             ->addIndexColumn()   
