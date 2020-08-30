@@ -229,11 +229,31 @@
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>
             </a>
         </li>
-        <li class="{{ setActiveRoute('web.vmovies.index') }}">
-            <a href="{{ route('web.vmovies.index') }}">
-                <i class="fa fa-video-camera"></i><span> Cines</span> 
+        <li class="{{ setActiveRoute('web.libros.index') }}">
+            <a href="{{ route('web.libros.index') }}">
+                <i class="fa fa-book"></i><span> Libros</span>
             </a>
         </li>
+        <li class="{{ setActiveRoute('web.cine.index') }}">
+            <a href="{{ route('web.cine.index') }}">
+                <i class="fa fa-video-camera"></i><span> Cines</span> 
+            </a>
+        </li>        
+        <li class="{{ setActiveRoute('web.musica.index') }}">
+            <a href="{{ route('web.musica.index') }}">
+                <i class="fa fa-music"></i><span> Musica</span> 
+            </a>
+        </li>   
+        <li class="{{ setActiveRoute('web.fotografias.index') }}">
+            <a href="{{ route('web.fotografias.index') }}">
+                <i class="fa fa-photo"></i><span> Fotografias</span> 
+            </a>
+        </li> 
+        <li class="{{ setActiveRoute('web.multimedia.index') }}">
+            <a href="{{ route('web.multimedia.index') }}">
+                <i class="fa fa-youtube-play"></i><span> Multimedias</span> 
+            </a>
+        </li>         
     </ul>
     @endif   
 </ul>

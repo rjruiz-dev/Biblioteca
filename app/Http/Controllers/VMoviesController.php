@@ -19,10 +19,6 @@ use App\StatusDocument;
 use App\Document_subtype;
 use App\Photography_movie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\SaveMovieRequest;
 
 class VMoviesController extends Controller
 {
@@ -67,8 +63,6 @@ class VMoviesController extends Controller
     {
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail( $id);
       
-     
-
         return view('web.movies.show', compact('movie'));
     }
 
@@ -109,11 +103,8 @@ class VMoviesController extends Controller
     public function dataTable()
     {   
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
-        // ->allowed()        
         ->get();
      
-      
-
         return dataTables::of($movie)
             ->addColumn('id_doc', function ($movie){
                 return $movie->document['id']."<br>";            
@@ -155,9 +146,9 @@ class VMoviesController extends Controller
             
             ->addColumn('accion', function ($movie) {
              
-                return view('web.movies.partials._action1', [
+                return view('web.movies.partials._action', [
                     'movie'             => $movie,
-                    'url_show'          => route('web.vmovies.show', $movie->id),                        
+                    'url_show'          => route('web.cine.show', $movie->id),                        
                    
                 ]);
 

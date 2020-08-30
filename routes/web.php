@@ -13,24 +13,31 @@
 
 Route::get('/', 'HomeController@index')->name('index'); 
 
-Route::group([
-    'prefix'  => 'web'],   
-function(){ 
-    Route::resource('vmovies',   'VMoviesController',['as' => 'web']);
-    Route::get('vusers/create',  'HomeController@create')->name('vusers.create');
-    Route::post('vusers/store',  'HomeController@store')->name('vusers.store');
-    Route::get('vusers/edit/{id}',  'HomeController@edit')->name('vusers.edit');
-    Route::post('vusers/update/{id}',  'HomeController@update')->name('vusers.update');
-});
-
-Route::get('vmovies/table',  'VMoviesController@dataTable')->name('vmovies.table');
-
 Route::get('/login', function () {
     return view('auth.login');
 });
-
-
 Auth::routes(['register' => false]);
+
+Route::group([
+    'prefix'  => 'web'],   
+function(){ 
+    Route::resource('libros',           'VBooksController', ['except' => 'create','store','edit','update','delete', 'as' => 'web']);
+    Route::resource('cine',             'VMoviesController',['except' => 'create','store','edit','update','delete', 'as' => 'web']);
+    Route::resource('musica',           'VMusicController',['except' => 'create','store','edit','update','delete', 'as' => 'web']);
+    Route::resource('fotografias',      'VPhotographyController',['except' => 'create','store','edit','update','delete', 'as' => 'web']);
+    Route::resource('multimedia',       'VMultimediaController',['except' => 'create','store','edit','update','delete', 'as' => 'web']);
+ 
+    Route::get('vusers/create',         'HomeController@create')->name('vusers.create');
+    Route::post('vusers/store',         'HomeController@store')->name('vusers.store');
+    Route::get('vusers/edit/{id}',      'HomeController@edit')->name('vusers.edit');
+    Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
+});
+
+Route::get('libros/table',      'VBooksController@dataTable')->name('libros.table');
+Route::get('cine/table',        'VMoviesController@dataTable')->name('cine.table');
+Route::get('musica/table',      'VMusicController@dataTable')->name('musica.table');
+Route::get('fotografias/table', 'VPhotographyController@dataTable')->name('fotografias.table');
+Route::get('multimedia/table',  'VMultimediaController@dataTable')->name('multimedia.table');
 
 Route::group([
     'prefix'     => 'admin',   
@@ -58,7 +65,7 @@ function(){
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
-    Route::resource('requestsup',             'RequestsUpController',['as' => 'admin']);
+    Route::resource('requestsup',           'RequestsUpController',['as' => 'admin']);
     Route::resource('loansbydate',          'LoansbydateController',['as' => 'admin']);
     Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
@@ -112,13 +119,9 @@ function(){
 
     //desestimar en request(solicitudes desde la web)
     Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
-    Route::delete('requests/solicitud/{id}',  'RequestsController@solicitud')->name('requests.solicitud');
+    Route::delete('requests/solicitud/{id}',   'RequestsController@solicitud')->name('requests.solicitud');
 
 });
-
-// Route::get('vmovies/table', function (){
-//     return view('web.index');
-// })->name('vmovies.table');
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
 Route::get('books/table',               'BookController@dataTable')->name('books.table');
@@ -141,16 +144,13 @@ Route::get('fastprocess/table',         'FastPartnerProcessController@dataTable'
 Route::get('fastprocess/table2',        'FastPartnerProcessController@dataTable2')->name('fastprocess.table2');
 Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->name('fastprocess.index2');
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
-Route::get('requests/table',          'RequestsController@dataTable')->name('requests.table');
+Route::get('requests/table',            'RequestsController@dataTable')->name('requests.table');
 Route::get('requestsup/table',          'RequestsUpController@dataTable')->name('requestsup.table');
 
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
-
-Route::get('loansbydate/table',          'LoansbydateController@dataTable')->name('loansbydate.table');
-
-Route::get('loansbyclassroom/table',          'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
-
-Route::get('infoofdatabase/table',          'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
+Route::get('loansbydate/table',         'LoansbydateController@dataTable')->name('loansbydate.table');
+Route::get('loansbyclassroom/table',    'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
+Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
 
 
 // Route::get('home', function () {

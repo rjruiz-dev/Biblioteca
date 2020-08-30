@@ -1,13 +1,8 @@
-<?php
-use App\Movies;
-?>
-
-
 @extends('layouts.app')
 
 @section('header')    
     <h1>
-       CATÁLOGO DE CINES
+       CATÁLOGO DE MUSICA
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -20,22 +15,19 @@ use App\Movies;
 @section('content')
     <div class="panel panel-primary">        
         <div class="panel-heading">
-            <h3 class="panel-title">Listado de Cine   
-           
-                
-          
+            <h3 class="panel-title">Listado de Musica       
             </h3>
         </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                                   
-                        <th>Titulo y Director</th>  
-                        <th>Género</th>  
-                        <th>Formato</th>  
-                        <th>Idioma</th> 
-                        <th>Estado</th>                     
+                        <th>ID</th>                       
+                        <th>Subtipo</th>
+                        <th>Genero</th>               
+                        <th>Titulo y Compositor</th>    
+                        <th>Idioma</th>
+                        <th>Estado</th>                       
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -48,20 +40,14 @@ use App\Movies;
     </div> 
 @stop
 
-@include('web.movies.partials._modal')
+@include('web.music.partials._modal')
 
 @push('styles')
-    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
-    <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">  
-    <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">  
+    <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">    
 @endpush
 
-@push('scripts')  
-    <script src="/adminlte/bower_components/ckeditor/ckeditor.js"></script>
-    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
-    <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+@push('scripts')     
     <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>   
@@ -71,7 +57,7 @@ use App\Movies;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-    <script src="{{ asset('js/movies.js') }}"></script>
+    <script src="{{ asset('js/music.js') }}"></script>
     
     <script>
         $('#datatable').DataTable({
@@ -112,17 +98,15 @@ use App\Movies;
                     }
                 }
                 
-            ],    
-          
-            ajax: "{{ route('cine.table') }}", 
-          
+            ],             
+            ajax: "{{ route('musica.table') }}",        
             columns: [                
-                {data: 'id_doc', name: 'id_doc'},                                                   
+                {data: 'id_doc', name: 'id_doc'},             
+                {data: 'document_subtypes_id', name: 'document_subtypes_id'},       
+                {data: 'generate_musics_id', name: 'generate_musics_id'},                     
                 {data: 'documents_id', name: 'documents_id'}, 
-                {data: 'generate_films_id', name: 'generate_films_id'}, 
-                {data: 'generate_formats_id', name: 'generate_formats_id'}, 
-                {data: 'lenguages_id', name: 'lenguages_id'},
-                {data: 'status', name: 'status'},             
+                {data: 'lenguages_id', name: 'lenguages_id'},             
+                {data: 'status', name: 'status'},
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

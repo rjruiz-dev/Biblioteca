@@ -434,9 +434,8 @@ class MusicController extends Controller
     public function dataTable()
     {   
         $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
-        // ->allowed()
         ->get();
-        // dd($musica);       
+       
         return dataTables::of($musica)
             ->addColumn('id_doc', function ($musica){
                 return $musica->document['id']."<br>";            
