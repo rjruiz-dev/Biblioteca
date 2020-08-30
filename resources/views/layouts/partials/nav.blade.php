@@ -6,6 +6,7 @@
             <i class="fa fa-dashboard"></i> <span>Inicio</span>
         </a>
     </li>  
+    
     <li class="{{ setActiveRoute('admin.loanmanual.index') }}">
         <a href="{{ route('admin.loanmanual.index') }}">
             <i class="fa fa-pencil"></i> <span>Prestamos Manuales</span>
@@ -205,8 +206,8 @@
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>
             </a>
         </li>
-        <li class="{{ setActiveRoute('vmovies.index') }}">
-            <a href="{{ route('vmovies.index') }}">
+        <li class="{{ setActiveRoute('web.vmovies.index') }}">
+            <a href="{{ route('web.vmovies.index') }}">
                 <i class="fa fa-video-camera"></i><span> Cines</span> 
             </a>
         </li>

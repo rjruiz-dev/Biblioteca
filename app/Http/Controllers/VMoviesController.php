@@ -65,9 +65,9 @@ class VMoviesController extends Controller
      */
     public function show($id)
     {
-        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail( $id);
       
-        $this->authorize('view', $movie);
+     
 
         return view('web.movies.show', compact('movie'));
     }
@@ -109,9 +109,11 @@ class VMoviesController extends Controller
     public function dataTable()
     {   
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
-        // ->allowed()
+        // ->allowed()        
         ->get();
      
+      
+
         return dataTables::of($movie)
             ->addColumn('id_doc', function ($movie){
                 return $movie->document['id']."<br>";            
@@ -155,7 +157,7 @@ class VMoviesController extends Controller
              
                 return view('web.movies.partials._action1', [
                     'movie'             => $movie,
-                    'url_show'          => route('vmovies.show', $movie->id),                        
+                    'url_show'          => route('web.vmovies.show', $movie->id),                        
                    
                 ]);
 

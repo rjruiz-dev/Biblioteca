@@ -25,6 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+    // protected $redirectTo = '/';
     protected $redirectTo = '/admin';
 
     /**
@@ -36,4 +37,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    // public function authenticated($request , $user)
+    // {
+      
+    //     if(auth()->user()->getRoleNames() == 'Admin'){
+    //         return redirect()->route('movies.table') ;
+    //     }else{
+    //         return redirect()->route('vmovies.table') ;
+    //     }
+    // }
 }
