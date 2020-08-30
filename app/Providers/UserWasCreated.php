@@ -16,6 +16,8 @@ class UserWasCreated
 
     public $user;
 
+
+
     public $password;
 
     /**
@@ -27,7 +29,14 @@ class UserWasCreated
     {
         $this->user = $user;
 
-        $this->password = $password;
+        $this->password
+        
+        
+        
+                
+        
+        
+        = $password;
     }
 
     /**

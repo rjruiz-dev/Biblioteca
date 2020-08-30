@@ -520,7 +520,7 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             // $('#rec_nickname').DataTable().ajax.reload();
-            $("#rec_nickname").load(" #rec_nickname");
+            $("#rec_nickname").load(" #rec_nickname"); 
             if(info == 0){
             swal({
                 type : 'success',
