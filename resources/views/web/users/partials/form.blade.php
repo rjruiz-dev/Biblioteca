@@ -1,9 +1,6 @@
 <div class="row">  
-    {!! Form::model($user, [
-        'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
-        'method' => $user->exists ? 'PUT' : 'POST',
-        'enctype' => 'multipart/form-data'
-    ]) !!} 
+{!! Form::model($user, ['route' => $user->exists ? ['vusers.update', $user->id] : 'vusers.store', 'method' => $user->exists ? 'PUT' : 'POST', 'enctype' => 'multipart/form-data'])  !!}
+
     {{ csrf_field() }}
     <div class="col-md-4">
         <div class="box box-primary">

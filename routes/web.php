@@ -18,6 +18,9 @@ Route::group([
 function(){ 
     Route::resource('vmovies',   'VMoviesController',['as' => 'web']);
     Route::get('vusers/create',  'HomeController@create')->name('vusers.create');
+    Route::post('vusers/store',  'HomeController@store')->name('vusers.store');
+    Route::get('vusers/edit/{id}',  'HomeController@edit')->name('vusers.edit');
+    Route::post('vusers/update/{id}',  'HomeController@update')->name('vusers.update');
 });
 
 Route::get('vmovies/table',  'VMoviesController@dataTable')->name('vmovies.table');
@@ -55,6 +58,7 @@ function(){
     Route::resource('loanmanual',           'LoanManualController',['as' => 'admin']);
     Route::resource('genericcopies',        'GenericCopiesController',['as' => 'admin']);
     Route::resource('requests',             'RequestsController',['as' => 'admin']);
+    Route::resource('requestsup',             'RequestsUpController',['as' => 'admin']);
     Route::resource('loansbydate',          'LoansbydateController',['as' => 'admin']);
     Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
@@ -138,6 +142,7 @@ Route::get('fastprocess/table2',        'FastPartnerProcessController@dataTable2
 Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->name('fastprocess.index2');
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
 Route::get('requests/table',          'RequestsController@dataTable')->name('requests.table');
+Route::get('requestsup/table',          'RequestsUpController@dataTable')->name('requestsup.table');
 
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
 

@@ -27,7 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="/adminlte/css/skins/skin-blue.min.css">
-
+  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">    
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -186,7 +187,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ Auth::user() != null  ? Auth::user()->name : 'No logueado' }}</span>
+              <span id="rec_nickname" class="hidden-xs">{{ Auth::user() != null  ? Auth::user()->name : 'No logueado' }}</span>
               
             </a>
             <ul class="dropdown-menu">
@@ -231,7 +232,7 @@ desired effect
             </ul>
           </li>
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="{{ route('vusers.edit', Auth::user()->id) }}" class="modal-show" title="Edicion de Perfil"><i class="fa fa-gears"></i></a>
           </li>
           @else
           
@@ -424,12 +425,22 @@ desired effect
 
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
-
+<script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-     <script>
-          //  <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
+ 
+     
+@include('web.users.partials._modal')
+
+
+
+ 
+
+    <script>
+          //  FRANCOOOOO <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
           $('body').on('click', '.modal-show', function (event) {
     event.preventDefault();
 
@@ -475,16 +486,69 @@ desired effect
     $('#modal').modal('show');
 });
 
+$('#modal-btn-save').click(function (event) {
+    event.preventDefault();
+
+    $avatarInput = $('#user_photo');
+
+    var formData  = new FormData();        
+        formData.append('user_photo', $avatarInput[0].files[0]);
+        
+    var form = $('#modal-body form'), 
+        url = form.attr('action'),
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+    
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          var  info = response.bandera;
+            form.trigger('reset');
+            $('#modal').modal('hide');
+            // $('#rec_nickname').DataTable().ajax.reload();
+            $("#rec_nickname").load(" #rec_nickname");
+            if(info == 0){
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se ha completado su solicitud de asociamineto! Recibira la respuesta a su solicitud al mail con el cual se registro'
+            });
+          }else{
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se han actualizado sus datos!'
+            });
+
+          }
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+})
      </script>
-     
-@include('web.users.partials._modal')
-
-@push('styles')
-    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">    
-@endpush
-
-@push('scripts')  
-    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
-    @endpush 
 </body>
 </html>

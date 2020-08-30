@@ -15,7 +15,12 @@
     </li>
     <li class="{{ setActiveRoute('admin.requests.index') }}">
         <a href="{{ route('admin.requests.index') }}">
-            <i class="fa fa-pencil"></i> <span>Solicitudes desde la web</span>
+            <i class="fa fa-pencil"></i> <span>Solicitudes de Prestamos</span>
+        </a>
+    </li>
+    <li class="{{ setActiveRoute('admin.requestsup.index') }}">
+        <a href="{{ route('admin.requestsup.index') }}">
+            <i class="fa fa-pencil"></i> <span>Solicitudes de Altas</span>
         </a>
     </li> 
     <li class="{{ setActiveRoute('admin.loansbydate.index') }}">
