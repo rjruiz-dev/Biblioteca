@@ -17,13 +17,14 @@ Route::group([
     'prefix'  => 'web'],   
 function(){ 
     Route::resource('vmovies',   'VMoviesController',['as' => 'web']);
+    Route::get('vusers/create',  'HomeController@create')->name('vusers.create');
 });
 
 Route::get('vmovies/table',  'VMoviesController@dataTable')->name('vmovies.table');
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/login', function () {
+    return view('auth.login');
+});
 
 
 Auth::routes(['register' => false]);

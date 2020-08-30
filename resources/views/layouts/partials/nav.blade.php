@@ -1,3 +1,4 @@
+@if(Auth::user() != null && Auth::user()->getRoleNames() == 'Admin')
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">Navegación</li>     
 
@@ -197,8 +198,25 @@
             </li>
         </ul>
     </li>
-    
-    @if(Auth::user() == null)
+    @endif
+
+    @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Navegación</li> 
+        <li class="{{ setActiveRoute('index') }}">
+            <a href="{{ route('index') }}">
+                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+            </a>
+        </li>
+        <li class="{{ setActiveRoute('web.vmovies.index') }}">
+            <a href="{{ route('web.vmovies.index') }}">
+                <i class="fa fa-video-camera"></i><span> Cines</span> 
+            </a>
+        </li>
+    </ul>
+    @endif   
+
+    @if(Auth::user() == null )
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navegación</li> 
         <li class="{{ setActiveRoute('index') }}">

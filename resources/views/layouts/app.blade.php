@@ -179,6 +179,7 @@ desired effect
             </ul>
           </li>
           <!-- User Account Menu -->
+          @if(Auth::user() != null )
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -219,6 +220,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
                 <!-- <div class="pull-right"> -->
+
                   <form method="POST" action="{{ route('logout')}}">
                   {{ csrf_field() }}
                     <button class="btn btn-danger btn-flat btn-block"><i class="fa fa-power-off"></i>&nbsp;Cerrar sesión</button>
@@ -228,10 +230,35 @@ desired effect
               </li>
             </ul>
           </li>
-          <!-- Control Sidebar Toggle Button -->
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
+          @else
+          
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="{{ route('login') }}">
+              <!-- The user image in the navbar-->
+              <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">Iniciar Sesion</span>
+              
+            </a>
+            </li>
+            <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="{{ route('vusers.create') }}" class="modal-show" title="Solicitud de Registro">
+            
+              <!-- The user image in the navbar-->
+              <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">Registrarse!</span>
+              
+            </a>
+            </li>
+          @endif
+          <!-- Control Sidebar Toggle Button -->
+         
         </ul>
       </div>
     </nav>
@@ -401,5 +428,63 @@ desired effect
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+     <script>
+          //  <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
+          $('body').on('click', '.modal-show', function (event) {
+    event.preventDefault();
+
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title');
+
+    $('#modal-title').text(title);
+    $('#modal-btn-save').removeClass('hide')
+    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function (response) {
+            $('#modal-body').html(response);
+            
+            $('#gender').select2({
+                placeholder: 'Selecciona un Género',
+                tags: true,               
+            });
+
+            $('#status_id').select2({
+                placeholder: 'Selecciona un Estado',                                    
+            });
+
+            $('#province').select2({
+                placeholder: 'Selecciona una Provincia',
+                tags: true,                            
+            });
+
+            $('#datepicker').datepicker({
+                autoclose: true,
+                todayHighlight: true,  
+                format: 'dd/mm/yyyy',                       
+                language: 'es'
+            });   
+                   
+                 
+        }
+    });
+
+    $('#modal').modal('show');
+});
+
+     </script>
+     
+@include('web.users.partials._modal')
+
+@push('styles')
+    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">    
+@endpush
+
+@push('scripts')  
+    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+    @endpush 
 </body>
 </html>
