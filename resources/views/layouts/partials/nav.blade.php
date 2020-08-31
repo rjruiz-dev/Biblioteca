@@ -13,6 +13,11 @@
             <i class="fa fa-pencil"></i> <span>Prestamos Manuales</span>
         </a>
     </li>
+    <li class="{{ setActiveRoute('admin.claimloans.index') }}">
+        <a href="{{ route('admin.claimloans.index') }}">
+            <i class="fa fa-pencil"></i> <span>Reclamar Prestamos</span>
+        </a>
+    </li>
     <li class="{{ setActiveRoute('admin.requests.index') }}">
         <a href="{{ route('admin.requests.index') }}">
             <i class="fa fa-pencil"></i> <span>Solicitudes de Prestamos</span>

@@ -70,7 +70,7 @@ function(){
     Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
     Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
- 
+    Route::resource('claimloans',     'ClaimLoansController',['as' => 'admin']);
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
