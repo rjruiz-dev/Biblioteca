@@ -185,7 +185,8 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ auth()->user()->name }}</span>
+              
+              <span class="hidden-xs">{{ Auth::user() != null ? Auth::user()->name : 'Profile' }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -193,8 +194,8 @@ desired effect
                 <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                {{ auth()->user()->name }}
-                  <small>Desde {{ auth()->user()->created_at->format('d/M/Y') }}</small>
+                {{ Auth::user() != null ? Auth::user()->name : '' }} 
+                  <small>Desde {{ Auth::user() != null ? Auth::user()->created_at->format('d/M/Y') : '' }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -247,7 +248,8 @@ desired effect
           <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{ auth()->user()->name }}</p>
+        
+          <p>{{ Auth::user() != null ? Auth::user()->name : 'No logueado' }}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>

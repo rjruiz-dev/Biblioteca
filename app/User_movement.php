@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User_movement extends Model
 {
-       protected $fillable = ['actions_id','users_id'];
+       protected $fillable = ['actions_id','users_id','usuario_aud'];
 
        public function action()
     {
@@ -15,7 +15,7 @@ class User_movement extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
 }

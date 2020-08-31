@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Statu;
+use App\User_movement;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class UserController extends Controller
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
-            'status'    => Statu::pluck('state_description', 'id'),           
+            'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),           
             'user'      => $user
         ]);  
     }
@@ -92,14 +93,22 @@ class UserController extends Controller
                 $user->province     = $request->get('province');
                 $user->phone        = $request->get('phone');   
                 $user->birthdate    =  Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
-                $user->membership   = $request->get('membership');   
-                $user->status_id    = $request->get('status_id'); 
+                $user->membership   = $request->get('membership');
+                 
+                   $mov_user = new User_movement();
+                   $mov_user->actions_id = $request->get('status_id');
+                   $mov_user->usuario_aud = 'USER AUD';
+                   $user->status_id    = $request->get('status_id');
+
                 $user->user_photo   = $name;    
                 $user->save();
+
+                $mov_user->users_id = $user->id;
+                   $mov_user->save();
                    
-                // Enviamos el email
-                UserWasCreated::dispatch($user, $data['password']);
-                $user->update($request->validated()); 
+                // // Enviamos el email
+                // UserWasCreated::dispatch($user, $data['password']);
+                // $user->update($request->validated()); 
 
                 DB::commit();
 
@@ -153,7 +162,8 @@ class UserController extends Controller
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
-            'status'    => Statu::pluck('state_description', 'id'),           
+            'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
+                       
             'user'      => $user
         ]);  
     }
@@ -195,8 +205,18 @@ class UserController extends Controller
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');      
                 $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
-                $user->membership   = $request->get('membership');                  
-                $user->status_id    = $request->get('status_id'); 
+                $user->membership   = $request->get('membership');
+
+               
+
+                   $mov_user = new User_movement();
+                   $mov_user->actions_id = $request->get('status_id');
+                   $mov_user->users_id = $user->id;
+                   $mov_user->usuario_aud = 'USER AUD';
+                   $mov_user->save();
+                   $user->status_id    = $request->get('status_id'); 
+     
+
                 $user->user_photo   = $name;
                 $user->save();
                        
@@ -216,15 +236,43 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     $user = User::with('statu')->findOrFail($id);        
+    //     $user->delete();                
+    // }
+
+    public function destroy($id) //se deja pero no se usa xq en algun futuro puede servir ok ? rodri salamin jajaj
     {
-        $user = User::with('statu')->findOrFail($id);        
-        $user->delete();                
+        $user = User::findOrFail($id);
+
+        if($user->status_id == 3){ //si esta activo lo doy de baja
+            $user->status_id = 4;
+            $user->save();
+            $mov_user = new User_movement();
+                   $mov_user->actions_id = 4;
+                   $mov_user->users_id = $user->id;
+                   $mov_user->usuario_aud = 'USER AUD';
+                   $mov_user->save();   
+        }else{
+            if($user->status_id == 4){ //si esta en baja lo doy de alta
+                $user->status_id = 3;
+                $user->save();  
+                $mov_user = new User_movement();
+                   $mov_user->actions_id = 3;
+                   $mov_user->users_id = $user->id;
+                   $mov_user->usuario_aud = 'USER AUD';
+                   $mov_user->save();  
+            }
+        }
     }
 
     public function dataTable()
     {                    
-        $usuarios = User::with('statu')       
+        $usuarios = User::with('statu')->where(function ($query) {
+            $query->where('status_id', '=', 3)
+                  ->orWhere('status_id', '=', 4);
+        })       
         // ->allowed()
         ->get();
       
