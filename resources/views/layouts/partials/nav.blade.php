@@ -218,8 +218,8 @@
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>
             </a>
         </li>
-        <li class="{{ setActiveRoute('web.vmovies.index') }}">
-            <a href="{{ route('web.vmovies.index') }}">
+        <li class="{{ setActiveRoute('web.cine.index') }}">
+            <a href="{{ route('web.cine.index') }}">
                 <i class="fa fa-video-camera"></i><span> Cines</span> 
             </a>
         </li>
