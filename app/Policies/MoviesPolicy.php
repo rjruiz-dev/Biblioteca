@@ -10,14 +10,6 @@ class MoviesPolicy
 {
     use HandlesAuthorization;
 
-    // public function before($user)
-    // {
-    //     if($user->hasRole('Admin'))
-    //     {
-    //        return true;
-    //     }      
-    // }
-
     /**
      * Determine whether the user can view the movies.
      *
@@ -27,7 +19,7 @@ class MoviesPolicy
      */
     public function view(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('View movies');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('View movies');
     }
 
     
@@ -39,7 +31,7 @@ class MoviesPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Create movies');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Create movies');
     }
 
     /**
@@ -51,7 +43,7 @@ class MoviesPolicy
      */
     public function update(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Update movies');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Update movies');
     }
 
     /**
@@ -63,27 +55,27 @@ class MoviesPolicy
      */
     public function delete(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Delete movies');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Delete movies');
     }
 
     public function copy(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Copy');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Copy');
     }
 
     public function status(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Status');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Status');
     }
 
     public function desidherata(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Desidherata');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Desidherata');
     }
 
     public function download(User $user, Movies $movies)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Download');
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Download');
     }
 
     /**

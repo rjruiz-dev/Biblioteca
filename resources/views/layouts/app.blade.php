@@ -436,9 +436,6 @@ desired effect
 @include('web.users.partials._modal')
 
 
-
- 
-
     <script>
           //  FRANCOOOOO <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
           $('body').on('click', '.modal-show', function (event) {
