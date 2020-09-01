@@ -151,7 +151,9 @@
                         </div>
                     </div>              
                     <div class="col-md-12">  
-                        <button type="button" class="btn btn-danger btn-flat btn-block"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</button>
+                    @if(Auth::user() != null )
+                        <a href="{{ route('requests.solicitud', $multimedia->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;Solicitar Prestamo</a>
+                    @endif
                     </div>
                 </div>       
           </div>

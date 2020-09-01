@@ -2,7 +2,6 @@
 use App\Movies;
 ?>
 
-
 @extends('layouts.app')
 
 @section('header')    

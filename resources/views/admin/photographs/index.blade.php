@@ -1,3 +1,7 @@
+<?php
+use App\Photography;
+?>
+
 @extends('layouts.app')
 
 @section('header')    
@@ -16,9 +20,9 @@
     <div class="panel panel-primary">        
         <div class="panel-heading">
             <h3 class="panel-title">Listado de Fotografias   
-          
+            @can('create', $Photographs = new Photography())      
                 <a href="{{ route('admin.photographs.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Fotografias"><i class="fa fa-user-plus"></i> Crear Fotografias</a>
-    
+            @endcan  
             </h3>
         </div>
         <div class="panel-body">

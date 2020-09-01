@@ -196,10 +196,68 @@ $('#modal-btn-save').click(function (event) {
     })
 });
 
-$('body').on('click', '.btn-btn-edit-user', function (event) {
 
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
+$('body').on('click', '.btn-solicitud', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
 
+    swal({
+        title: '¿Seguro que desea solicitar este documento ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Solicitar!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    var info = response.error;
+                    $('#modal').modal('hide');
+                    $('#datatable').DataTable().ajax.reload();
+                    if(info == 0){
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡El documento ha sido solicitado!'
+                    });
+                }
+                if(info == 1){
+                    swal({
+                        type : 'error',
+                        title : '¡Error!',
+                        text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+                    });
+                }
+                if(info == 2){
+                    swal({
+                        type : 'error',
+                        title : '¡Error!',
+                        text : '¡No existe copias disponibles de este documento. Revisar!!'
+                    });
+                }
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
 });
 
 $('body').on('click', '.btn-delete', function (event) {

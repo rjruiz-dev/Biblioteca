@@ -19,7 +19,7 @@ class PhotographsPolicy
      */
     public function view(User $user, Photography $photography)
     {
-        //
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('View movies');
     }
 
     /**
@@ -30,7 +30,7 @@ class PhotographsPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Create movies');
     }
 
     /**
@@ -42,7 +42,7 @@ class PhotographsPolicy
      */
     public function update(User $user, Photography $photography)
     {
-        //
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Update movies');
     }
 
     /**
@@ -54,9 +54,28 @@ class PhotographsPolicy
      */
     public function delete(User $user, Photography $photography)
     {
-        //
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Delete movies');
     }
 
+    public function copy(User $user, Photography $photography)
+    {
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Copy');
+    }
+
+    public function status(User $user, Photography $photography)
+    {
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Status');
+    }
+
+    public function desidherata(User $user, Photography $photography)
+    {
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Desidherata');
+    }
+
+    public function download(User $user, Photography $photography)
+    {
+        return $user->hasRole('Admin') || $user->hasRole('Librarian') || $user->hasPermissionTo('Download');
+    }
     /**
      * Determine whether the user can restore the photography.
      *
