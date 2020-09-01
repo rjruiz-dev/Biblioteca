@@ -79,6 +79,7 @@ function(){
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
 
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
+    Route::get('claimloans/filtarPorFecha/{fecha}',                   'ClaimLoansController@filtarPorFecha');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
     Route::get('fastprocess/vista_devo_reno/{id}/{bandera}/{fecha}',    'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
     Route::get('fastprocess/edit2/{id}',                        'FastPartnerProcessController@edit2')->name('fastprocess.edit2');

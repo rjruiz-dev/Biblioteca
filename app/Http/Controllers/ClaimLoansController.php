@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Generate_letter;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Book_movement;
+use Illuminate\Support\Facades\DB;
 
 class ClaimLoansController extends Controller
 {
@@ -28,6 +31,30 @@ class ClaimLoansController extends Controller
     public function create()
     {
         //
+    }
+
+    public function filtarPorFecha($fecha)
+    {
+         
+         $fecha_hasta = Carbon::createFromFormat('d-m-Y', $fecha);
+        
+         $prestamos = Book_movement::with('user')
+         ->where('date_until','<', $fecha_hasta)
+         ->where(function ($query) {
+             $query->where('movement_types_id', '=', 1)
+                   ->orWhere('movement_types_id', '=', 2);
+         })
+         ->where('active', 1)               
+         ->get();
+
+        //  DB::raw( 'items_alias.*' )
+        //  ->pluck('nickname', 'id');
+
+        //  dd($prestamos);
+
+        //  ->pluck('subtype_name', 'id')
+
+          return $prestamos->toJson();
     }
 
     /**
