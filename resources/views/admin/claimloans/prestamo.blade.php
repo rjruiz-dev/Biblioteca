@@ -26,7 +26,7 @@
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item"> 
                     {!! Form::label('model_types', 'Tipo de Modelo') !!}
-                                {!! Form::select('model_types', $model_types, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'model_types']) !!}   
+                                {!! Form::select('model_types', $model_types, null, ['class' => 'form-control select2', 'id' => 'model_types']) !!}   
                     </li>
             
                     <li class="list-group-item"> 
@@ -52,8 +52,8 @@
                 </li>
                      <li class="list-group-item"> 
                     
-                        <button type="button" name="filter" id="filter" class="btn btn-info">Enviar Mails de Reclamo</button>
-                     
+                        <button type="submit" name="filter" id="modal-btn-save-prestar" class="btn btn-info">Enviar Mails de Reclamo</button>
+                     <!-- <button type="submit" class="btn btn-primary" id="modal-btn-save-prestar">Prestar</button> -->
                 </li>
                     
 
@@ -103,7 +103,15 @@
                         
                         });
 
-                        function filtrarPrestamosVencidos(fecha) {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1;
+                        var yyyy = today.getFullYear();
+                        var fechaActual = dd +'-'+ mm +'-'+ yyyy;
+
+                        filtrarPrestamosVencidos();
+                        // console.log("qwe: " + fechaActual);
+                        function filtrarPrestamosVencidos(fecha = fechaActual) {
                             $.ajax({                    
                                 url: '/admin/claimloans/filtarPorFecha/' + fecha,
                                 type: 'GET',
@@ -140,12 +148,12 @@
                                     select.options[0] = new Option("Todos", 0);
                                 }
                                 for(var i=0;i<fecha.length;i++){
-                                        select.options[ii] = new Option(fecha[i].user.nickname, fecha[i].user.id);
+                                        select.options[ii] = new Option(fecha[i].user.nickname + ' - ' + fecha[i].copy.document.title, fecha[i].user.id);
                                         ii = ii + 1;
                                     }
-                                    $("#filter").prop('disabled', false);
+                                    $("#modal-btn-save-prestar").prop('disabled', false);
                             }else{
-                                $("#filter").prop('disabled', true);
+                                $("#modal-btn-save-prestar").prop('disabled', true);
                                 select.options[0] = new Option("Sin Resultados", -1);
                             }    
                         } 

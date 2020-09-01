@@ -7,6 +7,8 @@ use App\Generate_letter;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Book_movement;
+use App\Copy;
+use App\Document;
 use Illuminate\Support\Facades\DB;
 
 class ClaimLoansController extends Controller
@@ -38,7 +40,7 @@ class ClaimLoansController extends Controller
          
          $fecha_hasta = Carbon::createFromFormat('d-m-Y', $fecha);
         
-         $prestamos = Book_movement::with('user')
+         $prestamos = Book_movement::with('user', 'copy.document')
          ->where('date_until','<', $fecha_hasta)
          ->where(function ($query) {
              $query->where('movement_types_id', '=', 1)
