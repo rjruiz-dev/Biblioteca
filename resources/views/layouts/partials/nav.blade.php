@@ -6,52 +6,30 @@
         <a href="{{ route('dashboard') }}">
             <i class="fa fa-dashboard"></i> <span>Inicio</span>
         </a>
-    </li>  
-    
-    <li class="{{ setActiveRoute('admin.loanmanual.index') }}">
-        <a href="{{ route('admin.loanmanual.index') }}">
-            <i class="fa fa-pencil"></i> <span>Prestamos Manuales</span>
-        </a>
-    </li>
-    <li class="{{ setActiveRoute('admin.claimloans.index') }}">
-        <a href="{{ route('admin.claimloans.index') }}">
-            <i class="fa fa-pencil"></i> <span>Reclamar Prestamos</span>
-        </a>
-    </li>
-    <li class="{{ setActiveRoute('admin.requests.index') }}">
-        <a href="{{ route('admin.requests.index') }}">
-            <i class="fa fa-pencil"></i> <span>Solicitudes de Prestamos</span>
-        </a>
-    </li>
-    <li class="{{ setActiveRoute('admin.requestsup.index') }}">
-        <a href="{{ route('admin.requestsup.index') }}">
-            <i class="fa fa-pencil"></i> <span>Solicitudes de Altas</span>
-        </a>
-    </li> 
-    <li class="{{ setActiveRoute('admin.loansbydate.index') }}">
-        <a href="{{ route('admin.loansbydate.index') }}">
-            <i class="fa fa-pencil"></i> <span>Prestamos por rango de fecha</span>
-        </a>
-    </li>
-    <li class="{{ setActiveRoute('admin.loansbyclassroom.index') }}">
-        <a href="{{ route('admin.loansbyclassroom.index') }}">
-            <i class="fa fa-pencil"></i> <span>Prestamos por datos del aula</span>
-        </a>
-    </li>
-    <li class="{{ setActiveRoute('admin.infoofdatabase.index') }}">
-        <a href="{{ route('admin.infoofdatabase.index') }}">
-            <i class="fa fa-pencil"></i> <span>Registros Base de Datos</span>
-        </a>
-    </li>
-    <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
-        <a href="{{ route('admin.importfromrebeca.index') }}">
-            <i class="fa fa-pencil"></i> <span>Importar REBECA</span>
-        </a>
-    </li>
-    <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
-    
+    </li>    
+
+    <li class="treeview {{ setActiveRoute(['admin.requests.index','admin.loanmanual.index', ]) }}">                
+        <a href="#"><i class="fa fa-list"></i> <span>Gestión</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">     
+            <li class="{{ setActiveRoute('admin.requests.index') }}">
+                <a href="{{ route('admin.requests.index') }}">
+                    <i class="fa fa-globe"></i> <span>Prestamos desde la Web</span>
+                </a>
+            </li>        
+            <li class="{{ setActiveRoute('admin.loanmanual.index') }}">
+                <a href="{{ route('admin.loanmanual.index') }}">
+                    <i class="fa fa-hand-o-right"></i> <span>Prestamos Manuales</span>
+                </a>
+            </li>           
+        </ul>
+    </li>     
+
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                
-        <a href="#"><i class="fa fa-th-large"></i> <span>Prestamos y Devoluciónes</span>
+        <a href="#"><i class="fa fa-list"></i> <span>Prestamos y Devoluciónes</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -59,20 +37,38 @@
         <ul class="treeview-menu">             
             <li class="{{ setActiveRoute('admin.fastprocess.index') }}">
                 <a href="{{ route('admin.fastprocess.index') }}">
-                    <i class="fa fa-users"></i><span> Socios</span>
+                    <i class="fa fa-users"></i><span>Por Socios</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('fastprocess.index2') }}">
                 <a href="{{ route('fastprocess.index2') }}">
-                    <i class="fa fa-folder-open"></i><span> Documentos</span>
+                    <i class="fa fa-folder-open"></i><span>Por Documentos</span>
                 </a>
-            </li>
-                                     
+            </li>                                     
         </ul>
     </li>
 
+    <li class="treeview {{ setActiveRoute(['admin.claimloans.index']) }}">                
+        <a href="#"><i class="fa fa-list"></i> <span>Correspondencia</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">     
+            <li class="{{ setActiveRoute('admin.claimloans.index') }}">
+                <a href="{{ route('admin.claimloans.index') }}">
+                    <i class="fa fa-warning"></i> <span>Reclamar Prestamos</span>
+                </a>
+            </li>          
+        </ul>
+    </li>     
+   
+    <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
+    
+    
+
     <!-- <li class="treeview">
-        <a href="#"><i class="fa fa-bars"></i> <span>Gestión</span>
+        <a href="#"><i class="fa fa-list"></i> <span>Gestión</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -83,25 +79,32 @@
     </ul>
     </li> -->
 
-    <li class="treeview {{ setActiveRoute('admin.users.index') }}">                
-        <a href="#"><i class="fa fa-users"></i> <span>Socios</span>
+    <li class="treeview {{ setActiveRoute(['admin.users.index','admin.requestsup.index']) }}">                
+        <a href="#"><i class="fa fa-list"></i> <span>Socios</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>       
-        <ul class="treeview-menu">             
+        <ul class="treeview-menu">     
             <li class="{{ setActiveRoute('admin.users.index') }}">
                 <a href="{{ route('admin.users.index') }}">
                     <i class="fa fa-user"></i><span> Alta manual de socios</span>
                 </a>
-            </li>                     
+            </li> 
+            <li class="{{ setActiveRoute('admin.requestsup.index') }}">
+                <a href="{{ route('admin.requestsup.index') }}">
+                    <i class="fa fa-inbox"></i> <span>Solicitudes desde la Web</span>
+                </a>
+            </li>          
         </ul>
-    </li>
+    </li>     
+
+   
 
     <li class="treeview {{ setActiveRoute([
                                             'admin.books.index', 'admin.movies.index',
                                             'admin.music.index', 'admin.photographs.index',
-                                            'admin.multimedias.index'                                           
+                                            'admin.multimedias.index','admin.importfromrebeca.index'                                           
                                         ]) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>Catálogo</span>
             <span class="pull-right-container">
@@ -133,7 +136,12 @@
                 <a href="{{ route('admin.multimedias.index') }}">
                     <i class="fa fa-youtube-play"></i><span> Multimedias</span> 
                 </a>
-            </li>                     
+            </li>  
+            <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
+                <a href="{{ route('admin.importfromrebeca.index') }}">
+                    <i class="fa fa-share-square-o"></i> <span>Importar REBECA</span>
+                </a>
+            </li>                   
         </ul>
     </li>
     
@@ -208,6 +216,35 @@
             </li>
         </ul>
     </li>
+
+    <li class="treeview {{ setActiveRoute(['admin.loansbydate.index','admin.loansbyclassroom.index', 'admin.infoofdatabase.index']) }}">                
+        <a href="#"><i class="fa fa-list"></i> <span>Listados</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">     
+            <li class="{{ setActiveRoute('admin.loansbydate.index') }}">
+                <a href="{{ route('admin.loansbydate.index') }}">
+                    <i class="fa fa-calendar"></i> <span>Prestamos por Fecha</span>
+                </a>
+            </li>      
+            <li class="{{ setActiveRoute('admin.loansbyclassroom.index') }}">
+                <a href="{{ route('admin.loansbyclassroom.index') }}">
+                    <i class="fa fa-search"></i> <span>Prestamos por Aula</span>
+                </a>
+            </li>
+            <li class="{{ setActiveRoute('admin.infoofdatabase.index') }}">
+                <a href="{{ route('admin.infoofdatabase.index') }}">
+                    <i class="fa fa-database"></i> <span>Registros Base de Datos</span>
+                </a>
+            </li>             
+        </ul>
+    </li>  
+
+  
+  
+   
     @endif
 
     @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
