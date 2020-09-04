@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Providers\UserWasCreated;
-use App\Mail\LoginCredentials;
+use App\Providers\ClaimLoan;
+use App\Mail\AlertClaim;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendLoginCredentials
+class SendClaim
 {
     /**
      * Create the event listener.
@@ -23,14 +23,14 @@ class SendLoginCredentials
     /**
      * Handle the event.
      *
-     * @param  UserWasCreated  $event
+     * @param  ClaimLoan  $event
      * @return void
      */
-    public function handle(UserWasCreated $event)
+    public function handle(ClaimLoan $event)
     {
         //enviar email con las credenciales del login
-        Mail::to($event->useAlertClaimr)->queue(
-            new LoginCredentials($event->user, $event->password)
+        Mail::to($event->user)->queue(
+            new AlertClaim($event->user, $event->prestamos, $event->modelo)
         );
     }
 }

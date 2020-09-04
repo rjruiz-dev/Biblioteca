@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('email', function () {
+    return new App\Mail\AlertClaim(App\User::first());
+});
+
 Route::get('/', 'HomeController@index')->name('index'); 
 
 Route::get('/login', function () {

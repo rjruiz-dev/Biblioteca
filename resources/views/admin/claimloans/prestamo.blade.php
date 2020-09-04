@@ -12,8 +12,9 @@
 
 @section('content')
 
-<div class="row" id="recargar">  
+<div class="row" id="form_reclamo">  
     {!! Form::open(['route' => 'admin.claimloans.store','method' => 'POST']) !!}   
+    <!-- {{ csrf_field() }} -->
     <div class="col-md-2">
     </div>
     <div class="col-md-8">    
@@ -52,8 +53,8 @@
                 </li>
                      <li class="list-group-item"> 
                     
-                        <button type="submit" name="filter" id="modal-btn-save-prestar" class="btn btn-info">Enviar Mails de Reclamo</button>
-                     <!-- <button type="submit" class="btn btn-primary" id="modal-btn-save-prestar">Prestar</button> -->
+                        <button type="submit" name="filter" id="send-mail" class="btn btn-info">Enviar Mails de Reclamo</button>
+                     <!-- <button type="submit" class="btn btn-primary" id="send-mail">Prestar</button> -->
                 </li>
                     
 
@@ -151,12 +152,71 @@
                                         select.options[ii] = new Option(fecha[i].user.nickname + ' - ' + fecha[i].copy.document.title, fecha[i].user.id);
                                         ii = ii + 1;
                                     }
-                                    $("#modal-btn-save-prestar").prop('disabled', false);
+                                    $("#send-mail").prop('disabled', false);
                             }else{
-                                $("#modal-btn-save-prestar").prop('disabled', true);
+                                $("#send-mail").prop('disabled', true);
                                 select.options[0] = new Option("Sin Resultados", -1);
                             }    
                         } 
+    
+    
+$('#send-mail').click(function (event) {
+    event.preventDefault();
+
+    // $avatarInput = $('#rebeca');
+
+    // var formData  = new FormData();        
+    //     formData.append('rebeca', $avatarInput[0].files[0]);
+
+    var form = $('#form_reclamo form'),
+        url = form.attr('action'),
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+   
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        // data : formData,
+        cache: false,  
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            var info = response.bandera;
+            form.trigger('reset');
+            $('#form_reclamo').modal('hide');
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se han enviado los mails correctamente!',
+            }).then(function() {
+                // window.location = "../";
+                window.location="/admin/loanmanual/";
+            });
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+});               
 
                        
     </script>  
