@@ -7,6 +7,7 @@ use App\Generate_letter;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Providers\ClaimLoan;
+use App\Providers\ReportClaimLoan;
 use App\Book_movement;
 use App\Copy;
 use App\User;
@@ -149,17 +150,21 @@ class ClaimLoansController extends Controller
                                 // Enviamos el email
                                 // $prestamos = User::get()->toArray();
                                 // $prestamos = "asdasda";
-                                ClaimLoan::dispatch($user, $prestamos, $modelo); 
+                                ClaimLoan::dispatch($user, $prestamos, $modelo);
+                                
+                                
                          
                     }
 
                  
                 }
+                if($informe != null){
+                    $user = User::where('id', 1)->first();  
 
-                if($informe){
-                    
-
+                    ReportClaimLoan::dispatch($user, $prestamos);
                 }
+
+                
         }  
     }
 

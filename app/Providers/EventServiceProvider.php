@@ -26,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
         ClaimLoan::class => [         
             SendClaim::class,
         ],
+
+        ReportClaimLoan::class => [         
+            SendReportClaim::class,
+        ],
     ];
 
     /**

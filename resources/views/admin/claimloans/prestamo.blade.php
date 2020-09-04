@@ -51,6 +51,10 @@
                             <option selected value="9999">Todos</option> 
                     </select>
                 </li>
+                    <li class="list-group-item"> 
+                    {!! Form::label('informe', 'informe para el bibliotecario ? ') !!}                    
+                    {!! Form::checkbox('informe', '1')!!}
+                    </li> 
                      <li class="list-group-item"> 
                     
                         <button type="submit" name="filter" id="send-mail" class="btn btn-info">Enviar Mails de Reclamo</button>
