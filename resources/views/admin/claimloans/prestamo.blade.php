@@ -188,15 +188,6 @@ $('#send-mail').click(function (event) {
         },
     });
 
-    swal({
-        title: 'Please Wait !',
-                html: 'data uploading',// add html attribute if you want or remove
-                allowOutsideClick: false,
-                onBeforeOpen: () => {
-                    Swal.showLoading()
-                },
-    }).then((result) => {
-        if (result.value) {
     $.ajax({
         url : url + '?' + form.serialize(),
         method: method,
@@ -205,7 +196,6 @@ $('#send-mail').click(function (event) {
         processData: false,
         contentType: false,
         success: function (response) {
-            swal.close();
             var info = response.bandera;
             form.trigger('reset');
             $('#form_reclamo').modal('hide');
@@ -213,11 +203,11 @@ $('#send-mail').click(function (event) {
                 type : 'success',
                 title : '¡Éxito!',
                 text : '¡Se han enviado los mails correctamente!',
-            })
+            }) 
             // .then(function() {
             //     // window.location = "../";
             //     window.location="/admin/loanmanual/";
-            // })
+            // }) 
             ;
         },
         error : function (xhr) {
@@ -232,8 +222,6 @@ $('#send-mail').click(function (event) {
             }
         }
     })
-    }
-    });
 });               
 
                        

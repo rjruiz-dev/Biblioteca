@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateManyLenguagesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('many_lenguages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('lenguage_description')->nullable();
+            $table->string('ml_reclamar_prestamos')->nullable();
+            $table->string('ml_solicitudes_prestamos')->nullable();
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('many_lenguages');
+    }
+}

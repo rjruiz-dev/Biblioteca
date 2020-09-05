@@ -21,6 +21,12 @@ class HomeController extends Controller
 {
     public function index()
     {
+        if(session()->has('idioma')){
+
+        }else{
+            session(['idioma' => '1']);
+        }
+        
         return view('layouts.dashboard');
     }
 
