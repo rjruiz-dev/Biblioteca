@@ -52,7 +52,7 @@
                     </select>
                 </li>
                     <li class="list-group-item"> 
-                    {!! Form::label('informe', 'informe para el bibliotecario ? ') !!}                    
+                    {!! Form::label('informe', 'informe por mail para el bibliotecario ? ') !!}                    
                     {!! Form::checkbox('informe', '1')!!}
                     </li> 
                      <li class="list-group-item"> 
@@ -188,6 +188,15 @@ $('#send-mail').click(function (event) {
         },
     });
 
+    swal({
+        title: 'Please Wait !',
+                html: 'data uploading',// add html attribute if you want or remove
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+    }).then((result) => {
+        if (result.value) {
     $.ajax({
         url : url + '?' + form.serialize(),
         method: method,
@@ -196,6 +205,7 @@ $('#send-mail').click(function (event) {
         processData: false,
         contentType: false,
         success: function (response) {
+            swal.close();
             var info = response.bandera;
             form.trigger('reset');
             $('#form_reclamo').modal('hide');
@@ -203,10 +213,12 @@ $('#send-mail').click(function (event) {
                 type : 'success',
                 title : '¡Éxito!',
                 text : '¡Se han enviado los mails correctamente!',
-            }).then(function() {
-                // window.location = "../";
-                window.location="/admin/loanmanual/";
-            });
+            })
+            // .then(function() {
+            //     // window.location = "../";
+            //     window.location="/admin/loanmanual/";
+            // })
+            ;
         },
         error : function (xhr) {
             var res = xhr.responseJSON;
@@ -220,6 +232,8 @@ $('#send-mail').click(function (event) {
             }
         }
     })
+    }
+    });
 });               
 
                        
