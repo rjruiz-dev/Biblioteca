@@ -63,7 +63,7 @@ class LoanManualController extends Controller
     public function showPartner(Request $request, $id)
     {
         $partner = User::findOrFail($id)->toArray();
-
+     
         $count = Book_movement::where('users_id', $id) //FILTRAR POR EL USUARIO ESE 
         ->where(function ($query) {
             $query->where('movement_types_id', '=', 1)
@@ -184,13 +184,12 @@ class LoanManualController extends Controller
         return view('admin.loanmanual.prestar', [
             'documento'     => $documento,
             'copies'        => $copies,
-            'users'         => $users,
-            // 'partners'      => $partners,
+            'users'         => $users,            
             'courses'       => $courses,
-            'hastaprestamo'       => $hastaprestamo,
-            'bandera'          => $bandera,
+            'hastaprestamo' => $hastaprestamo,
+            'bandera'       => $bandera,
             'prestamo_solicitado' => $prestamo_solicitado, 
-            'n_mov'          => $n_mov
+            'n_mov'         => $n_mov
         ]);    
     }
 
@@ -308,12 +307,10 @@ class LoanManualController extends Controller
       
         return dataTables::of($documentos)
             ->addColumn('tipo_documento', function ($documentos){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$documentos->document_type['document_description']."<br>";            
+                return $documentos->document_type['document_description']."<br>";            
             }) 
             ->addColumn('sub_tipo_documento', function ($documentos){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$documentos->document_subtype['subtype_name'];              
+                return $documentos->document_subtype['subtype_name'];              
             })             
          
             ->addColumn('created_at', function ($documentos){

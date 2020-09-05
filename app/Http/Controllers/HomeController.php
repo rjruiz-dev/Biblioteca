@@ -11,7 +11,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Providers\UserWasCreated;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\SaveUserRequest;
+use App\Http\Requests\SaveRegistryRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
@@ -110,7 +110,7 @@ class HomeController extends Controller
         ]);  
     }
 
-    public function update(SaveUserRequest $request, $id)
+    public function update(SaveRegistryRequest $request, $id)
     {
         dd($id);
         if ($request->ajax()){

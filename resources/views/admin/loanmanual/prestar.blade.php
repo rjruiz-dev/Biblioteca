@@ -19,15 +19,13 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Documento: <b>{{ $documento->id }}</h3>                
             </div>       
-            <div class="box-body box-profile">            
-                <img class="profile-user-img img-responsive img-circle" 
-                    src="/adminlte/img/user4-128x128.jpg" 
-                    alt="{{ $documento->title}}">
-
-                <h3 class="profile-username text-center">{{ $documento->title }}</h3>
-                
-                <p class="text-muted text-center">{{ $documento->creator->creator_name }}</p>
-                
+            <div class="box-body box-profile">
+                <div class="text-center">      
+                    <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$documento->photo) }}"  width="200" height="200">     
+                </div>  
+                <h3 class="profile-username text-center"><strong>{{  $documento->title }}</strong></h3>  
+             
+                <p class="text-muted text-center"><span class="help-block">{{ $documento->creator->creator_name }}</span></p>                
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
                         <b>Tipo de Documento: </b> <a class="pull-right">{{ $documento->document_type->document_description }}</a>
@@ -45,53 +43,45 @@
                 <h3 class="box-title">Datos del prestamo</h3>                
             </div>
             <div class="box-body" id="form_prestamo">          
-                <ul class="list-group list-group-unbordered"> 
+                <ul class="list-group list-group-unbordered">
+                @if ($n_mov == 0)
+                {!! Form::model($documento, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
+                    @php
+                    $visible = false;
+                    $var_copy = '';
+                    $var_user = '';
 
+                    @endphp
+                    @else
+                    {!! Form::model($prestamo_solicitado, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
+                    @php                
+                
+                    $visible = true;
+                    $id_copy = $prestamo_solicitado->copies_id;
+                    $id_user = $prestamo_solicitado->users_id;
+                    $var_copy = Form::hidden('copies_id', $id_copy );
+                    $var_user = Form::hidden('users_id', $id_user );
 
-
-    @if ($n_mov == 0)
-    {!! Form::model($documento, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
-        @php
-         
-      
-        $visible = false;
-        $var_copy = '';
-        $var_user = '';
-
-        @endphp
-        @else
-        {!! Form::model($prestamo_solicitado, ['route' => ['admin.loanmanual.update',  $documento->id],'method' => 'PUT']) !!}
-        @php
-      
-      
-        $visible = true;
-        $id_copy = $prestamo_solicitado->copies_id;
-        $id_user = $prestamo_solicitado->users_id;
-        $var_copy = Form::hidden('copies_id', $id_copy );
-        $var_user = Form::hidden('users_id', $id_user );
-
-        @endphp
-    @endif           
+                    @endphp
+                @endif           
                     <li class="list-group-item">
                         <b></b>
                         <div class="row"  style="margin: 5px;">
-                        {{ Form::hidden('bandera', $bandera,['id' => 'bandera']) }} 
+                            {{ Form::hidden('bandera', $bandera,['id' => 'bandera']) }} 
                             <div class="form-group">
                                 {!! Form::label('copies_id', 'Número de Registro') !!}
-                                {!! Form::select('copies_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'copies_id',  $visible ? 'disabled' : '' ]) !!}
-                               
-                                {!! $var_copy !!}
-                                                        
+                                {!! Form::select('copies_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'copies_id',  $visible ? 'disabled' : '', 'style' => 'width:100%;']) !!}
+                                {!! $var_copy !!}     
                             </div>
                             <div class="form-group">
                                 {!! Form::label('users_id', 'Usuario') !!} 
-                                {!! Form::select('users_id', $users, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'users_id',  $visible ? 'disabled' : '' ]) !!}
-                               
-                               {!! $var_user !!}
-
+                                {!! Form::select('users_id', $users, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'users_id',  $visible ? 'disabled' : '', 'style' => 'width:100%;' ]) !!}
+                                {!! $var_user !!}
                             </div>
-
-                            <ul class="list-group list-group-unbordered">
+                            <div class="text-center">     
+                                <img class="profile-user-img img-responsive img-circle" src="">                             
+                            </div>
+                            <ul class="list-group list-group-unbordered">                           
                                 <li class="list-group-item">                               
                                     <b>Nickname</b> <a class="pull-right" id="nickname"></a> 
                                 </li>                                   
@@ -105,24 +95,14 @@
                                     <b>Prestamo actuales</b> <a class="pull-right" id="loan"></a>
                                 </li>                              
                             </ul>
-
-                            <!-- <div class="form-group">                            
-                               {!! Form::label('nickname', 'Nickname', ['id' => 'nickname']) !!} 
-                            </div>                         
-                            <div class="form-group"> 
-                                {!! Form::label('surname', 'Surname', ['id' => 'surname']) !!}                                
-                            </div>
-                            <div class="form-group">   
-                                {!! Form::label('email', 'Email', ['id' => 'email']) !!}                              
-                            </div> -->
-                           
                             <div class="form-group">
                                 {!! Form::label('course_id', 'Curso') !!}
-                                {!! Form::select('course_id', $courses, null, ['class' => 'form-control select2', 'id' => 'course_id', 'placeholder' => 'Elija el Curso']) !!}
+                                {!! Form::select('course_id', $courses, null, ['class' => 'form-control select2', 'id' => 'course_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                             </div>
                             <div class="form-group">
                                 <label>Grupo</label>
-                                <select name="grupo" style="width:100%;">
+                                <select name="grupo" style="width:100%;" id="grupo" class="form-control select2">
+                                   
                                     <option value="A">A</option> 
                                     <option value="B">B</option>
                                     <option value="C">C</option>
@@ -130,26 +110,26 @@
                             </div>                            
                             <div class="form-group">
                                 <label>Turno</label>
-                                <select name="turno" style="width:100%;">
+                                <select name="turno" style="width:100%;" id="turno" class="form-control select2">
                                     <option value="Dia">Dia</option> 
                                     <option value="Noche">Noche</option>
                                     <option value="Tarde">Tarde</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Adquirido</label>
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>                      
-                                    <input name="acquired"
-                                        class="form-control pull-right"                                                       
-                                        value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d-m-Y')) }}"                            
-                                        type="text"
-                                        id="acquired"
-                                        placeholder= "Selecciona una Fecha de Adquisición">                       
-                            </div>                  
-                </div>                
+                            <label>Adquirido</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>                      
+                                <input name="acquired"
+                                    class="form-control pull-right"                                                       
+                                    value="{{ old('acquired', Carbon\Carbon::now()->addDays($hastaprestamo)->format('d-m-Y')) }}"                            
+                                    type="text"
+                                    id="acquired"
+                                    placeholder= "Selecciona una Fecha de Adquisición">                       
+                                </div>                  
+                            </div>                
                         </div>                        
                     </li> 
                     <div class="modal-footer" id="modal-footer">                  

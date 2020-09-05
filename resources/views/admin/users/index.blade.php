@@ -25,8 +25,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th> 
-                        <th>Usuario</th>                         
+                        <th>N° Socio</th>       
+                        <th>Nickname</th>       
+                        <th>Nombre</th>                                           
                         <th>Email</th>   
                         <th>Estado</th>  
                         <th>Agregado</th>                                
@@ -78,31 +79,31 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }
                 
@@ -110,8 +111,9 @@
             ajax: "{{ route('users.table') }}",            
             columns: [                
                 {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},               
+                {data: 'membership', name: 'membership'},                       
                 {data: 'nickname', name: 'ninckname'},
+                {data: 'name', name: 'name'},               
                 {data: 'email', name: 'email'}, 
                 {data: 'status_id', name: 'status_id'}, 
                 {data: 'created_at', name: 'agregado'},                  

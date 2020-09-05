@@ -98,7 +98,6 @@ $('body').on('click', '.modal-show', function (event) {
                
             });
 
-           
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;

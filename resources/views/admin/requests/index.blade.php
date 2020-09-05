@@ -28,8 +28,8 @@
                         <!-- <th>Tipo Mov(provis)</th>  -->
                         <th>Socio</th>                         
                         <th>Documento</th>
-                        <th>Tipo Doc</th>
-                        <th>Sub-Tipo Doc</th>
+                        <th>Tipo Documento</th>
+                        <th>Subtipo Documento</th>
                         <th>Curso</th>                        
                         <th>Agregado</th>                                
                         <th>Acciones</th>

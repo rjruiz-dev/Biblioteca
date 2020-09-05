@@ -9,6 +9,7 @@ use DataTables;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Providers\UserWasCreated;
+use App\Providers\LoanClamin;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
 use Illuminate\Support\Facades\Storage;
@@ -98,7 +99,9 @@ class UserController extends Controller
                 $user->save();
                    
                 // Enviamos el email
-                // UserWasCreated::dispatch($user, $data['password']);
+                UserWasCreated::dispatch($user, $data['password']);
+
+                // LoanClamin::dispatch($user);
                 
                 DB::commit();
 
@@ -228,6 +231,13 @@ class UserController extends Controller
         ->get();
       
         return dataTables::of($usuarios)
+            ->addColumn('membership', function ($usuarios){
+                return
+                    '<i class="fa fa-checñ"></i>'.' '.$usuarios->membership."<br>";            
+            }) 
+            ->addColumn('nickname', function ($usuarios){
+                return $usuarios->nickname."<br>";            
+            }) 
             ->addColumn('name', function ($usuarios){
                 return
                     '<i class="fa fa-user"></i>'.' '.$usuarios->name."<br>";            
@@ -264,7 +274,7 @@ class UserController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['name', 'email', 'status_id', 'created_at', 'accion']) 
+            ->rawColumns(['membership', 'nickname', 'name', 'email', 'status_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

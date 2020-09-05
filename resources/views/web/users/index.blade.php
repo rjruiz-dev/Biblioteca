@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('header')    
-    <h1>
+    <!-- <h1>
        SOCIOS
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Socios</li>
-    </ol> 
+    </ol>  -->
 @stop
 
 @section('content')
-    <div class="panel panel-primary">        
+    <!-- <div class="panel panel-primary">        
         <div class="panel-heading">
             <h3 class="panel-title">Listado de socios     
           
@@ -38,21 +38,21 @@
                 </tbody>                
             </table>
         </div>
-    </div> 
+    </div>  -->
 @stop
 
-@include('admin.users.partials._modal')
+<!-- @include('admin.users.partials._modal') -->
 
 @push('styles')
-    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
+    <!-- <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
     <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">  
     <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">  
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">    -->
 @endpush
 
 @push('scripts')  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
     <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -64,10 +64,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-    <script src="{{ asset('js/user.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script> -->
+    <!-- <script src="{{ asset('js/user.js') }}"></script> -->
     
-    <script>
+    <!-- <script>
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -118,5 +118,5 @@
                 {data: 'accion', name: 'accion'}                          
             ]
         });
-    </script>
+    </script> -->
 @endpush

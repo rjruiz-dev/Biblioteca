@@ -19,15 +19,12 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Documento: <b>{{ $documento->id }}</h3>                
             </div>       
-            <div class="box-body box-profile">            
-                <img class="profile-user-img img-responsive img-circle" 
-                    src="/adminlte/img/user4-128x128.jpg" 
-                    alt="{{ $documento->title}}">
-
-                <h3 class="profile-username text-center">{{ $documento->title }}</h3>
-                
+            <div class="box-body box-profile">                       
+                <div class="text-center">      
+                    <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$documento->photo) }}"  width="200" height="200">     
+                </div>  
+                <h3 class="profile-username text-center"><strong>{{ $documento->title }}</strong></h3>          
                 <p class="text-muted text-center">{{ $documento->creator->creator_name }}</p>
-                
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
                         <b>Tipo de Documento: </b> <a class="pull-right">{{ $documento->document_type->document_description }}</a>
@@ -150,7 +147,7 @@
                         $indice = $indice + 1
                         @endphp
                     @empty
-                        <li class="list-group-item"> <b>No Prestamos Asignados </b></li>                       
+                        <li class="list-group-item"> <b>Sin Prestamos Asignados </b></li>                       
                     @endforelse                                                   
                 </ul>             
             </div>  

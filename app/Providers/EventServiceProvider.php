@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
         UserWasCreated::class => [         
             SendLoginCredentials::class,
         ],
+
+        LoanClamin::class => [         
+            SendClaim::class,
+        ],
     ];
 
     /**

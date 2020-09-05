@@ -196,31 +196,30 @@ class RequestsController extends Controller
         ->get();
       
         return dataTables::of($prestamos_solicitados)
-            ->addColumn('tipo_movimiento', function ($prestamos_solicitados){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$prestamos_solicitados->movement_type['description_movement']."<br>";            
+            ->addColumn('tipo_movimiento', function ($prestamos_solicitados){   
+                return $prestamos_solicitados->movement_type['description_movement']."<br>";            
             }) 
-            ->addColumn('usuario_solicitante', function ($prestamos_solicitados){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->user['nickname'];              
+            ->addColumn('usuario_solicitante', function ($prestamos_solicitados){              
+                return 
+                '<i class="fa fa-user"></i>'.' '.$prestamos_solicitados->user['nickname']."<br>".         
+                '<i class="fa fa-check"></i>'.' '.$prestamos_solicitados->user['membership'];     
             })
             ->addColumn('documento_solicitado', function ($prestamos_solicitados){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->copy->document['title'];               
+                return $prestamos_solicitados->copy->document['title'];               
             })             
             ->addColumn('tipo_solicitado', function ($prestamos_solicitados){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->copy->document->document_type['document_description'];               
+                return $prestamos_solicitados->copy->document->document_type['document_description'];               
             })             
             ->addColumn('sub_tipo_solicitado', function ($prestamos_solicitados){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->copy->document->document_subtype['subtype_name'];               
+                return $prestamos_solicitados->copy->document->document_subtype['subtype_name'];               
             })             
             ->addColumn('curso', function ($prestamos_solicitados){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$prestamos_solicitados->course['course_name'];               
-            })             
-         
+                if( $prestamos_solicitados->course['course_name'] != null){
+                    return $prestamos_solicitados->course['course_name'];
+                }else{
+                    return 'Sin Curso Asignado';
+                }
+            })  
             ->addColumn('created_at', function ($prestamos_solicitados){
                 return $prestamos_solicitados->created_at->format('d-m-y');
             })                 

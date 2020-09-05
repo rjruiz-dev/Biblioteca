@@ -19,14 +19,13 @@
                 <h3 class="box-title">Socio: <b>{{ $user->membership }}</h3>                
             </div>       
             <div class="box-body box-profile">            
-                <img class="profile-user-img img-responsive img-circle" 
-                    src="/adminlte/img/user4-128x128.jpg" 
-                    alt="{{ $user->nickname}}">
-                <h3 class="profile-username text-center">{{ $user->nickname }}</h3>
-                
-                <p class="text-muted text-center">{{ $user->name }}</p>
-                <p class="text-muted text-center">{{ $user->surname }}</p>
-                
+                <div class="text-center">      
+                    <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$user->user_photo) }}"  width="200" height="200">     
+                </div>  
+                <h3 class="profile-username text-center"><strong>{{ $user->nickname }}</strong></h3>  
+        
+                <p class="text-muted text-center">{{ $user->name }}, {{ $user->surname }}</p>
+           
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item"> 
                         @if ( $user->gender === NULL )       
@@ -148,7 +147,7 @@
                         $indice = $indice + 1
                     @endphp
                     @empty
-                        <li class="list-group-item"> <b>No Prestamos Asignados </b></li>                       
+                        <li class="list-group-item"> <b>Sin Prestamos Asignados </b></li>                       
                     @endforelse                                                   
                 </ul>             
             </div>  

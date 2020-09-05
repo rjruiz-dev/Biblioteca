@@ -296,9 +296,19 @@ class FastPartnerProcessController extends Controller
         ->get();
       
         return dataTables::of($usuarios)
+            ->addColumn('membership', function ($usuarios){
+                return
+                    '<i class="fa fa-check"></i>'.' '.$usuarios->membership;      
+                         
+            }) 
+            ->addColumn('nickname', function ($usuarios){
+                return $usuarios->nickname;      
+                         
+            }) 
             ->addColumn('name', function ($usuarios){
                 return
-                    '<i class="fa fa-user"></i>'.' '.$usuarios->name."<br>";            
+                    '<i class="fa fa-user"></i>'.' '.$usuarios->name;
+                                        
             }) 
             ->addColumn('email', function ($usuarios){
                 return                    
@@ -332,7 +342,7 @@ class FastPartnerProcessController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['name', 'email', 'status_id', 'created_at', 'accion']) 
+            ->rawColumns(['membership', 'nickname', 'name', 'email', 'status_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 
@@ -345,12 +355,10 @@ class FastPartnerProcessController extends Controller
       
         return dataTables::of($documentos)
             ->addColumn('tipo_documento', function ($documentos){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$documentos->document_type['document_description']."<br>";            
+                return $documentos->document_type['document_description']."<br>";            
             }) 
             ->addColumn('sub_tipo_documento', function ($documentos){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$documentos->document_subtype['subtype_name'];              
+                return $documentos->document_subtype['subtype_name'];              
             })             
          
             ->addColumn('created_at', function ($documentos){

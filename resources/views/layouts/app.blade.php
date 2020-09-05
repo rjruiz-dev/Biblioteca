@@ -120,8 +120,8 @@ desired effect
           <!-- /.messages-menu -->
 
           <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
+          <!-- <li class="dropdown notifications-menu">
+           
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
@@ -129,22 +129,22 @@ desired effect
             <ul class="dropdown-menu">
               <li class="header">You have 10 notifications</li>
               <li>
-                <!-- Inner Menu: contains the notifications -->
+              
                 <ul class="menu">
-                  <li><!-- start notification -->
+                  <li>
                     <a href="#">
                       <i class="fa fa-users text-aqua"></i> 5 new members joined today
                     </a>
                   </li>
-                  <!-- end notification -->
+               
                 </ul>
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
-          <!-- Tasks Menu -->
+          
           <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
+          
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">9</span>
@@ -152,18 +152,18 @@ desired effect
             <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
               <li>
-                <!-- Inner menu: contains the tasks -->
+               
                 <ul class="menu">
-                  <li><!-- Task item -->
+                  <li>
                     <a href="#">
-                      <!-- Task title and progress text -->
+                      
                       <h3>
                         Design some buttons
                         <small class="pull-right">20%</small>
                       </h3>
-                      <!-- The progress bar -->
+                   
                       <div class="progress xs">
-                        <!-- Change the css width attribute to simulate progress -->
+                      
                         <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                           <span class="sr-only">20% Complete</span>
@@ -171,14 +171,14 @@ desired effect
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
+                
                 </ul>
               </li>
               <li class="footer">
                 <a href="#">View all tasks</a>
               </li>
             </ul>
-          </li>
+          </li> -->
           <!-- User Account Menu -->
           @if(Auth::user() != null )
           <li class="dropdown user user-menu">
@@ -421,131 +421,18 @@ desired effect
 <!-- Bootstrap 3.3.7 -->
 <script src="/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+
+
 @stack('scripts')
+
 
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
-<script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
-<script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
- 
-     
-@include('web.users.partials._modal')
 
-
-    <script>
-          //  FRANCOOOOO <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
-          $('body').on('click', '.modal-show', function (event) {
-    event.preventDefault();
-
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title');
-
-    $('#modal-title').text(title);
-    $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
-
-    $.ajax({
-        url: url,
-        dataType: 'html',
-        success: function (response) {
-            $('#modal-body').html(response);
-            
-            $('#gender').select2({
-                placeholder: 'Selecciona un Género',
-                tags: true,               
-            });
-
-            $('#status_id').select2({
-                placeholder: 'Selecciona un Estado',                                    
-            });
-
-            $('#province').select2({
-                placeholder: 'Selecciona una Provincia',
-                tags: true,                            
-            });
-
-            $('#datepicker').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                       
-                language: 'es'
-            });   
-                   
-                 
-        }
-    });
-
-    $('#modal').modal('show');
-});
-
-$('#modal-btn-save').click(function (event) {
-    event.preventDefault();
-
-    $avatarInput = $('#user_photo');
-
-    var formData  = new FormData();        
-        formData.append('user_photo', $avatarInput[0].files[0]);
-        
-    var form = $('#modal-body form'), 
-        url = form.attr('action'),
-        method =  'POST' ;
-        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
-
-    form.find('.help-block').remove();
-    form.find('.form-group').removeClass('has-error');
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-    });
-    
-    $.ajax({
-        url : url + '?' + form.serialize(),
-        method: method,
-        data : formData, 
-        cache: false,  
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          var  info = response.bandera;
-            form.trigger('reset');
-            $('#modal').modal('hide');
-            // $('#rec_nickname').DataTable().ajax.reload();
-            $("#rec_nickname").load(" #rec_nickname"); 
-            if(info == 0){
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se ha completado su solicitud de asociamineto! Recibira la respuesta a su solicitud al mail con el cual se registro'
-            });
-          }else{
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han actualizado sus datos!'
-            });
-
-          }
-        },
-        error : function (xhr) {
-            var res = xhr.responseJSON;
-            if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
-                    $('#' + key)
-                        .closest('.form-group')
-                        .addClass('has-error')
-                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
-                });
-            }
-        }
-    })
-})
-     </script>
 </body>
 </html>
