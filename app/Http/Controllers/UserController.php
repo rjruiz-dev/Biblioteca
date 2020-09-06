@@ -80,7 +80,7 @@ class UserController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{
-                    $name = 'default.jpg';
+                    $name = 'user-default.jpg';
                 }               
                 // Creamos el usuario 
                 $user = new User;   
@@ -193,7 +193,7 @@ class UserController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{
-                    $name = 'default.jpg';
+                    $name = 'user-default.jpg';
                 }        
 
                 // Actualizamos el usuario

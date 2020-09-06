@@ -136,17 +136,15 @@ class MoviesController extends Controller
                 $document->collection       = $request->get('collection'); 
                 $document->synopsis         = $request->get('synopsis'); 
 
-                if ($request->hasFile('photo')) {               
-
+                if ($request->hasFile('photo')){          
                     $file = $request->file('photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
-                }else{
-                    $name = null; // se asigno null pero se le podria ingresar una imagen por defecto si no carga nada 
+                }else{                
+                    $name = 'doc-default.jpg';
                 }  
 
                 $document->photo            = $name;
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -245,20 +243,18 @@ class MoviesController extends Controller
                 $movie      = Movies::findOrFail($id);
                 $document   = Document::findOrFail($movie->documents_id); 
                 
-                $this->authorize('update', $movie);
-                
+                $this->authorize('update', $movie);             
                 
                 $name = $movie->photo; 
                 if ($request->hasFile('photo')) {               
                     $file = $request->file('photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
-                } 
+                }else{
+                    $name = 'doc-default.jpg';
+                }    
 
-                $document->title  = $request->get('title');           
-
-                if( is_numeric($request->get('creators_id'))) 
-                {                
+                if( is_numeric($request->get('creators_id'))){                
                     $document->creators_id  = $request->get('creators_id');    
  
                 }else{
@@ -269,8 +265,9 @@ class MoviesController extends Controller
                     $creator->save();
                     $document->creators_id         = $creator->id;
 
-                 }
+                }
 
+                $document->title                = $request->get('title');  
                 $document->original_title       = $request->get('original_title');                
                 $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
                 $document->adequacies_id        = $request->get('adequacies_id');
@@ -295,17 +292,8 @@ class MoviesController extends Controller
                 $document->note                 = $request->get('note');
                 $document->lenguages_id         = $request->get('lenguages_id');
                 $document->collection           = $request->get('collection'); 
-                $document->synopsis             = $request->get('synopsis'); 
-
- 
-                $name = $document->photo; 
-                if ($request->hasFile('photo')) {               
-                    $file = $request->file('photo');
-                    $name = time().$file->getClientOriginalName();
-                    $file->move(public_path().'/images/', $name);    
-                }
+                $document->synopsis             = $request->get('synopsis');
                 $document->photo = $name; 
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 

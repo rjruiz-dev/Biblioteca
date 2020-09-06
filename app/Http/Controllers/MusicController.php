@@ -133,12 +133,11 @@ class MusicController extends Controller
                     $file = $request->file('photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
-                }else{
-                    $name = null; // se asigno null pero se le podria ingresar una imagen por defecto si no carga nada 
+                }else{                
+                    $name = 'doc-default.jpg';
                 }  
 
                 $document->photo            = $name;
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -300,10 +299,10 @@ class MusicController extends Controller
                     $file = $request->file('photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
-                }
+                }else{                
+                    $name = 'doc-default.jpg';
+                }  
                 $document->photo = $name;
-
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 

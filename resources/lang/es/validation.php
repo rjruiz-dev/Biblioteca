@@ -181,5 +181,7 @@ return [
         'status_id'             => 'estado',
         'nickname'              => 'nombre de usuario',
         'datepicker'            => 'fecha',
+        'user_photo'            => 'imagen de perfil',
+        'photo'                 => 'imagen de portada',
     ],
 ];

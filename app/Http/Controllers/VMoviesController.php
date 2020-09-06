@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SaveMovieRequest;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 
 class VMoviesController extends Controller
 {
@@ -31,9 +33,24 @@ class VMoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('web.movies.index');
+    public function index(Request $request)
+    {       
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+
+        return view('web.movies.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);        
     }
 
     /**
