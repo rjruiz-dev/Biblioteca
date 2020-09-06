@@ -15,7 +15,9 @@ class CreateStatusTable extends Migration
     {
         Schema::create('status', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('state_description', ['Activo', 'Inactivo', 'Pendiente'])->default('Activo');          
+            $table->string('state_description'); 
+            $table->string('view_alta');
+            $table->string('view_edit');          
             $table->timestamps();
         });
     }

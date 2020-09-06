@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
 use App\Movies;
@@ -18,7 +19,10 @@ use App\Generate_subjects;
 use App\StatusDocument;
 use App\Document_subtype;
 use App\Photography_movie;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\SaveMovieRequest;
 
 class VMoviesController extends Controller
 {
@@ -144,12 +148,10 @@ class VMoviesController extends Controller
                 return $movie->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($movie) {
-             
+            ->addColumn('accion', function ($movie) {             
                 return view('web.movies.partials._action', [
                     'movie'             => $movie,
-                    'url_show'          => route('web.cine.show', $movie->id),                        
-                   
+                    'url_show'          => route('web.cine.show', $movie->id),   
                 ]);
 
             })           

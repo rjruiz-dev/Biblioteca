@@ -21,6 +21,7 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Concepto</th>                                   
                         <th>Cantidad de Registro</th>
                         </tr>
@@ -105,7 +106,8 @@
                 
             ],             
             ajax: "{{ route('infoofdatabase.table') }}",         
-            columns: [                
+            columns: [  
+                {data: 'id', name: 'id'},              
                 {data: 'name_table', name: 'name_table'},                                                   
                 {data: 'cantidades', name: 'cantidades'},                        
             ]

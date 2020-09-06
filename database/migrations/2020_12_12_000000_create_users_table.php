@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('postcode')->nullable();           
             $table->string('phone')->nullable();
             $table->string('user_photo')->nullable();
+            $table->integer('edad')->nullable();
             $table->timestamp('birthdate')->nullable();
             $table->rememberToken();       
             $table->timestamps();

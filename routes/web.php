@@ -18,6 +18,7 @@ Route::get('/login', function () {
 });
 Auth::routes(['register' => false]);
 
+
 Route::group([
     'prefix'  => 'web'],   
 function(){ 
@@ -71,6 +72,7 @@ function(){
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
     Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
     Route::resource('claimloans',     'ClaimLoansController',['as' => 'admin']);
+    Route::resource('statistic',             'StatisticController',['as' => 'admin']);
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
@@ -121,6 +123,8 @@ function(){
     Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
     Route::delete('requests/solicitud/{id}',   'RequestsController@solicitud')->name('requests.solicitud');
 
+    Route::get('statistic/filtrar/{f_desde}/{f_hasta}',                   'StatisticController@filtrar');
+    
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
