@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Statu;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use DataTables;
 use Carbon\Carbon;
 use App\Providers\UserWasCreated;
@@ -19,15 +21,32 @@ use Illuminate\Http\UploadedFile;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if(session()->has('idioma')){
-
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
         }else{
-            session(['idioma' => '1']);
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
         }
-        
-        return view('layouts.dashboard');
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+        return view('layouts.dashboard', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]); 
+    }
+
+
+    public function cambiar(Request $request, $id)
+    {
+        $request->session()->put('idiomas', $id);
+        // dd("llega"); 
     }
 
     public function create()

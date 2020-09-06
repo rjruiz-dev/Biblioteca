@@ -16,9 +16,6 @@ class CreateManyLenguagesTable extends Migration
         Schema::create('many_lenguages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('lenguage_description')->nullable();
-            $table->string('ml_reclamar_prestamos')->nullable();
-            $table->string('ml_solicitudes_prestamos')->nullable();
-
             $table->timestamps();
         });
     }
