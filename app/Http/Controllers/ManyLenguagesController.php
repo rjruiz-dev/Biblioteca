@@ -82,4 +82,28 @@ class ManyLenguagesController extends Controller
     {
         //
     }
+
+    public function dataTable()
+    {   
+        $idiomas = ManyLenguages::get();
+        // dd($idiomas);       
+        return dataTables::of($idiomas)
+
+            ->addColumn('created_at', function ($idiomas){
+                return $idiomas->created_at->format('d-m-y');
+            })                 
+            
+            ->addColumn('accion', function ($idiomas) {
+                return view('admin.manylenguages.partials._action', [
+                    'idiomas'            => $idiomas,
+                    'url_show'          => route('admin.manylenguages.show', $idiomas->id),                        
+                    'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
+                    'url_baja'          => route('manylenguages.baja', $idiomas->id),
+                    'url_reactivar'     => route('manylenguages.reactivar', $idiomas->id),   
+                ]);
+            })           
+            ->addIndexColumn()   
+            ->rawColumns(['created_at', 'accion']) 
+            ->make(true);  
+    }
 }

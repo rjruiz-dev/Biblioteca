@@ -77,6 +77,7 @@ function(){
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
     Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
     Route::resource('claimloans',     'ClaimLoansController',['as' => 'admin']);
+    Route::resource('manylenguages',     'ManyLenguagesController',['as' => 'admin']); 
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
@@ -158,6 +159,7 @@ Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->na
 Route::get('loansbydate/table',         'LoansbydateController@dataTable')->name('loansbydate.table');
 Route::get('loansbyclassroom/table',    'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
+Route::get('manylenguages/table',      'ManyLenguagesController@dataTable')->name('manylenguages.table');
 
 
 // Route::get('home', function () {
