@@ -1,6 +1,6 @@
 @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Admin')
 <ul class="sidebar-menu" data-widget="tree">
-    <li class="header">Navegación</li>     
+    <li class="header">{{ $idioma->navegacion }}</li>     
 
     <li class="{{ setActiveRoute('dashboard') }}">
         <a href="{{ route('dashboard') }}">
@@ -176,7 +176,7 @@
             </li> 
             <li class="{{ setActiveRoute('admin.languages.index') }}">
                 <a href="{{ route('admin.languages.index') }}">
-                    <i class="fa fa-check-square"></i><span> Idiomas</span>
+                    <i class="fa fa-check-square"></i><span> idioma</span>
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.periodicals.index') }}">
@@ -251,7 +251,7 @@
 
     @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
     <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Navegación</li> 
+        <li class="header">{{ $idioma->navegacion }}</li> 
         <li class="{{ setActiveRoute('index') }}">
             <a href="{{ route('index') }}">
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>
@@ -287,7 +287,7 @@
 
     @if(Auth::user() == null )
     <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Navegación</li> 
+        <li class="header">{{ $idioma->navegacion }}</li> 
         <li class="{{ setActiveRoute('index') }}">
             <a href="{{ route('index') }}">
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>

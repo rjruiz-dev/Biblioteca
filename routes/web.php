@@ -11,7 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('index'); 
+Route::get('email', function () {
+    return new App\Mail\AlertClaim(App\User::first());
+});
+
+Route::get('/', 'HomeController@index')->name('index');
+Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
+
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -71,8 +77,9 @@ function(){
     Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
     Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
     Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
-    Route::resource('claimloans',     'ClaimLoansController',['as' => 'admin']);
-    Route::resource('statistic',             'StatisticController',['as' => 'admin']);
+    Route::resource('claimloans',           'ClaimLoansController',['as' => 'admin']);
+    Route::resource('statistic',            'StatisticController',['as' => 'admin']);
+    Route::resource('manylenguages',        'ManyLenguagesController',['as' => 'admin']); 
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
@@ -81,6 +88,7 @@ function(){
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
 
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
+    Route::get('claimloans/filtarPorFecha/{fecha}',                   'ClaimLoansController@filtarPorFecha');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
     Route::get('fastprocess/vista_devo_reno/{id}/{bandera}/{fecha}',    'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
     Route::get('fastprocess/edit2/{id}',                        'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
@@ -155,6 +163,7 @@ Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->na
 Route::get('loansbydate/table',         'LoansbydateController@dataTable')->name('loansbydate.table');
 Route::get('loansbyclassroom/table',    'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
+Route::get('manylenguages/table',      'ManyLenguagesController@dataTable')->name('manylenguages.table');
 
 
 // Route::get('home', function () {

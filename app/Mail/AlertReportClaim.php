@@ -7,22 +7,24 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class VisitorRequestNotice extends Mailable
+class AlertReportClaim extends Mailable
 {
     use Queueable, SerializesModels;
 
-    
-    public $caso;
+    public $user;
 
+    public $prestamos;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($caso)
+    public function __construct($user, $prestamos)
     {
-        $this->caso = $caso;
+        $this->user = $user;
+
+        $this->prestamos = $prestamos;
     }
 
     /**
@@ -32,7 +34,7 @@ class VisitorRequestNotice extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.visitorRequestNotice')
-            ->subject('Has solicitado asociarte a  ' . config('app.name'));
+        return $this->markdown('emails.alert-report-claim')
+        ->subject('Informe de reclamos' . config('app.name'));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Providers\LoanClamin;
+use App\Providers\ClaimLoan;
 use App\Mail\AlertClaim;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
@@ -23,13 +23,14 @@ class SendClaim
     /**
      * Handle the event.
      *
-     * @param  LoanClamin  $event
+     * @param  ClaimLoan  $event
      * @return void
      */
-    public function handle(LoanClamin $event)
+    public function handle(ClaimLoan $event)
     {
+        //enviar email con las credenciales del login
         Mail::to($event->user)->queue(
-            new AlertClaim($event->user)
+            new AlertClaim($event->user, $event->prestamos, $event->modelo)
         );
     }
 }

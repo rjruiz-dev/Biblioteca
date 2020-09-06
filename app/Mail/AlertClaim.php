@@ -13,14 +13,22 @@ class AlertClaim extends Mailable
 
     public $user;
 
+    public $prestamos;
+
+    public $modelo;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $prestamos, $modelo)
     {
         $this->user = $user;
+
+        $this->prestamos = $prestamos;
+
+        $this->modelo = $modelo;
     }
 
     /**

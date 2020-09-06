@@ -87,35 +87,14 @@ desired effect
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <i class="fa fa-globe"></i>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
-                        <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
+              <li class="header">Elija un idioma</li>
+              @foreach($idiomas as $idioma_ind)
+              <li class="footer"><a href="{{ route('cambiar', $idioma_ind->id) }}" class="btn-cambiar">{{ $idioma_ind->lenguage_description }}</a></li>
+              @endforeach
+              </ul>
           </li>
           <!-- /.messages-menu -->
 
@@ -434,5 +413,144 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. -->
 
+    <script>
+          //  FRANCOOOOO <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
+          $('body').on('click', '.modal-show', function (event) {
+    event.preventDefault();
+
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title');
+
+    $('#modal-title').text(title);
+    $('#modal-btn-save').removeClass('hide')
+    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function (response) {
+            $('#modal-body').html(response);
+            
+            $('#gender').select2({
+                placeholder: 'Selecciona un Género',
+                tags: true,               
+            });
+
+            $('#status_id').select2({
+                placeholder: 'Selecciona un Estado',                                    
+            });
+
+            $('#province').select2({
+                placeholder: 'Selecciona una Provincia',
+                tags: true,                            
+            });
+
+            $('#datepicker').datepicker({
+                autoclose: true,
+                todayHighlight: true,  
+                format: 'dd/mm/yyyy',                       
+                language: 'es'
+            });   
+                   
+                 
+        }
+    });
+
+    $('#modal').modal('show');
+});
+
+$('body').on('click', '.btn-cambiar', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+       
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                  window.location.reload(); 
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+});
+
+$('#modal-btn-save').click(function (event) {
+    event.preventDefault();
+
+    $avatarInput = $('#user_photo');
+
+    var formData  = new FormData();        
+        formData.append('user_photo', $avatarInput[0].files[0]);
+        
+    var form = $('#modal-body form'), 
+        url = form.attr('action'),
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+    
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          var  info = response.bandera;
+            form.trigger('reset');
+            $('#modal').modal('hide');
+            // $('#rec_nickname').DataTable().ajax.reload();
+            $("#rec_nickname").load(" #rec_nickname"); 
+            if(info == 0){
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se ha completado su solicitud de asociamineto! Recibira la respuesta a su solicitud al mail con el cual se registro'
+            });
+          }else{
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se han actualizado sus datos!'
+            });
+
+          }
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+})
+     </script>
 </body>
 </html>

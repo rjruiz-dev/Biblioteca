@@ -18,6 +18,8 @@ use App\Generate_reference;
 use App\StatusDocument;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 
 class VBooksController extends Controller
 {
@@ -26,9 +28,25 @@ class VBooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('web.books.index');
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+
+        return view('web.books.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]); 
     }
 
     /**
