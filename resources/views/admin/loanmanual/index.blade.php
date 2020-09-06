@@ -26,8 +26,8 @@
                     <tr>
                     <th>ID</th>
                         <th>Titulo</th> 
-                        <th>Tipo Documento</th>                         
-                        <th>Subtipo Documento</th>                        
+                        <th>Tipo</th>                         
+                        <th>Subtipo</th>                        
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>

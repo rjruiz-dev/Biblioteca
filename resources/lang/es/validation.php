@@ -147,7 +147,7 @@ return [
     */
 
     'attributes' => [
-        'name'                  => 'nombre',
+        'name'                  => 'nombre',       
         'username'              => 'usuario',
         'email'                 => 'correo electrónico',
         'first_name'            => 'nombre',
@@ -177,5 +177,9 @@ return [
         'time'                  => 'hora',
         'subject'               => 'asunto',
         'message'               => 'mensaje',
+        'membership'            => 'número de socio',
+        'status_id'             => 'estado',
+        'nickname'              => 'nombre de usuario',
+        // 'user_photo'            => 'imagen',
     ],
 ];

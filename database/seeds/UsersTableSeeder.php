@@ -78,7 +78,7 @@ class UsersTableSeeder extends Seeder
         $admin->nickname = 'GB_Admin';
         $admin->membership = '23.456.567';
         $admin->email = 'admin@gmail.com';        
-        $admin->password = '123456';    
+        $admin->password = '123456';   
         $admin->status_id = 1;
         $admin->save();
 
@@ -102,7 +102,7 @@ class UsersTableSeeder extends Seeder
         $partner->nickname = 'jorge_12';
         $partner->membership = '23.456.967';
         $partner->email = 'jorge@gmail.com';        
-        $partner->password = '123456';    
+        $partner->password = '123456'; 
         $partner->status_id = 1;
         $partner->save();
 
