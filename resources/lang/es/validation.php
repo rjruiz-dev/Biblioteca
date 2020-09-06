@@ -180,6 +180,6 @@ return [
         'membership'            => 'número de socio',
         'status_id'             => 'estado',
         'nickname'              => 'nombre de usuario',
-        // 'user_photo'            => 'imagen',
+        'datepicker'            => 'fecha',
     ],
 ];

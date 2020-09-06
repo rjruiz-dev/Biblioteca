@@ -11,6 +11,16 @@
                 <h3 class="box-title">Perfil</h3>                
             </div>
             <div class="box-body">
+                @if (!$user->exists)
+                    @php 
+                        $visible = "display:none";                        
+                    @endphp
+                @else
+                    @php  
+                        $visible = "";                   
+                    @endphp
+                @endif   
+
                 <div class="form-group">              
                     {!! Form::label('membership', 'Número de Socio') !!}                    
                     {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio']) !!}
@@ -34,10 +44,7 @@
                     {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email']) !!}
                 </div>
                 <span class="help-block">La contraseña será generada y enviada al nuevo usuario vía email</span>
-                <!-- <div class="form-group">              
-                   <div class="dropzone"></div>
-                </div> 
-              -->
+         
             </div>
         </div>       
     </div>     
@@ -75,16 +82,7 @@
                     </div>                  
                 </div>
 
-                @if (!$user->exists)
-                    @php 
-                        $visible = "display:none"
-                    @endphp
-                @else
-                    @php  
-                        $visible = ""
-                    @endphp
-                @endif   
-
+               
                 <div id="dpassword" class="form-group" style="{{{ $visible }}}">
                     {!! Form::label('password', 'Contraseña') !!}                                                              
                     {!! Form::password('password', array('class' => 'form-control', 'id' => 'password', 'placeholder' => 'Contraseña')) !!}                    
@@ -131,36 +129,3 @@
 
     {!! Form::close() !!}    
 </div>
-<!-- 
-<script>
-    var myDropzone = new Dropzone('.dropzone', { 
-          
-        url: '/admin/users/photos',
-        paramName: 'photo',
-        acceptedFiles: 'image/*',    
-        addRemoveLinks: true,
-        dictRemoveFile: "Eliminar imagen" ,
-        maxFilesize: 2, //2
-        headers: {
-            'X-CSRF-TOKEN': '{{csrf_token()}}'
-        },
-        dictDefaultMessage: 'Arrastra las imagenes aqui para subirlas'     
-    });          
-    
-    myDropzone.on('error', function(file, res){  
-        // file.previewElement.classList.add("dz-error");     
-        var msg = res.photo;         
-        // console.log(res);      
-        $('.dz-error-message:last > span').text(msg);
-    });
-
-    
-    Dropzone.autoDiscover = false;
-   
-</script> -->
-
-
-
-
-
-  

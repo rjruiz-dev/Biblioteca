@@ -62,11 +62,12 @@ class UserController extends Controller
 
                  // Validar el formulario
                 $data = $request->validate([
-                    'membership'    => 'required|numeric|min:6|max:8|unique:users,membership',
+                    'membership'    => 'required|numeric|digits_between:6,8|unique:users,membership',
                     'name'          => 'required|string|max:100',
                     'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
                     'email'         => 'required|string|email|max:255|unique:users,email',                     
-                    'status_id'     => 'required'       
+                    'status_id'     => 'required', 
+                    'birthdate'     => 'required'       
                 ]);
 
                 // Generar una contraseña

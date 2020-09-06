@@ -29,7 +29,7 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,                            
             });
 
-            $('#datepicker').datepicker({
+            $('#birthdate').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
                 format: 'dd/mm/yyyy',                       
@@ -99,7 +99,7 @@ $('#modal-btn-save').click(function (event) {
 
 $('body').on('click', '.btn-btn-edit-user', function (event) {
 
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
+    $('#dpassword_confirmation, #dpassword').css('display', 'inline');    
 
 });
 
