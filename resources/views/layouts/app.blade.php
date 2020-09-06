@@ -71,7 +71,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>B</b>O</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Biblioteca</b></span>
+      <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -236,7 +236,7 @@ desired effect
               <!-- The user image in the navbar-->
               <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Iniciar Sesion</span>
+              <span class="hidden-xs">{{ $idioma->iniciar_sesion }}</span>
               
             </a>
             </li>
@@ -247,7 +247,7 @@ desired effect
               <!-- The user image in the navbar-->
               <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Registrarse!</span>
+              <span class="hidden-xs">{{ $idioma->registrarse }}</span>
               
             </a>
             </li>
@@ -270,9 +270,9 @@ desired effect
           <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-        <p>{{ Auth::user() != null ? Auth::user()->name : 'No logueado' }}</p>
+        <p>{{ Auth::user() != null ? Auth::user()->name : $idioma->invitado }}</p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> {{ $idioma->en_linea }}</a>
         </div>
       </div>
 

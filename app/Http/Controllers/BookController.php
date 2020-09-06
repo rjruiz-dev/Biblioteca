@@ -21,6 +21,9 @@ use App\Periodical_publication;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveBookRequest;
+use App\Ml_dashboard;
+use App\ManyLenguages;
+
 
 class BookController extends Controller
 {
@@ -29,9 +32,24 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('admin.books.index');
+    public function index(Request $request)
+    {        
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+
+        return view('admin.books.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);        
     }
 
     /**

@@ -4,7 +4,7 @@
 
     <li class="{{ setActiveRoute('dashboard') }}">
         <a href="{{ route('dashboard') }}">
-            <i class="fa fa-dashboard"></i> <span>Inicio</span>
+            <i class="fa fa-dashboard"></i> <span>{{ $idioma->inicio }}</span>
         </a>
     </li>    
 
@@ -63,22 +63,6 @@
         </ul>
     </li>     
    
-    <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
-    
-    
-
-    <!-- <li class="treeview">
-        <a href="#"><i class="fa fa-list"></i> <span>Gestión</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-    <ul class="treeview-menu">
-        <li><a href="#">Proceso rápido</a></li>
-        <li><a href="#">Prestamos desde la web</a></li>
-    </ul>
-    </li> -->
-
     <li class="treeview {{ setActiveRoute(['admin.users.index','admin.requestsup.index']) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>Socios</span>
             <span class="pull-right-container">
@@ -98,8 +82,6 @@
             </li>          
         </ul>
     </li>     
-
-   
 
     <li class="treeview {{ setActiveRoute([
                                             'admin.books.index', 'admin.movies.index',
@@ -254,7 +236,7 @@
         <li class="header">{{ $idioma->navegacion }}</li> 
         <li class="{{ setActiveRoute('index') }}">
             <a href="{{ route('index') }}">
-                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+                <i class="fa fa-dashboard"></i> <span>{{ $idioma->inicio }}</span>
             </a>
         </li>
         <li class="{{ setActiveRoute('web.libros.index') }}">
@@ -290,32 +272,32 @@
         <li class="header">{{ $idioma->navegacion }}</li> 
         <li class="{{ setActiveRoute('index') }}">
             <a href="{{ route('index') }}">
-                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+                <i class="fa fa-dashboard"></i> <span>{{ $idioma->inicio }}</span>
             </a>
         </li>
         <li class="{{ setActiveRoute('web.libros.index') }}">
             <a href="{{ route('web.libros.index') }}">
-                <i class="fa fa-book"></i><span> Libros</span>
+                <i class="fa fa-book"></i><span>{{ $idioma->libros }}</span>
             </a>
         </li>
         <li class="{{ setActiveRoute('web.cine.index') }}">
             <a href="{{ route('web.cine.index') }}">
-                <i class="fa fa-video-camera"></i><span> Cines</span> 
+                <i class="fa fa-video-camera"></i><span>{{ $idioma->cines }}</span> 
             </a>
         </li>        
         <li class="{{ setActiveRoute('web.musica.index') }}">
             <a href="{{ route('web.musica.index') }}">
-                <i class="fa fa-music"></i><span> Musica</span> 
+                <i class="fa fa-music"></i><span>{{ $idioma->musica }}</span> 
             </a>
         </li>   
         <li class="{{ setActiveRoute('web.fotografias.index') }}">
             <a href="{{ route('web.fotografias.index') }}">
-                <i class="fa fa-photo"></i><span> Fotografias</span> 
+                <i class="fa fa-photo"></i><span>{{ $idioma->fotografia }}</span> 
             </a>
         </li> 
         <li class="{{ setActiveRoute('web.multimedia.index') }}">
             <a href="{{ route('web.multimedia.index') }}">
-                <i class="fa fa-youtube-play"></i><span> Multimedias</span> 
+                <i class="fa fa-youtube-play"></i><span>{{ $idioma->multimedia }}</span> 
             </a>
         </li>         
     </ul>
