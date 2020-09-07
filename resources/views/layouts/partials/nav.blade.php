@@ -48,6 +48,12 @@
             <i class="fa fa-pencil"></i> <span>Importar REBECA</span>
         </a>
     </li>
+
+    <li class="{{ setActiveRoute('admin.manylenguages.index') }}">
+        <a href="{{ route('admin.manylenguages.index') }}">
+            <i class="fa fa-pencil"></i> <span>Gestion Multi-Idiomas</span>
+        </a>
+    </li>
     <!-- <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li> -->
     
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                

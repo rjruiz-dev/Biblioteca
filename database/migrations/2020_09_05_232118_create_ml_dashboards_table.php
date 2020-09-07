@@ -17,7 +17,18 @@ class CreateMlDashboardsTable extends Migration
             $table->increments('id');
 
             $table->integer('many_lenguages_id')->nullable()->unsigned();
+            $table->string('biblioteca')->nullable();
+            $table->string('iniciar_sesion')->nullable();
+            $table->string('registrarse')->nullable();
             $table->string('navegacion')->nullable();
+            $table->string('invitado')->nullable();
+            $table->string('en_linea')->nullable();
+            $table->string('inicio')->nullable();
+            $table->string('libros')->nullable();
+            $table->string('cines')->nullable();
+            $table->string('musica')->nullable();
+            $table->string('fotografia')->nullable();
+            $table->string('multimedia')->nullable();
                 
 
             $table->timestamps();
