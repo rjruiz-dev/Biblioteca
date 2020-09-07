@@ -14,6 +14,6 @@ class Ml_document extends Model
 
     public function many_lenguage()
     {
-    return $this->belongsTo(ManyLenguages::class, 'many_lenguages_id');
+        return $this->belongsTo(ManyLenguages::class, 'many_lenguages_id');
     }
 }
