@@ -142,6 +142,7 @@ $('body').on('click', '.modal-show', function (event) {
     });
 
     $('#modal').modal('show');
+   
 });
 
 $('#modal-btn-save').click(function (event) {

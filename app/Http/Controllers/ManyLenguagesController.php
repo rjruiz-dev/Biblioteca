@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ManyLenguages;
 use App\Ml_dashboard;
+use App\Ml_document;
+use App\Ml_movie;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -60,13 +62,19 @@ class ManyLenguagesController extends Controller
     public function create()
     {
         $idioma = new ManyLenguages; 
-
         $ml_dashboard = new Ml_dashboard;
+        $ml_document = new Ml_document;
+        $ml_movie = new Ml_movie;
+
 
         return view('admin.manylenguages.partials.form', [          
-            'idioma'      => $idioma,
-            'ml_dashboard'    => $ml_dashboard,
+            'idioma'        => $idioma,
+            'ml_dashboard'  => $ml_dashboard,
+            'ml_document'   => $ml_document,
+            'ml_movie'      => $ml_movie,
+
         ]);
+        
     }
 
     /**
@@ -89,21 +97,65 @@ class ManyLenguagesController extends Controller
                 $idioma->save();
                 
                 $ml_dashboard = new Ml_dashboard;
-                $ml_dashboard->inicio            = $request->get('inicio');
-                $ml_dashboard->libros   = $request->get('libros');
-                $ml_dashboard->cines       = $request->get('cines');
-                $ml_dashboard->musica = $request->get('musica');  
-                $ml_dashboard->fotografia        = $request->get('fotografia');
-                $ml_dashboard->multimedia       = $request->get('multimedia');  
-                $ml_dashboard->biblioteca       = $request->get('biblioteca');  
+                $ml_dashboard->inicio               = $request->get('inicio');
+                $ml_dashboard->libros               = $request->get('libros');
+                $ml_dashboard->cines                = $request->get('cines');
+                $ml_dashboard->musica               = $request->get('musica');  
+                $ml_dashboard->fotografia           = $request->get('fotografia');
+                $ml_dashboard->multimedia           = $request->get('multimedia');  
+                $ml_dashboard->biblioteca           = $request->get('biblioteca');  
                 $ml_dashboard->iniciar_sesion       = $request->get('iniciar_sesion');  
-                $ml_dashboard->registrarse       = $request->get('registrarse');  
-                $ml_dashboard->navegacion       = $request->get('navegacion');  
-                $ml_dashboard->invitado       = $request->get('invitado');  
-                $ml_dashboard->en_linea       = $request->get('en_linea');  
-                
-                $ml_dashboard->many_lenguages_id = $idioma->id;
+                $ml_dashboard->registrarse          = $request->get('registrarse');  
+                $ml_dashboard->navegacion           = $request->get('navegacion');  
+                $ml_dashboard->invitado             = $request->get('invitado');  
+                $ml_dashboard->en_linea             = $request->get('en_linea');                  
+                $ml_dashboard->many_lenguages_id    = $idioma->id;               
                 $ml_dashboard->save();
+              
+
+                $ml_document = new Ml_document;
+                $ml_document->cdu               = $request->get('cdu');
+                $ml_document->adecuacion        = $request->get('adecuacion');
+                $ml_document->idioma            = $request->get('idioma');
+                $ml_document->tipo_doc          = $request->get('tipo_doc');  
+                $ml_document->subtipo_doc       = $request->get('subtipo_doc');
+                $ml_document->creador           = $request->get('creador');  
+                $ml_document->titulo            = $request->get('titulo');  
+                $ml_document->titulo_original   = $request->get('titulo_original');  
+                $ml_document->adquirido         = $request->get('adquirido');  
+                $ml_document->siglas_autor      = $request->get('siglas_autor');  
+                $ml_document->siglas_titulo     = $request->get('siglas_titulo');  
+                $ml_document->valoracion        = $request->get('valoracion');                  
+                $ml_document->desidherata       = $request->get('desidherata');  
+                $ml_document->publicado         = $request->get('publicado');  
+                $ml_document->hecho_por         = $request->get('hecho_por');  
+                $ml_document->año               = $request->get('año');  
+                $ml_document->volumen           = $request->get('volumen');  
+                $ml_document->cant_generica     = $request->get('cant_generica');  
+                $ml_document->coleccion         = $request->get('coleccion');  
+                $ml_document->ubicacion         = $request->get('ubicacion');  
+                $ml_document->observacion       = $request->get('observacion');  
+                $ml_document->nota              = $request->get('nota');  
+                $ml_document->sinopsis          = $request->get('sinopsis');  
+                $ml_document->foto              = $request->get('foto');                  
+                $ml_document->many_lenguages_id = $idioma->id;
+                $ml_document->save();
+
+                $ml_movie = ML_movie::create($request->all());
+            
+                $idioma = new ManyLenguages;
+                $idioma->lenguage_description = $request->get('idioma');
+                $idioma->baja = 0;
+                $idioma->save();
+
+                $idioma = $ml_movie->piece()->create([                    
+                    'lenguage_description'  => $request['lenguage_description'],
+                  
+                    'program_id'   => $program->id                     
+                ]);
+
+
+                ML_movie::create($request->all());
 
                 DB::commit();
 
@@ -135,13 +187,17 @@ class ManyLenguagesController extends Controller
      */
     public function edit($id)
     {
+
         $idioma = ManyLenguages::findOrFail($id); 
-
         $ml_dashboard = Ml_dashboard::where('many_lenguages_id', $idioma->id)->first();
-
+        $ml_document = Ml_document::where('many_lenguages_id', $idioma->id)->first();
+        $ml_movie = Ml_movie::where('many_lenguages_id', $idioma->id)->first();
+        
         return view('admin.manylenguages.partials.form', [          
-            'idioma'      => $idioma,
-            'ml_dashboard'    => $ml_dashboard,
+            'idioma'        => $idioma,
+            'ml_dashboard'  => $ml_dashboard,
+            'ml_document'   => $ml_document,
+            'ml_movie'      => $ml_movie,
         ]); 
     }
 
