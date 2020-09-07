@@ -16,6 +16,7 @@ class CreateManyLenguagesTable extends Migration
         Schema::create('many_lenguages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('lenguage_description')->nullable();
+            $table->integer('baja')->nullable(); 
             $table->timestamps();
         });
     }

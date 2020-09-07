@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ManyLenguages extends Model
 {
-    protected $fillable = ['lenguage_description'];
+    protected $fillable = ['lenguage_description','baja'];
 
     public function ml_dashboard()
     {

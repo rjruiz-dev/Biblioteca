@@ -26,11 +26,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>                    
-                        <th>Subtipo</th>
-                        <th>Genero</th>               
-                        <th>Titulo y Autor</th>    
-                        <th>Idioma</th> 
-                        <th>Estado</th>                                                      
+                        <th>Lenguaje</th>
+                        <th>Estado</th>               
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -66,7 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-    <script src="{{ asset('js/book.js') }}"></script>
+    <script src="{{ asset('js/manylenguages.js') }}"></script>
     
     <script>
         $('#datatable').DataTable({
@@ -110,12 +107,9 @@
             ],             
             ajax: "{{ route('manylenguages.table') }}",        
             columns: [                
-                {data: 'id_doc', name: 'id_doc'},                  
-                {data: 'document_subtypes_id', name: 'document_subtypes_id'},                          
-                {data: 'generate_books_id', name: 'generate_books_id'},                     
-                {data: 'documents_id', name: 'documents_id'}, 
-                {data: 'lenguages_id', name: 'lenguages_id'},             
-                {data: 'status', name: 'status'},             
+                {data: 'id', name: 'id'},
+                {data: 'lenguage_description', name: 'lenguage_description'},
+                {data: 'label_estado', name: 'label_estado'},             
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]

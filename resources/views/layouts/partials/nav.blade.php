@@ -228,7 +228,14 @@
         <a href="{{ route('admin.statistic.index') }}">
             <i class="fa fa-dashboard"></i> <span>Estadisticas</span>
         </a>
-    </li>    
+    </li>  
+
+    <li class="{{ setActiveRoute('admin.manylenguages.index') }}">
+        <a href="{{ route('admin.manylenguages.index') }}">
+            <i class="fa fa-pencil"></i> <span>Gestion Multi-Idiomas</span>
+        </a>
+    </li>
+      
     @endif
 
     @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
