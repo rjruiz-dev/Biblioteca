@@ -12,5 +12,10 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_dashboard::class);
     }
+
+    public function ml_document()
+    {
+        return $this->hasMany(Ml_document::class);
+    }
     
 }
