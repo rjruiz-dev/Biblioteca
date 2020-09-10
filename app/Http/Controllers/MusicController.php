@@ -439,7 +439,11 @@ class MusicController extends Controller
             ->addColumn('id_doc', function ($musica){
                 return $musica->document['id']."<br>";            
             })
-                     
+            ->addColumn('documents_id', function ($musica){
+                return
+                    '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
+                    '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
+            })                      
             ->addColumn('document_subtypes_id', function ($musica){
 
                 return  $musica->document->document_subtype->subtype_name;              
@@ -450,12 +454,7 @@ class MusicController extends Controller
                 }else{
                     return $musica->generate_music['genre_music']; 
                 }                 
-            }) 
-            ->addColumn('documents_id', function ($musica){
-                return
-                    '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
-            }) 
+            })           
             ->addColumn('lenguages_id', function ($musica){
                 if($musica->document->lenguage->leguage_description == null){
                     return 'Sin Lenguaje';

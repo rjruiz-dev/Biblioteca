@@ -30,7 +30,7 @@ use App\Multimedia;
                 <thead>
                     <tr>
                         <th>ID</th>                                   
-                        <th>Titulo y Autor</th> 
+                        <th>Título</th> 
                         <th>Estado</th>                     
                         <th>Agregado</th>                                
                         <th>Acciones</th>
@@ -60,6 +60,7 @@ use App\Multimedia;
     <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 
+    <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>   
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -74,6 +75,17 @@ use App\Multimedia;
             responsive: true,
             processing: true,
             serverSide: true,
+            responsive: {
+            details: {
+                type: 'column',
+                target: -1
+            }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   -1
+            } ],
             order: [ [0, 'desc'] ],     
             dom: 'Bfrtip',
             buttons: [

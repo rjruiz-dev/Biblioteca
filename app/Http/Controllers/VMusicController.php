@@ -125,8 +125,12 @@ class VMusicController extends Controller
         return dataTables::of($musica)
             ->addColumn('id_doc', function ($musica){
                 return $musica->document['id']."<br>";            
-            })
-                     
+            })               
+            ->addColumn('documents_id', function ($musica){
+                return
+                    '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
+                    '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
+            }) 
             ->addColumn('document_subtypes_id', function ($musica){
 
                 return  $musica->document->document_subtype->subtype_name;              
@@ -138,11 +142,6 @@ class VMusicController extends Controller
                     return $musica->generate_music['genre_music']; 
                 }                 
             }) 
-            ->addColumn('documents_id', function ($musica){
-                return
-                    '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
-            }) 
             ->addColumn('lenguages_id', function ($musica){
                 if($musica->document->lenguage->leguage_description == null){
                     return 'Sin Lenguaje';
@@ -153,7 +152,7 @@ class VMusicController extends Controller
             ->addColumn('status', function ($musica){
 
                 return'<span class="'.$musica->document->status_document->color.'">'.' '.$musica->document->status_document->name_status.'</span>';
-                // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
+              
             })              
             ->addColumn('created_at', function ($musica){
                 return $musica->created_at->format('d-m-y');

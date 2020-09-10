@@ -486,7 +486,11 @@ class BookController extends Controller
             ->addColumn('id_doc', function ($libros){
                 return $libros->document['id']."<br>";            
             }) 
-            
+            ->addColumn('documents_id', function ($libros){
+                return
+                    '<i class="fa fa-book"></i>'.' '.$libros->document['title']."<br>".
+                    '<i class="fa fa-user"></i>'.' '.$libros->document->creator->creator_name."<br>";         
+            }) 
             ->addColumn('document_subtypes_id', function ($libros){
 
                 return  $libros->document->document_subtype->subtype_name;              
@@ -497,12 +501,7 @@ class BookController extends Controller
                 }else{
                     return $libros->generate_book['genre_book'];              
                 }
-            }) 
-            ->addColumn('documents_id', function ($libros){
-                return
-                    '<i class="fa fa-book"></i>'.' '.$libros->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$libros->document->creator->creator_name."<br>";         
-            }) 
+            })            
             ->addColumn('lenguages_id', function ($libros){ 
                 if($libros->document->lenguage->leguage_description == null){
                     return 'Sin Lenguaje';

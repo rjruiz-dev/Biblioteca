@@ -415,7 +415,11 @@ class PhotographyController extends Controller
             ->addColumn('id_doc', function ($photograph){
                 return $photograph->document['id']."<br>";            
             }) 
-            
+            ->addColumn('documents_id', function ($photograph){
+                return
+                    '<i class="fa fa-music"></i>'.' '.$photograph->document['title']."<br>".
+                    '<i class="fa fa-user"></i>'.' '.$photograph->document->creator->creator_name."<br>";         
+            })
             ->addColumn('document_subtypes_id', function ($photograph){
 
                 return  $photograph->document->document_subtype->subtype_name;              
@@ -426,12 +430,7 @@ class PhotographyController extends Controller
                 }else{
                 return  $photograph->generate_format['genre_format'];              
                 }
-            })  
-            ->addColumn('documents_id', function ($photograph){
-                return
-                    '<i class="fa fa-music"></i>'.' '.$photograph->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$photograph->document->creator->creator_name."<br>";         
-            }) 
+            })              
             ->addColumn('status', function ($photograph){
 
                 return'<span class="'.$photograph->document->status_document->color.'">'.' '.$photograph->document->status_document->name_status.'</span>';

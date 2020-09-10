@@ -22,9 +22,9 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                   
-                        <th>Subtipo</th>               
-                        <th>Titulo y Autor</th>    
+                        <th>ID</th>    
+                        <th>Título</th>                   
+                        <th>Subtipo</th>
                         <th>Formato</th> 
                         <th>Estado</th>                         
                         <th>Agregado</th>                                
@@ -49,6 +49,7 @@
 @push('scripts')   
     <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 
+    <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>   
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -63,6 +64,17 @@
             responsive: true,
             processing: true,
             serverSide: true,
+            responsive: {
+            details: {
+                type: 'column',
+                target: -1
+            }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   -1
+            } ],
             order: [ [0, 'desc'] ],     
             dom: 'Bfrtip',
             buttons: [
@@ -100,9 +112,9 @@
             ],             
             ajax: "{{ route('fotografias.table') }}",        
             columns: [                
-                {data: 'id_doc', name: 'id_doc'},               
-                {data: 'document_subtypes_id', name: 'document_subtypes_id'},              
-                {data: 'documents_id', name: 'documents_id'}, 
+                {data: 'id_doc', name: 'id_doc'},        
+                {data: 'documents_id', name: 'documents_id'},        
+                {data: 'document_subtypes_id', name: 'document_subtypes_id'},            
                 {data: 'generate_formats_id', name: 'generate_formats_id'},                     
                 {data: 'status', name: 'status'}, 
                 {data: 'created_at', name: 'agregado'},                  
