@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
 use Illuminate\Http\UploadedFile;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 
 class UserController extends Controller
 {
@@ -25,9 +27,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.users.index');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+
+        return view('admin.users.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]); 
+        
     }
 
     /**
@@ -178,6 +196,76 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(SaveUserRequest $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                // Transacciones
+                DB::beginTransaction();
+                
+                $user = User::with('statu')->findOrFail($id); 
+
+                $name = $user->user_photo;                
+
+                if ($request->hasFile('user_photo')) {               
+                    $file = $request->file('user_photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);    
+                }else{
+                    $name = 'user-default.jpg';
+                }        
+
+                // Actualizamos el usuario
+                $user->name         = $request->get('name');
+                $user->surname      = $request->get('surname');
+                $user->nickname     = $request->get('nickname');
+                $user->email        = $request->get('email');        
+                $user->password     = $request->get('password');
+                $user->gender       = $request->get('gender');  
+                $user->address      = $request->get('address');
+                $user->postcode     = $request->get('postcode'); 
+                $user->city         = $request->get('city');
+                $user->province     = $request->get('province');  
+                $user->phone        = $request->get('phone');      
+                $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->membership   = $request->get('membership');
+
+               
+
+                //    $mov_user = new User_movement();
+                //    $mov_user->actions_id = $request->get('status_id');
+                //    $mov_user->users_id = $user->id;
+                //    $mov_user->usuario_aud = 'USER AUD';
+                //    $mov_user->save();
+                //    $user->status_id    = $request->get('status_id'); 
+     
+
+                $user->user_photo   = $name;
+                $user->save();
+                       
+                DB::commit();
+               
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }         
+
+    }
+
+    public function edit_profile($id)
+    {
+        $user = User::with('statu')->findOrFail($id);
+                             
+        return view('admin.users.partials.form_profile', [
+            'genders'   => User::pluck('gender', 'gender'),
+            'provinces' => User::pluck('province','province'),
+            'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
+                       
+            'user'      => $user
+        ]);  
+    }
+
+    public function update_profile(Request $request, $id)
     {
         if ($request->ajax()){
             try {

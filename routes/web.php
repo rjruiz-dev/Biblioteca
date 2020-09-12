@@ -36,8 +36,8 @@ function(){
  
     Route::get('vusers/create',         'HomeController@create')->name('vusers.create');
     Route::post('vusers/store',         'HomeController@store')->name('vusers.store');
-    Route::get('vusers/edit/{id}',      'HomeController@edit')->name('vusers.edit');
-    Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
+    // Route::get('vusers/edit/{id}',      'HomeController@edit')->name('vusers.edit');
+    // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
 });
 
 Route::get('libros/table',      'VBooksController@dataTable')->name('libros.table');
@@ -133,6 +133,11 @@ function(){
 
     Route::get('statistic/filtrar/{f_desde}/{f_hasta}',                   'StatisticController@filtrar');
     
+    Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
+    Route::post('users/update_profile/{request}/{id}',   'UserController@update_profile')->name('users.update_profile');
+
+     Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
+
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

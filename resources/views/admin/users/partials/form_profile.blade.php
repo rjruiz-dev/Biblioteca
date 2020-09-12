@@ -51,7 +51,7 @@
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Datos personalesjjj</h3>
+                <h3 class="box-title">Datos personalesqqqqqq</h3>
             </div>
             <div class="box-body">  
                 <div class="form-group">              
@@ -75,9 +75,9 @@
                         </div>                      
                         <input name="birthdate"
                             class="form-control pull-right" 
-                            value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d-m-Y') : null) }}" 
+                            value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d/m/Y') : null) }}" 
                             type="text"
-                            id="birthdate"
+                            id="datepicker"
                             placeholder= "Selecciona una Fecha">                       
                     </div>                  
                 </div>

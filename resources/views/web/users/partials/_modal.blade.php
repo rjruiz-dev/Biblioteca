@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal"  role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header" id="modal-header">
@@ -10,8 +10,8 @@
             </div>
             
             <div class="modal-footer" id="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="modal-btn-save">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-save-solicitud-registro">Save changes</button>
             </div>
         </div>
     </div>

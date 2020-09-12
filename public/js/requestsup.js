@@ -164,6 +164,51 @@ $('body').on('click', '.btn-delete', function (event) {
     });
 });
 
+$('body').on('click', '.btn-rechazar', function (event) {
+    event.preventDefault();
+   
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    swal({
+        title: '¿Seguro que desea ' + title + ' ?',
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Rechazar Solicitud!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se ha dado rechazado la Solicitud!'
+                    });
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
 $('body').on('click', '.btn-show', function (event) {
     event.preventDefault();
 

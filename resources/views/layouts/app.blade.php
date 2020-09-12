@@ -67,7 +67,7 @@ desired effect
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>B</b>O</span>
       <!-- logo for regular state and mobile devices -->
@@ -226,7 +226,7 @@ desired effect
             </ul>
           </li>
           <li>
-            <a href="{{ route('vusers.edit', Auth::user()->id) }}" class="modal-show" title="Edicion de Perfil"><i class="fa fa-gears"></i></a>
+            <a href="{{ route('users.edit_profile', Auth::user()->id) }}" class="modal-show-edicion-perfil" title="Edicion de Perfil"><i class="fa fa-gears"></i></a>
           </li>
           @else
           
@@ -242,7 +242,7 @@ desired effect
             </li>
             <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="{{ route('vusers.create') }}" class="modal-show" title="Solicitud de Registro">
+            <a href="{{ route('vusers.create') }}" class="modal-show-solicitud-registro" title="Solicitud de Registro">
             
               <!-- The user image in the navbar-->
               <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
@@ -422,15 +422,20 @@ desired effect
 
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
+<!-- MODAL EXCLUSIVO PARA HACER UNA SOLICITUD -->
+@include('web.users.partials._modal')
+<!-- MODAL EXCLUSIVO PARA EDITAR DATOS DEL PERFIL -->
+@include('admin.users.partials._modal_edicion_perfil') 
+<script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
 
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
 
     <script>
-          //  FRANCOOOOO <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
-          $('body').on('click', '.modal-show', function (event) {
+// SOLICITUD DE REGISTRO DE NUEVO USUARIO - EXCLUSIVO DE FRONT-END
+// MODAL CORRESPONDIENTE A LA SOLICITUD DE REGISTRO DE SOCIO
+$('body').on('click', '.modal-show-solicitud-registro', function (event) {
     event.preventDefault();
 
     var me = $(this),
@@ -438,14 +443,112 @@ desired effect
         title = me.attr('title');
 
     $('#modal-title').text(title);
-    $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+    $('#modal-btn-save-solicitud-registro').removeClass('hide')
+    .text(me.hasClass('edit') ? 'Actualizar' : 'Enviar Solicitud');
 
     $.ajax({
         url: url,
         dataType: 'html',
         success: function (response) {
             $('#modal-body').html(response);
+            
+            $('#birthdate').datepicker({
+                autoclose: true,
+                todayHighlight: true,  
+                format: 'dd-mm-yyyy',                       
+                language: 'es'
+            });   
+                   
+                 
+        }
+    });
+
+    $('#modal').modal('show');
+});
+// BOTON PARA GUARDAR LA SOLICITUD DE REGISTRO DE UN SOCIO
+// $('body').on('click', '.modal-show-solicitud', function (event) {
+$('#modal-btn-save-solicitud-registro').click(function (event) {
+    event.preventDefault();
+
+    // $avatarInput = $('#user_photo');
+
+    // var formData  = new FormData();        
+    //     formData.append('user_photo', $avatarInput[0].files[0]);
+        
+    var form = $('#modal-body form'), 
+        url = form.attr('action'),
+        method =  'POST' ;
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+    
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        // data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          // var  info = response.bandera;
+            form.trigger('reset');
+            $('#modal').modal('hide');
+            // $('#rec_nickname').DataTable().ajax.reload();
+            // $("#rec_nickname").load(" #rec_nickname"); 
+            // if(info == 0){
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se ha completado su solicitud de asociamineto! Recibira la respuesta a su solicitud al mail con el cual se registro'
+            });
+          // }else{
+          //   swal({
+          //       type : 'success',
+          //       title : '¡Éxito!',
+          //       text : '¡Se han actualizado sus datos!'
+          //   });
+
+          // }
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+})
+
+// MODAL CORRESPONDIENTE A LA EDICION DE DATOS DEL PERFIL DE USUARIO LOGUEADO
+
+$('body').on('click', '.modal-show-edicion-perfil', function (event) {
+    event.preventDefault();
+    
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title');
+
+    $('#modal-title_edicion_perfil').text(title);
+    $('#modal-btn-save-edicion-perfil').removeClass('hide')
+    .text('Actualizar Datos');
+    
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function (response) {
+            $('#modal-body_edicion_perfil').html(response);
             
             $('#gender').select2({
                 placeholder: 'Selecciona un Género',
@@ -472,9 +575,76 @@ desired effect
         }
     });
 
-    $('#modal').modal('show');
+    $('#modal_edicion_perfil').modal('show');
 });
 
+// BOTON PARA GUARDAR LA SOLICITUD DE REGISTRO DE UN SOCIO
+// $('body').on('click', '.modal-show-solicitud', function (event) {
+$('#modal-btn-save-edicion-perfil').click(function (event) {
+    event.preventDefault();
+
+    $avatarInput = $('#user_photo');
+
+    var formData  = new FormData();        
+        formData.append('user_photo', $avatarInput[0].files[0]);
+        
+    var form = $('#modal-body_edicion_perfil form'), 
+        url = form.attr('action'),
+        method =  'POST';
+        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+    
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          // var  info = response.bandera;
+            form.trigger('reset');
+            $('#modal_edicion_perfil').modal('hide');
+            // $('#rec_nickname').DataTable().ajax.reload();
+            $("#rec_nickname").load(" #rec_nickname"); 
+            // if(info == 0){
+            swal({
+                    type : 'success',
+                    title : '¡Éxito!',
+                    text : '¡Se han actualizado sus datos!'
+            });
+          // }else{
+          //   swal({
+          //       type : 'success',
+          //       title : '¡Éxito!',
+          //       text : '¡Se han actualizado sus datos!'
+          //   });
+
+          // }
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+})
+
+// SIRVE PARA CMABIAR EL IDIOMA 
 $('body').on('click', '.btn-cambiar', function (event) {
     event.preventDefault();
    
@@ -503,69 +673,6 @@ $('body').on('click', '.btn-cambiar', function (event) {
             });
 });
 
-$('#modal-btn-save').click(function (event) {
-    event.preventDefault();
-
-    $avatarInput = $('#user_photo');
-
-    var formData  = new FormData();        
-        formData.append('user_photo', $avatarInput[0].files[0]);
-        
-    var form = $('#modal-body form'), 
-        url = form.attr('action'),
-        method =  'POST' ;
-        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
-
-    form.find('.help-block').remove();
-    form.find('.form-group').removeClass('has-error');
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-    });
-    
-    $.ajax({
-        url : url + '?' + form.serialize(),
-        method: method,
-        data : formData, 
-        cache: false,  
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          var  info = response.bandera;
-            form.trigger('reset');
-            $('#modal').modal('hide');
-            // $('#rec_nickname').DataTable().ajax.reload();
-            $("#rec_nickname").load(" #rec_nickname"); 
-            if(info == 0){
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se ha completado su solicitud de asociamineto! Recibira la respuesta a su solicitud al mail con el cual se registro'
-            });
-          }else{
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han actualizado sus datos!'
-            });
-
-          }
-        },
-        error : function (xhr) {
-            var res = xhr.responseJSON;
-            if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
-                    $('#' + key)
-                        .closest('.form-group')
-                        .addClass('has-error')
-                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
-                });
-            }
-        }
-    })
-})
      </script>
 </body>
 </html>

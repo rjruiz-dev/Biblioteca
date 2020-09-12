@@ -18,13 +18,13 @@ class CreateUsersTable extends Migration
 
             $table->integer('status_id')->unsigned();          
 
-            $table->string('membership')->unique();
+            $table->string('membership')->unique()->nullable();
             $table->string('name')->nullable();
             $table->string('surname')->nullable();  
             $table->string('nickname')->unique();              
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');                    
+            $table->string('password')->nullable();;                    
             $table->string('gender')->nullable();
             $table->string('province')->nullable();
             $table->string('city')->nullable();         
