@@ -72,12 +72,12 @@ class HomeController extends Controller
 
                  // Validar el formulario
                 $data = $request->validate([
-                    'membership'    => 'required|numeric|min:000000|max:99999999|unique:users,membership',
-                    'name'          => 'required|string|max:100',
-                    'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
-                    'email'         => 'required|string|email|max:255|unique:users,email',  
-                    'user_photo'    => 'nullable|image|mimes:jpeg,bmp,png,jpg', 
-                    'status_id'     => 'required'       
+                    // 'membership'    => 'required|numeric|min:000000|max:99999999|unique:users,membership',
+                    // 'name'          => 'required|string|max:100',
+                    // 'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
+                    // 'email'         => 'required|string|email|max:255|unique:users,email',  
+                    // 'user_photo'    => 'nullable|image|mimes:jpeg,bmp,png,jpg', 
+                    // 'status_id'     => 'required'       
                 ]);
 
                 // Generar una contraseña
@@ -88,7 +88,9 @@ class HomeController extends Controller
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
-                }               
+                }else{
+                    $name = 'user-default.jpg';
+                }                             
                 // Creamos el usuario 
                 $user = new User;   
                 $user->name         = $request->get('name');
@@ -111,8 +113,9 @@ class HomeController extends Controller
                    
                 // Enviamos el email
                 // UserWasCreated::dispatch($user, $data['password']);
-                $bandera = 0;
-                return $bandera->toJson();
+             
+                // $bandera = 0;
+                // return $bandera->toJson();
 
                 DB::commit();
 
@@ -137,7 +140,7 @@ class HomeController extends Controller
 
     public function update(SaveRegistryRequest $request, $id)
     {
-        dd($id);
+        // dd($id);
         if ($request->ajax()){
             try {
                 // Transacciones

@@ -79,8 +79,8 @@
             },
             columnDefs: [ {
                 className: 'control',
-                orderable: false,
-                targets:   -1
+                orderable: false,              
+                targets:   0
             } ],
             order: [ [0, 'desc'] ],     
             dom: 'Bfrtip',

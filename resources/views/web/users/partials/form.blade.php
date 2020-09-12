@@ -49,11 +49,11 @@
 </div>  
 {!! Form::close() !!}    
 </div>
-
+<!-- 
 @include('web.users.partials._modal')
 @push('scripts')  
 <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="{{ asset('js/register.js') }}"></script>
-@endpush
+@endpush -->

@@ -531,7 +531,7 @@ class BookController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'document_subtypes_id', 'registry_number', 'generate_books_id', 'documents_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'documents_id','document_subtypes_id', 'registry_number', 'generate_books_id',  'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

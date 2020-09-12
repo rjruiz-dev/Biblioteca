@@ -427,10 +427,13 @@ desired effect
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-
-    <script>
+@include('web.users.partials._modal')
+<script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+<script>
           //  FRANCOOOOO <a href="{{ route('admin.movies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Cine"><i class="fa fa-user-plus"></i> Crear Cine</a>
-          $('body').on('click', '.modal-show', function (event) {
+    $('body').on('click', '.modal-show', function (event) {
     event.preventDefault();
 
     var me = $(this),
@@ -450,10 +453,6 @@ desired effect
             $('#gender').select2({
                 placeholder: 'Selecciona un Género',
                 tags: true,               
-            });
-
-            $('#status_id').select2({
-                placeholder: 'Selecciona un Estado',                                    
             });
 
             $('#province').select2({
@@ -514,8 +513,7 @@ $('#modal-btn-save').click(function (event) {
     var form = $('#modal-body form'), 
         url = form.attr('action'),
         method =  'POST' ;
-        // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
-
+      
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
@@ -527,8 +525,8 @@ $('#modal-btn-save').click(function (event) {
     
     $.ajax({
         url : url + '?' + form.serialize(),
-        method: method,
-        data : formData, 
+        method: method, 
+        data : formData,       
         cache: false,  
         processData: false,
         contentType: false,
@@ -566,6 +564,8 @@ $('#modal-btn-save').click(function (event) {
         }
     })
 })
-     </script>
+
+
+</script>
 </body>
 </html>

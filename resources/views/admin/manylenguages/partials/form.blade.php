@@ -297,8 +297,7 @@
                 <div class="form-group">
                     {!! Form::label('adaptacion', 'Adaptación') !!}                    
                     {!! Form::text('adaptacion', $ml_movie['adaptacion'] ? $ml_movie['adaptacion'] : null, ['class' => 'form-control', 'id' => 'adaptacion', 'placeholder' => 'Adaptación']) !!}
-                </div>
-               
+                </div>               
             <div>
         </div>
     </div>

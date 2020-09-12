@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Http\Request;
 
 
@@ -12,9 +14,27 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('layouts.dashboard');
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+        return view('layouts.dashboard', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]); 
+        
+       
     }
 
     /**
