@@ -74,17 +74,12 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            responsive: {
-            details: {
-                type: 'column',
-                target: -1
-            }
-            },
-            columnDefs: [ {
-                className: 'control',
-                orderable: false,
-                targets:   -1
-            } ],
+            responsive: true,
+            columnDefs: [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 10001, targets: 4 },
+                { responsivePriority: -1, targets: -1 }
+            ],
             order: [ [0, 'desc'] ],           
             dom: 'Bfrtip',
             buttons: [
