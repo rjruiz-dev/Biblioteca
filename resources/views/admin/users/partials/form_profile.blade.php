@@ -29,6 +29,7 @@
                        $edicion_mem = 'readonly="true"';                   
                     @endphp
                 @endif
+                <!-- falto esto -->
 
                 <div class="form-group">              
                     {!! Form::label('membership', 'Número de Socio') !!}                    
