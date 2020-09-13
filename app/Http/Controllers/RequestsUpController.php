@@ -128,12 +128,13 @@ class RequestsUpController extends Controller
         $user->password = $password;
         $user->save();
 
-        $adminRole = Role::where('id', 3)->first();
+        $partnerRole = Role::where('id', 3)->first();
 
-        $user->assignRole($adminRole);
+        $user->assignRole($partnerRole);
 
         // Enviamos el email
-        UserWasCreated::dispatch($user, $password);
+        $accion = "solicitud aceptada";
+        UserWasCreated::dispatch($user, $password, $accion);
     }
 
     public function dataTable()

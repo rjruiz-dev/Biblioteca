@@ -13,7 +13,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {     
+    {
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{

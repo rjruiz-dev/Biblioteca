@@ -15,16 +15,20 @@ class LoginCredentials extends Mailable
 
     public $password;
 
+    public $accion;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $password)
+    public function __construct($user, $password, $accion)
     {
         $this->user = $user;
 
         $this->password = $password;
+
+        $this->accion = $accion;
     }
     /**
      * Build the message.

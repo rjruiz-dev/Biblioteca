@@ -20,12 +20,14 @@ class UserWasCreated
 
     public $password;
 
+    public $accion;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user, $password)
+    public function __construct($user, $password, $accion)
     {
         $this->user = $user;
 
@@ -37,6 +39,8 @@ class UserWasCreated
         
         
         = $password;
+
+        $this->accion = $accion;
     }
 
     /**
