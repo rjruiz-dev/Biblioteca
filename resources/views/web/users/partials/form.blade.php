@@ -40,7 +40,7 @@
                         class="form-control pull-right" 
                         value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d/m/Y') : null) }}" 
                         type="text"
-                        id="datepicker"
+                        id="birthdate"
                         placeholder= "Selecciona una Fecha">                       
                 </div>                  
             </div>
@@ -49,8 +49,8 @@
 </div>  
 {!! Form::close() !!}    
 </div>
-<!-- 
-@include('web.users.partials._modal')
+
+<!-- @include('web.users.partials._modal')
 @push('scripts')  
 <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>

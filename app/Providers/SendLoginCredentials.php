@@ -29,7 +29,7 @@ class SendLoginCredentials
     public function handle(UserWasCreated $event)
     {
         //enviar email con las credenciales del login
-        Mail::to($event->useAlertClaimr)->queue(
+        Mail::to($event->user)->queue(
             new LoginCredentials($event->user, $event->password)
         );
     }

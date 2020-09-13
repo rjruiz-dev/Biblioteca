@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
 use Illuminate\Http\UploadedFile;
+use App\Ml_dashboard;
+use App\ManyLenguages;
+use Spatie\Permission\Models\Role;
 
 class RequestsUpController extends Controller
 {
@@ -23,9 +26,26 @@ class RequestsUpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.requestsup.index');
+
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+        return view('admin.requestsup.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);
     }
 
     /**
@@ -66,9 +86,16 @@ class RequestsUpController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) // EDIT DE USA PARA RECHAZAR
     {
-        //
+      
+    }
+
+    public function rechazar($id) // EDIT DE USA PARA RECHAZAR
+    {
+        $user = User::findOrFail($id);
+        $user->status_id = 2; // RECHAZADO VA AQUEDAR EN ESE ESTADO
+        $user->save();
     }
 
     /**
@@ -89,17 +116,33 @@ class RequestsUpController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) // DESTROY SE USA PARA ACEPTAR
     {
+        // $ultimo_membership = User::select('membership')->orderBy('membership', 'DESC')->first();
+        // dd($sugerido2);
+        // $siguente_membership = $ultimo_membership->membership + 1;
+        $password = str_random(8);
         $user = User::findOrFail($id);
-        $user->status_id = 2;   
+        // $user->membership = $siguente_membership;
+        $user->status_id = 3; // ACEPTADO QUE ES IGUAL A ACTIVO 
+        $user->password = $password;
         $user->save();
+
+        $adminRole = Role::where('id', 3)->first();
+
+        $user->assignRole($adminRole);
+
+        // Enviamos el email
+        UserWasCreated::dispatch($user, $password);
     }
 
     public function dataTable()
     {                    
-        $usuarios = User::with('statu')->where('status_id', 1)       
-        // ->allowed()
+        $usuarios = User::with('statu')
+        ->where(function ($query) {
+            $query->where('status_id', '=', 1)
+                  ->orWhere('status_id', '=', 2);
+        })      
         ->get();
       
         return dataTables::of($usuarios)
@@ -112,19 +155,20 @@ class RequestsUpController extends Controller
                     '<i class="fa fa-envelope"></i>'.' '.$usuarios->email;              
             })             
             ->addColumn('status_id', function ($usuarios){
+                // return'<span class="'.$movie->document->status_document->color.'">'.' '.$movie->document->status_document->name_status.'</span>';
+               
+                // if($usuarios->statu['state_description'] == 'Inactivo'){    
 
-                if($usuarios->statu['state_description'] == 'Inactivo'){    
+                    return $usuarios->statu['color'].$usuarios->statu['state_description'].'</span>';
+                // }
+                // if ($usuarios->statu['state_description'] == 'Pendiente'){
 
-                    return '<span class="label label-danger sm">'.$usuarios->statu['state_description'].'</span>';
-                }
-                if ($usuarios->statu['state_description'] == 'Pendiente'){
+                //     return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';
 
-                    return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';
+                // }else{
 
-                }else{
-
-                    return '<span class="label label-success sm">'.$usuarios->statu['state_description'].'</span>';
-                }              
+                //     return '<span class="label label-success sm">'.$usuarios->statu['state_description'].'</span>';
+                // }              
             })    
             ->addColumn('created_at', function ($usuarios){
                 return $usuarios->created_at->format('d-m-y');
@@ -133,7 +177,8 @@ class RequestsUpController extends Controller
             ->addColumn('accion', function ($usuarios) {
                 return view('admin.requestsup.partials._action', [
                     'usuarios' => $usuarios,                              
-                    'url_destroy' => route('admin.requestsup.destroy', $usuarios->id)
+                    'url_destroy' => route('admin.requestsup.destroy', $usuarios->id),
+                    'url_rechazar' => route('requestsup.rechazar', $usuarios->id)
                 ]);
             })           
             ->addIndexColumn()   

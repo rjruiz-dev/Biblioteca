@@ -5,7 +5,6 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
 
-
 class AdminController extends Controller
 {
     /**

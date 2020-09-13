@@ -23,17 +23,14 @@
 
                 <div class="form-group">              
                     {!! Form::label('membership', 'Número de Socio') !!}                    
-                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio']) !!}
+                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio', 'disabled' => 'true']) !!}
                 </div>      
                                 
                 <div class="form-group">              
                     {!! Form::label('nickname', 'Nickname') !!}                    
                     {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
                 </div>                                           
-                <div class="form-group">
-                    {!! Form::label('status_id', 'Estado') !!}
-                    {!! Form::select('status_id', $status, null, ['class' => 'form-control select2', 'id' => 'status_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
-                </div>
+                
                 <div class="form-group">
                     {{ Form::label('user_photo', 'Imagen de Perfil') }}
                     {{ Form::file('user_photo') }}
@@ -43,15 +40,14 @@
                     {!! Form::label('email', 'Email') !!}             
                     {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email']) !!}
                 </div>
-                <span class="help-block">La contraseña será generada y enviada al nuevo usuario vía email</span>
-         
+                
             </div>
         </div>       
     </div>     
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Datos personalesjjj</h3>
+                <h3 class="box-title">Datos personales</h3>
             </div>
             <div class="box-body">  
                 <div class="form-group">              
@@ -75,9 +71,9 @@
                         </div>                      
                         <input name="birthdate"
                             class="form-control pull-right" 
-                            value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d-m-Y') : null) }}" 
+                            value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d/m/Y') : null) }}" 
                             type="text"
-                            id="birthdate"
+                            id="datepicker"
                             placeholder= "Selecciona una Fecha">                       
                     </div>                  
                 </div>

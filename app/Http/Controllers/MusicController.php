@@ -24,6 +24,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveMusicalRequest;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 
 class MusicController extends Controller
 {
@@ -45,12 +47,11 @@ class MusicController extends Controller
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
-        
+
         return view('admin.music.index', [
             'idioma'      => $idioma,
             'idiomas'      => $idiomas
-        ]);         
-       
+        ]); 
     }
 
     /**

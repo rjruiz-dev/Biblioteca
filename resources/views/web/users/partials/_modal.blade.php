@@ -11,7 +11,7 @@
             
             <div class="modal-footer" id="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="modal-btn-save">Save changes</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-save-solicitud-registro">Save changes</button>
             </div>
         </div>
     </div>

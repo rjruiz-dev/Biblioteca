@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Statu extends Model
 {    
-    protected $fillable = ['state_description'];
+    protected $fillable = ['state_description','color'];
 
     public function user()
     {
