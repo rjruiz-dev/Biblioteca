@@ -24,8 +24,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveMusicalRequest;
-use App\Ml_dashboard;
-use App\ManyLenguages;
 
 class MusicController extends Controller
 {
