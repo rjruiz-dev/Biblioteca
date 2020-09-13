@@ -18,33 +18,31 @@
                         <h3 class="box-title">Socio:</h3>                
                     </div> -->
                     <!-- <div class="panel-body">     -->
-                                            <div class="row">
-                                                    
-                                                    <div  class="col-md-6" style="margin-bottom:5px;">
-                                                    <div class="form-group">
-                                                                <label>Mes y Año</label>
-                                                                <div class="input-group date">
-                                                                    <div class="input-group-addon">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </div>                      
-                                                                    <input name="yearandmonth"
-                                                                        class="form-control pull-right"                                                       
-                                                                        value="{{ old('yearandmonth', null) }}"                            
-                                                                        type="text"
-                                                                        type="text"
-                                                                        id="yearandmonth"
-                                                                        placeholder= "Selecciona un Año">                       
-                                                                </div>                  
-                                                            </div>   
-                                                    </div>
-                                                    <div  class="col-md-6" style="margin-top:25px;margin-bottom:5px;">
-                                                        <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
-                                                    </div>
-                                            </div>
-                                
-                                                     <div  class="col-md-12">
-                                                     
-                                                    </div>
+    <div class="row">                                                    
+        <div  class="col-md-6" style="margin-bottom:5px;">
+          <div class="form-group">
+            <label>Mes y Año</label>
+            <div class="input-group date">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>                      
+              <input name="yearandmonth"
+                      class="form-control pull-right"                                                       
+                      value="{{ old('yearandmonth', null) }}"                            
+                      type="text"
+                      type="text"
+                      id="yearandmonth"
+                      placeholder= "Selecciona un Año">                       
+              </div>                  
+            </div>   
+        </div>
+        <div  class="col-md-6" style="margin-top:25px;margin-bottom:5px;">
+            <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
+        </div>
+    </div>
+
+    <div  class="col-md-12">
+    </div>
                     
                     <!-- </div> -->
                                     

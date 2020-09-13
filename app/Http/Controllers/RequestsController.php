@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Document;
-use Carbon\Carbon;
-use App\Document_type;
-use App\Document_subtype;
-use App\Book_movement;
 use App\Copy;
 use App\User;
 use App\Course;
-use Illuminate\Support\Facades\DB;
 use DataTables;
+use App\Document;
+use Carbon\Carbon;
+use App\Ml_dashboard;
+use App\ManyLenguages;
+use App\Document_type;
+use App\Book_movement;
+use App\Document_subtype;
+use Illuminate\Support\Facades\DB;
 
 class RequestsController extends Controller
 {
@@ -22,9 +24,24 @@ class RequestsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('admin.requests.index');
+    public function index(Request $request)
+    {        
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        
+        return view('admin.requests.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);         
     }
 
     /**

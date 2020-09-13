@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Book_movement;
 use App\User_movement;
 use App\User;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 
 class StatisticController extends Controller
@@ -16,8 +18,19 @@ class StatisticController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        
         $users = User::all();
         foreach($users as $user){
             // $dif = Carbon\Carbon::parse($docs_of_use->date_until)->diffInDays(Carbon\Carbon::now()); 
@@ -27,12 +40,16 @@ class StatisticController extends Controller
         $edad_calculada = Carbon::parse($user->birthdate)->diffInYears(Carbon::now());
         // dd($edad_calculada);
         if($user->edad != $edad_calculada){
-            $user->edad = $edad_calculada;
-            $user->save();
+                $user->edad = $edad_calculada;
+                $user->save();
+            }
         }
-    }
-        
-        return view('admin.statistic.index');
+
+        return view('admin.statistic.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);         
+      
     }
 
 

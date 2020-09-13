@@ -13,6 +13,8 @@ use App\Copy;
 use App\Setting;
 use App\User;
 use App\Course;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 
@@ -23,9 +25,24 @@ class LoanManualController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('admin.loanmanual.index');
+    public function index(Request $request)
+    {      
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+        return view('admin.loanmanual.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);       
     }
 
     /**

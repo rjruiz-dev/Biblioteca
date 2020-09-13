@@ -12,6 +12,8 @@ use App\Book_movement;
 use App\Copy;
 use App\User;
 use App\Document;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 
 class ClaimLoansController extends Controller
@@ -21,9 +23,23 @@ class ClaimLoansController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {       
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+      
         return view('admin.claimloans.prestamo', [
+            'idioma'      => $idioma,
+            'idiomas'     => $idiomas,       
             'model_types' => Generate_letter::pluck('title', 'id') 
         ]);
     }

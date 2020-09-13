@@ -7,6 +7,8 @@ use App\Lenguage;
 use App\Document;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveLenguageRequest;
 
@@ -17,9 +19,23 @@ class LenguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.languages.index');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+    
+        return view('admin.languages.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);     
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Carbon\Carbon;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use App\Periodical_publication;
 use App\Periodicity;
 use Illuminate\Http\Request;
@@ -17,9 +19,23 @@ class PeriodicityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.periodicals.index');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+    
+        return view('admin.periodicals.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);        
     }
 
     /**

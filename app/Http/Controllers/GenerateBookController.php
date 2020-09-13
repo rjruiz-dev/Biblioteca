@@ -7,6 +7,8 @@ use App\Book;
 use Carbon\Carbon;
 use App\Generate_book;
 use Illuminate\Http\Request;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveLiteratureRequest;
 
@@ -17,9 +19,23 @@ class GenerateBookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.literatures.index');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+    
+        return view('admin.literatures.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);    
     }
 
     /**

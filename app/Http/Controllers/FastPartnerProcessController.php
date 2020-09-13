@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use App\Setting;
 use App\Book_movement;
 use App\Document_type;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use App\Document_subtype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,14 +24,44 @@ class FastPartnerProcessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('admin.fastprocess.index');
+    public function index(Request $request)
+    {       
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+        return view('admin.fastprocess.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);         
     }
 
-    public function index2()
+    public function index2(Request $request)
     {
-        return view('admin.fastprocess.index2');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+        return view('admin.fastprocess.index2', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);                 
     }
 
     /**

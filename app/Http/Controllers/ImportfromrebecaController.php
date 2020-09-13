@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Importfromrebeca;
 use App\Document_type;
 use App\Setting;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use File;
@@ -16,10 +18,24 @@ class ImportfromrebecaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
 
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
         return view('admin.importfromrebeca.importar', [
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,        
             'types'     => Document_type::pluck( 'document_description', 'id')
         ]); 
     }

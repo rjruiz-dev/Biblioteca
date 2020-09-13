@@ -26,7 +26,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Género Ciematográfico</th>                       
+                        <th>Género</th>                       
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -68,7 +68,7 @@
             responsive: true,
             columnDefs: [
                 { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 10001, targets: 4 },
+                { responsivePriority: 10001, targets: 2 },
                 { responsivePriority: -1, targets: -1 }
             ],
             order: [ [0, 'desc'] ],     
