@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\File;
 use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
 use Illuminate\Http\UploadedFile;
 
+
 class HomeController extends Controller
 {
     public function index(Request $request)
@@ -82,8 +83,10 @@ class HomeController extends Controller
                     // 'status_id'     => 'required'       
                 ]);
 
-                // // Generar una contraseña
-                // $data['password'] = str_random(8);
+                
+                // $pass_obligatoria: se pone esta contraseña SOLO xq es obligatoria en la DB
+                // si el user es aceptado como socio se reemplazara por otra.
+                $pass_obligatoria = str_random(8);
               
                 // if ($request->hasFile('user_photo')) {               
 
@@ -97,7 +100,7 @@ class HomeController extends Controller
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
                 $user->email        = $request->get('email');        
-                // $user->password     = $request->get('password');
+                $user->password     = $pass_obligatoria;
                 // $user->gender       = $request->get('gender');  
                 // $user->address      = $request->get('address');
                 // $user->postcode     = $request->get('postcode');  
@@ -110,11 +113,11 @@ class HomeController extends Controller
                 $user->status_id    = 1; // CAMBIAR NUMERO LUEGO DE CORRER SEEDERS Q HIZO FRANCO DE STATUS PARA Q APAREZCA EL STATUS "SOLICITUD" 
                 // $user->user_photo   = $name;    
                 $user->save();
-                   
+
+                 
                 // Enviamos el email
                 // UserWasCreated::dispatch($user, $data['password']);
-                // $bandera = 0;
-                // return $bandera->toJson();
+
 
                 DB::commit();
 

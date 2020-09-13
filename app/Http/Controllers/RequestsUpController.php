@@ -17,6 +17,7 @@ use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
 use Illuminate\Http\UploadedFile;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use Spatie\Permission\Models\Role;
 
 class RequestsUpController extends Controller
 {
@@ -117,18 +118,22 @@ class RequestsUpController extends Controller
      */
     public function destroy($id) // DESTROY SE USA PARA ACEPTAR
     {
-        // $password = str_random(8);
-        // $data['password'] = str_random(8);
         // $ultimo_membership = User::select('membership')->orderBy('membership', 'DESC')->first();
         // dd($sugerido2);
         // $siguente_membership = $ultimo_membership->membership + 1;
+        $password = str_random(8);
         $user = User::findOrFail($id);
         // $user->membership = $siguente_membership;
-        $user->status_id = 3; // ACEPTADO QUE ES IGUAL A ACTIVO
+        $user->status_id = 3; // ACEPTADO QUE ES IGUAL A ACTIVO 
+        $user->password = $password;
         $user->save();
 
+        $adminRole = Role::where('id', 3)->first();
+
+        $user->assignRole($adminRole);
+
         // Enviamos el email
-        // UserWasCreated::dispatch($user, $data['password']);
+        UserWasCreated::dispatch($user, $password);
     }
 
     public function dataTable()

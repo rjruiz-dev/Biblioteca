@@ -258,8 +258,7 @@ class UserController extends Controller
                              
         return view('admin.users.partials.form_profile', [
             'genders'   => User::pluck('gender', 'gender'),
-            'provinces' => User::pluck('province','province'),
-            'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
+            'provinces' => User::pluck('province','province'),           
                        
             'user'      => $user
         ]);  
@@ -297,18 +296,7 @@ class UserController extends Controller
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');      
                 $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
-                $user->membership   = $request->get('membership');
-
-               
-
-                   $mov_user = new User_movement();
-                   $mov_user->actions_id = $request->get('status_id');
-                   $mov_user->users_id = $user->id;
-                   $mov_user->usuario_aud = 'USER AUD';
-                   $mov_user->save();
-                   $user->status_id    = $request->get('status_id'); 
-     
-
+                // $user->membership   = $request->get('membership');
                 $user->user_photo   = $name;
                 $user->save();
                        
