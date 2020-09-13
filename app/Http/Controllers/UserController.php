@@ -296,7 +296,7 @@ class UserController extends Controller
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');      
                 $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
-                // $user->membership   = $request->get('membership');
+                $user->membership   = $request->get('membership');
                 $user->user_photo   = $name;
                 $user->save();
                        

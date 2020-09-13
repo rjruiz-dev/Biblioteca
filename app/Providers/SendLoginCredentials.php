@@ -30,7 +30,7 @@ class SendLoginCredentials
     {
         //enviar email con las credenciales del login
         Mail::to($event->user)->queue(
-            new LoginCredentials($event->user, $event->password)
+            new LoginCredentials($event->user, $event->password, $event->accion)
         );
     }
 }

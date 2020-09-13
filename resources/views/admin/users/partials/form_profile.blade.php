@@ -20,10 +20,19 @@
                         $visible = "";                   
                     @endphp
                 @endif   
+                @if(Auth::user()->getRoleNames() == 'Librarian' || Auth::user()->getRoleNames() == 'Admin')
+                @php 
+                        $edicion_mem = "";                        
+                    @endphp
+                @else
+                    @php  
+                       $edicion_mem = 'readonly="true"';                   
+                    @endphp
+                @endif
 
                 <div class="form-group">              
                     {!! Form::label('membership', 'Número de Socio') !!}                    
-                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio', 'disabled' => 'true']) !!}
+                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio', $edicion_mem]) !!}
                 </div>      
                                 
                 <div class="form-group">              
