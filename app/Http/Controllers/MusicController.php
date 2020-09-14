@@ -100,7 +100,7 @@ class MusicController extends Controller
                 $document->document_types_id        = 1; // 1 tipo de documento: musica.
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');                
-                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
+                $document->acquired                 = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));              
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
                 $document->let_title                = $request->get('let_title');
@@ -265,7 +265,7 @@ class MusicController extends Controller
 
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title                    = $request->get('title');
-                $document->acquired                 = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));              
+                $document->acquired                 = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));              
                 $document->adequacies_id            = $request->get('adequacies_id');
                 $document->let_author               = $request->get('let_author');
                 $document->let_title                = $request->get('let_title');

@@ -108,7 +108,7 @@ class MultimediaController extends Controller
                  }
 
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));           
+                $document->acquired         = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));           
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');               
@@ -271,7 +271,7 @@ class MultimediaController extends Controller
                 }
 
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                 
+                $document->acquired         = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));                 
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->let_author       = $request->get('let_author');
                 $document->let_title        = $request->get('let_title');

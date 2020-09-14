@@ -33,7 +33,7 @@ $('body').on('click', '.modal-show', function (event) {
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                format: 'dd/mm/yyyy',            
+                format: 'dd-mm-yyyy',            
                 language: 'es'
             });  
             $('#edition').select2({

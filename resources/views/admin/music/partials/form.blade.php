@@ -90,7 +90,7 @@
                         </div>                      
                         <input name="acquired"
                             class="form-control pull-right"                                                       
-                            value="{{ old('acquired', $music->document['acquired'] ? $music->document['acquired']->format('d/m/Y') : null) }}"                            
+                            value="{{ old('acquired', $music->document['acquired'] ? $music->document['acquired']->format('d-m-Y') : null) }}"                            
                             type="text"
                             id="acquired"
                             placeholder= "Selecciona una Fecha de Adquisición">                       

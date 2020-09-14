@@ -111,7 +111,7 @@ class PhotographyController extends Controller
                  }
 
                 $document->original_title   = $request->get('original_title'); 
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                                
+                $document->acquired         = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));                                
                 $document->adequacies_id    = $request->get('adequacies_id');
                 $document->generate_subjects_id     = $request->get('generate_subjects_id');  
                 $document->let_author       = $request->get('let_author');
@@ -277,7 +277,7 @@ class PhotographyController extends Controller
                 }
 
                 $document->original_title       = $request->get('original_title'); 
-                $document->acquired             = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));               
+                $document->acquired             = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));               
                 $document->adequacies_id        = $request->get('adequacies_id');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_author           = $request->get('let_author');
