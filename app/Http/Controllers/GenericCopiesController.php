@@ -9,6 +9,8 @@ use App\Document;
 use App\Book_movement;
 use App\Movement_type;
 use DataTables;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveCopyRequest;
 
@@ -19,18 +21,31 @@ class GenericCopiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
       
     }
 
-    public function copies($id)
+    public function copies(Request $request,$id)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
         $document = Document::with('document_type','document_subtype')->findOrFail($id);
-        
+    
         return view('admin.genericcopies.index', [
-            'document'          => $document
-        ]);
+            'idioma'      => $idioma,
+            'idiomas'     => $idiomas,
+            'document'    => $document
+        ]);    
+
     }
 
     /**

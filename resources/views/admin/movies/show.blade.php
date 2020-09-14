@@ -25,7 +25,7 @@
             </div>        
             <div class="box-body box-profile">
                                           
-                <img class="img-responsive" src="{{ asset('images/'.$movie->document->photo) }}" >
+                <img class="img-responsive" src="/images/{{ $movie->document->photo }}"  alt="{{ $movie->document->title }}">
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">

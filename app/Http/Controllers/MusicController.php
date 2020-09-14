@@ -151,7 +151,7 @@ class MusicController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }  
 
                 $document->photo            = $name;
@@ -317,7 +317,7 @@ class MusicController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{                
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }  
                 $document->photo = $name;
                 $document->save();

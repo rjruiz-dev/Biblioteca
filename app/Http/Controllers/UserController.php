@@ -128,7 +128,7 @@ class UserController extends Controller
                 $mov_user->save();
                    
                 // Enviamos el email
-                UserWasCreated::dispatch($user, $data['password']);
+                // UserWasCreated::dispatch($user, $data['password']);
                 
                 DB::commit();
 

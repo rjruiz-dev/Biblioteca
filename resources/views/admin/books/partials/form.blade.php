@@ -76,7 +76,7 @@
                         </div>                      
                         <input name="acquired"
                             class="form-control pull-right"                                                       
-                            value="{{ old('acquired', $book->document['acquired'] ? $book->document['acquired']->format('d/m/Y') : null) }}"                            
+                            value="{{ old('acquired', $book->document['acquired'] ? $book->document['acquired']->format('d-m-Y') : null) }}"                            
                             type="text"
                             id="acquired"
                             placeholder= "Selecciona una Fecha">                       

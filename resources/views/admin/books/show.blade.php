@@ -25,8 +25,8 @@
               <h3 class="box-title">Imagen de Portada </h3>
             </div>        
             <div class="box-body box-profile">
-                                          
-                <img class="img-responsive" src="{{ asset('images/'.$book->document->photo) }}" >
+                                           
+                <img class="img-responsive" src="/images/{{ $book->document->photo }}" alt="{{  $book->title }}">
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">

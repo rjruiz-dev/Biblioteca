@@ -40,7 +40,7 @@ class SaveBookRequest extends FormRequest
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;    
             $rules ['isbn']                 = 'required|string|min:17|unique:books,isbn' . $this->id;
-            $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+            // $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
             // $rules ['issn']                 = 'nullable|string|min:17|unique:periodical_publications,issn'. $this->id;
             // $rules ['issn']                 = 'exclude_unless:document_subtypes_id,4|string|min:13|unique:periodical_publications,issn'. $this->id;
         }
@@ -62,7 +62,7 @@ class SaveBookRequest extends FormRequest
             'let_title.max'                     => 'El campo Siglas Título no debe ser mayor a 3 caracteres',       
             'isbn.required'                     => 'Debe introducir Isbn para Catalogar un Documento.',  
             'isbn.min'                          => 'Isbn debe contener una longitud minima de 17 caracteres.',            
-            'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',                    
+            // 'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',                    
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',           
             'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',   
             'generate_books_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',          

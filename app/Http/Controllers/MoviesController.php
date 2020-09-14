@@ -164,7 +164,7 @@ class MoviesController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }  
 
                 $document->photo            = $name;
@@ -274,7 +274,7 @@ class MoviesController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }    
 
                 if( is_numeric($request->get('creators_id'))){                

@@ -96,18 +96,26 @@ class BookController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                 
+                if ($request->hasFile('photo')) {               
+
+                    $file = $request->file('photo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);   
+                }else{                
+                    $name = 'doc-default.png';
+                }  
                 // Creamos el documento            
                 $document = new Document;   
                 $document->document_types_id        = 3; // 1 tipo de documento: musica.
                 $document->document_subtypes_id     = $request->get('document_subtypes_id'); 
                 $document->title            = $request->get('title');
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));             
+                $document->acquired         = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));             
                 $document->let_author       = $request->get('let_author');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
                 $document->assessment       = $request->get('assessment');  
-                
+                $document->photo            = $name;
                 // dd($request->get('desidherata'));
                 if($request->get('desidherata') == null){
                     $document->desidherata = 0;
@@ -148,19 +156,6 @@ class BookController extends Controller
                 // $document->generate_references_id     = $request->get('generate_references_id');            
                 $document->document_types_id    = 3;
                 $document->document_subtypes_id = $request->get('document_subtypes_id');
-
-
-                if ($request->hasFile('photo')) {               
-
-                    $file = $request->file('photo');
-                    $name = time().$file->getClientOriginalName();
-                    $file->move(public_path().'/images/', $name);   
-                }else{                
-                    $name = 'doc-default.jpg';
-                }  
-
-                $document->photo            = $name;
-
                 $document->save();
                 $document->syncReferences($request->get('references'));
 
@@ -305,7 +300,7 @@ class BookController extends Controller
                 }             
                 $document->title            = $request->get('title');
                 $document->original_title   = $request->get('original_title');
-                $document->acquired         = Carbon::createFromFormat('d/m/Y', $request->get('acquired'));                    
+                $document->acquired         = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));                    
                 $document->let_author       = $request->get('let_author');
                 $document->generate_subjects_id = $request->get('generate_subjects_id');  
                 $document->let_title        = $request->get('let_title');
@@ -342,7 +337,7 @@ class BookController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{                
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }  
                 $document->photo = $name; 
                 $document->save();

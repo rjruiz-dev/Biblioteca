@@ -143,7 +143,7 @@ class MultimediaController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }   
 
                 $document->photo            = $name;
@@ -304,7 +304,7 @@ class MultimediaController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{                
-                    $name = 'doc-default.jpg';
+                    $name = 'doc-default.png';
                 }  
                 $document->photo = $name;
                 $document->save();
