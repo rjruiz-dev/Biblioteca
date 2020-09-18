@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('status_copy_id', 'Estado') !!}             
-                    {!! Form::select('status_copy_id', $status, null, ['class' => 'form-control  select2', 'id' => 'status_copy_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('status_copy_id', $status, null, ['class' => 'form-control  select2', 'id' => 'status_copy_id', 'style' => 'width:100%;']) !!}
                 </div>                         
             </div>
         </div>       

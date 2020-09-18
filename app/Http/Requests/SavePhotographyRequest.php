@@ -38,7 +38,7 @@ class SavePhotographyRequest extends FormRequest
             $rules ['document_subtypes_id'] = 'required' . $this->id; 
             // $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;              
-            $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+            // $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
             
         }
  
@@ -57,7 +57,7 @@ class SavePhotographyRequest extends FormRequest
             'let_title.required'                => 'El campo Siglas Título es requerido.',  
             'let_title.min'                     => 'El campo Siglas Título debe contener 3 caracteres como minimo',        
             'let_title.max'                     => 'El campo Siglas Título no debe ser mayor a 3 caracteres',   
-            'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
+            // 'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',
             'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',   
             'generate_films_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',    

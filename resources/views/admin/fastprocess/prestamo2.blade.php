@@ -21,7 +21,11 @@
             </div>       
             <div class="box-body box-profile">                       
                 <div class="text-center">      
-                    <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$documento->photo) }}"  width="200" height="200">     
+                <img class="profile-user-img img-responsive img-circle" 
+                    src="/images/{{ $documento->photo }}" 
+                    alt="{{ $user->name}}"
+                    width="200" height="200">    
+                   
                 </div>  
                 <h3 class="profile-username text-center"><strong>{{ $documento->title }}</strong></h3>          
                 <p class="text-muted text-center">{{ $documento->creator->creator_name }}</p>

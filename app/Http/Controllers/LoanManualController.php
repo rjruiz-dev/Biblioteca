@@ -159,8 +159,22 @@ class LoanManualController extends Controller
     //     ]);    
     // }
 
-    public function abm_prestamo($id, $bandera, $n_mov)
+    public function abm_prestamo(Request $request, $id, $bandera, $n_mov)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        // dd($idioma->navegacion);
+           
+
         if($n_mov != 0){ // si se pasa n_mov con NO 0 es xq carga una solicitud
         $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($n_mov);       
         }else{
@@ -189,7 +203,7 @@ class LoanManualController extends Controller
         })
         ->get()
         ->pluck('registry_number', 'id');
-    }
+        }
         
         $users = User::where('status_id', 1)->get()->pluck('name', 'id');
         
@@ -199,14 +213,16 @@ class LoanManualController extends Controller
         $hastaprestamo = $hasta_prestamo_parce->loan_day;
 
         return view('admin.loanmanual.prestar', [
+            'idioma'        => $idioma,
+            'idiomas'       => $idiomas,
             'documento'     => $documento,
             'copies'        => $copies,
             'users'         => $users,            
             'courses'       => $courses,
             'hastaprestamo' => $hastaprestamo,
             'bandera'       => $bandera,
-            'prestamo_solicitado' => $prestamo_solicitado, 
-            'n_mov'         => $n_mov
+            'prestamo_solicitado'   => $prestamo_solicitado, 
+            'n_mov'                 => $n_mov
         ]);    
     }
 
@@ -318,10 +334,10 @@ class LoanManualController extends Controller
 
     public function dataTable()
     {                    
-        $documentos = Document::with('document_type','document_subtype')       
+        $documentos = Document::with('document_type','document_subtype')  
         // ->allowed()
         ->get();
-      
+       
         return dataTables::of($documentos)
             ->addColumn('tipo_documento', function ($documentos){
                 return $documentos->document_type['document_description']."<br>";            
@@ -330,9 +346,9 @@ class LoanManualController extends Controller
                 return $documentos->document_subtype['subtype_name'];              
             })             
          
-            ->addColumn('created_at', function ($documentos){
-                return $documentos->created_at->format('d-m-y');
-            })                 
+            // ->addColumn('created_at', function ($documentos){
+            //     return $documentos->created_at->format('d-m-y');
+            // })                 
             
             ->addColumn('accion', function ($documentos) {
                 return view('admin.loanmanual.partials._action', [
@@ -342,7 +358,7 @@ class LoanManualController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'created_at', 'accion']) 
+            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'accion']) 
             ->make(true);  
     }
 }

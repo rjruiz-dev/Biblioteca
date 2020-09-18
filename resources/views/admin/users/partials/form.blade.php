@@ -51,7 +51,7 @@
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Datos personalesjjj</h3>
+                <h3 class="box-title">Datos personales</h3>
             </div>
             <div class="box-body">  
                 <div class="form-group">              

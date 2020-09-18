@@ -113,7 +113,7 @@ class UserController extends Controller
                 $user->city         = $request->get('city');
                 $user->province     = $request->get('province');
                 $user->phone        = $request->get('phone');   
-                $user->birthdate    =  Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->birthdate    =  Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
                 $user->membership   = $request->get('membership');
                  
                 $mov_user = new User_movement();
@@ -126,9 +126,11 @@ class UserController extends Controller
 
                 $mov_user->users_id = $user->id;
                 $mov_user->save();
+
+                $accion = '';
                    
                 // Enviamos el email
-                // UserWasCreated::dispatch($user, $data['password']);
+                UserWasCreated::dispatch($user, $data['password'], $accion);
                 
                 DB::commit();
 
@@ -226,7 +228,7 @@ class UserController extends Controller
                 $user->city         = $request->get('city');
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');      
-                $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->birthdate    = Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
                 $user->membership   = $request->get('membership');
 
                

@@ -195,8 +195,20 @@ class FastPartnerProcessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+                 
         $user = User::findOrFail($id); //datos del socio 
         
         $docs_of_user = Book_movement::with('movement_type','copy.document.creator')
@@ -209,7 +221,9 @@ class FastPartnerProcessController extends Controller
      
         return view('admin.fastprocess.prestamo', [
             'user'          => $user,
-            'docs_of_user'  => $docs_of_user
+            'docs_of_user'  => $docs_of_user,
+            'idioma'        => $idioma,
+            'idiomas'       => $idiomas
        
         ]);
     }
@@ -329,9 +343,11 @@ class FastPartnerProcessController extends Controller
       
         return dataTables::of($usuarios)
             ->addColumn('membership', function ($usuarios){
-                return
-                    '<i class="fa fa-check"></i>'.' '.$usuarios->membership;      
-                         
+                if($usuarios->membership == null){
+                    return 'Sin Núm. de socio';
+                }else{
+                    return '<i class="fa fa-check"></i>'.' '.$usuarios->membership;           
+                }
             }) 
             ->addColumn('nickname', function ($usuarios){
                 return $usuarios->nickname;      

@@ -5,7 +5,7 @@
         @php 
             $mensaje = "Devuelto en ";
             $mensaje2 = "Fecha de Devolución ";
-            $var_acquired = Form::hidden('acquired', Carbon\Carbon::now()->format('d/m/Y') );
+            $var_acquired = Form::hidden('acquired', Carbon\Carbon::now()->format('d-m-Y') );
             $visible = 'disabled';
             $fecha_hasta = Carbon\Carbon::now()->format('d-m-Y');
         @endphp

@@ -81,7 +81,7 @@
                         </div>                      
                         <input name="birthdate"
                             class="form-control pull-right" 
-                            value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d/m/Y') : null) }}" 
+                            value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d-m-Y') : null) }}" 
                             type="text"
                             id="datepicker"
                             placeholder= "Selecciona una Fecha">                       

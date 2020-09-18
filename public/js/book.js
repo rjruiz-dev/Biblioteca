@@ -57,14 +57,14 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });  
 
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                
-                language: 'es'
-            }); 
+            // $('#drop').datepicker({
+            //     autoclose: true,
+            //     todayHighlight: true,  
+            //     format: 'dd/mm/yyyy',                
+            //     language: 'es'
+            // }); 
             $('#published').select2({
-                // placeholder: 'Selecciona Lugar de Publicacíon',
+                placeholder: 'Selecciona Lugar de Publicación',
                 tags: true,               
             });
             $('#made_by').select2({

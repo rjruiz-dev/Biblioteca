@@ -19,7 +19,7 @@ $('body').on('click', '.modal-show', function (event) {
             $('#datepicker').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                format: 'dd/mm/yyyy',                       
+                format: 'dd-mm-yyyy',                       
                 language: 'es'
             });   
                    

@@ -50,7 +50,7 @@
                 <h3 class="box-title">Detalles de la Fotografia </h3>
             </div>
             <div class="box-body">
-                <div class="col-md-12">
+                <div class="row col-md-12">
                     <div class="col-md-4">
                         <strong><i class="fa fa-calendar margin-r-5"></i> Disponible Desde:</strong>
                         <p class="text-muted">{{ Carbon\Carbon::parse($photograph->document->acquired)->format('d-m-Y') }}</p>
@@ -79,10 +79,10 @@
                 </div>
                 <div class=" col-md-12">                
                     <strong><i class="fa fa-film margin-r-5"></i> Formato:</strong>
-                    @if ( $photograph->generate_format->genre_format  === NULL )                            
+                    @if ( $photograph->generate_format['genre_format']  === NULL )                            
                         <p class="tex-muted"><a>Sin Formato</a> </p>
                     @else
-                        <p class="text-muted">{{ $photograph->generate_format->genre_format }}</p>
+                        <p class="text-muted">{{ $photograph->generate_format['genre_format'] }}</p>
                     @endif  
                     <hr>
                 </div>

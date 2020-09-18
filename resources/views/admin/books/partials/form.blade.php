@@ -137,7 +137,7 @@
             <div class="box-body">   
                 <div class="form-group">                       
                     {!! Form::label('published', 'Publicado En') !!} 
-                    {!! Form::select('published', $publications, $book->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'style' => 'width:100%;']) !!}                                      
+                    {!! Form::select('published', $publications, $book->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '', 'style' => 'width:100%;']) !!}                                      
                 </div>
                 <div class="form-group">              
                     {!! Form::label('made_by', 'Editorial') !!}        

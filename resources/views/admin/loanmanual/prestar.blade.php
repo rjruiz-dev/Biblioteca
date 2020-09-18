@@ -78,9 +78,9 @@
                                 {!! Form::select('users_id', $users, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'users_id',  $visible ? 'disabled' : '', 'style' => 'width:100%;' ]) !!}
                                 {!! $var_user !!}
                             </div>
-                            <div class="text-center">     
+                            <!-- <div class="text-center">     
                                 <img class="profile-user-img img-responsive img-circle" src="">                             
-                            </div>
+                            </div> -->
                             <ul class="list-group list-group-unbordered">                           
                                 <li class="list-group-item">                               
                                     <b>Nickname</b> <a class="pull-right" id="nickname"></a> 
@@ -117,7 +117,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                            <label>Adquirido</label>
+                            <label>Prestado Hasta:</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>

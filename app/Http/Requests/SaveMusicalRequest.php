@@ -42,7 +42,7 @@ class SaveMusicalRequest extends FormRequest
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id; 
             // $rules ['isbn']                 = 'required|string|min:17|unique:books,isbn' . $this->id;
-            $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+            // $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
            
         }
  
@@ -64,7 +64,7 @@ class SaveMusicalRequest extends FormRequest
             'let_title.max'                     => 'El campo Siglas Título no debe ser mayor a 3 caracteres',       
             // 'isbn.required'                     => 'Debe introducir Isbn para Catalogar un Documento.',  
             // 'isbn.min'                          => 'Isbn debe contener una longitud minima de 13 caracteres.',
-            'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
+            // 'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',   
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',           
             'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',
             'generate_musics_id.required'       => 'Debe seleccionar un Género para Catalogar un Documento.',          

@@ -20,7 +20,10 @@
             </div>       
             <div class="box-body box-profile">            
                 <div class="text-center">      
-                    <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$user->user_photo) }}"  width="200" height="200">     
+                 <img class="profile-user-img img-responsive img-circle" 
+                    src="/images/{{ $user->user_photo }}" 
+                    alt="{{ $user->name}}"
+                    width="100px">                   
                 </div>  
                 <h3 class="profile-username text-center"><strong>{{ $user->nickname }}</strong></h3>  
         

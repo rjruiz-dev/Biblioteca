@@ -28,7 +28,7 @@
                         <th>Titulo</th> 
                         <th>Tipo</th>                         
                         <th>Subtipo</th>                        
-                        <th>Agregado</th>                                
+                        <!-- <th>Agregado</th>                                 -->
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -74,7 +74,7 @@
             responsive: true,
             columnDefs: [
                 { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 10001, targets: 4 },
+                { responsivePriority: 10001, targets: 3 },
                 { responsivePriority: -1, targets: -1 }
             ],
             order: [ [0, 'desc'] ],     
@@ -83,31 +83,31 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 }
                 
@@ -118,7 +118,7 @@
                 {data: 'title', name: 'title'},               
                 {data: 'tipo_documento', name: 'tipo_documento'}, 
                 {data: 'sub_tipo_documento', name: 'sub_tipo_documento'}, 
-                {data: 'created_at', name: 'agregado'},                  
+                // {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                         
             ]
         });
