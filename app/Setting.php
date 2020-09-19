@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-    protected $fillable = ['fines_id','library_name','loan_day','loan_limit'];
+    protected $fillable = ['fines_id','library_name','library_email','library_phone',
+                            'language','logo','street','city','province','postal_code',
+                            'country','child_age','adult_age','color','loan_day','loan_limit'];
 
     public function fine()
     {

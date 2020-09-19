@@ -8,121 +8,184 @@
 @stop
 
 @section('content')
-<div class="row">  
-    
+<div class="row">      
     {{ csrf_field() }}
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Perfil</h3>                
+                <h3 class="box-title">Logo</h3>  
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>              
+            </div>
+            <div class="box-body box-profile">            
+                <div class="text-center">      
+                 <img class="profile-user-img img-responsive img-circle" 
+                    src="#" 
+                    alt="#"
+                    width="100px">                   
+                </div>  
+                <h3 class="profile-username text-center"><strong></strong></h3>  
+        
+                <p class="text-muted text-center"></p>
+            </div>         
+        </div> 
+    </div> 
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Perfil</h3>  
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>              
             </div>
             <div class="box-body">
-               
-
                 <div class="form-group">              
-                    {!! Form::label('membership', 'Número de Socio') !!}                    
-                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio']) !!}
-                </div>      
-                                
-                <div class="form-group">              
-                    {!! Form::label('nickname', 'Nickname') !!}                    
-                    {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
-                </div>                                           
-               
+                    {!! Form::label('library_name', 'Biblioteca') !!}                    
+                    {!! Form::text('library_name', null, ['class' => 'form-control', 'id' => 'library_name', 'placeholder' => 'Nombre de la Biblioteca']) !!}
+                </div> 
                 <div class="form-group">
-                    {{ Form::label('user_photo', 'Imagen de Perfil') }}
-                    {{ Form::file('user_photo') }}
-                    
+                    {!! Form::label('library_phone', 'Teléfono') !!}               
+                    {!! Form::text('library_phone', null, ['class' => 'form-control', 'id' => 'library_phone',  'placeholder' => 'Teléfono de la Biblioteca']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('email', 'Email') !!}             
-                    {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email']) !!}
-                </div>
-                <span class="help-block">La contraseña será generada y enviada al nuevo usuario vía email</span>
-         
+                    {!! Form::label('library_email', 'Email') !!}             
+                    {!! Form::text('library_email', null, ['class' => 'form-control', 'id' => 'library_email', 'placeholder' => 'Email de la Biblioteca']) !!}
+                </div>  
+                <div class="form-group">
+                    {!! Form::label('language', 'Idioma') !!}             
+                    {!! Form::text('language', null, ['class' => 'form-control', 'id' => 'language', 'placeholder' => 'Idioma de la Biblioteca']) !!}
+                </div>  
+                <div class="form-group">
+                    {{ Form::label('logo', 'Logo') }}
+                    {{ Form::file('logo') }}
+                </div>             
             </div>
-        </div>       
+        </div>         
     </div>     
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Datos personales</h3>
+                <h3 class="box-title">Dirección</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div> 
             </div>
             <div class="box-body">  
                 <div class="form-group">              
-                    {!! Form::label('name', 'Nombres') !!}                    
-                    {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nombres']) !!}
+                    {!! Form::label('street', 'Calle') !!}                    
+                    {!! Form::text('street', null, ['class' => 'form-control', 'id' => 'street', 'placeholder' => 'Calle y Número']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('surname', 'Apellidos') !!}                    
-                    {!! Form::text('surname', null, ['class' => 'form-control', 'id' => 'surname', 'placeholder' => 'Apellidos']) !!}
+                    {!! Form::label('city', 'Ciudad') !!}                    
+                    {!! Form::text('city', null, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Ciudad']) !!}
                 </div> 
-             
-                      
-               
-
-               
-                           
-                         
+                <div class="form-group">              
+                    {!! Form::label('province', 'Provincia') !!}                    
+                    {!! Form::text('province', null, ['class' => 'form-control', 'id' => 'province', 'placeholder' => 'Región/Provincia']) !!}
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('postal_code', 'Código Postal') !!}                    
+                    {!! Form::text('postal_code', null, ['class' => 'form-control', 'id' => 'postal_code', 'placeholder' => 'Código Postal']) !!}
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('country', 'País') !!}                    
+                    {!! Form::text('country', null, ['class' => 'form-control', 'id' => 'country', 'placeholder' => 'País']) !!}
+                </div> 
             </div>
         </div>       
     </div>
-    
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Dirección</h3>                
+                <h3 class="box-title">Configuración de Prestamos</h3>          
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>       
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::label('phone', 'Teléfono') !!}               
-                    {!! Form::text('phone', null, ['class' => 'form-control', 'id' => 'phone',  'placeholder' => 'Teléfono']) !!}
+                    {!! Form::label('loan_amount', 'Cantidad Maxima de Prestamos') !!}                
+                    {!! Form::text('loan_amount', null, ['class' => 'form-control', 'id' => 'loan_amount', 'placeholder' => 'Cantidad Maxima de Prestamos']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('address', 'Dirección') !!}                
-                    {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'Dirección', 'placeholder' => 'Dirección']) !!}
+                    {!! Form::label('day_loan', 'Cantidad Maxima de Dias por Ejemplar') !!}               
+                    {!! Form::text('day_loan', null, ['class' => 'form-control', 'id' => 'day_loan', 'placeholder' => 'Cantidad Maxima de Dias por Ejemplar']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('group', 'Tipo de Multa') !!}&nbsp;
+                    <label>
+                        &nbsp;{!! Form::radio('group', 'Económica') !!}&nbsp;Económica                                
+                    </label>
+                    <label>
+                        &nbsp;{!! Form::radio('group', 'Sanción') !!}&nbsp;Sanción                                   
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    {!! Form::label('price_penalty', 'Valor de Sanción Económica') !!}                
+                    {!! Form::text('price_penalty', null, ['class' => 'form-control', 'id' => 'price_penalty', 'placeholder' => 'Valor de sanción económica']) !!}
                 </div>  
+
                 <div class="form-group">
-                    {!! Form::label('postcode', 'Código Postal') !!}                
-                    {!! Form::text('postcode', null, ['class' => 'form-control', 'id' => 'Código Postal', 'placeholder' => 'Código Postal']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('city', 'Ciudad') !!}               
-                    {!! Form::text('city', null, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Ciudad']) !!}
-                </div> 
-                   
+                    {!! Form::label('days penalty', 'Dias de Sanción por Retraso') !!}                
+                    {!! Form::text('days penalty', null, ['class' => 'form-control', 'id' => 'days penalty', 'placeholder' => 'Dias de sanción por restraso']) !!}
+                </div>                  
             </div>
         </div>       
-    </div>      
-
+    </div>  
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Otros Detalles</h3>  
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>              
+            </div>
+            <div class="box-body">
+                <div class="form-group">              
+                    {!! Form::label('child_age', 'Edad Minima Infantil') !!}                    
+                    {!! Form::text('child_age', null, ['class' => 'form-control', 'id' => 'child_age', 'placeholder' => 'Edad Minima Infantil']) !!}
+                </div> 
+                <div class="form-group">
+                    {!! Form::label('adult_age', 'Edad Minima Adulto') !!}               
+                    {!! Form::text('adult_age', null, ['class' => 'form-control', 'id' => 'adult_age',  'placeholder' => 'Edad Minima Adulto']) !!}
+                </div>  
+                {!! Form::label('color', 'Seleccionar Color') !!}   
+                <div id="cp2" class="input-group colorpicker colorpicker-component"> 
+                    <input type="text" value="#00AABB" class="form-control" /> 
+                    <span class="input-group-addon"><i></i></span>
+                </div> 
+                <span class="help-block">Seleccionar Color para Cambiar estilo de Biblioteca</span>   
+            </div>          
+        </div>      
+    </div>    
+    <div class="col-md-12"> 
+        <div class="box-footer">              
+            <button type="submit" class="btn btn-info pull-right">Guardar Cambios</button>
+        </div>  
+    </div>  
     {!! Form::close() !!}    
 </div>
 @stop
 
 @push('styles')
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
-    <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">  
-    <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">  
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/css/bootstrap-colorpicker.min.css" rel="stylesheet">
 @endpush
 
 @push('scripts')  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
-    <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 
-    <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>   
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-    <script src="{{ asset('js/user.js') }}"></script>
-    
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>  
+    <script src="{{ asset('js/setting.js') }}"></script>
 @endpush
