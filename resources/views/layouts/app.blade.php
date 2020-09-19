@@ -226,7 +226,7 @@ desired effect
             </ul>
           </li>
           <li>
-            <a href="{{ route('users.edit_profile', Auth::user()->id) }}" class="modal-show-edicion-perfil" title="Edicion de Perfil"><i class="fa fa-gears"></i></a>
+            <a href="{{ route('users.edit_profile', Auth::user()->id) }}" class="modal-show-edicion-perfil" title="Edicion de Perfil"><i class="fa fa-user"></i></a>
           </li>
           @else
           
@@ -430,9 +430,7 @@ desired effect
 <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
 
-
-
-    <script>
+<script>
 // SOLICITUD DE REGISTRO DE NUEVO USUARIO - EXCLUSIVO DE FRONT-END
 // MODAL CORRESPONDIENTE A LA SOLICITUD DE REGISTRO DE SOCIO
 $('body').on('click', '.modal-show-solicitud-registro', function (event) {
@@ -669,6 +667,7 @@ $('body').on('click', '.btn-cambiar', function (event) {
             });
 });
 
-     </script>
+</script>
+
 </body>
 </html>

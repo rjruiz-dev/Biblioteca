@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Setting;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -12,9 +14,25 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+       
+        
+        return view('admin.setting.index', [
+          
+            'idioma'     => $idioma,
+            'idiomas'    => $idiomas
+        ]);
     }
 
     /**

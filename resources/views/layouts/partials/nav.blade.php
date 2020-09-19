@@ -235,6 +235,21 @@
             <i class="fa fa-globe"></i> <span>Multidiomas</span>
         </a>
     </li>
+
+    <li class="treeview {{ setActiveRoute('admin.setting.index') }}">                
+        <a href="#"><i class="fa fa-gears"></i> <span>Configuración</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>       
+        <ul class="treeview-menu">             
+            <li class="{{ setActiveRoute('admin.setting.index') }}">
+                <a href="{{ route('admin.setting.index') }}">
+                    <i class="fa fa-suitcase"></i><span>Perfil de la Biblioteca</span>
+                </a>
+            </li>                                           
+        </ul>
+    </li>
       
     @endif
 
