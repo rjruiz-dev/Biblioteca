@@ -7,7 +7,7 @@ $('body').on('click', '.modal-show', function (event) {
 
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+    .text(me.hasClass('edit') ? 'Actualizar' : 'Si');
 
     $.ajax({
         url: url,

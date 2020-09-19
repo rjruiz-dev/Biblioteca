@@ -204,8 +204,8 @@ class LoanManualController extends Controller
         ->get()
         ->pluck('registry_number', 'id');
         }
-        
-        $users = User::where('status_id', 1)->get()->pluck('name', 'id');
+        // aca tenia seteado el 1 deberia de variar revisar por las dudas.
+        $users = User::where('status_id', 3)->get()->pluck('name', 'id');
         
         $courses = Course::all()->pluck('course_name', 'id');
 

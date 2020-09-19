@@ -7,6 +7,8 @@ use App\Course;
 use App\Book_movement;
 use Carbon\Carbon;
 use DataTables;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 
 class LoansbyclassroomController extends Controller
 {
@@ -15,12 +17,24 @@ class LoansbyclassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
         $cursos = Course::pluck('course_name', 'id');
         
         return view('admin.loansbyclassroom.index', [
             'cursos'     => $cursos,
+            'idioma'     => $idioma,
+            'idiomas'    => $idiomas
         ]);
     }
 

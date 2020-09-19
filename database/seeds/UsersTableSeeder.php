@@ -79,7 +79,7 @@ class UsersTableSeeder extends Seeder
         $admin->membership = '23.456.567';
         $admin->email = 'admin@gmail.com';        
         $admin->password = '123456';   
-        $admin->status_id = 1;
+        $admin->status_id = 3;
         $admin->save();
 
         $admin->assignRole($adminRole);
@@ -91,7 +91,7 @@ class UsersTableSeeder extends Seeder
         $librarian->membership = '23.456.467';
         $librarian->email = 'luis@gmail.com';       
         $librarian->password = '123456';   
-        $librarian->status_id = 1; 
+        $librarian->status_id = 3; 
         $librarian->save();
 
         $librarian->assignRole($librarianRole);
@@ -103,7 +103,7 @@ class UsersTableSeeder extends Seeder
         $partner->membership = '23.456.967';
         $partner->email = 'jorge@gmail.com';        
         $partner->password = '123456'; 
-        $partner->status_id = 1;
+        $partner->status_id = 3;
         $partner->save();
 
         $partner->assignRole($partnerRole);

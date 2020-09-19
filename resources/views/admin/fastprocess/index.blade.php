@@ -27,7 +27,7 @@
                         <th>Nombre</th>                         
                         <th>Email</th>   
                         <th>Estado</th>  
-                        <th>Agregado</th>                                
+                        <!-- <th>Agregado</th>                                 -->
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -72,7 +72,7 @@
             responsive: true,
             columnDefs: [
                 { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 10001, targets: 4 },
+                { responsivePriority: 10001, targets: 3 },
                 { responsivePriority: -1, targets: -1 }
             ],
             order: [ [0, 'desc'] ],     
@@ -81,31 +81,31 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 },
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 }
                 
@@ -118,7 +118,7 @@
                 {data: 'name', name: 'name'},         
                 {data: 'email', name: 'email'}, 
                 {data: 'status_id', name: 'status_id'}, 
-                {data: 'created_at', name: 'agregado'},                  
+                // {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
             ]
         });

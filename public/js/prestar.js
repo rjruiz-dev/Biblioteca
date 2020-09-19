@@ -38,7 +38,7 @@ $('#modal-btn-save-prestar').click(function (event) {
             swal({
                 type : 'success',
                 title : '¡Éxito!',
-                text : '¡El prestamos se ha realizakkkk de manera exitosa!',
+                text : '¡El prestamos se ha realizado de manera exitosa!',
             }).then(function() {
                 window.location = "/admin/fastprocess/edit2/" + info2;
             });
@@ -47,7 +47,7 @@ $('#modal-btn-save-prestar').click(function (event) {
             swal({
                 type : 'success',
                 title : '¡Éxito!',
-                text : '¡El prestamos se ha realizadoSoli de manera exitosa!',
+                text : '¡El prestamos se ha realizado de manera exitosa!',
             }).then(function() {
                 window.location="/admin/requests/";
             });

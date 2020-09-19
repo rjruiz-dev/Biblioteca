@@ -229,8 +229,20 @@ class FastPartnerProcessController extends Controller
     }
 
     
-    public function edit2($id)
+    public function edit2(Request $request, $id)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+
         $documento = Document::with('document_type','document_subtype','creator')
         ->findOrFail($id); 
         
@@ -302,12 +314,14 @@ class FastPartnerProcessController extends Controller
      ->get();
 
         return view('admin.fastprocess.prestamo2', [
-            'documento'          => $documento,
-            'copies_prestadas'          => $copies_prestadas,
-            'copies_disponibles'          => $copies_disponibles,
-            'copies_solicitadas'          => $copies_solicitadas,
-            'copies_mantenimiento'          => $copies_mantenimiento,
-            'copies_baja'          => $copies_baja
+            'documento'             => $documento,
+            'copies_prestadas'      => $copies_prestadas,
+            'copies_disponibles'    => $copies_disponibles,
+            'copies_solicitadas'    => $copies_solicitadas,
+            'copies_mantenimiento'  => $copies_mantenimiento,
+            'copies_baja'           => $copies_baja,
+            'idioma'                => $idioma,
+            'idiomas'               => $idiomas
         ]);    
     }
 
@@ -377,9 +391,9 @@ class FastPartnerProcessController extends Controller
                     return '<span class="label label-success sm">'.$usuarios->statu['state_description'].'</span>';
                 }              
             })    
-            ->addColumn('created_at', function ($usuarios){
-                return $usuarios->created_at->format('d-m-y');
-            })                 
+            // ->addColumn('created_at', function ($usuarios){
+            //     return $usuarios->created_at->format('d-m-y');
+            // })                 
             
             ->addColumn('accion', function ($usuarios) {
                 return view('admin.fastprocess.partials._action', [
@@ -390,7 +404,7 @@ class FastPartnerProcessController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['membership', 'nickname', 'name', 'email', 'status_id', 'created_at', 'accion']) 
+            ->rawColumns(['membership', 'nickname', 'name', 'email', 'status_id',  'accion']) 
             ->make(true);  
     }
 
@@ -409,9 +423,9 @@ class FastPartnerProcessController extends Controller
                 return $documentos->document_subtype['subtype_name'];              
             })             
          
-            ->addColumn('created_at', function ($documentos){
-                return $documentos->created_at->format('d-m-y');
-            })                 
+            // ->addColumn('created_at', function ($documentos){
+            //     return $documentos->created_at->format('d-m-y');
+            // })                 
             
             ->addColumn('accion', function ($documentos) {
                 return view('admin.fastprocess.partials._action2', [
@@ -422,7 +436,7 @@ class FastPartnerProcessController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'created_at', 'accion']) 
+            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'accion']) 
             ->make(true);  
     }
 }

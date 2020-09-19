@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Book_movement;
 use Carbon\Carbon;
 use DataTables;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 
 class LoansbydateController extends Controller
 {
@@ -14,9 +16,25 @@ class LoansbydateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.loansbydate.index');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+    
+        return view('admin.loansbydate.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]);        
+
+        
     }
 
     /**
