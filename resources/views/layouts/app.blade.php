@@ -72,6 +72,10 @@ desired effect
       <span class="logo-mini"><b>B</b>O</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span>
+      <img class="profile-user-img img-responsive img-circle" 
+                    src="/images/{{ $setting->logo }}" 
+                    alt="{{ $setting->library_name }}"
+                    width="100px">
     </a>
 
     <!-- Header Navbar -->

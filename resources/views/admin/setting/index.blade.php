@@ -8,8 +8,10 @@
 @stop
 
 @section('content')
-<div class="row">      
-    {{ csrf_field() }}
+<div class="row" id="setting-form"> 
+    
+    {!! Form::open(['route' => 'admin.setting.store','method' => 'POST', 'enctype' => 'multipart/form-data']) !!}   
+    {{ csrf_field() }}    
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -20,16 +22,17 @@
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>              
             </div>
-            <div class="box-body box-profile">            
+            <div class="box-body box-profile">
                 <div class="text-center">      
                  <img class="profile-user-img img-responsive img-circle" 
                     src="#" 
                     alt="#"
                     width="100px">                   
-                </div>  
-                <h3 class="profile-username text-center"><strong></strong></h3>  
+                </div>              
+               
+                <h3 class="profile-username text-center"><strong>#</strong></h3>  
         
-                <p class="text-muted text-center"></p>
+                <p class="text-muted text-center">#</p>
             </div>         
         </div> 
     </div> 
@@ -162,8 +165,8 @@
                     {!! Form::text('adult_age', null, ['class' => 'form-control', 'id' => 'adult_age',  'placeholder' => 'Edad Minima Adulto']) !!}
                 </div>  
                 {!! Form::label('color', 'Seleccionar Color') !!}   
-                <div id="cp2" class="input-group colorpicker colorpicker-component"> 
-                    <input type="text" value="#00AABB" class="form-control" /> 
+                <div id="color" class="input-group colorpicker colorpicker-component"> 
+                    <input type="text" value="#00AABB" name="color" id="color" class="form-control" /> 
                     <span class="input-group-addon"><i></i></span>
                 </div> 
                 <span class="help-block">Seleccionar Color para Cambiar estilo de Biblioteca</span>   
@@ -171,8 +174,9 @@
         </div>      
     </div>    
     <div class="col-md-12"> 
-        <div class="box-footer">              
-            <button type="submit" class="btn btn-info pull-right">Guardar Cambios</button>
+        <div class="box-footer">         
+         
+            <button type="submit" class="btn btn-info pull-right" id="btn-save">Guardar Cambios</button>
         </div>  
     </div>  
     {!! Form::close() !!}    
@@ -187,5 +191,64 @@
 @push('scripts')  
     <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>  
-    <script src="{{ asset('js/setting.js') }}"></script>
+    <!-- <script src="{{ asset('js/setting.js') }}"></script> -->
+
+    <script>
+$('.colorpicker').colorpicker({});
+
+$('#btn-save').click(function (event) {
+    event.preventDefault();
+    
+
+    $avatarInput = $('#logo');
+
+    var formData  = new FormData();        
+        formData.append('logo', $avatarInput[0].files[0]);
+        
+    var form = $('#setting-form form'), 
+        url = form.attr('action'),
+        method =  'POST' ;
+      
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+    
+    $.ajax({
+        url : url + '?' + form.serialize(),
+        method: method,
+        data : formData, 
+        cache: false,  
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // form.trigger('reset');
+            // $('#modal').modal('hide');
+            // $('#datatable').DataTable().ajax.reload();
+
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se han guardado los datos!'
+            });
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+});
+    </script>
 @endpush
