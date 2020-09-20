@@ -397,13 +397,29 @@ class PhotographyController extends Controller
     }
 
     
-    public function exportPdf()
+    public function exportPdf(Request $request, $id)
     {     
+            // $request->session()->put('idiomas', 2);
+            if ($request->session()->has('idiomas')) {
+                $existe = 1;
+            }else{
+                $request->session()->put('idiomas', 1);
+                $existe = 0;
+            }
+            $session = session('idiomas');
+    
+            $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+            $idioma_fotografia = ml_show_fotografia::where('many_lenguages_id',$session)->first();
+            
+
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
-        $pdf = PDF::loadView('admin.photographs.show', compact('photograph'));  
+        $pdf = PDF::loadView('admin.photographs.show', compact('photograph'),[
+            'idioma_doc' => $idioma_doc,
+            'idioma_fotografia' => $idioma_fotografia
+        ]);   
        
-        return $pdf->download('cine.pdf');
+        return $pdf->download('fotografia.pdf'); 
     }
     public function desidherata($id)
     {

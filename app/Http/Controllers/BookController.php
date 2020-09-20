@@ -492,11 +492,27 @@ class BookController extends Controller
     //     $document->delete();     
     // }
 
-    public function exportPdf()
+    public function exportPdf(Request $request, $id)
     {
+          // $request->session()->put('idiomas', 2);
+      if ($request->session()->has('idiomas')) {
+        $existe = 1;
+    }else{
+        $request->session()->put('idiomas', 1);
+        $existe = 0;
+    }
+    $session = session('idiomas');
+
+    $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+    $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
+    
+    
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype','periodical_publication', 'periodical_publication.periodicidad')->first();
 
-        $pdf = PDF::loadView('admin.books.show', compact('book'));  
+        $pdf = PDF::loadView('admin.books.show', compact('book'),[
+            'idioma_doc' => $idioma_doc,
+            'idioma_book' => $idioma_book
+        ]);  
        
         return $pdf->download('libro.pdf');
     }

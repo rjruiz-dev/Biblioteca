@@ -389,13 +389,26 @@ class MoviesController extends Controller
         }
     }
 
-    public function exportPdf($id)
+    public function exportPdf(Request $request, $id)
     {
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_movie = ml_show_movie::where('many_lenguages_id',$session)->first();
+        
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
-
-        $this->authorize('download', $movie);
-
-        $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
+        
+        $pdf = PDF::loadView('admin.movies.show', compact('movie'),[
+            'idioma_doc' => $idioma_doc,
+            'idioma_movie' => $idioma_movie 
+        ]);   
        
         return $pdf->download('cine.pdf');
     }

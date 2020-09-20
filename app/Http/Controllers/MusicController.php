@@ -422,11 +422,25 @@ class MusicController extends Controller
         //
     }
 
-    public function exportPdf()
+    public function exportPdf(Request $request, $id)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+    
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
+    
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
-        $pdf = PDF::loadView('admin.music.show', compact('music'));  
+        $pdf = PDF::loadView('admin.music.show', compact('music'),[
+            'idioma_doc' => $idioma_doc,
+            'idioma_music' => $idioma_music 
+        ]);  
        
         return $pdf->download('musica.pdf');
     }
