@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Setting;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -24,11 +25,14 @@ class AdminController extends Controller
 
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
-    
+        $setting = Setting::where('id', 1)->first();
+
         return view('layouts.dashboard', [
             'idioma'      => $idioma,
-            'idiomas'      => $idiomas
-        ]);         
+            'idiomas'     => $idiomas,
+            'setting'     => $setting
+        ]);   
+     
        
     }
 

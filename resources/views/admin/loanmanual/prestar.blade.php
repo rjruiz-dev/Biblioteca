@@ -20,8 +20,8 @@
                 <h3 class="box-title">Documento: <b>{{ $documento->id }}</h3>                
             </div>       
             <div class="box-body box-profile">
-                <div class="text-center">      
-                    <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$documento->photo) }}"  width="200" height="200">     
+                <div class="text-center"> 
+                    <img class="img-responsive img-thumbnail" src="/images/{{ $documento->photo }}"  alt="{{ $documento->title }}" width="200" height="200">     
                 </div>  
                 <h3 class="profile-username text-center"><strong>{{  $documento->title }}</strong></h3>  
              

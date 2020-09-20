@@ -9,6 +9,7 @@ use App\User;
 use App\Statu;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Setting;
 use DataTables;
 use Carbon\Carbon;
 use App\Providers\UserWasCreated;
@@ -36,10 +37,13 @@ class HomeController extends Controller
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
+        $setting = Setting::where('id', 9)->first();
+        // dd($setting);
         // dd($idioma->navegacion);
         return view('layouts.dashboard', [
             'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idiomas'      => $idiomas,
+            'setting'      => $setting
         ]); 
     }
 

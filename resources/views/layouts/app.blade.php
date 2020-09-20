@@ -71,21 +71,20 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>B</b>O</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span>
-      <img class="profile-user-img img-responsive img-circle" 
-                    src="/images/{{ $setting->logo }}" 
-                    alt="{{ $setting->library_name }}"
-                    width="100px">
+      <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span>  
     </a>
 
     <!-- Header Navbar -->
+   
     <nav class="navbar navbar-static-top" role="navigation">
+   
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
+    
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">

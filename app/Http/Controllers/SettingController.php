@@ -27,10 +27,13 @@ class SettingController extends Controller
 
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
+        $setting = Setting::where('id', 9)->first();
+                             
 
         return view('admin.setting.index', [
             'idioma'     => $idioma,
-            'idiomas'    => $idiomas
+            'idiomas'    => $idiomas,
+            'setting'    => $setting
         ]);
     }
 
@@ -41,11 +44,7 @@ class SettingController extends Controller
      */
     public function create()
     {
-        $setting = new Setting();
-                             
-        return view('admin.setting.index', [   
-            'setting'   => $setting
-        ]);  
+       
     }
 
     /**
@@ -56,10 +55,46 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
+       
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Setting  $setting
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Setting $setting)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Setting  $setting
+     * @return \Illuminate\Http\Response
+     */
+    public function edit()
+    {       
+       
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Setting  $setting
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
         if ($request->ajax()){
             try {
                 //  Transacciones
                 DB::beginTransaction();
+
+                $setting = Setting::findOrFail($id);
 
                 if ($request->hasFile('logo')) {               
 
@@ -68,9 +103,8 @@ class SettingController extends Controller
                     $file->move(public_path().'/images/', $name);   
                 }else{
                     $name = 'library-default.jpg';
-                }               
-             
-                $setting = new Setting;   
+                }           
+              
                 $setting->library_name      = $request->get('library_name');
                 $setting->library_email     = $request->get('library_email');
                 $setting->library_phone     = $request->get('library_phone');
@@ -95,44 +129,6 @@ class SettingController extends Controller
                 DB::rollBack();
             }
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Setting $setting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $setting = Setting::findOrFail($id);
-                             
-        return view('admin.setting.index', [         
-            'setting'      => $setting
-        ]);  
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Setting $setting)
-    {
-        //
     }
 
     /**
