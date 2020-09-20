@@ -29,7 +29,7 @@
     </li>     
 
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->prest_y_dev }}</span>
+        <a href="#"><i class="fa fa-retweet"></i> <span>{{ $idioma->prest_y_dev }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -49,7 +49,7 @@
     </li>
 
     <li class="treeview {{ setActiveRoute(['admin.claimloans.index']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->correspondencia }}</span>
+        <a href="#"><i class="fa fa-envelope"></i> <span>{{ $idioma->correspondencia }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -64,7 +64,7 @@
     </li>     
    
     <li class="treeview {{ setActiveRoute(['admin.users.index','admin.requestsup.index']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->socios }}</span>
+        <a href="#"><i class="fa fa-users"></i> <span>{{ $idioma->socios }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -226,13 +226,13 @@
 
     <li class="{{ setActiveRoute('admin.statistic.index') }}">
         <a href="{{ route('admin.statistic.index') }}">
-            <i class="fa fa-dashboard"></i> <span> {{ $idioma->estadisticas }}</span>
+            <i class="fa fa-bar-chart"></i> <span> {{ $idioma->estadisticas }}</span>
         </a>
     </li>  
 
     <li class="{{ setActiveRoute('admin.manylenguages.index') }}">
         <a href="{{ route('admin.manylenguages.index') }}">
-            <i class="fa fa-pencil"></i> <span> {{ $idioma->gestion_multi_idioma }}</span>
+            <i class="fa fa-globe"></i> <span> {{ $idioma->gestion_multi_idioma }}</span>
         </a>
     </li>
 
