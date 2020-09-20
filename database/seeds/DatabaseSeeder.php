@@ -62,7 +62,9 @@ class DatabaseSeeder extends Seeder
         $this->call(Ml_abm_music_popularTableSeeder::class);  
         $this->call(Ml_abm_multimediaTableSeeder::class);  
         $this->call(Ml_abm_fotografiaTableSeeder::class);  
-        $this->call(Ml_abm_movieTableSeeder::class);  
+        $this->call(Ml_abm_movieTableSeeder::class);
+        $this->call(SettingTableSeeder::class);
+          
         
     }
 }

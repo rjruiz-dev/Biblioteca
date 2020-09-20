@@ -12,15 +12,17 @@
             </div>
             <div class="box-body">
 
-                @if (!$photograph->exists)
-                    @php 
-                        $visible = "display:none"
-                    @endphp
-                @else
-                    @php  
-                        $visible = ""
-                    @endphp
-                @endif
+            @if (!$photograph->exists)
+                @php 
+                    $visible_status_doc = "display:none";
+                    $visible_desidherata = ""; 
+                @endphp
+            @else
+                @php  
+                    $visible_status_doc = "";
+                    $visible_desidherata = "display:none";
+                @endphp
+            @endif       
 
         
 
@@ -101,10 +103,16 @@
                     {!! Form::text('assessment', $photograph->document['assessment'], ['class' => 'form-control', 'id' => 'assessment', 'placeholder' => 'Valoración']) !!}
                 </div>
 
-                <div class="form-group">      
+                <div class="form-group" style="{{{ $visible_desidherata }}}">      
                     {!! Form::label('desidherata', 'Desidherata') !!}                    
-                    {!! Form::checkbox('desidherata', $photograph->document['desidherata'])!!}
-                </div>     
+                    {!! Form::checkbox('desidherata', '1')!!}
+                </div>
+
+                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                    {!! Form::label('status_documents_id', 'Estado') !!}             
+                    {!! Form::select('status_documents_id', $status_documents, $photograph->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}    
+                </div> 
+   
             </div>
         </div>       
     </div>

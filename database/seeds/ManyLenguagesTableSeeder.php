@@ -12,7 +12,7 @@ class ManyLenguagesTableSeeder extends Seeder
     public function run()
     {
         App\ManyLenguages::create([
-            'lenguage_description'      => 'Español',
+            'lenguage_description'  => 'Español',
             'baja'      => 0,
             ]);
     }

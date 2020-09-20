@@ -19,6 +19,7 @@ use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
 use Illuminate\Http\UploadedFile;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -106,7 +107,7 @@ class UserController extends Controller
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
                 $user->email        = $request->get('email');        
-                $user->password     = $request->get('password');
+                $user->password     = $data['password'];
                 $user->gender       = $request->get('gender');  
                 $user->address      = $request->get('address');
                 $user->postcode     = $request->get('postcode');  
@@ -130,7 +131,15 @@ class UserController extends Controller
                 $accion = '';
                    
                 // Enviamos el email
-                UserWasCreated::dispatch($user, $data['password'], $accion);
+                if($request->get('status_id') == 1){  //si esta pendiente 
+                    
+                }else{
+                    $partnerRole = Role::where('id', 3)->first();
+
+                    $user->assignRole($partnerRole);
+
+                    UserWasCreated::dispatch($user, $data['password'], $accion);
+                }
                 
                 DB::commit();
 
