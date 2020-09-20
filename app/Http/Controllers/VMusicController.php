@@ -22,6 +22,9 @@ use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 
+use App\ml_show_doc;
+use App\ml_show_music;
+
 class VMusicController extends Controller
 {
     /**
@@ -76,11 +79,27 @@ class VMusicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+      // $request->session()->put('idiomas', 2);
+      if ($request->session()->has('idiomas')) {
+        $existe = 1;
+    }else{
+        $request->session()->put('idiomas', 1);
+        $existe = 0;
+    }
+    $session = session('idiomas');
+ 
+    $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+    $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
+    
+    $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('web.music.show', compact('music'));
+    return view('web.music.show', compact('music'), [
+        'idioma_doc' => $idioma_doc,
+        'idioma_music' => $idioma_music
+    ]);
+        // return view('web.music.show', compact('music'));
     }
 
     /**

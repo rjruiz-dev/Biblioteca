@@ -20,7 +20,7 @@
 @if ($musica->document['status_documents_id'] != 1)
         @can('status', $musica)
         <a href="{{ $url_reactivar }}" class="btn-reactivar" title="Reactivar: {{ $musica->document->title }}"><i class="fa fa-arrow-up text-green"></i></a> |  
-        @endcan 
+        @endcan  
 @endif 
 @can('download', $musica)
    <a href="{{ $url_print }}" title="Imprimir: {{ $musica->document->title }}"><i class="fa fa-download text-warning"></i></a> 

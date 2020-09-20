@@ -87,7 +87,8 @@ function(){
     Route::get('music/exportpdf/{id}',      'MusicController@exportPdf')->name('musica.pdf');  
     Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
-
+ 
+    Route::get('books/obtener/{id}',                   'BookController@obtener');
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',                   'ClaimLoansController@filtarPorFecha');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');

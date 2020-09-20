@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveMusicalRequest;
 
+use App\ml_show_doc;
+use App\ml_show_music;
+
 class MusicController extends Controller
 {
     /**
@@ -206,11 +209,29 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+         // $request->session()->put('idiomas', 2);
+      if ($request->session()->has('idiomas')) {
+        $existe = 1;
+    }else{
+        $request->session()->put('idiomas', 1);
+        $existe = 0;
+    }
+    $session = session('idiomas');
+
+    $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+    $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
+    
+
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('admin.music.show', compact('music'));
+        return view('admin.music.show', compact('music'), [
+            'idioma_doc' => $idioma_doc,
+            'idioma_music' => $idioma_music
+        ]);
+
+        // return view('admin.music.show', compact('music'));
     }
 
     /**

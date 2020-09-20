@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Music extends Model
 { 
+    protected $table = "music";
+
     protected $fillable = ['documents_id', 'generate_musics_id', 'generate_formats_id', 'sound', 'producer'];
 
     public function document()

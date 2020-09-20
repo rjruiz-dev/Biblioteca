@@ -24,7 +24,7 @@
                         <th>Titulo</th> 
                         <th>Tipo</th>                         
                         <th>Subtipo</th>                        
-                        <!-- <th>Agregado</th>                                 -->
+                        <th>Copias Disponibles</th>                                
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -111,10 +111,11 @@
             columns: [                
                 {data: 'id', name: 'id'},
                 {data: 'title', name: 'title'},               
-                {data: 'tipo_documento', name: 'tipo_documento'}, 
-                {data: 'sub_tipo_documento', name: 'sub_tipo_documento'}, 
+                {data: 'document_description', name: 'document_description'}, 
+                {data: 'subtype_name', name: 'subtype_name'},
+                {data: 'copias', name: 'copias'}, 
                 // {data: 'created_at', name: 'agregado'},                  
-                {data: 'accion', name: 'accion'}                          
+                {data: 'accion', name: 'accion'}                            
             ]
         });
     </script>

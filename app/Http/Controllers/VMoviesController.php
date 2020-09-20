@@ -26,6 +26,9 @@ use App\Http\Requests\SaveMovieRequest;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 
+use App\ml_show_doc;
+use App\ml_show_movie;
+
 class VMoviesController extends Controller
 {
     /**
@@ -80,11 +83,28 @@ class VMoviesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail( $id);
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_movie = ml_show_movie::where('many_lenguages_id',$session)->first();
+        // dd($idioma_movie);
+        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('web.movies.show', compact('movie'));
+        return view('web.movies.show', compact('movie'), [
+            'idioma_doc' => $idioma_doc,
+            'idioma_movie' => $idioma_movie 
+        ]);
+        
+        // return view('web.movies.show', compact('movie'));
     }
 
     /**

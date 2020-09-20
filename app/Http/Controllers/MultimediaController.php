@@ -20,6 +20,9 @@ use App\Http\Requests\SaveMultimediaRequest;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 
+use App\ml_show_doc;
+use App\ml_show_multimedia;
+
 class MultimediaController extends Controller
 {
     /**
@@ -202,11 +205,27 @@ class MultimediaController extends Controller
      * @param  \App\multimedia  $multimedia
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_multimedia = ml_show_multimedia::where('many_lenguages_id',$session)->first();
+        
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('admin.multimedias.show', compact('multimedia'));
+        return view('admin.multimedias.show', compact('multimedia'), [
+            'idioma_doc' => $idioma_doc,
+            'idioma_multimedia' => $idioma_multimedia 
+        ]);
+        
+        // return view('admin.multimedias.show', compact('multimedia'));
     }
 
     /**

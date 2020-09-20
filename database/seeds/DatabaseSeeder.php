@@ -44,5 +44,25 @@ class DatabaseSeeder extends Seeder
         // $this->call(StatusTableSeeder::class);        
         // $this->call(UsersTableSeeder::class);
         $this->call(InfoOfDataBaseTableSeeder::class); 
+        $this->call(ManyLenguagesTableSeeder::class); 
+        $this->call(MultiIdiomasTableSeeder::class);
+        $this->call(Ml_documentsTableSeeder::class); 
+        $this->call(Ml_bookTableSeeder::class); 
+        $this->call(Ml_movieTableSeeder::class);
+        $this->call(Ml_multimediaTableSeeder::class);  
+        $this->call(Ml_fotografiaTableSeeder::class);  
+        $this->call(Ml_musicaTableSeeder::class);  
+        $this->call(Ml_abm_docTableSeeder::class);  
+        $this->call(Ml_abm_bookTableSeeder::class);  
+        $this->call(Ml_abm_book_otrosTableSeeder::class);  
+        $this->call(Ml_abm_book_public_periodTableSeeder::class);  
+        $this->call(Ml_abm_book_litTableSeeder::class);  
+        $this->call(Ml_abm_musicTableSeeder::class);  
+        $this->call(Ml_abm_music_cultaTableSeeder::class);  
+        $this->call(Ml_abm_music_popularTableSeeder::class);  
+        $this->call(Ml_abm_multimediaTableSeeder::class);  
+        $this->call(Ml_abm_fotografiaTableSeeder::class);  
+        $this->call(Ml_abm_movieTableSeeder::class);  
+        
     }
 }
