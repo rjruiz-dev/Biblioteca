@@ -102,42 +102,43 @@ $('body').on('click', '.modal-show', function (event) {
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
 
-            if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
-                //CAMBIO DE LABEL
-                document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
-                document.getElementById("l_generate_books_id").innerHTML = 'Genero';
-                //FORM GROUP MOSTRAR
-                document.getElementById("din_volume_number_date").style.display = "block";
-                document.getElementById("din_periodicities_id").style.display = "block";
-                document.getElementById("din_issn").style.display = "block";
+            // if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+            //     //CAMBIO DE LABEL
+            //     document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
+            //     document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+            //     //FORM GROUP MOSTRAR
+            //     document.getElementById("din_volume_number_date").style.display = "block";
+            //     document.getElementById("din_periodicities_id").style.display = "block";
+            //     document.getElementById("din_issn").style.display = "block";
               
-                //FORM GROUP NO MOSTRAR
-                document.getElementById("din_isbn").style.display = "none";
-                document.getElementById("din_generate_books_id").style.display = "none";
-                document.getElementById("din_third_author_id").style.display = "none";
+            //     //FORM GROUP NO MOSTRAR
+            //     document.getElementById("din_isbn").style.display = "none";
+            //     document.getElementById("din_generate_books_id").style.display = "none";
+            //     document.getElementById("din_third_author_id").style.display = "none";
              
 
-            } else { //si NOO es publ periodica
+            // } else { //si NOO es publ periodica
                 
-                if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
-                //CAMBIO DE LABEL
-                document.getElementById("l_generate_books_id").innerHTML = 'Otros';
-                }else{
-                document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
-                }
+            //     if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
+            //     //CAMBIO DE LABEL
+            //     document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+            //     }else{
+            //     document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
+            //     }
 
-                //CAMBIO DE LABEL
-                document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
-                 //FORM GROUP NO MOSTRAR
-                document.getElementById("din_volume_number_date").style.display = "none";
-                document.getElementById("din_periodicities_id").style.display = "none";
-                document.getElementById("din_issn").style.display = "none";
+            //     //CAMBIO DE LABEL
+            //     document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
+            //      //FORM GROUP NO MOSTRAR
+            //     document.getElementById("din_volume_number_date").style.display = "none";
+            //     document.getElementById("din_periodicities_id").style.display = "none";
+            //     document.getElementById("din_issn").style.display = "none";
                
-                //FORM GROUP MOSTRAR
-                document.getElementById("din_isbn").style.display = "block";
-                document.getElementById("din_generate_books_id").style.display = "block";
-                document.getElementById("din_third_author_id").style.display = "block";
-            }
+            //     //FORM GROUP MOSTRAR
+            //     document.getElementById("din_isbn").style.display = "block";
+            //     document.getElementById("din_generate_books_id").style.display = "block";
+            //     document.getElementById("din_third_author_id").style.display = "block";
+            // }
+            yesnoCheck();
         }
     });
 
@@ -549,9 +550,34 @@ $('body').on('click', '.btn-show', function (event) {
 
 function yesnoCheck() {
     if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+        
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({                    
+            url: '/admin/books/obtener/' + 1,  //este 1 se pasa para q ande el metodo 
+            type: 'GET',
+            data: {            
+                '_token': csrf_token
+            },
+            dataType: 'json',
+            success: function (response) {
+                // acá podés loguear la respuesta del servidor
+                // console.log(response.tema_de_portada);
+
+                document.getElementById("l_subtitle").innerHTML = response.tema_de_portada;
+                document.getElementById("l_generate_books_id").innerHTML = 'Genero';   
+                // le pasás la data a la función que llena los otros inputs
+                // llenarInputs(response);
+            },
+            error: function () { 
+                // console.log(error);
+                alert('Hubo un error obteniendo el detalle de la Compañía!');
+            }
+        })
+        
         //CAMBIO DE LABEL
-        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
-        document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+        // document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
+        // document.getElementById("l_generate_books_id").innerHTML = 'Genero';
         //FORM GROUP MOSTRAR
         document.getElementById("din_volume_number_date").style.display = "block";
         document.getElementById("din_periodicities_id").style.display = "block";

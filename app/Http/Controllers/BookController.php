@@ -24,6 +24,15 @@ use App\Http\Requests\SaveBookRequest;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 
+use App\ml_show_doc;
+use App\ml_show_book;
+
+use App\ml_abm_doc;
+use App\ml_abm_book;
+use App\ml_abm_book_otros;
+use App\ml_abm_book_publ_period;
+use App\ml_abm_book_lit;
+
 
 class BookController extends Controller
 {
@@ -57,11 +66,28 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
         $book = new Book();
-        $document = new Document();       
-                             
+        $document = new Document();   
+        
+        $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_otros = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        // $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+                
+        // dd($idioma_abm_doc->valoración);
+
         return view('admin.books.partials.form', [           
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::all(),
@@ -78,8 +104,13 @@ class BookController extends Controller
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
             'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'book'          => $book,
-            'document'      => $document
-            
+            'document'      => $document,
+
+            'idioma_abm_doc' => $idioma_abm_doc,
+            'idioma_abm_book' => $idioma_abm_book,
+            'idioma_abm_book' => $idioma_abm_book,
+            // 'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
+            'idioma_abm_book_lit' => $idioma_abm_book_lit            
         ]);  
     }
 
@@ -231,11 +262,30 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
+        
+
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad')->findOrFail($id);
      
-        return view('admin.books.show', compact('book'));
+        
+        return view('admin.books.show', compact('book'), [
+            'idioma_doc' => $idioma_doc,
+            'idioma_book' => $idioma_book
+        ]); 
+
+        // return view('admin.books.show', compact('book'));
     }
 
     /**
@@ -249,6 +299,12 @@ class BookController extends Controller
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
         $document = Document::findOrFail($book->documents_id);
 
+        $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_otros = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+             
 
         return view('admin.books.partials.form', [          
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
@@ -266,7 +322,13 @@ class BookController extends Controller
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
             'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'book'          => $book,
-            'document'      => $document
+            'document'      => $document,
+
+            'idioma_abm_doc' => $idioma_abm_doc,
+            'idioma_abm_book' => $idioma_abm_book,
+            'idioma_abm_book' => $idioma_abm_book,
+            'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
+            'idioma_abm_book_lit' => $idioma_abm_book_lit   
           
         ]);    
     }
@@ -474,6 +536,72 @@ class BookController extends Controller
         $document->status_documents_id = 1;
         $document->desidherata = 0;   
         $document->save();
+    }
+
+    public function obtener2(Request $request)
+    {
+
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+        
+        $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+
+        // dd($idioma_abm_book_publ_period);
+
+     
+        if($request->ajax())
+        {
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+
+            return $idioma_abm_book_publ_period->toJson();
+            // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
+
+            // return $count->toJson();
+          
+        }  
+
+        return response()->json(['message' => 'recibimos el request pero no es ajax']);
+    
+    }
+
+    public function obtener(Request $request)
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+        
+        $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+
+        // dd($idioma_abm_book_publ_period);
+
+     
+        if($request->ajax())
+        {
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+
+            return $idioma_abm_book_publ_period->toJson();
+            // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
+
+            // return $count->toJson();
+          
+        }  
+      
+        return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
     }
 
     public function dataTable()

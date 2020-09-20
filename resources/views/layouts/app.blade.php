@@ -69,9 +69,10 @@ desired effect
     <!-- Logo -->
     <a class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>B</b>O</span>
+      <!-- <span class="logo-mini"><b>B</b>O</span> -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span>
+      <!-- <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span> -->
+      <img src="/adminlte/img/user2-160x160.jpg" style="width:20px;" class="img-circle" alt="User Image">              
     </a>
 
     <!-- Header Navbar -->

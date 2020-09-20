@@ -381,21 +381,29 @@ class FastPartnerProcessController extends Controller
     
     public function dataTable2()
     {                    
-        $documentos = Document::with('document_type','document_subtype')       
-        // ->allowed()
-        ->get();
+        // $documentos = Document::with('document_type','document_subtype')       
+        // // ->allowed()
+        // ->get();
+
+         $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
+                        FROM copies c 
+                        LEFT JOIN documents d ON d.id = c.documents_id 
+                        LEFT JOIN document_types dt ON d.document_types_id = dt.id 
+                        LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id 
+                        WHERE c.status_copy_id = 3 OR c.status_copy_id = 6
+                        GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
       
         return dataTables::of($documentos)
-            ->addColumn('tipo_documento', function ($documentos){
-                return $documentos->document_type['document_description']."<br>";            
-            }) 
-            ->addColumn('sub_tipo_documento', function ($documentos){
-                return $documentos->document_subtype['subtype_name'];              
-            })             
+            // ->addColumn('tipo_documento', function ($documentos){
+            //     return $documentos->document_type['document_description']."<br>";            
+            // }) 
+            // ->addColumn('sub_tipo_documento', function ($documentos){
+            //     return $documentos->document_subtype['subtype_name'];              
+            // })             
          
-            ->addColumn('created_at', function ($documentos){
-                return $documentos->created_at->format('d-m-y');
-            })                 
+            // ->addColumn('created_at', function ($documentos){
+            //     return $documentos->created_at->format('d-m-y');
+            // })                 
             
             ->addColumn('accion', function ($documentos) {
                 return view('admin.fastprocess.partials._action2', [
@@ -406,7 +414,7 @@ class FastPartnerProcessController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['tipo_documento', 'sub_tipo_documento', 'created_at', 'accion']) 
+            ->rawColumns(['accion']) 
             ->make(true);  
     }
 }

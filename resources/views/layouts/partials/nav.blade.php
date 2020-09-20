@@ -9,7 +9,7 @@
     </li>    
 
     <li class="treeview {{ setActiveRoute(['admin.requests.index','admin.loanmanual.index', ]) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Gestión</span>
+        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->gestion }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -17,19 +17,19 @@
         <ul class="treeview-menu">     
             <li class="{{ setActiveRoute('admin.requests.index') }}">
                 <a href="{{ route('admin.requests.index') }}">
-                    <i class="fa fa-globe"></i> <span>Prestamos desde la Web</span>
+                    <i class="fa fa-globe"></i> <span>{{ $idioma->prestamos_web }}</span>
                 </a>
             </li>        
             <li class="{{ setActiveRoute('admin.loanmanual.index') }}">
                 <a href="{{ route('admin.loanmanual.index') }}">
-                    <i class="fa fa-hand-o-right"></i> <span>Prestamos Manuales</span>
+                    <i class="fa fa-hand-o-right"></i> <span>{{ $idioma->prestamos_manuales }}</span>
                 </a>
             </li>           
         </ul>
     </li>     
 
     <li class="treeview {{ setActiveRoute(['admin.fastprocess.index', 'fastprocess.index2']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Prestamos y Devoluciónes</span>
+        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->prest_y_dev }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -37,19 +37,19 @@
         <ul class="treeview-menu">             
             <li class="{{ setActiveRoute('admin.fastprocess.index') }}">
                 <a href="{{ route('admin.fastprocess.index') }}">
-                    <i class="fa fa-users"></i><span>Por Socios</span>
+                    <i class="fa fa-users"></i><span>{{ $idioma->pyd_por_socio }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('fastprocess.index2') }}">
                 <a href="{{ route('fastprocess.index2') }}">
-                    <i class="fa fa-folder-open"></i><span>Por Documentos</span>
+                    <i class="fa fa-folder-open"></i><span>{{ $idioma->pyd_por_doc }}</span>
                 </a>
             </li>                                     
         </ul>
     </li>
 
     <li class="treeview {{ setActiveRoute(['admin.claimloans.index']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Correspondencia</span>
+        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->correspondencia }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -57,14 +57,14 @@
         <ul class="treeview-menu">     
             <li class="{{ setActiveRoute('admin.claimloans.index') }}">
                 <a href="{{ route('admin.claimloans.index') }}">
-                    <i class="fa fa-warning"></i> <span>Reclamar Prestamos</span>
+                    <i class="fa fa-warning"></i> <span>{{ $idioma->reclamar_prestamos }}</span>
                 </a>
             </li>          
         </ul>
     </li>     
    
     <li class="treeview {{ setActiveRoute(['admin.users.index','admin.requestsup.index']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Socios</span>
+        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->socios }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -72,12 +72,12 @@
         <ul class="treeview-menu">     
             <li class="{{ setActiveRoute('admin.users.index') }}">
                 <a href="{{ route('admin.users.index') }}">
-                    <i class="fa fa-user"></i><span> Alta manual de socios</span>
+                    <i class="fa fa-user"></i><span> {{ $idioma->socios_alta_manual }}</span>
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.requestsup.index') }}">
                 <a href="{{ route('admin.requestsup.index') }}">
-                    <i class="fa fa-inbox"></i> <span>Solicitudes desde la Web</span>
+                    <i class="fa fa-inbox"></i> <span>{{ $idioma->socios_solicitudes }}</span>
                 </a>
             </li>          
         </ul>
@@ -88,7 +88,7 @@
                                             'admin.music.index', 'admin.photographs.index',
                                             'admin.multimedias.index','admin.importfromrebeca.index'                                           
                                         ]) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Catálogo</span>
+        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->catalogo }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -121,7 +121,7 @@
             </li>  
             <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
                 <a href="{{ route('admin.importfromrebeca.index') }}">
-                    <i class="fa fa-share-square-o"></i> <span>Importar REBECA</span>
+                    <i class="fa fa-share-square-o"></i> <span>{{ $idioma->importar_rebeca }}</span>
                 </a>
             </li>                   
         </ul>
@@ -135,7 +135,7 @@
                                             'admin.courses.index', 'admin.subjects.index',
                                             'admin.letters.index'
                                         ]) }}">                
-        <a href="#"><i class="fa fa-wrench"></i> <span>Mantenimiento</span>
+        <a href="#"><i class="fa fa-wrench"></i> <span>{{ $idioma->mantenimiento }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -143,64 +143,64 @@
         <ul class="treeview-menu"> 
             <li class="{{ setActiveRoute('admin.courses.index') }}">
                 <a href="{{ route('admin.courses.index') }}">
-                    <i class="fa fa-check-square"></i><span> Cursos</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_cursos }}</span>
                 </a>
             </li>   
             <li class="{{ setActiveRoute('admin.references.index') }}">
                 <a href="{{ route('admin.references.index') }}">
-                    <i class="fa fa-check-square"></i><span> Maestros de Referencias</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_maestros }}</span>
                 </a>
             </li>             
             <li class="{{ setActiveRoute('admin.formats.index') }}">
                 <a href="{{ route('admin.formats.index') }}">
-                    <i class="fa fa-check-square"></i><span> Formatos Gráficos</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_formatos }}</span>
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.languages.index') }}">
                 <a href="{{ route('admin.languages.index') }}">
-                    <i class="fa fa-check-square"></i><span> idioma</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_idiomas }}</span>
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.periodicals.index') }}">
                 <a href="{{ route('admin.periodicals.index') }}">
-                    <i class="fa fa-check-square"></i><span> Publicaciónes Periodicas</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_public_period }}</span>
                 </a>
             </li> 
             <li class="{{ setActiveRoute('admin.literatures.index') }}">
                 <a href="{{ route('admin.literatures.index') }}">
-                    <i class="fa fa-check-square"></i><span> Géneros Literarios</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_generos_lit }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.musicals.index') }}">
                 <a href="{{ route('admin.musicals.index') }}">
-                    <i class="fa fa-check-square"></i><span> Géneros Musicales</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_generos_musicales }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.cinematographics.index') }}">
                 <a href="{{ route('admin.cinematographics.index') }}">
-                    <i class="fa fa-check-square"></i><span> Géneros Cinematográficos</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_generos_cinemato }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.adequacies.index') }}">
                 <a href="{{ route('admin.adequacies.index') }}">
-                    <i class="fa fa-check-square"></i><span> Personas Adecuadas</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_personas_adecuadas }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.subjects.index') }}">
                 <a href="{{ route('admin.subjects.index') }}">
-                    <i class="fa fa-check-square"></i><span> Materias</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_materias }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.letters.index') }}">
                 <a href="{{ route('admin.letters.index') }}">
-                    <i class="fa fa-check-square"></i><span> Modelos de Cartas</span>
+                    <i class="fa fa-check-square"></i><span> {{ $idioma->mant_modelos_carta }}</span>
                 </a>
             </li>
         </ul>
     </li>
 
     <li class="treeview {{ setActiveRoute(['admin.loansbydate.index','admin.loansbyclassroom.index', 'admin.infoofdatabase.index']) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>Listados</span>
+        <a href="#"><i class="fa fa-list"></i> <span> {{ $idioma->listados }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -208,17 +208,17 @@
         <ul class="treeview-menu">     
             <li class="{{ setActiveRoute('admin.loansbydate.index') }}">
                 <a href="{{ route('admin.loansbydate.index') }}">
-                    <i class="fa fa-calendar"></i> <span>Prestamos por Fecha</span>
+                    <i class="fa fa-calendar"></i> <span> {{ $idioma->prestamos_por_fecha }}</span>
                 </a>
             </li>      
             <li class="{{ setActiveRoute('admin.loansbyclassroom.index') }}">
                 <a href="{{ route('admin.loansbyclassroom.index') }}">
-                    <i class="fa fa-search"></i> <span>Prestamos por Aula</span>
+                    <i class="fa fa-search"></i> <span> {{ $idioma->prestamos_por_aula }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.infoofdatabase.index') }}">
                 <a href="{{ route('admin.infoofdatabase.index') }}">
-                    <i class="fa fa-database"></i> <span>Registros Base de Datos</span>
+                    <i class="fa fa-database"></i> <span> {{ $idioma->registros_db }}</span>
                 </a>
             </li>             
         </ul>
@@ -226,13 +226,13 @@
 
     <li class="{{ setActiveRoute('admin.statistic.index') }}">
         <a href="{{ route('admin.statistic.index') }}">
-            <i class="fa fa-dashboard"></i> <span>Estadisticas</span>
+            <i class="fa fa-dashboard"></i> <span> {{ $idioma->estadisticas }}</span>
         </a>
     </li>  
 
     <li class="{{ setActiveRoute('admin.manylenguages.index') }}">
         <a href="{{ route('admin.manylenguages.index') }}">
-            <i class="fa fa-pencil"></i> <span>Gestion Multi-Idiomas</span>
+            <i class="fa fa-pencil"></i> <span> {{ $idioma->gestion_multi_idioma }}</span>
         </a>
     </li>
       
@@ -302,7 +302,7 @@
                 <i class="fa fa-photo"></i><span>{{ $idioma->fotografia }}</span> 
             </a>
         </li> 
-        <li class="{{ setActiveRoute('web.multimedia.index') }}">
+        <li class="{{ setActiveRoute('web.multimedia.index') }}"> 
             <a href="{{ route('web.multimedia.index') }}">
                 <i class="fa fa-youtube-play"></i><span>{{ $idioma->multimedia }}</span> 
             </a>

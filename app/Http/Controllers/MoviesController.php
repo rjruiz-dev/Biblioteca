@@ -28,6 +28,9 @@ use App\Ml_document;
 use App\Ml_movie;
 use App\ManyLenguages;
 
+use App\ml_show_doc;
+use App\ml_show_movie;
+
 class MoviesController extends Controller
 {
     /**
@@ -203,13 +206,31 @@ class MoviesController extends Controller
      * @param  \App\movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_movie = ml_show_movie::where('many_lenguages_id',$session)->first();
       
+
+        $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+    
         $this->authorize('view', $movie);
 
-        return view('admin.movies.show', compact('movie'));
+        return view('admin.movies.show', compact('movie'), [
+            'idioma_doc' => $idioma_doc,
+            'idioma_movie' => $idioma_movie 
+        ]);
+
+        // return view('admin.movies.show', compact('movie'));
     }
 
     /**

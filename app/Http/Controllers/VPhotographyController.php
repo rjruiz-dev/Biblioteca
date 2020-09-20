@@ -19,6 +19,9 @@ use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 
+use App\ml_show_doc;
+use App\ml_show_fotografia;
+
 
 class VPhotographyController extends Controller
 {
@@ -74,11 +77,28 @@ class VPhotographyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {        
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_fotografia = ml_show_fotografia::where('many_lenguages_id',$session)->first();
+        
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        return view('web.photographs.show', compact('photograph'));
+        return view('web.photographs.show', compact('photograph'), [
+            'idioma_doc' => $idioma_doc,
+            'idioma_fotografia' => $idioma_fotografia
+        ]);
+ 
+        // return view('web.photographs.show', compact('photograph'));
     }
 
     /**
