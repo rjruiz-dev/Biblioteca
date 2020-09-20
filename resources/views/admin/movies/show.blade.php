@@ -1,23 +1,29 @@
 <div class="row">
-    <div  class="col-md-12">
-        <nav class="navbar navbar-default navbar-dark ">
-            <div class="container-fluid">               
-           
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                     
-                        <li><a href="#">{{ $movie->document->let_author }}</a></li>   
-                        <li><a href="#">{{ $movie->document->let_title }}</a></li>                        
-                        <li><a href="#">{{ $movie->document->subjects->cdu }}</a></li>                        
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li> 
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                </div>
+  
+    <div class="container-fluid"> 
+        <div class="row col-md-12" >
+            <div class="col-md-3">
+                <strong> Siglas Autor:</strong>
+                    <b class="tex-muted"><a>{{ $movie->document->let_author }}</a> </b>
+                <hr>
             </div>
-        </nav>
+            <div class="col-md-3">
+                <strong> Siglas Título:</strong>
+                    <b class="text-muted"><a>{{ $movie->document->let_title }}</a></b>
+                <hr>
+            </div>
+            <div class="col-md-3">
+                <strong> Cdu:</strong>
+                    <b class="text-muted"></a>{{ $movie->document->subjects->cdu }}</a></b>
+                <hr>
+            </div>
+            <div class="col-md-3">
+                    <b class="text-muted"></a>{{ $movie->document->id }}</a></b>
+                <hr>
+            </div>
+        </div>   
     </div>
+     
     <div class="col-md-6">    
         <div class="box box-primary">
             <div class="box-header with-border">

@@ -46,6 +46,8 @@ class PhotographyController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
 
+        $this->authorize('view', new Photography); 
+
         return view('admin.photographs.index', [
             'idioma'      => $idioma,
             'idiomas'      => $idiomas
@@ -60,7 +62,9 @@ class PhotographyController extends Controller
     public function create()
     {
         $photograph = new Photography();
-        $document = new Document();                  
+        $document = new Document();    
+        
+        $this->authorize('create', $photograph); 
                               
         return view('admin.photographs.partials.form', [
           
@@ -94,6 +98,7 @@ class PhotographyController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                               
+                $this->authorize('create', new Photography);
                 // Creamos el documento            
                 $document = new Document;
                 $document->document_types_id    = 5; // 3 tipo de documento: cine.
@@ -225,6 +230,8 @@ class PhotographyController extends Controller
         
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $this->authorize('view', $photograph);
+
         return view('admin.photographs.show', compact('photograph'), [
             'idioma_doc' => $idioma_doc,
             'idioma_fotografia' => $idioma_fotografia
@@ -243,7 +250,9 @@ class PhotographyController extends Controller
     { 
         $photograph = Photography::with('document')->findOrFail($id);   
         $document = Document::findOrFail($photograph->documents_id);    
-                              
+             
+        $this->authorize('update', $photograph);
+
         return view('admin.photographs.partials.form', [            
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'publications'  => Document::pluck('published', 'published'),          
@@ -278,6 +287,8 @@ class PhotographyController extends Controller
                 $photograph = Photography::findOrFail($id);
                 $document   = Document::findOrFail($photograph->documents_id);
                 
+                $this->authorize('update', $photograph);
+
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
                 $document->title                = $request->get('title');
                 

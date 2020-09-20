@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use App\Movies;
+use App\Document;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MoviesPolicy

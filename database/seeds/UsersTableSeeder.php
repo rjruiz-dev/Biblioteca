@@ -83,6 +83,11 @@ class UsersTableSeeder extends Seeder
         $admin->save();
 
         $admin->assignRole($adminRole);
+        $admin->givePermissionTo([$viewMoviesPermission,$createMoviesPermission,
+                                    $updateMoviesPermission,$deleteMoviesPermission, 
+                                    $copyMoviesPermission, $statusMoviesPermission,
+                                    $desidherataMoviesPermission, $downloadMoviesLoanButtonPermission
+                                ]);
         
         $librarian = new User;
         $librarian->name = 'Luis';

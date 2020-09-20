@@ -44,6 +44,8 @@ class MultimediaController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
 
+        $this->authorize('view', new Multimedia);
+
         return view('admin.multimedias.index', [
             'idioma'      => $idioma,
             'idiomas'      => $idiomas
@@ -58,7 +60,9 @@ class MultimediaController extends Controller
     public function create()
     {
         $multimedia = new Multimedia();    
-        $document = new Document();              
+        $document = new Document();  
+        
+        $this->authorize('create', $multimedia); 
                               
         return view('admin.multimedias.partials.form', [   
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
@@ -90,6 +94,7 @@ class MultimediaController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                               
+                $this->authorize('create', new Multimedia);
                 // Creamos el documento            
                 $document = new Document;
                 $document->document_types_id    = 4; // 4 tipo de documento: multimedia.
@@ -220,6 +225,8 @@ class MultimediaController extends Controller
         
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $this->authorize('view', $multimedia);
+
         return view('admin.multimedias.show', compact('multimedia'), [
             'idioma_doc' => $idioma_doc,
             'idioma_multimedia' => $idioma_multimedia 
@@ -239,7 +246,9 @@ class MultimediaController extends Controller
         // $multimedia = new Multimedia();  
         $multimedia = Multimedia::with('document')->findOrFail($id);
         $document   = Document::findOrFail($multimedia->documents_id);      
-                              
+                 
+        $this->authorize('update', $multimedia);
+
         return view('admin.multimedias.partials.form', [
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::all(),     
@@ -274,6 +283,8 @@ class MultimediaController extends Controller
                 $multimedia = Multimedia::findOrFail($id);
                 $document   = Document::findOrFail($multimedia->documents_id);
                 
+                $this->authorize('update', $multimedia);  
+
                 $document->title = $request->get('title');
               
                 if( is_numeric($request->get('creators_id'))) 

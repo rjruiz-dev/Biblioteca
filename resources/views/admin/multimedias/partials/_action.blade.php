@@ -4,24 +4,24 @@
 @can('update', $multimedia)
    <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar: {{ $multimedia->document->title }}"><i class="fa fa-edit text-success btn-btn-edit-user"></i></a> | 
 @endcan
-@can('copy', $multimedia)
+@if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
    <a href="{{ $url_copy }}" class="btn-copy" title="Ver Ejemplares: {{ $multimedia->document->title }}"><i class="fa fa-copy text-danger"></i></a> |
-@endcan
+@endif
 @if ($multimedia->document['status_documents_id'] != 3)
-        @can('copy', $multimedia)    
+   @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
         <a href="{{ $url_desidherata }}" class="btn-desidherata" title="Desidherata: {{ $multimedia->document->title }}"><i class="fa fa-pause-circle text-info"></i></a> | 
-        @endcan
+   @endif
 @endif
 @if ($multimedia->document['status_documents_id'] != 2)
-        @can('status', $multimedia)
+   @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
         <a href="{{ $url_baja }}" class="btn-baja" title="Baja: {{ $multimedia->document->title }}"><i class="fa fa-arrow-down text-danger"></i></a> |  
-        @endcan     
+   @endif     
 @endif 
 @if ($multimedia->document['status_documents_id'] != 1)
-        @can('status', $multimedia)
+   @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
         <a href="{{ $url_reactivar }}" class="btn-reactivar" title="Reactivar: {{ $multimedia->document->title }}"><i class="fa fa-arrow-up text-green"></i></a> |  
-        @endcan 
+   @endif 
 @endif 
-@can('download', $multimedia)
+@if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
    <a href="{{ $url_print }}" title="Imprimir: {{ $multimedia->document->title }}"><i class="fa fa-download text-warning"></i></a> 
-@endcan 
+@endif 

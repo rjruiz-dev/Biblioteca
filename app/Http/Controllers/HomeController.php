@@ -13,6 +13,7 @@ use App\Setting;
 use DataTables;
 use Carbon\Carbon;
 use App\Providers\UserWasCreated;
+use App\Providers\Requests;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveRegistryRequest;
 use Illuminate\Support\Facades\Storage;
@@ -118,9 +119,10 @@ class HomeController extends Controller
                 // $user->user_photo   = $name;    
                 $user->save();
 
-                 
+                $mensaje = 1;
+                
                 // Enviamos el email
-                // UserWasCreated::dispatch($user, $data['password']);
+                Requests::dispatch($user, $mensaje);
 
                 DB::commit();
 

@@ -10,6 +10,7 @@ use DataTables;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Providers\UserWasCreated;
+use App\Providers\Requests;
 use App\Providers\LoanClamin;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
@@ -129,10 +130,13 @@ class UserController extends Controller
                 $mov_user->save();
 
                 $accion = '';
+                $mensaje = 1;
                    
                 // Enviamos el email
-                if($request->get('status_id') == 1){  //si esta pendiente 
-                    
+                if($request->get('status_id') == 1){  //si esta pendiente
+
+                    Requests::dispatch($user, $mensaje);
+
                 }else{
                     $partnerRole = Role::where('id', 3)->first();
 

@@ -49,6 +49,8 @@ class MusicController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
 
+        $this->authorize('view', new Music);
+
         return view('admin.music.index', [
             'idioma'      => $idioma,
             'idiomas'      => $idiomas
@@ -64,6 +66,8 @@ class MusicController extends Controller
     {
         $music = new Music();    
         $document = new Document();      
+
+        $this->authorize('create', $music);     
                               
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
@@ -97,6 +101,8 @@ class MusicController extends Controller
             try {
                 //  Transacciones
                 DB::beginTransaction();
+
+                $this->authorize('create', new Music);
                               
                 // Creamos el documento            
                 $document = new Document;              
@@ -226,6 +232,8 @@ class MusicController extends Controller
 
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $this->authorize('view', $music);
+
         return view('admin.music.show', compact('music'), [
             'idioma_doc' => $idioma_doc,
             'idioma_music' => $idioma_music
@@ -244,7 +252,9 @@ class MusicController extends Controller
     {
         $musics = Music::with('document', 'generate_music')->findOrFail($id);
         $document = Document::findOrFail($musics->documents_id);   
-                               
+                      
+        $this->authorize('update', $music);
+
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
             'references'    => Generate_reference::all(),            
@@ -281,6 +291,8 @@ class MusicController extends Controller
 
                 $music = Music::findOrFail($id);
                 $document = Document::findOrFail($music->documents_id);
+                
+                $this->authorize('update', $music);             
                 // Actualizamos el documento
                 $subtypes_id = $document->document_subtypes_id;
 

@@ -351,7 +351,7 @@ class FastPartnerProcessController extends Controller
 
     public function dataTable()
     {                    
-        $usuarios = User::with('statu')->where('status_id', 1)      
+        $usuarios = User::with('statu')->where('status_id', 3)      
         // ->allowed()
         ->get();
       

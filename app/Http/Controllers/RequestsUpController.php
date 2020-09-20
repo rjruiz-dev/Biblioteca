@@ -8,6 +8,7 @@ use App\User;
 use App\Statu;
 use DataTables;
 use Carbon\Carbon;
+use App\Providers\Requests;
 use App\Providers\UserWasCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
@@ -96,6 +97,10 @@ class RequestsUpController extends Controller
         $user = User::findOrFail($id);
         $user->status_id = 2; // RECHAZADO VA AQUEDAR EN ESE ESTADO
         $user->save();
+
+        $mensaje = 0;
+        
+        Requests::dispatch($user, $mensaje);
     }
 
     /**

@@ -393,17 +393,14 @@ class MoviesController extends Controller
     {
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
 
-        $this->authorize('download', $movie);
-
         $pdf = PDF::loadView('admin.movies.show', compact('movie'));  
        
         return $pdf->download('cine.pdf');
     }
+
     public function desidherata($id)
     {
-        $document = Document::findOrFail($id);
-
-        $this->authorize('desidherata', $document);
+        $document = Document::findOrFail($id);    
 
         $document->status_documents_id = 3;
         $document->desidherata = 1;    
@@ -415,8 +412,6 @@ class MoviesController extends Controller
     {
         $document = Document::findOrFail($id);
 
-        $this->authorize('status', $movie);
-
         $document->status_documents_id = 2;
         $document->desidherata = 0;   
         $document->save();
@@ -425,8 +420,6 @@ class MoviesController extends Controller
     public function copy($id)
     {        
         $document = Document::findOrFail($id);
-
-        $this->authorize('copy', $movie);
 
         if($document->status_documents_id == 2){
             return response()->json(['data' => 0]);      
@@ -438,8 +431,7 @@ class MoviesController extends Controller
     public function reactivar($id)
     {
         $document = Document::findOrFail($id);
-
-        $this->authorize('status', $document);
+     
         // dd($document);
         $document->status_documents_id = 1;
         $document->desidherata = 0;   

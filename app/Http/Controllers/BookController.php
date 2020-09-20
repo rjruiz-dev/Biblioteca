@@ -55,6 +55,8 @@ class BookController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
 
+        $this->authorize('view', new Book); 
+
         return view('admin.books.index', [
             'idioma'      => $idioma,
             'idiomas'      => $idiomas
@@ -78,7 +80,9 @@ class BookController extends Controller
         $session = session('idiomas');
 
         $book = new Book();
-        $document = new Document();   
+        $document = new Document(); 
+        
+        $this->authorize('create', $book);  
         
         $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
         $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
@@ -126,6 +130,8 @@ class BookController extends Controller
             try {
                 //  Transacciones
                 DB::beginTransaction();
+
+                $this->authorize('create', new Book);
                 
                 if ($request->hasFile('photo')) {               
 
@@ -274,7 +280,8 @@ class BookController extends Controller
 
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad')->findOrFail($id);
      
-        
+        $this->authorize('view', $book);
+
         return view('admin.books.show', compact('book'), [
             'idioma_doc' => $idioma_doc,
             'idioma_book' => $idioma_book
@@ -293,6 +300,8 @@ class BookController extends Controller
     {
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
         $document = Document::findOrFail($book->documents_id);
+
+        $this->authorize('update', $book);
 
         $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
         $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
@@ -342,9 +351,10 @@ class BookController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                             
-                $book = Book::findOrFail($id);
-                
+                $book = Book::findOrFail($id);                
                 $document = Document::findOrFail($book->documents_id);
+                
+                $this->authorize('update', $book); 
                 // Actualizamos el documento   
                 if( is_numeric($request->get('creators_id'))) 
                 {                

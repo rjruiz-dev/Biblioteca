@@ -193,7 +193,7 @@ desired effect
                 <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-             
+               
                 <small>Desde {{ Auth::user() != null ? Auth::user()->created_at->format('d/M/Y') : 'No logueado' }}</small>
                 </p>
               </li>
@@ -239,7 +239,7 @@ desired effect
               <!-- The user image in the navbar-->
               <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ $idioma->iniciar_sesion }}</span>
+              <span>{{ $idioma->iniciar_sesion }}</span>
               
             </a>
             </li>
@@ -250,7 +250,7 @@ desired effect
               <!-- The user image in the navbar-->
               <!-- <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ $idioma->registrarse }}</span>
+              <span>{{ $idioma->registrarse }}</span>
               
             </a>
             </li>
