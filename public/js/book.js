@@ -16,6 +16,7 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);           
 
             $('#document_subtypes_id').select2({
+                dropdownParent: $('#modal'),
                 placeholder: 'Selecciona un subtipo de Documento'                       
             });
             $('#periodicities_id').select2({
@@ -36,6 +37,7 @@ $('body').on('click', '.modal-show', function (event) {
             });
           
             $('#creators_id').select2({
+                dropdownParent: $('#modal'),
                 placeholder: 'Seleccione o Ingrese Autor',
                 tags: true,               
             });
@@ -551,29 +553,7 @@ $('body').on('click', '.btn-show', function (event) {
 function yesnoCheck() {
     if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
         
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-        $.ajax({                    
-            url: '/admin/books/obtener/' + 1,  //este 1 se pasa para q ande el metodo 
-            type: 'GET',
-            data: {            
-                '_token': csrf_token
-            },
-            dataType: 'json',
-            success: function (response) {
-                // acá podés loguear la respuesta del servidor
-                // console.log(response.tema_de_portada);
-
-                document.getElementById("l_subtitle").innerHTML = response.tema_de_portada;
-                document.getElementById("l_generate_books_id").innerHTML = 'Genero';   
-                // le pasás la data a la función que llena los otros inputs
-                // llenarInputs(response);
-            },
-            error: function () { 
-                // console.log(error);
-                alert('Hubo un error obteniendo el detalle de la Compañía!');
-            }
-        })
+        obtenercamposdinamicos(1); //publ periodica
         
         //CAMBIO DE LABEL
         // document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
@@ -589,15 +569,17 @@ function yesnoCheck() {
 
     } else { //si NOO es publ periodica
         
-        if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
-        //CAMBIO DE LABEL
-        document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+        if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS   
+            obtenercamposdinamicos(2); //otros
+            //CAMBIO DE LABEL
+        // document.getElementById("l_generate_books_id").innerHTML = 'Otros';
         }else{
-        document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
+            obtenercamposdinamicos(3); //literatura 
+        // document.getElementById("l_generate_books_id").innerHTML = 'Genero'; 
         }
-
+        obtenercamposdinamicos(4); // NO PUBLICACION PERIODICA(OTROS O LITERATURA) 
         //CAMBIO DE LABEL
-        document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
+        // document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
          //FORM GROUP NO MOSTRAR
         document.getElementById("din_volume_number_date").style.display = "none";
         document.getElementById("din_periodicities_id").style.display = "none";
@@ -609,6 +591,50 @@ function yesnoCheck() {
     }
 
 }
+        function obtenercamposdinamicos(accion) 
+        {
+
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({                    
+                url: '/admin/books/obtener/' + accion,  //este 1 se pasa para q ande el metodo 
+                type: 'GET',
+                data: {            
+                    '_token': csrf_token
+                },
+                dataType: 'json',
+                success: function (response) {
+                    
+                    if(accion == 1){ // publicacion periodica                   
+                        document.getElementById("l_subtitle").innerHTML = response.tema_de_portada;
+                        $('#subtitle').attr('placeholder',response.tema_de_portada);
+                    }
+
+                    if(accion == 2){ //otros
+                        document.getElementById("l_generate_books_id").innerHTML = response.otros;
+                        $('#generate_books_id').select2({
+                            placeholder: response.otros,                            
+                        });
+                    }
+
+                    if(accion == 3){ //literatura 
+                        document.getElementById("l_generate_books_id").innerHTML = response.genero;
+                        $('#generate_books_id').select2({
+                            placeholder: response.genero,                            
+                        }); 
+                    } 
+                    if(accion == 4){ // NO PUBLICACION PERIODICA(OTROS O LITERATURA)
+                    document.getElementById("l_subtitle").innerHTML = response.subtitulo;
+                    $('#subtitle').attr('placeholder',response.subtitulo);
+                    }
+
+                },
+                error: function () { 
+                    // console.log(error);
+                    alert('Hubo un error obteniendo los datos de la traduccion');
+                }
+            })
+        }
 
 
 

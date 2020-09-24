@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">              
                     {!! Form::label('subtitle', 'Subtitulo', ['id' => 'l_subtitle']) !!}                  
-                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Tema de Portada']) !!}
+                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtitulo']) !!}
                 </div>
                 <!-- pub periodica -->
                 <div class="form-group" id="din_volume_number_date">               

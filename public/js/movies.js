@@ -86,6 +86,7 @@ $('body').on('click', '.modal-show', function (event) {
                 tags: true,               
             });
             $('#creators_id').select2({
+                dropdownParent: $('#modal'),
                 placeholder: 'Seleccione o Ingrese un Director',
                 tags: true,               
             });

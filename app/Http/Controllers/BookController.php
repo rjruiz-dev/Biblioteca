@@ -296,8 +296,17 @@ class BookController extends Controller
      * @param  \App\book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+        
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
         $document = Document::findOrFail($book->documents_id);
 
@@ -593,7 +602,7 @@ class BookController extends Controller
     
     }
 
-    public function obtener(Request $request)
+    public function obtener(Request $request, $id)
     {
         if ($request->session()->has('idiomas')) {
             $existe = 1;
@@ -602,9 +611,21 @@ class BookController extends Controller
             $existe = 0;
         }
         $session = session('idiomas');
-        
-        $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
 
+        // dd($id);
+        if($id == 1){
+        $respuesta = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        }
+        if($id == 2){
+        $respuesta = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        }
+        if($id == 3){
+        $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+        }
+
+        if($id == 3){
+        $respuesta = ml_abm_book::where('many_lenguages_id',$session)->first();
+        }
         // dd($idioma_abm_book_publ_period);
 
      
@@ -614,8 +635,8 @@ class BookController extends Controller
             //     $partner->toArray(),
             //     $count->toArray()
             // );
-
-            return $idioma_abm_book_publ_period->toJson();
+ 
+            return $respuesta->toJson();
             // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
 
             // return $count->toJson();

@@ -142,7 +142,17 @@ class GenerateReferenceController extends Controller
      */
     public function destroy($id)
     {
-        $var_reference = Document::where('generate_references_id', $id)->get();
+        // $var_reference = DB::select("SELECT * FROM document_generate_reference WHERE generate_reference = ".$id);
+                // $referencias_en_documentos = $referencias_en_documentos_p[0];
+        // dd()
+        $var_reference = Document::with('references')
+        ->whereHas('references', function($q) use ($id)
+        {
+            $q->where('generate_reference_id', '=', $id);
+        
+        })
+        // ->where('generate_references_id', $id)
+        ->get();
       
         if($var_reference->isEmpty())
         {  

@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Course;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Book;
+use App\Book_movement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveCourseRequest;
@@ -145,13 +147,15 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        $genre = Book::where('Courses_id', $id)->get();
+        $genre = Book_movement::where('courses_id', $id)->where('active', 1)->get();
       
         if($genre->isEmpty())
         {  
             $bandera = 1;
             $course = Course::findOrFail($id);
-            $course->delete();
+            $course->baja = 1; // lo pongo en baja
+            $course->save();
+            // $course->delete();
 
         }else{          
             $bandera = 0;            
@@ -176,6 +180,13 @@ class CourseController extends Controller
             })              
             ->addColumn('created_at', function ($cursos){
                 return $cursos->created_at->format('d-m-y');
+            })
+            ->addColumn('estado', function ($cursos){
+                if($cursos->baja == 0){
+                    return 'Activo';
+                }else{
+                    return 'Baja';
+                }
             })                 
             
             ->addColumn('accion', function ($cursos) {
