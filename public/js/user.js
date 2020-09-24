@@ -17,16 +17,19 @@ $('body').on('click', '.modal-show', function (event) {
             
             $('#gender').select2({
                 placeholder: 'Selecciona un Género',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal')              
             });
 
             $('#status_id').select2({
-                placeholder: 'Selecciona un Estado',                                    
+                placeholder: 'Selecciona un Estado',   
+                dropdownParent: $('#modal')                                
             });
 
             $('#province').select2({
-                placeholder: 'Selecciona una Provincia',
-                tags: true,                            
+                placeholder: 'Selecciona o Ingresa una Provincia',
+                tags: true, 
+                dropdownParent: $('#modal')                           
             });
 
             $('#birthdate').datepicker({
@@ -36,7 +39,6 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });   
                    
-                 
         }
     });
 

@@ -17,46 +17,57 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#distribution').select2({
                 placeholder: 'Seleccione o ingrese un reparto',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true  
+                             
             });            
 
             $('#photography_movies_id').select2({
                 placeholder: 'Seleccione una Fotografia',
-                tags: false,               
+                dropdownParent: $('#modal'),
+                tags: false               
             });
 
             $('#generate_formats_id').select2({
                 placeholder: 'Seleccione un Formato',
-                tags: false,               
+                dropdownParent: $('#modal'),
+                tags: false               
             });
 
             $('#generate_movies_id').select2({
                 placeholder: 'Seleccione un Genero',
-                tags: false,               
+                dropdownParent: $('#modal'),
+                tags: false               
             });
 
             $('#adaptation_id').select2({
                 placeholder: 'Tiene adaptacion ?',
-                tags: false,               
+                dropdownParent: $('#modal'),
+                tags: false              
             });
 
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un Tipo de Fotografía'                
+                placeholder: 'Selecciona un Tipo de Fotografía',                
+                dropdownParent: $('#modal')
             });
+            
 
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese un Autor',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true             
             });
 
             $('#second_author_id').select2({
                 placeholder: 'Selecciona o Ingrese Segundo Autor',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true              
             });
 
             $('#third_author_id').select2({
                 placeholder: 'Selecciona o Ingrese Tercer Autor',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true              
             });
             
             $('#acquired').datepicker({
@@ -67,22 +78,29 @@ $('body').on('click', '.modal-show', function (event) {
             });  
             
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación'                
+                placeholder: 'Selecciona una Adecuación',                
+                dropdownParent: $('#modal')
             });
+                
             $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
+                placeholder: 'Selecciona Cdu',                    
+                dropdownParent: $('#modal')
             });
+            
             $('#published').select2({
                 placeholder: 'Selecciona o Ingresa Lugar de Edición',
+                dropdownParent: $('#modal'),
                 tags: true,               
             });
             $('#made_by').select2({
                 placeholder: 'Ingresar el Sello Discográfico',
+                dropdownParent: $('#modal'),
                 tags: true,               
             });
             $('#volume').select2({
                 placeholder: 'Selecciona o Ingresa un Volúmen',              
-                tags: true,                                 
+                dropdownParent: $('#modal'),
+                tags: true                              
             });
             $('#year').datepicker({
                 autoclose: true,              
@@ -98,12 +116,14 @@ $('body').on('click', '.modal-show', function (event) {
            
             // $('#edition').select2({
             //     placeholder: 'Selecciona Número de Edición',
-            //     tags: true,               
+            //     dropdownParent: $('#modal'),
+            //     tags: true            
             // });
 
             // $('#volume').select2({
-            //     placeholder: 'Selecciona un Volúmen',              
-            //     tags: true,                                 
+            //     placeholder: 'Selecciona un Volúmen',   
+            //     dropdownParent: $('#modal'),           
+            //     tags: true                               
             // });
 
             $('#lenguages_id').select2({

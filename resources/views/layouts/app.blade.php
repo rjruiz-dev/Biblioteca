@@ -554,11 +554,13 @@ $('body').on('click', '.modal-show-edicion-perfil', function (event) {
             $('#gender').select2({
                 placeholder: 'Selecciona un Género',
                 tags: true,               
+                dropdownParent: $('#modal')
             });
 
             $('#province').select2({
-                placeholder: 'Selecciona una Provincia',
-                tags: true,                            
+                placeholder: 'Selecciona o Ingresa una Provincia',
+                tags: true,       
+                dropdownParent: $('#modal')                     
             });
 
             $('#datepicker').datepicker({
