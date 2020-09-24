@@ -17,35 +17,37 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma',
-                                 
+                dropdownParent: $('#modal')                                  
             });
 
             $('#generate_references_id').select2({
                 placeholder: 'Selecciona o Ingrese un Referencia',
-               
+                dropdownParent: $('#modal')                 
             });
 
             $('#generate_subjects_id').select2({
                 placeholder: 'Selecciona Cdu',
-                                        
+                dropdownParent: $('#modal')                                         
             });
 
             $('#photography_movies_id').select2({
-                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',                  
-            });
+                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',        
+                dropdownParent: $('#modal')                
+            });            
 
             $('#generate_formats_id').select2({
                 placeholder: 'Seleccione un Formato',
-                             
+                dropdownParent: $('#modal')                              
             });
 
             $('#generate_films_id').select2({
                 placeholder: 'Seleccione un Género',
-                    
+                dropdownParent: $('#modal')                     
             });
 
             $('#actors').select2({
-                tags: true
+                tags: true,
+                dropdownParent: $('#modal')          
             });
 
             $('#references').select2({
@@ -55,32 +57,39 @@ $('body').on('click', '.modal-show', function (event) {
             
             $('#distributor').select2({
                 placeholder: 'Seleccione o Ingrese una Distribuidora',
-                tags: true,               
+                 dropdownParent: $('#modal'),                 
+                 tags: true               
             }); 
 
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',                        
-            });
+                placeholder: 'Selecciona una Adecuación', 
+                dropdownParent: $('#modal')                       
+            });                 
 
             $('#adaptations_id').select2({
                 placeholder: 'Tiene adaptacion ?',
-                tags: false,               
+                dropdownParent: $('#modal'),
+                tags: false               
             });
             $('#published').select2({
                 placeholder: 'Selecciona Nacionalidad',
+                dropdownParent: $('#modal'),                 
                 tags: true,               
             });
             $('#made_by').select2({
                 placeholder: 'Selecciona una Productora',
+                dropdownParent: $('#modal'),                 
                 tags: true,               
             });
             $('#status_copy_id').select2({
                 placeholder: 'Selecciona un estado para la copia',
+                dropdownParent: $('#modal'),
                 tags: false,               
             });
             
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese un Director',
+                dropdownParent: $('#modal'),                 
                 tags: true,               
             });
 
@@ -92,8 +101,9 @@ $('body').on('click', '.modal-show', function (event) {
             });  
 
             $('#generate_films_id').select2({
-                placeholder: 'Selecciona un Género',                   
-            });
+                placeholder: 'Selecciona un Género',
+                dropdownParent: $('#modal')                   
+            });                  
 
             $('#year').datepicker({
                 autoclose: true,            

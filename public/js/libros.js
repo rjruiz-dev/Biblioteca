@@ -16,37 +16,52 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);           
 
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un subtipo de Documento'                       
+                placeholder: 'Selecciona un subtipo de Documento',                       
+                dropdownParent: $('#modal')
             });
+
             $('#periodicities_id').select2({
-                placeholder: 'Selecciona una periodicidad'                                             
+                placeholder: 'Selecciona una periodicidad',                                             
+                dropdownParent: $('#modal')
             });
+
             $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma'                                       
+                placeholder: 'Selecciona un Idioma',                                       
+                dropdownParent: $('#modal')
             });
+
             $('#adequacies_id').select2({
                 placeholder: 'Selecciona una Adecuación',                        
+                dropdownParent: $('#modal')
             });
+
 
             $('#generate_books_id').select2({
                 placeholder: 'Selecciona un Género',                            
+                dropdownParent: $('#modal')
             });
+
             $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
+                placeholder: 'Selecciona Cdu',                    
+                dropdownParent: $('#modal')
             });
+
           
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese Autor',
+                dropdownParent: $('#modal'),
                 tags: true,               
             });
 
             $('#second_author_id').select2({
                 placeholder: 'Seleccione o Ingrese Segundo Autor',
+                dropdownParent: $('#modal'),
                 tags: true,               
             });
 
             $('#third_author_id').select2({
                 placeholder: 'Seleccione o Ingrese Tercer Autor',
+                dropdownParent: $('#modal'),
                 tags: true,               
             });
 
@@ -65,11 +80,13 @@ $('body').on('click', '.modal-show', function (event) {
             }); 
             $('#published').select2({
                 // placeholder: 'Selecciona Lugar de Publicacíon',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true           
             });
             $('#made_by').select2({
                 placeholder: 'Selecciona una Editorial',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true             
             });
 
             $('#year').datepicker({
@@ -81,16 +98,18 @@ $('body').on('click', '.modal-show', function (event) {
             });             
             $('#edition').select2({
                 placeholder: 'Selecciona Número de Edición',
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true             
             });
             $('#volume').select2({
                 placeholder: 'Selecciona un Volúmen',              
-                tags: true,                                 
+                dropdownParent: $('#modal'),
+                tags: true                                
             });
 
             $('#status_documents_id').select2({
-                // placeholder: 'Selecciona un Volúmen',              
-                tags: false,                                 
+                dropdownParent: $('#modal'),              
+                tags: false                                 
             });
 
             $('#references').select2({

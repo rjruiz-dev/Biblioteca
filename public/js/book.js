@@ -16,38 +16,53 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);           
 
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un subtipo de Documento'                       
+                placeholder: 'Selecciona un subtipo de Documento',
+                dropdownParent: $('#modal')                       
             });
-            $('#periodicities_id').select2({
-                placeholder: 'Selecciona una periodicidad'                                             
+            
+           $('#periodicities_id').select2({
+                placeholder: 'Selecciona una periodicidad',
+                dropdownParent: $('#modal')                                             
             });
-            $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma'                                       
+            
+         $('#lenguages_id').select2({
+                placeholder: 'Selecciona un Idioma',
+                dropdownParent: $('#modal'),                                       
             });
-            $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',                        
-            });
-
-            $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',                            
-            });
-            $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
+            
+           $('#adequacies_id').select2({
+                placeholder: 'Selecciona una Adecuación', 
+                dropdownParent: $('#modal')                       
             });
           
+
+            $('#generate_books_id').select2({
+                placeholder: 'Selecciona un Género', 
+                dropdownParent: $('#modal')                             
+            });
+            
+          $('#generate_subjects_id').select2({
+                placeholder: 'Selecciona Cdu',
+                dropdownParent: $('#modal')                   
+            });
+         
+         
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese Autor',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal'),              
             });
 
             $('#second_author_id').select2({
                 placeholder: 'Seleccione o Ingrese Segundo Autor',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal'),              
             });
 
             $('#third_author_id').select2({
                 placeholder: 'Seleccione o Ingrese Tercer Autor',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal'),              
             });
 
             $('#acquired').datepicker({
@@ -57,19 +72,15 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });  
 
-            // $('#drop').datepicker({
-            //     autoclose: true,
-            //     todayHighlight: true,  
-            //     format: 'dd/mm/yyyy',                
-            //     language: 'es'
-            // }); 
             $('#published').select2({
                 placeholder: 'Selecciona Lugar de Publicación',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal'),              
             });
             $('#made_by').select2({
                 placeholder: 'Selecciona una Editorial',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal'),              
             });
 
             $('#year').datepicker({
@@ -81,21 +92,22 @@ $('body').on('click', '.modal-show', function (event) {
             });             
             $('#edition').select2({
                 placeholder: 'Selecciona Número de Edición',
-                tags: true,               
+                tags: true, 
+                dropdownParent: $('#modal'),              
             });
             $('#volume').select2({
                 placeholder: 'Selecciona un Volúmen',              
-                tags: true,                                 
+                tags: true, 
+                dropdownParent: $('#modal'),                                
             });
 
-            $('#status_documents_id').select2({
-                // placeholder: 'Selecciona un Volúmen',              
-                tags: false,                                 
+            $('#status_documents_id').select2({              
+                tags: false,  
+                dropdownParent: $('#modal'),                               
             });
 
             $('#references').select2({
-                tags: false,
-               
+                tags: false,                             
             });
 
       

@@ -19,35 +19,37 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma',
-                                 
+                dropdownParent: $('#modal')      
             });
 
             $('#generate_references_id').select2({
                 placeholder: 'Selecciona o Ingrese un Referencia',
-               
+                dropdownParent: $('#modal') 
             });
 
             $('#generate_subjects_id').select2({
                 placeholder: 'Selecciona Cdu',
-                                        
+                dropdownParent: $('#modal')             
             });
 
             $('#photography_movies_id').select2({
-                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',                  
+                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',
+                dropdownParent: $('#modal')                  
             });
 
             $('#generate_formats_id').select2({
                 placeholder: 'Seleccione un Formato',
-                             
+                dropdownParent: $('#modal')  
             });
 
             $('#generate_films_id').select2({
                 placeholder: 'Seleccione un Género',
-                    
+                dropdownParent: $('#modal') 
             });
 
             $('#actors').select2({
-                tags: true
+                tags: true,
+                dropdownParent: $('#modal') 
             });
 
             $('#references').select2({
@@ -57,37 +59,45 @@ $('body').on('click', '.modal-show', function (event) {
             
             $('#distributor').select2({
                 placeholder: 'Seleccione o Ingrese una Distribuidora',
-                tags: true,               
+                tags: true,
+                dropdownParent: $('#modal')               
             }); 
 
             $('#status_documents_id').select2({
                 // placeholder: 'Seleccione o Ingrese una Distribuidora',
-                tags: false,               
+                tags: false, 
+                dropdownParent: $('#modal')                   
             });
 
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',                        
+                placeholder: 'Selecciona una Adecuación',
+                dropdownParent: $('#modal')                             
             });
 
             $('#adaptations_id').select2({
                 placeholder: 'Tiene adaptacion ?',
+                dropdownParent: $('#modal'),
                 tags: false,               
             });
             $('#published').select2({
                 placeholder: 'Selecciona Nacionalidad',
+                dropdownParent: $('#modal'),     
                 tags: true,               
             });
             $('#made_by').select2({
                 placeholder: 'Selecciona una Productora',
+                dropdownParent: $('#modal'),     
                 tags: true,               
             });
             $('#document_subtypes_id').select2({
                 placeholder: 'Selecciona un subtipo de Documento',
                 tags: true,               
+                dropdownParent: $('#modal')     
             });
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese un Director',
                 tags: true,               
+                dropdownParent: $('#modal')     
             });
 
             $('#acquired').datepicker({
@@ -98,7 +108,8 @@ $('body').on('click', '.modal-show', function (event) {
             });  
 
             $('#generate_films_id').select2({
-                placeholder: 'Selecciona un Género',                   
+                placeholder: 'Selecciona un Género',
+                dropdownParent: $('#modal')                        
             });
 
             $('#year').datepicker({

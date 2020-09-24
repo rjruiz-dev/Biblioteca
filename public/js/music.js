@@ -16,7 +16,8 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);
             
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un Subtipo',                  
+                placeholder: 'Selecciona un Subtipo',
+                dropdownParent: $('#modal')                       
             });
 
             // $('#other_artists').select2({
@@ -25,23 +26,27 @@ $('body').on('click', '.modal-show', function (event) {
             // });
 
             $('#status_documents_id').select2({
-                // placeholder: 'Selecciona un Volúmen',              
+                dropdownParent: $('#modal'),                  
                 tags: false,                                 
             });
 
             $('#sound').select2({
                 placeholder: 'Seleccione una Fotografia',
-                tags: true,               
+                tags: true,  
+                dropdownParent: $('#modal')             
             });
          
             $('#creators_id').select2({
                 placeholder: 'Selecciona o Ingresa un Compositor', 
-                tags: true,               
+                tags: true,
+                dropdownParent: $('#modal')               
             });
 
             $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu'                    
+                placeholder: 'Selecciona Cdu',
+                dropdownParent: $('#modal')                    
             });
+             
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
@@ -55,14 +60,20 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });             
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación'               
+                placeholder: 'Selecciona una Adecuación',
+                dropdownParent: $('#modal')               
             });
+             
             $('#generate_formats_id').select2({
-                placeholder: 'Selecciona un Formato'           
+                placeholder: 'Selecciona un Formato',
+                dropdownParent: $('#modal')           
             });
+             
             $('#generate_musics_id').select2({
-                placeholder: 'Selecciona un Género'
+                placeholder: 'Selecciona un Género',
+                dropdownParent: $('#modal')
             });
+             
             $('#year').datepicker({
                 autoclose: true,              
                 format: "yyyy",
@@ -72,22 +83,27 @@ $('body').on('click', '.modal-show', function (event) {
             });              
             $('#published').select2({
                 placeholder: 'Selecciona o Ingresa Lugar de Edición',
-                tags: true,               
+                tags: true,
+                dropdownParent: $('#modal')               
             });
             $('#volume').select2({
                 placeholder: 'Selecciona un Volúmen',              
-                tags: true,                                 
+                tags: true,    
+                dropdownParent: $('#modal')                             
             });
             $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma'                                    
+                placeholder: 'Selecciona un Idioma',
+                dropdownParent: $('#modal')                                    
             });
+            
             $('#references').select2({
                 tags: false,
                
             });
             $('#made_by').select2({
                 placeholder: 'Ingresar el Sello Discográfico',
-                tags: true,               
+                tags: true,    
+                dropdownParent: $('#modal')           
             });
 
             CKEDITOR.replace('synopsis');
