@@ -37,6 +37,11 @@ $('#modal-btn-save').click(function (event) {
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
+    for(instance in CKEDITOR.instances)
+    {
+        CKEDITOR.instances[instance].updateElement();
+    }
+
     $.ajax({
         url : url,
         method: method,

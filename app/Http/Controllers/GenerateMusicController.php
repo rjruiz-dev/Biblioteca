@@ -10,7 +10,7 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\SaveMusicalRequest;
+use App\Http\Requests\SaveMusicRequest;
 
 class GenerateMusicController extends Controller
 {
@@ -58,7 +58,7 @@ class GenerateMusicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveMusicalRequest $request)
+    public function store(SaveMusicRequest $request)
     {
         if ($request->ajax()){
             try {
@@ -112,7 +112,7 @@ class GenerateMusicController extends Controller
      * @param  \App\Generate_music  $generate_music
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveMusicalRequest $request, $id)
+    public function update(SaveMusicRequest $request, $id)
     {
         if ($request->ajax()){
             try {

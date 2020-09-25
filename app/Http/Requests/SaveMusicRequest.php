@@ -13,7 +13,7 @@ class SaveMusicRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,24 @@ class SaveMusicRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['genre_music']   = 'required|string|unique:generate_musics'. $this->id;
+        }
+
+        return $rules;
+    }
+
+    public function messages()
+    {
         return [
-            //
+            'genre_music.required'  => 'Debe introducir un género.',            
+            'genre_music.unique'    => 'El género musical ya ha sido registrado.'
         ];
     }
 }
