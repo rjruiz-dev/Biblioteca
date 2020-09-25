@@ -23,17 +23,19 @@ class SaveFilmRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'genre_film' => 'required|string|unique:generate_films'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['genre_film']   = 'required|string|unique:generate_films'. $this->id;
+        }
 
-        // if($this->method() !== 'PUT')
-        // {
-            
-        //     $rules ['genre_film'] = 'required|string|unique:generate_films,genre_film' . $this->id;                 
-            
-        // }
-        // return $rules;
+        return $rules;
+
+        
     }
 
     public function messages()

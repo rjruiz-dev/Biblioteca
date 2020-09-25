@@ -23,9 +23,18 @@ class SaveLenguageRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'leguage_description' => 'required|string|unique:lenguages'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['leguage_description']   = 'required|string|unique:lenguages'. $this->id;
+        }
+
+        return $rules;
+        
     }
 
     public function messages()

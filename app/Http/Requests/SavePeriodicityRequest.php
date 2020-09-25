@@ -23,9 +23,18 @@ class SavePeriodicityRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'periodicity_name' => 'required|string|unique:periodicities'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['periodicity_name']   = 'required|string|unique:periodicities'. $this->id;
+        }
+
+        return $rules;
+        
     }
 
     public function messages()

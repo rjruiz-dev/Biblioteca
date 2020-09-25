@@ -40,7 +40,8 @@ class SaveUserRequest extends FormRequest
             $rules ['status_id']    = 'required'. $this->id;
             $rules ['email']        = 'required|string|email|max:255|unique:users,email' . $this->id;
             $rules ['nickname']     = 'required|string|min:3|max:50|unique:users,nickname' . $this->id;                   
-            $rules ['membership']   = 'required|numeric|min:6|max:8|unique:users,membership' . $this->id;           
+            $rules ['membership']   = 'required|numeric|min:1|unique:users,membership' . $this->id;
+            // $rules ['membership']   = 'required|numeric|min:6|max:8|unique:users,membership' . $this->id;           
             
         }
 
@@ -58,8 +59,8 @@ class SaveUserRequest extends FormRequest
 
             'membership.required' => 'Este campo es requerido.',
             'membership.unique'   => 'Este número de socio ya ha sido registrado.',
-            'membership.min'      => 'El número de socio debe contener al menos 6 números.',
-            'membership.max'      => 'El número de socio debe contener un maximo 8 números.',
+            'membership.min'      => 'El número de socio debe contener al menos 1 números.',
+            // 'membership.max'      => 'El número de socio debe contener un maximo 8 números.',
 
             'user_photo.mimes'  => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',            
 

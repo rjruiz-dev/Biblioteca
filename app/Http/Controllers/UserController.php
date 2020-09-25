@@ -57,12 +57,16 @@ class UserController extends Controller
      */
     public function create()
     {   
-        $user = new User();      
+        $user = new User(); 
+        // $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
+        // $num_socio = $sugerido->membership + 1;
+        // dd($num_socio); 
                              
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
-            'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),           
+            'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),   
+            // 'num_socio' => $num_socio,        
             'user'      => $user
         ]);  
     }
@@ -83,7 +87,8 @@ class UserController extends Controller
 
                  // Validar el formulario
                 $data = $request->validate([
-                    'membership'    => 'required|numeric|digits_between:6,8|unique:users,membership',
+                    'membership'   => 'required|numeric|min:1|unique:users,membership', 
+                    // 'membership'    => 'required|numeric|digits_between:6,8|unique:users,membership',
                     'name'          => 'required|string|max:100',
                     'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
                     'email'         => 'required|string|email|max:255|unique:users,email',                     
@@ -241,7 +246,7 @@ class UserController extends Controller
                 $user->city         = $request->get('city');
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');      
-                $user->birthdate    = Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
+                $user->birthdate    =  Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
                 $user->membership   = $request->get('membership');
 
                

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Carbon\Carbon;
+use App\Ml_dashboard;
+use App\ManyLenguages;
 use App\Generate_letter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +18,25 @@ class GenerateLetterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.letters.index');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+
+        return view('admin.letters.index', [
+            'idioma'      => $idioma,
+            'idiomas'      => $idiomas
+        ]); 
+        
     }
 
     /**

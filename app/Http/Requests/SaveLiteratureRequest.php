@@ -23,9 +23,18 @@ class SaveLiteratureRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'genre_book' => 'required|string|unique:generate_books'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['genre_book']   = 'required|string|unique:generate_books'. $this->id;
+        }
+
+        return $rules;
+        
     }
 
     public function messages()

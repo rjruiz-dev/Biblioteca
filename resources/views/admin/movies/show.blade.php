@@ -171,8 +171,7 @@
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-4">
-                            <strong><i class="fa fa-film margin-r-5"></i> {{ $idioma_movie->fotografia }}:</strong>
-                            <p class="text-muted">{{ $movie->photography_movie['photography_movies_name'] }}</p>
+                            <strong><i class="fa fa-film margin-r-5"></i> {{ $idioma_movie->fotografia }}:</strong>                            
                             @if ( $movie->photography_movie['photography_movies_name'] === NULL )                            
                                 <p class="tex-muted"><a>Sin {{ $idioma_movie->fotografia }}</a> </p>
                             @else

@@ -23,10 +23,19 @@ class SaveSubjectRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'subject_name'  => 'required|string|unique:generate_subjects',
-            'cdu'           => 'required|string|unique:generate_subjects'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['subject_name'] = 'required|string|unique:generate_subjects'. $this->id;
+            $rules ['cdu']          = 'required|string|unique:generate_subjects'. $this->id;
+        }
+
+        return $rules;
+        
     }
 
     public function messages()

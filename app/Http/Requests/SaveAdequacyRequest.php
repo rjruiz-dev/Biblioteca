@@ -23,9 +23,18 @@ class SaveAdequacyRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'adequacy_description' => 'required|string|unique:adequacies'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['adequacy_description']   = 'required|string|unique:adequacies'. $this->id;
+        }
+
+        return $rules;
+        
     }
 
     public function messages()

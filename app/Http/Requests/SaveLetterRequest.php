@@ -23,11 +23,21 @@ class SaveLetterRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title'     => 'required|string|unique:generate_letters',
-            'body'      => 'required|string',
-            'excerpt'   => 'required|string'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['title']    = 'required|string|unique:generate_letters'. $this->id;
+            $rules ['body']     = 'required|string'. $this->id;
+            $rules ['excerpt']  = 'required|string'. $this->id;
+           
+        }
+
+        return $rules;
+      
     }
 
     public function messages()

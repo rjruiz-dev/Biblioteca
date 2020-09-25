@@ -23,9 +23,18 @@ class SaveReferenceRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'reference_description'  => 'required|string|unique:generate_references',          
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['reference_description']   = 'required|string|unique:generate_references'. $this->id;
+        }
+
+        return $rules;
+       
     }
 
     public function messages()

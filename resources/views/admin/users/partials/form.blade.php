@@ -20,10 +20,11 @@
                         $visible = "";                   
                     @endphp
                 @endif   
-
+               
                 <div class="form-group">              
                     {!! Form::label('membership', 'Número de Socio') !!}                    
                     {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio']) !!}
+                  
                 </div>      
                                 
                 <div class="form-group">              

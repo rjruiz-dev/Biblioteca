@@ -23,10 +23,19 @@ class SaveCourseRequest extends FormRequest
      */
     public function rules()
     {  
-        return [
-            'course_name' => 'required|string|unique:courses',
-            'group'       => 'required|string'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['course_name']  = 'required|string|unique:courses'. $this->id;
+            $rules ['group']        = 'required|string'. $this->id;
+        }
+
+        return $rules;
+
     }
 
     public function messages()

@@ -44,7 +44,7 @@ $('body').on('click', '.modal-show', function (event) {
 
             $('#generate_films_id').select2({
                 placeholder: 'Seleccione un Género',
-                dropdownParent: $('#modal') 
+                // dropdownParent: $('#modal') 
             });
 
             $('#actors').select2({

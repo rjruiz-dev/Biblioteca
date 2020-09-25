@@ -30,7 +30,7 @@ class SaveCopyRequest extends FormRequest
      
         if($this->method() !== 'PUT')
         {          
-            $rules ['registry_number']  = 'required|numeric|min:4|unique:copies,registry_number' . $this->id;              
+            $rules ['registry_number']  = 'required|numeric|min:1|unique:copies,registry_number' . $this->id;              
             $rules ['status_copy_id'] = 'required' . $this->id;             
         }
  
@@ -41,7 +41,7 @@ class SaveCopyRequest extends FormRequest
     {
         return [
             'registry_number.required'  => 'Debe introducir un Número de Registro para un Ejemplar.',  
-            'registry_number.min'       => 'El campo Número de Registro debe contener 4 Números como minimo',        
+            'registry_number.min'       => 'El campo Número de Registro debe contener 1 Números como minimo',        
             // 'registry_number.max'       => 'El campo Número de Registro  no debe ser mayor a 5 números',      
             'registry_number.numeric'   => 'El campo Número de Registro debe ser númerico.',                       
             'registry_number.unique'    => 'El Número de Registro ya ha sido Registrado.',               
