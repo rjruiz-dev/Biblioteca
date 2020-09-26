@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use DataTables;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Setting;
 
 class LoansbyclassroomController extends Controller
 {
@@ -27,14 +28,16 @@ class LoansbyclassroomController extends Controller
         }
         $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
-        $cursos = Course::pluck('course_name', 'id');
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();
+        $cursos     = Course::pluck('course_name', 'id');
         
         return view('admin.loansbyclassroom.index', [
-            'cursos'     => $cursos,
-            'idioma'     => $idioma,
-            'idiomas'    => $idiomas
+            'cursos'    => $cursos,
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);
     }
 

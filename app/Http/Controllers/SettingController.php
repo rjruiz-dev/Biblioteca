@@ -66,11 +66,6 @@ class SettingController extends Controller
      */
     public function show()
     {
-        $setting = Setting::where('id', 1)->first();
-                            
-        return view('admin.layouts.partials.footer', [
-            'setting'    => $setting
-        ]);
     }
 
     /**

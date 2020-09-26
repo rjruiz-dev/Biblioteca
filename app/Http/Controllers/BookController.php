@@ -23,10 +23,9 @@ use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveBookRequest;
 use App\Ml_dashboard;
 use App\ManyLenguages;
-
+use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_book;
-
 use App\ml_abm_doc;
 use App\ml_abm_book;
 use App\ml_abm_book_otros;
@@ -52,14 +51,16 @@ class BookController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas    = ManyLenguages::all();
+        $setting    = Setting::where('id', 1)->first();
 
         $this->authorize('view', new Book); 
 
         return view('admin.books.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);        
     }
 

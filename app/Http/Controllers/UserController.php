@@ -20,6 +20,7 @@ use lluminate\Http\RequestfilefileIlluminate\Http\UploadedFileSplFileInfo;
 use Illuminate\Http\UploadedFile;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Setting;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -40,12 +41,14 @@ class UserController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();  
+        $idiomas    = ManyLenguages::all();
 
         return view('admin.users.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]); 
         
     }

@@ -8,13 +8,13 @@ use App\Copy;
 use DataTables;
 use App\Document;
 use Carbon\Carbon;
-use App\Setting;
 use App\Book_movement;
 use App\Document_type;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Document_subtype;
 use Illuminate\Http\Request;
+use App\Setting;
 use Illuminate\Support\Facades\DB;
 
 class FastPartnerProcessController extends Controller
@@ -35,12 +35,14 @@ class FastPartnerProcessController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first(); 
+        $idiomas    = ManyLenguages::all();
         // dd($idioma->navegacion);
         return view('admin.fastprocess.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);         
     }
 
@@ -55,12 +57,14 @@ class FastPartnerProcessController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
-        // dd($idioma->navegacion);
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first(); 
+        $idiomas    = ManyLenguages::all();
+        
         return view('admin.fastprocess.index2', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);                 
     }
 

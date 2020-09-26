@@ -15,6 +15,7 @@ use App\ManyLenguages;
 use App\Document_type;
 use App\Book_movement;
 use App\Document_subtype;
+use App\Setting;
 use Illuminate\Support\Facades\DB;
 
 class RequestsController extends Controller
@@ -35,12 +36,14 @@ class RequestsController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();     
+        $idiomas    = ManyLenguages::all();
         
         return view('admin.requests.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);         
     }
 

@@ -27,7 +27,7 @@ use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
 use App\ManyLenguages;
-
+use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_movie;
 
@@ -49,10 +49,11 @@ class MoviesController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idioma_document = Ml_document::where('many_lenguages_id',$session)->first();
-        $idioma_movie = Ml_movie::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
+        $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
+        $setting            = Setting::where('id', 1)->first();
+        $idiomas            = ManyLenguages::all();
 
         $this->authorize('view', new Movies); 
 
@@ -60,7 +61,8 @@ class MoviesController extends Controller
             'idioma'            => $idioma,
             'idioma_document'   => $idioma_document,
             'idioma_movie'      => $idioma_movie,
-            'idiomas'           => $idiomas
+            'idiomas'           => $idiomas,
+            'setting'           => $setting
         ]); 
     }
 
