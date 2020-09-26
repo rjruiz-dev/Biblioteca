@@ -129,21 +129,21 @@
                     <div class="form-group">
                         {!! Form::label('group', 'Tipo de Multa') !!}&nbsp;
                         <label>
-                            &nbsp;{!! Form::radio('group', 'Económica') !!}&nbsp;Económica                                
+                            &nbsp;{!! Form::radio('group', '1', $setting->fines_id == 1 ? 'checked' : '') !!}&nbsp;Económica                                
                         </label>
                         <label>
-                            &nbsp;{!! Form::radio('group', 'Sanción') !!}&nbsp;Sanción                                   
+                            &nbsp;{!! Form::radio('group', '2', $setting->fines_id == 2 ? 'checked' : '') !!}&nbsp;Sanción                                   
                         </label>
                     </div>
                     
                     <div class="form-group">
                         {!! Form::label('price_penalty', 'Valor de Sanción Económica') !!}                
-                        {!! Form::text('price_penalty', null, ['class' => 'form-control', 'id' => 'price_penalty', 'placeholder' => 'Valor de sanción económica']) !!}
+                        {!! Form::text('price_penalty', $multa_economica['unit'] ? $multa_economica['unit'] : null, ['class' => 'form-control', 'id' => 'price_penalty', 'placeholder' => 'Valor de sanción económica']) !!}
                     </div>  
 
                     <div class="form-group">
-                        {!! Form::label('days penalty', 'Dias de Sanción por Retraso') !!}                
-                        {!! Form::text('days penalty', null, ['class' => 'form-control', 'id' => 'days penalty', 'placeholder' => 'Dias de sanción por restraso']) !!}
+                        {!! Form::label('days_penalty', 'Dias de Sanción por Retraso') !!}                
+                        {!! Form::text('days_penalty', $multa_suspension['unit'] ? $multa_suspension['unit'] : null, ['class' => 'form-control', 'id' => 'days_penalty', 'placeholder' => 'Dias de sanción por restraso']) !!}
                     </div>                  
                 </div>
             </div>       

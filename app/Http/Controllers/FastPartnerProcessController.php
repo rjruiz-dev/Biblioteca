@@ -420,7 +420,10 @@ class FastPartnerProcessController extends Controller
                         LEFT JOIN documents d ON d.id = c.documents_id 
                         LEFT JOIN document_types dt ON d.document_types_id = dt.id 
                         LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id 
-                        WHERE c.status_copy_id = 3 OR c.status_copy_id = 6
+                        WHERE c.status_copy_id = 3 
+                        OR c.status_copy_id = 6
+                        OR c.status_copy_id = 1
+                        OR c.status_copy_id = 2
                         GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
       
         return dataTables::of($documentos)
