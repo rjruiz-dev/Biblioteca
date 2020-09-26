@@ -322,15 +322,60 @@ desired effect
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
+
+  <footer class="main-footer font-small blue pt-4">
+    <div class="container-fluid text-center text-md-left">
+      <div class="row">
+        <div class="col-md-6 mt-md-0 mt-3">
+          <h5 class="text-uppercase"><b> Estamos en:</b></h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="#">{{ $setting->country}} </a>
+            </li>
+            <li>
+              <a href="#">{{ $setting->province}} </a>
+            </li>
+            <li>
+              <a href="#">{{ $setting->postal_code}} </a>
+            </li>
+            <li>
+              <a href="#">{{ $setting->city}} </a>
+            </li>
+            <li>
+              <a href="#">{{ $setting->street}} </a>
+            </li>
+          </ul>        
+        </div>
+        <div class="col-md-3 mb-md-0 mb-3">
+          <h5 class="text-uppercase"><b>Contacto</b></h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="#">{{ $setting->library_name}} </a>
+            </li>
+            <li>
+              <a href="#">{{ $setting->library_phone}} </a>
+            </li>
+            <li>
+              <a href="#">{{ $setting->library_email}} </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+    </div>
+  </footer>
+
+  <!-- <footer class="main-footer">
+   
     <div class="pull-right hidden-xs">
       Anything you want
     </div>
-    <!-- Default to the left -->
+   
     <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
   </footer>
+  -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

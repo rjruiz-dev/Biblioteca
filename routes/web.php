@@ -75,7 +75,7 @@ function(){
     Route::resource('requestsup',           'RequestsUpController',['as' => 'admin']);
     Route::resource('loansbydate',          'LoansbydateController',['as' => 'admin']);
     Route::resource('loansbyclassroom',     'LoansbyclassroomController',['as' => 'admin']);
-    Route::resource('infoofdatabase',       'infoofdatabaseController',['as' => 'admin']);
+    Route::resource('infoofdatabase',       'InfoofdatabaseController',['as' => 'admin']);
     Route::resource('importfromrebeca',     'ImportfromrebecaController',['as' => 'admin']);
     Route::resource('claimloans',           'ClaimLoansController',['as' => 'admin']);
     Route::resource('statistic',            'StatisticController',['as' => 'admin']);

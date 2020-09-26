@@ -27,7 +27,7 @@ class SettingController extends Controller
 
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
-        $setting = Setting::where('id', 9)->first();
+        $setting = Setting::where('id', 1)->first();
                              
 
         return view('admin.setting.index', [
@@ -64,9 +64,13 @@ class SettingController extends Controller
      * @param  \App\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function show(Setting $setting)
+    public function show()
     {
-        //
+        $setting = Setting::where('id', 1)->first();
+                            
+        return view('admin.layouts.partials.footer', [
+            'setting'    => $setting
+        ]);
     }
 
     /**

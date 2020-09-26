@@ -24,22 +24,25 @@
                     @php 
                         $edicion_mem = "";    
                         $label = "Número de Usuario";           
-                        $span = "Número de Usuario Sugerido para Asignarse";              
+                        $span = "Número de Usuario Sugerido para Asignarse:";  
+                        $strong = $num_socio;
+                                  
                        
                     @endphp
                 @else
                     @php  
                        $edicion_mem = 'readonly="true"'; 
                        $label = "Número de Socio";           
-                       $span = "Número de Socio Sugerido para Asignarse";               
+                       $span = ""; 
+                       $strong = "";              
                     @endphp
                 @endif
                 <!-- falto esto boludoooooo-->
 
                 <div class="form-group" >              
                     {!! Form::label('membership', $label ) !!}                    
-                    {!! Form::text('membership',  $user->exists ? null : $num_socio, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio' ]) !!}
-                    <span class="help-block">{{ $span }}: <strong>{{ $num_socio }}</strong></span>
+                    {!! Form::text('membership',  $user->exists ? null : $num_socio, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio',  $edicion_mem ]) !!}
+                    <span class="help-block">{{ $span }} <strong>{{ $strong }}</strong></span>
                 </div>    
                                 
                 <div class="form-group">              

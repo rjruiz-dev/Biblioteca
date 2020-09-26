@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 use App\Periodical_publication;
 use App\Ml_dashboard;
 use App\ManyLenguages;
-
+use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_book;
 
@@ -43,17 +43,18 @@ class VBooksController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
-        $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
-        
-        $idiomas = ManyLenguages::all();
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_doc     = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
+        $setting        = Setting::where('id', 1)->first();        
+        $idiomas        = ManyLenguages::all();
 
         return view('web.books.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas,
+            'idioma'     => $idioma,
+            'idiomas'    => $idiomas,
             'idioma_doc' => $idioma_doc,
-            'idioma_book' => $idioma_book
+            'idioma_book'=> $idioma_book,
+            'setting'    => $setting
         ]); 
     }
 

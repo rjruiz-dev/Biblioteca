@@ -18,7 +18,7 @@ use App\StatusDocument;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
-
+use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_fotografia;
 
@@ -41,12 +41,14 @@ class VPhotographyController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas    = ManyLenguages::all();
+        $setting    = Setting::where('id', 1)->first();  
 
         return view('web.photographs.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);         
     }
 

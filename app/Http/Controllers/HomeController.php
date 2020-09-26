@@ -38,9 +38,8 @@ class HomeController extends Controller
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
-        $setting = Setting::where('id', 9)->first();
+        $setting = Setting::where('id', 1)->first();
         // dd($setting);
-        // dd($idioma->navegacion);
         return view('layouts.dashboard', [
             'idioma'      => $idioma,
             'idiomas'      => $idiomas,
