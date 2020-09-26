@@ -21,6 +21,7 @@ class CreateMlAbmBooksTable extends Migration
             $table->string('crear_libro')->nullable();
             $table->string('tipo_de_libro')->nullable();
             $table->string('numero_de_paginas')->nullable();
+            $table->string('plh_tipo_de_libro')->nullable();
             
             $table->timestamps();
 

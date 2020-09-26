@@ -14,6 +14,7 @@ class Ml_abm_book_litTableSeeder extends Seeder
         App\Ml_abm_book_lit::create([
             'many_lenguages_id'      => 1,
             'genero'      => 'genero',
+            'plh_genero'      => 'Seleccione_un Genero',
             ]);
     }
 }

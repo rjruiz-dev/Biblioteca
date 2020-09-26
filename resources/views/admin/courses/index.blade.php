@@ -26,9 +26,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Curso</th>
-                        <th>Grupo</th>                       
-                        <th>Estado</th>
-                        <th>Agregado</th>                                
+                        <th>Grupo</th> 
+                        <th>Agregado</th>                      
+                        <th>Estado</th>                               
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -111,9 +111,9 @@
             columns: [                
                 {data: 'id', name: 'id'},               
                 {data: 'course_name', name: 'course_name'},        
-                {data: 'group', name: 'group'}, 
-                {data: 'estado', name: 'estado'},             
+                {data: 'group', name: 'group'},  
                 {data: 'created_at', name: 'agregado'},                  
+                {data: 'estado', name: 'estado'},             
                 {data: 'accion', name: 'accion'}                          
             ]
         });

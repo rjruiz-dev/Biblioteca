@@ -611,21 +611,48 @@ function yesnoCheck() {
                     }
 
                     if(accion == 2){ //otros
-                        document.getElementById("l_generate_books_id").innerHTML = response.otros;
+                        document.getElementById("l_generate_books_id").innerHTML = response.plh_otros;
                         $('#generate_books_id').select2({
-                            placeholder: response.otros,                            
+                            placeholder: response.plh_otros,                            
                         });
                     }
 
                     if(accion == 3){ //literatura 
-                        document.getElementById("l_generate_books_id").innerHTML = response.genero;
+                        document.getElementById("l_generate_books_id").innerHTML = response.plh_genero;
                         $('#generate_books_id').select2({
-                            placeholder: response.genero,                            
+                            placeholder: response.plh_genero,                            
                         }); 
                     } 
                     if(accion == 4){ // NO PUBLICACION PERIODICA(OTROS O LITERATURA)
-                    document.getElementById("l_subtitle").innerHTML = response.subtitulo;
-                    $('#subtitle').attr('placeholder',response.subtitulo);
+                    document.getElementById("l_subtitle").innerHTML = response.subtítulo;
+                    $('#subtitle').attr('placeholder',response.subtítulo);
+                    }
+
+                },
+                error: function () { 
+                    // console.log(error);
+                    alert('Hubo un error obteniendo los datos de la traduccion');
+                }
+            })
+        }
+
+        function obtenercamposestaticos(accion) 
+        {
+
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({                    
+                url: '/admin/books/obtener/' + accion,  //este 1 se pasa para q ande el metodo 
+                type: 'GET',
+                data: {            
+                    '_token': csrf_token
+                },
+                dataType: 'json',
+                success: function (response) {
+                    
+                    if(accion == 5){ // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+                    document.getElementById("l_subtitle").innerHTML = response.subtítulo;
+                    $('#subtitle').attr('placeholder',response.subtítulo);
                     }
 
                 },

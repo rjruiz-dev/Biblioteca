@@ -51,7 +51,14 @@ class Ml_abm_docTableSeeder extends Seeder
             'fotografia'      => 'fotografia',
             'duracion'      => 'duracion',
             'formato'      => 'formato',
-            'director'      => 'director' 
+            'director'      => 'director',
+            'plh_autor'      => 'Seleccione_o_ingrese un autor', 
+            'plh_segundo_autor'      => 'Seleccione_o_ingrese un Segundo Autor', 
+            'plh_tercer_autor'      => 'Seleccione_o_ingrese un Tercer Autor', 
+            'plh_adquisicion'      => 'Ingrese_la_fecha de Adquisicion',
+            'plh_adecuado_para'      => 'Seleccione_una_Adecuacion', 
+            'plh_cdu'      => 'Seleccione_una_Cdu', 
+            
             ]);
     }
 }

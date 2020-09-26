@@ -15,7 +15,8 @@ class Ml_abm_bookTableSeeder extends Seeder
             'many_lenguages_id'      => 1,
             'crear_libro'      => 'crear_libro',
             'tipo_de_libro'      => 'tipo_de_libro',
-            'numero_de_paginas'      => 'numero_de_paginas'
+            'numero_de_paginas'      => 'numero_de_paginas',
+            'plh_tipo_de_libro'      => 'Seleccione un tipo de Libro'
             ]);
     }
 }

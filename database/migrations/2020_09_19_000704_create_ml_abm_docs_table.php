@@ -57,7 +57,12 @@ class CreateMlAbmDocsTable extends Migration
             $table->string('duracion')->nullable();
             $table->string('formato')->nullable();
             $table->string('director')->nullable();
-            
+            $table->string('plh_autor')->nullable();
+            $table->string('plh_segundo_autor')->nullable();
+            $table->string('plh_tercer_autor')->nullable();
+            $table->string('plh_adquisicion')->nullable();
+            $table->string('plh_adecuado_para')->nullable();
+            $table->string('plh_cdu')->nullable();
             $table->timestamps();
 
             $table->foreign('many_lenguages_id')->references('id')->on('many_lenguages')

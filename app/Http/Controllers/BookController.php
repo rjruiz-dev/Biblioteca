@@ -623,8 +623,18 @@ class BookController extends Controller
         $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
         }
 
-        if($id == 3){
-        $respuesta = ml_abm_book::where('many_lenguages_id',$session)->first();
+        if($id == 4){
+        $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // dd($respuesta);
+    }
+        if($id == 4){
+        $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // dd($respuesta);
+        }
+        
+        if($id == 5){
+            $respuesta_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
+            $respuesta_book = ml_abm_book::where('many_lenguages_id',$session)->first();
         }
         // dd($idioma_abm_book_publ_period);
 
@@ -636,7 +646,14 @@ class BookController extends Controller
             //     $count->toArray()
             // );
  
-            return $respuesta->toJson();
+            // return $respuesta->toJson();
+            
+            if($id == 5){
+             return response()->json(array('respuesta_doc'=>$respuesta_doc,'respuesta_book'=>$respuesta_book));
+
+            }else{
+                return $respuesta->toJson();
+            }
             // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
 
             // return $count->toJson();
