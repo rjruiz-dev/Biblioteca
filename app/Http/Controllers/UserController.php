@@ -257,13 +257,15 @@ class UserController extends Controller
                 //    $mov_user->users_id = $user->id;
                 //    $mov_user->usuario_aud = 'USER AUD';
                 //    $mov_user->save();
-                // $status = $user->status_id;
-                if($user->status_id == 3){ //si esta activo lo doy de baja
-                    $user->status_id = 4;
-                    $user->save();
-                }else{
-                    $user->status_id = 3;
-                    $user->save();
+                if($user->status_id != $request->get('status_id'))
+                {
+                    if($user->status_id == 3){ //si esta activo lo doy de baja
+                        $user->status_id = 4;
+                        $user->save();
+                    }else{
+                        $user->status_id = 3;
+                        $user->save();
+                    }
                 }
                 // $user->status_id    = $status; 
                 $user->user_photo   = $name;
