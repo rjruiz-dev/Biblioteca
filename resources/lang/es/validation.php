@@ -183,5 +183,6 @@ return [
         'datepicker'            => 'fecha',
         'user_photo'            => 'imagen de perfil',
         'photo'                 => 'imagen de portada',
+        'birthdate'             => 'fecha de nacimiento',
     ],
 ];

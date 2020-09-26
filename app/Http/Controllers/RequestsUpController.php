@@ -123,14 +123,17 @@ class RequestsUpController extends Controller
      */
     public function destroy($id) // DESTROY SE USA PARA ACEPTAR
     {
-        // $ultimo_membership = User::select('membership')->orderBy('membership', 'DESC')->first();
-        // dd($sugerido2);
-        // $siguente_membership = $ultimo_membership->membership + 1;
-        $password = str_random(8);
+        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
+        $num_socio = $sugerido->membership + 1;     
+        $data['password'] = str_random(8);
+        
+
+        // $password = str_random(8);
         $user = User::findOrFail($id);
-        // $user->membership = $siguente_membership;
-        $user->status_id = 3; // ACEPTADO QUE ES IGUAL A ACTIVO 
-        $user->password = $password;
+        $user->membership   =  $num_socio;
+        $user->status_id    = 3; // ACEPTADO QUE ES IGUAL A ACTIVO
+        $user->password     = $data['password']; 
+        // $user->password     = $password;
         $user->save();
 
         $partnerRole = Role::where('id', 3)->first();
@@ -139,7 +142,9 @@ class RequestsUpController extends Controller
 
         // Enviamos el email
         $accion = "solicitud aceptada";
-        UserWasCreated::dispatch($user, $password, $accion);
+        // UserWasCreated::dispatch($user, $password, $accion);
+
+        UserWasCreated::dispatch($user, $data['password'], $accion);
     }
 
     public function dataTable()

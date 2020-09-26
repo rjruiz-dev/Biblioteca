@@ -40,8 +40,8 @@ class SaveUserRequest extends FormRequest
             $rules ['status_id']    = 'required'. $this->id;
             $rules ['email']        = 'required|string|email|max:255|unique:users,email' . $this->id;
             $rules ['nickname']     = 'required|string|min:3|max:50|unique:users,nickname' . $this->id;                   
-            $rules ['membership']   = 'required|numeric|min:1|unique:users,membership' . $this->id;
-            // $rules ['membership']   = 'required|numeric|min:6|max:8|unique:users,membership' . $this->id;           
+            $rules ['membership']   = 'required|numeric|digits_between:1,8|unique:users,membership' . $this->id;
+            // $rules ['membership']   = 'required|numeric|min:1|unique:users,membership' . $this->id;
             
         }
 

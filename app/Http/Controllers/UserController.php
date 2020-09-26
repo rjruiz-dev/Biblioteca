@@ -58,15 +58,15 @@ class UserController extends Controller
     public function create()
     {   
         $user = new User(); 
-        // $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
-        // $num_socio = $sugerido->membership + 1;
-        // dd($num_socio); 
+        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
+        $num_socio = $sugerido->membership + 1;
+     
                              
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),   
-            // 'num_socio' => $num_socio,        
+            'num_socio' => $num_socio,        
             'user'      => $user
         ]);  
     }
@@ -87,8 +87,8 @@ class UserController extends Controller
 
                  // Validar el formulario
                 $data = $request->validate([
-                    'membership'   => 'required|numeric|min:1|unique:users,membership', 
-                    // 'membership'    => 'required|numeric|digits_between:6,8|unique:users,membership',
+                  
+                    'membership'    => 'required|numeric|digits_between:1,8|unique:users,membership',
                     'name'          => 'required|string|max:100',
                     'nickname'      => 'required|string||min:3|max:50|unique:users,nickname',
                     'email'         => 'required|string|email|max:255|unique:users,email',                     
@@ -198,12 +198,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::with('statu')->findOrFail($id);
-                             
+        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
+        $num_socio = $sugerido->membership + 1;
+
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
-                       
+            'num_socio' => $num_socio,          
             'user'      => $user
         ]);  
     }
@@ -224,8 +226,7 @@ class UserController extends Controller
                 
                 $user = User::with('statu')->findOrFail($id); 
 
-                $name = $user->user_photo;                
-
+                $name = $user->user_photo;               
                 if ($request->hasFile('user_photo')) {               
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
@@ -256,9 +257,15 @@ class UserController extends Controller
                 //    $mov_user->users_id = $user->id;
                 //    $mov_user->usuario_aud = 'USER AUD';
                 //    $mov_user->save();
-                //    $user->status_id    = $request->get('status_id'); 
-     
-
+                // $status = $user->status_id;
+                if($user->status_id == 3){ //si esta activo lo doy de baja
+                    $user->status_id = 4;
+                    $user->save();
+                }else{
+                    $user->status_id = 3;
+                    $user->save();
+                }
+                // $user->status_id    = $status; 
                 $user->user_photo   = $name;
                 $user->save();
                        
@@ -275,11 +282,13 @@ class UserController extends Controller
     public function edit_profile($id)
     {
         $user = User::with('statu')->findOrFail($id);
+        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
+        $num_socio = $sugerido->membership + 1;
                              
         return view('admin.users.partials.form_profile', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),           
-                       
+            'num_socio' => $num_socio ,     
             'user'      => $user
         ]);  
     }
@@ -378,8 +387,11 @@ class UserController extends Controller
       
         return dataTables::of($usuarios)
             ->addColumn('membership', function ($usuarios){
-                return
-                    '<i class="fa fa-checñ"></i>'.' '.$usuarios->membership."<br>";            
+                if($usuarios->membership == null){
+                    return 'No tiene número de socio';
+                }else{
+                    return  '<i class="fa fa-checñ"></i>'.' '.$usuarios->membership."<br>";              
+                }
             }) 
             ->addColumn('nickname', function ($usuarios){
                 return $usuarios->nickname."<br>";            

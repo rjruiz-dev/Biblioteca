@@ -21,19 +21,19 @@
                     @endphp
                 @endif   
                
-                <div class="form-group">              
+                <div class="form-group" >              
                     {!! Form::label('membership', 'Número de Socio') !!}                    
-                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio']) !!}
-                  
-                </div>      
-                                
+                    {!! Form::text('membership',  $user->exists ? null : $num_socio, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio' ]) !!}
+                    <span class="help-block">Número de Socio Sugerido para Asignar a Nuevo Socio: <strong>{{ $num_socio }}</strong></span>
+                </div>
+
                 <div class="form-group">              
                     {!! Form::label('nickname', 'Nickname') !!}                    
                     {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
                 </div>                                           
                 <div class="form-group">
                     {!! Form::label('status_id', 'Estado') !!}
-                    {!! Form::select('status_id', $status, null, ['class' => 'form-control select2', 'id' => 'status_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('status_id', $status, $user->status_id, ['class' => 'form-control select2', 'id' => 'status_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
                 <div class="form-group">
                     {{ Form::label('user_photo', 'Imagen de Perfil') }}

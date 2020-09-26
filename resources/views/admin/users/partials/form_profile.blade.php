@@ -21,20 +21,26 @@
                     @endphp
                 @endif   
                 @if(Auth::user()->getRoleNames() == 'Librarian' || Auth::user()->getRoleNames() == 'Admin')
-                @php 
-                        $edicion_mem = "";                        
+                    @php 
+                        $edicion_mem = "";    
+                        $label = "Número de Usuario";           
+                        $span = "Número de Usuario Sugerido para Asignarse";              
+                       
                     @endphp
                 @else
                     @php  
-                       $edicion_mem = 'readonly="true"';                   
+                       $edicion_mem = 'readonly="true"'; 
+                       $label = "Número de Socio";           
+                       $span = "Número de Socio Sugerido para Asignarse";               
                     @endphp
                 @endif
                 <!-- falto esto boludoooooo-->
 
-                <div class="form-group">              
-                    {!! Form::label('membership', 'Número de Socio') !!}                    
-                    {!! Form::text('membership', null, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio', $edicion_mem]) !!}
-                </div>      
+                <div class="form-group" >              
+                    {!! Form::label('membership', $label ) !!}                    
+                    {!! Form::text('membership',  $user->exists ? null : $num_socio, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio' ]) !!}
+                    <span class="help-block">{{ $span }}: <strong>{{ $num_socio }}</strong></span>
+                </div>    
                                 
                 <div class="form-group">              
                     {!! Form::label('nickname', 'Nickname') !!}                    

@@ -76,9 +76,10 @@ class UsersTableSeeder extends Seeder
         $admin->name = 'Gonzalo';
         $admin->surname = 'Nadal';
         $admin->nickname = 'GB_Admin';
-        $admin->membership = '23.456.567';
+        $admin->membership = 1;
         $admin->email = 'admin@gmail.com';        
         $admin->password = '123456';   
+        $admin->birthdate = '2020-09-25';   
         $admin->status_id = 3;
         $admin->save();
 
@@ -93,9 +94,10 @@ class UsersTableSeeder extends Seeder
         $librarian->name = 'Luis';
         $librarian->surname = 'Gomes';
         $librarian->nickname = 'lucho';
-        $librarian->membership = '23.456.467';
+        $librarian->membership = 2;
         $librarian->email = 'luis@gmail.com';       
-        $librarian->password = '123456';   
+        $librarian->password = '123456';
+        $librarian->birthdate = '2020-09-25';      
         $librarian->status_id = 3; 
         $librarian->save();
 
@@ -105,9 +107,10 @@ class UsersTableSeeder extends Seeder
         $partner->name = 'Jorge';
         $partner->surname = 'Perez';
         $partner->nickname = 'jorge_12';
-        $partner->membership = '23.456.967';
+        $partner->membership = 3;
         $partner->email = 'jorge@gmail.com';        
         $partner->password = '123456'; 
+        $partner->birthdate = '2020-09-25';      
         $partner->status_id = 3;
         $partner->save();
 
