@@ -9,6 +9,7 @@ use App\Document;
 use App\Book_movement;
 use App\Movement_type;
 use DataTables;
+use App\Setting;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
@@ -36,14 +37,16 @@ class GenericCopiesController extends Controller
         }
         $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
-        $document = Document::with('document_type','document_subtype')->findOrFail($id);
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();
+        $document   = Document::with('document_type','document_subtype')->findOrFail($id);
     
         return view('admin.genericcopies.index', [
-            'idioma'      => $idioma,
-            'idiomas'     => $idiomas,
-            'document'    => $document
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting,
+            'document'  => $document
         ]);    
 
     }
@@ -62,9 +65,9 @@ class GenericCopiesController extends Controller
   
         return view('admin.genericcopies.partials.form', [
             'status'    => Movement_type::where('view', 1)->pluck('book_status_priv', 'id'),
-            'id_doc'          => $id,
-            'copie'          => $copy,
-            'sugerido'          => $sugerido
+            'id_doc'    => $id,
+            'copie'     => $copy,
+            'sugerido'  => $sugerido
         ]);
     }
 

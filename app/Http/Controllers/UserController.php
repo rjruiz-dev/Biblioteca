@@ -61,10 +61,14 @@ class UserController extends Controller
     public function create()
     {   
         $user = new User(); 
-        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
-        $num_socio = $sugerido->membership + 1;
-     
-                             
+        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();  
+        
+        if($sugerido != null){                   
+            $num_socio = $sugerido->membership + 1;           
+        }else{
+            $num_socio = 1;            
+        }
+          
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),

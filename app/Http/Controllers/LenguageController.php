@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Setting;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveLenguageRequest;
 
@@ -29,12 +30,14 @@ class LenguageController extends Controller
         }
         $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();        
+        $idiomas    = ManyLenguages::all();
     
         return view('admin.languages.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);     
     }
 

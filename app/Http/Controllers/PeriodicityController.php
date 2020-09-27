@@ -8,6 +8,7 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Periodical_publication;
 use App\Periodicity;
+use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SavePeriodicityRequest;
@@ -29,12 +30,14 @@ class PeriodicityController extends Controller
         }
         $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();
     
         return view('admin.periodicals.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);        
     }
 

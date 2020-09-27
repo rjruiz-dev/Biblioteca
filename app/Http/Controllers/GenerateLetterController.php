@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Generate_letter;
+use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveLetterRequest;
@@ -29,12 +30,14 @@ class GenerateLetterController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();
 
         return view('admin.letters.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]); 
         
     }

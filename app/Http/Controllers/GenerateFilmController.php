@@ -6,6 +6,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Generate_film;
 use App\Movies;
+use App\Setting;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
@@ -29,12 +30,14 @@ class GenerateFilmController extends Controller
         }
         $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();
     
         return view('admin.cinematographics.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
         ]);  
     }
 

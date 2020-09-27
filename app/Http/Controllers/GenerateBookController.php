@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Book;
 use Carbon\Carbon;
+use App\Setting;
 use App\Generate_book;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
@@ -29,12 +30,15 @@ class GenerateBookController extends Controller
         }
         $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();
     
         return view('admin.literatures.index', [
-            'idioma'      => $idioma,
-            'idiomas'      => $idiomas
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting
+            
         ]);    
     }
 
