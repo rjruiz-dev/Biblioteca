@@ -16,11 +16,11 @@ class UserWasCreated
 
     public $user;
 
-
-
     public $password;
 
     public $accion;
+
+    
 
     /**
      * Create a new event instance.
@@ -31,14 +31,7 @@ class UserWasCreated
     {
         $this->user = $user;
 
-        $this->password
-        
-        
-        
-                
-        
-        
-        = $password;
+        $this->password = $password;
 
         $this->accion = $accion;
     }

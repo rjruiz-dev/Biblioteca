@@ -16,7 +16,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">Listado de socios     
           
-                <a href="{{ route('admin.users.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Socio"><i class="fa fa-user-plus"></i> Crear socio</a>
+                <a href="{{ route('admin.users.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Socio"><i class="fa fa-user-plus"></i> Crear usuario</a>
     
             </h3>
         </div>
@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>N° Socio</th>       
+                        <th>N° Usuario</th>       
                         <th>Nickname</th>       
                         <th>Nombre</th>                                           
                         <th>Email</th>   

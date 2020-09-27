@@ -20,11 +20,20 @@
                         $visible = "";                   
                     @endphp
                 @endif   
-               
+                <div class="form-group">
+                    {!! Form::label('group', 'Seleccione tipo de Usuario:') !!}&nbsp;
+                
+                    <label>
+                        &nbsp;{!! Form::radio('group', '1') !!} Bibliotecario                               
+                    </label>
+                    <label>
+                        &nbsp;{!! Form::radio('group', '2') !!} Socio                        
+                    </label>
+                </div>
                 <div class="form-group" >              
-                    {!! Form::label('membership', 'Número de Socio') !!}                    
+                    {!! Form::label('membership', 'Número de Usuario') !!}                    
                     {!! Form::text('membership',  $user->exists ? null : $num_socio, ['class' => 'form-control', 'id' => 'membership', 'placeholder' => 'Número de Socio' ]) !!}
-                    <span class="help-block">Número de Socio Sugerido para Asignar a Nuevo Socio: <strong>{{ $num_socio }}</strong></span>
+                    <span class="help-block">Número de Usuario Sugerido para Asignar a Nuevo Socio: <strong>{{ $num_socio }}</strong></span>
                 </div>
 
                 <div class="form-group">              

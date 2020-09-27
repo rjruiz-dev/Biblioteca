@@ -141,21 +141,32 @@ class UserController extends Controller
                 $mov_user->users_id = $user->id;
                 $mov_user->save();
 
-                $accion = '';
+              
+      
                 $mensaje = 1;
                    
-                // Enviamos el email
-                if($request->get('status_id') == 1){  //si esta pendiente
+                if($request->get('group') == 2){ //socio
+                     // Enviamos el email
+                    if($request->get('status_id') == 1){  //si esta pendiente
 
-                    Requests::dispatch($user, $mensaje);
+                        Requests::dispatch($user, $mensaje);
 
+                    }else{
+                        $partnerRole = Role::where('id', 3)->first();
+
+                        $user->assignRole($partnerRole);
+                        $accion = 'alta de socio';
+                        UserWasCreated::dispatch($user, $data['password'], $accion);
+                    }
                 }else{
-                    $partnerRole = Role::where('id', 3)->first();
+                    $librarianRole = Role::where('id', 2)->first();
 
-                    $user->assignRole($partnerRole);
-
+                    $user->assignRole($librarianRole);
+                    $accion = 'bibliotecario';
                     UserWasCreated::dispatch($user, $data['password'], $accion);
+
                 }
+               
                 
                 DB::commit();
 

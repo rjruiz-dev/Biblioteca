@@ -190,7 +190,7 @@ $('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja
         }
     swal({
         
-        title: '¿Seguro que quieres ' + title_noti + ' el Socio ?',
+        title: '¿Seguro que quieres ' + title_noti + ' el Usuario ?',
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
@@ -211,7 +211,7 @@ $('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
-                        text: '¡Se ha el '+ title_noti_fin +' el Socio!'
+                        text: '¡Se ha el '+ title_noti_fin +' el Usuario!'
                     }); 
                 },
                 error: function (xhr) {

@@ -611,7 +611,7 @@ $('body').on('click', '.modal-show-edicion-perfil', function (event) {
             $('#datepicker').datepicker({
                 autoclose: true,
                 todayHighlight: true,  
-                format: 'dd/mm/yyyy',                       
+                format: 'dd-mm-yyyy',                       
                 language: 'es'
             });   
                    
