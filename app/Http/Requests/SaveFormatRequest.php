@@ -24,9 +24,18 @@ class SaveFormatRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'genre_format' => 'required|string|unique:generate_formats'
-        ];
+        $rules = [ 
+          
+        ];        
+        
+        // Si es diferente a Post
+        if($this->method() !== 'PUT')
+        {   
+            $rules ['genre_format']   = 'required|string|unique:generate_formats'. $this->id;
+        }
+
+        return $rules;
+
     }
 
     public function messages()

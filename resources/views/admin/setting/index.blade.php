@@ -167,9 +167,9 @@
                         {!! Form::label('adult_age', 'Edad Minima Adulto') !!}               
                         {!! Form::text('adult_age', null, ['class' => 'form-control', 'id' => 'adult_age',  'placeholder' => 'Edad Minima Adulto']) !!}
                     </div>  
-                    {!! Form::label('color', 'Seleccionar Color') !!}   
-                    <div id="color" class="input-group colorpicker colorpicker-component"> 
-                        <input type="text" value="{{ $setting->color }}" name="color" id="color" class="form-control" /> 
+                    {!! Form::label('skin', 'Seleccionar Color') !!}   
+                    <div id="skin" class="input-group colorpicker colorpicker-component"> 
+                        <input type="text" value="{{ $setting->skin }}" name="skin" id="skin" class="form-control" /> 
                         <span class="input-group-addon"><i></i></span>
                     </div> 
                     <span class="help-block">Seleccionar Color para Cambiar estilo de Biblioteca</span>   
@@ -236,8 +236,9 @@ $('#btn-save').click(function (event) {
             // form.trigger('reset');
             // $('#modal').modal('hide');
             // $('#datatable').DataTable().ajax.reload();
+            $("#app").load(" #app"); 
             $("#logo-img").load(" #logo-img"); 
-        
+      
 
             swal({
                 type : 'success',

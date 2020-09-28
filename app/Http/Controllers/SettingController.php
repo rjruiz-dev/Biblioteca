@@ -116,7 +116,7 @@ class SettingController extends Controller
                 $setting->country           = $request->get('country');   
                 $setting->child_age         = $request->get('child_age');    
                 $setting->adult_age         = $request->get('adult_age');
-                $setting->color             = $request->get('color');
+                $setting->skin              = $request->get('skin');
                 $setting->logo              = $name; 
                   
                 $setting->save();

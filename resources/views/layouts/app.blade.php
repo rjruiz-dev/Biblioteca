@@ -16,6 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="/adminlte/bower_components/Ionicons/css/ionicons.min.css">
+
   <!-- <link rel="stylesheet" href="/adminlte/css/main.css"> -->
 
 
@@ -28,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="/adminlte/css/skins/skin-blue.min.css">
   <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">    
+  <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -61,10 +62,12 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini">
+
 <div class="wrapper">
 
   <!-- Main Header -->
-  <header class="main-header">
+ 
+  <header class="main-header" >
 
     <!-- Logo -->
     <a class="logo">
@@ -323,59 +326,39 @@ desired effect
   <!-- /.content-wrapper -->
 
 
-  <footer class="main-footer font-small blue pt-4">
-    <div class="container-fluid text-center text-md-left">
-      <div class="row">
-        <div class="col-md-6 mt-md-0 mt-3">
-          <h5 class="text-uppercase"><b> Estamos en:</b></h5>
-          <ul class="list-unstyled">
-            <li>
-              <a href="#">{{ $setting->country}} </a>
-            </li>
-            <li>
-              <a href="#">{{ $setting->province}} </a>
-            </li>
-            <li>
-              <a href="#">{{ $setting->postal_code}} </a>
-            </li>
-            <li>
-              <a href="#">{{ $setting->city}} </a>
-            </li>
-            <li>
-              <a href="#">{{ $setting->street}} </a>
-            </li>
-          </ul>        
-        </div>
-        <div class="col-md-3 mb-md-0 mb-3">
-          <h5 class="text-uppercase"><b>Contacto</b></h5>
-          <ul class="list-unstyled">
-            <li>
-              <a href="#">{{ $setting->library_name}} </a>
-            </li>
-            <li>
-              <a href="#">{{ $setting->library_phone}} </a>
-            </li>
-            <li>
-              <a href="#">{{ $setting->library_email}} </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-    </div>
-  </footer>
 
-  <!-- <footer class="main-footer">
-   
-    <div class="pull-right hidden-xs">
-      Anything you want
+
+  <footer class="main-footer">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="pull-right hidden-xs">
+          <strong>{{ $setting->library_name}}</strong>
+        </div>
+        
+        <strong>{{ $setting->street}}</strong> - {{ $setting->postal_code}}.
+      </div>
+      <div class="col-md-4">
+        <!-- <div class="pull-right hidden-xs">
+          <strong>{{ $setting->country}}</strong>
+        </div> -->
+        
+        <strong>{{ $setting->city}}</strong> -  {{ $setting->province}}.
+      </div>
+      <div class="col-md-4">
+        <div class="pull-right hidden-xs">
+          <strong>{{ $setting->library_email}} </strong>
+        </div>
+        
+        <strong>{{ $setting->library_phone}}.
+      </div>
+      
     </div>
-   
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <!-- <div class="pull-right hidden-xs">
+          Anything you want
+        </div>
+        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved. -->
   </footer>
-  -->
+ 
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -477,8 +460,11 @@ desired effect
 <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+   
+
 
 <script>
+
 // SOLICITUD DE REGISTRO DE NUEVO USUARIO - EXCLUSIVO DE FRONT-END
 // MODAL CORRESPONDIENTE A LA SOLICITUD DE REGISTRO DE SOCIO
 $('body').on('click', '.modal-show-solicitud-registro', function (event) {
@@ -716,8 +702,40 @@ $('body').on('click', '.btn-cambiar', function (event) {
                 }
             });
 });
-
 </script>
 
+<style>
+  .skin-blue .main-header .navbar{
+    background-color: {{ $setting->skin }};  
+  }
+
+  .skin-blue .main-header .logo:hover {
+    background-color: {{ $setting->skin }};  
+  }
+
+  .skin-blue .main-header .logo{
+    background-color: {{ $setting->skin }};  
+  }
+
+  /* .sidebar {
+    background-color: {{ $setting->skin }};  
+  }
+  .skin-blue .main-sidebar, .skin-blue .left-side {
+    background-color: {{ $setting->skin }};  
+  } */
+
+  .skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: {{ $setting->skin }};
+  }
+
+  body {  
+    background-color: {{ $setting->skin }};
+  }
+ .main-footer {
+  
+    background-color: {{ $setting->skin }};
+  }
+
+</style>
 </body>
 </html>

@@ -30,7 +30,7 @@ class CreateSettingsTable extends Migration
             $table->string('country')->nullable();
             $table->string('child_age')->nullable();
             $table->string('adult_age')->nullable();
-            $table->string('color')->nullable();
+            $table->string('skin')->nullable();
 
             
             $table->integer('loan_day')->nullable();

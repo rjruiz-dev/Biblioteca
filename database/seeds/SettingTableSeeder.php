@@ -24,7 +24,7 @@ class SettingTableSeeder extends Seeder
             'country'       => 'Tu pais',
             'child_age'     => '12',
             'adult_age'     => '18',
-            'color'         => '#f1ca19',
+            'skin'          => '#f1ca19',
         ]);
        
     }
