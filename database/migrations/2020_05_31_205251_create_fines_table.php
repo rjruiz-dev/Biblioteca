@@ -16,7 +16,8 @@ class CreateFinesTable extends Migration
         Schema::create('fines', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fine_description')->unique();
-            $table->string('operation');
+            $table->integer('unit');
+            $table->string('label'); 
             $table->timestamps();
         });
     }

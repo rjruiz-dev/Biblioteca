@@ -84,14 +84,20 @@
 
                     @forelse ($copies_prestadas  as $copie)
                         {!! Form::model($copies_prestadas, ['route' => ['admin.fastprocess.store',  count($copies_prestadas)],'method' => 'POST']) !!}
-                    
-                        @if (Carbon\Carbon::parse($copie->date_until) < Carbon\Carbon::now())
+
+                        @php  
+                        $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(Carbon\Carbon::now()); 
+                        @endphp
+
+                        @if (Carbon\Carbon::parse($copie->date_until)->format('d-m-Y') < Carbon\Carbon::now()->format('d-m-Y'))
                             @php
                                 $info = "dias de retraso";
                                 $color = "text-danger";
                                 $color_sancion = "text-danger";
                                 $mostrar_sancion = true;
-                                $sancion = "TAL COSA";
+                                $calculo = ($multa->unit * $dif);
+                                $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
+                                $disabled_reno = 'disabled';                           
                             @endphp 
                         @else
                             @php
@@ -100,12 +106,11 @@
                                 $mostrar_sancion = false;
                                 $color_sancion = "";
                                 $sancion = "-";
+                                $disabled_reno = '';
                             @endphp
                         @endif
 
-                        @php  
-                        $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(Carbon\Carbon::now()); 
-                        @endphp
+                        
 
                         <li class="list-group-item">
                         <b>{{ $copie->id }}</b>
@@ -132,14 +137,14 @@
                             </div> 
                     
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b class="{{$color_sancion}}">Sancion de:   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
+                                <b class="{{$color_sancion}}">Sancion:   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
                             </div>
 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until ]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
                             </div> 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until ]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">Renovar</a>
                             </div>
                         </div> 
                         </li> 

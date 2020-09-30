@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fine extends Model
 {
-    protected $fillable = ['fine_description', 'operation'];
+    protected $fillable = ['fine_description', 'unit', 'label'];
 
     public function setting()
     {

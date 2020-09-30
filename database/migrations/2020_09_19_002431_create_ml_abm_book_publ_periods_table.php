@@ -21,6 +21,7 @@ class CreateMlAbmBookPublPeriodsTable extends Migration
             $table->string('tema_de_portada')->nullable();
             $table->string('volumen_numero_y_fecha')->nullable();
             $table->string('periodicidad')->nullable();
+            $table->string('ph_periodicidad')->nullable();
             $table->string('issn')->nullable();
     
 

@@ -19,8 +19,8 @@ class CreateMlAbmBookLitsTable extends Migration
             $table->integer('many_lenguages_id')->nullable()->unsigned();
 
             $table->string('genero')->nullable();
-    
-
+            $table->string('ph_genero')->nullable();
+            
             $table->timestamps();
 
             $table->foreign('many_lenguages_id')->references('id')->on('many_lenguages')

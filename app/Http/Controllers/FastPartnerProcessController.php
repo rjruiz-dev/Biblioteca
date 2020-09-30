@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Fine;
 use App\Statu;
 use App\Copy;
 use DataTables;
 use App\Document;
 use Carbon\Carbon;
+use App\Setting;
+use App\Sanction;
 use App\Book_movement;
 use App\Document_type;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Document_subtype;
 use Illuminate\Http\Request;
-use App\Setting;
 use Illuminate\Support\Facades\DB;
 
 class FastPartnerProcessController extends Controller
@@ -150,7 +152,7 @@ class FastPartnerProcessController extends Controller
                         $t->active = 0;
                         $new_movement->users_id = $t->users_id; 
                         $new_movement->copies_id = $t->copies_id;
-                        $t->save();  
+                        $t->save();
                     }
                 //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
                 //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
@@ -163,6 +165,7 @@ class FastPartnerProcessController extends Controller
                     $new_movement->movement_types_id = 3; //DEVOLUCION (valores correspondientes a la base)
                     $copy->status_copy_id = 3;
                     $renodev = 3;
+            
                 }else{
                     $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
                     $new_movement->date_until = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));   
@@ -170,12 +173,14 @@ class FastPartnerProcessController extends Controller
                     $renodev = 2;
                 }
 
+                
                 $new_movement->courses_id = 1; //le pongo 1 xq ni idea si va o no
                 $new_movement->date = Carbon::now();
                 $new_movement->active = 1; 
                 
                 $copy->save(); 
                 $new_movement->save();
+                
                 $error = 0; //error en 0 es error NO
 
                 DB::commit();
@@ -317,6 +322,10 @@ class FastPartnerProcessController extends Controller
      ->where('movement_types_id', '=', 4)    
      ->get();
 
+     $setting_fines_id = Setting::select('fines_id')->first();
+     
+     $multa = Fine::where('id', $setting_fines_id->fines_id)->first();
+
         return view('admin.fastprocess.prestamo2', [
             'documento'             => $documento,
             'copies_prestadas'      => $copies_prestadas,
@@ -325,7 +334,8 @@ class FastPartnerProcessController extends Controller
             'copies_mantenimiento'  => $copies_mantenimiento,
             'copies_baja'           => $copies_baja,
             'idioma'                => $idioma,
-            'idiomas'               => $idiomas
+            'idiomas'               => $idiomas,
+            'multa'               => $multa
         ]);    
     }
 
@@ -424,7 +434,10 @@ class FastPartnerProcessController extends Controller
                         LEFT JOIN documents d ON d.id = c.documents_id 
                         LEFT JOIN document_types dt ON d.document_types_id = dt.id 
                         LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id 
-                        WHERE c.status_copy_id = 3 OR c.status_copy_id = 6
+                        WHERE c.status_copy_id = 3 
+                        OR c.status_copy_id = 6
+                        OR c.status_copy_id = 1
+                        OR c.status_copy_id = 2
                         GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
       
         return dataTables::of($documentos)

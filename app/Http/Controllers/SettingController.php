@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Setting;
 use App\Ml_dashboard;
+use App\Fine;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,12 +29,18 @@ class SettingController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
         $setting = Setting::where('id', 1)->first();
-                             
-
+          
+        $multas = Fine::all(); //obtengo las 2 multas. solo esta la econimica y la suspension de prestamos
+        // dd($multas);
+        $multa_economica = $multas[0];
+        $multa_suspension = $multas[1];
+        // dd($multa_economica);
         return view('admin.setting.index', [
             'idioma'     => $idioma,
             'idiomas'    => $idiomas,
-            'setting'    => $setting
+            'setting'    => $setting,
+            'multa_economica'    => $multa_economica,
+            'multa_suspension'    => $multa_suspension
         ]);
     }
 
@@ -117,6 +124,17 @@ class SettingController extends Controller
                 $setting->child_age         = $request->get('child_age');    
                 $setting->adult_age         = $request->get('adult_age');
                 $setting->skin              = $request->get('skin');
+                
+                $setting->fines_id = $request->get('group');
+
+                $multa_eco = Fine::findOrFail(1); //cargo economica
+                $multa_sus = Fine::findOrFail(2);//cargo suspension
+                
+                $multa_eco->unit             = $request->get('price_penalty');
+                $multa_sus->unit             = $request->get('days_penalty');
+                $multa_eco->save();
+                $multa_sus->save();
+
                 $setting->logo              = $name; 
                   
                 $setting->save();

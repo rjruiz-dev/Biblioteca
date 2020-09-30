@@ -19,6 +19,7 @@ class CreateMlAbmBookOtrosTable extends Migration
             $table->integer('many_lenguages_id')->nullable()->unsigned();
 
             $table->string('otros')->nullable();
+            $table->string('ph_otros')->nullable();
     
 
             $table->timestamps();

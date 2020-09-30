@@ -35,8 +35,8 @@
                     {!! Form::text('title', $book->document['title'], ['class' => 'form-control', 'id' => 'title', 'placeholder' => $idioma_abm_doc->titulo ]) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('subtitle', 'Subtitulo', ['id' => 'l_subtitle']) !!}                  
-                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Tema de Portada']) !!}
+                    {!! Form::label('subtitle', '', ['id' => 'l_subtitle']) !!}                  
+                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle']) !!}
                 </div>
                 <!-- pub periodica -->
                 <div class="form-group" id="din_volume_number_date">               

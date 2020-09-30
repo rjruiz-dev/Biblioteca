@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MovementTypesTableSeeder::class);
         $this->call(StatusDocumentTableSeeder::class);    
-        $this->call(DocumentsTableSeeder::class);
-        $this->call(CopiesTableSeeder::class);
+        // $this->call(DocumentsTableSeeder::class);
+        // $this->call(CopiesTableSeeder::class);
         $this->call(StatusTableSeeder::class);         
         $this->call(UsersTableSeeder::class);
         // $this->call(BookMovementTableSeeder::class);   
@@ -63,6 +63,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Ml_abm_multimediaTableSeeder::class);  
         $this->call(Ml_abm_fotografiaTableSeeder::class);  
         $this->call(Ml_abm_movieTableSeeder::class);
+        $this->call(FinesTableSeeder::class); 
         $this->call(SettingTableSeeder::class);
           
         
