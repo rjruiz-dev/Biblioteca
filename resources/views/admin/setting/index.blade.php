@@ -232,18 +232,14 @@ $('#btn-save').click(function (event) {
         cache: false,  
         processData: false,
         contentType: false,
-        success: function (response) {
-            // form.trigger('reset');
-            // $('#modal').modal('hide');
-            // $('#datatable').DataTable().ajax.reload();
-            $("#app").load(" #app"); 
+        success: function (response) {                    
             $("#logo-img").load(" #logo-img"); 
-      
-
             swal({
                 type : 'success',
                 title : '¡Éxito!',
                 text : '¡Se han guardado los datos!'
+            }).then(function() {
+                window.location.reload(); 
             });
         },
         error : function (xhr) {

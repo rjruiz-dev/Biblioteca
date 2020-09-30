@@ -243,7 +243,7 @@ class UserController extends Controller
                 DB::beginTransaction();
                 
                 $user = User::with('statu')->findOrFail($id); 
-
+               
                 $name = $user->user_photo;               
                 if ($request->hasFile('user_photo')) {               
                     $file = $request->file('user_photo');
@@ -253,11 +253,12 @@ class UserController extends Controller
                     $name = 'user-default.jpg';
                 }        
 
+
                 // Actualizamos el usuario
                 $user->name         = $request->get('name');
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
-                $user->email        = $request->get('email');        
+                $user->email        = $request->get('email');  
                 $user->password     = $request->get('password');
                 $user->gender       = $request->get('gender');  
                 $user->address      = $request->get('address');

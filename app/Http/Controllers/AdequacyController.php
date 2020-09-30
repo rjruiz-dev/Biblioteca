@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Adequacy;
 use App\Book;
 use App\Ml_dashboard;
+use App\Document;
 use App\Setting;
 use App\ManyLenguages;
 use Illuminate\Http\Request;

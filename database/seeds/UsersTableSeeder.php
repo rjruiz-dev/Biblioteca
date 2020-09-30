@@ -79,7 +79,8 @@ class UsersTableSeeder extends Seeder
         $admin->membership = 1;
         $admin->email = 'admin@gmail.com';        
         $admin->password = '123456';   
-        $admin->birthdate = '2020-09-25';   
+        $admin->birthdate = '2020-09-25';  
+        $admin->user_photo = 'user-default.jpg'; 
         $admin->status_id = 3;
         $admin->save();
 
@@ -98,6 +99,7 @@ class UsersTableSeeder extends Seeder
         $librarian->email = 'luis@gmail.com';       
         $librarian->password = '123456';
         $librarian->birthdate = '2020-09-25';      
+        $librarian->user_photo = 'user-default.jpg'; 
         $librarian->status_id = 3; 
         $librarian->save();
 
@@ -110,7 +112,8 @@ class UsersTableSeeder extends Seeder
         $partner->membership = 3;
         $partner->email = 'jorge@gmail.com';        
         $partner->password = '123456'; 
-        $partner->birthdate = '2020-09-25';      
+        $partner->birthdate = '2020-09-25'; 
+        $partner->user_photo = 'user-default.jpg';  
         $partner->status_id = 3;
         $partner->save();
 

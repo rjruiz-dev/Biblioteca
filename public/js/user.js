@@ -78,6 +78,7 @@ $('#modal-btn-save').click(function (event) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
+            $("#image").load(" #image");  
 
             swal({
                 type : 'success',

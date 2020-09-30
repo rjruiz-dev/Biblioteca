@@ -61,6 +61,44 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
+
+
+<style>
+  .skin-blue .main-header .navbar {
+    background-color: {{ $setting->skin }};  
+  }
+
+  .skin-blue .main-header .logo:hover {
+    background-color: {{ $setting->skin }};  
+  }
+
+  .skin-blue .main-header .logo {
+    background-color: {{ $setting->skin }};  
+  }
+
+  /* .sidebar {
+    background-color: {{ $setting->skin }};  
+  }
+  .skin-blue .main-sidebar, .skin-blue .left-side {
+    background-color: {{ $setting->skin }};  
+  } */
+
+  .skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: {{ $setting->skin }};
+  }
+
+  .skin-blue .main-header li.user-header {
+    background-color: {{ $setting->skin }};
+  }
+
+  body {  
+    background-color: {{ $setting->skin }};
+  }
+ .main-footer {  
+    background-color: {{ $setting->skin }};
+  }
+
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
@@ -71,10 +109,14 @@ desired effect
 
     <!-- Logo -->
     <a class="logo">
+    <img class="profile-user-img img-responsive img-circle img-test" 
+                    src="/images/{{ $setting->logo }}"                  
+                    style="width:50px; height: 50px">
+     
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>B</b>O</span>
+      <!-- <span class="logo-mini"><b>B</b>O</span> -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>{{ $idioma->biblioteca }}</b></span>  
+      <!-- <span class="logo-lg"><b>{{ $setting->library_name }}</b></span>   -->
     </a>
 
     <!-- Header Navbar -->
@@ -185,7 +227,7 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img id="image" src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : '/images/user-default.jpg' }}"   class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span id="rec_nickname" class="hidden-xs">{{ Auth::user() != null  ? Auth::user()->name : 'No logueado' }}</span>
               
@@ -330,33 +372,26 @@ desired effect
 
   <footer class="main-footer">
     <div class="row">
-      <div class="col-md-4">
-        <div class="pull-right hidden-xs">
-          <strong>{{ $setting->library_name}}</strong>
-        </div>
-        
-        <strong>{{ $setting->street}}</strong> - {{ $setting->postal_code}}.
+      <div class="col-md-2">       
+        <b>{{ $setting->library_name}}</b>
       </div>
-      <div class="col-md-4">
-        <!-- <div class="pull-right hidden-xs">
-          <strong>{{ $setting->country}}</strong>
-        </div> -->
-        
-        <strong>{{ $setting->city}}</strong> -  {{ $setting->province}}.
+      <div class="col-md-2">   
+      <i class="fa  fa-map-marker"></i> <b>{{ $setting->street}} - {{ $setting->postal_code}}</b> 
+      </div>      
+      <div class="col-md-2">   
+        <b>{{ $setting->city}}</b>
       </div>
-      <div class="col-md-4">
-        <div class="pull-right hidden-xs">
-          <strong>{{ $setting->library_email}} </strong>
-        </div>
-        
-        <strong>{{ $setting->library_phone}}.
+      <div class="col-md-2">   
+        <b>{{ $setting->province}}</b>
       </div>
-      
+      <div class="col-md-2">        
+          <i class="fa fa-envelope"></i> <b>{{ $setting->library_email}} </b>    
+      </div>   
+      <div class="col-md-2">        
+        <i class="fa fa-phone"></i> <b>{{ $setting->library_phone}} </b>    
+      </div>      
     </div>
-    <!-- <div class="pull-right hidden-xs">
-          Anything you want
-        </div>
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved. -->
+    
   </footer>
  
 
@@ -437,6 +472,7 @@ desired effect
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
@@ -644,7 +680,8 @@ $('#modal-btn-save-edicion-perfil').click(function (event) {
             form.trigger('reset');
             $('#modal_edicion_perfil').modal('hide');
             // $('#rec_nickname').DataTable().ajax.reload();
-            $("#rec_nickname").load(" #rec_nickname"); 
+            $("#rec_nickname").load(" #rec_nickname");
+            $("#image").load(" #image");  
             // if(info == 0){
             swal({
                     type : 'success',
@@ -704,38 +741,5 @@ $('body').on('click', '.btn-cambiar', function (event) {
 });
 </script>
 
-<style>
-  .skin-blue .main-header .navbar{
-    background-color: {{ $setting->skin }};  
-  }
-
-  .skin-blue .main-header .logo:hover {
-    background-color: {{ $setting->skin }};  
-  }
-
-  .skin-blue .main-header .logo{
-    background-color: {{ $setting->skin }};  
-  }
-
-  /* .sidebar {
-    background-color: {{ $setting->skin }};  
-  }
-  .skin-blue .main-sidebar, .skin-blue .left-side {
-    background-color: {{ $setting->skin }};  
-  } */
-
-  .skin-blue .main-header .navbar .sidebar-toggle:hover {
-    background-color: {{ $setting->skin }};
-  }
-
-  body {  
-    background-color: {{ $setting->skin }};
-  }
- .main-footer {
-  
-    background-color: {{ $setting->skin }};
-  }
-
-</style>
 </body>
 </html>
