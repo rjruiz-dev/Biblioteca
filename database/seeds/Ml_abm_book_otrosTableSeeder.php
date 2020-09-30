@@ -14,7 +14,7 @@ class Ml_abm_book_otrosTableSeeder extends Seeder
         App\Ml_abm_book_otros::create([
             'many_lenguages_id'      => 1,
             'otros'      => 'otros',
-            'plh_otros'      => 'Seleccione_Otros',
+            'ph_otros'      => 'ph_otros',
             ]);
     }
 }

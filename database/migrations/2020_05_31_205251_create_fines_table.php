@@ -17,6 +17,7 @@ class CreateFinesTable extends Migration
             $table->increments('id');
             $table->string('fine_description')->unique();
             $table->integer('unit');
+            $table->string('label'); 
             $table->timestamps();
         });
     }

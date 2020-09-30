@@ -57,10 +57,16 @@ class GenericCopiesController extends Controller
     {
         $copy = new Copy();
 
+        
         $sugerido2 = Copy::select('registry_number')->orderBy('registry_number', 'DESC')->first();
-        // dd($sugerido2);
-        $sugerido = $sugerido2->registry_number + 1;
-        // dd($sugerido);
+        
+        if($sugerido2 != null){
+                // dd($sugerido2);
+                $sugerido = $sugerido2->registry_number + 1;
+                // dd($sugerido);
+        }else{
+            $sugerido = 1;
+        }
 
         return view('admin.genericcopies.partials.form', [
             'status'    => Movement_type::where('view', 1)->pluck('book_status_priv', 'id'),

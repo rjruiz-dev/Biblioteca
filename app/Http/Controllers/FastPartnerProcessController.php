@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Fine;
 use App\Statu;
 use App\Copy;
 use DataTables;
 use App\Document;
 use Carbon\Carbon;
 use App\Setting;
+use App\Sanction;
 use App\Book_movement;
 use App\Document_type;
 use App\Ml_dashboard;
@@ -146,7 +148,7 @@ class FastPartnerProcessController extends Controller
                         $t->active = 0;
                         $new_movement->users_id = $t->users_id; 
                         $new_movement->copies_id = $t->copies_id;
-                        $t->save();  
+                        $t->save();
                     }
                 //hago un update de al movimiento anterior para indicar que ya NO SERA EL ULTIMO MOVIMIENTO
                 //DE ESE DOCUMENTO. ESTO SIRVE PARA MOSTRAR BASICAMENTE EL ESTADO ACTUAL DEL DOCUMENTO.
@@ -159,6 +161,7 @@ class FastPartnerProcessController extends Controller
                     $new_movement->movement_types_id = 3; //DEVOLUCION (valores correspondientes a la base)
                     $copy->status_copy_id = 3;
                     $renodev = 3;
+            
                 }else{
                     $new_movement->movement_types_id = 2; //RENOVACION (valores correspondientes a la base)
                     $new_movement->date_until = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));   
@@ -166,12 +169,14 @@ class FastPartnerProcessController extends Controller
                     $renodev = 2;
                 }
 
+                
                 $new_movement->courses_id = 1; //le pongo 1 xq ni idea si va o no
                 $new_movement->date = Carbon::now();
                 $new_movement->active = 1; 
                 
                 $copy->save(); 
                 $new_movement->save();
+                
                 $error = 0; //error en 0 es error NO
 
                 DB::commit();
@@ -313,6 +318,10 @@ class FastPartnerProcessController extends Controller
      ->where('movement_types_id', '=', 4)    
      ->get();
 
+     $setting_fines_id = Setting::select('fines_id')->first();
+     
+     $multa = Fine::where('id', $setting_fines_id->fines_id)->first();
+
         return view('admin.fastprocess.prestamo2', [
             'documento'             => $documento,
             'copies_prestadas'      => $copies_prestadas,
@@ -321,7 +330,8 @@ class FastPartnerProcessController extends Controller
             'copies_mantenimiento'  => $copies_mantenimiento,
             'copies_baja'           => $copies_baja,
             'idioma'                => $idioma,
-            'idiomas'               => $idiomas
+            'idiomas'               => $idiomas,
+            'multa'               => $multa
         ]);    
     }
 

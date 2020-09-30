@@ -16,6 +16,7 @@ class SettingTableSeeder extends Seeder
             'library_email' => 'TuEmail@gmail.com',
             'library_phone' => '234-5677234',
             'language'      => 'Español',
+            'fines_id'      => 1,
             'logo'          => 'Library-default.jpg',
             'street'        => 'Tu Direccion 1234',
             'city'          => 'Tu Ciudad',
