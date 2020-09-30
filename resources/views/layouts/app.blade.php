@@ -227,7 +227,7 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img id="image" src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : '/images/user-default.jpg' }}"   class="user-image" alt="User Image">
+              <img src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}"   class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span id="rec_nickname" class="hidden-xs">{{ Auth::user() != null  ? Auth::user()->name : 'No logueado' }}</span>
               
@@ -235,11 +235,15 @@ desired effect
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}" class="img-circle" alt="User Image">
 
                 <p>
+                  {{ Auth::user()->name }} - {{  Auth::user()->getRoleNames() }}
+                  <small>Desde {{ Auth::user() != null ? Auth::user()->created_at->format('d/M/Y') : 'No logueado' }}</small>
+                </p>
+
+                <p>               
                
-                <small>Desde {{ Auth::user() != null ? Auth::user()->created_at->format('d/M/Y') : 'No logueado' }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -315,7 +319,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img id="image" src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
         <p>{{ Auth::user() != null ? Auth::user()->name : $idioma->invitado }}</p>
@@ -366,10 +370,6 @@ desired effect
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-
-
-
   <footer class="main-footer">
     <div class="row">
       <div class="col-md-2">       
@@ -390,11 +390,8 @@ desired effect
       <div class="col-md-2">        
         <i class="fa fa-phone"></i> <b>{{ $setting->library_phone}} </b>    
       </div>      
-    </div>
-    
+    </div>    
   </footer>
- 
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
