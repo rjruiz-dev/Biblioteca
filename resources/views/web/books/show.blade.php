@@ -1,5 +1,5 @@
 <div class="row">
-       
+       <!-- no deberia subir 2 -->
 <div class="container-fluid"> 
         <div class="row col-md-12" >
             <div class="col-md-3">

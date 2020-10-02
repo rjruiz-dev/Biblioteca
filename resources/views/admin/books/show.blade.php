@@ -4,21 +4,21 @@
         <div class="row col-md-12" >
             <div class="col-md-3">
                 <strong> Siglas Autor:</strong>
-                    <b class="tex-muted"><a>{{ $movie->document->let_author }}</a> </b>
+                    <b class="tex-muted"><a>{{ $book->document->let_author }}</a> </b>
                 <hr>
             </div>
             <div class="col-md-3">
                 <strong> Siglas Título:</strong>
-                    <b class="text-muted"><a>{{ $movie->document->let_title }}</a></b>
+                    <b class="text-muted"><a>{{ $book->document->let_title }}</a></b>
                 <hr>
             </div>
             <div class="col-md-3">
                 <strong> Cdu:</strong>
-                    <b class="text-muted"></a>{{ $movie->document->subjects->cdu }}</a></b>
+                    <b class="text-muted"></a>{{ $book->document->subjects->cdu }}</a></b>
                 <hr>
             </div>
             <div class="col-md-3">
-                    <b class="text-muted"></a>{{ $movie->document->id }}</a></b>
+                    <b class="text-muted"></a>{{ $book->document->id }}</a></b>
                 <hr>
             </div>
         </div>   
