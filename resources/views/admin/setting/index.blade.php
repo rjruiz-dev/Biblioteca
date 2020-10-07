@@ -89,16 +89,16 @@
                         {!! Form::text('street', null, ['class' => 'form-control', 'id' => 'street', 'placeholder' => 'Calle y Número']) !!}
                     </div>
                     <div class="form-group">              
+                        {!! Form::label('postal_code', 'Código Postal') !!}                    
+                        {!! Form::text('postal_code', null, ['class' => 'form-control', 'id' => 'postal_code', 'placeholder' => 'Código Postal']) !!}
+                    </div> 
+                    <div class="form-group">              
                         {!! Form::label('city', 'Ciudad') !!}                    
                         {!! Form::text('city', null, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Ciudad']) !!}
                     </div> 
                     <div class="form-group">              
                         {!! Form::label('province', 'Provincia') !!}                    
                         {!! Form::text('province', null, ['class' => 'form-control', 'id' => 'province', 'placeholder' => 'Región/Provincia']) !!}
-                    </div> 
-                    <div class="form-group">              
-                        {!! Form::label('postal_code', 'Código Postal') !!}                    
-                        {!! Form::text('postal_code', null, ['class' => 'form-control', 'id' => 'postal_code', 'placeholder' => 'Código Postal']) !!}
                     </div> 
                     <div class="form-group">              
                         {!! Form::label('country', 'País') !!}                    
@@ -172,7 +172,13 @@
                         <input type="text" value="{{ $setting->skin }}" name="skin" id="skin" class="form-control" /> 
                         <span class="input-group-addon"><i></i></span>
                     </div> 
-                    <span class="help-block">Seleccionar Color para Cambiar estilo de Biblioteca</span>   
+                    <span class="help-block">Seleccionar Color para Cambiar estilo de Biblioteca</span> 
+                    {!! Form::label('skin_footer', 'Seleccionar Color de Fuente') !!}   
+                    <div id="skin_footer" class="input-group colorpicker colorpicker-component"> 
+                        <input type="text" value="{{ $setting->skin_footer }}" name="skin_footer" id="skin_footer" class="form-control" /> 
+                        <span class="input-group-addon"><i></i></span>
+                    </div> 
+                    <span class="help-block">Seleccionar Color de Fuente para Cambiar estilo del Footer</span>   
                 </div>          
             </div>      
         </div> 

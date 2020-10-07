@@ -64,6 +64,11 @@ desired effect
 
 
 <style>
+
+  .skin-blue .main-header .navbar {
+    background-color: {{ $setting->skin }};  
+  }
+
   .skin-blue .main-header .navbar {
     background-color: {{ $setting->skin }};  
   }
@@ -96,6 +101,10 @@ desired effect
   }
  .main-footer {  
     background-color: {{ $setting->skin }};
+    
+  }
+  .main-footer {
+    color: {{ $setting->skin_footer }};
   }
 
 </style>
@@ -372,7 +381,10 @@ desired effect
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="row">
-      <div class="col-md-2">       
+      <div class="text-center col-lg-12 col-md-12 justify-content-center align-items-center d-flex pt-2">       
+        <b>{{ $setting->library_name}}</b> | <b>{{ $setting->street}} {{ $setting->postal_code}} {{ $setting->city}} {{ $setting->province}}</b> | <b>{{ $setting->library_email}}</b> | <b>{{ $setting->library_phone}}</b> 
+      </div>
+      <!-- <div class="col-md-2">       
         <b>{{ $setting->library_name}}</b>
       </div>
       <div class="col-md-2">   
@@ -389,7 +401,7 @@ desired effect
       </div>   
       <div class="col-md-2">        
         <i class="fa fa-phone"></i> <b>{{ $setting->library_phone}} </b>    
-      </div>      
+      </div>       -->
     </div>    
   </footer>
   <!-- Control Sidebar -->
@@ -684,6 +696,8 @@ $('#modal-btn-save-edicion-perfil').click(function (event) {
                     type : 'success',
                     title : '¡Éxito!',
                     text : '¡Se han actualizado sus datos!'
+            }).then(function() {
+                window.location.reload(); 
             });
           // }else{
           //   swal({

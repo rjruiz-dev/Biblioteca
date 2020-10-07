@@ -24,7 +24,7 @@
             </div>
             <div class="box-body">
                 {{ csrf_field() }}
-                <div class="form-group">
+                <div class="form-group" id="fg_document_subtypes_id">
                     {!! Form::label('document_subtypes_id', $idioma_abm_book->tipo_de_libro) !!}
                     {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '',  'onchange' => 'yesnoCheck()', 'style' => 'width:100%;']) !!}
 
@@ -43,11 +43,11 @@
                     {!! Form::label('volume_number_date', 'Volumen, Número y Fecha') !!}                  
                     {!! Form::text('volume_number_date', $book->periodical_publication['volume_number_date'], ['class' => 'form-control', 'id' => 'volume_number_date', 'placeholder' => 'Volumen, Número y Fecha']) !!}
                 </div>      
-                <div class="form-group">
+                <div class="form-group" id="fg_creators_id">
                     {!! Form::label('creators_id', $idioma_abm_doc->autor) !!}             
                     {!! Form::select('creators_id', $authors, $book->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
-                <div class="form-group">
+                <div class="form-group" id="fg_second_author_id">
                     {!! Form::label('second_author_id', $idioma_abm_doc->segundo_autor) !!}             
                     {!! Form::select('second_author_id', $authors, null, ['class' => 'form-control  select2', 'id' => 'second_author_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
@@ -83,7 +83,7 @@
                     </div>                  
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group"  id="fg_adequacies_id">
                     {!! Form::label('adequacies_id', $idioma_abm_doc->adecuado_para ) !!}             
                     {!! Form::select('adequacies_id', $adaptations, $book->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div>
@@ -101,7 +101,7 @@
                     {!! Form::text('issn', $book->periodical_publication['issn'], ['class' => 'form-control', 'id' => 'issn', 'placeholder' => 'Issn']) !!}
                 </div>
               
-                <div class="form-group">              
+                <div class="form-group" >              
                     {!! Form::label('let_author', $idioma_abm_doc->siglas_autor) !!}                    
                     {!! Form::text('let_author', $book->document['let_author'], ['class' => 'form-control', 'id' => 'let_author', 'placeholder' => 'Ingresar 3 letras del autor']) !!}
                 </div>
@@ -109,7 +109,7 @@
                     {!! Form::label('let_title', $idioma_abm_doc->siglas_titulo) !!}                    
                     {!! Form::text('let_title', $book->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del titulo']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_generate_subjects_id">
                     {!! Form::label('generate_subjects_id', $idioma_abm_doc->cdu) !!}             
                     {!! Form::select('generate_subjects_id', $subjects, $book->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
@@ -135,11 +135,11 @@
                 <h3 class="box-title">{{ $idioma_abm_doc->area_de_edición }}</h3>                
             </div>
             <div class="box-body">   
-                <div class="form-group">                       
+                <div class="form-group" id="fg_published">                       
                     {!! Form::label('published', $idioma_abm_doc->publicado_en) !!} 
                     {!! Form::select('published', $publications, $book->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'style' => 'width:100%;']) !!}                                      
                 </div>
-                <div class="form-group">              
+                <div class="form-group" id="fg_made_by">              
                     {!! Form::label('made_by', $idioma_abm_doc->editorial) !!}        
                     {!! Form::select('made_by', $editorials, $book->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div>            
@@ -157,11 +157,11 @@
                             placeholder= "Selecciona {{{ $idioma_abm_doc->anio_de_publicación }}}">                       
                     </div>                  
                 </div>
-                <div class="form-group">              
+                <div class="form-group"  id="fg_edition">              
                     {!! Form::label('edition', $idioma_abm_doc->edicion) !!}        
                     {!! Form::select('edition', $editions, null, ['class' => 'form-control  select2', 'id' => 'edition', 'placeholder' => '', 'style' => 'width:100%;']) !!}                            
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_volume">
                     {!! Form::label('volume', $idioma_abm_doc->volumenes) !!}
                     {!! Form::select('volume', $volumes, $book->document['volume'], ['class' => 'form-control  select2', 'id' => 'volume', 'placeholder' => '',  'style' => 'width:100%;']) !!}            
                 </div>
@@ -181,11 +181,11 @@
                     {!! Form::label('location', $idioma_abm_doc->ubicacion) !!}               
                     {!! Form::text('location', $book->document['location'], ['class' => 'form-control', 'id' => 'location', 'placeholder' => $idioma_abm_doc->ubicacion ]) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_lenguages_id">
                     {!! Form::label('lenguages_id', $idioma_abm_doc->idioma) !!} 
                     {!! Form::select('lenguages_id', $languages, $book->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_references">
                     <label>{{ $idioma_abm_doc->referencia }}</label>
                     <select name="references[]" id="references" class="form-control select2" 
                             multiple="multiple"                            
