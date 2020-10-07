@@ -89,6 +89,12 @@
     <script src="{{ asset('js/movies.js') }}"></script>
     
     <script>
+     let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         fill_datatable(); 
 
     function fill_datatable(curso = "", letra = "", turno = ""){
@@ -114,26 +120,29 @@
                         columns: [0,1,2,3,4,5,6,7,8,9]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6,7,8,9]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5,6,7,8,9]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-prestamos-por-aula-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6,7,8,9]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-prestamos-por-aula-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6,7,8,9]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-prestamos-por-aula-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6,7,8,9]
                     }

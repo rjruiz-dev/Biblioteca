@@ -60,6 +60,12 @@
     <script src="{{ asset('js/photographs.js') }}"></script>
     
     <script>
+      let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -79,26 +85,29 @@
                         columns: [0,1,2,3,4,5]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-fotografias-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-fotografias-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-fotografias-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5]
                     }

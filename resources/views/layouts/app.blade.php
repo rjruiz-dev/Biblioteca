@@ -120,7 +120,7 @@ desired effect
     <a class="logo">
     <img class="profile-user-img img-responsive img-circle img-test" 
                     src="/images/{{ $setting->logo }}"                  
-                    style="width:50px; height: 50px">
+                    style="width:80px; height: 80px;">
      
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <!-- <span class="logo-mini"><b>B</b>O</span> -->

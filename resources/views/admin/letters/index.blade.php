@@ -66,6 +66,12 @@
     <script src="{{ asset('js/letter.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -82,31 +88,34 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-modelos-de-cartas-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-modelos-de-cartas-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-modelos-de-cartas-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4]
                     }
                 }
                 
