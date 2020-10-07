@@ -97,6 +97,12 @@
     <script src="{{ asset('js/movies.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         fill_datatable(); 
 
     function fill_datatable(fecha_desde = "", fecha_hasta = ""){
@@ -122,26 +128,29 @@
                         columns: [0,1,2,3,4,5,6,7]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6,7]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5,6,7]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-prestamos-por-fecha-devolucion-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6,7]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-prestamos-por-fecha-devolucion-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6,7]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-prestamos-por-fecha-devolucion-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6,7]
                     }

@@ -60,6 +60,12 @@
     <script src="{{ asset('js/musical.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -79,26 +85,29 @@
                         columns: [0,1,2]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-generos-musicales-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-generos-musicales-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-generos-musicales-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2]
                     }

@@ -60,6 +60,12 @@
     <script src="{{ asset('js/reference.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -79,14 +85,16 @@
                         columns: [0,1,2]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     title: 'informe-referencias-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-referencias-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2]
                     }

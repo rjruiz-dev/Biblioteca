@@ -75,6 +75,12 @@ use App\Book;
     <script src="{{ asset('js/book.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -94,26 +100,29 @@ use App\Book;
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5,6]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-libros-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-libros-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-libros-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }

@@ -684,6 +684,8 @@ $('#modal-btn-save-edicion-perfil').click(function (event) {
                     type : 'success',
                     title : '¡Éxito!',
                     text : '¡Se han actualizado sus datos!'
+            }).then(function() {
+                window.location.reload(); 
             });
           // }else{
           //   swal({

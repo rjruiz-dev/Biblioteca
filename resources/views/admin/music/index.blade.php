@@ -74,6 +74,12 @@ use App\Music;
     <script src="{{ asset('js/music.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -93,26 +99,29 @@ use App\Music;
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5,6]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-musica-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-musica-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-musica-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }

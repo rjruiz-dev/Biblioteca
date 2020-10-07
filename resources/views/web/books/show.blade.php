@@ -18,7 +18,7 @@
                 <hr>
             </div>
             <div class="col-md-3">
-                    <b class="text-muted"></a>{{ $book->document->id }}</a></b>
+                    <b class="text-muted"></a>NR: {{ $book->document->id }}</a></b>
                 <hr>
             </div>
         </div>   

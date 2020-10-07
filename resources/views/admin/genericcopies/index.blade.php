@@ -82,6 +82,12 @@
     <script src="{{ asset('js/genericcopies.js') }}"></script>
     
     <script>
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var fechaActual = day + '-' + month + '-' + year;
+    
         $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -98,29 +104,32 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3]
+                //     }
+                // },
                 {
                     extend: 'excel',
+                    title: 'informe-copias-{{ $document->title }}-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'pdf',
+                    title: 'informe-copias-{{ $document->title }}-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3]
                     }
                 },
                 {
                     extend: 'print',
+                    title: 'informe-copias-{{ $document->title }}-'+ fechaActual,
                     exportOptions: {
                         columns: [0,1,2,3,4,5,6]
                     }
