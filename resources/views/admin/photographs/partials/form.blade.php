@@ -26,7 +26,7 @@
 
         
 
-                <div class="form-group"><!-- documents V -->
+                <div class="form-group"  id="fg_document_subtypes_id"><!-- documents V -->
                     {!! Form::label('document_subtypes_id', 'Tipo de Fotografia') !!}
                     {!! Form::select('document_subtypes_id', $subtypes, $photograph->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
@@ -41,17 +41,17 @@
                     {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
                 </div>
                 
-                 <div class="form-group">
+                 <div class="form-group"  id="fg_creators_id">
                     {!! Form::label('creators_id', 'Autor') !!}             
                     {!! Form::select('creators_id', $authors, $photograph->document['creators_id'], ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'creators_id','style' => 'width:100%;']) !!}
                 </div> 
 
-                <div class="form-group">
+                <div class="form-group" id="fg_second_author_id">
                     {!! Form::label('second_author_id', 'Segundo Autor') !!}             
                     {!! Form::select('second_author_id', $authors, null, ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'second_author_id', 'style' => 'width:100%;']) !!}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="din_third_author_id">
                     {!! Form::label('third_author_id', 'Tercer Autor') !!}                    
                     {!! Form::select('third_author_id', $authors, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'third_author_id', 'style' => 'width:100%;']) !!}
                 </div>
@@ -81,7 +81,7 @@
                     </div>                  
                 </div>             
 
-                <div class="form-group">
+                <div class="form-group" id="fg_adequacies_id">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $photograph->document['adequacies_id'], ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'adequacies_id', 'style' => 'width:100%;']) !!}
                 </div>
@@ -94,7 +94,7 @@
                     {!! Form::label('let_title', 'Siglas Título') !!}                    
                     {!! Form::text('let_title', $photograph->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del Título']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_generate_subjects_id">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
                     {!! Form::select('generate_subjects_id', $subjects, $photograph->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
@@ -122,11 +122,11 @@
                 <h3 class="box-title">Area de Edición</h3>                
             </div>
             <div class="box-body">   
-                <div class="form-group">                       
+                <div class="form-group"  id="fg_published">                       
                     {!! Form::label('published', 'Editado En') !!} 
                     {!! Form::select('published', $publications, $photograph->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '',  'style' => 'width:100%;']) !!}                                      
                 </div>
-                <div class="form-group">              
+                <div class="form-group" id="fg_made_by">              
                     {!! Form::label('made_by', 'Sello Discografico') !!}                    
                     {!! Form::select('made_by', $editorials, $photograph->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div>
@@ -147,11 +147,11 @@
                     </div>                  
                 </div>
 
-                <div class="form-group">
+                <div class="form-group"  id="fg_edition">
                     {!! Form::label('edition', 'Edicion') !!}                    
                     {!! Form::text('edition', null, ['class' => 'form-control', 'id' => 'edition', 'placeholder' => 'Edicion']) !!}
                 </div> 
-                <div class="form-group">
+                <div class="form-group" id="fg_volume">
                     {!! Form::label('volume', 'Volúmenes') !!}
                     {!! Form::select('volume', $volumes, $photograph->document['volume'], ['class' => 'form-control  select2', 'id' => 'volume', 'placeholder' => '',  'style' => 'width:100%;']) !!}            
                 </div>
@@ -161,7 +161,7 @@
                     {!! Form::text('quantity_generic', $photograph->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'N° Diapositivas']) !!}
                 </div>
 
-                <div class="form-group">                  
+                <div class="form-group" id="fg_generate_formats_id">                  
                     {!! Form::label('generate_formats_id', 'Formato') !!}             
                     {!! Form::select('generate_formats_id', $formats, null, ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'generate_formats_id', 'style' => 'width:100%;']) !!}
                 </div>
@@ -186,11 +186,11 @@
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $photograph->document['note'])}}</textarea>
                 </div>
             
-                <div class="form-group">
+                <div class="form-group" id="fg_lenguages_id">
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $photograph->document['lenguages_id'], ['class' => 'form-control  select2', 'placeholder' => '', 'id' => 'lenguages_id', 'style' => 'width:100%;']) !!}                     
                 </div>               
-                <div class="form-group">
+                <div class="form-group" id="fg_references">
                     <label>Referencia</label>
                     <select name="references[]" id="references" class="form-control select2" 
                             multiple="multiple"                            

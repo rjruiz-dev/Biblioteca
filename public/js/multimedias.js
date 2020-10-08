@@ -49,12 +49,7 @@ $('body').on('click', '.modal-show', function (event) {
                 dropdownParent: $("#fg_references"),         
                 tags: false                             
             });
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',            
-                language: 'es'
-            });  
+          
             $('#adequacies_id').select2({
                 dropdownParent: $("#fg_adequacies_id"),
                 placeholder: 'Selecciona una Adecuación'                            
