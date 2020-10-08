@@ -32,11 +32,11 @@
                     {!! Form::label('subtitle', 'Subtítulo') !!}                  
                     {!! Form::text('subtitle', null, ['class' => 'form-control', 'id' => 'subtitle', 'placeholder' => 'Subtítulo']) !!}
                 </div>                         
-                <div class="form-group">
+                <div class="form-group"  id="fg_creators_id">
                     {!! Form::label('creators_id', 'Director') !!}             
                     {!! Form::select('creators_id', $authors, $movie->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
-                <div class="form-group">
+                <div class="form-group" id="fg_actors">
                     <label>Reparto</label>
                     <select name="actors[]" id="actors" class="form-control select2" 
                             multiple="multiple"                            
@@ -50,7 +50,7 @@
                     {!! Form::label('original_title', 'Título Original') !!} 
                     {!! Form::text('original_title', $movie->document['original_title'], ['class' => 'form-control', 'id' => 'original_title', 'placeholder' => 'Título Original']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_adaptations_id">
                     {!! Form::label('adaptations_id', 'Adaptacion') !!}             
                     {!! Form::select('adaptations_id', $adaptations_bis, null, ['class' => 'form-control  select2', 'id' => 'adaptations_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
@@ -76,11 +76,11 @@
                             placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_adequacies_id">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $movie->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_generate_films_id">
                     {!! Form::label('generate_films_id', 'Género') !!}             
                     {!! Form::select('generate_films_id', $genders, null, ['class' => 'form-control  select2', 'id' => 'generate_films_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div>                
@@ -92,7 +92,7 @@
                     {!! Form::label('let_title', 'Siglas Titulo') !!}                    
                     {!! Form::text('let_title', $movie->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del Título']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_generate_subjects_id">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
                     {!! Form::select('generate_subjects_id', $subjects, $movie->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
@@ -106,8 +106,8 @@
                 </div>
 
                 <div class="form-group" style="{{{ $visible_status_doc }}}">
-                {!! Form::label('status_documents_id', 'Estado') !!}             
-                {!! Form::select('status_documents_id', $status_documents, $movie->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}    
+                    {!! Form::label('status_documents_id', 'Estado') !!}             
+                    {!! Form::select('status_documents_id', $status_documents, $movie->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}    
                 </div> 
 
             </div>
@@ -119,11 +119,11 @@
                 <h3 class="box-title">Area de Edición</h3>                
             </div>
             <div class="box-body">   
-                <div class="form-group">                       
+                <div class="form-group" id="fg_published">                       
                     {!! Form::label('published', 'Nacionalidad') !!} 
                     {!! Form::select('published', $publications, $movie->document['published'], ['class' => 'form-control', 'id' => 'published', 'placeholder' => '', 'style' => 'width:100%;']) !!}                                      
                 </div>
-                <div class="form-group">              
+                <div class="form-group" id="fg_made_by">              
                     {!! Form::label('made_by', 'Productora') !!}        
                     {!! Form::select('made_by', $editorials, $movie->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div>       
@@ -142,19 +142,19 @@
                             placeholder= "Selecciona Año de Publicación">                       
                     </div>                  
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_photography_movies_id">
                     {!! Form::label('photography_movies_id', 'Fotografia') !!}             
                     {!! Form::select('photography_movies_id', $photographs, $movie->photography_movie['photography_movies_id'], ['class' => 'form-control  select2', 'id' => 'photography_movies_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>             
-                <div class="form-group">                 
+                <div class="form-group" >                 
                     {!! Form::label('quantity_generic', 'Duración') !!}               
                     {!! Form::text('quantity_generic', $movie->document['quantity_generic'], ['class' => 'form-control', 'id' => '', 'placeholder' => 'Duración']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_generate_formats_id">
                     {!! Form::label('generate_formats_id', 'Formato') !!}             
                     {!! Form::select('generate_formats_id', $formats, null, ['class' => 'form-control  select2', 'id' => 'generate_formats_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group"  id="fg_distributor">
                     {!! Form::label('distributor', 'Distribuidora') !!}             
                     {!! Form::select('distributor', $distributors, null, ['class' => 'form-control', 'id' => 'distributor', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
@@ -170,11 +170,11 @@
                     <label>Notas</label>
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $movie->document['note'])}}</textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_lenguages_id">
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $movie->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_references">
                     <label>Referencia</label>
                     <select name="references[]" id="references" class="form-control select2" 
                             multiple="multiple"                            

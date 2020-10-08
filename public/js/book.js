@@ -29,8 +29,7 @@ $('body').on('click', '.modal-show', function (event) {
             
             $('#lenguages_id').select2({
                 dropdownParent: $("#fg_lenguages_id"),
-                placeholder: 'Selecciona un Idioma'
-                                            
+                placeholder: 'Selecciona un Idioma'                                            
             });
             
            $('#adequacies_id').select2({
