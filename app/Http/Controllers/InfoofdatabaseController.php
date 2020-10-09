@@ -24,7 +24,7 @@ use App\ManyLenguages;
 use App\Setting;
 use Illuminate\Support\Facades\DB;
 
-class InfoofdatabaseController extends Controller
+class infoofdatabaseController extends Controller
 {
     /**
      * Display a listing of the resource.
