@@ -16,20 +16,20 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);
             
             $('#gender').select2({
+                dropdownParent: $("#fg_gender"),
                 placeholder: 'Selecciona un Género',
-                tags: true, 
-                dropdownParent: $('#modal')              
+                tags: true      
             });
 
             $('#status_id').select2({
-                placeholder: 'Selecciona un Estado',   
-                dropdownParent: $('#modal')                                
+                dropdownParent: $("#fg_status_id"),
+                placeholder: 'Selecciona un Estado'                       
             });
 
             $('#province').select2({
+                dropdownParent: $("#fg_province"),
                 placeholder: 'Selecciona o Ingresa una Provincia',
-                tags: true, 
-                dropdownParent: $('#modal')                           
+                tags: true                     
             });
 
             $('#birthdate').datepicker({
