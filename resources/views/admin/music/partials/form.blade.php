@@ -24,7 +24,7 @@
             </div>
             <div class="box-body">
 
-                <div class="form-group"><!-- documents V -->
+                <div class="form-group" id="fg_document_subtypes_id"><!-- documents V -->
                     {!! Form::label('document_subtypes_id', 'Tipo de musica') !!}
                     {!! Form::select('document_subtypes_id', $subtypes, $music->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '',  'onchange' => 'yesnoCheck()', 'style' => 'width:100%;']) !!}
                 </div>               
@@ -43,14 +43,13 @@
                     {!! Form::text('album_title', $music->culture['album_title'], ['class' => 'form-control', 'id' => 'album_title', 'placeholder' => 'Título del Disco']) !!}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="fg_creators_id">
                     {!! Form::label('creators_id', 'Artista', ['id' => 'l_creators_id']) !!}             
                     {!! Form::select('creators_id', $authors, $music->document['creators_id'], ['class' => 'form-control  select2', 'id' => 'creators_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div> 
                  <!-- popular  -->
                  <div class="form-group" id="din_other_artists">
-                    {!! Form::label('other_artists', 'Otros Artistas') !!}  
-                   
+                    {!! Form::label('other_artists', 'Otros Artistas') !!}                     
                     {!! Form::text('other_artists',  $music->popular['other_artists'], ['class' => 'form-control', 'id' => 'other_artists', 'placeholder' => 'Otros Artistas']) !!}
                 </div>
                 <!-- popular  -->
@@ -96,11 +95,11 @@
                             placeholder= "Selecciona una Fecha de Adquisición">                       
                     </div>                  
                 </div>    
-                <div class="form-group">
+                <div class="form-group"  id="fg_adequacies_id">
                     {!! Form::label('adequacies_id', 'Adecuado Para') !!}             
                     {!! Form::select('adequacies_id', $adaptations, $music->document['adequacies_id'], ['class' => 'form-control  select2', 'id' => 'adequacies_id', 'placeholder' => '',  'style' => 'width:100%;']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_generate_musics_id">
                     {!! Form::label('generate_musics_id', 'Género') !!}             
                     {!! Form::select('generate_musics_id', $genders, $music->generate_music['generate_musics_id'], ['class' => 'form-control  select2', 'id' => 'generate_musics_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>              
@@ -112,7 +111,7 @@
                     {!! Form::label('let_title', 'Siglas Titulo') !!}                    
                     {!! Form::text('let_title', $music->document['let_title'], ['class' => 'form-control', 'id' => 'let_title', 'placeholder' => 'Ingresar 3 letras del titulo']) !!}
                 </div>              
-                <div class="form-group">
+                <div class="form-group"  id="fg_generate_subjects_id">
                     {!! Form::label('generate_subjects_id', 'Cdu') !!}             
                     {!! Form::select('generate_subjects_id', $subjects, $music->document['generate_subjects_id'], ['class' => 'form-control  select2', 'id' => 'generate_subjects_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div> 
@@ -138,12 +137,12 @@
                 <h3 class="box-title">Area de Edición</h3>                
             </div>
             <div class="box-body">   
-                <div class="form-group">    
+                <div class="form-group" id="fg_published">    
                      <!--CAMBIAR TIPO DE CAMPO string-->
                     {!! Form::label('published', 'Editado en') !!}                    
                     {!! Form::select('published', $publications, $music->document['published'], ['class' => 'form-control select2', 'id' => 'published', 'placeholder' => '', 'style' => 'width:100%;']) !!}                                                                       
                 </div>
-                <div class="form-group">              
+                <div class="form-group" id="fg_made_by">              
                     {!! Form::label('made_by', 'Sello Discografico') !!}        
                     {!! Form::select('made_by', $editorials, $music->document['made_by'], ['class' => 'form-control  select2', 'id' => 'made_by', 'placeholder' => '',  'style' => 'width:100%;']) !!}                            
                 </div> 
@@ -164,11 +163,11 @@
                     </div>                  
                 </div>
                             
-                <div class="form-group">                  
+                <div class="form-group" id="fg_sound">                  
                     {!! Form::label('sound', 'Fotografia') !!}             
                     {!! Form::select('sound', $sounds, null, ['class' => 'form-control  select2', 'id' => 'sound', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
-                <div class="form-group">                   
+                <div class="form-group" id="fg_volume">                   
                     {!! Form::label('volume', 'Volumenes') !!}       
                     {!! Form::select('volume', $volumes, $music->document['volume'], ['class' => 'form-control  select2', 'id' => 'volume', 'placeholder' => '', 'style' => 'width:100%;']) !!}                
                 </div>
@@ -176,7 +175,7 @@
                     {!! Form::label('quantity_generic', 'Duración') !!}               
                     {!! Form::text('quantity_generic', $music->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => 'Duración de la musica']) !!}
                 </div>
-                <div class="form-group">                  
+                <div class="form-group" id="fg_generate_formats_id">                  
                     {!! Form::label('generate_formats_id', 'Formato') !!}             
                     {!! Form::select('generate_formats_id', $formats, null, ['class' => 'form-control  select2', 'id' => 'generate_formats_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
@@ -196,11 +195,11 @@
                     <label>Notas</label>
                     <textarea name='note' id='note' rows="3" class="form-control" placeholder="Ingresa una nota">{{ old('note', $music->document['note'])}}</textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="fg_lenguages_id">
                     {!! Form::label('lenguages_id', 'Idioma') !!} 
                     {!! Form::select('lenguages_id', $languages, $music->document['lenguages_id'], ['class' => 'form-control  select2', 'id' => 'lenguages_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}                     
                 </div>
-                <div class="form-group">
+                <div class="form-group"  id="fg_references">
                     <label>Referencia</label>
                     <select name="references[]" id="references" class="form-control select2" 
                             multiple="multiple"                            

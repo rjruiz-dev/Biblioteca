@@ -16,35 +16,30 @@ $('body').on('click', '.modal-show', function (event) {
             $('#modal-body').html(response);
             
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un Subtipo',
-                dropdownParent: $('#modal')                       
+                dropdownParent: $("#fg_document_subtypes_id"),
+                placeholder: 'Selecciona un subtipo de Documento'            
             });
 
-            // $('#other_artists').select2({
-            //     placeholder: 'Seleccione o ingrese otro Artista',
-            //     tags: true,               
-            // });
-
-            $('#status_documents_id').select2({
-                dropdownParent: $('#modal'),                  
-                tags: false,                                 
+            $('#status_documents_id').select2({    
+                dropdownParent: $("#fg_status_documents_id"),          
+                tags: false                              
             });
 
             $('#sound').select2({
+                dropdownParent: $("#fg_sound"),  
                 placeholder: 'Seleccione una Fotografia',
-                tags: true,  
-                dropdownParent: $('#modal')             
+                tags: true        
             });
          
-            $('#creators_id').select2({
-                placeholder: 'Selecciona o Ingresa un Compositor', 
-                tags: true,
-                dropdownParent: $('#modal')               
+            $("#creators_id").select2({
+                dropdownParent: $("#fg_creators_id"),
+                placeholder: 'Seleccione o Ingrese Autor',
+                tags: true
             });
 
-            $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu',
-                dropdownParent: $('#modal')                    
+            $("#generate_subjects_id").select2({
+                dropdownParent: $("#fg_generate_subjects_id"),
+                placeholder: 'Selecciona Cdu'
             });
              
             $('#acquired').datepicker({
@@ -53,25 +48,20 @@ $('body').on('click', '.modal-show', function (event) {
                 format: 'dd-mm-yyyy',                 
                 language: 'es'
             });  
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                 
-                language: 'es'
-            });             
+                     
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',
-                dropdownParent: $('#modal')               
+                dropdownParent: $("#fg_adequacies_id"),
+                placeholder: 'Selecciona una Adecuación'                            
             });
-             
+            
             $('#generate_formats_id').select2({
-                placeholder: 'Selecciona un Formato',
-                dropdownParent: $('#modal')           
+                dropdownParent: $("#fg_generate_formats_id"),
+                placeholder: 'Seleccione un Formato'
             });
              
             $('#generate_musics_id').select2({
-                placeholder: 'Selecciona un Género',
-                dropdownParent: $('#modal')
+                dropdownParent: $("#fg_generate_musics_id"),
+                placeholder: 'Selecciona un Género'
             });
              
             $('#year').datepicker({
@@ -82,28 +72,29 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });              
             $('#published').select2({
-                placeholder: 'Selecciona o Ingresa Lugar de Edición',
-                tags: true,
-                dropdownParent: $('#modal')               
+                dropdownParent: $("#fg_published"),
+                placeholder: 'Selecciona Lugar de Publicación',
+                tags: true
+            
             });
             $('#volume').select2({
+                dropdownParent: $("#fg_volume"),
                 placeholder: 'Selecciona un Volúmen',              
-                tags: true,    
-                dropdownParent: $('#modal')                             
+                tags: true                            
             });
             $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma',
-                dropdownParent: $('#modal')                                    
+                dropdownParent: $("#fg_lenguages_id"),
+                placeholder: 'Selecciona un Idioma'                                            
             });
             
             $('#references').select2({
-                tags: false,
-               
+                dropdownParent: $("#fg_references"),         
+                tags: false                             
             });
             $('#made_by').select2({
-                placeholder: 'Ingresar el Sello Discográfico',
-                tags: true,    
-                dropdownParent: $('#modal')           
+                dropdownParent: $("#fg_made_by"),
+                placeholder: 'Selecciona una Editorial',
+                tags: true             
             });
 
             CKEDITOR.replace('synopsis');

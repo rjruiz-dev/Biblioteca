@@ -59,7 +59,7 @@ class SaveUserRequest extends FormRequest
 
             'membership.required' => 'Este campo es requerido.',
             'membership.unique'   => 'Este número de socio ya ha sido registrado.',
-            'membership.min'      => 'El número de socio debe contener al menos 1 números.',
+            'membership.min'      => 'El número de socio debe contener al menos 1 número.',
             // 'membership.max'      => 'El número de socio debe contener un maximo 8 números.',
 
             'user_photo.mimes'  => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',            

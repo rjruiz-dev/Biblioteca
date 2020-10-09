@@ -1,4 +1,6 @@
-$('body').on('click', '.modal-show', function(event) {
+
+
+$('body').on('click', '.modal-show', function (event) {
     event.preventDefault();
 
     var me = $(this),
@@ -12,60 +14,58 @@ $('body').on('click', '.modal-show', function(event) {
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function(response) {
-            $('#modal-body').html(response);
+        success: function (response) {
+            $('#modal-body').html(response);            
 
             $('#document_subtypes_id').select2({
-                placeholder: 'Selecciona un subtipo de Documento',
-                dropdownParent: $('#modal')
+                dropdownParent: $("#fg_document_subtypes_id"),
+                placeholder: 'Selecciona un subtipo de Documento'            
             });
-
-            $('#periodicities_id').select2({
-                placeholder: 'Selecciona una periodicidad',
-                dropdownParent: $('#modal')
+            
+           $('#periodicities_id').select2({
+                dropdownParent: $("#din_periodicities_id"),
+                placeholder: 'Selecciona una periodicidad'                                              
             });
-
+            
             $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma',
-                dropdownParent: $('#modal'),
+                dropdownParent: $("#fg_lenguages_id"),
+                placeholder: 'Selecciona un Idioma'                                            
             });
-
-            $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',
-                dropdownParent: $('#modal')
+            
+           $('#adequacies_id').select2({
+                dropdownParent: $("#fg_adequacies_id"),
+                placeholder: 'Selecciona una Adecuación'                            
             });
 
 
             $('#generate_books_id').select2({
-                placeholder: 'Selecciona un Género',
-                dropdownParent: $('#modal')
+                dropdownParent: $("#din_generate_books_id"),
+                placeholder: 'Selecciona un Género'                    
             });
-
-            $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu',
-                dropdownParent: $('#modal')
+                    
+            $("#generate_subjects_id").select2({
+                dropdownParent: $("#fg_generate_subjects_id"),
+                placeholder: 'Selecciona Cdu'
             });
-
-
-            $('#creators_id').select2({
-                dropdownParent: $('#modal'),
+    
+            $("#creators_id").select2({
+                dropdownParent: $("#fg_creators_id"),
                 placeholder: 'Seleccione o Ingrese Autor',
-                tags: true,
-                dropdownParent: $('#modal'),
+                tags: true
             });
-
-            $('#second_author_id').select2({
+           
+            $("#second_author_id").select2({
+                dropdownParent: $("#fg_second_author_id"),
                 placeholder: 'Seleccione o Ingrese Segundo Autor',
-                tags: true,
-                dropdownParent: $('#modal'),
+                tags: true, 
             });
 
-            $('#third_author_id').select2({
+            $("#third_author_id").select2({
+                dropdownParent: $("#din_third_author_id"),
                 placeholder: 'Seleccione o Ingrese Tercer Autor',
-                tags: true,
-                dropdownParent: $('#modal'),
+                tags: true, 
             });
-
+          
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,
@@ -74,14 +74,15 @@ $('body').on('click', '.modal-show', function(event) {
             });
 
             $('#published').select2({
+                dropdownParent: $("#fg_published"),
                 placeholder: 'Selecciona Lugar de Publicación',
-                tags: true,
-                dropdownParent: $('#modal'),
+                tags: true
+            
             });
             $('#made_by').select2({
+                dropdownParent: $("#fg_made_by"),
                 placeholder: 'Selecciona una Editorial',
-                tags: true,
-                dropdownParent: $('#modal'),
+                tags: true             
             });
 
             $('#year').datepicker({
@@ -90,67 +91,35 @@ $('body').on('click', '.modal-show', function(event) {
                 viewMode: "years",
                 minViewMode: "years",
                 language: 'es'
-            });
+            });  
+
             $('#edition').select2({
+                dropdownParent: $("#fg_edition"),
                 placeholder: 'Selecciona Número de Edición',
-                tags: true,
-                dropdownParent: $('#modal'),
-            });
-            $('#volume').select2({
-                placeholder: 'Selecciona un Volúmen',
-                tags: true,
-                dropdownParent: $('#modal'),
+                tags: true             
             });
 
-            $('#status_documents_id').select2({
-                tags: false,
-                dropdownParent: $('#modal'),
+            $('#volume').select2({
+                dropdownParent: $("#fg_volume"),
+                placeholder: 'Selecciona un Volúmen',              
+                tags: true                            
+            });
+
+            $('#status_documents_id').select2({    
+                dropdownParent: $("#fg_status_documents_id"),          
+                tags: false                              
             });
 
             $('#references').select2({
-                tags: false,
+                dropdownParent: $("#fg_references"),         
+                tags: false                             
             });
 
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
 
-            // if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
-            //     //CAMBIO DE LABEL
-            //     document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
-            //     document.getElementById("l_generate_books_id").innerHTML = 'Genero';
-            //     //FORM GROUP MOSTRAR
-            //     document.getElementById("din_volume_number_date").style.display = "block";
-            //     document.getElementById("din_periodicities_id").style.display = "block";
-            //     document.getElementById("din_issn").style.display = "block";
-
-            //     //FORM GROUP NO MOSTRAR
-            //     document.getElementById("din_isbn").style.display = "none";
-            //     document.getElementById("din_generate_books_id").style.display = "none";
-            //     document.getElementById("din_third_author_id").style.display = "none";
-
-
-            // } else { //si NOO es publ periodica
-
-            //     if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
-            //     //CAMBIO DE LABEL
-            //     document.getElementById("l_generate_books_id").innerHTML = 'Otros';
-            //     }else{
-            //     document.getElementById("l_generate_books_id").innerHTML = 'Genero';     
-            //     }
-
-            //     //CAMBIO DE LABEL
-            //     document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
-            //      //FORM GROUP NO MOSTRAR
-            //     document.getElementById("din_volume_number_date").style.display = "none";
-            //     document.getElementById("din_periodicities_id").style.display = "none";
-            //     document.getElementById("din_issn").style.display = "none";
-
-            //     //FORM GROUP MOSTRAR
-            //     document.getElementById("din_isbn").style.display = "block";
-            //     document.getElementById("din_generate_books_id").style.display = "block";
-            //     document.getElementById("din_third_author_id").style.display = "block";
-            // }
+           
             yesnoCheck();
         }
     });
@@ -158,7 +127,8 @@ $('body').on('click', '.modal-show', function(event) {
     $('#modal').modal('show');
 });
 
-$('#modal-btn-save').click(function(event) {
+
+$('#modal-btn-save').click(function (event) {
     event.preventDefault();
 
     $avatarInput = $('#photo');

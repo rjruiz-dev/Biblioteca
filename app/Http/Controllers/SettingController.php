@@ -124,6 +124,7 @@ class SettingController extends Controller
                 $setting->child_age         = $request->get('child_age');    
                 $setting->adult_age         = $request->get('adult_age');
                 $setting->skin              = $request->get('skin');
+                $setting->skin_footer       = $request->get('skin_footer');
                 
                 $setting->fines_id = $request->get('group');
 

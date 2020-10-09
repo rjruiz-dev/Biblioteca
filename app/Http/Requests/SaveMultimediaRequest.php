@@ -35,7 +35,7 @@ class SaveMultimediaRequest extends FormRequest
         if($this->method() !== 'PUT')
         {          
             $rules ['creators_id']          = 'required|string' . $this->id;    
-            $rules ['isbn']                 = 'nullable|string|min:13|unique:books,isbn' . $this->id;
+            $rules ['isbn']                 = 'nullable|string|between:13,17|unique:books,isbn' . $this->id;
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;              
             // $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
@@ -61,7 +61,7 @@ class SaveMultimediaRequest extends FormRequest
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',  
             'adequacies_id.required'            => 'Debe seleccionar una Opción para Catalogar un Documento.',          
             'isbn.required'                     => 'Debe introducir Isbn para Catalogar un Documento.',  
-            'isbn.min'                          => 'Isbn debe contener una longitud minima de 13 caracteres.',                  
+            // 'isbn.min'                          => 'Isbn debe contener una longitud minima de 13 caracteres.',                  
             'lenguages_id.required'             => 'Debe seleccionar un Idioma para Catalogar un Documento.',          
             'generate_subjects_id.required'     => 'Debe seleccionar Cdu para Catalogar un Documento.',     
             'year.required'                     => 'Debe introducir Año para catalogar un documento.',        

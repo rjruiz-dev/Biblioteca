@@ -13,24 +13,24 @@ $('body').on('click', '.modal-show', function (event) {
         url: url,
         dataType: 'html',
         success: function (response) {
-            $('#modal-body').html(response);
-           
-            $('#creators_id').select2({
+            $('#modal-body').html(response);           
+       
+            $("#creators_id").select2({
+                dropdownParent: $("#fg_creators_id"),
                 placeholder: 'Seleccione o Ingrese Autor',
-                tags: true, 
-                dropdownParent: $('#modal')              
+                tags: true
             });
 
-            $('#second_author_id').select2({
+            $("#second_author_id").select2({
+                dropdownParent: $("#fg_second_author_id"),
                 placeholder: 'Seleccione o Ingrese Segundo Autor',
                 tags: true, 
-                dropdownParent: $('#modal')              
             });
 
-            $('#third_author_id').select2({
+            $("#third_author_id").select2({
+                dropdownParent: $("#din_third_author_id"),
                 placeholder: 'Seleccione o Ingrese Tercer Autor',
                 tags: true, 
-                dropdownParent: $('#modal')              
             });
 
             $('#acquired').datepicker({
@@ -40,38 +40,35 @@ $('body').on('click', '.modal-show', function (event) {
                 language: 'es'
             });  
             $('#edition').select2({
-                placeholder: 'Selecciona o Ingresa Edición',
-                tags: true, 
-                dropdownParent: $('#modal')              
+                dropdownParent: $("#fg_edition"),
+                placeholder: 'Selecciona Número de Edición',
+                tags: true             
             });
+
             $('#references').select2({
-                tags: false,
-               
+                dropdownParent: $("#fg_references"),         
+                tags: false                             
             });
-            $('#drop').datepicker({
-                autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',            
-                language: 'es'
-            });  
+          
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación',
-                dropdownParent: $('#modal')              
+                dropdownParent: $("#fg_adequacies_id"),
+                placeholder: 'Selecciona una Adecuación'                            
             });
            
-            $('#generate_subjects_id').select2({
-                placeholder: 'Selecciona Cdu',                            
-                dropdownParent: $('#modal')            
+            $("#generate_subjects_id").select2({
+                dropdownParent: $("#fg_generate_subjects_id"),
+                placeholder: 'Selecciona Cdu'
             });
             $('#published').select2({
-                placeholder: 'Selecciona o Ingresa Lugar de Publicacíon',
-                tags: true, 
-                dropdownParent: $('#modal')              
+                dropdownParent: $("#fg_published"),
+                placeholder: 'Selecciona Lugar de Publicación',
+                tags: true
+            
             });
             $('#made_by').select2({
-                placeholder: 'Selecciona o Ingresa una Editorial',
-                tags: true, 
-                dropdownParent: $('#modal')              
+                dropdownParent: $("#fg_made_by"),
+                placeholder: 'Selecciona una Editorial',
+                tags: true             
             });
             $('#year').datepicker({
                 autoclose: true,             
@@ -82,15 +79,14 @@ $('body').on('click', '.modal-show', function (event) {
             });   
 
             $('#volume').select2({
-                placeholder: 'Selecciona o Ingresa un Volúmen',              
-                tags: true, 
-                dropdownParent: $('#modal')                                
+                dropdownParent: $("#fg_volume"),
+                placeholder: 'Selecciona un Volúmen',              
+                tags: true                            
             });
 
             $('#lenguages_id').select2({
-                placeholder: 'Selecciona un Idioma',
-                tags: false,
-                dropdownParent: $('#modal')                            
+                dropdownParent: $("#fg_lenguages_id"),
+                placeholder: 'Selecciona un Idioma'                                            
             });
 
             CKEDITOR.replace('synopsis');
