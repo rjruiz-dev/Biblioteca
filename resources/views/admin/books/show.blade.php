@@ -99,10 +99,10 @@
                     <!-- Pub. Periodica -->
                     <div class="col-md-4">
                         <strong><i class="fa fa-users margin-r-5"></i>{{ $idioma_book->otros_autores }}:</strong>
-                        @if ( $book->document->made_by === NULL )                            
+                        @if (( $book->second_author_id === NULL ) && ($book->third_author_id === NULL))                          
                             <p class="tex-muted"><a>No Tiene {{ $idioma_book->otros_autores }}</a> </p>
                         @else
-                            <p class="text-muted">{{ $book->document->made_by }}</p>
+                            <p class="text-muted">{{ $book->second_author_id }}, {{ $book->third_author_id }}</p>
                         @endif                     
                         <hr>
                     </div>                   

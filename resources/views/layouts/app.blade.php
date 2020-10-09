@@ -153,7 +153,7 @@ desired effect
               @endforeach
               </ul>
           </li>
-          <li class="dropdown messages-menu">
+          <!-- <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
@@ -161,9 +161,9 @@ desired effect
             <ul class="dropdown-menu">
                 <li class="header">You have 4 messages</li>
                 <li>
-                <!-- inner menu: contains the actual data -->
+              
                   <ul class="menu">
-                      <li><!-- start message -->
+                      <li>
                       <a href="#">
                         <div class="pull-left">
                           <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
@@ -175,7 +175,7 @@ desired effect
                         <p>Why not buy a new awesome theme?</p>
                       </a>
                     </li>
-                    <!-- end message -->
+                
                     <li>
                       <a href="#">
                         <div class="pull-left">
@@ -228,7 +228,7 @@ desired effect
                 </li>
                 <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-          </li>
+          </li> -->
     
           <!-- User Account Menu -->
           @if(Auth::user() != null )

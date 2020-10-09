@@ -1,7 +1,7 @@
 <div class="row">  
     {!! Form::model($user, [
-        'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',   
-        'method' => $user->exists ? 'PUT' : 'POST',
+        'route' => ['users.update_profile', $user->id],   
+        'method' => 'PUT',
         'enctype' => 'multipart/form-data'
     ]) !!} 
     {{ csrf_field() }}

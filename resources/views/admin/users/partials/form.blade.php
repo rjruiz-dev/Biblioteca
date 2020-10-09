@@ -40,7 +40,7 @@
                     {!! Form::label('nickname', 'Nickname') !!}                    
                     {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
                 </div>                                           
-                <div class="form-group">
+                <div class="form-group" id="fg_status_id">
                     {!! Form::label('status_id', 'Estado') !!}
                     {!! Form::select('status_id', $status, $user->status_id, ['class' => 'form-control select2', 'id' => 'status_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>
@@ -72,7 +72,7 @@
                     {!! Form::label('surname', 'Apellidos') !!}                    
                     {!! Form::text('surname', null, ['class' => 'form-control', 'id' => 'surname', 'placeholder' => 'Apellidos']) !!}
                 </div> 
-                <div class="form-group">
+                <div class="form-group" id="fg_gender">
                     {!! Form::label('gender', 'Género') !!}
                     {!! Form::select('gender', $genders, null, ['class' => 'form-control select2', 'id' => 'gender', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>           
@@ -129,7 +129,7 @@
                     {!! Form::label('city', 'Ciudad') !!}               
                     {!! Form::text('city', null, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Ciudad']) !!}
                 </div> 
-                <div class="form-group">
+                <div class="form-group" id="fg_province">
                     {!! Form::label('province', 'Provincia') !!}               
                     {!! Form::select('province', $provinces, null, ['class' => 'form-control', 'id' => 'province', 'placeholder' => '', 'style' => 'width:100%;']) !!}           
                 </div>        

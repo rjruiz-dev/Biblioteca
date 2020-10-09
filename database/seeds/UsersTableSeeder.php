@@ -14,19 +14,7 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {    
-        // factory(App\User::class, 3)->create();
-        // App\User::create([
-        //     'name'      => 'Gonzalo',
-        //     'surname'   => 'Nadal',
-        //     'nickname'  => 'GB_Admin',
-        //     'email'     => 'admin@gmail.com',
-        //     'password'  => '123456',
-        //     'membership' => '23.456.567',
-        //     'status_id' => 1
-
-        // ]);
-
+    {        
         // Create roles
         $adminRole = Role::create(['name' => 'Admin']);
         $librarianRole = Role::create(['name' => 'Librarian']);
@@ -91,33 +79,33 @@ class UsersTableSeeder extends Seeder
                                     $desidherataMoviesPermission, $downloadMoviesLoanButtonPermission
                                 ]);
         
-        $librarian = new User;
-        $librarian->name = 'Luis';
-        $librarian->surname = 'Gomes';
-        $librarian->nickname = 'lucho';
-        $librarian->membership = 2;
-        $librarian->email = 'luis@gmail.com';       
-        $librarian->password = '123456';
-        $librarian->birthdate = '2020-09-25';      
-        $librarian->user_photo = 'user-default.jpg'; 
-        $librarian->status_id = 3; 
-        $librarian->save();
+        // $librarian = new User;
+        // $librarian->name = 'Luis';
+        // $librarian->surname = 'Gomes';
+        // $librarian->nickname = 'lucho';
+        // $librarian->membership = 2;
+        // $librarian->email = 'luis@gmail.com';       
+        // $librarian->password = '123456';
+        // $librarian->birthdate = '2020-09-25';      
+        // $librarian->user_photo = 'user-default.jpg'; 
+        // $librarian->status_id = 3; 
+        // $librarian->save();
 
-        $librarian->assignRole($librarianRole);
+        // $librarian->assignRole($librarianRole);
 
-        $partner = new User;
-        $partner->name = 'Jorge';
-        $partner->surname = 'Perez';
-        $partner->nickname = 'jorge_12';
-        $partner->membership = 3;
-        $partner->email = 'jorge@gmail.com';        
-        $partner->password = '123456'; 
-        $partner->birthdate = '2020-09-25'; 
-        $partner->user_photo = 'user-default.jpg';  
-        $partner->status_id = 3;
-        $partner->save();
+        // $partner = new User;
+        // $partner->name = 'Jorge';
+        // $partner->surname = 'Perez';
+        // $partner->nickname = 'jorge_12';
+        // $partner->membership = 3;
+        // $partner->email = 'jorge@gmail.com';        
+        // $partner->password = '123456'; 
+        // $partner->birthdate = '2020-09-25'; 
+        // $partner->user_photo = 'user-default.jpg';  
+        // $partner->status_id = 3;
+        // $partner->save();
 
-        $partner->assignRole($partnerRole);
+        // $partner->assignRole($partnerRole);
 
        
     }

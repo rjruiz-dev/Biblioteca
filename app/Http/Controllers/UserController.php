@@ -259,7 +259,7 @@ class UserController extends Controller
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
                 $user->email        = $request->get('email');  
-                if($user->password != $request->get('password')){
+                if($request->get('password') != ''){
                     $user->password     = $request->get('password');
                 }
                 // $user->password     = $request->get('password');
@@ -328,13 +328,16 @@ class UserController extends Controller
 
                 $name = $user->user_photo;                
 
-                if ($request->hasFile('user_photo')) {               
+                if ($request->hasFile('user_photo')) {                
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
-                    $file->move(public_path().'/images/', $name);    
-                }else{
-                    $name = 'user-default.jpg';
-                }        
+                    $file->move(public_path().'/images/', $name); 
+                    $user->user_photo   = $name;   
+                }// solo guarda la foto si recibe una foto cargada desde la edicion sino no hace nada
+                // y no toca la que esta en la base ni la modifica.
+                // else{
+                //     $name = 'user-default.jpg';
+                // }        
 
                 // Actualizamos el usuario
                 $user->name         = $request->get('name');
@@ -348,9 +351,9 @@ class UserController extends Controller
                 $user->city         = $request->get('city');
                 $user->province     = $request->get('province');  
                 $user->phone        = $request->get('phone');      
-                $user->birthdate    = Carbon::createFromFormat('d/m/Y', $request->get('birthdate'));    
+                $user->birthdate    = Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
                 $user->membership   = $request->get('membership');
-                $user->user_photo   = $name;
+                // $user->user_photo   = $name;
                 $user->save();
                        
                 DB::commit();

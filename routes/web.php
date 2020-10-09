@@ -136,7 +136,7 @@ function(){
     Route::get('statistic/filtrar/{f_desde}/{f_hasta}',                   'StatisticController@filtrar');
     
     Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
-    Route::post('users/update_profile/{request}/{id}',   'UserController@update_profile')->name('users.update_profile');
+    Route::put('users/update_profile/{id}',   'UserController@update_profile')->name('users.update_profile');
 
      Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
 
