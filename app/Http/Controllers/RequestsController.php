@@ -17,6 +17,7 @@ use App\Book_movement;
 use App\Document_subtype;
 use App\Setting;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RequestsController extends Controller
 {
@@ -161,7 +162,9 @@ class RequestsController extends Controller
 
                         $new_movement = new Book_movement;
 
-                        $new_movement->users_id = $t->users_id; 
+                        // $new_movement->users_id = $t->users_id;
+
+                        $new_movement->users_id = Auth::user()->id; 
                     } 
 
                     $new_movement->movement_types_id = 7; //SOLICITUD
