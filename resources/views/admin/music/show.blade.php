@@ -17,7 +17,8 @@
                 <hr>
             </div>
             <div class="col-md-3">
-                    <b class="text-muted"></a>NR: {{ $music->document->id }}</a></b>
+                <strong> NR:</strong>
+                    <b class="text-muted"></a> {{ $music->document->id }}</a></b>
                 <hr>
             </div>
         </div>   
@@ -142,7 +143,7 @@
                             @if ( $music->document->adequacy['adequacy_description'] === NULL )                            
                                 <p class="tex-muted"><a>No tiene Adecuación</a> </p>
                             @else
-                            <p class="text-muted">{{ $music->document->adequacy['dequacy_description'] }}</p>
+                            <p class="text-muted">{{ $music->document->adequacy['adequacy_description'] }}</p>
                             @endif  
                             
                             <hr>

@@ -62,8 +62,12 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-
 <style>
+
+  .content-header {
+      position: relative;
+      padding: 35px 15px 0 15px;
+  }
 
   .skin-blue .main-header .navbar {
     background-color: {{ $setting->skin }};  
@@ -108,7 +112,9 @@ desired effect
   }
 
 </style>
+
 <body class="hold-transition skin-blue sidebar-mini">
+
 
 <div class="wrapper">
 
@@ -147,7 +153,7 @@ desired effect
               <i class="fa fa-globe"></i>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Elija un idioma</li>
+              <li class="header">Elija un idiomtddtttdtdtda</li>
               @foreach($idiomas as $idioma_ind)
               <li class="footer"><a href="{{ route('cambiar', $idioma_ind->id) }}" class="btn-cambiar">{{ $idioma_ind->lenguage_description }}</a></li>
               @endforeach
