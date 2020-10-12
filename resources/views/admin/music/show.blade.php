@@ -17,7 +17,8 @@
                 <hr>
             </div>
             <div class="col-md-3">
-                    <b class="text-muted"></a>NR: {{ $music->document->id }}</a></b>
+                <strong> NR:</strong>
+                    <b class="text-muted"></a> {{ $music->document->id }}</a></b>
                 <hr>
             </div>
         </div>   
@@ -38,10 +39,10 @@
                     </li>
                      <!-- Para Popular Título del Disco no va -->
                     <li class="list-group-item">
-                    @if ( $music->culture->album_title === NULL )   
+                    @if ( $music->culture['album_title'] === NULL )   
                         <b>Título del Disco:</b> <a class="pull-right"><p class="tex-muted">Sin Título del Disco</p></a>                                                 
                     @else
-                        <b>Título del Disco:</b> <a class="pull-right">{{ $music->culture->album_title }}</a>
+                        <b>Título del Disco:</b> <a class="pull-right">{{ $music->culture['album_title'] }}</a>
                     @endif 
                     </li>
                     <!-- Para Popular pasa a ser Autor  y Director no va-->
@@ -49,10 +50,10 @@
                         <b>Autor:</b> <a class="pull-right"></a>
                     </li> -->
                     <li class="list-group-item">
-                    @if (  $music->culture->director  === NULL )   
+                    @if (  $music->culture['director']  === NULL )   
                         <b>{{ $idioma_music->director }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_music->director }}</p></a>                                                 
                     @else
-                        <b>{{ $idioma_music->director }}:</b> <a class="pull-right">{{ $music->culture->director }}</a>
+                        <b>{{ $idioma_music->director }}:</b> <a class="pull-right">{{ $music->culture['director'] }}</a>
                     @endif 
                     </li>
                     <li class="list-group-item">
@@ -80,10 +81,10 @@
                     </div>
                     <div class="row col-md-6">
                         <strong><i class="fa fa-users margin-r-5"></i> {{ $idioma_music->orquesta }}:</strong>  
-                        @if (  $music->culture->orchestra === NULL )                            
+                        @if (  $music->culture['orchestra'] === NULL )                            
                             <p class="tex-muted"><a>Sin {{ $idioma_music->orquesta }}</a> </p>
                         @else
-                            <p class="text-muted">{{ $music->culture->orchestra }}</p> 
+                            <p class="text-muted">{{ $music->culture['orchestra'] }}</p> 
                         @endif                 
                         <hr>
                     </div>
@@ -142,7 +143,7 @@
                             @if ( $music->document->adequacy['adequacy_description'] === NULL )                            
                                 <p class="tex-muted"><a>No tiene Adecuación</a> </p>
                             @else
-                            <p class="text-muted">{{ $music->document->adequacy['dequacy_description'] }}</p>
+                            <p class="text-muted">{{ $music->document->adequacy['adequacy_description'] }}</p>
                             @endif  
                             
                             <hr>

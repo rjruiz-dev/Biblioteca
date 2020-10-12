@@ -120,13 +120,15 @@ class FastPartnerProcessController extends Controller
     }
 
     public function vista_devo_reno($id, $bandera, $fecha)
-    {
+    {   
+        // $setting    = Setting::where('id', 1)->first(); 
         $setting = Setting::select('loan_day')->first();
         $dias_de_prestamo = $setting->loan_day;
         return view('admin.fastprocess.partials.form', [         
             'id'        => $id,
             'bandera'   => $bandera,
-            'fecha'   => $fecha,
+            'fecha'     => $fecha,
+            // 'setting'   => $setting,
             'dias_de_prestamo'   => $dias_de_prestamo
         ]); 
     }
@@ -215,8 +217,9 @@ class FastPartnerProcessController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas    = ManyLenguages::all();
+        $setting    = Setting::where('id', 1)->first();
                  
         $user = User::findOrFail($id); //datos del socio 
         
@@ -227,12 +230,13 @@ class FastPartnerProcessController extends Controller
         })
         ->where('active', 1) 
         ->where('users_id', $id)->get();
-     
+    
         return view('admin.fastprocess.prestamo', [
             'user'          => $user,
             'docs_of_user'  => $docs_of_user,
             'idioma'        => $idioma,
-            'idiomas'       => $idiomas
+            'idiomas'       => $idiomas,
+            'setting'       => $setting
        
         ]);
     }
@@ -249,8 +253,9 @@ class FastPartnerProcessController extends Controller
         $session = session('idiomas');
 
         //cargo el idioma
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas    = ManyLenguages::all();
+        $setting    = Setting::where('id', 1)->first();
 
         $documento = Document::with('document_type','document_subtype','creator')
         ->findOrFail($id); 
@@ -335,7 +340,8 @@ class FastPartnerProcessController extends Controller
             'copies_baja'           => $copies_baja,
             'idioma'                => $idioma,
             'idiomas'               => $idiomas,
-            'multa'               => $multa
+            'multa'                 => $multa,
+            'setting'               => $setting
         ]);    
     }
 

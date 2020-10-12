@@ -20,7 +20,7 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Area de Titulo</h3>
+                <h3 class="box-title">Area de Titulo000</h3>
             </div>
             <div class="box-body">
 

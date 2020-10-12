@@ -30,7 +30,7 @@ class SaveMusicalRequest extends FormRequest
             'let_title'     => 'required|alpha||min:3|max:3',          
             'year'          => 'required',
             'acquired'      => 'required',
-            'director'      => 'required|string',
+            // 'director'      => 'required|string',
         ];
         
      
@@ -43,6 +43,12 @@ class SaveMusicalRequest extends FormRequest
             $rules ['generate_subjects_id'] = 'required' . $this->id; 
             // $rules ['isbn']                 = 'required|string|min:17|unique:books,isbn' . $this->id;
             // $rules ['photo']                = 'nullable|image|mimes:jpeg,bmp,png,jpg'. $this->id;
+            if( $this->document_subtypes_id == 1)
+            {
+                $rules ['director']   = 'required|string'. $this->id;
+               
+            
+            }
            
         }
  

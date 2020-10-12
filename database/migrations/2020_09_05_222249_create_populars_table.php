@@ -17,7 +17,7 @@ class CreatePopularsTable extends Migration
             $table->increments('id');
 
             $table->integer('music_id')->unsigned();
-            $table->integer('other_artists')->unsigned();
+            $table->integer('other_artists')->nullable()->unsigned();
             
             // $table->string('album_title')->unique();
             $table->string('subtitle')->nullable();
