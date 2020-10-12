@@ -84,10 +84,10 @@
                 </div>
                 <div class=" col-md-12">                
                     <strong><i class="fa fa-film margin-r-5"></i> {{ $idioma_doc->formato }}:</strong>
-                    @if ( $photograph->generate_format->genre_format  === NULL )                            
+                    @if ( $photograph->generate_format['genre_format']  === NULL )                            
                         <p class="tex-muted"><a>Sin {{ $idioma_doc->formato }}</a> </p>
                     @else
-                        <p class="text-muted">{{ $photograph->generate_format->genre_format }}</p>
+                        <p class="text-muted">{{ $photograph->generate_format['genre_format'] }}</p>
                     @endif  
                     <hr>
                 </div>
@@ -120,7 +120,8 @@
                 </div>           
                 <div class="col-md-12">  
                 @if(Auth::user() != null )
-                    <a href="{{ route('requests.solicitud', $photograph->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;{{ $idioma_doc->solicitar_prestamo }}</a>
+                    <label>{{ $label_copia_no_disponible }}</label>
+                    <a href="{{ route('requests.solicitud', $photograph->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud {{ $disabled }}" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;{{ $idioma_doc->solicitar_prestamo }}</a>
                 @endif      
                 </div>
             </div>       

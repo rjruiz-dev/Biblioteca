@@ -261,28 +261,28 @@
                 <i class="fa fa-dashboard"></i> <span>{{ $idioma->inicio }}</span>
             </a>
         </li>
-        <li class="{{ setActiveRoute('web.libros.index') }}">
-            <a href="{{ route('web.libros.index') }}">
+        <li class="{{ setActiveRoute('admin.books.index') }}">
+            <a href="{{ route('admin.books.index') }}">
                 <i class="fa fa-book"></i><span> {{ $idioma->libros }}</span>
             </a>
         </li>
-        <li class="{{ setActiveRoute('web.cine.index') }}">
-            <a href="{{ route('web.cine.index') }}">
+        <li class="{{ setActiveRoute('admin.movies.index') }}">
+            <a href="{{ route('admin.movies.index') }}">
                 <i class="fa fa-video-camera"></i><span> {{ $idioma->cines }}</span> 
             </a>
         </li>        
-        <li class="{{ setActiveRoute('web.musica.index') }}">
-            <a href="{{ route('web.musica.index') }}">
+        <li class="{{ setActiveRoute('admin.music.index') }}">
+            <a href="{{ route('admin.music.index') }}">
                 <i class="fa fa-music"></i><span> {{ $idioma->musica }}</span> 
             </a>
         </li>   
-        <li class="{{ setActiveRoute('web.fotografias.index') }}">
-            <a href="{{ route('web.fotografias.index') }}">
+        <li class="{{ setActiveRoute('admin.photographs.index') }}">
+            <a href="{{ route('admin.photographs.index') }}">
                 <i class="fa fa-photo"></i><span> {{ $idioma->fotografia }}</span> 
             </a>
         </li> 
-        <li class="{{ setActiveRoute('web.multimedia.index') }}">
-            <a href="{{ route('web.multimedia.index') }}">
+        <li class="{{ setActiveRoute('admin.multimedias.index') }}">
+            <a href="{{ route('admin.multimedias.index') }}">
                 <i class="fa fa-youtube-play"></i><span>{{ $idioma->multimedia }}</span> 
             </a>
         </li>         

@@ -15,6 +15,7 @@ use App\Generate_subjects;
 use App\Generate_reference;
 use App\Generate_format;
 use App\StatusDocument;
+use App\Book_movement;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -95,9 +96,38 @@ class VPhotographyController extends Controller
         
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+          
+    $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+    ->whereHas('copy', function($q) use ($id)
+    {
+        $q->where('documents_id', '=', $id)->where(function ($query) {
+            $query->where('status_copy_id', '=', 3)
+                  ->orWhere('status_copy_id', '=', 6);
+        });
+    })
+    ->where('active', 1) 
+    ->where(function ($query) {
+        $query->where('movement_types_id', '=', 3)
+              ->orWhere('movement_types_id', '=', 6);
+    })    
+    ->get();
+
+    // dd($copies);
+    if($copies_disponibles->count() > 0){
+        // dd('habilitado');
+        $disabled = '';
+        $label_copia_no_disponible = '';
+    }else{
+        $disabled = 'disabled';
+        // dd('NO habilitado');
+        $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+    }
+
         return view('web.photographs.show', compact('photograph'), [
-            'idioma_doc' => $idioma_doc,
-            'idioma_fotografia' => $idioma_fotografia
+            'idioma_doc'        => $idioma_doc,
+            'idioma_fotografia' => $idioma_fotografia,
+            'disabled'          => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible
         ]);
  
         // return view('web.photographs.show', compact('photograph'));

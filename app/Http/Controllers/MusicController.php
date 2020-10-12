@@ -11,6 +11,7 @@ use App\Culture;
 use App\Popular;
 use App\Adequacy;
 use App\Document;
+use App\Book_movement;
 use App\Document_type;
 use App\Generate_subjects;
 use App\Generate_reference;
@@ -220,25 +221,53 @@ class MusicController extends Controller
     public function show(Request $request, $id)
     {
          // $request->session()->put('idiomas', 2);
-      if ($request->session()->has('idiomas')) {
-        $existe = 1;
-    }else{
-        $request->session()->put('idiomas', 1);
-        $existe = 0;
-    }
-    $session = session('idiomas');
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
 
-    $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
-    $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
-    // dd($idioma_music);
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
+        // dd($idioma_music);
 
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+
         $this->authorize('view', $music);
 
         return view('admin.music.show', compact('music'), [
-            'idioma_doc' => $idioma_doc,
-            'idioma_music' => $idioma_music
+            'idioma_doc'    => $idioma_doc,
+            'idioma_music'  => $idioma_music,
+            'disabled'      => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
 
         // return view('admin.music.show', compact('music'));

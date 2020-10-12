@@ -158,7 +158,8 @@
                     </div>              
                     <div class="col-md-12">  
                     @if(Auth::user() != null )
-                        <a href="{{ route('requests.solicitud', $multimedia->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;{{ $idioma_doc->solicitar_prestamo }}</a>
+                        <label>{{ $label_copia_no_disponible }}</label>
+                        <a href="{{ route('requests.solicitud', $multimedia->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud {{ $disabled }}" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;{{ $idioma_doc->solicitar_prestamo }}</a>
                     @endif
                     </div>
                 </div>       

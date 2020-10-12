@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Book;
 use App\Creator;
 use App\Adequacy;
+use App\Book_movement;
 use App\Document;
 use App\Lenguage;
 use App\Periodicity;
@@ -281,11 +282,39 @@ class BookController extends Controller
 
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad','second_author','third_author')->findOrFail($id);
      
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+
         $this->authorize('view', $book);
 
         return view('admin.books.show', compact('book'), [
-            'idioma_doc' => $idioma_doc,
-            'idioma_book' => $idioma_book
+            'idioma_doc'    => $idioma_doc,
+            'idioma_book'   => $idioma_book,
+            'disabled'      => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible 
         ]); 
 
         // return view('admin.books.show', compact('book'));

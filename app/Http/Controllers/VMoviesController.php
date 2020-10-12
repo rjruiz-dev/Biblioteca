@@ -19,6 +19,7 @@ use App\Generate_subjects;
 use App\StatusDocument;
 use App\Document_subtype;
 use App\Photography_movie;
+use App\Book_movement;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Storage;
@@ -101,9 +102,38 @@ class VMoviesController extends Controller
         // dd($idioma_movie);
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies_disponibles);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+
         return view('web.movies.show', compact('movie'), [
-            'idioma_doc' => $idioma_doc,
-            'idioma_movie' => $idioma_movie 
+            'idioma_doc'    => $idioma_doc,
+            'idioma_movie'  => $idioma_movie,
+            'disabled'      => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
         
         // return view('web.movies.show', compact('movie'));

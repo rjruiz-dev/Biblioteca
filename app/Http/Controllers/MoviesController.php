@@ -225,8 +225,7 @@ class MoviesController extends Controller
       
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
         
-        // $id = 4;
-//----VERIFICACION DE SI NO HAY COPIAS ANULE EL BOTON Y MUESTE LABEL DE Q NO HAY COPIAS----------
+     
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id)
         {
@@ -252,14 +251,14 @@ class MoviesController extends Controller
             // dd('NO habilitado');
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
-//-----------------------------------------------------------------------------------------
+
         
         $this->authorize('view', $movie);
 
         return view('admin.movies.show', compact('movie'), [
-            'idioma_doc' => $idioma_doc,
-            'idioma_movie' => $idioma_movie,
-            'disabled' => $disabled,
+            'idioma_doc'    => $idioma_doc,
+            'idioma_movie'  => $idioma_movie,
+            'disabled'      => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
 

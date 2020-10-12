@@ -41,10 +41,10 @@
                     </li>
                      <!-- Para Popular Título del Disco no va -->
                     <li class="list-group-item">
-                    @if ( $music->culture->album_title === NULL )   
+                    @if ( $music->culture['album_title'] === NULL )   
                         <b>Título del Disco:</b> <a class="pull-right"><p class="tex-muted">Sin Título del Disco</p></a>                                                 
                     @else
-                        <b>Título del Disco:</b> <a class="pull-right">{{ $music->culture->album_title }}</a>
+                        <b>Título del Disco:</b> <a class="pull-right">{{ $music->culture['album_title'] }}</a>
                     @endif 
                     </li>
                     <!-- Para Popular pasa a ser Autor  y Director no va-->
@@ -52,17 +52,17 @@
                         <b>Autor:</b> <a class="pull-right"></a>
                     </li> -->
                     <li class="list-group-item">
-                    @if (  $music->culture->director  === NULL )   
+                    @if (  $music->culture['director']  === NULL )   
                         <b>{{ $idioma_music->director }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_music->director }}</p></a>                                                 
                     @else
-                        <b>{{ $idioma_music->director }}:</b> <a class="pull-right">{{ $music->culture->director }}</a>
+                        <b>{{ $idioma_music->director }}:</b> <a class="pull-right">{{ $music->culture['director'] }}</a>
                     @endif 
                     </li>
                     <li class="list-group-item">
                     @if ( $music->document->document_subtype->subtype_name === NULL )   
-                        <b>{{ $idioma_music->subtipo_de_documento }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_music->subtipo_de_documento }}</p></a>                                                 
+                        <b>{{ $idioma_doc->subtipo_de_documento }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_doc->subtipo_de_documento }}</p></a>                                                 
                     @else
-                        <b>{{ $idioma_music->subtipo_de_documento }}:</b> <a class="pull-right">{{ $music->document->document_subtype->subtype_name }}</a>
+                        <b>{{ $idioma_doc->subtipo_de_documento }}:</b> <a class="pull-right">{{ $music->document->document_subtype->subtype_name }}</a>
                     @endif 
                     </li>
                 </ul>
@@ -83,10 +83,10 @@
                     </div>
                     <div class="row col-md-6">
                         <strong><i class="fa fa-users margin-r-5"></i> {{ $idioma_music->orquesta }}:</strong>  
-                        @if (  $music->culture->orchestra === NULL )                            
+                        @if (  $music->culture['orchestra'] === NULL )                            
                             <p class="tex-muted"><a>Sin {{ $idioma_music->orquesta }}</a> </p>
                         @else
-                            <p class="text-muted">{{ $music->culture->orchestra }}</p> 
+                            <p class="text-muted">{{ $music->culture['orchestra'] }}</p> 
                         @endif                 
                         <hr>
                     </div>
@@ -203,9 +203,11 @@
                             <hr>
                         </div>       
                     </div>  
+                    <div class="col-md-12" >  
                     @if(Auth::user() != null )
                         <a href="{{ route('requests.solicitud', $music->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;{{ $idioma_doc->solicitar_prestamo }}</a>
-                    @endif             
+                    @endif  
+                    </div>           
                 </div>        
           </div>
     </div>

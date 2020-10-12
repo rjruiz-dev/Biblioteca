@@ -10,6 +10,7 @@ use App\Document_subtype;
 use App\Adequacy;
 use App\Lenguage;
 use App\Document;
+use App\Book_movement;
 use App\Generate_subjects;
 use App\Generate_reference;
 use App\StatusDocument;
@@ -92,9 +93,37 @@ class VMultimediaController extends Controller
         
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+
         return view('web.multimedias.show', compact('multimedia'), [
-            'idioma_doc' => $idioma_doc,
-            'idioma_multimedia' => $idioma_multimedia 
+            'idioma_doc'        => $idioma_doc,
+            'idioma_multimedia' => $idioma_multimedia,
+            'disabled'          => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible
         ]);
         // return view('web.multimedias.show', compact('multimedia'));
     }
