@@ -14,6 +14,7 @@ use App\Generate_format;
 use App\Adaptation;
 use App\Document;
 use App\Lenguage;
+use App\Book_movement;
 use App\Generate_subjects;
 use App\StatusDocument;
 use App\Document_subtype;
@@ -222,14 +223,44 @@ class MoviesController extends Controller
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_movie = ml_show_movie::where('many_lenguages_id',$session)->first();
       
-
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
-    
+        
+        // $id = 4;
+//----VERIFICACION DE SI NO HAY COPIAS ANULE EL BOTON Y MUESTE LABEL DE Q NO HAY COPIAS----------
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+//-----------------------------------------------------------------------------------------
+        
         $this->authorize('view', $movie);
 
         return view('admin.movies.show', compact('movie'), [
             'idioma_doc' => $idioma_doc,
-            'idioma_movie' => $idioma_movie 
+            'idioma_movie' => $idioma_movie,
+            'disabled' => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
 
         // return view('admin.movies.show', compact('movie'));

@@ -15,6 +15,7 @@ return [
     |            "sparkpost", "log", "array"
     |
     */
+    
 
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
@@ -132,5 +133,7 @@ return [
     */
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
+
+    
 
 ];

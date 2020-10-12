@@ -100,10 +100,13 @@
                     <!-- Pub. Periodica -->
                     <div class="col-md-4">
                         <strong><i class="fa fa-users margin-r-5"></i>{{ $idioma_book->otros_autores }}:</strong>
-                        @if ( $book->document->made_by === NULL )                            
+                        @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))                            
                             <p class="tex-muted"><a>No Tiene {{ $idioma_book->otros_autores }}</a> </p>
                         @else
-                            <p class="text-muted">{{ $book->document->made_by }}</p>
+                            @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))                            
+                            $coma = ", ";
+                            @endif 
+                        <p class="text-muted">{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</p>
                         @endif                     
                         <hr>
                     </div>                   

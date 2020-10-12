@@ -209,6 +209,8 @@
     <script>
 $('.colorpicker').colorpicker({});
 
+$('#btn-save')
+
 $('#btn-save').click(function (event) {
     event.preventDefault();
     

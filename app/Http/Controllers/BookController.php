@@ -279,7 +279,7 @@ class BookController extends Controller
         $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
         
 
-        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad')->findOrFail($id);
+        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad','second_author','third_author')->findOrFail($id);
      
         $this->authorize('view', $book);
 

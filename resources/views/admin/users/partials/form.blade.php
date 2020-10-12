@@ -14,20 +14,22 @@
                 @if (!$user->exists)
                     @php 
                         $visible = "display:none";                        
+                        $visible_label = "";    
                     @endphp
                 @else
                     @php  
-                        $visible = "";                   
+                        $visible = "";               
+                        $visible_label = "display:none";
                     @endphp
                 @endif   
                 <div class="form-group">
                     {!! Form::label('group', 'Seleccione tipo de Usuario:') !!}&nbsp;
                 
                     <label>
-                        &nbsp;{!! Form::radio('group', '1') !!} Bibliotecario                               
+                        &nbsp;{!! Form::radio('group', '1', $rol_lib ? 'checked' : '') !!} Bibliotecario                               
                     </label>
                     <label>
-                        &nbsp;{!! Form::radio('group', '2') !!} Socio                        
+                        &nbsp;{!! Form::radio('group', '2', $rol_part ? 'checked' : '') !!} Socio                        
                     </label>
                 </div>
                 <div class="form-group" >              
@@ -46,14 +48,15 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('user_photo', 'Imagen de Perfil') }}
-                    {{ Form::file('user_photo') }}
+                    {{ Form::file('user_photo', ['style' => 'color: transparent']) }}
                     
                 </div>
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}             
                     {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email']) !!}
                 </div>
-                <span class="help-block">La contraseña será generada y enviada al nuevo usuario vía email</span>
+                
+                <span class="help-block" style="{{{ $visible_label }}}">La contraseña será generada y enviada al nuevo usuario vía email</span>
          
             </div>
         </div>       

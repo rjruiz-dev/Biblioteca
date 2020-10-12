@@ -51,9 +51,8 @@
                 </div>                                           
                 
                 <div class="form-group">
-                    {{ Form::label('user_photo', 'Imagen de Perfil') }}
-                    {{ Form::file('user_photo') }}
-                    
+                    {{ Form::label('user_photo', 'Imagen de Perfil') }} 
+                    {{ Form::file('user_photo', ['style' => 'color: transparent']) }}
                 </div>
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}             

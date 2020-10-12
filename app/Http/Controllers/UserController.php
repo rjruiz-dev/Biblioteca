@@ -68,13 +68,18 @@ class UserController extends Controller
         }else{
             $num_socio = 1;            
         }
+
+        $rol_lib = false;
+        $rol_part = false;
           
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),   
             'num_socio' => $num_socio,        
-            'user'      => $user
+            'user'      => $user,
+            'rol_lib'      => $rol_lib,
+            'rol_part'      => $rol_part,
         ]);  
     }
 
@@ -219,12 +224,24 @@ class UserController extends Controller
         $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
         $num_socio = $sugerido->membership + 1;
 
+        $rol_lib = false;
+        $rol_part = false;
+        if($user->getRoleNames() == 'Librarian'){
+            $rol_lib = true;
+        }
+
+        if($user->getRoleNames() == 'Partner'){
+            $rol_part = true;
+        }
+
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
             'num_socio' => $num_socio,          
-            'user'      => $user
+            'user'      => $user,
+            'rol_lib'      => $rol_lib,
+            'rol_part'      => $rol_part,
         ]);  
     }
 

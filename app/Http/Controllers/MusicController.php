@@ -230,7 +230,7 @@ class MusicController extends Controller
 
     $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
     $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
-    
+    // dd($idioma_music);
 
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
