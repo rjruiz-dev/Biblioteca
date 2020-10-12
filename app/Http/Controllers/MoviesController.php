@@ -226,6 +226,7 @@ class MoviesController extends Controller
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
         
         // $id = 4;
+        // dd($id);
 //----VERIFICACION DE SI NO HAY COPIAS ANULE EL BOTON Y MUESTE LABEL DE Q NO HAY COPIAS----------
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id)
@@ -242,7 +243,7 @@ class MoviesController extends Controller
         })    
         ->get();
 
-        // dd($copies);
+        // dd($copies_disponibles);
         if($copies_disponibles->count() > 0){
             // dd('habilitado');
             $disabled = '';
@@ -536,8 +537,8 @@ class MoviesController extends Controller
                 // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
                 return view('admin.movies.partials._action', [
                     'movie'             => $movie,
-                    'url_show'          => route('admin.movies.show', $movie->id),                        
-                    'url_edit'          => route('admin.movies.edit', $movie->id),  
+                    'url_show'          => route('admin.movies.show', $movie->document->id),                        
+                    'url_edit'          => route('admin.movies.edit', $movie->document->id),  
                     'url_copy'          => route('movies.copy', $movie->document->id),                              
                     'url_desidherata'   => route('movies.desidherata', $movie->document->id),
                     'url_baja'          => route('movies.baja', $movie->document->id),

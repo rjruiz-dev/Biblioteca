@@ -130,10 +130,10 @@
                     <div class="form-group">
                         {!! Form::label('group', 'Tipo de Multa') !!}&nbsp;
                         <label>
-                            &nbsp;{!! Form::radio('group', '1', $setting->fines_id == 1 ? 'checked' : '') !!}&nbsp;Económica                                
+                            &nbsp;{!! Form::radio('group', '1', $setting->fines_id == 1 ? 'checked' : '', ['id' => 'group_economica']) !!}&nbsp;Económica                                
                         </label>
                         <label>
-                            &nbsp;{!! Form::radio('group', '2', $setting->fines_id == 2 ? 'checked' : '') !!}&nbsp;Sanción                                   
+                            &nbsp;{!! Form::radio('group', '2', $setting->fines_id == 2 ? 'checked' : '', ['id' => 'group_sancion']) !!}&nbsp;Sanción                                   
                         </label>
                     </div>
                     
@@ -209,7 +209,44 @@
     <script>
 $('.colorpicker').colorpicker({});
 
-$('#btn-save')
+
+
+ 
+
+    var checkbox_economica = document.getElementById('group_economica');
+    checkbox_economica.addEventListener( 'change', function() {
+        if(this.checked) {
+        // alert('checkbox economica ha sido  seleccionado');
+        document.getElementById("days_penalty").disabled = true;
+        document.getElementById("price_penalty").disabled = false;
+        }
+    });
+
+    var isChecked_economica = document.getElementById('group_economica').checked;
+    if(isChecked_economica){
+    // alert('checkbox economica ya estaba seleccionado');
+    document.getElementById("days_penalty").disabled = true;
+    document.getElementById("price_penalty").disabled = false;
+        
+    }
+
+    var checkbox_sancion = document.getElementById('group_sancion');
+    checkbox_sancion.addEventListener( 'change', function() {
+        if(this.checked) {
+        // alert('checkbox sancion ha sido  seleccionado');
+        document.getElementById("days_penalty").disabled = false;
+        document.getElementById("price_penalty").disabled = true;
+        }
+    });
+    
+    var isChecked_sancion = document.getElementById('group_sancion').checked;
+    if(isChecked_sancion){
+    // alert('checkbox sancion ya estaba seleccionado');
+        document.getElementById("days_penalty").disabled = false;
+        document.getElementById("price_penalty").disabled = true;
+    }
+
+
 
 $('#btn-save').click(function (event) {
     event.preventDefault();

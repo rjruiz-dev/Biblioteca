@@ -230,14 +230,18 @@ class FastPartnerProcessController extends Controller
         })
         ->where('active', 1) 
         ->where('users_id', $id)->get();
+
+        $setting_fines_id = Setting::select('fines_id')->first();
+     
+        $multa = Fine::where('id', $setting_fines_id->fines_id)->first();
     
         return view('admin.fastprocess.prestamo', [
             'user'          => $user,
             'docs_of_user'  => $docs_of_user,
             'idioma'        => $idioma,
             'idiomas'       => $idiomas,
-            'setting'       => $setting
-       
+            'setting'       => $setting,
+            'multa'                 => $multa   
         ]);
     }
 

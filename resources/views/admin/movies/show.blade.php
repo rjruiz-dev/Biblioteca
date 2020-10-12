@@ -230,7 +230,6 @@
                         <!-- LABEL PARA Q MUESTE SI ESQ NO ESTA DISP COPIAS DEL DOC -->
                         <label>{{ $label_copia_no_disponible }}</label>
                         <!-- ------------------------------------------------------ --> 
-                        <!-- del href de abajo copias solo el {{$disbled}} al final de class, segun corresponda --> 
                         <a href="{{ route('requests.solicitud', $movie->document->id) }}" class="btn btn-danger btn-flat btn-block btn-solicitud {{ $disabled }}" title="Solicitar Prestamo" type="button"><i class="fa fa-share-square-o"></i>&nbsp;{{ $idioma_doc->solicitar_prestamo }}</a>
                     </div>
                 </div>       

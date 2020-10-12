@@ -104,7 +104,10 @@ function(){
     Route::delete('movies/baja/{id}',           'MoviesController@baja')->name('movies.baja');    
     Route::delete('movies/reactivar/{id}',      'MoviesController@reactivar')->name('movies.reactivar'); 
     Route::delete('movies/copy/{id}',           'MoviesController@copy')->name('movies.copy'); 
+    
+    // Route::get('movies/show/{id}',           'MoviesController@show')->name('movies.show'); 
  
+
     //musica
     Route::delete('music/desidherata/{id}',     'MusicController@desidherata')->name('music.desidherata');
     Route::delete('music/baja/{id}',            'MusicController@baja')->name('music.baja');    

@@ -131,10 +131,15 @@ class SettingController extends Controller
                 $multa_eco = Fine::findOrFail(1); //cargo economica
                 $multa_sus = Fine::findOrFail(2);//cargo suspension
                 
-                $multa_eco->unit             = $request->get('price_penalty');
+                if($request->get('price_penalty') != null){
+                    $multa_eco->unit             = $request->get('price_penalty');
+                    $multa_eco->save();
+                }
+ 
+                if($request->get('days_penalty') != null){
                 $multa_sus->unit             = $request->get('days_penalty');
-                $multa_eco->save();
                 $multa_sus->save();
+                }
 
                 $setting->logo              = $name; 
                   
