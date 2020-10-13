@@ -335,6 +335,8 @@ class FastPartnerProcessController extends Controller
      
      $multa = Fine::where('id', $setting_fines_id->fines_id)->first();
 
+    //  dd($copies_prestadas);
+
         return view('admin.fastprocess.prestamo2', [
             'documento'             => $documento,
             'copies_prestadas'      => $copies_prestadas,
