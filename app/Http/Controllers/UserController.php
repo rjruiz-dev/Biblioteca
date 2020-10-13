@@ -240,8 +240,8 @@ class UserController extends Controller
             'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
             'num_socio' => $num_socio,          
             'user'      => $user,
-            'rol_lib'      => $rol_lib,
-            'rol_part'      => $rol_part,
+            'rol_lib'   => $rol_lib,
+            'rol_part'  => $rol_part,
         ]);  
     }
 

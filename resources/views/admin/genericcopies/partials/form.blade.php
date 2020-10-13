@@ -25,7 +25,7 @@
                 <!-- <label for="sugerido">Numero Sugerido: {{ $sugerido }}</label>                              -->
                 <div class="form-group" >              
                     {!! Form::label('registry_number', 'Número de Registro') !!}                    
-                    {!! Form::text('registry_number', $sugerido, ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Numero de Registro' ]) !!}
+                    {!! Form::text('registry_number', $copie->exists ? null : $sugerido, ['class' => 'form-control', 'id' => 'registry_number', 'placeholder' => 'Numero de Registro' ]) !!}
                     <span class="help-block">Número de Registro Sugerido para Asignar a Nuevo Ejemplar: <strong>{{ $sugerido }}</strong></span>
                    
                 </div>

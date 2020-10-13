@@ -1,9 +1,8 @@
-@can('view', $multimedia)
-   <a href="{{ $url_show }}" class="btn-show" title="Detalle: {{ $multimedia->document->title }}"><i class="fa fa-eye text-primary"></i></a> | 
-@endcan
-@can('update', $multimedia)
+
+|   <a href="{{ $url_show }}" class="btn-show" title="Detalle: {{ $multimedia->document->title }}"><i class="fa fa-eye text-primary"></i></a> | 
+@if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
    <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar: {{ $multimedia->document->title }}"><i class="fa fa-edit text-success btn-btn-edit-user"></i></a> | 
-@endcan
+@endif
 @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
    <a href="{{ $url_copy }}" class="btn-copy" title="Ver Ejemplares: {{ $multimedia->document->title }}"><i class="fa fa-copy text-danger"></i></a> |
 @endif

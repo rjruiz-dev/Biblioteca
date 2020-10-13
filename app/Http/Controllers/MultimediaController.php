@@ -46,7 +46,7 @@ class MultimediaController extends Controller
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
 
-        $this->authorize('view', new Multimedia);
+        // $this->authorize('view', new Multimedia);
 
         return view('admin.multimedias.index', [
             'idioma'    => $idioma,
@@ -65,7 +65,7 @@ class MultimediaController extends Controller
         $multimedia = new Multimedia();    
         $document = new Document();  
         
-        $this->authorize('create', $multimedia); 
+        // $this->authorize('create', $multimedia); 
                               
         return view('admin.multimedias.partials.form', [   
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
@@ -97,7 +97,7 @@ class MultimediaController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                               
-                $this->authorize('create', new Multimedia);
+                // $this->authorize('create', new Multimedia);
                 // Creamos el documento            
                 $document = new Document;
                 $document->document_types_id    = 4; // 4 tipo de documento: multimedia.
@@ -254,7 +254,7 @@ class MultimediaController extends Controller
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
         
-        $this->authorize('view', $multimedia);
+        // $this->authorize('view', $multimedia);
 
         return view('admin.multimedias.show', compact('multimedia'), [
             'idioma_doc'        => $idioma_doc,
@@ -278,7 +278,7 @@ class MultimediaController extends Controller
         $multimedia = Multimedia::with('document')->findOrFail($id);
         $document   = Document::findOrFail($multimedia->documents_id);      
                  
-        $this->authorize('update', $multimedia);
+        // $this->authorize('update', $multimedia);
 
         return view('admin.multimedias.partials.form', [
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
@@ -314,7 +314,7 @@ class MultimediaController extends Controller
                 $multimedia = Multimedia::findOrFail($id);
                 $document   = Document::findOrFail($multimedia->documents_id);
                 
-                $this->authorize('update', $multimedia);  
+                // $this->authorize('update', $multimedia);  
 
                 $document->title = $request->get('title');
               
@@ -519,8 +519,8 @@ class MultimediaController extends Controller
             ->addColumn('accion', function ($multimedia) {
                 return view('admin.multimedias.partials._action', [
                     'multimedia'        => $multimedia,
-                    'url_show'          => route('admin.multimedias.show', $multimedia->id),                        
-                    'url_edit'          => route('admin.multimedias.edit', $multimedia->id),                              
+                    'url_show'          => route('admin.multimedias.show', $movie->document->id),                        
+                    'url_edit'          => route('admin.multimedias.edit', $movie->document->id),                              
                     'url_copy'          => route('multimedias.copy', $multimedia->document->id),                              
                     'url_desidherata'   => route('multimedias.desidherata', $multimedia->document->id),
                     'url_baja'          => route('multimedias.baja', $multimedia->document->id),

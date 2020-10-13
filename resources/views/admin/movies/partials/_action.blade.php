@@ -1,9 +1,9 @@
-@can('view', $movie)
+
 |   <a href="{{ $url_show }}" class="btn-show" title="Detalle: {{ $movie->document->title }}"><i class="fa fa-eye text-primary"></i></a> | 
-@endcan
-@can('update', $movie)
+
+@if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
     <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar: {{ $movie->document->title }} "><i class="fa fa-edit text-success btn-btn-edit-user"></i></a> | 
-@endcan
+@endif
 
 @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
     <a href="{{ $url_copy }}" class="btn-copy" title="Ver Ejemplares: {{ $movie->document->title }}"><i class="fa fa-copy text-danger"></i></a> |

@@ -120,7 +120,9 @@ class SettingController extends Controller
                 $setting->province          = $request->get('province');  
                 $setting->city              = $request->get('city');
                 $setting->postal_code       = $request->get('postal_code');
-                $setting->country           = $request->get('country');   
+                $setting->country           = $request->get('country');  
+                $setting->loan_limit        = $request->get('loan_limit');    
+                $setting->loan_day          = $request->get('loan_day'); 
                 $setting->child_age         = $request->get('child_age');    
                 $setting->adult_age         = $request->get('adult_age');
                 $setting->skin              = $request->get('skin');

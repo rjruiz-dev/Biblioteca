@@ -48,7 +48,7 @@ class PhotographyController extends Controller
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
 
-        $this->authorize('view', new Photography); 
+        // $this->authorize('view', new Photography); 
 
         return view('admin.photographs.index', [
             'idioma'    => $idioma,
@@ -67,7 +67,7 @@ class PhotographyController extends Controller
         $photograph = new Photography();
         $document = new Document();    
         
-        $this->authorize('create', $photograph); 
+        // $this->authorize('create', $photograph); 
                               
         return view('admin.photographs.partials.form', [
           
@@ -101,7 +101,7 @@ class PhotographyController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
                               
-                $this->authorize('create', new Photography);
+                // $this->authorize('create', new Photography);
                 // Creamos el documento            
                 $document = new Document;
                 $document->document_types_id    = 5; // 3 tipo de documento: cine.
@@ -259,7 +259,7 @@ class PhotographyController extends Controller
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
 
-        $this->authorize('view', $photograph);
+        // $this->authorize('view', $photograph);
 
         return view('admin.photographs.show', compact('photograph'), [
             'idioma_doc'        => $idioma_doc,
@@ -282,7 +282,7 @@ class PhotographyController extends Controller
         $photograph = Photography::with('document')->findOrFail($id);   
         $document = Document::findOrFail($photograph->documents_id);    
              
-        $this->authorize('update', $photograph);
+        // $this->authorize('update', $photograph);
 
         return view('admin.photographs.partials.form', [            
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -318,7 +318,7 @@ class PhotographyController extends Controller
                 $photograph = Photography::findOrFail($id);
                 $document   = Document::findOrFail($photograph->documents_id);
                 
-                $this->authorize('update', $photograph);
+                // $this->authorize('update', $photograph);
 
                 $document->document_subtypes_id = $request->get('document_subtypes_id'); 
                 $document->title                = $request->get('title');
@@ -538,8 +538,8 @@ class PhotographyController extends Controller
             ->addColumn('accion', function ($photograph) {
                 return view('admin.photographs.partials._action', [
                     'photograph'        => $photograph,
-                    'url_show'          => route('admin.photographs.show', $photograph->id),                        
-                    'url_edit'          => route('admin.photographs.edit', $photograph->id),                              
+                    'url_show'          => route('admin.photographs.show', $photograph->document->id),                        
+                    'url_edit'          => route('admin.photographs.edit', $photograph->document->id),                              
                     'url_copy'          => route('photographs.copy', $photograph->document->id),                              
                     'url_desidherata'   => route('photographs.desidherata', $photograph->document->id),
                     'url_baja'          => route('photographs.baja', $photograph->document->id),

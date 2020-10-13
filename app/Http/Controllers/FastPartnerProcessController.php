@@ -241,7 +241,7 @@ class FastPartnerProcessController extends Controller
             'idioma'        => $idioma,
             'idiomas'       => $idiomas,
             'setting'       => $setting,
-            'multa'                 => $multa   
+            'multa'         => $multa   
         ]);
     }
 

@@ -120,12 +120,12 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        {!! Form::label('loan_amount', 'Cantidad Maxima de Prestamos') !!}                
-                        {!! Form::text('loan_amount', null, ['class' => 'form-control', 'id' => 'loan_amount', 'placeholder' => 'Cantidad Maxima de Prestamos']) !!}
+                        {!! Form::label('loan_limit', 'Cantidad Maxima de Prestamos') !!}                
+                        {!! Form::text('loan_limit', null, ['class' => 'form-control', 'id' => 'loan_limit', 'placeholder' => 'Cantidad Maxima de Prestamos']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('day_loan', 'Cantidad Maxima de Dias por Ejemplar') !!}               
-                        {!! Form::text('day_loan', null, ['class' => 'form-control', 'id' => 'day_loan', 'placeholder' => 'Cantidad Maxima de Dias por Ejemplar']) !!}
+                        {!! Form::label('loan_day', 'Cantidad Maxima de Dias por Ejemplar') !!}               
+                        {!! Form::text('loan_day', null, ['class' => 'form-control', 'id' => 'loan_day', 'placeholder' => 'Cantidad Maxima de Dias por Ejemplar']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('group', 'Tipo de Multa') !!}&nbsp;

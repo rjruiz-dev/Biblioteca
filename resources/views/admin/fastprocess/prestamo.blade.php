@@ -100,10 +100,12 @@
                         {!! Form::model($docs_of_user, ['route' => ['admin.fastprocess.store', count($docs_of_user)],'method' => 'POST']) !!}
                     
                         @php  
-                        $dif = Carbon\Carbon::parse($docs_of_use->date_until)->diffInDays(Carbon\Carbon::now()); 
+                            $dif = Carbon\Carbon::parse($docs_of_use->date_until)->diffInDays(Carbon\Carbon::now()); 
+                           
                         @endphp
                         
                         @if (Carbon\Carbon::parse($docs_of_use->date_until) < Carbon\Carbon::now())
+                   
                             @php
                                 $info = "dias de retraso";
                                 $color = "text-danger";
@@ -111,12 +113,13 @@
                                 
                                 $mostrar_sancion = true;
                                 $calculo = ($multa->unit * $dif);
+                                dd($calculo);
                                 $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
                                 $disabled_reno = 'disabled';
                             @endphp 
                         @else
                             @php
-                            $info = "dias de resto";
+                                $info = "dias de resto";
                                 $color = "text-success";
                                 $color_sancion = "";
                                 $sancion = "-";

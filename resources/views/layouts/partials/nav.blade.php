@@ -254,6 +254,7 @@
     @endif
 
     @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
+    <!-- aca se cambio web.libros.index -->
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">{{ $idioma->navegacion }}</li> 
         <li class="{{ setActiveRoute('index') }}">

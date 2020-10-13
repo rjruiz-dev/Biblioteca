@@ -56,7 +56,7 @@ class BookController extends Controller
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
 
-        $this->authorize('view', new Book); 
+        // $this->authorize('view', new Book); 
 
         return view('admin.books.index', [
             'idioma'    => $idioma,
@@ -84,7 +84,7 @@ class BookController extends Controller
         $book = new Book();
         $document = new Document(); 
         
-        $this->authorize('create', $book);  
+        // $this->authorize('create', $book);  
         
         $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
         $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
@@ -133,7 +133,7 @@ class BookController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
 
-                $this->authorize('create', new Book);
+                // $this->authorize('create', new Book);
                 
                 if ($request->hasFile('photo')) {               
 
@@ -308,7 +308,7 @@ class BookController extends Controller
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
 
-        $this->authorize('view', $book);
+        // $this->authorize('view', $book);
 
         return view('admin.books.show', compact('book'), [
             'idioma_doc'    => $idioma_doc,
@@ -340,7 +340,7 @@ class BookController extends Controller
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
         $document = Document::findOrFail($book->documents_id);
 
-        $this->authorize('update', $book);
+        // $this->authorize('update', $book);
 
         $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
         $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
@@ -393,7 +393,7 @@ class BookController extends Controller
                 $book = Book::findOrFail($id);                
                 $document = Document::findOrFail($book->documents_id);
                 
-                $this->authorize('update', $book); 
+                // $this->authorize('update', $book); 
                 // Actualizamos el documento   
                 if( is_numeric($request->get('creators_id'))) 
                 {                
@@ -738,8 +738,8 @@ class BookController extends Controller
             ->addColumn('accion', function ($libros) {
                 return view('admin.books.partials._action', [
                     'libros'            => $libros,
-                    'url_show'          => route('admin.books.show', $libros->id),                        
-                    'url_edit'          => route('admin.books.edit', $libros->id),
+                    'url_show'          => route('admin.books.show', $libros->document->id),                        
+                    'url_edit'          => route('admin.books.edit', $libros->document->id),
                     'url_copy'          => route('books.copy', $libros->document->id),                              
                     'url_desidherata'   => route('books.desidherata', $libros->document->id),
                     'url_baja'          => route('books.baja', $libros->document->id),

@@ -51,7 +51,7 @@ class MusicController extends Controller
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
 
-        $this->authorize('view', new Music);
+        // $this->authorize('view', new Music);
 
         return view('admin.music.index', [
             'idioma'    => $idioma,
@@ -70,7 +70,7 @@ class MusicController extends Controller
         $music = new Music();    
         $document = new Document();      
 
-        $this->authorize('create', $music);     
+        // $this->authorize('create', $music);     
                               
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
@@ -105,7 +105,7 @@ class MusicController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
 
-                $this->authorize('create', new Music);
+                // $this->authorize('create', new Music);
                               
                 // Creamos el documento            
                 $document = new Document;              
@@ -261,7 +261,7 @@ class MusicController extends Controller
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
 
-        $this->authorize('view', $music);
+        // $this->authorize('view', $music);
 
         return view('admin.music.show', compact('music'), [
             'idioma_doc'    => $idioma_doc,
@@ -284,7 +284,7 @@ class MusicController extends Controller
         $musics = Music::with('document', 'generate_music')->findOrFail($id);
         $document = Document::findOrFail($musics->documents_id);   
                       
-        $this->authorize('update', $music);
+        // $this->authorize('update', $music);
 
         return view('admin.music.partials.form', [
             'documents'     => Document_type::pluck( 'document_description', 'id'),
@@ -323,7 +323,7 @@ class MusicController extends Controller
                 $music = Music::findOrFail($id);
                 $document = Document::findOrFail($music->documents_id);
                 
-                $this->authorize('update', $music);             
+                // $this->authorize('update', $music);             
                 // Actualizamos el documento
                 $subtypes_id = $document->document_subtypes_id;
 
@@ -569,8 +569,8 @@ class MusicController extends Controller
             ->addColumn('accion', function ($musica) {
                 return view('admin.music.partials._action', [
                     'musica'            => $musica,
-                    'url_show'          => route('admin.music.show', $musica->id),                        
-                    'url_edit'          => route('admin.music.edit', $musica->id),                              
+                    'url_show'          => route('admin.music.show', $musica->document->id),                        
+                    'url_edit'          => route('admin.music.edit', $musica->document->id),                              
                     'url_copy'          => route('music.copy', $musica->document->id),                              
                     'url_desidherata'   => route('music.desidherata', $musica->document->id),
                     'url_baja'          => route('music.baja', $musica->document->id),

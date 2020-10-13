@@ -220,7 +220,7 @@ class VBooksController extends Controller
             ->addColumn('accion', function ($libros) {
                 return view('web.books.partials._action', [
                     'libros'            => $libros,
-                    'url_show'          => route('web.libros.show', $libros->id),                        
+                    'url_show'          => route('web.libros.show', $libros->document->id),                        
                    
                 ]);
             })           

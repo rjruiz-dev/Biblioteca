@@ -56,7 +56,7 @@ class MoviesController extends Controller
         $setting            = Setting::where('id', 1)->first();
         $idiomas            = ManyLenguages::all();
 
-        $this->authorize('view', new Movies); 
+        // $this->authorize('view', new Movies); 
 
         return view('admin.movies.index', [
             'idioma'            => $idioma,
@@ -77,7 +77,7 @@ class MoviesController extends Controller
         $movie = new Movies(); 
         $document = new Document();      
       
-        $this->authorize('create', $movie);            
+        // $this->authorize('create', $movie);            
                               
         return view('admin.movies.partials.form', [           
             'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
@@ -115,7 +115,7 @@ class MoviesController extends Controller
                 //  Transacciones
                 DB::beginTransaction();
 
-                $this->authorize('create', new Movies);
+                // $this->authorize('create', new Movies);
                               
                 // Creamos el documento            
                 $document = new Document;
@@ -253,7 +253,7 @@ class MoviesController extends Controller
         }
 
         
-        $this->authorize('view', $movie);
+        // $this->authorize('view', $movie);
 
         return view('admin.movies.show', compact('movie'), [
             'idioma_doc'    => $idioma_doc,
@@ -276,7 +276,7 @@ class MoviesController extends Controller
         $movie = Movies::with('document','document.subjects', 'document.references')->findOrFail($id);    
         $document = Document::findOrFail($movie->documents_id);   
 
-        $this->authorize('update', $movie);
+        // $this->authorize('update', $movie);
      
         return view('admin.movies.partials.form', [
            
@@ -319,7 +319,7 @@ class MoviesController extends Controller
                 $movie      = Movies::findOrFail($id);
                 $document   = Document::findOrFail($movie->documents_id); 
                 
-                $this->authorize('update', $movie);             
+                // $this->authorize('update', $movie);             
                 
                 $name = $movie->photo; 
                 if ($request->hasFile('photo')) {               
@@ -406,7 +406,7 @@ class MoviesController extends Controller
     {
         $document = Document::findOrFail($id);
 
-        $this->authorize('delete', $document);
+        // $this->authorize('delete', $document);
 
         if($document->status_documents_id == 1){ //si esta activo lo doy de baja
             $document->status_documents_id = 2;

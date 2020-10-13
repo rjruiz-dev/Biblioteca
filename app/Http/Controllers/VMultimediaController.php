@@ -188,7 +188,7 @@ class VMultimediaController extends Controller
             ->addColumn('accion', function ($multimedia) {
                 return view('web.multimedias.partials._action', [
                     'multimedia'        => $multimedia,
-                    'url_show'          => route('web.multimedia.show', $multimedia->id),                        
+                    'url_show'          => route('web.multimedia.show', $multimedia->document->id),                        
                   
                 ]);
 
