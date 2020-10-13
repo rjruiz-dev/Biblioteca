@@ -81,14 +81,14 @@
                     @endphp
 
 
-
+                    
                     @forelse ($copies_prestadas  as $copie)
                         {!! Form::model($copies_prestadas, ['route' => ['admin.fastprocess.store',  count($copies_prestadas)],'method' => 'POST']) !!}
 
                         @php  
                         $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(Carbon\Carbon::now()); 
                         @endphp
-
+                                 
                         @if (Carbon\Carbon::parse($copie->date_until)->format('d-m-Y') < Carbon\Carbon::now()->format('d-m-Y'))
                             @php
                                 $info = "dias de retraso";
@@ -106,7 +106,7 @@
                                 $mostrar_sancion = false;
                                 $color_sancion = "";
                                 $sancion = "-";
-                                $disabled_reno = '';
+                                $disabled_reno = ''; 
                             @endphp
                         @endif
 
@@ -120,7 +120,7 @@
                                 <p class="text-muted text-center"></p>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>Estado: </b><a class="pull-right">{{ $copie->movement_type->book_status }} </a>
+                                <b>Estado: </b><a class="pull-right">{{ $copie->movement_type['description_movement'] }} </a>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
                                 <b>Prestado a: </b><a class="pull-right">{{ $copie->user->name }} </a>

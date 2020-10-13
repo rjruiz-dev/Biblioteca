@@ -102,8 +102,8 @@
                         @php  
                         $dif = Carbon\Carbon::parse($docs_of_use->date_until)->diffInDays(Carbon\Carbon::now()); 
                         @endphp
-                        
-                        @if (Carbon\Carbon::parse($docs_of_use->date_until) < Carbon\Carbon::now())
+                                <!-- 28-10-2020  menor  13-10-2020  -->
+                        @if (Carbon\Carbon::parse($docs_of_use->date_until)->format('d-m-Y') < Carbon\Carbon::now()->format('d-m-Y'))
                             @php
                                 $info = "dias de retraso";
                                 $color = "text-danger";
@@ -116,10 +116,12 @@
                             @endphp 
                         @else
                             @php
-                            $info = "dias de resto";
+                                $info = "dias de resto";
                                 $color = "text-success";
+                                $mostrar_sancion = false;
                                 $color_sancion = "";
                                 $sancion = "-";
+                                $disabled_reno = '';
                             @endphp
                         @endif
 
@@ -140,13 +142,13 @@
                             <b class="{{$color}}">{{ $info }} </b><a class="pull-right {{$color}}">{{ $dif }}</a>
                             </div> 
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b class="{{$color_sancion}}">Sancion de:   </b><a class="pull-right {{$color_sancion}}"> $ {{ $sancion }}</a>
+                            <b class="{{$color_sancion}}">Sancion:   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
                             </div>
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
                                 <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $docs_of_use->copies_id, 'bandera' =>  1, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Devolver: {{ $docs_of_use->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
                             </div>
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $docs_of_use->copies_id, 'bandera' =>  2, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Renovar: {{ $docs_of_use->copy->document->title }}" class="btn btn-info modal-show btn-sm">Renovar</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $docs_of_use->copies_id, 'bandera' =>  2, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Renovar: {{ $docs_of_use->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">Renovar</a>
                             </div>  
                         </div> 
                     </li> 
