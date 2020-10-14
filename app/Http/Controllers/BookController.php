@@ -738,7 +738,7 @@ class BookController extends Controller
             ->addColumn('accion', function ($libros) {
                 return view('admin.books.partials._action', [
                     'libros'            => $libros,
-                    'url_show'          => route('admin.books.show', $libros->document->id),                        
+                    'url_show'          => route('books.show', $libros->document->id),                        
                     'url_edit'          => route('admin.books.edit', $libros->document->id),
                     'url_copy'          => route('books.copy', $libros->document->id),                              
                     'url_desidherata'   => route('books.desidherata', $libros->document->id),

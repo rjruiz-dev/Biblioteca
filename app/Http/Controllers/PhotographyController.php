@@ -233,7 +233,6 @@ class PhotographyController extends Controller
         
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
-        
         $id_docu = $photograph->documents_id;
 
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')

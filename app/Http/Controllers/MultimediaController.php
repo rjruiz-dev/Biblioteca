@@ -228,10 +228,12 @@ class MultimediaController extends Controller
         
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $id_docu = $multimedia->documents_id;
+
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id)
+        ->whereHas('copy', function($q) use ($id_docu)
         {
-            $q->where('documents_id', '=', $id)->where(function ($query) {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
                 $query->where('status_copy_id', '=', 3)
                       ->orWhere('status_copy_id', '=', 6);
             });
@@ -519,8 +521,8 @@ class MultimediaController extends Controller
             ->addColumn('accion', function ($multimedia) {
                 return view('admin.multimedias.partials._action', [
                     'multimedia'        => $multimedia,
-                    'url_show'          => route('admin.multimedias.show', $movie->document->id),                        
-                    'url_edit'          => route('admin.multimedias.edit', $movie->document->id),                              
+                    'url_show'          => route('admin.multimedias.show', $multimedia->id),                        
+                    'url_edit'          => route('admin.multimedias.edit', $multimedia->id),                              
                     'url_copy'          => route('multimedias.copy', $multimedia->document->id),                              
                     'url_desidherata'   => route('multimedias.desidherata', $multimedia->document->id),
                     'url_baja'          => route('multimedias.baja', $multimedia->document->id),
