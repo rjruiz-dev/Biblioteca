@@ -225,11 +225,12 @@ class MoviesController extends Controller
       
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
         
-     
+        $id_docu = $movie->documents_id;
+
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id)
+        ->whereHas('copy', function($q) use ($id_docu)
         {
-            $q->where('documents_id', '=', $id)->where(function ($query) {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
                 $query->where('status_copy_id', '=', 3)
                       ->orWhere('status_copy_id', '=', 6);
             });
@@ -535,8 +536,8 @@ class MoviesController extends Controller
                 // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
                 return view('admin.movies.partials._action', [
                     'movie'             => $movie,
-                    'url_show'          => route('admin.movies.show', $movie->document->id),                        
-                    'url_edit'          => route('admin.movies.edit', $movie->document->id),  
+                    'url_show'          => route('admin.movies.show', $movie->id),                        
+                    'url_edit'          => route('admin.movies.edit', $movie->id),  
                     'url_copy'          => route('movies.copy', $movie->document->id),                              
                     'url_desidherata'   => route('movies.desidherata', $movie->document->id),
                     'url_baja'          => route('movies.baja', $movie->document->id),

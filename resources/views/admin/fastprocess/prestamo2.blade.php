@@ -85,8 +85,10 @@
                     @forelse ($copies_prestadas  as $copie)
                         {!! Form::model($copies_prestadas, ['route' => ['admin.fastprocess.store',  count($copies_prestadas)],'method' => 'POST']) !!}
 
-                        @php  
-                        $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(Carbon\Carbon::now()); 
+                        @php
+                        fecha_actual = Carbon\Carbon::now();
+                        fecha_actual_modificada = date_time_set(fecha_actual, 23, 59, 59);
+                        $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(fecha_actual_modificada); 
                         @endphp
                                  
                         @if (Carbon\Carbon::parse($docs_of_use->date_until) >= Carbon\Carbon::now())

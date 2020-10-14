@@ -268,8 +268,12 @@ class LoanManualController extends Controller
                     $new_movement->courses_id = $request->get('course_id');
                     $new_movement->grupo = $request->get('grupo');
                     $new_movement->turno = $request->get('turno');
-                    $new_movement->date = Carbon::now();            
-                    $new_movement->date_until = Carbon::createFromFormat('d-m-Y', $request->get('acquired')); 
+                    $new_movement->date = Carbon::now();
+                    
+                    $hora_declarada = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));
+                    // $hora_declarada = $request->get('acquired');
+                    $hora_modificada = date_time_set($hora_declarada, 23, 59, 59);
+                    $new_movement->date_until = $hora_modificada; 
                     $new_movement->active = 1; 
             
                     $new_movement->save();

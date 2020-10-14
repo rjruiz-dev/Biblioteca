@@ -233,10 +233,13 @@ class PhotographyController extends Controller
         
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        
+        $id_docu = $photograph->documents_id;
+
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id)
+        ->whereHas('copy', function($q) use ($id_docu)
         {
-            $q->where('documents_id', '=', $id)->where(function ($query) {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
                 $query->where('status_copy_id', '=', 3)
                       ->orWhere('status_copy_id', '=', 6);
             });
@@ -494,7 +497,6 @@ class PhotographyController extends Controller
     public function reactivar($id)
     {
         $document = Document::findOrFail($id);
-        // dd($document);
         $document->status_documents_id = 1;
         $document->desidherata = 0;   
         $document->save();
@@ -538,8 +540,8 @@ class PhotographyController extends Controller
             ->addColumn('accion', function ($photograph) {
                 return view('admin.photographs.partials._action', [
                     'photograph'        => $photograph,
-                    'url_show'          => route('admin.photographs.show', $photograph->document->id),                        
-                    'url_edit'          => route('admin.photographs.edit', $photograph->document->id),                              
+                    'url_show'          => route('admin.photographs.show', $photograph->id),                        
+                    'url_edit'          => route('admin.photographs.edit', $photograph->id),                              
                     'url_copy'          => route('photographs.copy', $photograph->document->id),                              
                     'url_desidherata'   => route('photographs.desidherata', $photograph->document->id),
                     'url_baja'          => route('photographs.baja', $photograph->document->id),
