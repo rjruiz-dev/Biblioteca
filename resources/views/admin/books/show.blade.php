@@ -103,7 +103,16 @@
                         @if (( $book->second_author_id === NULL ) && ($book->third_author_id === NULL))                          
                             <p class="tex-muted"><a>No Tiene {{ $idioma_book->otros_autores }}</a> </p>
                         @else
-                        <p class="text-muted">{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }}, {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</p>
+                                @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))
+                                @php
+                                        $coma = ", ";
+                                @endphp
+                                @else
+                                @php
+                                        $coma = "";
+                                @endphp
+                                @endif
+                        <p class="text-muted">{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</p>
                         @endif                     
                         <hr>
                     </div>                   
