@@ -102,11 +102,13 @@ class VBooksController extends Controller
         $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
         
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad','second_author','third_author')->findOrFail($id);
-     
+
+        $id_docu = $book->documents_id;
+
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id)
+        ->whereHas('copy', function($q) use ($id_docu)
         {
-            $q->where('documents_id', '=', $id)->where(function ($query) {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
                 $query->where('status_copy_id', '=', 3)
                       ->orWhere('status_copy_id', '=', 6);
             });
@@ -220,7 +222,7 @@ class VBooksController extends Controller
             ->addColumn('accion', function ($libros) {
                 return view('web.books.partials._action', [
                     'libros'            => $libros,
-                    'url_show'          => route('web.libros.show', $libros->document->id),                        
+                    'url_show'          => route('web.libros.show', $libros->id),                        
                    
                 ]);
             })           

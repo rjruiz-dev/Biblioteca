@@ -282,10 +282,12 @@ class BookController extends Controller
 
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad','second_author','third_author')->findOrFail($id);
      
+        $id_docu = $book->documents_id;
+
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id)
+        ->whereHas('copy', function($q) use ($id_docu)
         {
-            $q->where('documents_id', '=', $id)->where(function ($query) {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
                 $query->where('status_copy_id', '=', 3)
                       ->orWhere('status_copy_id', '=', 6);
             });
@@ -738,8 +740,8 @@ class BookController extends Controller
             ->addColumn('accion', function ($libros) {
                 return view('admin.books.partials._action', [
                     'libros'            => $libros,
-                    'url_show'          => route('admin.books.show', $libros->document->id),                        
-                    'url_edit'          => route('admin.books.edit', $libros->document->id),
+                    'url_show'          => route('admin.books.show', $libros->id),                        
+                    'url_edit'          => route('admin.books.edit', $libros->id),
                     'url_copy'          => route('books.copy', $libros->document->id),                              
                     'url_desidherata'   => route('books.desidherata', $libros->document->id),
                     'url_baja'          => route('books.baja', $libros->document->id),
