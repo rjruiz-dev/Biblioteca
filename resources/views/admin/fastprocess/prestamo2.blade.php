@@ -89,7 +89,16 @@
                         $dif = Carbon\Carbon::parse($copie->date_until)->diffInDays(Carbon\Carbon::now()); 
                         @endphp
                                  
-                        @if (Carbon\Carbon::parse($copie->date_until)->format('d-m-Y') < Carbon\Carbon::now()->format('d-m-Y'))
+                        @if (Carbon\Carbon::parse($docs_of_use->date_until) >= Carbon\Carbon::now())
+                            @php
+                                $info = "dias de resto";
+                                $color = "text-success";
+                                $mostrar_sancion = false;
+                                $color_sancion = "";
+                                $sancion = "-";
+                                $disabled_reno = '';                      
+                            @endphp 
+                        @else
                             @php
                                 $info = "dias de retraso";
                                 $color = "text-danger";
@@ -97,16 +106,7 @@
                                 $mostrar_sancion = true;
                                 $calculo = ($multa->unit * $dif);
                                 $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
-                                $disabled_reno = 'disabled';                           
-                            @endphp 
-                        @else
-                            @php
-                                $info = "dias de resto";
-                                $color = "text-success";
-                                $mostrar_sancion = false;
-                                $color_sancion = "";
-                                $sancion = "-";
-                                $disabled_reno = ''; 
+                                $disabled_reno = 'disabled';      
                             @endphp
                         @endif
 

@@ -103,27 +103,25 @@
                             $dif = Carbon\Carbon::parse($docs_of_use->date_until)->diffInDays(Carbon\Carbon::now()); 
                            
                         @endphp
-                                <!-- 28-10-2020  menor  13-10-2020  -->
-                        @if (Carbon\Carbon::parse($docs_of_use->date_until)->format('d-m-Y') < Carbon\Carbon::now()->format('d-m-Y'))
-                            @php
-                                $info = "dias de retraso";
-                                $color = "text-danger";
-                                $color_sancion = "text-danger";
-                                
-                                $mostrar_sancion = true;
-                                $calculo = ($multa->unit * $dif);
-                                dd($calculo);
-                                $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
-                                $disabled_reno = 'disabled';
-                            @endphp 
-                        @else
+                                <!-- 12-11-2020  >=  13-10-2020  -->
+                        @if (Carbon\Carbon::parse($docs_of_use->date_until) >= Carbon\Carbon::now())
                             @php
                                 $info = "dias de resto";
                                 $color = "text-success";
                                 $mostrar_sancion = false;
                                 $color_sancion = "";
                                 $sancion = "-";
-                                $disabled_reno = '';
+                                $disabled_reno = ''; 
+                            @endphp 
+                        @else
+                            @php
+                                $info = "dias de retraso";
+                                $color = "text-danger";
+                                $color_sancion = "text-danger";
+                                $mostrar_sancion = true;
+                                $calculo = ($multa->unit * $dif);
+                                $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
+                                $disabled_reno = 'disabled';
                             @endphp
                         @endif
 
