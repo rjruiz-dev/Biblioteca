@@ -202,31 +202,38 @@ class BookController extends Controller
                 // Creamos el libro           
                 $book = new Book;   
                 $book->subtitle = $request->get('subtitle');
-                if( is_numeric($request->get('second_author_id'))) 
+                
+                if( (trim($request->get('second_author_id')) != null) && (trim($request->get('second_author_id')) != "") ) 
                 {                
-                    $book->second_author_id = $request->get('second_author_id');    
+                    if( is_numeric($request->get('second_author_id'))) 
+                    {                
+                        $book->second_author_id = $request->get('second_author_id');    
 
-                }else{
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('second_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $book->second_author_id     = $creator->id;
+                    }else{
+                        $creator = new Creator;
+                        $creator->creator_name      = $request->get('second_author_id');
+                        $creator->document_types_id = 2;
+                        $creator->save();
+                        $book->second_author_id     = $creator->id;
+                    }
                 }
-               
                 if($request->get('document_subtypes_id') != 4){
-                    if( is_numeric($request->get('third_author_id'))) 
-                        {                 
-                            $book->third_author_id = $request->get('third_author_id');    
 
-                        }else{
-                            
-                            $creator = new Creator;
-                            $creator->creator_name      = $request->get('third_author_id');
-                            $creator->document_types_id = 2;
-                            $creator->save();
-                            $book->third_author_id      = $creator->id;
-                        }
+                    if( (trim($request->get('third_author_id')) != null) && (trim($request->get('third_author_id')) != "") ) 
+                    { 
+                        if( is_numeric($request->get('third_author_id'))) 
+                        {                 
+                                $book->third_author_id = $request->get('third_author_id');    
+
+                            }else{
+                                
+                                $creator = new Creator;
+                                $creator->creator_name      = $request->get('third_author_id');
+                                $creator->document_types_id = 2;
+                                $creator->save();
+                                $book->third_author_id      = $creator->id;
+                            }
+                    }
                 }
                 
                 $book->translator       = $request->get('translator');        
@@ -458,36 +465,43 @@ class BookController extends Controller
 
                 // Actualizamos el libro               
                 $book->subtitle = $request->get('subtitle');
-                if( is_numeric($request->get('second_author_id'))) 
-                {                
-                    $book->second_author_id = $request->get('second_author_id');    
+                
+                if( (trim($request->get('second_author_id')) != null) && (trim($request->get('second_author_id')) != "") ) 
+                {
+                        if( is_numeric($request->get('second_author_id'))) 
+                        {                
+                            $book->second_author_id = $request->get('second_author_id');    
 
-                }else{
-                    
-                    if($request->get('second_author_id') != null){
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('second_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $book->second_author_id     = $creator->id;
-                    }
+                        }else{
+                            
+                            if($request->get('second_author_id') != null){
+                            $creator = new Creator;
+                            $creator->creator_name      = $request->get('second_author_id');
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $book->second_author_id     = $creator->id;
+                            }
+                        }
                 }
                // $book->third_author    = $request->get('third_author');
                 if($request->get('document_subtypes_id') != 4){// si es NO ES PUBL PERIODICA
-                    if( is_numeric($request->get('third_author_id'))) 
-                    {                
-                        $book->third_author_id  = $request->get('third_author_id');    
+                    if( (trim($request->get('third_author_id')) != null) && (trim($request->get('third_author_id')) != "") ) 
+                    {
+                        if( is_numeric($request->get('third_author_id'))) 
+                        {                
+                            $book->third_author_id  = $request->get('third_author_id');    
 
-                    }else{
+                        }else{
 
-                        if($request->get('third_author_id') != null){
-                            $creator = new Creator;
-                            $creator->creator_name = $request->get('third_author_id');
-                            $creator->document_types_id = 2;
-                            $creator->save();
-                            $book->third_author_id = $creator->id;
+                            if($request->get('third_author_id') != null){
+                                $creator = new Creator;
+                                $creator->creator_name = $request->get('third_author_id');
+                                $creator->document_types_id = 2;
+                                $creator->save();
+                                $book->third_author_id = $creator->id;
+                            }
+
                         }
-
                     }
                 }
                
