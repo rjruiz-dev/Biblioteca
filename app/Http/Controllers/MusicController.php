@@ -235,10 +235,12 @@ class MusicController extends Controller
 
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
+        $id_docu = $music->documents_id;
+
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id)
+        ->whereHas('copy', function($q) use ($id_docu)
         {
-            $q->where('documents_id', '=', $id)->where(function ($query) {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
                 $query->where('status_copy_id', '=', 3)
                       ->orWhere('status_copy_id', '=', 6);
             });
@@ -569,8 +571,8 @@ class MusicController extends Controller
             ->addColumn('accion', function ($musica) {
                 return view('admin.music.partials._action', [
                     'musica'            => $musica,
-                    'url_show'          => route('admin.music.show', $musica->document->id),                        
-                    'url_edit'          => route('admin.music.edit', $musica->document->id),                              
+                    'url_show'          => route('admin.music.show', $musica->id),                        
+                    'url_edit'          => route('admin.music.edit', $musica->id),                              
                     'url_copy'          => route('music.copy', $musica->document->id),                              
                     'url_desidherata'   => route('music.desidherata', $musica->document->id),
                     'url_baja'          => route('music.baja', $musica->document->id),
