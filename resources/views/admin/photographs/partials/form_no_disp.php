@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12" style="text-align: center;">
-                <label>Este Documento por el momento no se puede modificar ni cambiar de estado porque tiene copias prestadas</label>      
+        <label>Este Documento tiene copias prestadas y/o reservadas por el momento no pueder ser modificado</label>            
     </div>   
 </div>
 <script>
