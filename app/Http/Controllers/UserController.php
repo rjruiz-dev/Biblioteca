@@ -276,7 +276,7 @@ class UserController extends Controller
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
                 $user->email        = $request->get('email');  
-                if($request->get('password') != ''){
+                if($request->get('password') != trim('')) && (trim($request->get('password') != null)){
                     $user->password     = $request->get('password');
                 }
                 // $user->password     = $request->get('password');
