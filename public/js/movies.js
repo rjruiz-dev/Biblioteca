@@ -48,7 +48,7 @@ $('body').on('click', '.modal-show', function (event) {
             });
             $('#references').select2({
                 dropdownParent: $("#fg_references"),         
-                tags: false                             
+                tags: true                           
             });
             
             $('#distributor').select2({

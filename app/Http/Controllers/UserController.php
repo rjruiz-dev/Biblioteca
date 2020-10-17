@@ -274,14 +274,15 @@ class UserController extends Controller
 
 
                 // Actualizamos el usuario
-                $user->name         = $request->get('name');
+                $user->name         = $request->get('name'); 
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
-                $user->email        = $request->get('email');  
-                if($request->get('password') != trim('')) && (trim($request->get('password') != null)){
+                $user->email        = $request->get('email');
+
+                if($request->get('password') != trim('') && (trim($request->get('password') != null))){
                     $user->password     = $request->get('password');
                 }
-                // $user->password     = $request->get('password');
+
                 $user->gender       = $request->get('gender');  
                 $user->address      = $request->get('address');
                 $user->postcode     = $request->get('postcode'); 
@@ -382,7 +383,11 @@ class UserController extends Controller
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
                 $user->email        = $request->get('email');        
-                $user->password     = $request->get('password');
+               
+                if($request->get('password') != trim('') && (trim($request->get('password') != null))){
+                    $user->password     = $request->get('password');
+                }
+                
                 $user->gender       = $request->get('gender');  
                 $user->address      = $request->get('address');
                 $user->postcode     = $request->get('postcode'); 
