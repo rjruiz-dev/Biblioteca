@@ -1,6 +1,4 @@
-
-
-$('body').on('click', '.modal-show', function (event) {
+$('body').on('click', '.modal-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -14,58 +12,58 @@ $('body').on('click', '.modal-show', function (event) {
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
-            $('#modal-body').html(response);            
+        success: function(response) {
+            $('#modal-body').html(response);
 
             $('#document_subtypes_id').select2({
                 dropdownParent: $("#fg_document_subtypes_id"),
-                placeholder: 'Selecciona un subtipo de Documento'            
+                placeholder: 'Selecciona un subtipo de Documento'
             });
-            
-           $('#periodicities_id').select2({
+
+            $('#periodicities_id').select2({
                 dropdownParent: $("#din_periodicities_id"),
-                placeholder: 'Selecciona una periodicidad'                                              
+                placeholder: 'Selecciona una periodicidad'
             });
-            
+
             $('#lenguages_id').select2({
                 dropdownParent: $("#fg_lenguages_id"),
-                placeholder: 'Selecciona un Idioma'                                            
+                placeholder: 'Selecciona un Idioma'
             });
-            
-           $('#adequacies_id').select2({
+
+            $('#adequacies_id').select2({
                 dropdownParent: $("#fg_adequacies_id"),
-                placeholder: 'Selecciona una Adecuación'                            
+                placeholder: 'Selecciona una Adecuación'
             });
 
 
             $('#generate_books_id').select2({
                 dropdownParent: $("#din_generate_books_id"),
-                placeholder: 'Selecciona un Género'                    
+                placeholder: 'Selecciona un Género'
             });
-                    
+
             $("#generate_subjects_id").select2({
                 dropdownParent: $("#fg_generate_subjects_id"),
                 placeholder: 'Selecciona Cdu'
             });
-    
+
             $("#creators_id").select2({
                 dropdownParent: $("#fg_creators_id"),
                 placeholder: 'Seleccione o Ingrese Autor',
                 tags: true
             });
-           
+
             $("#second_author_id").select2({
                 dropdownParent: $("#fg_second_author_id"),
                 placeholder: 'Seleccione o Ingrese Segundo Autor',
-                tags: true, 
+                tags: true,
             });
 
             $("#third_author_id").select2({
                 dropdownParent: $("#din_third_author_id"),
                 placeholder: 'Seleccione o Ingrese Tercer Autor',
-                tags: true, 
+                tags: true,
             });
-          
+
             $('#acquired').datepicker({
                 autoclose: true,
                 todayHighlight: true,
@@ -77,12 +75,12 @@ $('body').on('click', '.modal-show', function (event) {
                 dropdownParent: $("#fg_published"),
                 placeholder: 'Selecciona Lugar de Publicación',
                 tags: true
-            
+
             });
             $('#made_by').select2({
                 dropdownParent: $("#fg_made_by"),
                 placeholder: 'Selecciona una Editorial',
-                tags: true             
+                tags: true
             });
 
             $('#year').datepicker({
@@ -91,35 +89,35 @@ $('body').on('click', '.modal-show', function (event) {
                 viewMode: "years",
                 minViewMode: "years",
                 language: 'es'
-            });  
+            });
 
             $('#edition').select2({
                 dropdownParent: $("#fg_edition"),
                 placeholder: 'Selecciona Número de Edición',
-                tags: true             
+                tags: true
             });
 
             $('#volume').select2({
                 dropdownParent: $("#fg_volume"),
-                placeholder: 'Selecciona un Volúmen',              
-                tags: true                            
+                placeholder: 'Selecciona un Volúmen',
+                tags: true
             });
 
-            $('#status_documents_id').select2({    
-                dropdownParent: $("#fg_status_documents_id"),          
-                tags: false                              
+            $('#status_documents_id').select2({
+                dropdownParent: $("#fg_status_documents_id"),
+                tags: false
             });
 
             $('#references').select2({
-                dropdownParent: $("#fg_references"),         
-                tags: false                             
+                dropdownParent: $("#fg_references"),
+                tags: true
             });
 
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
 
-           
+
             yesnoCheck();
         }
     });
@@ -128,7 +126,7 @@ $('body').on('click', '.modal-show', function (event) {
 });
 
 
-$('#modal-btn-save').click(function (event) {
+$('#modal-btn-save').click(function(event) {
     event.preventDefault();
 
     $avatarInput = $('#photo');
@@ -591,16 +589,18 @@ function obtenercamposdinamicos(accion) {
             }
 
             if (accion == 2) { //otros
-                document.getElementById("l_generate_books_id").innerHTML = response.plh_otros;
+                document.getElementById("l_generate_books_id").innerHTML = 'Otros';
                 $('#generate_books_id').select2({
-                    placeholder: response.plh_otros,
+                    placeholder: 'Otros',
+                    // placeholder: response.plh_otros,
                 });
             }
 
             if (accion == 3) { //literatura 
-                document.getElementById("l_generate_books_id").innerHTML = response.plh_genero;
+                document.getElementById("l_generate_books_id").innerHTML = 'Genero';
                 $('#generate_books_id').select2({
-                    placeholder: response.plh_genero,
+                    placeholder: 'Genero',
+                    // placeholder: response.plh_genero,
                 });
             }
             if (accion == 4) { // NO PUBLICACION PERIODICA(OTROS O LITERATURA)

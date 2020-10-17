@@ -53,6 +53,7 @@
                 <div class="form-group">
                     {{ Form::label('user_photo', 'Imagen de Perfil') }} 
                     {{ Form::file('user_photo', ['style' => 'color: transparent']) }}
+                    {{ Form::label('foto_cargada', $user['user_photo'] ? $user['user_photo'] : 'Sin imagen de perfil') }}
                 </div>
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}             
@@ -78,7 +79,7 @@
                 </div> 
                 <div class="form-group">
                     {!! Form::label('gender', 'Género') !!}
-                    {!! Form::select('gender', $genders, null, ['class' => 'form-control select2', 'id' => 'gender', 'placeholder' => '', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('gender', $genders, null, ['class' => 'form-control select2', 'id' => 'gender_p', 'placeholder' => '', 'style' => 'width:100%;']) !!}
                 </div>           
                       
                 <div class="form-group">
@@ -135,7 +136,7 @@
                 </div> 
                 <div class="form-group">
                     {!! Form::label('province', 'Provincia') !!}               
-                    {!! Form::select('province', $provinces, null, ['class' => 'form-control', 'id' => 'province', 'placeholder' => '', 'style' => 'width:100%;']) !!}           
+                    {!! Form::select('province', $provinces, null, ['class' => 'form-control', 'id' => 'province_p', 'placeholder' => '', 'style' => 'width:100%;']) !!}           
                 </div>        
             </div>
         </div>       

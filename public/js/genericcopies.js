@@ -1,125 +1,137 @@
-$('body').on('click', '.modal-show', function (event) {
+$('body').on('click', '.modal-show-e', function(event) {
     event.preventDefault();
+    // console.log("sdfsdf");
+    swal({
+        type: 'error',
+        title: '¡Accion Denegada!',
+        text: '¡No se puede editar esta copia porque la misma se encuentra prestada!'
+    });
+});
 
+
+$('body').on('click', '.modal-show', function(event) {
+    event.preventDefault();
+    console.log("sdfsdf");
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title');
 
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+        .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
 
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
 
             $('#lenguages_id').select2({
                 placeholder: 'Selecciona un Idioma',
-                dropdownParent: $('#modal')                                  
+                dropdownParent: $('#modal')
             });
 
             $('#generate_references_id').select2({
                 placeholder: 'Selecciona o Ingrese un Referencia',
-                dropdownParent: $('#modal')                 
+                dropdownParent: $('#modal')
             });
 
             $('#generate_subjects_id').select2({
                 placeholder: 'Selecciona Cdu',
-                dropdownParent: $('#modal')                                         
+                dropdownParent: $('#modal')
             });
 
             $('#photography_movies_id').select2({
-                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',        
-                dropdownParent: $('#modal')                
-            });            
+                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',
+                dropdownParent: $('#modal')
+            });
 
             $('#generate_formats_id').select2({
                 placeholder: 'Seleccione un Formato',
-                dropdownParent: $('#modal')                              
+                dropdownParent: $('#modal')
             });
 
             $('#generate_films_id').select2({
                 placeholder: 'Seleccione un Género',
-                dropdownParent: $('#modal')                     
+                dropdownParent: $('#modal')
             });
 
             $('#actors').select2({
                 tags: true,
-                dropdownParent: $('#modal')          
+                dropdownParent: $('#modal')
             });
 
             $('#references').select2({
                 tags: false,
-               
+
             });
-            
+
             $('#distributor').select2({
                 placeholder: 'Seleccione o Ingrese una Distribuidora',
-                 dropdownParent: $('#modal'),                 
-                 tags: true               
-            }); 
+                dropdownParent: $('#modal'),
+                tags: true
+            });
 
             $('#adequacies_id').select2({
-                placeholder: 'Selecciona una Adecuación', 
-                dropdownParent: $('#modal')                       
-            });                 
+                placeholder: 'Selecciona una Adecuación',
+                dropdownParent: $('#modal')
+            });
 
             $('#adaptations_id').select2({
                 placeholder: 'Tiene adaptacion ?',
                 dropdownParent: $('#modal'),
-                tags: false               
+                tags: false
             });
             $('#published').select2({
                 placeholder: 'Selecciona Nacionalidad',
-                dropdownParent: $('#modal'),                 
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true,
             });
             $('#made_by').select2({
                 placeholder: 'Selecciona una Productora',
-                dropdownParent: $('#modal'),                 
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true,
             });
             $('#status_copy_id').select2({
                 placeholder: 'Selecciona un estado para la copia',
                 dropdownParent: $('#modal'),
-                tags: false,               
+                tags: false,
             });
-            
+
             $('#creators_id').select2({
                 placeholder: 'Seleccione o Ingrese un Director',
-                dropdownParent: $('#modal'),                 
-                tags: true,               
+                dropdownParent: $('#modal'),
+                tags: true,
             });
 
             $('#acquired').datepicker({
                 autoclose: true,
-                todayHighlight: true,  
-                format: 'dd/mm/yyyy',                      
+                todayHighlight: true,
+                format: 'dd/mm/yyyy',
                 language: 'es'
-            });  
+            });
 
             $('#generate_films_id').select2({
                 placeholder: 'Selecciona un Género',
-                dropdownParent: $('#modal')                   
-            });                  
+                dropdownParent: $('#modal')
+            });
 
             $('#year').datepicker({
-                autoclose: true,            
+                autoclose: true,
                 format: "yyyy",
-                viewMode: "years", 
-                minViewMode: "years",                    
+                viewMode: "years",
+                minViewMode: "years",
                 language: 'es'
-            });  
-              
+            });
+
         }
     });
 
     $('#modal').modal('show');
 });
 
-$('#modal-btn-save').click(function (event) {
+
+$('#modal-btn-save').click(function(event) {
     event.preventDefault();
 
     var form = $('#modal-body form'),
@@ -129,55 +141,55 @@ $('#modal-btn-save').click(function (event) {
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
 
-    
+
 
 
     $.ajax({
-        url : url,
+        url: url,
         method: method,
-        data : form.serialize(),
-        success: function (response) {
+        data: form.serialize(),
+        success: function(response) {
             var data = response.data;
             var bandera = response.bandera;
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
-            if(bandera == 0){ // si es store 
-            if(data == true){
-            swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
-            });
-        }else{
-            swal({
-                type : 'error',
-                title : '¡Error!',
-                text : '¡Error al guardar los datos!'
-            });
-        }
+            if (bandera == 0) { // si es store 
+                if (data == true) {
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se han guardado los datos!'
+                    });
+                } else {
+                    swal({
+                        type: 'error',
+                        title: '¡Error!',
+                        text: '¡Error al guardar los datos!'
+                    });
+                }
 
-        }else{ // si es update
-            if(data == true){
-                swal({
-                    type : 'success',
-                    title : '¡Éxito!',
-                    text : '¡Se han actualizado los datos!'
-                });
-            }else{
-                swal({
-                    type : 'error',
-                    title : '¡Error!',
-                    text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
-                });
+            } else { // si es update
+                if (data == true) {
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se han actualizado los datos!'
+                    });
+                } else {
+                    swal({
+                        type: 'error',
+                        title: '¡Error!',
+                        text: '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+                    });
+                }
+
             }
-             
-        }
         },
-        error : function (xhr) {
+        error: function(xhr) {
             var res = xhr.responseJSON;
             if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
+                $.each(res.errors, function(key, value) {
                     $('#' + key)
                         .closest('.form-group')
                         .addClass('has-error')
@@ -188,15 +200,15 @@ $('#modal-btn-save').click(function (event) {
     })
 });
 
-$('body').on('click', '.btn-btn-edit-user', function (event) {
+$('body').on('click', '.btn-btn-edit-user', function(event) {
 
-    $('#dpassword_confirmation, #dpassword').css('display', 'inline');   
+    $('#dpassword_confirmation, #dpassword').css('display', 'inline');
 
 });
 
-$('body').on('click', '.btn-delete', function (event) {
+$('body').on('click', '.btn-delete', function(event) {
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
@@ -219,7 +231,7 @@ $('body').on('click', '.btn-delete', function (event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
+                success: function(response) {
                     $('#datatable').DataTable().ajax.reload();
                     swal({
                         type: 'success',
@@ -227,7 +239,7 @@ $('body').on('click', '.btn-delete', function (event) {
                         text: '¡Los datos han sido eliminados!'
                     });
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -239,7 +251,7 @@ $('body').on('click', '.btn-delete', function (event) {
     });
 });
 
-$('body').on('click', '.btn-show', function (event) {
+$('body').on('click', '.btn-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -252,7 +264,7 @@ $('body').on('click', '.btn-show', function (event) {
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
         }
     });
@@ -260,12 +272,12 @@ $('body').on('click', '.btn-show', function (event) {
     $('#modal').modal('show');
 });
 
-    function yesnoCheck() {
-        if (document.getElementById("document_subtypes_id").value == 3) {
-            document.getElementById("popular").style.display = "block";
-            document.getElementById("culta").style.display = "none";
-        } else {
-            document.getElementById("culta").style.display = "block";
-            document.getElementById("popular").style.display = "none";
-        }
+function yesnoCheck() {
+    if (document.getElementById("document_subtypes_id").value == 3) {
+        document.getElementById("popular").style.display = "block";
+        document.getElementById("culta").style.display = "none";
+    } else {
+        document.getElementById("culta").style.display = "block";
+        document.getElementById("popular").style.display = "none";
     }
+}

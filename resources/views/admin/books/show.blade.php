@@ -100,7 +100,7 @@
                     <!-- Pub. Periodica -->
                     <div class="col-md-4">
                         <strong><i class="fa fa-users margin-r-5"></i>{{ $idioma_book->otros_autores }}:</strong>
-                        @if (( $book->second_author_id === NULL ) && ($book->third_author_id === NULL))                          
+                        @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))                          
                             <p class="tex-muted"><a>No Tiene {{ $idioma_book->otros_autores }}</a> </p>
                         @else
                                 @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))
@@ -140,7 +140,7 @@
                     </div>
                     <div class="col-md-4">
                         <strong><i class="fa fa-calendar margin-r-5"></i> {{ $idioma_doc->anio }}:</strong>
-                        <p class="text-muted">{{ Carbon\Carbon::parse($book->document->year)->format('d-m-Y') }}</p>
+                        <p class="text-muted">&nbsp;&nbsp;&nbsp;{{ Carbon\Carbon::parse($book->document->year)->format('Y') }}</p>
                         <hr>
                     </div>
                 </div>
@@ -272,5 +272,3 @@
           </div>
     </div>
 </div>
-
-

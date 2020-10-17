@@ -278,29 +278,62 @@ class MoviesController extends Controller
         $document = Document::findOrFail($movie->documents_id);   
 
         // $this->authorize('update', $movie);
-     
-        return view('admin.movies.partials.form', [
-           
-            'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'           => Creator::pluck('creator_name', 'id'),
-            'adaptations'       => Adequacy::pluck('adequacy_description', 'id'),
-            'genders'           => Generate_film::pluck('genre_film', 'id'), 
-            'subjects'          => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'publications'      => Document::pluck('published', 'published'),
-            'actors'            => Actor::all(),  
-            'references'        => Generate_reference::all(),                      
-            'distributors'      => Movies::pluck('distributor', 'distributor'),
-            'editorials'        => Document::pluck('made_by', 'made_by'),
-            'adaptations_bis'   => Adaptation::pluck('adaptation_name', 'id'),
-            'photographs'       => Photography_movie::pluck('photography_movies_name', 'id'), 
-            'formats'           => Generate_format::pluck('genre_format', 'id'),
-            'volumes'           => Document::pluck('volume', 'volume'),
-            'languages'         => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
-            'movie'             => $movie,
-            'document'          => $document
-           
-        ]); 
+        $id_docum = $document->id;
+
+        $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_otros = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+             
+
+        
+
+            $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docum)
+        {
+            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2)
+                      ->orWhere('status_copy_id', '=', 7);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2)
+                  ->orWhere('movement_types_id', '=', 7);
+        })    
+        ->get();
+
+        if($verifi_copies->count() > 0){
+
+            return view('admin.movies.partials.form_no_disp'); 
+
+        }else{
+                return view('admin.movies.partials.form', [
+                
+                    'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
+                    'authors'           => Creator::pluck('creator_name', 'id'),
+                    'adaptations'       => Adequacy::pluck('adequacy_description', 'id'),
+                    'genders'           => Generate_film::pluck('genre_film', 'id'), 
+                    'subjects'          => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
+                    'publications'      => Document::pluck('published', 'published'),
+                    'actors'            => Actor::all(),  
+                    'references'        => Generate_reference::all(),                      
+                    'distributors'      => Movies::pluck('distributor', 'distributor'),
+                    'editorials'        => Document::pluck('made_by', 'made_by'),
+                    'adaptations_bis'   => Adaptation::pluck('adaptation_name', 'id'),
+                    'photographs'       => Photography_movie::pluck('photography_movies_name', 'id'), 
+                    'formats'           => Generate_format::pluck('genre_format', 'id'),
+                    'volumes'           => Document::pluck('volume', 'volume'),
+                    'languages'         => Lenguage::pluck('leguage_description', 'id'),
+                    'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
+                    'movie'             => $movie,
+                    'document'          => $document
+                
+                ]);
+        }
     }
 
     /**

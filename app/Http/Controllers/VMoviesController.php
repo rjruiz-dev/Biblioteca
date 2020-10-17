@@ -220,7 +220,7 @@ class VMoviesController extends Controller
             ->addColumn('accion', function ($movie) {             
                 return view('web.movies.partials._action', [
                     'movie'             => $movie,
-                    'url_show'          => route('web.cine.show', $movie->document->id),   
+                    'url_show'          => route('web.cine.show', $movie->id),   
                 ]);
 
             })           

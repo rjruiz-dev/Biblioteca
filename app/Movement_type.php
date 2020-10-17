@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movement_type extends Model
 {
-    protected $fillable = ['description_movement', 'book_status_public', 'book_status_priv'];
+    protected $fillable = ['description_movement', 'book_status_public', 'book_status_priv', 'orden'];
 
     public function book_movements()
     {

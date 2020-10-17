@@ -202,31 +202,42 @@ class BookController extends Controller
                 // Creamos el libro           
                 $book = new Book;   
                 $book->subtitle = $request->get('subtitle');
-                if( is_numeric($request->get('second_author_id'))) 
-                {                
-                    $book->second_author_id = $request->get('second_author_id');    
+                
+                                
+                    if( is_numeric($request->get('second_author_id'))) 
+                    {                
+                        $book->second_author_id = $request->get('second_author_id');    
 
-                }else{
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('second_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $book->second_author_id     = $creator->id;
-                }
-               
-                if($request->get('document_subtypes_id') != 4){
-                    if( is_numeric($request->get('third_author_id'))) 
-                        {                 
-                            $book->third_author_id = $request->get('third_author_id');    
+                    }else{
 
-                        }else{
+                        if( (trim($request->get('second_author_id')) != null)  && (trim($request->get('second_author_id')) != "") ){
                             
                             $creator = new Creator;
-                            $creator->creator_name      = $request->get('third_author_id');
+                            $creator->creator_name      = $request->get('second_author_id');
                             $creator->document_types_id = 2;
                             $creator->save();
-                            $book->third_author_id      = $creator->id;
+                            $book->second_author_id     = $creator->id;
                         }
+                    }
+              
+                if($request->get('document_subtypes_id') != 4){
+
+                     
+                        if( is_numeric($request->get('third_author_id'))) 
+                        {                 
+                                $book->third_author_id = $request->get('third_author_id');    
+
+                            }else{ 
+                                
+                                if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
+                                    $creator = new Creator;
+                                    $creator->creator_name      = $request->get('third_author_id');
+                                    $creator->document_types_id = 2;
+                                    $creator->save();
+                                    $book->third_author_id      = $creator->id;
+                                }
+                            }
+                    
                 }
                 
                 $book->translator       = $request->get('translator');        
@@ -343,6 +354,7 @@ class BookController extends Controller
         $document = Document::findOrFail($book->documents_id);
 
         // $this->authorize('update', $book);
+        $id_docum = $document->id;
 
         $idioma_abm_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
         $idioma_abm_book = ml_abm_book::where('many_lenguages_id',$session)->first();
@@ -351,6 +363,30 @@ class BookController extends Controller
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
              
 
+        
+
+            $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docum)
+        {
+            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2)
+                      ->orWhere('status_copy_id', '=', 7);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2)
+                  ->orWhere('movement_types_id', '=', 7);
+        })    
+        ->get();
+
+        if($verifi_copies->count() > 0){
+
+            return view('admin.books.partials.form_no_disp'); 
+
+        }else{
         return view('admin.books.partials.form', [          
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::all(),
@@ -375,7 +411,8 @@ class BookController extends Controller
             'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
             'idioma_abm_book_lit' => $idioma_abm_book_lit   
           
-        ]);    
+        ]); 
+    }   
     }
 
     /**
@@ -458,37 +495,43 @@ class BookController extends Controller
 
                 // Actualizamos el libro               
                 $book->subtitle = $request->get('subtitle');
-                if( is_numeric($request->get('second_author_id'))) 
-                {                
-                    $book->second_author_id = $request->get('second_author_id');    
+                
+                
+                        if( is_numeric($request->get('second_author_id'))) 
+                        {                
+                            $book->second_author_id = $request->get('second_author_id');    
 
-                }else{
-                    
-                    if($request->get('second_author_id') != null){
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('second_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $book->second_author_id     = $creator->id;
-                    }
-                }
+                        }else{
+                            
+                                
+                            if( (trim($request->get('second_author_id')) != null) && (trim($request->get('second_author_id')) != "") ){
+                                $creator = new Creator;
+                                $creator->creator_name      = $request->get('second_author_id');
+                                $creator->document_types_id = 2;
+                                $creator->save();
+                                $book->second_author_id     = $creator->id;
+                            }
+                        }
+                
                // $book->third_author    = $request->get('third_author');
                 if($request->get('document_subtypes_id') != 4){// si es NO ES PUBL PERIODICA
-                    if( is_numeric($request->get('third_author_id'))) 
-                    {                
-                        $book->third_author_id  = $request->get('third_author_id');    
+                    
+                    
+                        if( is_numeric($request->get('third_author_id'))) 
+                        {                
+                            $book->third_author_id  = $request->get('third_author_id');    
 
-                    }else{
+                        }else{
 
-                        if($request->get('third_author_id') != null){
-                            $creator = new Creator;
-                            $creator->creator_name = $request->get('third_author_id');
-                            $creator->document_types_id = 2;
-                            $creator->save();
-                            $book->third_author_id = $creator->id;
+                            if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
+                                $creator = new Creator;
+                                $creator->creator_name = $request->get('third_author_id');
+                                $creator->document_types_id = 2;
+                                $creator->save();
+                                $book->third_author_id = $creator->id;
+                            }
+
                         }
-
-                    }
                 }
                
                 $book->translator       = $request->get('translator');        
@@ -700,6 +743,14 @@ class BookController extends Controller
         $libros = Book::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_book') 
         // ->allowed()
         ->get();
+
+        // $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
+        // FROM books b 
+        // LEFT JOIN documents d ON b.documents_id = d.id
+        // LEFT JOIN document_types dt ON d.document_types_id = dt.id 
+        // LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id   
+        // GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
+
         // dd($libros);       
         return dataTables::of($libros)
             ->addColumn('id_doc', function ($libros){

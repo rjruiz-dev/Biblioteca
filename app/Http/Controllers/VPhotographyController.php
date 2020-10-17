@@ -204,7 +204,7 @@ class VPhotographyController extends Controller
             ->addColumn('accion', function ($photograph) {
                 return view('web.photographs.partials._action', [
                     'photograph'        => $photograph,
-                    'url_show'          => route('web.fotografias.show', $photograph->document->id),                 
+                    'url_show'          => route('web.fotografias.show', $photograph->id),                 
                 ]);
             })           
             ->addIndexColumn()   

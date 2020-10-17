@@ -187,12 +187,13 @@ class PhotographyController extends Controller
                     $photograph->third_author_id    = $request->get('third_author_id');    
  
                 }else{
-
+                    if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){         
                     $creator = new Creator;
                     $creator->creator_name = $request->get('third_author_id');
                     $creator->document_types_id = 2;
                     $creator->save();
                     $photograph->third_author_id = $creator->id;
+                    }
                 }
                 $photograph->producer       = $request->get('producer');
                 $photograph->edition        = $request->get('edition');
@@ -285,22 +286,45 @@ class PhotographyController extends Controller
         $document = Document::findOrFail($photograph->documents_id);    
              
         // $this->authorize('update', $photograph);
+        $id_docum = $document->id;
+        $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docum)
+        {
+            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2)
+                      ->orWhere('status_copy_id', '=', 7);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2)
+                  ->orWhere('movement_types_id', '=', 7);
+        })    
+        ->get();
 
-        return view('admin.photographs.partials.form', [            
-            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
-            'publications'  => Document::pluck('published', 'published'),          
-            'references'    => Generate_reference::all(),  
-            'formats'       => Generate_format::pluck('genre_format', 'id'),
-            'subtypes'      => Document_subtype::where('document_types_id', 5)->get()->pluck('subtype_name', 'id'),
-            'editorials'    => Document::pluck('made_by', 'made_by'),
-            'authors'       => Creator::pluck('creator_name', 'id'),
-            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),          
-            'volumes'       => Document::pluck('volume', 'volume'),
-            'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
-            'photograph'    => $photograph,
-            'document'      => $document
-        ]);
+        if($verifi_copies->count() > 0){
+
+            return view('admin.photographs.partials.form_no_disp'); 
+
+        }else{
+                return view('admin.photographs.partials.form', [            
+                    'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+                    'publications'  => Document::pluck('published', 'published'),          
+                    'references'    => Generate_reference::all(),  
+                    'formats'       => Generate_format::pluck('genre_format', 'id'),
+                    'subtypes'      => Document_subtype::where('document_types_id', 5)->get()->pluck('subtype_name', 'id'),
+                    'editorials'    => Document::pluck('made_by', 'made_by'),
+                    'authors'       => Creator::pluck('creator_name', 'id'),
+                    'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),          
+                    'volumes'       => Document::pluck('volume', 'volume'),
+                    'languages'     => Lenguage::pluck('leguage_description', 'id'),
+                    'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+                    'photograph'    => $photograph,
+                    'document'      => $document
+                ]);
+        }
     }
 
     /**
@@ -404,12 +428,15 @@ class PhotographyController extends Controller
                     $photograph->third_author_id = $request->get('third_author_id');    
 
                 }else{
-
-                    $creator = new Creator;
-                    $creator->creator_name         = $request->get('third_author_id');
-                    $creator->document_types_id    = 2;
-                    $creator->save();
-                    $photograph->third_author_id   = $creator->id;
+                    
+                    if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
+    
+                        $creator = new Creator;
+                        $creator->creator_name         = $request->get('third_author_id');
+                        $creator->document_types_id    = 2;
+                        $creator->save();
+                        $photograph->third_author_id   = $creator->id;
+                    }
                 }
                 $photograph->producer              = $request->get('producer');
                 $photograph->edition               = $request->get('edition');
