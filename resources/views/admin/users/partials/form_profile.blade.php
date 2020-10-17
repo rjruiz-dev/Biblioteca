@@ -52,7 +52,7 @@
                 
                 <div class="form-group">
                     {{ Form::label('user_photo', 'Imagen de Perfil') }} 
-                    {{ Form::file('user_photo', ['style' => 'color: transparent']) }}
+                    {{ Form::file('user_photo') }}
                     {{ Form::label('foto_cargada', $user['user_photo'] ? $user['user_photo'] : 'Sin imagen de perfil') }}
                 </div>
                 <div class="form-group">
