@@ -130,7 +130,7 @@
                     </div>
                     <div class="col-md-6">
                         <strong><i class="fa fa-calendar margin-r-5"></i> {{ $idioma_doc->anio }}:</strong>
-                        <p class="text-muted">{{ Carbon\Carbon::parse($movie->document->year)->format('d-m-Y') }}</p>
+                        <p class="text-muted">&nbsp;&nbsp;&nbsp;{{ Carbon\Carbon::parse($movie->document->year)->format('Y') }}</p>
                         <hr>
                     </div>
                 </div>           

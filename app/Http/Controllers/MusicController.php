@@ -287,25 +287,48 @@ class MusicController extends Controller
         $document = Document::findOrFail($musics->documents_id);   
                       
         // $this->authorize('update', $music);
+        $id_docum = $document->id;
+        $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docum)
+        {
+            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2)
+                      ->orWhere('status_copy_id', '=', 7);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2)
+                  ->orWhere('movement_types_id', '=', 7);
+        })    
+        ->get();
 
-        return view('admin.music.partials.form', [
-            'documents'     => Document_type::pluck( 'document_description', 'id'),
-            'references'    => Generate_reference::all(),            
-            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'formats'       => Generate_format::pluck('genre_format', 'id'),
-            'subtypes'      => Document_subtype::where('document_types_id', 1)->get()->pluck('subtype_name', 'id'),
-            'authors'       => Creator::pluck('creator_name', 'id'),            
-            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
-            'editorials'    => Document::pluck('made_by', 'made_by'),
-            'volumes'       => Document::pluck('volume', 'volume'),
-            'genders'       => Generate_music::pluck('genre_music', 'id'),
-            'publications'  => Document::pluck('published', 'published'),
-            'sounds'        => Music::pluck('sound', 'sound'),        
-            'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
-            'music'         => $musics,
-            'document'      => $document
-        ]); 
+        if($verifi_copies->count() > 0){
+
+            return view('admin.music.partials.form_no_disp'); 
+
+        }else{
+                return view('admin.music.partials.form', [
+                    'documents'     => Document_type::pluck( 'document_description', 'id'),
+                    'references'    => Generate_reference::all(),            
+                    'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
+                    'formats'       => Generate_format::pluck('genre_format', 'id'),
+                    'subtypes'      => Document_subtype::where('document_types_id', 1)->get()->pluck('subtype_name', 'id'),
+                    'authors'       => Creator::pluck('creator_name', 'id'),            
+                    'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+                    'editorials'    => Document::pluck('made_by', 'made_by'),
+                    'volumes'       => Document::pluck('volume', 'volume'),
+                    'genders'       => Generate_music::pluck('genre_music', 'id'),
+                    'publications'  => Document::pluck('published', 'published'),
+                    'sounds'        => Music::pluck('sound', 'sound'),        
+                    'languages'     => Lenguage::pluck('leguage_description', 'id'),
+                    'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+                    'music'         => $musics,
+                    'document'      => $document
+                ]);
+        } 
     }
 
     /**

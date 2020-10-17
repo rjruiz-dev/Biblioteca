@@ -229,7 +229,10 @@
     </div>   
 {!! Form::close() !!}    
 </div>
-
+<script>
+document.getElementById("modal-btn-save").disabled = false;
+// document.getElementById('modal-btn-save').style.visibility = 'hidden';
+</script>
 
 
 

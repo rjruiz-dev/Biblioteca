@@ -150,7 +150,7 @@ class UserController extends Controller
       
                 $mensaje = 1;
                    
-                if($request->get('group') == 2){ //socio
+                if($request->get('group') == 'Partner'){ //socio
                      // Enviamos el email
                     if($request->get('status_id') == 1){  //si esta pendiente
 
@@ -158,7 +158,8 @@ class UserController extends Controller
 
                     }else{
                         $partnerRole = Role::where('id', 3)->first();
-
+                        
+                        
                         $user->assignRole($partnerRole);
                         $accion = 'alta de socio';
                         UserWasCreated::dispatch($user, $data['password'], $accion);
@@ -166,6 +167,7 @@ class UserController extends Controller
                 }else{
                     $librarianRole = Role::where('id', 2)->first();
 
+                    
                     $user->assignRole($librarianRole);
                     $accion = 'bibliotecario';
                     UserWasCreated::dispatch($user, $data['password'], $accion);
@@ -296,6 +298,25 @@ class UserController extends Controller
                 //    $mov_user->users_id = $user->id;
                 //    $mov_user->usuario_aud = 'USER AUD';
                 //    $mov_user->save();
+
+                
+                if($user->getRoleNames() != $request->get('group')){ // si cambia edita el rol
+                    
+                    $user->roles()->detach(); // elimino todos los roles q tenga ese user
+                    
+                    if($request->get('group') == 'Partner'){
+
+                        $partnerRole = Role::where('id', 3)->first();
+                        $user->assignRole($partnerRole);
+
+                    }else{
+
+                        $librarianRole = Role::where('id', 2)->first();
+                        $user->assignRole($librarianRole);
+
+                    }
+                }
+
                 if($user->status_id != $request->get('status_id'))
                 {
                     if($user->status_id == 3){ //si esta activo lo doy de baja

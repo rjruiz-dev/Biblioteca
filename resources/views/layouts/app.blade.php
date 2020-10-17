@@ -633,16 +633,16 @@ $('body').on('click', '.modal-show-edicion-perfil', function (event) {
         success: function (response) {
             $('#modal-body_edicion_perfil').html(response);
             
-            $('#gender').select2({
+            $('#gender_p').select2({
                 placeholder: 'Selecciona un Género',
                 tags: true,               
-                dropdownParent: $('#modal')
+                dropdownParent: $('#modal_edicion_perfil')
             });
 
-            $('#province').select2({
+            $('#province_p').select2({
                 placeholder: 'Selecciona o Ingresa una Provincia',
                 tags: true,       
-                dropdownParent: $('#modal')                     
+                dropdownParent: $('#modal_edicion_perfil')                     
             });
 
             $('#datepicker').datepicker({

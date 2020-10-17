@@ -166,16 +166,19 @@ class MultimediaController extends Controller
                 $multimedia = new Multimedia; 
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
+                
                 if( is_numeric($request->get('second_author_id'))) 
                 {                
                     $multimedia->second_author_id  = $request->get('second_author_id');    
                 }else{
-
-                    $creator = new Creator;
-                    $creator->creator_name = $request->get('second_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $multimedia->second_author_id = $creator->id;
+                    if( (trim($request->get('second_author_id')) != null) && (trim($request->get('second_author_id')) != "") ){
+                            
+                            $creator = new Creator;
+                            $creator->creator_name = $request->get('second_author_id');
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $multimedia->second_author_id = $creator->id;
+                    }
                 }
                 // $multimedia->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
@@ -183,11 +186,13 @@ class MultimediaController extends Controller
                     $multimedia->third_author_id    = $request->get('third_author_id');    
  
                 }else{
-                    $creator = new Creator;
-                    $creator->creator_name = $request->get('third_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $multimedia->third_author_id = $creator->id;
+                    if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){     
+                        $creator = new Creator;
+                        $creator->creator_name = $request->get('third_author_id');
+                        $creator->document_types_id = 2;
+                        $creator->save();
+                        $multimedia->third_author_id = $creator->id;
+                    }
                 }
                 $multimedia->translator = $request->get('translator');
                 $multimedia->isbn       = $request->get('isbn');
@@ -281,22 +286,45 @@ class MultimediaController extends Controller
         $document   = Document::findOrFail($multimedia->documents_id);      
                  
         // $this->authorize('update', $multimedia);
+        $id_docum = $document->id;
+        $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docum)
+        {
+            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2)
+                      ->orWhere('status_copy_id', '=', 7);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2)
+                  ->orWhere('movement_types_id', '=', 7);
+        })    
+        ->get();
 
-        return view('admin.multimedias.partials.form', [
-            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
-            'references'    => Generate_reference::all(),     
-            'subtypes'      => Document_subtype::pluck('subtype_name', 'id'),
-            'authors'       => Creator::pluck('creator_name', 'id'),
-            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
-            'volumes'       => Document::pluck('volume', 'volume'),
-            'publications'  => Document::pluck('published', 'published'),
-            'editorials'    => Document::pluck('made_by', 'made_by'),            
-            'editions'      => Multimedia::pluck('edition', 'id'),         
-            'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
-            'multimedia'    => $multimedia,
-            'document'      => $document
-        ]);  
+        if($verifi_copies->count() > 0){
+
+            return view('admin.multimedias.partials.form_no_disp'); 
+
+        }else{
+                return view('admin.multimedias.partials.form', [
+                    'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
+                    'references'    => Generate_reference::all(),     
+                    'subtypes'      => Document_subtype::pluck('subtype_name', 'id'),
+                    'authors'       => Creator::pluck('creator_name', 'id'),
+                    'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+                    'volumes'       => Document::pluck('volume', 'volume'),
+                    'publications'  => Document::pluck('published', 'published'),
+                    'editorials'    => Document::pluck('made_by', 'made_by'),            
+                    'editions'      => Multimedia::pluck('edition', 'id'),         
+                    'languages'     => Lenguage::pluck('leguage_description', 'id'),
+                    'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+                    'multimedia'    => $multimedia,
+                    'document'      => $document
+                ]);
+        }  
     }
 
     /**
@@ -376,17 +404,20 @@ class MultimediaController extends Controller
                 // insertamos en la tabla multimedia
                 $multimedia->subtitle = $request->get('subtitle');
                 // $multimedia->second_author         = $request->get('second_author');
+                
                 if( is_numeric($request->get('second_author_id'))) 
                 {                
                     $multimedia->second_author_id = $request->get('second_author_id');    
 
                 }else{
-
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('second_author_id');
-                    $creator->document_types_id = 2;
-                    $creator->save();
-                    $multimedia->second_author_id = $creator->id;
+                    
+                    if( (trim($request->get('second_author_id')) != null) && (trim($request->get('second_author_id')) != "") ){    
+                        $creator = new Creator;
+                        $creator->creator_name      = $request->get('second_author_id');
+                        $creator->document_types_id = 2;
+                        $creator->save();
+                        $multimedia->second_author_id = $creator->id;
+                    }
                 }
                 // $multimedia->third_author    = $request->get('third_author');
                 if( is_numeric($request->get('third_author_id'))) 
@@ -394,12 +425,13 @@ class MultimediaController extends Controller
                     $multimedia->third_author_id = $request->get('third_author_id');    
 
                 }else{
-                    
-                    $creator = new Creator;
-                    $creator->creator_name       = $request->get('third_author_id');
-                    $creator->document_types_id  = 2;
-                    $creator->save();
-                    $multimedia->third_author_id = $creator->id;
+                    if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){     
+                        $creator = new Creator;
+                        $creator->creator_name       = $request->get('third_author_id');
+                        $creator->document_types_id  = 2;
+                        $creator->save();
+                        $multimedia->third_author_id = $creator->id;
+                    }
                 }
                  
                 $multimedia->translator     = $request->get('translator');

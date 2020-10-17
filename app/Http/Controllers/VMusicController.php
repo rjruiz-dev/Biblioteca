@@ -212,7 +212,7 @@ class VMusicController extends Controller
             ->addColumn('accion', function ($musica) {
                 return view('web.music.partials._action', [
                     'musica'            => $musica,
-                    'url_show'          => route('web.musica.show', $musica->document->id),                        
+                    'url_show'          => route('web.musica.show', $musica->id),                        
                    
                 ]); 
             })           

@@ -75,6 +75,7 @@
             // console.log("fecha_hasta " + fecha_hasta);
 
         $('#datatable').DataTable({
+            "aLengthMenu": [100],
             responsive: true,
             processing: true,
             serverSide: true,

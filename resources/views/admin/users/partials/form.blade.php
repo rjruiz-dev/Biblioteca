@@ -26,10 +26,10 @@
                     {!! Form::label('group', 'Seleccione tipo de Usuario:') !!}&nbsp;
                 
                     <label>
-                        &nbsp;{!! Form::radio('group', '1', $rol_lib ? 'checked' : '') !!} Bibliotecario                               
+                        &nbsp;{!! Form::radio('group', 'Librarian', $rol_lib ? 'checked' : '') !!} Bibliotecario                               
                     </label>
                     <label>
-                        &nbsp;{!! Form::radio('group', '2', $rol_part ? 'checked' : '') !!} Socio                        
+                        &nbsp;{!! Form::radio('group', 'Partner', $rol_part ? 'checked' : '') !!} Socio                        
                     </label>
                 </div>
                 <div class="form-group" >              
