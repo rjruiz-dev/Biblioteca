@@ -89,7 +89,7 @@ $('body').on('click', '.modal-show', function (event) {
             
             $('#references').select2({
                 dropdownParent: $("#fg_references"),         
-                tags: false                             
+                tags: true                    
             });
             $('#made_by').select2({
                 dropdownParent: $("#fg_made_by"),

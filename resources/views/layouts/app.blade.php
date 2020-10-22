@@ -63,7 +63,9 @@ desired effect
 -->
 
 <style>
-
+  .user-panel {
+    padding: 20px;
+  }
   .content-header {
       position: relative;
       padding: 35px 15px 0 15px;

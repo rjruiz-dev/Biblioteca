@@ -583,24 +583,54 @@ class BookController extends Controller
 
     public function exportPdf(Request $request, $id)
     {
-          // $request->session()->put('idiomas', 2);
-      if ($request->session()->has('idiomas')) {
-        $existe = 1;
-    }else{
-        $request->session()->put('idiomas', 1);
-        $existe = 0;
-    }
-    $session = session('idiomas');
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
 
-    $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
-    $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
-    
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
+        
     
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype','periodical_publication', 'periodical_publication.periodicidad')->first();
 
-        $pdf = PDF::loadView('admin.books.show', compact('book'),[
-            'idioma_doc' => $idioma_doc,
-            'idioma_book' => $idioma_book
+        $id_docu = $book->documents_id;
+
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docu)
+        {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+
+        $pdf = PDF::loadView('admin.books.exportPDF', compact('book'),[
+            'idioma_doc'                => $idioma_doc,
+            'idioma_book'               => $idioma_book,
+            'disabled'                  => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);  
        
         return $pdf->download('libro.pdf');
