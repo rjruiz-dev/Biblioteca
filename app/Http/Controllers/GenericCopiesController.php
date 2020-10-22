@@ -148,7 +148,7 @@ class GenericCopiesController extends Controller
         // dd($sugerido);
 
         return view('admin.genericcopies.partials.form', [
-            'status'    => Movement_type::where('view', 1)->pluck('book_status_priv', 'id'),
+            'status'    => Movement_type::where('view', 1)->orderBy('orden', 'DESC')->pluck('book_status_priv', 'id'),
             'id_doc'    => $id,
             'copie'     => $copies,
             'sugerido'  => $sugerido
