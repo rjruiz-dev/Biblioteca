@@ -30,8 +30,9 @@
               <h3 class="box-title">{{ $idioma_doc->imagen_de_portada }} </h3>
             </div>        
             <div class="box-body box-profile">
-                                           
-                <img class="img-responsive" src="/images/{{ $book->document->photo }}" alt="{{  $book->title }}">
+                <div class="text-center">      
+                    <img class="img-responsive" src="/images/{{ $book->document->photo }}"  alt="{{ $book->document->title }}">              
+                </div>
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">

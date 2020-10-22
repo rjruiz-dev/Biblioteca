@@ -33,7 +33,6 @@ use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
 use App\ml_abm_book_lit;
 
-
 class BookController extends Controller
 {
     /**
@@ -596,8 +595,8 @@ class BookController extends Controller
         $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
         
     
-        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype','periodical_publication', 'periodical_publication.periodicidad')->first();
-
+        $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype','periodical_publication', 'periodical_publication.periodicidad')->findOrFail($id);
+        $setting = Setting::where('id', 1)->first();
         $id_docu = $book->documents_id;
 
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
@@ -630,7 +629,8 @@ class BookController extends Controller
             'idioma_doc'                => $idioma_doc,
             'idioma_book'               => $idioma_book,
             'disabled'                  => $disabled,
-            'label_copia_no_disponible' => $label_copia_no_disponible 
+            'label_copia_no_disponible' => $label_copia_no_disponible,
+            'setting'                   => $setting
         ]);  
        
         return $pdf->download('libro.pdf');

@@ -1,180 +1,154 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Invoice</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta charset="UTF-8">
+    <title>{{ $book->document->title }}</title>
 
-  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <style type="text/css">
+        @page {
+            margin: 0px;
+        }
+        body {
+            margin: 0px;
+        }
+        * {
+            font-family: Verdana, Arial, sans-serif;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+        table {
+            font-size: x-small;            
+        }
+        tfoot tr td {
+            font-weight: bold;
+            font-size: x-small;
+        }
+        .invoice table {
+            margin: 15px;
+        }
+        .invoice h3 {
+            margin-left: 15px;
+        }
+        .information {                        
+            color: #FFF;
+            background-color: {{ $setting->skin }};
+        }
+        .information .logo {
+            margin: 5px;
+        }
+        .information table {
+            padding: 10px;
+        }
+        .info table {
+            padding: 10px;
+           
+        }
+       
+    </style>
 
-  <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
-  
-  <link rel="stylesheet" href="/adminlte/bower_components/Ionicons/css/ionicons.min.css">
-
-  <link rel="stylesheet" href="/adminlte/css/AdminLTE.min.css">  
-
-  <!-- <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
-    <style>
-      body {
-        font-family: 'Crimson Pro', serif;
-        font-size: 48px;
-      }
-    </style> -->
-  
 </head>
-<body >
-<div class="wrapper">
-  <!-- Main content -->
-  <section class="invoice">
-    <!-- title row -->
-    <div class="row">
-      <div class="col-xs-12">
-        <h2 class="page-header">
-          <i class="fa fa-globe"></i>  {{ config('app.name') }}
-          <small class="pull-right">Fecha:{{ $book->created_at->format('d-m-y') }}</small>
-        </h2>
-      </div>      
-      <!-- /.col -->
-    </div>
-    <!-- info row -->
-    <div class="box-body box-profile">
-        <div class="text-center">      
-            <img class="profile-user-img img-responsive img-circle"        
-                    src= "{{ public_path("/images/". $book->document->photo) }}"
-                    alt="{{  $book->title }}"  width="200" height="200">     
-        </div> 
-    </div>
-    <div class="row invoice-info">
-      <div class="col-sm-4 invoice-col">
-        From
-        <address>
-          <strong>Admin, Inc.</strong><br>
-          795 Folsom Ave, Suite 600<br>
-          San Francisco, CA 94107<br>
-          Phone: (804) 123-5432<br>
-          Email: info@almasaeedstudio.com
-        </address>
-      </div>
-      <!-- /.col -->
-      <div class="col-sm-4 invoice-col">
-        To
-        <address>
-          <strong>John Doe</strong><br>
-          795 Folsom Ave, Suite 600<br>
-          San Francisco, CA 94107<br>
-          Phone: (555) 539-1037<br>
-          Email: john.doe@example.com
-        </address>
-      </div>
-      <!-- /.col -->
-      <div class="col-sm-4 invoice-col">
-        <b>Invoice #007612</b><br>
-        <br>
-        <b>Order ID:</b> 4F3S8J<br>
-        <b>Payment Due:</b> 2/22/2014<br>
-        <b>Account:</b> 968-34567
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-
-    <!-- Table row -->
-    <div class="row">
-      <div class="col-xs-12 table-responsive">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Qty</th>
-            <th>Product</th>
-            <th>Serial #</th>
-            <th>Description</th>
-            <th>Subtotal</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1</td>
-            <td>Call of Duty</td>
-            <td>455-981-221</td>
-            <td>El snort testosterone trophy driving gloves handsome</td>
-            <td>$64.50</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Need for Speed IV</td>
-            <td>247-925-726</td>
-            <td>Wes Anderson umami biodiesel</td>
-            <td>$50.00</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Monsters DVD</td>
-            <td>735-845-642</td>
-            <td>Terry Richardson helvetica tousled street art master</td>
-            <td>$10.70</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Grown Ups Blue Ray</td>
-            <td>422-568-642</td>
-            <td>Tousled lomo letterpress</td>
-            <td>$25.99</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-
-    <div class="row">
-      <!-- accepted payments column -->
-      <div class="col-xs-6">
-        <p class="lead">Payment Methods:</p>
-        <img src="../../dist/img/credit/visa.png" alt="Visa">
-        <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-        <img src="../../dist/img/credit/american-express.png" alt="American Express">
-        <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
-        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-          Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
-          jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-        </p>
-      </div>
-      <!-- /.col -->
-      <div class="col-xs-6">
-        <p class="lead">Amount Due 2/22/2014</p>
-
-        <div class="table-responsive">
-          <table class="table">
-            <tr>
-              <th style="width:50%">Subtotal:</th>
-              <td>$250.30</td>
-            </tr>
-            <tr>
-              <th>Tax (9.3%)</th>
-              <td>$10.34</td>
-            </tr>
-            <tr>
-              <th>Shipping:</th>
-              <td>$5.80</td>
-            </tr>
-            <tr>
-              <th>Total:</th>
-              <td>$265.24</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
+<body>
+<div class="information">
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 40%;">
+                <h3>{{ $setting->library_name}}</h3>
+<pre>
+{{ $setting->street}} - {{ $setting->postal_code}}
+{{ $setting->city}} - {{ $setting->province}}
+{{ $setting->library_email}}
+{{ $setting->library_phone}} 
+</pre>
+            </td>
+            <td align="center">
+                <img class="logo" src="{{ public_path("/images/". $setting->logo) }}" width="64">    
+            </td>
+            <td align="right" style="width: 40%;">
+                <h3>Fecha: actual</h3> 
+<pre>
+ 
+</pre>              
+            </td>
+        </tr>
+    </table>
 </div>
-<!-- ./wrapper -->
+<div class="info">
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 50%;">
+                <b>Siglas Autor: {{ $book->document->let_author }}&nbsp;&nbsp; Siglas Título: {{ $book->document->let_title }}&nbsp;&nbsp; </b>
+            </td>
+            <td align="right" style="width: 50%;">
+                <b>Cdu: {{ $book->document->subjects->cdu }}&nbsp;&nbsp; NR: {{ $book->document->id }}</b>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="info">
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 50%;">
+                <h2>Portada</h2>
+            </td>
+            <td align="right" style="width: 50%;">
+                <h2 align="left">Sobre el Documento:</h2>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="info">
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 40%;">
+                <!-- <h2>Portada</h2> -->
+                <img src= "{{ public_path("/images/". $book->document->photo) }}">            
+                <br>       
+<pre>
+<b>Titulo: {{ $book->document->let_author }} </b>
+<b>Autor: {{ $book->document->creator->creator_name }} </b>
+<b>Subtipo de Documento: {{ $book->document->document_subtype->subtype_name  }} </b>      
+</pre>
+            </td>            
+            <td align="right" style="width: 40%;   margin-bottom: 100px;">
+            
+                <!-- <h2 align="left">Sobre el Documento</h2> -->
+                <div style="text-align: center;">
+                <b>La gran esperanza<br></b> 
+                <b> Rafael Serrano García</b><br>
+                Barcelon; Editorial Planeta SA; 1983; 2ª; 1 Vol.; 280; ISBN: 84-320-5683-9; &nbsp;
+                Disponible desde: 00-00-0000; Genero: Cuento Adecuado para: Todos;&nbsp; 
+                Idioma: Castellano;&nbsp; 
+                Valoración: 1<br> 
+                Versión 3.0. Interactivo<br>
+                S1-E1-Es3-L5<br>
+                </div>
+<!-- <pre>
+<p align="left"><b>Titulo: <i>{{ $book->document->let_author }}</i></b></p> 
+<p align="left"><b>Autor: <i>{{ $book->document->creator->creator_name }} </i></b></p>
+<p align="left"><b>Subtipo de Documento: <i>{{ $book->document->document_subtype->subtype_name  }} </i></b></p>                 
+</pre> -->
+            </td>
+            <td style="width: 20%;">
+            </td>
+        </tr> 
+    </table>
+</div>
+<br>
+
+<div class="information" style="position: absolute; bottom: 0;">
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 50%;">
+                &copy; {{ date('Y') }} {{ config('app.url') }} - All rights reserved.
+            </td>
+            <td align="right" style="width: 50%;">
+                Company Slogan
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
