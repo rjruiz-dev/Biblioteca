@@ -32,6 +32,10 @@ use App\ManyLenguages;
 use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_movie;
+use App\ml_abm_book;
+use App\ml_abm_book_otros;
+use App\ml_abm_book_publ_period;
+use App\ml_abm_book_lit; 
 
 class MoviesController extends Controller
 {
@@ -273,8 +277,17 @@ class MoviesController extends Controller
      * @param  \App\movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id, Request $request)
+    { 
+
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
         $movie = Movies::with('document','document.subjects', 'document.references')->findOrFail($id);    
         $document = Document::findOrFail($movie->documents_id);   
 
