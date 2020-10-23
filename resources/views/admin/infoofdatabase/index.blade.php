@@ -106,13 +106,13 @@
                         columns: [0,1,2]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-registros-base-datos-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-registros-base-datos-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-registros-base-datos-'+ fechaActual,
@@ -129,36 +129,7 @@
                 {data: 'cantidades', name: 'cantidades'},                        
             ]
         });
-    // }
-
-    // $('#filter').click(function(){
-    //     var cursos = $('#cursos').val();
-    //     var letra = $('#letra').val(); 
-    //     var turno = $('#turno').val(); 
-
-    //     if(cursos != '' || letra != '' || turno != ''){
-    //         $('#datatable').DataTable().destroy();
-    //         fill_datatable(cursos, letra, turno);
-    //     }
-    //     else{
-    //         $('#datatable').DataTable().destroy();
-    //         fill_datatable(); 
-    //     }
-
-    // });
-
-    // $('#cursos').select2({
-    //             placeholder: 'Curso',
-    //             tags: false,               
-    //         });
-    //         $('#letra').select2({
-    //             placeholder: 'Letra',
-    //             tags: false,               
-    //         });
-    //         $('#turno').select2({
-    //             placeholder: 'Turno',
-    //             tags: false,               
-    //         });
+   
 
     </script>
 @endpush

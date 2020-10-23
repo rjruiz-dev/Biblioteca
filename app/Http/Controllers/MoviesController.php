@@ -286,11 +286,8 @@ class MoviesController extends Controller
         $idioma_abm_book_otros = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
-             
-
-        
-
-            $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+       
+        $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id_docum)
         {
             $q->where('documents_id', '=', $id_docum)->where(function ($query) {
@@ -458,8 +455,7 @@ class MoviesController extends Controller
 
     public function exportPdf(Request $request, $id)
     {
-         // $request->session()->put('idiomas', 2);
-         if ($request->session()->has('idiomas')) {
+        if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
             $request->session()->put('idiomas', 1);
@@ -471,12 +467,43 @@ class MoviesController extends Controller
         $idioma_movie = ml_show_movie::where('many_lenguages_id',$session)->first();
         
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
-        
-        $pdf = PDF::loadView('admin.movies.show', compact('movie'),[
-            'idioma_doc' => $idioma_doc,
-            'idioma_movie' => $idioma_movie 
-        ]);   
-       
+        $setting = Setting::where('id', 1)->first();
+        $id_docu = $book->documents_id;
+
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docu)
+        {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        // dd($copies);
+        if($copies_disponibles->count() > 0){
+            // dd('habilitado');
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';
+            // dd('NO habilitado');
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+
+        $pdf = PDF::loadView('admin.movies.exportPDF', compact('movie'),[
+            'idioma_doc'                => $idioma_doc,
+            'idioma_book'               => $idioma_book,
+            'disabled'                  => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible,
+            'setting'                   => $setting
+        ]);  
+     
         return $pdf->download('cine.pdf');
     }
 

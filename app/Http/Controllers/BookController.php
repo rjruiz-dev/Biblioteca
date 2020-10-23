@@ -582,7 +582,6 @@ class BookController extends Controller
 
     public function exportPdf(Request $request, $id)
     {
-        // $request->session()->put('idiomas', 2);
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{

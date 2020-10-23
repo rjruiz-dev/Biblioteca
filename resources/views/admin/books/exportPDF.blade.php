@@ -42,10 +42,29 @@
             padding: 10px;
         }
         .info table {
-            padding: 10px;
+            padding: 25px;
            
         }
-       
+        .detalle table {
+            padding: 25px;
+           
+        }
+
+        /* div.noticia {
+            width: 80%;
+            margin: 20px auto;            
+            padding: 15px;
+        }
+
+        div.noticia img.izquierda {
+            float: left;
+            margin-right: 15px;
+        }
+
+        div.reset {
+            clear: both;
+        }
+        */
     </style>
 
 </head>
@@ -84,67 +103,56 @@
             </td>
         </tr>
     </table>
-</div>
-<div class="info">
-    <table width="100%">
-        <tr>
-            <td align="left" style="width: 50%;">
-                <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Portada</i></h2>
-            </td>
-            <td align="right" style="width: 50%;">
-                <h2 align="left"> <i>Sobre el Documento</i></h2>
-            </td>
-        </tr>
-    </table>
-</div>
-
-<div class="info">
+<!-- </div>
+<div class="noticia">
+  <img class="izquierda" src= "{{ public_path("/images/". $book->document->photo) }}" width="200" height="350">
+  <aside><b>Título Original:</b> <i>{{ $book->document->original_title != NULL ? $book->document->original_title : 'Sin título original'}}</i><br> 
+                        <b>Subtítulo:</b> <i>{{ $book->subtitle != NULL ? $book->subtitle : 'Sin Subtitulo'}}</i><br>
+                        <b>Publicado en:</b> <i>{{ $book->document->published != NULL ? $book->document->published : 'Sin lugar de publicación' }}</i><br>
+                        <b>Editorial:</b> <i>{{ $book->document->made_by != NULL ?  $book->document->made_by : 'Sin editorial' }}</i><br>
+                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($book->document->year)->format('Y')  }}</i><br>
+                        <b>Idioma:</b> <i>{{ $book->document->lenguage->leguage_description  }}</i><br>
+                        <b>Volumen:</b> <i>{{ $book->document->volume != NULL ? $book->document->volume : 'Sin volumen' }}</i><br>
+                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($book->document->acquired)->format('d-m-Y') }}</i><br>
+                        <b>Número de paginas:</b> <i>{{ $book->document->quantity_generic  != NULL ? $book->document->quantity_generic  : 'Sin número de paginas' }}</i><br>
+                        <b>Tamaño:</b> <i>{{ $book->size  != NULL ? $book->size  : 'Sin tamaño' }}</i><br>
+                        <b>Adecuado para:</b> <i>{{ $book->document->adequacy['adequacy_description'] != NULL ? $book->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
+                        <b>Valoración:</b> <i>{{ $book->document->assessment != NULL ? $book->document->assessment : 'Sin valoración' }}</i><br>
+                        <b>Ubicación:</b> <i>{{ $book->document->location  != NULL ? $book->document->location  : 'Sin ubicación' }}</i><br></aside>
+  <div class="reset"></div>
+</div> -->
+<br>
+<div class="detalle">
     <table width="100%">
         <tr>
             <td align="left" style="width: 40%;">
                 <!-- <h2>Portada</h2> -->
-                <img src= "{{ public_path("/images/". $book->document->photo) }}">            
+                <img src= "{{ public_path("/images/". $book->document->photo) }}" width="200" height="350"> 
                 <br>       
 <pre>
 <b>Titulo: {{ $book->document->let_author }} </b>
 <b>Autor: {{ $book->document->creator->creator_name }} </b>
-<b>Subtipo de Documento: {{ $book->document->document_subtype->subtype_name  }} </b>      
+<b>Subtipo de Documento: {{ $book->document->document_subtype->subtype_name  }} </b> 
 </pre>
             </td>            
             <td align="right" style="width: 40%;">
-            
-            @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))   
-                          @php                       
-                          $texto = 'No tiene autores';
-                          @endphp
-                          @else
-                                @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))
-                                @php
-                                        $coma = ", ";
-                                @endphp
-                                @else
-                                @php
-                                        $coma = "";
-                            $texto = $book->second_author->creator_name." ".$coma." ".$book->third_author->creator_name;
-                                 @endphp
-                            @endif
-            
-                <!-- <h2 align="left">Sobre el Documento</h2> -->
-                <div style="text-align: center; margin-top: -150px;">
-                        <b>{{ $book->document->original_title != NULL ? $book->document->original_title : 'Sin titulo Original'}}<br></b> 
-                        <b> {{ $book->subtitle != NULL ? $book->subtitle : 'Sin Subtitulo'}}</b><br>
-                        {{ $texto }}; Editorial Planeta SA; 1983; 2ª; 1 Vol.; 280; ISBN: 84-320-5683-9; &nbsp;
-                        Disponible desde: 00-00-0000; Genero: Cuento Adecuado para: Todos;&nbsp; 
-                        Idioma: Castellano;&nbsp; 
-                        Valoración: 1<br> 
-                        Versión 3.0. Interactivo<br>
-                        S1-E1-Es3-L5<br>
+          
+                <div style="text-align: center; margin-top: -120px;">
+                        <b>Título Original:</b> <i>{{ $book->document->original_title != NULL ? $book->document->original_title : 'Sin título original'}}</i><br> 
+                        <b>Subtítulo:</b> <i>{{ $book->subtitle != NULL ? $book->subtitle : 'Sin Subtitulo'}}</i><br>
+                        <b>Publicado en:</b> <i>{{ $book->document->published != NULL ? $book->document->published : 'Sin lugar de publicación' }}</i><br>
+                        <b>Editorial:</b> <i>{{ $book->document->made_by != NULL ?  $book->document->made_by : 'Sin editorial' }}</i><br>
+                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($book->document->year)->format('Y')  }}</i><br>
+                        <b>Idioma:</b> <i>{{ $book->document->lenguage->leguage_description  }}</i><br>
+                        <b>Volumen:</b> <i>{{ $book->document->volume != NULL ? $book->document->volume : 'Sin volumen' }}</i><br>
+                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($book->document->acquired)->format('d-m-Y') }}</i><br>
+                        <b>Número de paginas:</b> <i>{{ $book->document->quantity_generic  != NULL ? $book->document->quantity_generic  : 'Sin número de paginas' }}</i><br>
+                        <b>Tamaño:</b> <i>{{ $book->size  != NULL ? $book->size  : 'Sin tamaño' }}</i><br>
+                        <b>Adecuado para:</b> <i>{{ $book->document->adequacy['adequacy_description'] != NULL ? $book->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
+                        <b>Valoración:</b> <i>{{ $book->document->assessment != NULL ? $book->document->assessment : 'Sin valoración' }}</i><br>
+                        <b>Ubicación:</b> <i>{{ $book->document->location  != NULL ? $book->document->location  : 'Sin ubicación' }}</i><br>
+                                     
                 </div>
-<!-- <pre>
-<p align="left"><b>Titulo: <i>{{ $book->document->let_author }}</i></b></p> 
-<p align="left"><b>Autor: <i>{{ $book->document->creator->creator_name }} </i></b></p>
-<p align="left"><b>Subtipo de Documento: <i>{{ $book->document->document_subtype->subtype_name  }} </i></b></p>                 
-</pre> -->
             </td>
             <td style="width: 20%;">
             </td>
@@ -152,15 +160,25 @@
     </table>
 </div>
 <br>
-
+<div class="detalle">
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 100%;">
+            <b>Sinopsis:</b><br>
+            <p><i>{!! $book->document->synopsis != NULL ? $book->document->synopsis : 'Sin sinopsis' !!}</i></p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
 <div class="information" style="position: absolute; bottom: 0;">
     <table width="100%">
         <tr>
             <td align="left" style="width: 50%;">
-                &copy; {{ date('Y') }} {{ config('app.url') }} - All rights reserved.
+                &copy; {{ date('Y') }} {{ config('app.url') }} - Todos los derechos reservados.
             </td>
             <td align="right" style="width: 50%;">
-                Company Slogan
+            {{ $setting->library_name}}
             </td>
         </tr>
     </table>
