@@ -15,7 +15,10 @@ Route::get('email', function () {
     return new App\Mail\AlertClaim(App\User::first());
 });
  
-Route::get('/config-cache', function() {      $exitCode = Artisan::call('config:cache');      return '<h1>Clear Config cleared</h1>';  });
+Route::get('/config-cache', function() {      $exitCode = Artisan::call('config:cache');      return '<h1>Config Cache</h1>';  });
+
+Route::get('/config-clear', function() {      $exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
+
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
