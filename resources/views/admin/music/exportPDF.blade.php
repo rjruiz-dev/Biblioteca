@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ $book->document->title }}</title>
+    <title>{{ $music->document->title }}</title>
 
     <style type="text/css">
         @page {
@@ -80,10 +80,10 @@
     <table width="100%" style="color:black;     background: #999934;">
         <tr>
             <td align="left" style="width: 50%;">
-                <b>Siglas Autor: {{ $book->document->let_author }}&nbsp;&nbsp; Siglas Título: {{ $book->document->let_title }}&nbsp;&nbsp; </b>
+                <b>Siglas Autor: {{ $music->document->let_author }}&nbsp;&nbsp; Siglas Título: {{ $music->document->let_title }}&nbsp;&nbsp; </b>
             </td>
             <td align="right" style="width: 50%;">
-                <b>Cdu: {{ $book->document->subjects->cdu }}&nbsp;&nbsp; NR: {{ $book->document->id }}</b>
+                <b>Cdu: {{ $music->document->subjects->cdu }}&nbsp;&nbsp; NR: {{ $music->document->id }}</b>
             </td>
         </tr>
     </table>
@@ -93,45 +93,31 @@
         <tr>
             <td align="left" style="width: 40%;">
                 <!-- <h2>Portada</h2> -->
-                <img src= "{{ public_path("/images/". $book->document->photo) }}"  width="300" height="380"> 
+                <img src= "{{ public_path("/images/". $music->document->photo) }}"  width="300" height="380"> 
                 <br>       
 <pre>
-<b>Titulo: {{ $book->document->title }} </b>
-<b>Autor: {{ $book->document->creator->creator_name }} </b>
-<b>Subtipo de Documento: {{ $book->document->document_subtype->subtype_name  }} </b> 
+<b>Titulo de la obra: {{ $music->document->title }} </b>
+<b>Titulo del disco: {{ $music->culture['album_title'] != NULL ? $music->culture['album_title'] : 'Sin título del disco' }} </b>
+<b>Director: {{ $music->culture['director'] != NULL ?$music->culture['director'] : 'Sin director' }} </b>
+<b>Subtipo de Documento: {{ $music->document->document_subtype->subtype_name  }} </b> 
 </pre>
             </td>            
             <td align="right" style="width: 40%;">
           
-                <div style="text-align: center; margin-top: -120px;">
-                        <b>Título Original:</b> <i>{{ $book->document->original_title != NULL ? $book->document->original_title : 'Sin título original'}}</i><br> 
-                        <b>Subtítulo:</b> <i>{{ $book->subtitle != NULL ? $book->subtitle : 'Sin Subtitulo'}}</i><br>
-                        @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))   
-                            <b>Otros autores:</b> <i>No tiene otros autores</i><br>   
-                        @else
-                                @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))
-                                @php
-                                        $coma = ", ";
-                                @endphp
-                                @else
-                                @php
-                                        $coma = "";
-                                @endphp
-                                @endif
-                        <b>Otros autores:</b> <i>{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</i><br>
-                        @endif      
-                      
-                        <b>Publicado en:</b> <i>{{ $book->document->published != NULL ? $book->document->published : 'Sin lugar de publicación' }}</i><br>
-                        <b>Editorial:</b> <i>{{ $book->document->made_by != NULL ?  $book->document->made_by : 'Sin editorial' }}</i><br>
-                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($book->document->year)->format('Y')  }}</i><br>
-                        <b>Idioma:</b> <i>{{ $book->document->lenguage->leguage_description  }}</i><br>
-                        <b>Volumen:</b> <i>{{ $book->document->volume != NULL ? $book->document->volume : 'Sin volumen' }}</i><br>
-                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($book->document->acquired)->format('d-m-Y') }}</i><br>
-                        <b>Número de paginas:</b> <i>{{ $book->document->quantity_generic  != NULL ? $book->document->quantity_generic  : 'Sin número de paginas' }}</i><br>
-                        <b>Tamaño:</b> <i>{{ $book->size  != NULL ? $book->size  : 'Sin tamaño' }}</i><br>
-                        <b>Adecuado para:</b> <i>{{ $book->document->adequacy['adequacy_description'] != NULL ? $book->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
-                        <b>Valoración:</b> <i>{{ $book->document->assessment != NULL ? $book->document->assessment : 'Sin valoración' }}</i><br>
-                        <b>Ubicación:</b> <i>{{ $book->document->location  != NULL ? $book->document->location  : 'Sin ubicación' }}</i><br>
+                <div style="text-align: center; margin-top: -120px;">                        
+                        <b>Compositor:</b> <i>{{ $idioma_music->compositor  }}</i><br>
+                        <b>Orquesta:</b> <i>{{  $music->culture['orchestra'] != NULL ?  $music->culture['orchestra'] : 'Sin orquesta' }}</i><br>
+                        <b>Editado en:</b> <i>{{ $music->document->published != NULL ?  $music->document->published : 'Sin lugar de edición'}}</i><br>
+                        <b>Sello discografico:</b> <i>{{$music->document->made_by != NULL ?$music->document->made_by : 'Sin sello discografico' }}</i><br>            
+                        <b>Idioma:</b> <i>{{ $music->document->lenguage->leguage_description  }}</i><br>
+                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($music->document->year)->format('Y')  }}</i><br>
+                        <b>Género:</b> <i>{{ $music->generate_music->genre_music }}</i><br>
+                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($music->document->acquired)->format('d-m-Y') }}</i><br>
+                        <b>Adecuado para:</b> <i>{{ $music->document->adequacy['adequacy_description'] != NULL ? $music->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
+                        <b>Formato:</b> <i>{{  $music->generate_format['genre_format']  != NULL ?  $music->generate_format['genre_format']  : 'Sin formato' }}</i><br>
+                        <b>Duración:</b> <i>{{ $music->document->quantity_generic  != NULL ? $music->document->quantity_generic  : 'Sin duración' }}</i><br>
+                        <b>Valoración:</b> <i>{{ $music->document->assessment != NULL ? $music->document->assessment : 'Sin valoración' }}</i><br>
+                        <b>Ubicación:</b> <i>{{ $music->document->location  != NULL ? $music->document->location  : 'Sin ubicación' }}</i><br>
                                      
                 </div>
             </td>
@@ -146,7 +132,7 @@
         <tr>
             <td align="left" style="width: 100%;">
             <b>Sinopsis:</b><br>
-            <p><i>{!! $book->document->synopsis != NULL ? $book->document->synopsis : 'Sin sinopsis' !!}</i></p>
+            <p><i>{!! $music->document->synopsis != NULL ? $music->document->synopsis : 'Sin sinopsis' !!}</i></p>
             </td>
         </tr>
     </table>

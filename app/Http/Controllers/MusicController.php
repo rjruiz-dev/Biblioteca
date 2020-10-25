@@ -505,10 +505,39 @@ class MusicController extends Controller
     
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
 
-        $pdf = PDF::loadView('admin.music.show', compact('music'),[
-            'idioma_doc' => $idioma_doc,
-            'idioma_music' => $idioma_music 
-        ]);  
+        $setting = Setting::where('id', 1)->first();
+        $id_docu = $music->documents_id;
+
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docu)
+        {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+        if($copies_disponibles->count() > 0){          
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';         
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+  
+        $pdf = PDF::loadView('admin.music.exportPDF', compact('music'),[
+            'idioma_doc'                => $idioma_doc,
+            'idioma_music'              => $idioma_music, 
+            'disabled'                  => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible,
+            'setting'                   => $setting
+        ]); 
        
         return $pdf->download('musica.pdf');
     }

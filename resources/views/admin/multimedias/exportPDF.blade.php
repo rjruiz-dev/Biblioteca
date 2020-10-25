@@ -92,7 +92,7 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 40%;">       
-                <img src= "{{ public_path("/images/". $multimedia->document->photo) != NULL ? $multimedia->document->photo : 'Sin imagen'  }}"  width="300" height="380"> 
+                <img src= "{{ public_path("/images/". $multimedia->document->photo) }}"  width="300" height="380"> 
                 <br>       
 <pre>
 <b>Titulo: {{ $multimedia->document->title }} </b>
