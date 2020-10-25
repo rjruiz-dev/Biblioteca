@@ -514,7 +514,7 @@ class PhotographyController extends Controller
             'disabled'                  => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible, 
             'setting'                   => $setting
-        ]);  
+        ]);   
     
        
         return $pdf->download('fotografia.pdf'); 
