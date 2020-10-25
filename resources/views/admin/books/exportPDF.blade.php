@@ -104,7 +104,11 @@
             <td align="right" style="width: 40%;">
           
                 <div style="text-align: center; margin-top: -120px;">
-                        <b>Título Original:</b> <i>{{ $book->document->original_title != NULL ? $book->document->original_title : 'Sin título original'}}</i><br> 
+                <!-- EJEMPLO PARA IMPLEMENTAR EN DEMAS CAMPOS. ---- para select valdiar != null y que sea mayor a 0 -->
+                @if ( ( trim($book->document->original_title != NULL) ) && ( trim($book->document->original_title != '') ) )   
+                <b>Título Original:</b> <i>{{ $book->document->original_title }}</i><br> 
+                @endif
+                        
                         <b>Subtítulo:</b> <i>{{ $book->subtitle != NULL ? $book->subtitle : 'Sin Subtitulo'}}</i><br>
                         @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))   
                             <b>Otros autores:</b> <i>No tiene otros autores</i><br>   

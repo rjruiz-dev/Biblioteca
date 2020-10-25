@@ -107,9 +107,11 @@ class SettingController extends Controller
                     $file = $request->file('logo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
-                }else{
-                    $name = 'library-default.jpg';
-                }           
+                    $setting->logo              = $name;
+                }
+                // else{
+                //     $name = 'library-default.jpg';
+                // }           
               
                 $setting->library_name      = $request->get('library_name');
                 $setting->library_email     = $request->get('library_email');
@@ -143,7 +145,7 @@ class SettingController extends Controller
                 $multa_sus->save();
                 }
 
-                $setting->logo              = $name; 
+                // $setting->logo              = $name; 
                   
                 $setting->save();
                 

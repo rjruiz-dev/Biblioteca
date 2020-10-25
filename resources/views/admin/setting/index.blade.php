@@ -68,7 +68,7 @@
                         {{ Form::label('logo', 'Logo') }}
                         {{ Form::file('logo') }}
                     </div>             
-                    <span class="help-block"><b>Medidas del Logo 80px por 80px</b></span>   
+                    <span class="help-block"><b>Medidas del Logo 80px por 200px</b></span>   
                 </div>
             </div>         
         </div>   
