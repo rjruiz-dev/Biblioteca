@@ -300,28 +300,28 @@ class MoviesController extends Controller
         $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
        
-        $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id_docum)
-        {
-            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
-                $query->where('status_copy_id', '=', 1)
-                      ->orWhere('status_copy_id', '=', 2)
-                      ->orWhere('status_copy_id', '=', 7);
-            });
-        })
-        ->where('active', 1) 
-        ->where(function ($query) {
-            $query->where('movement_types_id', '=', 1)
-                  ->orWhere('movement_types_id', '=', 2)
-                  ->orWhere('movement_types_id', '=', 7);
-        })    
-        ->get();
+        // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        // ->whereHas('copy', function($q) use ($id_docum)
+        // {
+        //     $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+        //         $query->where('status_copy_id', '=', 1)
+        //               ->orWhere('status_copy_id', '=', 2)
+        //               ->orWhere('status_copy_id', '=', 7);
+        //     });
+        // })
+        // ->where('active', 1) 
+        // ->where(function ($query) {
+        //     $query->where('movement_types_id', '=', 1)
+        //           ->orWhere('movement_types_id', '=', 2)
+        //           ->orWhere('movement_types_id', '=', 7);
+        // })    
+        // ->get();
 
-        if($verifi_copies->count() > 0){
+        // if($verifi_copies->count() > 0){
 
-            return view('admin.movies.partials.form_no_disp'); 
+        //     return view('admin.movies.partials.form_no_disp'); 
 
-        }else{
+        // }else{
                 return view('admin.movies.partials.form', [
                 
                     'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
@@ -344,7 +344,7 @@ class MoviesController extends Controller
                     'document'          => $document
                 
                 ]);
-        }
+        // }
     }
 
     /**

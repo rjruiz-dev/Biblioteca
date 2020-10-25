@@ -286,29 +286,29 @@ class PhotographyController extends Controller
         $document = Document::findOrFail($photograph->documents_id);    
              
         // $this->authorize('update', $photograph);
-        $id_docum = $document->id;
-        $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id_docum)
-        {
-            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
-                $query->where('status_copy_id', '=', 1)
-                      ->orWhere('status_copy_id', '=', 2)
-                      ->orWhere('status_copy_id', '=', 7);
-            });
-        })
-        ->where('active', 1) 
-        ->where(function ($query) {
-            $query->where('movement_types_id', '=', 1)
-                  ->orWhere('movement_types_id', '=', 2)
-                  ->orWhere('movement_types_id', '=', 7);
-        })    
-        ->get();
+        // $id_docum = $document->id;
+        // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        // ->whereHas('copy', function($q) use ($id_docum)
+        // {
+        //     $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+        //         $query->where('status_copy_id', '=', 1)
+        //               ->orWhere('status_copy_id', '=', 2)
+        //               ->orWhere('status_copy_id', '=', 7);
+        //     });
+        // })
+        // ->where('active', 1) 
+        // ->where(function ($query) {
+        //     $query->where('movement_types_id', '=', 1)
+        //           ->orWhere('movement_types_id', '=', 2)
+        //           ->orWhere('movement_types_id', '=', 7);
+        // })    
+        // ->get();
 
-        if($verifi_copies->count() > 0){
+        // if($verifi_copies->count() > 0){
 
-            return view('admin.photographs.partials.form_no_disp'); 
+        //     return view('admin.photographs.partials.form_no_disp'); 
 
-        }else{
+        // }else{ 
                 return view('admin.photographs.partials.form', [            
                     'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
                     'publications'  => Document::pluck('published', 'published'),          
@@ -324,7 +324,7 @@ class PhotographyController extends Controller
                     'photograph'    => $photograph,
                     'document'      => $document
                 ]);
-        }
+        // }
     }
 
     /**

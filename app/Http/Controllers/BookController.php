@@ -364,28 +364,28 @@ class BookController extends Controller
 
         
 
-            $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
-        ->whereHas('copy', function($q) use ($id_docum)
-        {
-            $q->where('documents_id', '=', $id_docum)->where(function ($query) {
-                $query->where('status_copy_id', '=', 1)
-                      ->orWhere('status_copy_id', '=', 2)
-                      ->orWhere('status_copy_id', '=', 7);
-            });
-        })
-        ->where('active', 1) 
-        ->where(function ($query) {
-            $query->where('movement_types_id', '=', 1)
-                  ->orWhere('movement_types_id', '=', 2)
-                  ->orWhere('movement_types_id', '=', 7);
-        })    
-        ->get();
+        //     $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
+        // ->whereHas('copy', function($q) use ($id_docum)
+        // {
+        //     $q->where('documents_id', '=', $id_docum)->where(function ($query) {
+        //         $query->where('status_copy_id', '=', 1)
+        //               ->orWhere('status_copy_id', '=', 2)
+        //               ->orWhere('status_copy_id', '=', 7);
+        //     });
+        // })
+        // ->where('active', 1) 
+        // ->where(function ($query) {
+        //     $query->where('movement_types_id', '=', 1)
+        //           ->orWhere('movement_types_id', '=', 2)
+        //           ->orWhere('movement_types_id', '=', 7);
+        // })    
+        // ->get();
 
-        if($verifi_copies->count() > 0){
+        // if($verifi_copies->count() > 0){
 
-            return view('admin.books.partials.form_no_disp'); 
+        //     return view('admin.books.partials.form_no_disp'); 
 
-        }else{
+        // }else{
         return view('admin.books.partials.form', [          
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'),
             'references'    => Generate_reference::all(),
@@ -411,7 +411,7 @@ class BookController extends Controller
             'idioma_abm_book_lit' => $idioma_abm_book_lit   
           
         ]); 
-    }   
+    // }   
     }
 
     /**
