@@ -469,26 +469,53 @@ class PhotographyController extends Controller
 
     
     public function exportPdf(Request $request, $id)
-    {     
-            // $request->session()->put('idiomas', 2);
-            if ($request->session()->has('idiomas')) {
-                $existe = 1;
-            }else{
-                $request->session()->put('idiomas', 1);
-                $existe = 0;
-            }
-            $session = session('idiomas');
+    {  
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');        
+
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_fotografia = ml_show_fotografia::where('many_lenguages_id',$session)->first();
+        $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $setting = Setting::where('id', 1)->first();
+        $id_docu = $photograph->documents_id;
+
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docu)
+        {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+
+       
+        if($copies_disponibles->count() > 0){          
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';           
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+  
+        $pdf = PDF::loadView('admin.photographs.exportPDF', compact('photograph'),[
+            'idioma_doc'                => $idioma_doc,
+            'idioma_fotografia'         => $idioma_fotografia,
+            'disabled'                  => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible, 
+            'setting'                   => $setting
+        ]);  
     
-            $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
-            $idioma_fotografia = ml_show_fotografia::where('many_lenguages_id',$session)->first();
-            
-
-        $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->first();
-
-        $pdf = PDF::loadView('admin.photographs.show', compact('photograph'),[
-            'idioma_doc' => $idioma_doc,
-            'idioma_fotografia' => $idioma_fotografia
-        ]);   
        
         return $pdf->download('fotografia.pdf'); 
     }

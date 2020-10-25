@@ -481,7 +481,7 @@ class MoviesController extends Controller
         
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
         $setting = Setting::where('id', 1)->first();
-        $id_docu = $book->documents_id;
+        $id_docu = $movie->documents_id;
 
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id_docu)
@@ -498,20 +498,18 @@ class MoviesController extends Controller
         })    
         ->get();
 
-        // dd($copies);
-        if($copies_disponibles->count() > 0){
-            // dd('habilitado');
+       
+        if($copies_disponibles->count() > 0){           
             $disabled = '';
             $label_copia_no_disponible = '';
         }else{
-            $disabled = 'disabled';
-            // dd('NO habilitado');
+            $disabled = 'disabled';           
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
 
         $pdf = PDF::loadView('admin.movies.exportPDF', compact('movie'),[
             'idioma_doc'                => $idioma_doc,
-            'idioma_book'               => $idioma_book,
+            'idioma_movie'              => $idioma_movie,            
             'disabled'                  => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible,
             'setting'                   => $setting

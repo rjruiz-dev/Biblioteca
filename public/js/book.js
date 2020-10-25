@@ -109,7 +109,8 @@ $('body').on('click', '.modal-show', function(event) {
             });
 
             $('#references').select2({
-                dropdownParent: $("#fg_references"),                
+                dropdownParent: $("#fg_references"),    
+                // tokenSeparators: [','],            
                 tags: true
             });
 

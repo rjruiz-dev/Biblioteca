@@ -613,17 +613,15 @@ class BookController extends Controller
         })    
         ->get();
 
-        // dd($copies);
-        if($copies_disponibles->count() > 0){
-            // dd('habilitado');
+       
+        if($copies_disponibles->count() > 0){          
             $disabled = '';
             $label_copia_no_disponible = '';
         }else{
-            $disabled = 'disabled';
-            // dd('NO habilitado');
+            $disabled = 'disabled';         
             $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
         }
-
+  
         $pdf = PDF::loadView('admin.books.exportPDF', compact('book'),[
             'idioma_doc'                => $idioma_doc,
             'idioma_book'               => $idioma_book,
