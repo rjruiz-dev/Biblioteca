@@ -465,27 +465,51 @@ class MultimediaController extends Controller
     }
 
     public function exportPdf(Request $request, $id)
-    {      
-               // $request->session()->put('idiomas', 2);
-      if ($request->session()->has('idiomas')) {
-        $existe = 1;
-    }else{
-        $request->session()->put('idiomas', 1);
-        $existe = 0;
-    }
-    $session = session('idiomas');
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
 
-    $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
-    $idioma_multimedia = ml_show_multimedia::where('many_lenguages_id',$session)->first();
-    
-        $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->first();
+        $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_multimedia = ml_show_multimedia::where('many_lenguages_id',$session)->first();
+        $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
+        $setting = Setting::where('id', 1)->first();
+        $id_docu = $multimedia->documents_id;
 
-        $pdf = PDF::loadView('admin.multimedias.show', compact('multimedia'),[
-            'idioma_doc' => $idioma_doc,
-            'idioma_multimedia' => $idioma_multimedia 
+        $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
+        ->whereHas('copy', function($q) use ($id_docu)
+        {
+            $q->where('documents_id', '=', $id_docu)->where(function ($query) {
+                $query->where('status_copy_id', '=', 3)
+                      ->orWhere('status_copy_id', '=', 6);
+            });
+        })
+        ->where('active', 1) 
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 3)
+                  ->orWhere('movement_types_id', '=', 6);
+        })    
+        ->get();
+        
+        if($copies_disponibles->count() > 0){          
+            $disabled = '';
+            $label_copia_no_disponible = '';
+        }else{
+            $disabled = 'disabled';         
+            $label_copia_no_disponible = 'Documento Sin Copias Disponibles';
+        }
+        $pdf = PDF::loadView('admin.multimedias.exportPDF', compact('multimedia'),[
+            'idioma_doc'                => $idioma_doc,
+            'idioma_multimedia'         => $idioma_multimedia, 
+            'disabled'                  => $disabled,
+            'label_copia_no_disponible' => $label_copia_no_disponible,
+            'setting'                   => $setting
         ]);  
-        // dd($pdf);
-       
+    
         return $pdf->download('multimedia.pdf');
     }
     
