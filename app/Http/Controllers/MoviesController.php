@@ -481,7 +481,7 @@ class MoviesController extends Controller
         
         $movie = Movies::with('document.creator', 'actors', 'generate_movie', 'document.adequacy', 'document.lenguage')->findOrFail($id);
         $setting = Setting::where('id', 1)->first();
-        $id_docu = $movie->documents_id;
+        $id_docu = $movie->documents_id;         
 
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id_docu)

@@ -105,11 +105,21 @@
                 <div style="text-align: center; margin-top: -120px;">
                     <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($photograph->document->acquired)->format('d-m-Y') }}</i><br>
                     <b>Idioma:</b> <i>{{ $photograph->document->lenguage->leguage_description  }}</i><br>
-                    <b>Adecuado para:</b> <i>{{ $photograph->document->adequacy['adequacy_description'] != NULL ? $photograph->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
-                    <b>Formato:</b> <i>{{ $photograph->generate_format['genre_format'] != NULL ?  $photograph->generate_format['genre_format'] : 'Sin formato' }}</i><br>
-                    <b>Notas:</b> <i>{{ $photograph->document->note != NULL ?  $photograph->document->note : 'Sin notas' }}</i><br>
-                    <b>Observaciones:</b> <i>{{ $photograph->document->observation != NULL ? $photograph->document->observation : 'Sin notas' }}</i><br>
-                    <b>Ubicación:</b> <i>{{ $photograph->document->location  != NULL ? $photograph->document->location  : 'Sin ubicación' }}</i><br>
+                    @if ( ( trim($photograph->document->adequacy['adequacy_description'] != NULL) ) && ( trim($photograph->document->adequacy['adequacy_description'] != '') ) )  
+                    <b>Adecuado para:</b> <i>{{ $photograph->document->adequacy['adequacy_description'] }}</i><br>
+                    @endif      
+                    @if ( ( trim($photograph->generate_format['genre_format'] != NULL) ) && ( trim($photograph->generate_format['genre_format'] != '') ) )  
+                    <b>Formato:</b> <i>{{ $photograph->generate_format['genre_format'] }}</i><br>
+                    @endif      
+                    @if ( ( trim($photograph->document->note != NULL) ) && ( trim($photograph->document->note != '') ) )  
+                    <b>Notas:</b> <i>{{ $photograph->document->note }}</i><br>
+                    @endif      
+                    @if ( ( trim($photograph->document->observation != NULL) ) && ( trim($photograph->document->observation != '') ) )  
+                    <b>Observaciones:</b> <i>{{ $photograph->document->observation }}</i><br>
+                    @endif      
+                    @if ( ( trim($photograph->document->location != NULL) ) && ( trim($photograph->document->location != '') ) )  
+                    <b>Ubicación:</b> <i>{{ $photograph->document->location }}</i><br>
+                    @endif      
                 </div>
             </td>
             <td style="width: 20%;">

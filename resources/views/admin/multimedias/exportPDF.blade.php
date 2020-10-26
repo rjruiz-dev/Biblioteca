@@ -101,19 +101,34 @@
             </td>            
             <td align="right" style="width: 40%;">
           
-                <div style="text-align: center; margin-top: -120px;">                       
-                        <b>Nacionalidad:</b> <i>{{ $multimedia->document->published != NULL ? $multimedia->document->published : 'Sin nacionalidad' }}</i><br>
-                        <b>Editorial:</b> <i>{{ $multimedia->document->made_by != NULL ?  $multimedia->document->made_by : 'Sin editorial' }}</i><br>
+                <div style="text-align: center; margin-top: -120px;">
+                    @if ( ( trim($multimedia->document->published != NULL) ) && ( trim($multimedia->document->published != '') ) )                          
+                        <b>Nacionalidad:</b> <i>{{ $multimedia->document->published }}</i><br>
+                    @endif
+                    @if ( ( trim($multimedia->document->made_by != NULL) ) && ( trim($multimedia->document->made_by != '') ) )   
+                        <b>Editorial:</b> <i>{{ $multimedia->document->made_by }}</i><br>
+                    @endif
                         <b>Idioma:</b> <i>{{ $multimedia->document->lenguage->leguage_description  }}</i><br>
-                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($multimedia->document->year)->format('Y')  }}</i><br>
-                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($multimedia->document->acquired)->format('d-m-Y') }}</i><br>
-                        <b>Adecuado para:</b> <i>{{ $multimedia->document->adequacy['adequacy_description'] != NULL ? $multimedia->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
-                        <b>Valoración:</b> <i>{{ $multimedia->document->assessment != NULL ? $multimedia->document->assessment : 'Sin valoración' }}</i><br>
-                        <b>Número de paginas:</b> <i>{{ $multimedia->document->quantity_generic  != NULL ? $multimedia->document->quantity_generic  : 'Sin número de paginas' }}</i><br>
-                        <b>Volumen:</b> <i>{{ $multimedia->document->volume != NULL ? $multimedia->document->volume : 'Sin volumen' }}</i><br>
-                        <b>Edición:</b> <i>{{ $multimedia->edition  != NULL ?$multimedia->edition  : 'Sin edición' }}</i><br>
-                        <b>Ubicación:</b> <i>{{ $multimedia->document->location  != NULL ? $multimedia->document->location  : 'Sin ubicación' }}</i><br>
-                                     
+                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($multimedia->document->year)->format('Y')  }}</i><br>                           
+                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($multimedia->document->acquired)->format('d-m-Y') }}</i><br>       
+                    @if ( ( trim($multimedia->document->adequacy['adequacy_description'] != NULL) ) && ( trim($multimedia->document->adequacy['adequacy_description'] != '') ) )   
+                        <b>Adecuado para:</b> <i>{{ $multimedia->document->adequacy['adequacy_description'] }}</i><br>
+                    @endif
+                    @if ( ( trim($multimedia->document->assessment != NULL) ) && ( trim($multimedia->document->assessment != '') ) )   
+                        <b>Valoración:</b> <i>{{ $multimedia->document->assessment }}</i><br>
+                    @endif
+                    @if ( ( trim($multimedia->document->quantity_generic != NULL) ) && ( trim($multimedia->document->quantity_generic != '') ) )   
+                        <b>Número de paginas:</b> <i>{{ $multimedia->document->quantity_generic }}</i><br>
+                    @endif
+                    @if ( ( trim( $multimedia->document->volume != NULL) ) && ( trim( $multimedia->document->volume != '') ) )   
+                        <b>Volumen:</b> <i>{{ $multimedia->document->volume }}</i><br>
+                    @endif
+                    @if ( ( trim($multimedia->edition  != NULL) ) && ( trim($multimedia->edition  != '') ) )   
+                        <b>Edición:</b> <i>{{ $multimedia->edition }}</i><br>
+                    @endif
+                    @if ( ( trim($multimedia->document->location != NULL) ) && ( trim($multimedia->document->location != '') ) )   
+                        <b>Ubicación:</b> <i>{{ $multimedia->document->location }}</i><br>
+                    @endif            
                 </div>
             </td>
             <td style="width: 20%;">

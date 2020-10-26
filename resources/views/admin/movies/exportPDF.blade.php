@@ -97,7 +97,9 @@
                 <br>       
 <pre>
 <b>Título: {{ $movie->document->title  }} </b>
+@if ( ( trim($movie->document->original_title != NULL) ) && ( trim($movie->document->original_title != '') ) )   
 <b>Título Original: {{ $movie->document->original_title != NULL ? $movie->document->original_title : 'Sin título original' }} </b>
+@endif
 <b>Dirigido Por: {{  $movie->document->creator->creator_name }} </b>
 
 </pre>
@@ -135,20 +137,36 @@
                     @else                           
                     <b>Reparto:</b><i>{{ $reparto }}</i><br>
                     @endif 
-                    <b>Nacionalidad:</b> <i>{{$movie->document->published != NULL ? $movie->document->published : 'Sin nacionalidad'}}</i><br> 
-                    <b>Productora:</b> <i>{{ $movie->document->made_by != NULL ? $movie->document->made_by : 'Sin productora'}}</i><br>
-                    <b>Distribuidora:</b> <i>{{  $movie->distributor != NULL ?  $movie->distributor : 'Sin distribuidora' }}</i><br>
+                    @if ( ( trim( $movie->document->published != NULL) ) && ( trim( $movie->document->published != '') ) )   
+                    <b>Nacionalidad:</b> <i>{{ $movie->document->published }}</i><br> 
+                    @endif
+                    @if ( ( trim($movie->document->made_by != NULL) ) && ( trim($movie->document->made_by != '') ) )   
+                    <b>Productora:</b> <i>{{ $movie->document->made_by }}</i><br>
+                    @endif
+                    @if ( ( trim($movie->distributor != NULL) ) && ( trim($movie->distributor != '') ) )   
+                    <b>Distribuidora:</b> <i>{{ $movie->distributor }}</i><br>
+                    @endif                       
                     <b>Año:</b> <i>{{ Carbon\Carbon::parse($movie->document->year)->format('Y')  }}</i><br>
                     <b>Idioma:</b> <i>{{ $movie->document->lenguage->leguage_description }}</i><br>
-                    <b>Género:</b> <i>{{ $movie->generate_movie->genre_film  }}</i><br>                   
+                    @if ( ( trim($movie->generate_movie->genre_film  != NULL) ) && ( trim($movie->generate_movie->genre_film  != '') ) )   
+                    <b>Género:</b> <i>{{ $movie->generate_movie->genre_film  }}</i><br>
+                    @endif
                     <b>Disponible desde:</b> <i>{{  Carbon\Carbon::parse($movie->document->acquired)->format('d-m-Y') }}</i><br>
-                    <b>Adecuado para:</b> <i>{{ $movie->document->adequacy['adequacy_description'] != NULL ? $movie->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
-                    <b>Fotografía:</b> <i>{{ $movie->photography_movie['photography_movies_name']  != NULL ? $movie->photography_movie['photography_movies_name']  : 'Sin fotografia' }}</i><br>
-                    <b>Duración:</b> <i>{{ $movie->document->quantity_generic  != NULL ? $movie->document->quantity_generic  : 'Sin duración' }}</i><br>
-                  
-                    <b>Valoración:</b> <i>{{ $movie->document->assessment != NULL ? $movie->document->assessment : 'Sin valoración' }}</i><br>
-                    <b>Ubicación:</b> <i>{{ $movie->document->location  != NULL ? $movie->document->location  : 'Sin ubicación' }}</i><br>
-                                     
+                    @if ( ( trim($movie->document->adequacy['adequacy_description'] != NULL) ) && ( trim($movie->document->adequacy['adequacy_description'] != '') ) )   
+                    <b>Adecuado para:</b> <i>{{ $movie->document->adequacy['adequacy_description'] }}</i><br>
+                    @endif
+                    @if ( ( trim($movie->photography_movie['photography_movies_name'] != NULL) ) && ( trim($movie->photography_movie['photography_movies_name'] != '') ) )   
+                    <b>Fotografía:</b> <i>{{ $movie->photography_movie['photography_movies_name'] }}</i><br>
+                    @endif
+                    @if ( ( trim($movie->document->quantity_generic  != NULL) ) && ( trim($movie->document->quantity_generic  != '') ) )   
+                    <b>Duración:</b> <i>{{ $movie->document->quantity_generic }}</i><br>
+                    @endif
+                    @if ( ( trim($movie->document->assessment != NULL) ) && ( trim($movie->document->assessment != '') ) )   
+                    <b>Valoración:</b> <i>{{ $movie->document->assessment }}</i><br>
+                    @endif
+                    @if ( ( trim($movie->document->location != NULL) ) && ( trim($movie->document->location != '') ) )   
+                    <b>Ubicación:</b> <i>{{ $movie->document->location }}</i><br>
+                    @endif              
                 </div>
             </td>
             <td style="width: 20%;">
@@ -161,8 +179,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 100%;">
+            @if ( ( trim($movie->document->synopsis != NULL) ) && ( trim($movie->document->synopsis != '') ) )
             <b>Sinopsis:</b><br>
-            <p><i>{!! $movie->document->synopsis != NULL ? $movie->document->synopsis : 'Sin sinopsis' !!}</i></p>
+            <p><i>{!! $movie->document->synopsis !!}</i></p>
+            @endif
             </td>
         </tr>
     </table>

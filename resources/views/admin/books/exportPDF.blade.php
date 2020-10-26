@@ -105,38 +105,57 @@
           
                 <div style="text-align: center; margin-top: -120px;">
                 <!-- EJEMPLO PARA IMPLEMENTAR EN DEMAS CAMPOS. ---- para select valdiar != null y que sea mayor a 0 -->
-                @if ( ( trim($book->document->original_title != NULL) ) && ( trim($book->document->original_title != '') ) )   
-                <b>Título Original:</b> <i>{{ $book->document->original_title }}</i><br> 
-                @endif
-                        
-                        <b>Subtítulo:</b> <i>{{ $book->subtitle != NULL ? $book->subtitle : 'Sin Subtitulo'}}</i><br>
-                        @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))   
-                            <b>Otros autores:</b> <i>No tiene otros autores</i><br>   
-                        @else
-                                @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))
-                                @php
-                                        $coma = ", ";
-                                @endphp
-                                @else
-                                @php
-                                        $coma = "";
-                                @endphp
-                                @endif
-                        <b>Otros autores:</b> <i>{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</i><br>
-                        @endif      
-                      
-                        <b>Publicado en:</b> <i>{{ $book->document->published != NULL ? $book->document->published : 'Sin lugar de publicación' }}</i><br>
-                        <b>Editorial:</b> <i>{{ $book->document->made_by != NULL ?  $book->document->made_by : 'Sin editorial' }}</i><br>
-                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($book->document->year)->format('Y')  }}</i><br>
-                        <b>Idioma:</b> <i>{{ $book->document->lenguage->leguage_description  }}</i><br>
-                        <b>Volumen:</b> <i>{{ $book->document->volume != NULL ? $book->document->volume : 'Sin volumen' }}</i><br>
+                    @if ( ( trim($book->document->original_title != NULL) ) && ( trim($book->document->original_title != '') ) )   
+                        <b>Título Original:</b> <i>{{ $book->document->original_title }}</i><br> 
+                    @endif
+                    @if ( ( trim($book->subtitle != NULL) ) && ( trim($book->subtitle != '') ) )   
+                        <b>Subtítulo:</b> <i>{{ $book->subtitle }}</i><br>
+                    @endif
+                    <!-- VER -->
+                    @if ( ( trim($book->second_author_id != NULL) ) && ( trim($book->third_author_id != '') ) )   
+                    @if (( $book->second_author_id == NULL ) && ($book->third_author_id == NULL))   
+                        <b>Otros autores:</b> <i>No tiene otros autores</i><br>   
+                    @else
+                            @if (( $book->second_author_id != NULL ) && ($book->third_author_id != NULL))
+                            @php
+                                    $coma = ", ";
+                            @endphp
+                            @else
+                            @php
+                                    $coma = "";
+                            @endphp
+                            @endif
+                    <b>Otros autores:</b> <i>{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</i><br>
+                    @endif 
+                    @endif      
+                    @if ( ( trim($book->document->published != NULL) ) && ( trim($book->document->published != '') ) )   
+                        <b>Publicado en:</b> <i>{{ $book->document->published }}</i><br>
+                    @endif
+                    @if ( ( trim($book->document->made_by != NULL) ) && ( trim($book->document->made_by != '') ) )   
+                        <b>Editorial:</b> <i>{{ $book->document->made_by }}</i><br>
+                    @endif                   
+                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($book->document->year)->format('Y')  }}</i><br>                          
+                        <b>Idioma:</b> <i>{{ $book->document->lenguage->leguage_description  }}</i><br>                 
+                    @if ( ( trim($book->document->volume != NULL) ) && ( trim($book->document->volume != '') ) )   
+                        <b>Volumen:</b> <i>{{ $book->document->volume }}</i><br>
+                    @endif                   
                         <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($book->document->acquired)->format('d-m-Y') }}</i><br>
-                        <b>Número de paginas:</b> <i>{{ $book->document->quantity_generic  != NULL ? $book->document->quantity_generic  : 'Sin número de paginas' }}</i><br>
-                        <b>Tamaño:</b> <i>{{ $book->size  != NULL ? $book->size  : 'Sin tamaño' }}</i><br>
-                        <b>Adecuado para:</b> <i>{{ $book->document->adequacy['adequacy_description'] != NULL ? $book->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
-                        <b>Valoración:</b> <i>{{ $book->document->assessment != NULL ? $book->document->assessment : 'Sin valoración' }}</i><br>
-                        <b>Ubicación:</b> <i>{{ $book->document->location  != NULL ? $book->document->location  : 'Sin ubicación' }}</i><br>
-                                     
+                        
+                    @if ( ( trim($book->document->quantity_generic != NULL) ) && ( trim($book->document->quantity_generic != '') ) )   
+                        <b>Número de paginas:</b> <i>{{ $book->document->quantity_generic }}</i><br>
+                    @endif
+                    @if ( ( trim($book->size != NULL) ) && ( trim($book->size != '') ) )   
+                        <b>Tamaño:</b> <i>{{ $book->size }}</i><br>
+                    @endif
+                    @if ( ( trim($book->document->adequacy['adequacy_description'] != NULL) ) && ( trim($book->document->adequacy['adequacy_description'] != '') ) )   
+                        <b>Adecuado para:</b> <i>{{ $book->document->adequacy['adequacy_description'] }}</i><br>
+                    @endif
+                    @if ( ( trim( $book->document->assessment != NULL) ) && ( trim( $book->document->assessment != '') ) )   
+                        <b>Valoración:</b> <i>{{ $book->document->assessment }}</i><br>
+                    @endif
+                    @if ( ( trim($book->document->location != NULL) ) && ( trim($book->document->location != '') ) )   
+                        <b>Ubicación:</b> <i>{{ $book->document->location }}</i><br>
+                    @endif            
                 </div>
             </td>
             <td style="width: 20%;">
@@ -149,8 +168,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 100%;">
+            @if ( ( trim($book->document->synopsis != NULL) ) && ( trim($book->document->synopsis != '') ) )   
             <b>Sinopsis:</b><br>
-            <p><i>{!! $book->document->synopsis != NULL ? $book->document->synopsis : 'Sin sinopsis' !!}</i></p>
+            <p><i>{!! $book->document->synopsis !!}</i></p>
+            @endif
             </td>
         </tr>
     </table>

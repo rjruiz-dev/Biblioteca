@@ -96,29 +96,52 @@
                 <img src= "{{ public_path("/images/". $music->document->photo) }}"  width="300" height="380"> 
                 <br>       
 <pre>
-<b>Titulo de la obra: {{ $music->document->title }} </b>
-<b>Titulo del disco: {{ $music->culture['album_title'] != NULL ? $music->culture['album_title'] : 'Sin título del disco' }} </b>
-<b>Director: {{ $music->culture['director'] != NULL ?$music->culture['director'] : 'Sin director' }} </b>
+<b>Obra: {{ $music->document->title }} </b>
+@if ( ( trim($music->culture['album_title'] != NULL) ) && ( trim($music->culture['album_title'] > 0) ) )   
+<b>Disco: {{ $music->culture['album_title'] }} </b>
+@endif
+@if ( ( trim( $music->culture['director']  != NULL) ) && ( trim( $music->culture['director']  > 0) ) )   
+<b>Director: {{ $music->culture['director'] }} </b> 
+@endif
 <b>Subtipo de Documento: {{ $music->document->document_subtype->subtype_name  }} </b> 
 </pre>
             </td>            
             <td align="right" style="width: 40%;">
           
-                <div style="text-align: center; margin-top: -120px;">                        
-                        <b>Compositor:</b> <i>{{ $idioma_music->compositor  }}</i><br>
-                        <b>Orquesta:</b> <i>{{  $music->culture['orchestra'] != NULL ?  $music->culture['orchestra'] : 'Sin orquesta' }}</i><br>
-                        <b>Editado en:</b> <i>{{ $music->document->published != NULL ?  $music->document->published : 'Sin lugar de edición'}}</i><br>
-                        <b>Sello discografico:</b> <i>{{$music->document->made_by != NULL ?$music->document->made_by : 'Sin sello discografico' }}</i><br>            
-                        <b>Idioma:</b> <i>{{ $music->document->lenguage->leguage_description  }}</i><br>
-                        <b>Año:</b> <i>{{ Carbon\Carbon::parse($music->document->year)->format('Y')  }}</i><br>
-                        <b>Género:</b> <i>{{ $music->generate_music->genre_music }}</i><br>
-                        <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($music->document->acquired)->format('d-m-Y') }}</i><br>
-                        <b>Adecuado para:</b> <i>{{ $music->document->adequacy['adequacy_description'] != NULL ? $music->document->adequacy['adequacy_description'] : 'Sin adecuación' }}</i><br>
-                        <b>Formato:</b> <i>{{  $music->generate_format['genre_format']  != NULL ?  $music->generate_format['genre_format']  : 'Sin formato' }}</i><br>
-                        <b>Duración:</b> <i>{{ $music->document->quantity_generic  != NULL ? $music->document->quantity_generic  : 'Sin duración' }}</i><br>
-                        <b>Valoración:</b> <i>{{ $music->document->assessment != NULL ? $music->document->assessment : 'Sin valoración' }}</i><br>
-                        <b>Ubicación:</b> <i>{{ $music->document->location  != NULL ? $music->document->location  : 'Sin ubicación' }}</i><br>
-                                     
+                <div style="text-align: center; margin-top: -120px;">
+                @if ( ( trim($idioma_music->compositor != NULL) ) && ( trim($idioma_music->compositor != '') ) )   
+                    <b>Compositor:</b> <i>{{ $idioma_music->compositor  }}</i><br>
+                @endif
+                @if ( ( trim($music->culture['orchestra'] != NULL) ) && ( trim($music->culture['orchestra'] != '') ) )   
+                    <b>Orquesta:</b> <i>{{ $music->culture['orchestra'] }}</i><br>
+                @endif
+                @if ( ( trim($music->document->published != NULL) ) && ( trim($music->document->published != '') ) )   
+                    <b>Editado en:</b> <i>{{ $music->document->published }}</i><br>
+                @endif
+                @if ( ( trim($music->document->made_by != NULL) ) && ( trim($music->document->made_by != '') ) )   
+                    <b>Sello discografico:</b> <i>{{ $music->document->made_by }}</i><br>
+                @endif                               
+                    <b>Idioma:</b> <i>{{ $music->document->lenguage->leguage_description  }}</i><br>
+                    <b>Año:</b> <i>{{ Carbon\Carbon::parse($music->document->year)->format('Y')  }}</i><br>
+                @if ( ( trim($music->generate_music->genre_music != NULL) ) && ( trim($music->generate_music->genre_music != '') ) )   
+                    <b>Género:</b> <i>{{ $music->generate_music->genre_music }}</i><br>
+                @endif
+                    <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($music->document->acquired)->format('d-m-Y') }}</i><br>
+                @if ( ( trim($music->document->adequacy['adequacy_description'] != NULL) ) && ( trim($music->document->adequacy['adequacy_description'] != '') ) )   
+                    <b>Adecuado para:</b> <i>{{ $music->document->adequacy['adequacy_description'] }}</i><br>
+                @endif
+                @if ( ( trim($music->generate_format['genre_format'] != NULL) ) && ( trim($music->generate_format['genre_format'] != '') ) )   
+                    <b>Formato:</b> <i>{{  $music->generate_format['genre_format'] }}</i><br>
+                @endif
+                @if ( ( trim($music->document->quantity_generic != NULL) ) && ( trim($music->document->quantity_generic != '') ) )   
+                    <b>Duración:</b> <i>{{ $music->document->quantity_generic }}</i><br>
+                @endif
+                @if ( ( trim($music->document->assessment != NULL) ) && ( trim($music->document->assessment != '') ) )   
+                    <b>Valoración:</b> <i>{{ $music->document->assessment }}</i><br>
+                @endif
+                @if ( ( trim($music->document->location != NULL) ) && ( trim($music->document->location != '') ) )   
+                    <b>Ubicación:</b> <i>{{ $music->document->location }}</i><br>
+                @endif                     
                 </div>
             </td>
             <td style="width: 20%;">
@@ -131,8 +154,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 100%;">
+            @if ( ( trim($music->document->synopsis != NULL) ) && ( trim($music->document->synopsis != '') ) )   
             <b>Sinopsis:</b><br>
-            <p><i>{!! $music->document->synopsis != NULL ? $music->document->synopsis : 'Sin sinopsis' !!}</i></p>
+            <p><i>{!! $music->document->synopsis !!}</i></p>
+            @endif
             </td>
         </tr>
     </table>
