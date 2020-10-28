@@ -19,15 +19,27 @@ Route::get('/config-cache', function() {      $exitCode = Artisan::call('config:
 
 Route::get('/config-clear', function() {      $exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
 
+// Clear application cache:
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    return 'Application cache cleared';
+});
+
+// Clear view cache:
+Route::get('/view-clear', function() {
+    $exitCode = Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
 
-
-Route::get('/login', function () {
-    return view('auth.login');
-});
-Auth::routes(['register' => false]);
+Route::auth();
+// Route::get('/login', function () {
+//     return view('auth.login');
+// });
+// Auth::routes(['register' => false]);
 
 
 Route::group([
@@ -144,7 +156,7 @@ function(){
     Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
     Route::put('users/update_profile/{id}',   'UserController@update_profile')->name('users.update_profile');
 
-     Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
+    Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
 
 });
 
