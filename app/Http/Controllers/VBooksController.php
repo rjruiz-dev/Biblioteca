@@ -205,6 +205,11 @@ class VBooksController extends Controller
             ->addColumn('document_subtypes_id', function ($libros){
 
                 return  $libros->document->document_subtype->subtype_name;              
+            })
+            ->addColumn('photo', function ($libros){                
+                $url=asset("./images/". $libros->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
             }) 
             ->addColumn('generate_books_id', function ($libros){
                 if($libros->generate_book['genre_book'] == null){
@@ -238,7 +243,7 @@ class VBooksController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'document_subtypes_id', 'registry_number', 'generate_books_id', 'documents_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'document_subtypes_id', 'photo', 'registry_number', 'generate_books_id', 'documents_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

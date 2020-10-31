@@ -25,7 +25,8 @@
                         <th>ID</th>       
                         <th>Título</th>                    
                         <th>Subtipo</th>
-                        <th>Genero</th>                    
+                        <th>Genero</th>    
+                        <th>Portada</th>                           
                         <th>Idioma</th>
                         <th>Estado</th>                       
                         <th>Agregado</th>                                
@@ -83,34 +84,35 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
                 // {
                 //     extend: 'csv',
                 //     exportOptions: {
-                //         columns: [0,1,2,3,4,5,6]
+                //         columns: [0,1,2,4,5,6,7]
                 //     }
                 // },
                 {
                     extend: 'excel',
                     title: 'informe-musica-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-musica-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-musica-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2,4,5,6,7]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-musica-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
                     }
                 }
                 
@@ -119,7 +121,8 @@
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},      
                 {data: 'documents_id', name: 'documents_id'},        
-                {data: 'document_subtypes_id', name: 'document_subtypes_id'},       
+                {data: 'document_subtypes_id', name: 'document_subtypes_id'},      
+                {data: 'photo', name: 'photo'},   
                 {data: 'generate_musics_id', name: 'generate_musics_id'}, 
                 {data: 'lenguages_id', name: 'lenguages_id'},             
                 {data: 'status', name: 'status'},

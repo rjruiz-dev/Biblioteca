@@ -204,6 +204,11 @@ class VMoviesController extends Controller
                     return 'Sin Genero';
                 }             
             }) 
+            ->addColumn('photo', function ($movie){                
+                $url=asset("./images/". $movie->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
+            }) 
             ->addColumn('generate_formats_id', function ($movie){
                 if($movie->generate_format['genre_format'] != null){
                     return $movie->generate_format['genre_format'];
@@ -235,7 +240,7 @@ class VMoviesController extends Controller
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc','documents_id', 'generate_films_id', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc','documents_id', 'generate_films_id', 'photo', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

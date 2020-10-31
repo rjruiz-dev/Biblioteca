@@ -195,7 +195,12 @@ class VPhotographyController extends Controller
             ->addColumn('document_subtypes_id', function ($photograph){
 
                 return  $photograph->document->document_subtype->subtype_name;              
-            })            
+            })    
+            ->addColumn('photo', function ($photograph){                
+                $url=asset("./images/". $photograph->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
+            })           
             ->addColumn('generate_formats_id', function ($photograph){
                 if($photograph->generate_format['genre_format'] == null){
                     return 'Sin Formato';
@@ -219,7 +224,7 @@ class VPhotographyController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'generate_formats_id', 'document_subtypes_id', 'documents_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'generate_formats_id', 'document_subtypes_id', 'photo', 'documents_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

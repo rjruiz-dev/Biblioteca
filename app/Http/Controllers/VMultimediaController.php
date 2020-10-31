@@ -186,6 +186,11 @@ class VMultimediaController extends Controller
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator->creator_name."<br>";         
             })
+            ->addColumn('photo', function ($multimedia){                
+                $url=asset("./images/". $multimedia->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
+            })
             ->addColumn('status', function ($multimedia){
 
                 return'<span class="'.$multimedia->document->status_document->color.'">'.' '.$multimedia->document->status_document->name_status.'</span>';
@@ -204,7 +209,7 @@ class VMultimediaController extends Controller
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'documents_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'documents_id', 'photo', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

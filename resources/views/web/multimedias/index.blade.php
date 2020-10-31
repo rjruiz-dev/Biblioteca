@@ -24,6 +24,7 @@
                     <tr>
                         <th>ID</th>                                   
                         <th>Título</th> 
+                        <th>Portada</th>  
                         <th>Estado</th>                     
                         <th>Agregado</th>                                
                         <th>Acciones</th>
@@ -80,34 +81,35 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        columns: [0,1,3,4]
                     }
                 },
                 // {
                 //     extend: 'csv',
                 //     exportOptions: {
-                //         columns: [0,1,2,3]
+                //         columns: [0,1,3,4]
                 //     }
                 // },
                 {
                     extend: 'excel',
                     title: 'informe-multimedias-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        columns: [0,1,3,4]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-multimedias-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-multimedias-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,3,4]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-multimedias-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4]
                     }
                 }
                 
@@ -115,7 +117,8 @@
             ajax: "{{ route('multimedia.table') }}",        
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},                                            
-                {data: 'documents_id', name: 'documents_id'},  
+                {data: 'documents_id', name: 'documents_id'}, 
+                {data: 'photo', name: 'photo'},   
                 {data: 'status', name: 'status'},           
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                          
