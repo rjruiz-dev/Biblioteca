@@ -28,6 +28,7 @@ use App\Http\Requests\SaveMusicalRequest;
 use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_music;
+use Illuminate\Support\Facades\Auth;
 
 class MusicController extends Controller
 {
@@ -562,11 +563,11 @@ class MusicController extends Controller
     {
         
         $document = Document::findOrFail($id);
-        if($document->status_documents_id == 2){
-            return response()->json(['data' => 0]);      
-        }else{
+        // if($document->status_documents_id == 2){
+        //     return response()->json(['data' => 0]);      
+        // }else{
             return response()->json(['data' => $document->id]); 
-        }  
+        // }  
     }
 
     public function reactivar($id)
@@ -581,8 +582,20 @@ class MusicController extends Controller
 
     public function dataTable()
     {   
+        if(Auth::user()->getRoleNames() != 'Librarian'){
         $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
         ->get();
+        }else{ 
+            $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
+            ->get();
+        }
        
         return dataTables::of($musica)
             ->addColumn('id_doc', function ($musica){

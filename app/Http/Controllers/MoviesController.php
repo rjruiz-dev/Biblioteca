@@ -35,7 +35,8 @@ use App\ml_show_movie;
 use App\ml_abm_book;
 use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
-use App\ml_abm_book_lit; 
+use App\ml_abm_book_lit;
+use Illuminate\Support\Facades\Auth; 
 
 class MoviesController extends Controller
 {
@@ -541,11 +542,11 @@ class MoviesController extends Controller
     {        
         $document = Document::findOrFail($id);
 
-        if($document->status_documents_id == 2){
-            return response()->json(['data' => 0]);      
-        }else{
+        // if($document->status_documents_id == 2){
+        //     return response()->json(['data' => 0]);      
+        // }else{
             return response()->json(['data' => $document->id]); 
-        }  
+        // }  
     }
 
     public function reactivar($id)
@@ -561,10 +562,22 @@ class MoviesController extends Controller
 
     public function dataTable()
     {   
+        if(Auth::user()->getRoleNames() != 'Librarian'){
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
         // ->allowed()
         ->get();
-     
+        }else{
+            $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
+            // ->allowed()
+            ->get();
+        }
         return dataTables::of($movie)
             ->addColumn('id_doc', function ($movie){
                 return $movie->document['id']."<br>";            

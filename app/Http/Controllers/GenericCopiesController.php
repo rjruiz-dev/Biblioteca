@@ -177,14 +177,25 @@ class GenericCopiesController extends Controller
                     // dd($movement_doc->count()); 
                     if($movement_doc->count() == 1){//si encuentra movimientos.
                         $error = true;
+                        $cancelacion_por_baja = false;
 
                         foreach($movement_doc as $t){
                             $t->active = 0;
-                            $t->save();  
+                            $t->save();
+                            
+                            if( ($t->movement_types_id == 1) || ($t->movement_types_id == 2) ){ // evaluo si esta en prestamo o en renovacion (osea en definitiva si aun esta prestado)
+                                $cancelacion_por_baja = true; 
+                            }
                         } 
                       
 
                     $new_movement = new Book_movement;
+                    if($cancelacion_por_baja){ // si hay prestamos vigente, solo en este momento guardo con movimiento 10, q es baja forzada, sino siempre con el q corresponda(baja,mantenimiento,etc)
+                    $new_movement->movement_types_id = 10; //baja frozada en prestamo vigente = 10   
+                    $copy->status_copy_id = 10;
+                    }else{
+                        $copy->status_copy_id = $request->get('status_copy_id');
+                    }
                     $new_movement->movement_types_id = $request->get('status_copy_id'); //RENOVACION (valores correspondientes a la base)
                     // $new_movement->users_id = 1; //referencia a usuario NO USUARIO
                     $new_movement->copies_id = $copy->id;
@@ -192,8 +203,7 @@ class GenericCopiesController extends Controller
                     $new_movement->active = 1;
                     $new_movement->save();
 
-                    $copy->status_copy_id = $request->get('status_copy_id');
-
+                    
                     }else{
                         $error = false; 
                     }

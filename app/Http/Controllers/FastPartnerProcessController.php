@@ -383,45 +383,59 @@ class FastPartnerProcessController extends Controller
     }
 
     public function dataTable()
-    {                    
-        $usuarios = User::with('statu')->where('status_id', 3)      
+    {   
+        $usuarios = DB::select('SELECT u.id, u.membership, u.nickname, u.name, u.email, s.state_description 
+                                FROM book_movements bm 
+                                LEFT JOIN users u ON bm.users_id = u.id 
+                                LEFT JOIN status s ON u.status_id = s.id
+                                WHERE ( bm.movement_types_id = 1 OR bm.movement_types_id = 2 )
+                                AND bm.active = 1
+                                AND bm.users_id IS NOT NULL
+                                GROUP BY u.id, u.membership, u.nickname, u.name, u.email, s.state_description');
+
+        // $usuarios = Book_movement::with('user','user.statu')
+        // ->groupBy('type', 'import_year')
+        // ->where('active', 1)   
+        // ->get();
+
+        // $usuarios = User::with('statu')->where('status_id', 3)      
         // ->allowed()
-        ->get();
+        // ->get();
       
         return dataTables::of($usuarios)
-            ->addColumn('membership', function ($usuarios){
-                if($usuarios->membership == null){
-                    return 'Sin Núm. de socio';
-                }else{
-                    return '<i class="fa fa-check"></i>'.' '.$usuarios->membership;           
-                }
-            }) 
-            ->addColumn('nickname', function ($usuarios){
-                return $usuarios->nickname;      
+            // ->addColumn('membership', function ($usuarios){
+            //     if($usuarios->membership == null){
+            //         return 'Sin Núm. de socio';
+            //     }else{
+            //         return '<i class="fa fa-check"></i>'.' '.$usuarios->membership;           
+            //     }
+            // }) 
+            // ->addColumn('nickname', function ($usuarios){
+            //     return $usuarios->nickname;      
                          
-            }) 
-            ->addColumn('name', function ($usuarios){
-                return
-                    '<i class="fa fa-user"></i>'.' '.$usuarios->name;
+            // }) 
+            // ->addColumn('name', function ($usuarios){
+            //     return
+            //         '<i class="fa fa-user"></i>'.' '.$usuarios->name;
                                         
-            }) 
-            ->addColumn('email', function ($usuarios){
-                return                    
-                    '<i class="fa fa-envelope"></i>'.' '.$usuarios->email;              
-            })             
+            // }) 
+            // ->addColumn('email', function ($usuarios){
+            //     return                    
+            //         '<i class="fa fa-envelope"></i>'.' '.$usuarios->email;              
+            // })             
             ->addColumn('status_id', function ($usuarios){
 
-                if($usuarios->statu['state_description'] == 'Inactivo'){    
+                if($usuarios->state_description == 'Inactivo'){    
 
-                    return '<span class="label label-danger sm">'.$usuarios->statu['state_description'].'</span>';
+                    return '<span class="label label-danger sm">'.$usuarios->state_description.'</span>';
                 }
-                if ($usuarios->statu['state_description'] == 'Pendiente'){
+                if ($usuarios->state_description == 'Pendiente'){
 
-                    return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';
+                    return '<span class="label label-warning sm">'.$usuarios->state_description.'</span>';
 
                 }else{
 
-                    return '<span class="label label-success sm">'.$usuarios->statu['state_description'].'</span>';
+                    return '<span class="label label-success sm">'.$usuarios->state_description.'</span>';
                 }              
             })    
             // ->addColumn('created_at', function ($usuarios){
@@ -437,7 +451,7 @@ class FastPartnerProcessController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['membership', 'nickname', 'name', 'email', 'status_id',  'accion']) 
+            ->rawColumns(['status_id',  'accion'])  
             ->make(true);  
     }
 
@@ -447,17 +461,27 @@ class FastPartnerProcessController extends Controller
         // $documentos = Document::with('document_type','document_subtype')       
         // // ->allowed()
         // ->get();
+        $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
+                                FROM book_movements bm 
+                                LEFT JOIN copies c ON bm.copies_id = c.id
+                                LEFT JOIN documents d ON c.documents_id = d.id
+                                LEFT JOIN document_types dt ON d.document_types_id = dt.id 
+                                LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id 
+                                WHERE ( bm.movement_types_id = 1 OR bm.movement_types_id = 2 )
+                                AND bm.active = 1
+                                GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
 
-         $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
-                        FROM copies c 
-                        LEFT JOIN documents d ON d.id = c.documents_id 
-                        LEFT JOIN document_types dt ON d.document_types_id = dt.id 
-                        LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id 
-                        WHERE c.status_copy_id = 3 
-                        OR c.status_copy_id = 6
-                        OR c.status_copy_id = 1
-                        OR c.status_copy_id = 2
-                        GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
+
+        //  $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
+        //                 FROM copies c 
+        //                 LEFT JOIN documents d ON d.id = c.documents_id 
+        //                 LEFT JOIN document_types dt ON d.document_types_id = dt.id 
+        //                 LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id 
+        //                 WHERE c.status_copy_id = 3 
+        //                 OR c.status_copy_id = 6
+        //                 OR c.status_copy_id = 1
+        //                 OR c.status_copy_id = 2
+        //                 GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
       
         return dataTables::of($documentos)
             // ->addColumn('tipo_documento', function ($documentos){
