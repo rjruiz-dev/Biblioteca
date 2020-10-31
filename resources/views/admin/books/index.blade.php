@@ -32,8 +32,9 @@ use App\Book;
                     <tr>
                         <th>ID</th> 
                         <th>Título</th>                   
-                        <th>Subtipo</th>
-                        <th>Genero</th>                         
+                        <th>Subtipo</th> 
+                        <th>Portada</th>                         
+                        <th>Genero</th>                                      
                         <th>Idioma</th> 
                         <th>Estado</th>                                                      
                         <th>Agregado</th>                                
@@ -98,34 +99,36 @@ use App\Book;
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
                 // {
                 //     extend: 'csv',
                 //     exportOptions: {
-                //         columns: [0,1,2,3,4,5,6]
+                //         columns: [0,1,2,3,4,5,6,7]
                 //     }
                 // },
                 {
                     extend: 'excel',
                     title: 'informe-libros-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-libros-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-libros-'+ fechaActual,
+                //     exportOptions: {
+                        // stripHtml: false,
+                //         columns: [0,1,2,3,4,5,6,7]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-libros-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
                     }
                 }
                 
@@ -134,8 +137,9 @@ use App\Book;
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},          
                 {data: 'documents_id', name: 'documents_id'},         
-                {data: 'document_subtypes_id', name: 'document_subtypes_id'},                          
-                {data: 'generate_books_id', name: 'generate_books_id'},              
+                {data: 'document_subtypes_id', name: 'document_subtypes_id'}, 
+                {data: 'photo', name: 'photo'},                                              
+                {data: 'generate_books_id', name: 'generate_books_id'},                             
                 {data: 'lenguages_id', name: 'lenguages_id'},             
                 {data: 'status', name: 'status'},             
                 {data: 'created_at', name: 'agregado'},                  

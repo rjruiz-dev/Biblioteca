@@ -155,7 +155,7 @@ class MultimediaController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }   
 
                 $document->photo            = $name;
@@ -378,8 +378,8 @@ class MultimediaController extends Controller
                     $document->desidherata = 0; 
                 }
                 
-                $document->published        = $request->get('published');
-                $document->made_by          = $request->get('made_by');
+                $document->published            = $request->get('published');
+                $document->made_by              = $request->get('made_by');
                 $document->year                 = Carbon::createFromFormat('Y', $request->get('year'));
                 $document->volume               = $request->get('volume');
                 $document->quantity_generic     = $request->get('quantity_generic'); 
@@ -396,7 +396,7 @@ class MultimediaController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }  
                 $document->photo = $name;
                 $document->save();
@@ -579,6 +579,11 @@ class MultimediaController extends Controller
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator->creator_name."<br>";         
             })
+            ->addColumn('photo', function ($multimedia){                
+                $url=asset("./images/". $multimedia->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
+            })
             ->addColumn('status', function ($multimedia){
 
                 return'<span class="'.$multimedia->document->status_document->color.'">'.' '.$multimedia->document->status_document->name_status.'</span>';
@@ -602,7 +607,7 @@ class MultimediaController extends Controller
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'documents_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'documents_id', 'photo', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

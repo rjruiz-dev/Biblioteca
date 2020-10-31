@@ -19,7 +19,7 @@
     <a href="/"><b>Biblioteca&nbsp;</b>Online</a>
   </div> 
   <div class="login-box-body">
-    <p class="login-box-msg">Ingresa tu email para reestablecer contraseña</p>
+    <p class="login-box-msg">Ingresa tu email para restablecer contraseña</p>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}

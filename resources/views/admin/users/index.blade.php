@@ -26,7 +26,8 @@
                     <tr>
                         <th>ID</th>
                         <th>N° Usuario</th>       
-                        <th>Nickname</th>       
+                        <th>Nickname</th>
+                        <th>Perfil</th>       
                         <th>Nombre</th>                                           
                         <th>Email</th>   
                         <th>Estado</th>  
@@ -92,34 +93,36 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
                     }
                 },
                 // {
                 //     extend: 'csv',
                 //     exportOptions: {
-                //         columns: [0,1,2,3,4,5,6]
+                //         columns: [0,1,2,3,4,5,6,7]
                 //     }
                 // },
                 {
                     extend: 'excel',
                     title: 'informe-usuarios-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                    exportOptions: {                       
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-usuarios-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-usuarios-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5,6,7]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-usuarios-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
                     }
                 }
                 
@@ -129,6 +132,7 @@
                 {data: 'id', name: 'id'},
                 {data: 'membership', name: 'membership'},                       
                 {data: 'nickname', name: 'ninckname'},
+                {data: 'user_photo', name: 'user_photo'},
                 {data: 'name', name: 'name'},               
                 {data: 'email', name: 'email'}, 
                 {data: 'status_id', name: 'status_id'}, 

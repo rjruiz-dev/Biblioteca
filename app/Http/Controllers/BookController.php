@@ -141,7 +141,7 @@ class BookController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }  
                 // Creamos el documento            
                 $document = new Document;   
@@ -487,7 +487,7 @@ class BookController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }  
                 $document->photo = $name; 
                 $document->save();
@@ -799,7 +799,7 @@ class BookController extends Controller
     {   
         // dd(Auth::user()->getRoleNames());
         if(Auth::user()->getRoleNames() != 'Librarian'){
-        $libros = Book::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_book') 
+        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 
         ->whereHas('document', function($q)
         {
             // $q->where(function ($query) {
@@ -809,8 +809,9 @@ class BookController extends Controller
         })
         // ->allowed()
         ->get();
+        
         }else{
-            $libros = Book::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_book') 
+            $libros = Book::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_book') 
             // ->allowed()
             ->get();
         }
@@ -835,6 +836,11 @@ class BookController extends Controller
 
                 return  $libros->document->document_subtype->subtype_name;              
             }) 
+            ->addColumn('photo', function ($libros){                
+                $url=asset("./images/". $libros->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
+            })
             ->addColumn('generate_books_id', function ($libros){
                 if($libros->generate_book['genre_book'] == null){
                     return 'Sin Genero';
@@ -871,7 +877,7 @@ class BookController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc', 'documents_id','document_subtypes_id', 'registry_number', 'generate_books_id',  'lenguages_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc', 'documents_id','document_subtypes_id', 'photo', 'registry_number', 'generate_books_id',  'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 }

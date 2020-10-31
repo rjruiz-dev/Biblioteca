@@ -31,7 +31,8 @@ use App\Movies;
                     <tr>
                         <th>ID</th>                                   
                         <th>Título</th>  
-                        <th>Género</th>  
+                        <th>Género</th>
+                        <th>Portada</th>             
                         <th>Formato</th>  
                         <th>Idioma</th> 
                         <th>Estado</th>                     
@@ -96,34 +97,36 @@ use App\Movies;
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
                 // {
                 //     extend: 'csv',
                 //     exportOptions: {
-                //         columns: [0,1,2,3,4,5,6]
+                //         columns: [0,1,2,3,4,5,6,7]
                 //     }
                 // },
                 {
                     extend: 'excel',
                     title: 'informe-cines-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-cines-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-cines-'+ fechaActual,
+                //     exportOptions: {
+                        // stripHtml: false,
+                //         columns: [0,1,2,3,4,5,6,7]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-cines-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
                     }
                 }
                 
@@ -133,6 +136,7 @@ use App\Movies;
                 {data: 'id_doc', name: 'id_doc'},                                                   
                 {data: 'documents_id', name: 'documents_id'}, 
                 {data: 'generate_films_id', name: 'generate_films_id'}, 
+                {data: 'photo', name: 'photo'}, 
                 {data: 'generate_formats_id', name: 'generate_formats_id'}, 
                 {data: 'lenguages_id', name: 'lenguages_id'},
                 {data: 'status', name: 'status'},             

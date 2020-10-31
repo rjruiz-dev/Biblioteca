@@ -463,9 +463,14 @@ class UserController extends Controller
                     return  '<i class="fa fa-checñ"></i>'.' '.$usuarios->membership."<br>";              
                 }
             }) 
-            ->addColumn('nickname', function ($usuarios){
-                return $usuarios->nickname."<br>";            
+            ->addColumn('nickname', function ($usuarios){               
+                return $usuarios->nickname."<br>";        
             }) 
+          
+            ->addColumn('user_photo', function ($usuarios){
+                $url=asset("/images/$usuarios->user_photo"); 
+                return '<img src='.$url.' border="0" width="40" class="img-rounded" align="center" />'; 
+            })
             ->addColumn('name', function ($usuarios){
                 return
                     '<i class="fa fa-user"></i>'.' '.$usuarios->name."<br>";            
@@ -502,7 +507,7 @@ class UserController extends Controller
                 ]);
             })           
             ->addIndexColumn()   
-            ->rawColumns(['membership', 'nickname', 'name', 'email', 'status_id', 'created_at', 'accion']) 
+            ->rawColumns(['membership', 'nickname', 'user_photo', 'name', 'email', 'status_id', 'created_at', 'accion']) 
             ->make(true);  
     }
 }
