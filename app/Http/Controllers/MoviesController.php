@@ -175,7 +175,7 @@ class MoviesController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }  
 
                 $document->photo            = $name;
@@ -372,7 +372,7 @@ class MoviesController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }    
 
                 if( is_numeric($request->get('creators_id'))){                
@@ -580,6 +580,11 @@ class MoviesController extends Controller
                 }else{
                     return 'Sin Genero';
                 }             
+            })
+            ->addColumn('photo', function ($movie){                
+                $url=asset("./images/". $movie->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
             }) 
             ->addColumn('generate_formats_id', function ($movie){
                 if($movie->generate_format['genre_format'] != null){
@@ -619,7 +624,7 @@ class MoviesController extends Controller
 
             })           
             ->addIndexColumn()   
-            ->rawColumns(['id_doc','documents_id', 'generate_films_id', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
+            ->rawColumns(['id_doc','documents_id', 'generate_films_id', 'photo', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
             ->make(true);  
     }
 

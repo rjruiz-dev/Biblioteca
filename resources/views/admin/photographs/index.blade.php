@@ -31,7 +31,8 @@ use App\Photography;
                     <tr>
                         <th>ID</th>          
                         <th>Título</th>             
-                        <th>Subtipo</th>    
+                        <th>Subtipo</th> 
+                        <th>Portada</th>   
                         <th>Formato</th> 
                         <th>Estado</th>                         
                         <th>Agregado</th>                                
@@ -95,34 +96,36 @@ use App\Photography;
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,4,5,6]
                     }
                 },
                 // {
                 //     extend: 'csv',
                 //     exportOptions: {
-                //         columns: [0,1,2,3,4,5]
+                //         columns: [0,1,2,3,4,5,6]
                 //     }
                 // },
                 {
                     extend: 'excel',
                     title: 'informe-fotografias-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        columns: [0,1,2,4,5,6]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-fotografias-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-fotografias-'+ fechaActual,
+                //     exportOptions: {
+                        // stripHtml: false,
+                //         columns: [0,1,2,3,4,5,6]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-fotografias-'+ fechaActual,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5]
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }
                 
@@ -132,6 +135,7 @@ use App\Photography;
                 {data: 'id_doc', name: 'id_doc'},         
                 {data: 'documents_id', name: 'documents_id'},       
                 {data: 'document_subtypes_id', name: 'document_subtypes_id'},  
+                {data: 'photo', name: 'photo'},  
                 {data: 'generate_formats_id', name: 'generate_formats_id'},                     
                 {data: 'status', name: 'status'}, 
                 {data: 'created_at', name: 'agregado'},                  

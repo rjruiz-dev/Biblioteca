@@ -90,7 +90,7 @@ use App\Book;
             responsive: true,
             columnDefs: [
                 { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 10001, targets: 6 },
+                { responsivePriority: 10001, targets: 4 },
                 { responsivePriority: -1, targets: -1 }
             ],
             order: [ [0, 'desc'] ],     
@@ -99,7 +99,7 @@ use App\Book;
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6,7]
+                        columns: [0,1,2,4,5,6,7]
                     }
                 },
                 // {
@@ -119,6 +119,7 @@ use App\Book;
                 //     extend: 'pdf',
                 //     title: 'informe-libros-'+ fechaActual,
                 //     exportOptions: {
+                        // stripHtml: false,
                 //         columns: [0,1,2,3,4,5,6,7]
                 //     }
                 // },

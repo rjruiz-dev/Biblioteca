@@ -67,7 +67,7 @@ Route::group([
     'prefix'     => 'admin',   
     'middleware' => 'auth'],   
 function(){    
-    Route::get('/',                         'AdminController@index')->name('dashboard');         
+    Route::get('/',                         'AdminController@index')->name('dashboard');     
     Route::resource('users',                'UserController',['as' => 'admin']); 
     Route::resource('books',                'BookController',['as' => 'admin']); 
     Route::resource('music',                'MusicController',['as' => 'admin']);
@@ -98,6 +98,8 @@ function(){
     Route::resource('statistic',            'StatisticController',['as' => 'admin']);
     Route::resource('manylenguages',        'ManyLenguagesController',['as' => 'admin']); 
     Route::resource('setting',              'SettingController',['as' => 'admin']); 
+   
+    
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');

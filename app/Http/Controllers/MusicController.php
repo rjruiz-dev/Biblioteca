@@ -163,7 +163,7 @@ class MusicController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);   
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }  
 
                 $document->photo            = $name;
@@ -406,7 +406,7 @@ class MusicController extends Controller
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
                 }else{                
-                    $name = 'doc-default.png';
+                    $name = 'doc-default.jpg';
                 }  
                 $document->photo = $name;
                 $document->save();
@@ -597,6 +597,11 @@ class MusicController extends Controller
 
                 return  $musica->document->document_subtype->subtype_name;              
             }) 
+            ->addColumn('photo', function ($musica){                
+                $url=asset("./images/". $musica->document->photo); 
+                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
+               
+            })
             ->addColumn('generate_musics_id', function ($musica){
                 if($musica->generate_music['genre_music'] == null){
                     return 'Sin Genero';
@@ -633,7 +638,7 @@ class MusicController extends Controller
                 ]); 
             })           
             ->addIndexColumn()    
-            ->rawColumns(['id_doc','registry_number', 'document_subtypes_id', 'generate_musics_id', 'documents_id', 'lenguages_id','status','created_at', 'accion']) 
+            ->rawColumns(['id_doc','registry_number', 'document_subtypes_id', 'photo', 'generate_musics_id', 'documents_id', 'lenguages_id','status','created_at', 'accion']) 
             ->make(true);  
     }
 }
