@@ -104,13 +104,13 @@
                         columns: [0,1,2,3,4]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-modelos-de-cartas-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-modelos-de-cartas-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-modelos-de-cartas-'+ fechaActual,

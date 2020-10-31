@@ -99,13 +99,13 @@
                         columns: [0,1,2,3]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-materias-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-materias-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2,3]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-materias-'+ fechaActual,

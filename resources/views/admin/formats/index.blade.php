@@ -98,13 +98,13 @@
                         columns: [0,1,2]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-formatos-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-formatos-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-formatos-'+ fechaActual,

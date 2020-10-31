@@ -100,13 +100,13 @@
                         columns: [0,1,2]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-cursos-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-cursos-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-cursos-'+ fechaActual,

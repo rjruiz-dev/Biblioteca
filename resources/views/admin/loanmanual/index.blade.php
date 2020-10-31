@@ -105,13 +105,13 @@
                         columns: [0,1,2,3,4]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-documentos-disponibles-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-documentos-disponibles-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-documentos-disponibles-'+ fechaActual,

@@ -105,13 +105,13 @@
                         columns: [0,1,2,3,4,5,6]
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'informe-idiomas-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'pdf',
+                //     title: 'informe-idiomas-'+ fechaActual,
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5,6]
+                //     }
+                // },
                 {
                     extend: 'print',
                     title: 'informe-idiomas-'+ fechaActual,
