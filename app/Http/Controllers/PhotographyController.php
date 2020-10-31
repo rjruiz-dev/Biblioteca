@@ -25,6 +25,7 @@ use App\ManyLenguages;
 use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_fotografia;
+use Illuminate\Support\Facades\Auth;
 
 class PhotographyController extends Controller
 {
@@ -540,11 +541,11 @@ class PhotographyController extends Controller
     {
         
         $document = Document::findOrFail($id);
-        if($document->status_documents_id == 2){
-            return response()->json(['data' => 0]);      
-        }else{
+        // if($document->status_documents_id == 2){
+        //     return response()->json(['data' => 0]);      
+        // }else{
             return response()->json(['data' => $document->id]); 
-        }  
+        // }  
     }
 
     public function reactivar($id)
@@ -557,9 +558,22 @@ class PhotographyController extends Controller
 
     public function dataTable()
     {   
+        if(Auth::user()->getRoleNames() != 'Librarian'){
         $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format','document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
         // ->allowed()
         ->get();
+        }else{
+            $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format','document.status_document') 
+            // ->allowed()
+            ->get();  
+        }
        
         return dataTables::of($photograph)
             ->addColumn('id_doc', function ($photograph){

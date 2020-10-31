@@ -23,6 +23,7 @@ use App\ManyLenguages;
 use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_multimedia;
+use Illuminate\Support\Facades\Auth;
 
 class MultimediaController extends Controller
 {
@@ -543,18 +544,31 @@ class MultimediaController extends Controller
     {
         
         $document = Document::findOrFail($id);
-        if($document->status_documents_id == 2){
-            return response()->json(['data' => 0]);      
-        }else{
+        // if($document->status_documents_id == 2){
+        //     return response()->json(['data' => 0]);      
+        // }else{
             return response()->json(['data' => $document->id]); 
-        }  
+        // }  
     }
 
     public function dataTable()
     {   
+        if(Auth::user()->getRoleNames() != 'Librarian'){
         $multimedia = Multimedia::with('document.creator', 'document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
         // ->allowed()
         ->get();
+        }else{
+        $multimedia = Multimedia::with('document.creator', 'document.status_document') 
+        // ->allowed()
+        ->get();        
+        }
          
         return dataTables::of($multimedia)
             ->addColumn('id_doc', function ($multimedia){

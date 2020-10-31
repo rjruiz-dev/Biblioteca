@@ -52,6 +52,7 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>N° Registro</th>                                   
                         <th>Titulo</th>  
                         <th>Tipo Doc</th>  
@@ -163,6 +164,7 @@
                 type: 'GET' 
                 },        
             columns: [                
+                {data: 'id', name: 'id'},                                                   
                 {data: 'registry_number', name: 'registry_number'},                                                   
                 {data: 'documento', name: 'documento'}, 
                 {data: 'tipo', name: 'tipo'}, 

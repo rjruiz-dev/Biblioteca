@@ -19,6 +19,7 @@ Route::get('/config-cache', function() {$exitCode = Artisan::call('config:cache'
 
 Route::get('/config-clear', function() {$exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
 
+<<<<<<< Updated upstream
 // Clear application cache:
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -31,6 +32,9 @@ Route::get('/view-clear', function() {
     return 'View cache cleared';
 });
 
+=======
+Route::get('/autoload', function() {      $exitCode3 = Composer::call('config:clear');      return '<h1>Config Clear</h1>';  });
+>>>>>>> Stashed changes
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');

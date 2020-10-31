@@ -14,7 +14,7 @@
 @section('content')
     <div class="panel panel-primary">        
         <div class="panel-heading">
-            <h3 class="panel-title">Listado de Socios Activos 
+            <h3 class="panel-title">Listado de Socios con Documentos Prestados Actualmente
             </h3>
         </div>
         <div class="panel-body">

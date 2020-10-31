@@ -32,6 +32,7 @@ use App\ml_abm_book;
 use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
 use App\ml_abm_book_lit;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -646,19 +647,48 @@ class BookController extends Controller
     {
         $document = Document::findOrFail($id);
         $document->status_documents_id = 2;
-        $document->desidherata = 0;   
+        $document->desidherata = 0;
         $document->save();
+        
+                $prestamos_vigentes_del_doc = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              
+                ->whereHas('copy', function($q) use ($id)
+                {
+                    $q->where('documents_id', '=', $id);
+                })
+                ->where('active', 1)  
+                ->get();
+
+                if($prestamos_vigentes_del_doc->count() > 0){//si encuentra actualmente copias en prestamo .
+
+                foreach($prestamos_vigentes_del_doc as $prestam){
+                    $prestam->active = 0;
+                    $prestam->save();
+                    
+                    $new_movement = new Book_movement;
+                    $new_movement->movement_types_id = 9;
+                    $new_movement->users_id = $prestam->users_id;
+                    $new_movement->copies_id = $prestam->copies_id;
+                    $new_movement->active = 1;
+                    $new_movement->date = Carbon::now();  
+
+                    $copy = Copy::findOrFail($prestam->copies_id); //solo en este caso se setea la copia en 9, osea cancelacion por baja documento.sino al dar de baja un documento nunca se 
+                    // toca el estado de las copias cuando se da de baja el documento ya que siempre se valida que el doc este activo, solo en este caso q hay prestamos activos referenciados a una copia X
+                    $copy->status_copy_id = 9;
+                    $copy->save();
+                }
+            }
+
     }
 
     public function copy($id)
     {
         
         $document = Document::findOrFail($id);
-        if($document->status_documents_id == 2){
-            return response()->json(['data' => 0]);      
-        }else{
+        // if($document->status_documents_id == 2){
+        //     return response()->json(['data' => 0]);      
+        // }else{
             return response()->json(['data' => $document->id]); 
-        }  
+        // }  
     }
 
     public function reactivar($id)
@@ -767,10 +797,24 @@ class BookController extends Controller
 
     public function dataTable()
     {   
-        $libros = Book::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_book') 
+        // dd(Auth::user()->getRoleNames());
+        if(Auth::user()->getRoleNames() != 'Librarian'){
+        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
         // ->allowed()
         ->get();
-
+        
+        }else{
+            $libros = Book::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_book') 
+            // ->allowed()
+            ->get();
+        }
         // $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
         // FROM books b 
         // LEFT JOIN documents d ON b.documents_id = d.id
