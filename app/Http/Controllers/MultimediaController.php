@@ -554,7 +554,7 @@ class MultimediaController extends Controller
     public function dataTable()
     {   
         if(Auth::user()->getRoleNames() != 'Librarian'){
-        $multimedia = Multimedia::with('document.creator', 'document.status_document') 
+        $multimedia = Multimedia::with('document.creator', 'document', 'document.status_document') 
         ->whereHas('document', function($q)
         {
             // $q->where(function ($query) {
@@ -565,7 +565,7 @@ class MultimediaController extends Controller
         // ->allowed()
         ->get();
         }else{
-        $multimedia = Multimedia::with('document.creator', 'document.status_document') 
+        $multimedia = Multimedia::with('document.creator', 'document', 'document.status_document') 
         // ->allowed()
         ->get();        
         }

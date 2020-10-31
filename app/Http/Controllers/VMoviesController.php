@@ -175,9 +175,19 @@ class VMoviesController extends Controller
 
     public function dataTable()
     {   
+        // $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
+        // ->get();
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
+        // ->allowed()
         ->get();
-     
+        
         return dataTables::of($movie)
             ->addColumn('id_doc', function ($movie){
                 return $movie->document['id']."<br>";            

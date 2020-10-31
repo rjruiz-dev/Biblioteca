@@ -179,9 +179,20 @@ class VBooksController extends Controller
 
     public function dataTable()
     {   
-        $libros = Book::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_book') 
+        // $libros = Book::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_book') 
+        // ->get();
+        
+        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
+        // ->allowed()
         ->get();
-       
+
         return dataTables::of($libros)
             ->addColumn('id_doc', function ($libros){
                 return $libros->document['id']."<br>";            

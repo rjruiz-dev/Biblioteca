@@ -583,7 +583,7 @@ class MusicController extends Controller
     public function dataTable()
     {   
         if(Auth::user()->getRoleNames() != 'Librarian'){
-        $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
+        $musica = Music::with('document.creator', 'document.document_subtype','document','document.lenguage','generate_music', 'document.status_document') 
         ->whereHas('document', function($q)
         {
             // $q->where(function ($query) {
@@ -593,7 +593,7 @@ class MusicController extends Controller
         })
         ->get();
         }else{ 
-            $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
+            $musica = Music::with('document.creator', 'document.document_subtype','document','document.lenguage','generate_music', 'document.status_document') 
             ->get();
         }
        

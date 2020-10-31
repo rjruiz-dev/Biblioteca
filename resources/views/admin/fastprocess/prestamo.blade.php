@@ -130,6 +130,7 @@
                         <div class="row"> 
                             <div class="col-md-12">
                                 <h3 class="profile-username text-center"> <b>{{ $docs_of_use->copy->document->id }} - {{ $docs_of_use->copy->document->title }}</b></h3>
+                                <p class="text-muted text-center"> <b>N° copia: {{ $docs_of_use->copy->registry_number }}</b></p>
                                 <p class="text-muted text-center"> <b>{{ $docs_of_use->copy->document->creator->creator_name }}</b></p>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">

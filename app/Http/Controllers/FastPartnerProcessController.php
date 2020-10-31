@@ -223,7 +223,7 @@ class FastPartnerProcessController extends Controller
                  
         $user = User::findOrFail($id); //datos del socio 
         
-        $docs_of_user = Book_movement::with('movement_type','copy.document.creator')
+        $docs_of_user = Book_movement::with('movement_type', 'copy', 'copy.document.creator')
         ->whereHas('copy', function($q)
         {
             $q->where(function ($query) {
@@ -271,7 +271,7 @@ class FastPartnerProcessController extends Controller
         $documento = Document::with('document_type','document_subtype','creator')
         ->findOrFail($id); 
         
-        $copies_prestadas = Book_movement::with('movement_type','copy.document.creator','user')
+        $copies_prestadas = Book_movement::with('movement_type','copy', 'copy.document.creator','user')
         ->whereHas('copy', function($q) use ($id)
         {
             $q->where('documents_id', '=', $id)->where(function ($query) {

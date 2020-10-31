@@ -170,9 +170,18 @@ class VMusicController extends Controller
 
     public function dataTable()
     {   
-        $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
+        // $musica = Music::with('document.creator', 'document.document_subtype','document.lenguage','generate_music', 'document.status_document') 
+        // ->get();
+        $musica = Music::with('document.creator', 'document.document_subtype','document','document.lenguage','generate_music', 'document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
         ->get();
-       
+        
         return dataTables::of($musica)
             ->addColumn('id_doc', function ($musica){
                 return $musica->document['id']."<br>";            

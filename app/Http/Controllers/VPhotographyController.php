@@ -169,7 +169,18 @@ class VPhotographyController extends Controller
 
     public function dataTable()
     {   
-        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format','document.status_document') 
+        // $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format','document.status_document') 
+        // ->get();
+
+        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_format','document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
+        // ->allowed()
         ->get();
        
         return dataTables::of($photograph)

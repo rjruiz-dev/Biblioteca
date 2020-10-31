@@ -164,9 +164,19 @@ class VMultimediaController extends Controller
 
     public function dataTable()
     {   
-        $multimedia = Multimedia::with('document.creator', 'document.status_document')
+        // $multimedia = Multimedia::with('document.creator', 'document.status_document')
+        // ->get();
+        $multimedia = Multimedia::with('document.creator', 'document', 'document.status_document') 
+        ->whereHas('document', function($q)
+        {
+            // $q->where(function ($query) {
+            //     $query->where('status_documents_id', '=', 1);
+            // });
+            $q->where('status_documents_id', '=', 1);
+        })
+        // ->allowed()
         ->get();
-         
+        
         return dataTables::of($multimedia)
             ->addColumn('id_doc', function ($multimedia){
             return $multimedia->document['id']."<br>";            
