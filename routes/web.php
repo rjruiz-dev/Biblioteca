@@ -15,9 +15,9 @@ Route::get('email', function () {
     return new App\Mail\AlertClaim(App\User::first());
 });
  
-Route::get('/config-cache', function() {      $exitCode = Artisan::call('config:cache');      return '<h1>Config Cache</h1>';  });
+Route::get('/config-cache', function() {$exitCode = Artisan::call('config:cache');      return '<h1>Config Cache</h1>';  });
 
-Route::get('/config-clear', function() {      $exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
+Route::get('/config-clear', function() {$exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
 
 // Clear application cache:
 Route::get('/clear-cache', function() {
@@ -53,7 +53,7 @@ function(){
  
     Route::get('vusers/create',         'HomeController@create')->name('vusers.create');
     Route::post('vusers/store',         'HomeController@store')->name('vusers.store');
-    // Route::get('vusers/edit/{id}',      'HomeController@edit')->name('vusers.edit');
+    // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
 });
 

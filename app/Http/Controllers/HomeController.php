@@ -40,10 +40,10 @@ class HomeController extends Controller
         $idiomas = ManyLenguages::all();
         $setting = Setting::where('id', 1)->first();
      
-        return view('layouts.dashboard', [
+        return view('layouts.frontend', [
             'idioma'      => $idioma,
-            'idiomas'      => $idiomas,
-            'setting'      => $setting
+            'idiomas'     => $idiomas,
+            'setting'     => $setting
         ]); 
     }
 
