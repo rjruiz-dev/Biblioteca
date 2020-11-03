@@ -13,8 +13,8 @@
 @stop
 
 @section('content')
-    <div class="panel panel-primary">        
-        <div class="panel-heading">
+<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
         <div class="row">
                 <div  class="col-md-3">
                 <h3 class="panel-title" style="margin-top:8px; margin-bottom:8px;">Por rango de fecha de devolucion</h3>

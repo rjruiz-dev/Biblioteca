@@ -12,12 +12,12 @@
 @stop
 
 @section('content')
-    <div class="panel panel-primary">        
-        <div class="panel-heading">
+<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">Listado de Personas Adecuadas  
-          
+            
                 <a href="{{ route('admin.adequacies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Adecuación"><i class="fa fa-user-plus"></i> Crear Adecuación</a>
-    
+
             </h3>
         </div>
         <div class="panel-body">

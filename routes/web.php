@@ -19,7 +19,6 @@ Route::get('/config-cache', function() {$exitCode = Artisan::call('config:cache'
 
 Route::get('/config-clear', function() {$exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
 
-<<<<<<< Updated upstream
 // Clear application cache:
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -32,9 +31,6 @@ Route::get('/view-clear', function() {
     return 'View cache cleared';
 });
 
-=======
-Route::get('/autoload', function() {      $exitCode3 = Composer::call('config:clear');      return '<h1>Config Clear</h1>';  });
->>>>>>> Stashed changes
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
@@ -189,12 +185,13 @@ Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
 Route::get('requests/table',            'RequestsController@dataTable')->name('requests.table');
 Route::get('requestsup/table',          'RequestsUpController@dataTable')->name('requestsup.table');
-
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
 Route::get('loansbydate/table',         'LoansbydateController@dataTable')->name('loansbydate.table');
 Route::get('loansbyclassroom/table',    'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
-Route::get('manylenguages/table',      'ManyLenguagesController@dataTable')->name('manylenguages.table');
+Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
+
+Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 
 
 // Route::get('home', function () {

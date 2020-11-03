@@ -12,8 +12,8 @@
 @stop
 
 @section('content')
-    <div class="panel panel-primary">        
-        <div class="panel-heading">
+<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">Listado de Formatos Gráficos  
           
                 <a href="{{ route('admin.formats.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Formato"><i class="fa fa-user-plus"></i> Crear Formato</a>
