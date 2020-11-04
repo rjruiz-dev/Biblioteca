@@ -53,6 +53,8 @@ function(){
  
     Route::get('vusers/create',         'HomeController@create')->name('vusers.create');
     Route::post('vusers/store',         'HomeController@store')->name('vusers.store');
+
+    Route::get('libros/index2/{id}',     'VBooksController@index2')->name('libros.index2');
     // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
 });
@@ -132,12 +134,14 @@ function(){
     Route::delete('music/copy/{id}',            'MusicController@copy')->name('music.copy');
 
     //libros    
+    
+
     Route::delete('books/desidherata/{id}',     'BookController@desidherata')->name('books.desidherata');
     Route::delete('books/baja/{id}',            'BookController@baja')->name('books.baja');    
     Route::delete('books/reactivar/{id}',       'BookController@reactivar')->name('books.reactivar');    
     Route::delete('books/copy/{id}',            'BookController@copy')->name('books.copy');
  
-    //fotografia
+    //fotografia        
     Route::delete('photographs/desidherata/{id}','PhotographyController@desidherata')->name('photographs.desidherata');
     Route::delete('photographs/baja/{id}',       'PhotographyController@baja')->name('photographs.baja');    
     Route::delete('photographs/reactivar/{id}',  'PhotographyController@reactivar')->name('photographs.reactivar');

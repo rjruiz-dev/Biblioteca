@@ -32,6 +32,35 @@ class VBooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index2(Request $request, $id)
+    {
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_doc     = ml_show_doc::where('many_lenguages_id',$session)->first();
+        $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
+        $setting        = Setting::where('id', 1)->first();        
+        $idiomas        = ManyLenguages::all();
+
+        return view('web.books.index', [
+            'idioma'     => $idioma,
+            'idiomas'    => $idiomas,
+            'idioma_doc' => $idioma_doc,
+            'idioma_book'=> $idioma_book,
+            'setting'    => $setting,
+            'id'    => $id
+        ]); 
+    }
+
+
     public function index(Request $request)
     {
         // $request->session()->put('idiomas', 2);

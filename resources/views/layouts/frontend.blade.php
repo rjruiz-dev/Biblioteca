@@ -16,8 +16,8 @@
                     @if ( ( trim($doc['synopsis'] != NULL) ) && ( trim($doc['synopsis'] != '') ) )
                     <p>{!! $doc['synopsis'] !!}</p>
                     @endif 
-                    <!-- route('admin.books.show', $libros->id),    -->
-                    <p class="text-center"><a href="{{ route('index', ['index' => $doc]) }}" class="btn btn-danger">Más información</a></p>
+                 
+                    <p class="text-center"><a href="{{ route('libros.index2', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
                 </div>
                 <hr class="visible-xs">
             </div>     

@@ -490,6 +490,7 @@ $('body').on('click', '.btn-reactivar', function(event) {
     });
 });
 
+
 $('body').on('click', '.btn-show', function(event) {
     event.preventDefault();
 
@@ -528,6 +529,9 @@ $('body').on('click', '.btn-show', function(event) {
     $('#modal').modal('show');
 });
 
+    if( $("#bande").val() != null){
+    alert("asdadasdad");
+    }
 
 function yesnoCheck() {
     if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
