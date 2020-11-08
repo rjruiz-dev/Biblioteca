@@ -165,10 +165,9 @@ if( $("#bandera").val() == 3){
         })
     }
     
-    function llenarInputs(data) {    
-        // console.log(data.partner.user_photo);
-        // $('[name="photo"]').attr("src", window.location + '/images/' + data.partner.user_photo);  
-        $("#user_photo").prop("src", data.partner.user_photo);
+    function llenarInputs(data) {         
+        img_url = '/images/'+ data.partner.user_photo;       
+        $("#user_photo").attr("src",img_url);
         $('#nickname').text(data.partner.nickname);  
         $('#surname').text(data.partner.surname);  
         $('#email').text(data.partner.email);    

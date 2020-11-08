@@ -115,7 +115,7 @@
                         
 
                         <li class="list-group-item">
-                        <b>{{ $copie->id }}</b>
+                        <b>{{ $copie->id }}</b>                        
                         <div class="row"> 
                             <div class="col-md-12">
                                 <h3 class="profile-username text-center">N° copia: {{ $copie->copy->registry_number }}</h3>   
@@ -125,7 +125,12 @@
                                 <b>Estado: </b><a class="pull-right">{{ $copie->movement_type['description_movement'] }} </a>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>Prestado a: </b><a class="pull-right">{{ $copie->user['name'] }} </a>
+                                <b>Prestado a: </b> <a class="pull-right">{{ $copie->user['name'] }} </a>
+                                <img class="profile-user-img img-responsive img-circle" 
+                                                        src="/images/{{ $copie->user['user_photo'] }}" 
+                                                        alt="{{ $copie->user['name'] }}"
+                                                        width="100px">
+                                                       
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
                                 <b>Prestado el: </b><a class="pull-right">{{ Carbon\Carbon::parse($copie->date)->format('d-m-Y') }} </a>
