@@ -22,31 +22,29 @@
                 <hr class="visible-xs">
             </div>     
             @endforeach	
-        </div><!--End first row -->
-        <hr>
-        <!-- <hr style="margin:90px 0px;"> -->
+        </div>
+        <hr>      
         <div class="row">
             <div class="col-xs-12">
                 <h1 class="text-center wow pulse all-titles-pages">Los 5 más reservados</h1>
                 <br><br><br>
             </div>
+            @foreach($CincoMasResevados  as $d)
             <div class="col-xs-12">
                 <div class="media">
                     <a class="pull-left" href="#">
-                    <img class="media-object img-rounded" src="{{ asset('images/'.$doc['photo']) }}" alt="{{ $doc['title'] }}">
+                        <img class="media-object img-rounded" src="{{ asset('images/'.$d->photo) }}" alt="{{ $d->title }}"  width="300" height="380">
                     </a>
                     <div class="media-body">
-                    <h4 class="media-heading all-titles-pages">{{ $doc['title'] }}</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero dolorum, neque modi deleniti officiis asperiores et nulla aperiam! Nobis tempore molestiae aliquam eligendi expedita natus non mollitia ipsa dolor repudiandae.
-                    </p>
+                        <h4 class="media-heading all-titles-pages">{{ $d->title }}</h4>
+                        @if ( ( trim($d->synopsis != NULL) ) && ( trim($d->synopsis != '') ) )
+                        <p>{!! $d->synopsis !!}</p>
+                        @endif 
                     </div>
                 </div>
-               
-            </div>
-        </div><!--End second row -->
-        <!-- <hr style="margin:90px 0px;"> -->
-     
-    </div><!--End container -->
+            </div>          
+            @endforeach	
+        </div>     
+    </div>
 </section>
 @stop
