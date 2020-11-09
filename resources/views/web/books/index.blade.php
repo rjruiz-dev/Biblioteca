@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header')    
+    
     <h1>
        CATÁLOGO DE LIBROS
         <small>Listado</small>
@@ -13,8 +14,9 @@
 @stop
 
 @section('content')
-    <div class="panel panel-primary">        
-        <div class="panel-heading">
+{{ Form::hidden('bande', $id,['id' => 'bande']) }} 
+<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">Listado de Libros   
             </h3>
         </div>

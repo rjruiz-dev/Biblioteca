@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Statu;
+use App\Copy;
+use App\Document;
+use App\Book;
+use App\Music;
+use App\Multimedia;
+use App\Movie;
+use App\Photography;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
@@ -39,11 +46,25 @@ class HomeController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
         $setting = Setting::where('id', 1)->first();
-     
+        $documentos = Document::with(['book','music','movie','multimedia','photography'])
+                    ->orderBy('id', 'DESC')
+                    ->take(3)
+                    ->get();
+
+        $CincoMasResevados =  DB::select('SELECT d.id, d.title, d.synopsis,d.photo, COUNT(d.id)                  
+                                FROM book_movements bm                  
+                                LEFT JOIN copies c ON bm.copies_id = c.id 
+                                LEFT JOIN documents d ON c.documents_id = d.id
+                                WHERE bm.movement_types_id = 7
+                                GROUP BY d.id, d.title, d.synopsis, d.photo
+                                ORDER BY COUNT(d.id) DESC LIMIT 5');
+
         return view('layouts.frontend', [
             'idioma'      => $idioma,
             'idiomas'     => $idiomas,
-            'setting'     => $setting
+            'setting'     => $setting,
+            'documentos'  => $documentos,
+            'CincoMasResevados'  => $CincoMasResevados
         ]); 
     }
 

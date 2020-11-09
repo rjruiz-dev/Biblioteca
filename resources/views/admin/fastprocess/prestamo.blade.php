@@ -129,6 +129,9 @@
                     <b>{{ $docs_of_use->id }}</b>
                         <div class="row"> 
                             <div class="col-md-12">
+                                <div class="text-center"> 
+                                    <img class="img-responsive img-thumbnail" src="/images/{{ $docs_of_use->copy->document->photo }}"  alt="{{ $docs_of_use->copy->document->title }}" width="200" height="200">     
+                                </div>
                                 <h3 class="profile-username text-center"> <b>{{ $docs_of_use->copy->document->id }} - {{ $docs_of_use->copy->document->title }}</b></h3>
                                 <p class="text-muted text-center"> <b>N° copia: {{ $docs_of_use->copy->registry_number }}</b></p>
                                 <p class="text-muted text-center"> <b>{{ $docs_of_use->copy->document->creator->creator_name }}</b></p>

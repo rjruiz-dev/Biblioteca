@@ -78,9 +78,10 @@
                                 {!! Form::select('users_id', $users, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'users_id',  $visible ? 'disabled' : '', 'style' => 'width:100%;' ]) !!}
                                 {!! $var_user !!}
                             </div>
-                            <!-- <div class="text-center">     
-                                <img class="profile-user-img img-responsive img-circle" src="">                             
-                            </div> -->
+                            <div class="text-center">     
+                                <img id="user_photo" class="profile-user-img img-responsive img-circle" src="">                             
+                            </div>
+                            &nbsp;
                             <ul class="list-group list-group-unbordered">                           
                                 <li class="list-group-item">                               
                                     <b>Nickname</b> <a class="pull-right" id="nickname"></a> 

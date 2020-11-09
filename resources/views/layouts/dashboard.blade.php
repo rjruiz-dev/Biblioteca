@@ -53,7 +53,7 @@
                 @endforeach	
             </div>
             <div class="icon">
-                <i class="fa fa-retweet"></i>
+                <i class="fa fa-calendar"></i>
             </div>            
         </div>
     </div>
@@ -106,29 +106,29 @@
 </div> 
 
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
-        <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Prestamos recientes</h3>
-        </div>
-        <div class="panel-body">
-            <table id="datatable" class="table table-hover" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>N° Usuario</th>                            
-                        <th>Perfil</th>       
-                        <th>Nombre</th>                                           
-                        <th>Email</th>   
-                        <th>Estado</th>  
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>                
-            </table>
-        </div>
-    </div> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
+        <h3 class="panel-title">Prestamos recientes</h3>
+    </div>
+    <div class="panel-body">
+        <table id="datatable" class="table table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>                     
+                    <th>Perfil</th>       
+                    <th>Nombre</th>                                           
+                    <th>Email</th>
+                    <th>Título</th>  
+                    <th>Fecha de Devolución</th>   
+                    <th>N° de Ejemplar</th>
+                    <th>Cant de Prestamos</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>                
+        </table>
+    </div>
+</div> 
 @stop
 
 @push('styles')  
@@ -192,16 +192,16 @@
                 }
                 
             ],             
-            ajax: "{{ route('users.table') }}",            
+            ajax: "{{ route('currentloan.table') }}",            
             columns: [                
                 {data: 'id', name: 'id'},
-                {data: 'membership', name: 'membership'},    
-                {data: 'user_photo', name: 'user_photo'},
+                {data: 'user_photo', name: 'user_photo'},                
                 {data: 'name', name: 'name'},               
                 {data: 'email', name: 'email'}, 
-                {data: 'status_id', name: 'status_id'}, 
-                {data: 'created_at', name: 'agregado'},                  
-                {data: 'accion', name: 'accion'}                          
+                {data: 'title', name: 'title'},
+                {data: 'date_until', name: 'date_until'},   
+                {data: 'registry_number', name: 'registry_number'},                 
+                {data: 'prestamos', name: 'prestamos'},                                
             ]
         });
     </script>

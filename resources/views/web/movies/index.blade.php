@@ -18,8 +18,8 @@ use App\Movies;
 @stop
 
 @section('content')
-    <div class="panel panel-primary">        
-        <div class="panel-heading">
+<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">Listado de Cine   
            
                 

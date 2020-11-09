@@ -128,6 +128,7 @@ if( $("#bandera").val() == 3){
     });
 
     var user_idSelect = $('#users_id');
+    var user_photo = $('#user_photo');
     // var photo = $('[name="photo"]');           
     var nickname = $('#nickname');           
     var surname = $('#surname');
@@ -164,12 +165,12 @@ if( $("#bandera").val() == 3){
         })
     }
     
-    function llenarInputs(data) {    
-        // console.log(data.partner.user_photo);
-        // $('[name="photo"]').attr("src", window.location + '/images/' + data.partner.user_photo);  
+    function llenarInputs(data) {         
+        img_url = '/images/'+ data.partner.user_photo;       
+        $("#user_photo").attr("src",img_url);
         $('#nickname').text(data.partner.nickname);  
         $('#surname').text(data.partner.surname);  
-        $('#email').text(data.partner.email);  
+        $('#email').text(data.partner.email);    
         $('#loan').text(data.count.count_of_prestamos);
         // console.log("prstamos: " + data.limit.loan_limit);
         if(data.count.count_of_prestamos > data.limit.loan_limit){

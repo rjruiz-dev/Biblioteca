@@ -8,7 +8,9 @@ use App\User;
 use Carbon\Carbon;
 use App\Document;
 use App\Book_movement;
+use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -43,7 +45,8 @@ class AdminController extends Controller
             ->where('date_until','<', Carbon::now()) 
             ->get();
 
-        $socios         = User::selectRaw('count(*) users')->get();      
+        $socios         = User::selectRaw('count(*) users')->get();    
+        
         
         return view('layouts.dashboard', [
             'idioma'        => $idioma,
@@ -126,22 +129,23 @@ class AdminController extends Controller
 
     public function dataTable()
     {                    
-        $usuarios = User::with('statu')->where(function ($query) {
-            $query->where('status_id', '=', 3)
-                  ->orWhere('status_id', '=', 4);
-        })     
-        ->get();
-      
+        $usuarios =  DB::select('SELECT bm.id, u.name, u.user_photo, u.email, d.title, bm.date_until, c.registry_number,
+                    (select count(bm2.id) from book_movements bm2 
+                    WHERE ( bm2.movement_types_id = 1 
+                    OR bm2.movement_types_id = 2)
+                    AND bm2.active = 1 
+                    AND bm2.users_id = bm.users_id 
+                    GROUP BY bm2.users_id) as cantidad 
+                    FROM book_movements bm 
+                    LEFT JOIN users u ON bm.users_id = u.id 
+                    LEFT JOIN copies c ON bm.copies_id = c.id 
+                    LEFT JOIN documents d ON c.documents_id = d.id 
+                    WHERE ( bm.movement_types_id = 1 OR bm.movement_types_id = 2) 
+                    AND bm.active = 1                   
+                    ORDER BY bm.id DESC LIMIT 5');
+
         return dataTables::of($usuarios)
-            ->addColumn('membership', function ($usuarios){
-                if($usuarios->membership == null){
-                    return 'No tiene número de socio';
-                }else{
-                    return  '<i class="fa fa-checñ"></i>'.' '.$usuarios->membership."<br>";              
-                }
-            }) 
-          
-          
+                 
             ->addColumn('user_photo', function ($usuarios){
                 $url=asset("/images/$usuarios->user_photo"); 
                 return '<img src='.$url.' border="0" width="40" class="img-rounded" align="center" />'; 
@@ -149,41 +153,34 @@ class AdminController extends Controller
             ->addColumn('name', function ($usuarios){                               
                 return
                     '<i class="fa fa-user"></i>'.' '.$usuarios->name."<br>"; 
-                    '<i class="fa fa-user"></i>'.' '.$usuarios->nickname."<br>";             
+                    '<i class="fa fa-user"></i>'.' '.$usuarios->email."<br>";             
             }) 
             ->addColumn('email', function ($usuarios){
                 return                    
                     '<i class="fa fa-envelope"></i>'.' '.$usuarios->email;              
-            })             
-            // ->addColumn('status_id', function ($usuarios){
+            }) 
+            ->addColumn('title', function ($usuarios){
+                if($usuarios->date_until <= Carbon::now()){    
 
-            //     if($usuarios->statu['state_description'] == 'Inactivo'){    
+                    return '<span class="label label-danger sm">'.$usuarios->title.'</span>';
+                }else{
 
-            //         return '<span class="label label-danger sm">'.$usuarios->statu['state_description'].'</span>';
-            //     }
-            //     if ($usuarios->statu['state_description'] == 'Pendiente'){
-
-            //         return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';
-
-            //     }else{
-
-            //         return '<span class="label label-success sm">'.$usuarios->statu['state_description'].'</span>';
-            //     }              
-            // })    
-            ->addColumn('created_at', function ($usuarios){
-                return $usuarios->created_at->format('d-m-y');
+                    return '<span class="label label-success sm">'.$usuarios->title.'</span>';
+                }      
+            })
+            ->addColumn('registry_number', function ($usuarios){
+                return $usuarios->registry_number;
             })                 
+            ->addColumn('date_until', function ($usuarios){
+                return $usuarios->date_until;
+            })  
+            ->addColumn('prestamos', function ($usuarios){
+                return $usuarios->cantidad;
+            })   
             
-            ->addColumn('accion', function ($usuarios) {
-                return view('admin.users.partials._action', [
-                    'usuarios' => $usuarios,
-                    'url_show' => route('admin.users.show', $usuarios->id),                        
-                    'url_edit' => route('admin.users.edit', $usuarios->id),                              
-                    'url_destroy' => route('admin.users.destroy', $usuarios->id)
-                ]);
-            })           
+            
             ->addIndexColumn()   
-            ->rawColumns(['membership', 'user_photo', 'name', 'email', 'created_at', 'accion']) 
+            ->rawColumns(['user_photo', 'name', 'email', 'title', 'registry_number','date_until', 'prestamos']) 
             ->make(true);  
     }
 }

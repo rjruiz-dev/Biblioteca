@@ -19,7 +19,6 @@ Route::get('/config-cache', function() {$exitCode = Artisan::call('config:cache'
 
 Route::get('/config-clear', function() {$exitCode2 = Artisan::call('config:clear');      return '<h1>Config Clear</h1>';  });
 
-<<<<<<< Updated upstream
 // Clear application cache:
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -32,9 +31,6 @@ Route::get('/view-clear', function() {
     return 'View cache cleared';
 });
 
-=======
-Route::get('/autoload', function() {      $exitCode3 = Composer::call('config:clear');      return '<h1>Config Clear</h1>';  });
->>>>>>> Stashed changes
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
@@ -57,6 +53,8 @@ function(){
  
     Route::get('vusers/create',         'HomeController@create')->name('vusers.create');
     Route::post('vusers/store',         'HomeController@store')->name('vusers.store');
+
+    Route::get('libros/index2/{id}',     'VBooksController@index2')->name('libros.index2');
     // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
 });
@@ -136,12 +134,14 @@ function(){
     Route::delete('music/copy/{id}',            'MusicController@copy')->name('music.copy');
 
     //libros    
+    
+
     Route::delete('books/desidherata/{id}',     'BookController@desidherata')->name('books.desidherata');
     Route::delete('books/baja/{id}',            'BookController@baja')->name('books.baja');    
     Route::delete('books/reactivar/{id}',       'BookController@reactivar')->name('books.reactivar');    
     Route::delete('books/copy/{id}',            'BookController@copy')->name('books.copy');
  
-    //fotografia
+    //fotografia        
     Route::delete('photographs/desidherata/{id}','PhotographyController@desidherata')->name('photographs.desidherata');
     Route::delete('photographs/baja/{id}',       'PhotographyController@baja')->name('photographs.baja');    
     Route::delete('photographs/reactivar/{id}',  'PhotographyController@reactivar')->name('photographs.reactivar');
@@ -189,12 +189,13 @@ Route::get('fastprocess/index2',        'FastPartnerProcessController@index2')->
 Route::get('loanmanual/table',          'LoanManualController@dataTable')->name('loanmanual.table');
 Route::get('requests/table',            'RequestsController@dataTable')->name('requests.table');
 Route::get('requestsup/table',          'RequestsUpController@dataTable')->name('requestsup.table');
-
 Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->name('genericcopies.table');
 Route::get('loansbydate/table',         'LoansbydateController@dataTable')->name('loansbydate.table');
 Route::get('loansbyclassroom/table',    'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
-Route::get('manylenguages/table',      'ManyLenguagesController@dataTable')->name('manylenguages.table');
+Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
+
+Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 
 
 // Route::get('home', function () {

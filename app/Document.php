@@ -64,23 +64,28 @@ class Document extends Model
         return $this->belongsTo(StatusDocument::class, 'status_documents_id');
     }
 
+    public function book()
+    {
+        return $this->hasOne(Book::class, 'id');
+    }
+
     public function music()
     {
-        return $this->hasOne(Music::class);
+        return $this->hasOne(Music::class, 'id');
     }
     public function movie()
     {
-        return $this->hasOne(Movies::class);
+        return $this->hasOne(Movies::class, 'id');
     }
 
     public function photography()
     {
-        return $this->hasOne(Photography::class);
+        return $this->hasOne(Photography::class, 'id');
     }
 
     public function multimedia()
     {
-        return $this->hasOne(Multimedia::class);
+        return $this->hasOne(Multimedia::class, 'id');
     }
 
     public function references()
