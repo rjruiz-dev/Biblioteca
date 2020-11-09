@@ -32,7 +32,9 @@ use App\ml_abm_book;
 use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
 use App\ml_abm_book_lit;
+use App\Copy;
 use Illuminate\Support\Facades\Auth;
+
 
 class BookController extends Controller
 {
@@ -55,14 +57,21 @@ class BookController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
-
         // $this->authorize('view', new Book); 
 
         return view('admin.books.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
-        ]);        
+            'setting'   => $setting,
+
+            // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+            'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'genders'       => Generate_book::pluck('genre_book', 'id')
+            // replicar esto FIN 
+
+            ]);        
     }
 
     /**
@@ -655,14 +664,18 @@ class BookController extends Controller
                 {
                     $q->where('documents_id', '=', $id);
                 })
-                ->where('active', 1)  
+                ->where('active', 1)
+                ->where(function ($query) {
+                    $query->where('movement_types_id', '=', 1)
+                          ->orWhere('movement_types_id', '=', 2);
+                })  
                 ->get();
 
                 if($prestamos_vigentes_del_doc->count() > 0){//si encuentra actualmente copias en prestamo .
 
                 foreach($prestamos_vigentes_del_doc as $prestam){
                     $prestam->active = 0;
-                    $prestam->save();
+                    // $prestam->save();
                     
                     $new_movement = new Book_movement;
                     $new_movement->movement_types_id = 9;
@@ -674,6 +687,8 @@ class BookController extends Controller
                     $copy = Copy::findOrFail($prestam->copies_id); //solo en este caso se setea la copia en 9, osea cancelacion por baja documento.sino al dar de baja un documento nunca se 
                     // toca el estado de las copias cuando se da de baja el documento ya que siempre se valida que el doc este activo, solo en este caso q hay prestamos activos referenciados a una copia X
                     $copy->status_copy_id = 9;
+                    $prestam->save();
+                    $new_movement->save();
                     $copy->save();
                 }
             }
@@ -698,6 +713,36 @@ class BookController extends Controller
         $document->status_documents_id = 1;
         $document->desidherata = 0;   
         $document->save();
+
+        $prestamos_en_cancelacion = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id);
+        })
+        ->where('active', 1)
+        ->where('movement_types_id', 9)  
+        ->get();
+
+        if($prestamos_en_cancelacion->count() > 0){//si encuentra actualmente copias en prestamo .
+
+        foreach($prestamos_en_cancelacion as $prestam){
+            $prestam->active = 0;
+            // $prestam->save();
+            
+            $new_movement = new Book_movement;
+            $new_movement->movement_types_id = 6;
+            $new_movement->copies_id = $prestam->copies_id;
+            $new_movement->active = 1;
+            $new_movement->date = Carbon::now();  
+
+            $copy = Copy::findOrFail($prestam->copies_id); //solo en este caso se setea la copia en 9, osea cancelacion por baja documento.sino al dar de baja un documento nunca se 
+            // toca el estado de las copias cuando se da de baja el documento ya que siempre se valida que el doc este activo, solo en este caso q hay prestamos activos referenciados a una copia X
+            $copy->status_copy_id = 6;
+            $prestam->save();
+            $new_movement->save(); 
+            $copy->save();
+        }
+    }
     }
 
     public function obtener2(Request $request)
@@ -795,25 +840,93 @@ class BookController extends Controller
         return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
     }
 
-    public function dataTable()
+    public function dataTable(Request $request)
     {   
+        if($request->get('subjects') != ''){
+        $subjects_mostrar = true; 
+        }else{
+        $subjects_mostrar = false;      
+        }
+
+        if($request->get('adaptations') != ''){
+        $adaptations_mostrar = true; 
+        }else{
+        $adaptations_mostrar = false;      
+        }
+
+        if($request->get('genders') != ''){
+        $genders_mostrar = true; 
+        }else{
+        $genders_mostrar = false;      
+        }
+
+        if($request->get('references') != ''){
+            $references_mostrar = true; 
+            }else{
+            $references_mostrar = false;      
+            }
+
+        // dd($references_mostrar);
+                    
         // dd(Auth::user()->getRoleNames());
         if(Auth::user()->getRoleNames() != 'Librarian'){
-        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 
-        ->whereHas('document', function($q)
+        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
         {
-            // $q->where(function ($query) {
-            //     $query->where('status_documents_id', '=', 1);
-            // });
-            $q->where('status_documents_id', '=', 1);
+            if($subjects_mostrar){
+                $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+            }
+            if($adaptations_mostrar){
+                $q->where('adequacies_id', '=', $request->get('adaptations'));   
+            }
         })
+        ->where(function($q) use($genders_mostrar, $request)
+        {
+            // dd($genders_mostrar);
+            if($genders_mostrar){
+                $q->where('generate_books_id', '=', $request->get('genders'));   
+            } 
+        })
+        // $multa_economica['unit'] ? $multa_economica['unit'] : null
+        ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+        {
+            if($references_mostrar){
+                $q->where('generate_reference_id', '=', $request->get('references'));   
+            }
+        })
+
         // ->allowed()
         ->get();
         
         }else{
-            $libros = Book::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_book') 
+
+            $libros = Book::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_book') 
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+        {
+        
+            if($subjects_mostrar){
+                $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+            }
+            if($adaptations_mostrar){
+                $q->where('adequacies_id', '=', $request->get('adaptations'));   
+            } 
+        })
+        ->where(function($q) use($genders_mostrar, $request)
+        {
+            // dd($genders_mostrar);
+            if($genders_mostrar){
+                $q->where('generate_books_id', '=', $request->get('genders'));   
+            } 
+        })
+        ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+        {
+            if($references_mostrar){
+                $q->where('generate_reference_id', '=', $request->get('references'));   
+            }
+        })
             // ->allowed()
-            ->get();
+        ->get(); 
+
         }
         // $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
         // FROM books b 
