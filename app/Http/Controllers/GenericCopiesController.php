@@ -14,6 +14,7 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveCopyRequest;
+use Illuminate\Support\Arr;
 
 class GenericCopiesController extends Controller
 {
@@ -146,9 +147,15 @@ class GenericCopiesController extends Controller
         // dd($sugerido2);
         $sugerido = $sugerido2->registry_number + 1;
         // dd($sugerido);
+        $status = Movement_type::where('view', 1)->orderBy('orden', 'DESC')->pluck('book_status_priv', 'id');
+
+        $status_actual = Movement_type::where('id', $copies->status_copy_id)->where('view', 0)->get();
+        if($status_actual->count() > 0){ // si encuentra movimientos q no se debe mostrar la user(los q tienen 0 en view)
+            $status = Arr::add($status, $status_actual->description_movement, $status_actual->id);
+        }
 
         return view('admin.genericcopies.partials.form', [
-            'status'    => Movement_type::where('view', 1)->orderBy('orden', 'DESC')->pluck('book_status_priv', 'id'),
+            'status'    => $status,
             'id_doc'    => $id,
             'copie'     => $copies,
             'sugerido'  => $sugerido
