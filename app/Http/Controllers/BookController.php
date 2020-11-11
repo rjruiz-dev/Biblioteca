@@ -905,6 +905,8 @@ class BookController extends Controller
         $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
         ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
         {
+            $q->where('status_documents_id', '=', 1);
+            
             if($subjects_mostrar){
                 $q->where('generate_subjects_id', '=', $request->get('subjects'));   
             }
