@@ -141,7 +141,8 @@ class AdminController extends Controller
                     LEFT JOIN copies c ON bm.copies_id = c.id 
                     LEFT JOIN documents d ON c.documents_id = d.id 
                     WHERE ( bm.movement_types_id = 1 OR bm.movement_types_id = 2) 
-                    AND bm.active = 1                   
+                    AND bm.active = 1 
+                    -- AND bm.date_until > NOW()                  
                     ORDER BY bm.id DESC LIMIT 5');
 
         return dataTables::of($usuarios)
