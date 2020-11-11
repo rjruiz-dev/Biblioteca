@@ -28,6 +28,7 @@ use App\Http\Requests\SaveMusicalRequest;
 use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_music;
+use App\Copy;
 use Illuminate\Support\Facades\Auth;
 
 class MusicController extends Controller
@@ -548,6 +549,36 @@ class MusicController extends Controller
         $document->status_documents_id = 3;
         $document->desidherata = 1;    
         $document->save();
+
+        $prestamos_en_cancelacion = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id);
+        })
+        ->where('active', 1)
+        ->where('movement_types_id', 9)  
+        ->get();
+
+        if($prestamos_en_cancelacion->count() > 0){//si encuentra actualmente copias en prestamo .
+
+        foreach($prestamos_en_cancelacion as $prestam){
+            $prestam->active = 0;
+            // $prestam->save();
+            
+            $new_movement = new Book_movement;
+            $new_movement->movement_types_id = 6;
+            $new_movement->copies_id = $prestam->copies_id;
+            $new_movement->active = 1;
+            $new_movement->date = Carbon::now();  
+
+            $copy = Copy::findOrFail($prestam->copies_id); //solo en este caso se setea la copia en 9, osea cancelacion por baja documento.sino al dar de baja un documento nunca se 
+            // toca el estado de las copias cuando se da de baja el documento ya que siempre se valida que el doc este activo, solo en este caso q hay prestamos activos referenciados a una copia X
+            $copy->status_copy_id = 6;
+            $prestam->save();
+            $new_movement->save(); 
+            $copy->save();
+        }
+    }
     }
     
 
@@ -557,6 +588,41 @@ class MusicController extends Controller
         $document->status_documents_id = 2;
         $document->desidherata = 0;   
         $document->save();
+
+        $prestamos_vigentes_del_doc = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id);
+        })
+        ->where('active', 1)
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2);
+        })  
+        ->get();
+
+        if($prestamos_vigentes_del_doc->count() > 0){//si encuentra actualmente copias en prestamo .
+
+        foreach($prestamos_vigentes_del_doc as $prestam){
+            $prestam->active = 0;
+            // $prestam->save();
+            
+            $new_movement = new Book_movement;
+            $new_movement->movement_types_id = 9;
+            $new_movement->users_id = $prestam->users_id;
+            $new_movement->copies_id = $prestam->copies_id;
+            $new_movement->active = 1;
+            $new_movement->date = Carbon::now();  
+
+            $copy = Copy::findOrFail($prestam->copies_id); //solo en este caso se setea la copia en 9, osea cancelacion por baja documento.sino al dar de baja un documento nunca se 
+            // toca el estado de las copias cuando se da de baja el documento ya que siempre se valida que el doc este activo, solo en este caso q hay prestamos activos referenciados a una copia X
+            $copy->status_copy_id = 9;
+            $prestam->save();
+            $new_movement->save();
+            $copy->save();
+        }
+    }
+
     }
 
     public function copy($id)
@@ -577,6 +643,38 @@ class MusicController extends Controller
         $document->status_documents_id = 1;
         $document->desidherata = 0;   
         $document->save();
+
+        
+        $prestamos_en_cancelacion = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              
+        ->whereHas('copy', function($q) use ($id)
+        {
+            $q->where('documents_id', '=', $id);
+        })
+        ->where('active', 1)
+        ->where('movement_types_id', 9)  
+        ->get();
+
+        if($prestamos_en_cancelacion->count() > 0){//si encuentra actualmente copias en prestamo .
+
+        foreach($prestamos_en_cancelacion as $prestam){
+            $prestam->active = 0;
+            // $prestam->save();
+            
+            $new_movement = new Book_movement;
+            $new_movement->movement_types_id = 6;
+            $new_movement->copies_id = $prestam->copies_id;
+            $new_movement->active = 1;
+            $new_movement->date = Carbon::now();  
+
+            $copy = Copy::findOrFail($prestam->copies_id); //solo en este caso se setea la copia en 9, osea cancelacion por baja documento.sino al dar de baja un documento nunca se 
+            // toca el estado de las copias cuando se da de baja el documento ya que siempre se valida que el doc este activo, solo en este caso q hay prestamos activos referenciados a una copia X
+            $copy->status_copy_id = 6;
+            $prestam->save();
+            $new_movement->save(); 
+            $copy->save();
+        }
+    }
+
     }
     
 

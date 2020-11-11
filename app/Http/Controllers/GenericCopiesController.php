@@ -149,9 +149,11 @@ class GenericCopiesController extends Controller
         // dd($sugerido);
         $status = Movement_type::where('view', 1)->orderBy('orden', 'DESC')->pluck('book_status_priv', 'id');
 
-        $status_actual = Movement_type::where('id', $copies->status_copy_id)->where('view', 0)->get();
+        $status_actual = Movement_type::where('id', $copies->status_copy_id)->where('view', 0)->first();
         if($status_actual->count() > 0){ // si encuentra movimientos q no se debe mostrar la user(los q tienen 0 en view)
-            $status = Arr::add($status, $status_actual->description_movement, $status_actual->id);
+
+            $status = Arr::add($status, $status_actual->id, $status_actual->description_movement);
+            // dd($status);
         }
 
         return view('admin.genericcopies.partials.form', [
@@ -181,7 +183,7 @@ class GenericCopiesController extends Controller
                 if($copy->status_copy_id != $request->get('status_copy_id')){ //si cambio el estado inserto movimiento sino no
                     
                     $movement_doc = Book_movement::where('copies_id', $id)->where('active', 1)->get();
-                    // dd($movement_doc->count()); 
+                    // dd('cantidad: '.$movement_doc->count(). 'id copia: '.$copy->id); 
                     if($movement_doc->count() == 1){//si encuentra movimientos.
                         $error = true;
                         $cancelacion_por_baja = false;
@@ -212,6 +214,7 @@ class GenericCopiesController extends Controller
 
                     
                     }else{
+                        // dd('entro aca');
                         $error = false; 
                     }
                 
