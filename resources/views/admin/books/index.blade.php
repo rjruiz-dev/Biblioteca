@@ -20,32 +20,24 @@ use App\Book;
 @section('content')
     <div class="panel panel-primary" style="border-color: {{ $setting->skin }};">        
         <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-                <div class="row">
-                <!-- replicar esto INICIO -->
-                                    <div  class="col-md-2" style="margin-bottom:5px;">
-                                 {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => 'Elija Referencia', 'style' => 'width:100%;']) !!}   
-                                    </div>
-
-                                    <div  class="col-md-2" style="margin-bottom:5px;">
-                                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
-                                  
-                                    </div>
-                                    <div  class="col-md-2" style="margin-bottom:5px;">
-                                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuacion', 'style' => 'width:100%;']) !!}   
-                                  
-                                    </div>
-                                    <div  class="col-md-2" style="margin-bottom:5px;">
-                                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Genero', 'style' => 'width:100%;']) !!}   
-                                  
-                                    </div>
-                                    
-                                    <div  class="col-md-4" style="margin-bottom:5px;">
-                                    <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
-                                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: 0px;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a>
-                                    </div>
-                <!-- replicar esto FIN -->
+            <div class="row">           
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => 'Elija Referencia', 'style' => 'width:100%;']) !!}   
                 </div>
-          
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuacion', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Genero', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-4" style="margin-bottom:5px;">
+                    <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
+                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: 0px;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a>
+                </div>        
+            </div>
         </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
@@ -160,13 +152,13 @@ use App\Book;
                 }
                 
             ],   
-                    //   remplazar INICIO
+                    
             ajax:{ 
                 url: "{{ route('books.table') }}", 
                 data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
                 type: 'GET' 
                 },
-                                    //   remplazar FIN        
+                               
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},          
                 {data: 'documents_id', name: 'documents_id'},         
@@ -180,7 +172,7 @@ use App\Book;
             ]
         });
     }
- //   remplazar INICIO
+
     $('#filter').click(function(){
         var references = '';
         var subjects = ''; 
@@ -201,7 +193,6 @@ use App\Book;
         }
 
     });
-     //   remplazar FIN  
-
+    
     </script>
 @endpush

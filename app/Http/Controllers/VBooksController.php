@@ -24,6 +24,7 @@ use App\ManyLenguages;
 use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_book;
+use Illuminate\Support\Facades\Auth;
 
 class VBooksController extends Controller
 {
@@ -84,7 +85,12 @@ class VBooksController extends Controller
             'idiomas'    => $idiomas,
             'idioma_doc' => $idioma_doc,
             'idioma_book'=> $idioma_book,
-            'setting'    => $setting
+            'setting'    => $setting,            
+            'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'genders'       => Generate_book::pluck('genre_book', 'id')
+             
         ]); 
     }
 
@@ -206,21 +212,68 @@ class VBooksController extends Controller
         //
     }
 
-    public function dataTable()
+    public function dataTable(Request $request)
     {   
-        // $libros = Book::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_book') 
+        // $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 
+        // ->whereHas('document', function($q)
+        // {
+           
+        //     $q->where('status_documents_id', '=', 1);
+        // })
+       
         // ->get();
+
+        if($request->get('subjects') != ''){
+            $subjects_mostrar = true; 
+        }else{
+            $subjects_mostrar = false;      
+        }
+
+        if($request->get('adaptations') != ''){
+            $adaptations_mostrar = true; 
+        }else{
+            $adaptations_mostrar = false;      
+        }
+    
+        if($request->get('genders') != ''){
+            $genders_mostrar = true; 
+        }else{
+            $genders_mostrar = false;      
+        }
+
+        if($request->get('references') != ''){
+            $references_mostrar = true; 
+        }else{
+            $references_mostrar = false;      
+        }
         
-        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 
-        ->whereHas('document', function($q)
-        {
-            // $q->where(function ($query) {
-            //     $query->where('status_documents_id', '=', 1);
-            // });
-            $q->where('status_documents_id', '=', 1);
-        })
-        // ->allowed()
-        ->get();
+        $libros = Book::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_book') 
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            {
+                $q->where('status_documents_id', '=', 1);
+            
+                if($subjects_mostrar){
+                    $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+                }
+                if($adaptations_mostrar){
+                    $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                } 
+            })    
+            ->where(function($q) use($genders_mostrar, $request)
+            {
+                // dd($genders_mostrar);
+                if($genders_mostrar){
+                    $q->where('generate_books_id', '=', $request->get('genders'));   
+                } 
+            })
+            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            {
+                if($references_mostrar){
+                    $q->where('generate_reference_id', '=', $request->get('references'));   
+                }
+            })            
+            ->get(); 
+    
 
         return dataTables::of($libros)
             ->addColumn('id_doc', function ($libros){

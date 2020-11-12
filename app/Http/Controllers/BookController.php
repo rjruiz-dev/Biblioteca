@@ -875,101 +875,85 @@ class BookController extends Controller
     public function dataTable(Request $request)
     {   
         if($request->get('subjects') != ''){
-        $subjects_mostrar = true; 
+            $subjects_mostrar = true; 
         }else{
-        $subjects_mostrar = false;      
+            $subjects_mostrar = false;      
         }
 
         if($request->get('adaptations') != ''){
-        $adaptations_mostrar = true; 
+            $adaptations_mostrar = true; 
         }else{
-        $adaptations_mostrar = false;      
+            $adaptations_mostrar = false;      
         }
 
         if($request->get('genders') != ''){
-        $genders_mostrar = true; 
+            $genders_mostrar = true; 
         }else{
-        $genders_mostrar = false;      
+            $genders_mostrar = false;      
         }
 
         if($request->get('references') != ''){
             $references_mostrar = true; 
-            }else{
+        }else{
             $references_mostrar = false;      
-            }
+        }
 
-        // dd($references_mostrar);
-                    
-        // dd(Auth::user()->getRoleNames());
-        if(Auth::user()->getRoleNames() != 'Librarian'){
-        $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
-        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
-        {
-            $q->where('status_documents_id', '=', 1);
-            
-            if($subjects_mostrar){
-                $q->where('generate_subjects_id', '=', $request->get('subjects'));   
-            }
-            if($adaptations_mostrar){
-                $q->where('adequacies_id', '=', $request->get('adaptations'));   
-            }
-        })
-        ->where(function($q) use($genders_mostrar, $request)
-        {
-            // dd($genders_mostrar);
-            if($genders_mostrar){
-                $q->where('generate_books_id', '=', $request->get('genders'));   
-            } 
-        })
-        // $multa_economica['unit'] ? $multa_economica['unit'] : null
-        ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
-        {
-            if($references_mostrar){
-                $q->where('generate_reference_id', '=', $request->get('references'));   
-            }
-        })
+        if(Auth::user()->getRoleNames() == 'Partner'){
 
-        // ->allowed()
-        ->get();
+            $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            {
+                $q->where('status_documents_id', '=', 1);            
+                if($subjects_mostrar){
+                    $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+                }
+                if($adaptations_mostrar){
+                    $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+            })
+            ->where(function($q) use($genders_mostrar, $request)
+            {            
+                if($genders_mostrar){
+                    $q->where('generate_books_id', '=', $request->get('genders'));   
+                } 
+            })
+   
+            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            {
+                if($references_mostrar){
+                    $q->where('generate_reference_id', '=', $request->get('references'));   
+                }
+            })
+            ->get();
         
         }else{
 
             $libros = Book::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_book') 
             ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
-        {
-        
-            if($subjects_mostrar){
-                $q->where('generate_subjects_id', '=', $request->get('subjects'));   
-            }
-            if($adaptations_mostrar){
-                $q->where('adequacies_id', '=', $request->get('adaptations'));   
-            } 
-        })
-        ->where(function($q) use($genders_mostrar, $request)
-        {
-            // dd($genders_mostrar);
-            if($genders_mostrar){
-                $q->where('generate_books_id', '=', $request->get('genders'));   
-            } 
-        })
-        ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
-        {
-            if($references_mostrar){
-                $q->where('generate_reference_id', '=', $request->get('references'));   
-            }
-        })
-            // ->allowed()
-        ->get(); 
+            {        
+                if($subjects_mostrar){
+                    $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+                }
+                if($adaptations_mostrar){
+                    $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                } 
+            })
+            ->where(function($q) use($genders_mostrar, $request)
+            {
+                if($genders_mostrar){
+                    $q->where('generate_books_id', '=', $request->get('genders'));   
+                } 
+            })
+            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            {
+                if($references_mostrar){
+                    $q->where('generate_reference_id', '=', $request->get('references'));   
+                }
+            })        
+            ->get(); 
 
         }
-        // $documentos = DB::select('SELECT d.id, d.title, dt.document_description, ds.subtype_name, count(c.id) as copias 
-        // FROM books b 
-        // LEFT JOIN documents d ON b.documents_id = d.id
-        // LEFT JOIN document_types dt ON d.document_types_id = dt.id 
-        // LEFT JOIN document_subtypes ds ON d.document_subtypes_id = ds.id   
-        // GROUP BY d.id, d.title, dt.document_description, ds.subtype_name');
 
-        // dd($libros);       
         return dataTables::of($libros)
             ->addColumn('id_doc', function ($libros){
                 return $libros->document['id']."<br>";            

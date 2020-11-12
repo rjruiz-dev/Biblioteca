@@ -1,3 +1,6 @@
+<?php
+use App\Book;
+?>
 @extends('layouts.app')
 
 @section('header')    
@@ -14,11 +17,27 @@
 @stop
 
 @section('content')
-{{ Form::hidden('bande', $id,['id' => 'bande']) }} 
-<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
-    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Libros   
-            </h3>
+
+    <div class="panel panel-primary" style="border-color: {{ $setting->skin }};">        
+        <div class="panel-heading" style="background-color: {{ $setting->skin }};">
+            <div class="row">           
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => 'Elija Referencia', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuacion', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-2" style="margin-bottom:5px;">
+                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Genero', 'style' => 'width:100%;']) !!}   
+                </div>
+                <div  class="col-md-4" style="margin-bottom:5px;">
+                    <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
+                
+                </div>        
+            </div>
         </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
@@ -75,6 +94,9 @@
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     var fechaActual = day + '-' + month + '-' + year;
+    fill_datatable();
+
+    function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
 
         $('#datatable').DataTable({
             responsive: true,
@@ -125,7 +147,11 @@
                 }
                 
             ],             
-            ajax: "{{ route('libros.table') }}",        
+            ajax:{ 
+                url: "{{ route('libros.table') }}",        
+                data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
+                type: 'GET' 
+            },        
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},        
                 {data: 'documents_id', name: 'documents_id'},           
@@ -138,5 +164,27 @@
                 {data: 'accion', name: 'accion'}                          
             ]
         });
+    }
+
+    $('#filter').click(function(){
+        var references = '';
+        var subjects = ''; 
+        var adaptations = ''; 
+        var genders = '';  
+        references = $('#references').val();
+        subjects = $('#subjects').val(); 
+        adaptations = $('#adaptations').val(); 
+        genders = $('#genders').val(); 
+
+        if((references != '') || subjects != '' || adaptations != '' || genders != ''){
+            $('#datatable').DataTable().destroy();
+            fill_datatable(references, subjects, adaptations, genders);
+        }
+        else{
+            $('#datatable').DataTable().destroy();
+            fill_datatable(); 
+        }
+
+    });
     </script>
 @endpush
