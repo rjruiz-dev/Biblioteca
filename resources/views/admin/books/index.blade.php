@@ -100,8 +100,8 @@ use App\Book;
 
     function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
 
-// replicar esto FIN . ACLARACION: la liea de abajo q dice "var dataTable = $('#datatable').DataTable({"
-// originalmente esta asi: "$('#datatable').DataTable({", vas a tener q agregar el "var dataTable = ", adelante de "$('#datatable').DataTable({"
+        // replicar esto FIN . ACLARACION: la liea de abajo q dice "var dataTable = $('#datatable').DataTable({"
+        // originalmente esta asi: "$('#datatable').DataTable({", vas a tener q agregar el "var dataTable = ", adelante de "$('#datatable').DataTable({"
         var dataTable = $('#datatable').DataTable({
             responsive: true,
             processing: true,
@@ -157,8 +157,7 @@ use App\Book;
                 url: "{{ route('books.table') }}", 
                 data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
                 type: 'GET' 
-                },
-                               
+                },                   
             columns: [                
                 {data: 'id_doc', name: 'id_doc'},          
                 {data: 'documents_id', name: 'documents_id'},         
