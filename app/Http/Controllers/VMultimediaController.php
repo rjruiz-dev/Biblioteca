@@ -50,7 +50,7 @@ class VMultimediaController extends Controller
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
-            'genders'    => Multimedia::pluck('gender', 'id')
+            'genders'    => Multimedia::pluck('gender', 'gender')
         ]);        
         
     }
@@ -220,7 +220,7 @@ class VMultimediaController extends Controller
             {
                 // dd($genders_mostrar);
                 if($genders_mostrar){
-                    $q->where('generate_books_id', '=', $request->get('genders'));   
+                    $q->where('gender', '=', $request->get('genders'));   
                 } 
             })
             ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)

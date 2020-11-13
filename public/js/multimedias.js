@@ -89,6 +89,7 @@ $('body').on('click', '.modal-show', function (event) {
                 placeholder: 'Selecciona un Idioma'                                            
             });
 
+            
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;   
         }

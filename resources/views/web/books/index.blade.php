@@ -22,16 +22,16 @@ use App\Book;
         <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <div class="row">           
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => 'Elija Referencia', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuación', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Género', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
@@ -72,8 +72,8 @@ use App\Book;
 @endpush
 
 @push('scripts')  
+    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
     <script src="/adminlte/bower_components/ckeditor/ckeditor.js"></script>    
-    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
     <script src="/adminlte/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -89,14 +89,28 @@ use App\Book;
     <script src="{{ asset('js/book.js') }}"></script>
     
     <script>
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    var fechaActual = day + '-' + month + '-' + year;
-    fill_datatable();
 
-    function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
+        $('#references').select2({                
+            placeholder: 'Elija Referencia'                                            
+        });
+        $('#subjects').select2({                
+            placeholder: 'Elija Materia'                                            
+        });
+        $('#adaptations').select2({                
+            placeholder: 'Elija Adecuación'                                            
+        });
+        $('#genders').select2({                
+            placeholder: 'Elija Género'                                            
+        });
+
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        var fechaActual = day + '-' + month + '-' + year;
+        fill_datatable();
+
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
 
         $('#datatable').DataTable({
             responsive: true,

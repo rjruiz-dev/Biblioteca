@@ -21,16 +21,16 @@ use App\Photography;
         <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <div class="row">           
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => 'Elija Referencia', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuación', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Género', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
@@ -62,12 +62,14 @@ use App\Photography;
 
 @include('web.photographs.partials._modal')
 
-@push('styles')  
+@push('styles')   
+    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">    
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">    
 @endpush
 
 @push('scripts')   
+    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 
     <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
@@ -81,14 +83,26 @@ use App\Photography;
     <script src="{{ asset('js/photographs.js') }}"></script>
     
     <script>
-      let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    var fechaActual = day + '-' + month + '-' + year;
-    fill_datatable();
+        $('#references').select2({                
+            placeholder: 'Elija Referencia'                                            
+        });
+        $('#subjects').select2({                
+            placeholder: 'Elija Materia'                                            
+        });
+        $('#adaptations').select2({                
+            placeholder: 'Elija Adecuación'                                            
+        });
+        $('#genders').select2({                
+            placeholder: 'Elija Género'                                            
+        });
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        var fechaActual = day + '-' + month + '-' + year;
+        fill_datatable();
 
-    function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
 
 
         $('#datatable').DataTable({
