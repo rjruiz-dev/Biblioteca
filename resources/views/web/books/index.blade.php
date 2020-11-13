@@ -28,10 +28,10 @@ use App\Book;
                     {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuacion', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuación', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Genero', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Género', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>

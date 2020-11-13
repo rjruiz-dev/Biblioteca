@@ -87,9 +87,9 @@ class VBooksController extends Controller
             'idioma_book'=> $idioma_book,
             'setting'    => $setting,            
             'references' => Generate_reference::pluck('reference_description', 'id'),
-            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
-            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
-            'genders'       => Generate_book::pluck('genre_book', 'id')
+            'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
+            'genders'    => Generate_book::pluck('genre_book', 'id')
              
         ]); 
     }

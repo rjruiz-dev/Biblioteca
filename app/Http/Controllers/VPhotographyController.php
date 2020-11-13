@@ -47,9 +47,13 @@ class VPhotographyController extends Controller
         $setting    = Setting::where('id', 1)->first();  
 
         return view('web.photographs.index', [
-            'idioma'    => $idioma,
-            'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'idioma'     => $idioma,
+            'idiomas'    => $idiomas,
+            'setting'    => $setting,
+            'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
+            'genders'    => Generate_format::pluck('genre_format', 'id')
         ]);         
     }
 
@@ -167,21 +171,68 @@ class VPhotographyController extends Controller
         //
     }
 
-    public function dataTable()
-    {   
-        // $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.lenguage','generate_format','document.status_document') 
+    public function dataTable(Request $request)
+    {
+        // $photograph = Photography::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_format','document.status_document') 
+        // ->whereHas('document', function($q)
+        // {
+           
+        //     $q->where('status_documents_id', '=', 1);
+        // })
+       
         // ->get();
 
-        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_format','document.status_document') 
-        ->whereHas('document', function($q)
-        {
-            // $q->where(function ($query) {
-            //     $query->where('status_documents_id', '=', 1);
-            // });
-            $q->where('status_documents_id', '=', 1);
-        })
-        // ->allowed()
-        ->get();
+        if($request->get('subjects') != ''){
+            $subjects_mostrar = true; 
+        }else{
+            $subjects_mostrar = false;      
+        }
+
+        if($request->get('adaptations') != ''){
+            $adaptations_mostrar = true; 
+        }else{
+            $adaptations_mostrar = false;      
+        }
+    
+        if($request->get('genders') != ''){
+            $genders_mostrar = true; 
+        }else{
+            $genders_mostrar = false;      
+        }
+
+        if($request->get('references') != ''){
+            $references_mostrar = true; 
+        }else{
+            $references_mostrar = false;      
+        }
+        
+        // $photograph = Photography::with('document.creator', 'document.document_subtype', 'document', 'document.lenguage','generate_format','document.status_document') 
+        $photograph = Photography::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_format','document.status_document') 
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            {
+                $q->where('status_documents_id', '=', 1);
+            
+                if($subjects_mostrar){
+                    $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+                }
+                if($adaptations_mostrar){
+                    $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                } 
+            })    
+            ->where(function($q) use($genders_mostrar, $request)
+            {
+                // dd($genders_mostrar);
+                if($genders_mostrar){
+                    $q->where('generate_formats_id', '=', $request->get('genders'));   
+                } 
+            })
+            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            {
+                if($references_mostrar){
+                    $q->where('generate_reference_id', '=', $request->get('references'));   
+                }
+            })            
+            ->get(); 
        
         return dataTables::of($photograph)
             ->addColumn('id_doc', function ($photograph){
