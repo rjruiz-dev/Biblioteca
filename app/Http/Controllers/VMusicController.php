@@ -204,6 +204,7 @@ class VMusicController extends Controller
         }else{
             $references_mostrar = false;      
         }
+        // dd($references_mostrar);
                  
         $musica = Music::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_music', 'document.status_document') 
             ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
@@ -229,7 +230,16 @@ class VMusicController extends Controller
                 if($references_mostrar){
                     $q->where('generate_reference_id', '=', $request->get('references'));   
                 }
-            })            
+            })   
+            // ->where(function($q) use($references_mostrar, $request)
+            // {
+            //     $q->whereHas('document.references', function($q) use($references_mostrar, $request)
+            //     {
+            //         if($references_mostrar){
+            //             $q->where('generate_reference_id', '=', $request->get('references'));   
+            //         }
+            //     });
+            // })         
             ->get(); 
     
         

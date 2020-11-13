@@ -70,7 +70,14 @@ class MoviesController extends Controller
             'idioma_document'   => $idioma_document,
             'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
-            'setting'           => $setting
+            'setting'           => $setting,
+
+             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+             'references' => Generate_reference::pluck('reference_description', 'id'),
+             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+             'genders'    => Generate_film::pluck('genre_film', 'id')
+             // replicar esto FIN 
         ]); 
     }
 
@@ -656,23 +663,85 @@ class MoviesController extends Controller
     }
     
 
-    public function dataTable()
+    public function dataTable(Request $request)
     {   
-        if(Auth::user()->getRoleNames() != 'Librarian'){
+        if($request->get('subjects') != ''){
+            $subjects_mostrar = true; 
+        }else{
+            $subjects_mostrar = false;      
+        }
+
+        if($request->get('adaptations') != ''){
+            $adaptations_mostrar = true; 
+        }else{
+            $adaptations_mostrar = false;      
+        }
+
+        if($request->get('genders') != ''){
+            $genders_mostrar = true; 
+        }else{
+            $genders_mostrar = false;      
+        }
+
+        if($request->get('references') != ''){
+            $references_mostrar = true; 
+        }else{
+            $references_mostrar = false;      
+        }
+
+        if(Auth::user()->getRoleNames() == 'Partner'){
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
-        ->whereHas('document', function($q)
-        {
-            // $q->where(function ($query) {
-            //     $query->where('status_documents_id', '=', 1);
-            // });
-            $q->where('status_documents_id', '=', 1);
-        })
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            {
+                $q->where('status_documents_id', '=', 1);            
+                
+                if($subjects_mostrar){
+                    $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+                }
+                if($adaptations_mostrar){
+                    $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+            })
+            ->where(function($q) use($genders_mostrar, $request)
+            {            
+                if($genders_mostrar){
+                    $q->where('generate_films_id', '=', $request->get('genders'));   
+                } 
+            })
+            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            {
+                if($references_mostrar){
+                    $q->where('generate_reference_id', '=', $request->get('references'));   
+                }
+            })
         // ->allowed()
         ->get();
         }else{
             $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
-            // ->allowed()
-            ->get();
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            {
+                
+                if($subjects_mostrar){
+                    $q->where('generate_subjects_id', '=', $request->get('subjects'));   
+                }
+                if($adaptations_mostrar){
+                    $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+            })
+            ->where(function($q) use($genders_mostrar, $request)
+            {            
+                if($genders_mostrar){
+                    $q->where('generate_films_id', '=', $request->get('genders'));   
+                } 
+            })
+            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            {
+                if($references_mostrar){
+                    $q->where('generate_reference_id', '=', $request->get('references'));   
+                }
+            })
+        // ->allowed()
+        ->get();
         }
         return dataTables::of($movie)
             ->addColumn('id_doc', function ($movie){
