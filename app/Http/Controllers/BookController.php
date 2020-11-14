@@ -945,7 +945,7 @@ class BookController extends Controller
                     $q->where('generate_books_id', '=', $request->get('genders'));   
                 } 
             })
-            ->whereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
+            ->WhereHas( $references_mostrar ? 'document.references' : 'document' , function($q) use($references_mostrar, $request)
             {
                 if($references_mostrar){
                     $q->where('generate_reference_id', '=', $request->get('references'));   

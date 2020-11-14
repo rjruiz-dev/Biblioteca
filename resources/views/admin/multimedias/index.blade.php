@@ -85,105 +85,115 @@ use App\Multimedia;
     <script src="{{ asset('js/multimedias.js') }}"></script>
     
     <script>
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    var fechaActual = day + '-' + month + '-' + year;
-
-      // replicar esto INICIO 
-      fill_datatable();
-
-function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
-
-    // replicar esto FIN . ACLARACION: la liea de abajo q dice "var dataTable = $('#datatable').DataTable({"
-    // originalmente esta asi: "$('#datatable').DataTable({", vas a tener q agregar el "var dataTable = ", adelante de "$('#datatable').DataTable({"
-
-        var dataTable = $('#datatable').DataTable({
-            responsive: true,
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            columnDefs: [
-                { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 10001, targets: 4 },
-                { responsivePriority: -1, targets: -1 }
-            ],
-            order: [ [0, 'desc'] ],     
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0,1,3,4]
-                    }
-                },
-                // {
-                //     extend: 'csv',
-                //     exportOptions: {
-                //         columns: [0,1,2,3,4]
-                //     }
-                // },
-                {
-                    extend: 'excel',
-                    title: 'informe-multimedias-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,3,4]
-                    }
-                },
-                // {
-                //     extend: 'pdf',
-                //     title: 'informe-multimedias-'+ fechaActual,
-                //     exportOptions: {
-                        // stripHtml: false,
-                //         columns: [0,1,2,3,4]
-                //     }
-                // },
-                {
-                    extend: 'print',
-                    title: 'informe-multimedias-'+ fechaActual,
-                    exportOptions: {
-                        stripHtml: false,
-                        columns: [0,1,2,3,4]
-                    }
-                }
-                
-            ],             
-            ajax: "{{ route('multimedias.table') }}",        
-            columns: [                
-                {data: 'id_doc', name: 'id_doc'},                                            
-                {data: 'documents_id', name: 'documents_id'},  
-                {data: 'photo', name: 'photo'},  
-                {data: 'status', name: 'status'},           
-                {data: 'created_at', name: 'agregado'},                  
-                {data: 'accion', name: 'accion'}                          
-            ]
+        $('#references').select2({                
+            placeholder: 'Elija Referencia',
+            allowClear: true                                                      
         });
+        $('#subjects').select2({                
+            placeholder: 'Elija Materia',
+            allowClear: true                                                      
+        });
+        $('#adaptations').select2({                
+            placeholder: 'Elija Adecuación',
+            allowClear: true                                                      
+        });
+        $('#genders').select2({                
+            placeholder: 'Elija Género',
+            allowClear: true                                                      
+        });
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        var fechaActual = day + '-' + month + '-' + year;
 
-    }
+     
+        fill_datatable();
 
-$('#filter').click(function(){
-    var references = '';
-    var subjects = ''; 
-    var adaptations = ''; 
-    var genders = '';  
-    references = $('#references').val();
-    subjects = $('#subjects').val(); 
-    adaptations = $('#adaptations').val(); 
-    genders = $('#genders').val(); 
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){   
 
-    if((references != '') || subjects != '' || adaptations != '' || genders != ''){
-        $('#datatable').DataTable().destroy();
-        fill_datatable(references, subjects, adaptations, genders);
-    }
-    else{
-        $('#datatable').DataTable().destroy();
-        fill_datatable(); 
-    }
+            var dataTable = $('#datatable').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 10001, targets: 4 },
+                    { responsivePriority: -1, targets: -1 }
+                ],
+                order: [ [0, 'desc'] ],     
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: [0,1,3,4]
+                        }
+                    },
+                    // {
+                    //     extend: 'csv',
+                    //     exportOptions: {
+                    //         columns: [0,1,2,3,4]
+                    //     }
+                    // },
+                    {
+                        extend: 'excel',
+                        title: 'informe-multimedias-'+ fechaActual,
+                        exportOptions: {
+                            columns: [0,1,3,4]
+                        }
+                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'informe-multimedias-'+ fechaActual,
+                    //     exportOptions: {
+                            // stripHtml: false,
+                    //         columns: [0,1,2,3,4]
+                    //     }
+                    // },
+                    {
+                        extend: 'print',
+                        title: 'informe-multimedias-'+ fechaActual,
+                        exportOptions: {
+                            stripHtml: false,
+                            columns: [0,1,2,3,4]
+                        }
+                    }
+                    
+                ],             
+                ajax: "{{ route('multimedias.table') }}",        
+                columns: [                
+                    {data: 'id_doc', name: 'id_doc'},                                            
+                    {data: 'documents_id', name: 'documents_id'},  
+                    {data: 'photo', name: 'photo'},  
+                    {data: 'status', name: 'status'},           
+                    {data: 'created_at', name: 'agregado'},                  
+                    {data: 'accion', name: 'accion'}                          
+                ]
+            });
 
-});
+        }
 
+        $('#filter').click(function(){
+        var references = '';
+        var subjects = ''; 
+        var adaptations = ''; 
+        var genders = '';  
+        references = $('#references').val();
+        subjects = $('#subjects').val(); 
+        adaptations = $('#adaptations').val(); 
+        genders = $('#genders').val(); 
 
-        
+        if((references != '') || subjects != '' || adaptations != '' || genders != ''){
+            $('#datatable').DataTable().destroy();
+            fill_datatable(references, subjects, adaptations, genders);
+        }
+        else{
+            $('#datatable').DataTable().destroy();
+            fill_datatable(); 
+        }
+
+    });
     </script>
 @endpush

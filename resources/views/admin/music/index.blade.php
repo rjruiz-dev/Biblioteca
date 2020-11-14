@@ -88,19 +88,34 @@ use App\Music;
     <script src="{{ asset('js/music.js') }}"></script>
     
     <script>
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    var fechaActual = day + '-' + month + '-' + year;
-    // replicar esto INICIO 
-    fill_datatable();
+        $('#references').select2({                
+            placeholder: 'Elija Referencia',
+            allowClear: true                                                      
+        });
+        $('#subjects').select2({                
+            placeholder: 'Elija Materia',
+            allowClear: true                                                      
+        });
+        $('#adaptations').select2({                
+            placeholder: 'Elija Adecuación',
+            allowClear: true                                                      
+        });
+        $('#genders').select2({                
+            placeholder: 'Elija Género',
+            allowClear: true                                                      
+        });
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        var fechaActual = day + '-' + month + '-' + year;
+    
+        fill_datatable();
 
-    function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
 
-    // replicar esto FIN . ACLARACION: la liea de abajo q dice "var dataTable = $('#datatable').DataTable({"
-    // originalmente esta asi: "$('#datatable').DataTable({", vas a tener q agregar el "var dataTable = ", adelante de "$('#datatable').DataTable({"
-    var dataTable = $('#datatable').DataTable({
+  
+        var dataTable = $('#datatable').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
@@ -169,26 +184,25 @@ use App\Music;
         });
     }
 
-$('#filter').click(function(){
-    var references = '';
-    var subjects = ''; 
-    var adaptations = ''; 
-    var genders = '';  
-    references = $('#references').val();
-    subjects = $('#subjects').val(); 
-    adaptations = $('#adaptations').val(); 
-    genders = $('#genders').val(); 
+    $('#filter').click(function(){
+        var references = '';
+        var subjects = ''; 
+        var adaptations = ''; 
+        var genders = '';  
+        references = $('#references').val();
+        subjects = $('#subjects').val(); 
+        adaptations = $('#adaptations').val(); 
+        genders = $('#genders').val(); 
 
-    if((references != '') || subjects != '' || adaptations != '' || genders != ''){
-        $('#datatable').DataTable().destroy();
-        fill_datatable(references, subjects, adaptations, genders);
-    }
-    else{
-        $('#datatable').DataTable().destroy();
-        fill_datatable(); 
-    }
-
-});
+        if((references != '') || subjects != '' || adaptations != '' || genders != ''){
+            $('#datatable').DataTable().destroy();
+            fill_datatable(references, subjects, adaptations, genders);
+        }
+        else{
+            $('#datatable').DataTable().destroy();
+            fill_datatable(); 
+        }
+    });
         
     </script>
 @endpush

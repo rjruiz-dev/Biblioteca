@@ -84,16 +84,20 @@ use App\Photography;
     
     <script>
         $('#references').select2({                
-            placeholder: 'Elija Referencia'                                            
+            placeholder: 'Elija Referencia',
+            allowClear: true                                                     
         });
         $('#subjects').select2({                
-            placeholder: 'Elija Materia'                                            
+            placeholder: 'Elija Materia',
+            allowClear: true                                                      
         });
         $('#adaptations').select2({                
-            placeholder: 'Elija Adecuación'                                            
+            placeholder: 'Elija Adecuación',
+            allowClear: true                                                      
         });
         $('#genders').select2({                
-            placeholder: 'Elija Género'                                            
+            placeholder: 'Elija Género',
+            allowClear: true                                                      
         });
         let date = new Date();
         let day = date.getDate();

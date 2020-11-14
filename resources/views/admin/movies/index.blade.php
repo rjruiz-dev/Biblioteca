@@ -21,16 +21,16 @@ use App\Movies;
         <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <div class="row">           
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => 'Elija Referencia', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('references', $references, null, ['class' => 'form-control select2', 'id' => 'references', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => 'Elija Materia', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('subjects', $subjects, null, ['class' => 'form-control select2', 'id' => 'subjects', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => 'Elija Adecuacion', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('adaptations', $adaptations, null, ['class' => 'form-control select2', 'id' => 'adaptations', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Genero', 'style' => 'width:100%;']) !!}   
+                    {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
@@ -88,108 +88,122 @@ use App\Movies;
     <script src="{{ asset('js/movies.js') }}"></script>
     
     <script>
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    var fechaActual = day + '-' + month + '-' + year;
-
-     // replicar esto INICIO 
-     fill_datatable();
-
-function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
-
-// replicar esto FIN . ACLARACION: la liea de abajo q dice "var dataTable = $('#datatable').DataTable({"
-// originalmente esta asi: "$('#datatable').DataTable({", vas a tener q agregar el "var dataTable = ", adelante de "$('#datatable').DataTable({"
-    var dataTable = $('#datatable').DataTable({
-            responsive: true,
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            columnDefs: [
-                { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 10001, targets: 4 },
-                { responsivePriority: -1, targets: -1 }
-            ],
-            order: [ [0, 'desc'] ],     
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0,1,2,4,5,6,7]
-                    }
-                },
-                // {
-                //     extend: 'csv',
-                //     exportOptions: {
-                //         columns: [0,1,2,3,4,5,6,7]
-                //     }
-                // },
-                {
-                    extend: 'excel',
-                    title: 'informe-cines-'+ fechaActual,
-                    exportOptions: {
-                        columns: [0,1,2,4,5,6,7]
-                    }
-                },
-                // {
-                //     extend: 'pdf',
-                //     title: 'informe-cines-'+ fechaActual,
-                //     exportOptions: {
-                        // stripHtml: false,
-                //         columns: [0,1,2,3,4,5,6,7]
-                //     }
-                // },
-                {
-                    extend: 'print',
-                    title: 'informe-cines-'+ fechaActual,
-                    exportOptions: {
-                        stripHtml: false,
-                        columns: [0,1,2,3,4,5,6,7]
-                    }
-                }
-                
-            ],             
-            ajax:{ 
-                url: "{{ route('movies.table') }}", 
-                data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
-                type: 'GET' 
-                },        
-            columns: [                
-                {data: 'id_doc', name: 'id_doc'},                                                   
-                {data: 'documents_id', name: 'documents_id'}, 
-                {data: 'generate_films_id', name: 'generate_films_id'}, 
-                {data: 'photo', name: 'photo'}, 
-                {data: 'generate_formats_id', name: 'generate_formats_id'}, 
-                {data: 'lenguages_id', name: 'lenguages_id'},
-                {data: 'status', name: 'status'},             
-                {data: 'created_at', name: 'agregado'},                  
-                {data: 'accion', name: 'accion'}                          
-            ]
+        $('#references').select2({                
+            placeholder: 'Elija Referencia',
+            allowClear: true                                                      
         });
-}
+        $('#subjects').select2({                
+            placeholder: 'Elija Materia',
+            allowClear: true                                                      
+        });
+        $('#adaptations').select2({                
+            placeholder: 'Elija Adecuación',
+            allowClear: true                                                      
+        });
+        $('#genders').select2({                
+            placeholder: 'Elija Género',
+            allowClear: true                                                      
+        });
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        var fechaActual = day + '-' + month + '-' + year;
 
-$('#filter').click(function(){
-        var references = '';
-        var subjects = ''; 
-        var adaptations = ''; 
-        var genders = '';  
-        references = $('#references').val();
-        subjects = $('#subjects').val(); 
-        adaptations = $('#adaptations').val(); 
-        genders = $('#genders').val(); 
+    
+        fill_datatable();
 
-        if((references != '') || subjects != '' || adaptations != '' || genders != ''){
-            $('#datatable').DataTable().destroy();
-            fill_datatable(references, subjects, adaptations, genders);
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
+
+            var dataTable = $('#datatable').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 10001, targets: 4 },
+                    { responsivePriority: -1, targets: -1 }
+                ],
+                order: [ [0, 'desc'] ],     
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: [0,1,2,4,5,6,7]
+                        }
+                    },
+                    // {
+                    //     extend: 'csv',
+                    //     exportOptions: {
+                    //         columns: [0,1,2,3,4,5,6,7]
+                    //     }
+                    // },
+                    {
+                        extend: 'excel',
+                        title: 'informe-cines-'+ fechaActual,
+                        exportOptions: {
+                            columns: [0,1,2,4,5,6,7]
+                        }
+                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'informe-cines-'+ fechaActual,
+                    //     exportOptions: {
+                            // stripHtml: false,
+                    //         columns: [0,1,2,3,4,5,6,7]
+                    //     }
+                    // },
+                    {
+                        extend: 'print',
+                        title: 'informe-cines-'+ fechaActual,
+                        exportOptions: {
+                            stripHtml: false,
+                            columns: [0,1,2,3,4,5,6,7]
+                        }
+                    }
+                    
+                ],             
+                ajax:{ 
+                    url: "{{ route('movies.table') }}", 
+                    data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
+                    type: 'GET' 
+                    },        
+                columns: [                
+                    {data: 'id_doc', name: 'id_doc'},                                                   
+                    {data: 'documents_id', name: 'documents_id'}, 
+                    {data: 'generate_films_id', name: 'generate_films_id'}, 
+                    {data: 'photo', name: 'photo'}, 
+                    {data: 'generate_formats_id', name: 'generate_formats_id'}, 
+                    {data: 'lenguages_id', name: 'lenguages_id'},
+                    {data: 'status', name: 'status'},             
+                    {data: 'created_at', name: 'agregado'},                  
+                    {data: 'accion', name: 'accion'}                          
+                ]
+            });
         }
-        else{
-            $('#datatable').DataTable().destroy();
-            fill_datatable(); 
-        }
 
-    });
+        $('#filter').click(function(){
+            var references = '';
+            var subjects = ''; 
+            var adaptations = ''; 
+            var genders = '';  
+            references = $('#references').val();
+            subjects = $('#subjects').val(); 
+            adaptations = $('#adaptations').val(); 
+            genders = $('#genders').val(); 
+
+            if((references != '') || subjects != '' || adaptations != '' || genders != ''){
+                $('#datatable').DataTable().destroy();
+                fill_datatable(references, subjects, adaptations, genders);
+            }
+            else{
+                $('#datatable').DataTable().destroy();
+                fill_datatable(); 
+            }
+
+        });
         
     </script>
 @endpush
