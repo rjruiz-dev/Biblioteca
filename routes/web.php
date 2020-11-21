@@ -193,8 +193,8 @@ Route::get('genericcopies/table/{id}',  'GenericCopiesController@dataTable')->na
 Route::get('loansbydate/table',         'LoansbydateController@dataTable')->name('loansbydate.table');
 Route::get('loansbyclassroom/table',    'LoansbyclassroomController@dataTable')->name('loansbyclassroom.table');
 Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->name('infoofdatabase.table');
+Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')->name('importfromrebeca.table');
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
-
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 
 

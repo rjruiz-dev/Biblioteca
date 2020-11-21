@@ -33,6 +33,10 @@
                 <div class="modal-footer" id="modal-footer">                  
                     <button type="submit" class="btn btn-primary" id="modal-btn-save-importar">Importar</button>
                 </div> 
+
+                <div class="modal-footer" id="modal-footer">
+                    <a href="{{ route('admin.importfromrebeca.index') }}"><i class="fa fa-user-plus"></i> Index Rebeca</a>     
+                </div> 
                 {!! Form::close() !!}                                 
             </div>
         </div>

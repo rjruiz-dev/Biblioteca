@@ -24,10 +24,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                    <th>ID</th>
+                        <th>ID</th>
                         <th>Titulo</th> 
                         <th>Tipo Documento</th>                         
-                        <th>Sub Tipo Documento</th>                        
+                        <th>SubTipo Documento</th>                        
                         <th>Agregado</th>                                
                         <th>Acciones</th>
                     </tr>
@@ -40,7 +40,7 @@
     </div> 
 @stop
 
-@include('admin.loanmanual.partials._modal')
+@include('admin.importfromrebeca.partials._modal')
 
 @push('styles')
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
@@ -82,41 +82,41 @@
                 {
                     extend: 'copy',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
-                    }
-                },
+                // {
+                //     extend: 'csv',
+                //     exportOptions: {
+                //         columns: [0,1,2,3,4,5]
+                //     }
+                // },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 },
                 // {
                 //     extend: 'pdf',
                 //     exportOptions: {
-                //         columns: [0,1,2,3,4,5,6]
+                //         columns: [0,1,2,3,4,5]
                 //     }
                 // },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5]
                     }
                 }
                 
             ],             
-            ajax: "{{ route('loanmanual.table') }}",        
+            ajax: "{{ route('importfromrebeca.table') }}",        
             columns: [                
                 {data: 'id', name: 'id'},
                 {data: 'title', name: 'title'},               
-                {data: 'tipo_documento', name: 'tipo_documento'}, 
-                {data: 'sub_tipo_documento', name: 'sub_tipo_documento'}, 
+                {data: 'document_types_id', name: 'document_types_id'}, 
+                {data: 'document_subtypes_id', name: 'document_subtypes_id'}, 
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                         
             ]

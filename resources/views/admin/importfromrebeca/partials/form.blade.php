@@ -1,18 +1,10 @@
 <div class="row">
-{!! Form::model($book, [
-    'route' => $book->exists ? ['admin.books.update', $book->id] : 'admin.books.store',   
-    'method' => $book->exists ? 'PUT' : 'POST'
+
+{!! Form::model($documentos, [
+    'route' => $documentos->exists ? ['admin.importfromrebeca.update', $documentos->id] : 'admin.importfromrebeca.store',   
+    'method' => $documentos->exists ? 'PUT' : 'POST'
 ]) !!}
 
-    @if (!$book->exists)
-        @php 
-            $visible = "display:none"
-        @endphp
-    @else
-        @php  
-            $visible = ""
-        @endphp
-    @endif       
 
     <div class="col-md-6">
         <div class="box box-primary">
