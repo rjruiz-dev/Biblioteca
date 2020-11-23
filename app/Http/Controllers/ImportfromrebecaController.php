@@ -446,7 +446,9 @@ class ImportfromrebecaController extends Controller
           ->addColumn('accion', function ($documentos) {
               return view('admin.importfromrebeca.partials._action', [
                   'documentos' => $documentos,                                 
-                  'url_edit' => route('admin.importfromrebeca.edit', $documentos->id),                              
+                  'url_edit'      => route('admin.importfromrebeca.edit', $documentos->id),  
+                  'url_baja'      => route('importfromrebeca.baja', $documentos->id),
+                  'url_reactivar' => route('importfromrebeca.reactivar', $documentos->id),                            
                 
               ]);
           })           

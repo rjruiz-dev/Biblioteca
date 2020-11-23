@@ -120,6 +120,10 @@ function(){
     Route::get('/newcopies/{id}',                               'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
     Route::get('loanmanual/abm_prestamo/{id}/{bandera}/{n_mov}','LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
     
+   //rebeca
+    Route::delete('importfromrebeca/baja/{id}',       'ImportfromrebecaController@baja')->name('importfromrebeca.baja');    
+    Route::delete('importfromrebeca/reactivar/{id}',  'ImportfromrebecaController@reactivar')->name('importfromrebeca.reactivar');
+
     //cine    
     Route::delete('movies/desidherata/{id}',    'MoviesController@desidherata')->name('movies.desidherata');
     Route::delete('movies/baja/{id}',           'MoviesController@baja')->name('movies.baja');    
@@ -196,6 +200,7 @@ Route::get('infoofdatabase/table',      'infoofdatabaseController@dataTable')->n
 Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')->name('importfromrebeca.table');
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
+Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
 
 
 // Route::get('home', function () {

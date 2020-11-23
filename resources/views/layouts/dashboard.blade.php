@@ -107,10 +107,35 @@
 
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-        <h3 class="panel-title">Prestamos recientes</h3>
+        <h3 class="panel-title">Ultimos 5 Prestamos</h3>
     </div>
     <div class="panel-body">
         <table id="datatable" class="table table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>                     
+                    <th>Perfil</th>       
+                    <th>Nombre</th>                                           
+                    <th>Email</th>
+                    <th>Título</th>  
+                    <th>Fecha de Devolución</th>   
+                    <th>N° de Ejemplar</th>
+                    <th>Cant de Prestamos</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>                
+        </table>
+    </div>
+</div> 
+
+<div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
+    <div class="panel-heading" style="background-color: {{ $setting->skin }};">
+        <h3 class="panel-title">Prestamos vencidos</h3>
+    </div>
+    <div class="panel-body">
+        <table id="datatable1" class="table table-hover" style="width:100%">
             <thead>
                 <tr>
                     <th>ID</th>                     
@@ -204,5 +229,58 @@
                 {data: 'prestamos', name: 'prestamos'},                                
             ]
         });
+
+       
+
+        $('#datatable1').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            columnDefs: [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 10001, targets: 4 },
+                { responsivePriority: -1, targets: -1 }
+            ],
+            order: [ [0, 'desc'] ],           
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
+                    }
+                },               
+                {
+                    extend: 'excel',
+                    title: 'informe-usuarios-'+ fechaActual,
+                    exportOptions: {                       
+                        columns: [0,1,2,4,5,6,7]
+                    }
+                },              
+                {
+                    extend: 'print',
+                    title: 'informe-usuarios-'+ fechaActual,
+                    exportOptions: {
+                        stripHtml: false,
+                        columns: [0,1,2,3,4,5,6,7]
+                    }
+                }
+                
+            ],             
+            ajax: "{{ route('overdueloan.table') }}",            
+            columns: [                
+                {data: 'id', name: 'id'},
+                {data: 'user_photo', name: 'user_photo'},                
+                {data: 'name', name: 'name'},               
+                {data: 'email', name: 'email'}, 
+                {data: 'title', name: 'title'},
+                {data: 'date_until', name: 'date_until'},   
+                {data: 'registry_number', name: 'registry_number'},                 
+                {data: 'prestamos', name: 'prestamos'},                                
+            ]
+        });
     </script>
+
 @endpush
