@@ -82,14 +82,173 @@ class ImportfromrebecaController extends Controller
                 $document_types_id     = $request->get('document_types_id'); 
                 
 
+                if ($request->hasFile('rebeca')) { // verifico si hay un archivo subido.               
 
+                    // lo guardo en carpeta rebeca para luego poder leerlo.
                     $file = $request->file('rebeca');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/rebeca/', $name);                                 
+                    
+                    // $fp = fopen(asset('rebeca/'.$name), "r");
+                    //         $unica_linea = fgets($fp);
+                    // dd($unica_linea);
+                    // esto de arriba tiraba error asi que descartado.                   
+                    
+                    //  $contents = mb_convert_encoding(File::get(public_path().'/rebeca/'.$name), 'UTF-8');
+                    // eso te trae el archivo con los identificadores de salto de linea y todo pero no lee bien 
+                    // los acentos y esas cosas y les pone ?. no serviria de mucho. lo que si no te pone la b
+                    // al principio como el de abajo q si o si para sacarla tenes q encodearlo.
 
+                     $contents = File::get(public_path().'/rebeca/'.$name);
+                     //esta linea de arriba lo UNICO  que hace es leer el archivo TXT.
+                     $contents = utf8_encode($contents); 
+                     // la primer linea de este bloque te lee tal cual el archivo pero te agrega un "b" arriba
+                     // que no se sabe a q sera. encodeandolo con la 2da linea lo saca y el resto del archivo
+                     // a simple vista es el mismo asi que como para sacar esa "b" se encodea con la 2da linea
 
+                    // $contents = preg_replace('/[[:cntrl:]]/', '', $contents);
+                    // esto te saca los indefiticadores de saltos de linea espacios, etc. y te deja el archivo todo
+                    // seguido y los unicos saltos de linea q se hacen es por el salto de linea propio q tiene el
+                    // espacio donde se muestran en este caso que lo vemos en el inspector de google.
 
+                    //  dd($contents);
+                      
+                    $separador = "-------------------------------------------------------------------------------";
+
+                     $documentos = explode($separador, $contents);
+                    //  dd($documentos);
+                    
+
+                      foreach($documentos as $documento){
+                    // -----------------------------AUTORES--------------------------------------
+                        $titulo = null;
+                        if (strpos($documento, 'Título: ') !== false) {
+                                 $titulo_del_com = str_after($documento, 'Título: ');
+
+                                 if (strpos($titulo_del_com, ' / ') !== false) {
+                                 $titulo_del_fin = trim(str_before($titulo_del_com, ' / '));
+                                 if($titulo_del_fin != ''){
+                                    $titulo = $titulo_del_fin;
+                                 }
+                                 }
+                        }
+                    //  LISTO
+                    // -----------------------------AUTORES-------------------------------------- 
+                                 $autor_del_com = null;
+                                 if (strpos($documento, ' / ') !== false) {
+                                 $autor_del_com = str_after($documento, ' / ');
+                                 $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
+                                 $autores_linea_completa = reset($arreglo_autor_salto_linea);
+                                 // a "Y" no se le hace un remplace xq si o si tiene q ir entre espacios, sino 
+                                 //se toma como palabra comun de otra palabra.
+                                 $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
+                                 $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
+                                 $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
+                                
                                 }
+                        //  LISTO
+                        // -----------------------------EDITORIAL-------------------------------------- 
+                       $editorial = null;
+                       if (strpos($documento, 'Editorial:') !== false) {
+                                 $editorial_del_com = str_after($documento, 'Editorial:');
+                                 $arreglo_editorial_salto_linea = explode("\n", $editorial_del_com);
+                                // dd(reset($arreglo_editorial_salto_linea)); 
+                                if(trim(reset($arreglo_editorial_salto_linea) != '')){
+                                $editorial = trim(reset($arreglo_editorial_salto_linea));
                                 }
                             }
+                       //  LISTO
+                       // -----------------------------DESCRIP FISICA BOOK-------------------------------------- 
+                       $quantity = null;
+                       if (strpos($documento, 'Descripción física:') !== false) {
+                                  $quantity_del_com = str_after($documento, 'Descripción física:');
+                                  $arreglo_quantity_salto_linea = explode("\n", $quantity_del_com); 
+                                  $quantity_del_fin = trim(str_before(reset($arreglo_quantity_salto_linea), ' ; '));
+                                  if($quantity_del_fin != ''){
+                                  $quantity = $quantity_del_fin;
+                                  }
+
+                       $size  = null;    
+                        $aux_size  =  trim(str_after(reset($arreglo_quantity_salto_linea), ' ; '));
+                                        if($aux_size != ''){
+                                            $size = $aux_size;                  
+                                        }
+                        }       
+                      // -----------------------------DESCRIP FISICA CINE-------------------------------------- 
+                    //    $quantity_cine = null;
+                    //               $quantity_cine_del_com = str_after($documento, 'Descripción física:');
+                    //               $arreglo_quantity_cine_salto_linea = explode("\n", $quantity_cine_del_com); 
+                    //               $quantity_cine_del_fin = str_before(reset($arreglo_quantity_cine_salto_linea), ',');
+                    //    $quantity_cine = $quantity_cine_del_fin;       
+                       //REEVER
+                       //------------------------------------------NOTAS-----------------------------------------------------------------------------------------
+                       $notas = null;
+                                  //DIRECTAMENTE QUEDO EN ESTAS 2 LINEA DE CODIGO PORQUE SIEMPRE SE CUMPLE QUE 
+                                  //HAY UNA LINEA VACIA ENTRE LA TERMINACION DE LA NOTA Y LOS DELIMITADORES 
+                                  //SIGUENTES.
+                                  if (strpos($documento, 'Notas:') !== false) {
+                                  $notas_del_com = str_after($documento, 'Notas:');
+                                  $notas_del_fin = trim(str_before($notas_del_com,"\t\r\n"));
+                                  if($notas_del_fin != ''){
+                                    if (strpos($notas_del_fin, 'Sinopsis:') !== false) {
+                                    $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
+                                    }
+                                    $notas = $notas_aux;
+                                  } 
+                                  }
+                                  //-----LOGICA NO UTILIZADA PERO DE DEJA POR SI SE NECESITA PARA OTRO DELIMITADOR                                  
+                                //   $notas_del_com = str_after($documento, 'Notas:');
+                                //   $arreglo_notas_salto_linea = explode("\n", $notas_del_com); 
+                                //   $entrar = true;
+                                //   foreach($arreglo_notas_salto_linea as $arre){
+                                //     if($entrar){
+                                //             if(substr($arre,-2, 1) == '.'){
+                                //                 $entrar = false;  
+                                //                 $notas_del_fin_obt = $arre;
+                                //             }
+                                //         }
+                                //     }
+                                    // if($entrar){ // SI ENTRA ACA ES PORQUE NO ENCONTRO PUNTO Y APARTE Y DIRECTAMENTE TOMO LA PRIMER LINEA DE NOTAS
+                                    //     $notas_cn_sinopsis = reset($arreglo_notas_salto_linea);
+                                    // }else{
+                                    //     $notas_resto = str_before($notas_del_com, $notas_del_fin_obt);
+                                    //     $notas_cn_sinopsis = $notas_resto.$notas_del_fin_obt;
+                                    // }
+                                    // $notas = str_replace('Sinopsis:', '', $notas_cn_sinopsis);
+                                    // dd($notas);
+
+                                    // INSERT IN SINOPSIS
+                    //LISTO
+                    //------------------------------------------MATERIAS(REFERENCIAS)-----------------------------------------------------------------------------------------
+                    $materias_del_com = str_after($documento, 'Materias:');
+                    $materias_del_fin = str_before($materias_del_com,"\t\r\n");
+                    // dd($materias_del_fin);
+                    $arreglo_materias_salto_linea = explode("\n", $materias_del_fin);
+                    // INSERT IN REFERENCIAS
+                    //LISTO
+                    //------------------------------------------ISBN-----------------------------------------------------------------------------------------                
+                       $isbn = null;
+                                   $isbn_del_com = str_after($documento, 'ISBN:');
+                                  $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
+                       $isbn =   reset($arreglo_isbn_salto_linea);
+                      // INSERT IN ISBN
+                     //LISTO                  
+                      //------------------------------------------CDU-----------------------------------------------------------------------------------------                
+                      $cdu = null;
+                      $cdu_del_com = str_after($documento, 'CDU:');
+                      $arreglo_cdu_salto_linea = explode("\n", $cdu_del_com); 
+                      $cdu =   reset($arreglo_cdu_salto_linea);
+                      //LISTO
+                      //CONSULTAR DONDE MIERDA SE INSERTARIA EN TAL CASO DE Q SE LEVANTE YA Q LO ESTAMSO PREVIENDO SOLAMENTE                  
+                      //-----------------------------------------------------------------------------------------------------------------------------------                
+                                       
+                        // if(trim($isbn) != null && trim($isbn) != ''){
+
+                        // }
+
+                      }
+
+                     // //   $cantidad = substr_count($contents, 'nam  ', 0);
                             // dd($cantidad);
                            // //  for ($i = 1; $i <= $cantidad; $i++) {
                                     
@@ -106,6 +265,53 @@ class ImportfromrebecaController extends Controller
                             // dd($titulo);
  
                     // fclose($fp);
+
+                    //DESDE ESTE PUNTO SE COMIENZA A INSERTAR LOS DATOS QUE SE PUDIERON LEVANTAR 
+                    //A LA TABLA DOCUMENTOS.
+
+                    if($titulo != null){
+                        $titulo;
+                    }
+
+                    
+                    if($notas != null){
+                        $notas;
+                    }
+
+                    if(count($arreglo_materias_salto_linea) > 0){
+                        foreach($arreglo_materias_salto_linea as $arre_materias){
+                        
+                            //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                            //primero las guardo y dsp las voy asociando al documento q se va a guardar
+                        }
+                    }
+
+                    if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
+                        foreach($autores_linea_completa as $arre_autores){
+                        
+                            //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                            //primero las guardo y dsp las voy asociando al documento q se va a guardar
+                        }
+                    }
+                    
+                    
+                    if($quantity != null){
+                        $quantity;
+                    }
+
+                    if($size != null){
+                        $size;
+                    }
+
+                    if($isbn != null){
+                        $isbn;
+                    }
+                    
+                    if($cdu != null){
+                        $cdu;
+                    }
+
+
 
                 }else{
                 // si no sube el archivo entra aca . mandar msj de errorr   
