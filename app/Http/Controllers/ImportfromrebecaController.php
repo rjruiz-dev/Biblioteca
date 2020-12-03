@@ -37,11 +37,11 @@ class ImportfromrebecaController extends Controller
 
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $documentos    = Setting::where('id', 1)->first();        
+        $documentos = Setting::where('id', 1)->first();        
         $idiomas    = ManyLenguages::all();
-       
+                       
         return view('admin.importfromrebeca.index', [
-            'idioma'    => $idioma,
+            'idioma'    => $idioma, 
             'idiomas'   => $idiomas,  
             'setting'   => $documentos,      
             'types'     => Document_type::pluck( 'document_description', 'id')

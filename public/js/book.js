@@ -2,15 +2,15 @@ $('body').on('click', '.modal-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
-        url = me.attr('href'),
+        url = me.attr('href'),   
         title = me.attr('title');
-
+        // console.log('rodrigo' + url);
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
         .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
 
     $.ajax({
-        url: url,
+        url: url,  
         dataType: 'html',
         success: function(response) {
             $('#modal-body').html(response);
@@ -122,7 +122,7 @@ $('body').on('click', '.modal-show', function(event) {
             yesnoCheck();
         }
     });
-
+   
     $('#modal').modal('show');
 });
 
@@ -139,6 +139,7 @@ $('#modal-btn-save').click(function(event) {
     var form = $('#modal-body form'),
         url = form.attr('action'),
         method = 'POST';
+        
     // method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
 
     form.find('.help-block').remove();

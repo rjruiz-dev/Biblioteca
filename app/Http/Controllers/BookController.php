@@ -351,7 +351,7 @@ class BookController extends Controller
     public function edit(Request $request, $id)
     {
          // $request->session()->put('idiomas', 2);
-         if ($request->session()->has('idiomas')) {
+        if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
             $request->session()->put('idiomas', 1);
