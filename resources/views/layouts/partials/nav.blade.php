@@ -112,7 +112,7 @@
             <li class="{{ setActiveRoute('admin.photographs.index') }}">
                 <a href="{{ route('admin.photographs.index') }}">
                     <i class="fa fa-photo"></i><span> {{ $idioma->fotografia }}</span> 
-                </a>
+                </a> 
             </li> 
             <li class="{{ setActiveRoute('admin.multimedias.index') }}">
                 <a href="{{ route('admin.multimedias.index') }}">

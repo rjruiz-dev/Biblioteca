@@ -168,7 +168,7 @@ use App\Book;
                 ],   
                         
                 ajax:{ 
-                    url: "{{ route('books.table') }}", 
+                    url: "{{ route('books.table($idd)') }}", 
                     data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
                     type: 'GET' 
                     },                   

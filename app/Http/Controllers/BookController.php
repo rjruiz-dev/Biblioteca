@@ -43,7 +43,7 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index3(Request $request, $idd)
     {        
         if ($request->session()->has('idiomas')) {
             $existe = 1;
@@ -63,7 +63,8 @@ class BookController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-
+             'idd'  => $idd,
+ 
             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -872,7 +873,7 @@ class BookController extends Controller
         return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
     }
 
-    public function dataTable(Request $request)
+    public function dataTable(Request $request, $idd)
     {   
         if($request->get('subjects') != ''){
             $subjects_mostrar = true; 
@@ -898,6 +899,13 @@ class BookController extends Controller
             $references_mostrar = false;      
         }
 
+        if($idd != null)
+        {
+        $idd_mostrar = true;
+        }else{
+        $idd_mostrar = false;
+        } 
+
         if(Auth::user()->getRoleNames() == 'Partner'){
 
             $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
@@ -910,6 +918,9 @@ class BookController extends Controller
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+                if($idd_mostrar){
+                    $q->where('id', '=', $idd);   
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -950,7 +961,7 @@ class BookController extends Controller
                 if($references_mostrar){
                     $q->where('generate_reference_id', '=', $request->get('references'));   
                 }
-            })        
+            })       
             ->get(); 
 
         }

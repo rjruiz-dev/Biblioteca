@@ -110,6 +110,7 @@ function(){
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
  
     Route::get('books/obtener/{id}',                            'BookController@obtener');
+    Route::get('books/index3/{id}',                            'BookController@index3');
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
@@ -171,7 +172,7 @@ function(){
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
-Route::get('books/table',               'BookController@dataTable')->name('books.table');
+Route::get('books/table{idd}',               'BookController@dataTable')->name('books.table');
 Route::get('languages/table',           'LenguageController@dataTable')->name('languages.table'); 
 Route::get('periodicals/table',         'PeriodicityController@dataTable')->name('periodicals.table'); 
 Route::get('literatures/table',         'GenerateBookController@dataTable')->name('literatures.table');

@@ -39,15 +39,9 @@ class ImportfromrebecaController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $documentos = Setting::where('id', 1)->first();        
         $idiomas    = ManyLenguages::all();
-<<<<<<< Updated upstream
                        
         return view('admin.importfromrebeca.index', [
             'idioma'    => $idioma, 
-=======
-       
-        return view('admin.importfromrebeca.importar', [ 
-            'idioma'    => $idioma,
->>>>>>> Stashed changes
             'idiomas'   => $idiomas,  
             'setting'   => $documentos,      
             'types'     => Document_type::pluck( 'document_description', 'id')

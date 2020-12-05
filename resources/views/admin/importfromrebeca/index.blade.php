@@ -140,138 +140,33 @@
             showCancelButton: true,
             inputValidator: (value) => {
                 return new Promise((resolve) => {
-                if (value === '3') {
-                    var me = $(this),
-                    url = me.attr('https://test.ebookspain.es/admin/books/11/edit'),
-                    title = me.attr('title');
+                if (value === '1') {
+                    // window.location = "/admin/books/index";
+                    window.location="/admin/music/";
 
-                $('#modal-title').text(title);
-                $('#modal-btn-save').removeClass('hide')
-                    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
-
-                $.ajax({
-                    url: url,
-                    dataType: 'html',
-                    success: function(response) {
-                        $('#modal-body').html(response);
-
-                        $('#document_subtypes_id').select2({
-                            dropdownParent: $("#fg_document_subtypes_id"),
-                            placeholder: 'Selecciona un subtipo de Documento'
-                        });
-
-                        $('#periodicities_id').select2({
-                            dropdownParent: $("#din_periodicities_id"),
-                            placeholder: 'Selecciona una periodicidad'
-                        });
-
-                        $('#lenguages_id').select2({
-                            dropdownParent: $("#fg_lenguages_id"),
-                            placeholder: 'Selecciona un Idioma'
-                        });
-
-                        $('#adequacies_id').select2({
-                            dropdownParent: $("#fg_adequacies_id"),
-                            placeholder: 'Selecciona una Adecuación'
-                        });
-
-
-                        $('#generate_books_id').select2({
-                            dropdownParent: $("#din_generate_books_id"),
-                            placeholder: 'Selecciona un Género'
-                        });
-
-                        $("#generate_subjects_id").select2({
-                            dropdownParent: $("#fg_generate_subjects_id"),
-                            placeholder: 'Selecciona Cdu'
-                        });
-
-                        $("#creators_id").select2({
-                            dropdownParent: $("#fg_creators_id"),
-                            placeholder: 'Seleccione o Ingrese Autor',
-                            tags: true
-                        });
-
-                        $("#second_author_id").select2({
-                            dropdownParent: $("#fg_second_author_id"),
-                            placeholder: 'Seleccione o Ingrese Segundo Autor',
-                            tags: true,
-                        });
-
-                        $("#third_author_id").select2({
-                            dropdownParent: $("#din_third_author_id"),
-                            placeholder: 'Seleccione o Ingrese Tercer Autor',
-                            tags: true,
-                        });
-
-                        $('#acquired').datepicker({
-                            autoclose: true,
-                            todayHighlight: true,
-                            format: 'dd-mm-yyyy',
-                            language: 'es'
-                        });
-
-                        $('#published').select2({
-                            dropdownParent: $("#fg_published"),
-                            placeholder: 'Selecciona Lugar de Publicación',
-                            tags: true
-
-                        });
-                        $('#made_by').select2({
-                            dropdownParent: $("#fg_made_by"),
-                            placeholder: 'Selecciona una Editorial',
-                            tags: true
-                        });
-
-                        $('#year').datepicker({
-                            autoclose: true,
-                            format: "yyyy",
-                            viewMode: "years",
-                            minViewMode: "years",
-                            language: 'es'
-                        });
-
-                        $('#edition').select2({
-                            dropdownParent: $("#fg_edition"),
-                            placeholder: 'Selecciona Número de Edición',
-                            tags: true
-                        });
-
-                        $('#volume').select2({
-                            dropdownParent: $("#fg_volume"),
-                            placeholder: 'Selecciona un Volúmen',
-                            tags: true
-                        });
-
-                        $('#status_documents_id').select2({
-                            dropdownParent: $("#fg_status_documents_id"),
-                            tags: false
-                        });
-
-                        $('#references').select2({
-                            dropdownParent: $("#fg_references"),    
-                            // tokenSeparators: [','],            
-                            tags: true
-                        });
-
-
-                        CKEDITOR.replace('synopsis');
-                        CKEDITOR.config.height = 190;
-
-
-                        yesnoCheck();
-                    }
-                });
-
-                $('#modal').modal('show');
-
-
-                    resolve()
-                } else {
-                    resolve('You need to select oranges :)')
                 }
+                if (value === '2') {
+                    window.location="/admin/movies/"; 
+
+                    // window.location = "/admin/movies";
+                } 
+                if (value === '3') {
+                    window.location="/admin/books/index3";
+
+                    // window.location = "/admin/movies";
+                } 
+                if (value === '4') {
+                    window.location="/admin/multimedias/";
+
+                    // window.location = "/admin/movies";
+                } 
+                if (value === '5') {
+                    window.location="/admin/photographs/";
+
+                    // window.location = "/admin/movies";
+                } 
                 })
-            }
+             }
             })
 
             // if (fruit) {
