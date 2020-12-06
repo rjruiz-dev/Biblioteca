@@ -2,8 +2,8 @@
 
 @section('header')    
     <h1>
-       LISTADO DE DOCUMENTOS
-        <small>Listado</small>
+       LISTADO DE DOCUMENTOS IMPORTADOS
+        <!-- <small>Listado</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,11 +14,11 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Documentos   
+            <!-- <h3 class="panel-title">Listado de Documentos    -->
           
                 <!-- <a href="{{ route('admin.loanmanual.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Libro"><i class="fa fa-user-plus"></i> Modal 1</a> -->
     
-            </h3>
+            <!-- </h3> -->
         </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
@@ -125,6 +125,10 @@
 
         $('body').on('click', '.modal-show', function(event) {
             event.preventDefault();
+
+            var me = $(this),
+            idd = me.attr('title');
+            // console.log("aaaaaaaa: " + idd);
             (async () => {
             const { value: fruit } = await Swal.fire({
             title: 'Seleccione el tipo de Documento',
@@ -146,7 +150,7 @@
 
                 }
                 if (value === '2') {
-                    window.location="/admin/movies/"; 
+                    window.location="/admin/movies/indexsolo/" + idd + "/" + 2; 
 
                     // window.location = "/admin/movies";
                 } 

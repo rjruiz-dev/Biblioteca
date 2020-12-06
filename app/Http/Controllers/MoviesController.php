@@ -48,6 +48,7 @@ class MoviesController extends Controller
      */
     public function index(Request $request)
     {         
+        $idd = 'none';
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -71,7 +72,7 @@ class MoviesController extends Controller
             'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
             'setting'           => $setting,
-
+            'idd' => $idd,    
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
              'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -81,6 +82,48 @@ class MoviesController extends Controller
         ]); 
     }
 
+    public function indexsolo(Request $request, $idd, $tipo)
+    {         
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+
+        //cargo el idioma
+        $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
+        $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
+        $setting            = Setting::where('id', 1)->first();
+        $idiomas            = ManyLenguages::all();
+
+        //edito el tipo de documento siempreq se seleccine el tipo
+        $edicion_type_doc = Document::where('id', $idd)->first();       
+        $edicion_type_doc->document_types_id = $tipo;
+        $edicion_type_doc->status_documents_id = 100;
+        $edicion_type_doc->save();
+
+        // $this->authorize('view', new Movies); 
+        // dd($idd);
+        return view('admin.movies.index', [
+            'idioma'            => $idioma,
+            'idioma_document'   => $idioma_document,
+            'idioma_movie'      => $idioma_movie,
+            'idiomas'           => $idiomas,
+            'setting'           => $setting,
+            'idd'           => $idd,
+            
+             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+             'references' => Generate_reference::pluck('reference_description', 'id'),
+             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+             'genders'    => Generate_film::pluck('genre_film', 'id')
+             // replicar esto FIN 
+        ]); 
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -571,6 +614,11 @@ class MoviesController extends Controller
     {
         $document = Document::findOrFail($id);
 
+        if($document->status_documents_id == 100){   
+            $document->destroy();
+        }else{
+
+        
         $document->status_documents_id = 2;
         $document->desidherata = 0;   
         $document->save();
@@ -608,7 +656,7 @@ class MoviesController extends Controller
             $copy->save();
         }
     }
-
+    }
     }
 
     public function copy($id)
@@ -665,6 +713,7 @@ class MoviesController extends Controller
 
     public function dataTable(Request $request)
     {   
+        $idd_bis = 'none';
         if($request->get('subjects') != ''){
             $subjects_mostrar = true; 
         }else{
@@ -688,10 +737,18 @@ class MoviesController extends Controller
         }else{
             $references_mostrar = false;      
         }
+        // dd($request->get('indexsolo')); 
+        if($request->get('indexsolo') != ''){
+            $indexsolo_mostrar = true;
+            $idd_bis = $request->get('indexsolo');  
+        }else{
+            $indexsolo_mostrar = false;      
+        }
+        // dd($idd_bis);
 
         if(Auth::user()->getRoleNames() == 'Partner'){
         $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
-        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);            
                 
@@ -700,6 +757,9 @@ class MoviesController extends Controller
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -718,7 +778,7 @@ class MoviesController extends Controller
         ->get();
         }else{
             $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document') 
-        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 
                 if($subjects_mostrar){
@@ -726,6 +786,9 @@ class MoviesController extends Controller
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));   
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -787,8 +850,9 @@ class MoviesController extends Controller
                 return $movie->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($movie) {
+            ->addColumn('accion', function ($movie) use($idd_bis) {
                 // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  
+            //    dd($idd_bis);
                 return view('admin.movies.partials._action', [
                     'movie'             => $movie,
                     'url_show'          => route('admin.movies.show', $movie->id),                        
@@ -797,7 +861,8 @@ class MoviesController extends Controller
                     'url_desidherata'   => route('movies.desidherata', $movie->document->id),
                     'url_baja'          => route('movies.baja', $movie->document->id),
                     'url_reactivar'     => route('movies.reactivar', $movie->document->id),
-                    'url_print'         => route('cine.pdf', $movie->id)   
+                    'url_print'         => route('cine.pdf', $movie->id),
+                    'idd' => $idd_bis  
                 ]);
 
             })           

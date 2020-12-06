@@ -110,7 +110,8 @@ function(){
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
  
     Route::get('books/obtener/{id}',                            'BookController@obtener');
-    Route::get('books/index3/{id}',                            'BookController@index3');
+    Route::get('importfromrebeca/importar/',                            'ImportfromrebecaController@importar');
+    Route::get('movies/indexsolo/{id}/{tipo}',                         'MoviesController@indexsolo');
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
