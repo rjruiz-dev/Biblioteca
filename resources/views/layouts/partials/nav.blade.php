@@ -119,8 +119,8 @@
                     <i class="fa fa-youtube-play"></i><span> {{ $idioma->multimedia }}</span> 
                 </a>
             </li>  
-            <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
-                <a href="{{ route('admin.importfromrebeca.index') }}">
+            <li class="{{ setActiveRoute('importfromrebeca.importar') }}">
+                <a href="{{ route('importfromrebeca.importar') }}"> 
                     <i class="fa fa-share-square-o"></i> <span>{{ $idioma->importar_rebeca }}</span>
                 </a>
             </li>                   

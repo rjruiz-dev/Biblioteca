@@ -2,8 +2,8 @@
 
 @section('header')    
     <h1>
-       DOCUMENTOS
-        <small>Listado</small>
+       IMPORTACION DE CATALOGOS REBECCA
+        <!-- <small>Listado</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -22,10 +22,7 @@
             <div class="box-body box-profile" id="form_prestamo">   
                 {!! Form::open(['route' => 'admin.importfromrebeca.store' , 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 
-                <div class="form-group"><!-- documents V -->
-                    {!! Form::label('document_types_id', 'Tipo de Documento') !!}
-                    {!! Form::select('document_types_id', $types, null, ['class' => 'form-control select2', 'id' => 'document_types_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}
-                </div> 
+                
                 <div class="form-group">
                     {!! Form::label('rebeca', 'Archivo REBECA') !!}                    
                     {!! Form::file('rebeca') !!}
@@ -58,10 +55,52 @@
     <script src="{{ asset('js/importar.js') }}"></script>  
     <script>
         
-        $('#document_types_id').select2({
-            placeholder: 'Seleccione un Modelo de Carta',
-            tags: false,               
-        });
+        $('#modal-btn-save-importar').click(function (event) {
+    event.preventDefault();
+
+    var form = $('#form_prestamo form'),
+        url = form.attr('action'),
+        method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+    form.find('.help-block').remove();
+    form.find('.form-group').removeClass('has-error');
+
+    
+    $.ajax({
+        url : url,
+        method: method,
+        data : form.serialize(),
+        success: function (response) {
+            var info = response.bandera;
+            var info2 = response.id;
+            var error = response.error;
+            console.log("id" + info2);
+            console.log("ALGO" + info);
+            form.trigger('reset');
+            // $('#modal').modal('hide');
+            // $('#datatable').DataTable().ajax.reload();
+    
+            swal({
+                type : 'success',
+                title : '¡Éxito!',
+                text : '¡Se ha procesado el archivo. Ahora podra ver lo que se proceso!',
+            }).then(function() {
+                window.location="/admin/importfromrebeca/index";
+            });
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key)
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                });
+            }
+        }
+    })
+});
 
     </script>
 @endpush

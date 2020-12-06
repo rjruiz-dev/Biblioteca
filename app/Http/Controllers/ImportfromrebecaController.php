@@ -24,6 +24,31 @@ class ImportfromrebecaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function importar(Request $request)
+    {
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $documentos = Setting::where('id', 1)->first();        
+        $idiomas    = ManyLenguages::all();
+                       
+        return view('admin.importfromrebeca.importar', [ 
+            'idioma'    => $idioma, 
+            'idiomas'   => $idiomas,  
+            'setting'   => $documentos,      
+            'types'     => Document_type::pluck( 'document_description', 'id')
+        ]);     
+          
+    }
+
     public function index(Request $request)
     {
         // $request->session()->put('idiomas', 2);
@@ -73,7 +98,7 @@ class ImportfromrebecaController extends Controller
                 DB::beginTransaction();
                 
                 
-                $document_types_id     = $request->get('document_types_id'); 
+                
                 
 
                 if ($request->hasFile('rebeca')) { // verifico si hay un archivo subido.               
@@ -114,7 +139,7 @@ class ImportfromrebecaController extends Controller
                     
 
                       foreach($documentos as $documento){
-                    // -----------------------------AUTORES--------------------------------------
+                    // -----------------------------TITULO--------------------------------------
                         $titulo = null;
                         if (strpos($documento, 'Título: ') !== false) {
                                  $titulo_del_com = str_after($documento, 'Título: ');
@@ -214,24 +239,30 @@ class ImportfromrebecaController extends Controller
                                     // INSERT IN SINOPSIS
                     //LISTO
                     //------------------------------------------MATERIAS(REFERENCIAS)-----------------------------------------------------------------------------------------
+                    if (strpos($documento, 'Materias:') !== false) {
                     $materias_del_com = str_after($documento, 'Materias:');
                     $materias_del_fin = str_before($materias_del_com,"\t\r\n");
                     // dd($materias_del_fin);
                     $arreglo_materias_salto_linea = explode("\n", $materias_del_fin);
+                    }
                     // INSERT IN REFERENCIAS
                     //LISTO
                     //------------------------------------------ISBN-----------------------------------------------------------------------------------------                
                        $isbn = null;
+                       if (strpos($documento, 'ISBN:') !== false) {
                                    $isbn_del_com = str_after($documento, 'ISBN:');
                                   $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
                        $isbn =   reset($arreglo_isbn_salto_linea);
+                       }
                       // INSERT IN ISBN
                      //LISTO                  
                       //------------------------------------------CDU-----------------------------------------------------------------------------------------                
                       $cdu = null;
+                      if (strpos($documento, 'ISBN:') !== false) {
                       $cdu_del_com = str_after($documento, 'CDU:');
                       $arreglo_cdu_salto_linea = explode("\n", $cdu_del_com); 
                       $cdu =   reset($arreglo_cdu_salto_linea);
+                      }
                       //LISTO
                       //CONSULTAR DONDE MIERDA SE INSERTARIA EN TAL CASO DE Q SE LEVANTE YA Q LO ESTAMSO PREVIENDO SOLAMENTE                  
                       //-----------------------------------------------------------------------------------------------------------------------------------                
@@ -262,50 +293,61 @@ class ImportfromrebecaController extends Controller
 
                     //DESDE ESTE PUNTO SE COMIENZA A INSERTAR LOS DATOS QUE SE PUDIERON LEVANTAR 
                     //A LA TABLA DOCUMENTOS.
-
+                    $new_document = new Document(); 
+                    
                     if($titulo != null){
-                        $titulo;
+                        $new_document->titulo = $titulo;
                     }
 
                     
                     if($notas != null){
-                        $notas;
+                        $new_document->notas = $notas;
                     }
 
                     if(count($arreglo_materias_salto_linea) > 0){
-                        foreach($arreglo_materias_salto_linea as $arre_materias){
+                        // foreach($arreglo_materias_salto_linea as $arre_materias){
                         
-                            //inserto las materias que esten delimitadas por saltos de linea en la DB.
-                            //primero las guardo y dsp las voy asociando al documento q se va a guardar
-                        }
-                    }
+                        //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                        //     $new_materias = new Generate_subjects();
+                        //     $new_materias->subject_name = $arre_materias;
+                        //     $new_materias->save();
+                        //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
 
+                        //     //NOTA ULTIMA: SOLO SE INSERTA XQ SE ENCONTRO Q GUARDA MAS DE UN DATO Y EL CAMPO
+                        //     //ES UN SELECT COMUN DE UNA SOLA OPCION Y NO UN SELECT MULTIPLE COMO A LO MEJOR 
+                        //     //DEBERIA SER EN BASE A Q CASI SIEMPRE HA
+                        // }
+                        $new_document->syncReferences($arreglo_materias_salto_linea);
+                    }
+                    
                     if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
-                        foreach($autores_linea_completa as $arre_autores){
+                        // foreach($autores_linea_completa as $arre_autores){
                         
-                            //inserto las materias que esten delimitadas por saltos de linea en la DB.
-                            //primero las guardo y dsp las voy asociando al documento q se va a guardar
-                        }
+                        //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                        //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
+                        // }
+                        $new_document->syncActors($autores_linea_completa);
                     }
                     
                     
                     if($quantity != null){
-                        $quantity;
+                        $new_document->quantity_generic = $quantity;
                     }
 
-                    if($size != null){
-                        $size;
+                    if($size != null){ //solo para libros
+                        // $new_document->quantity_generic = $size;
+                        
                     }
 
-                    if($isbn != null){
-                        $isbn;
+                    if($isbn != null){ //solo para libros
+                        // $new_document->isbn = $isbn;
                     }
                     
-                    if($cdu != null){
-                        $cdu;
+                    if($cdu != null){ //se prevee pero no esta en rebecca aun
+                        // $cdu;
                     }
 
-
+                    $new_document->save();
 
                 }else{
                 // si no sube el archivo entra aca . mandar msj de errorr   
@@ -457,9 +499,6 @@ class ImportfromrebecaController extends Controller
               return view('admin.importfromrebeca.partials._action', [
                   'documentos' => $documentos,                                 
                   'url_edit'      => route('admin.importfromrebeca.edit', $documentos->id),  
-                  'url_baja'      => route('importfromrebeca.baja', $documentos->id),
-                  'url_reactivar' => route('importfromrebeca.reactivar', $documentos->id),                            
-                
               ]);
           })           
           ->addIndexColumn()   
