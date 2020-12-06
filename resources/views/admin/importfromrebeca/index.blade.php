@@ -151,7 +151,7 @@
                     // window.location = "/admin/movies";
                 } 
                 if (value === '3') {
-                    window.location="/admin/books/index3";
+                    window.location="/admin/books/{request}/{idd}";
 
                     // window.location = "/admin/movies";
                 } 

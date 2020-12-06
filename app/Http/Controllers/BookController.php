@@ -43,7 +43,40 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index3(Request $request, $idd)
+    // public function index(Request $request, $id)
+    // {        
+    //     if ($request->session()->has('idiomas')) {
+    //         $existe = 1;
+    //     }else{
+    //         $request->session()->put('idiomas', 1);
+    //         $existe = 0;
+    //     }
+    //     $session = session('idiomas');
+
+    //     //cargo el idioma
+    //     $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+    //     $idiomas    = ManyLenguages::all();
+    //     $setting    = Setting::where('id', 1)->first();
+    //     // $this->authorize('view', new Book); 
+
+    //     return view('admin.books.index', [
+    //         'idioma'    => $idioma,
+    //         'idiomas'   => $idiomas,
+    //         'setting'   => $setting,
+    //         'id'       => $id,
+ 
+    //         // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+    //         'references' => Generate_reference::pluck('reference_description', 'id'),
+    //         'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+    //         'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+    //         'genders'       => Generate_book::pluck('genre_book', 'id')
+    //         // replicar esto FIN 
+
+    //     ]); 
+        
+    // }
+
+    public function index(Request $request, $idd)
     {        
         if ($request->session()->has('idiomas')) {
             $existe = 1;
@@ -63,7 +96,7 @@ class BookController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-             'idd'  => $idd,
+            'idd'       => $idd,
  
             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
             'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -72,7 +105,7 @@ class BookController extends Controller
             'genders'       => Generate_book::pluck('genre_book', 'id')
             // replicar esto FIN 
 
-            ]);        
+        ]); 
     }
 
     /**

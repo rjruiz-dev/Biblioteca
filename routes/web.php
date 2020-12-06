@@ -31,6 +31,16 @@ Route::get('/view-clear', function() {
     return 'View cache cleared';
 });
 
+Route::get('/route-cache', function() {
+    $exitCode = Artisan::call('route:cache');
+    return 'route cache cleared';
+});
+
+Route::get('/route-clear', function() {
+    $exitCode = Artisan::call('route:clear');
+    return 'route clear cleared';
+});
+
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
@@ -110,7 +120,7 @@ function(){
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
  
     Route::get('books/obtener/{id}',                            'BookController@obtener');
-    Route::get('books/index3/{id}',                            'BookController@index3');
+    Route::get('books/index/{request}/{idd}',                            'BookController@index');
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');
     Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
