@@ -119,7 +119,7 @@ function(){
     Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
  
-    Route::get('books/obtener/{id}',                            'BookController@obtener');
+    Route::get('books/obtener/{id}',                            'BookController@obtener');     
     Route::get('books/index/{request}/{idd}',                            'BookController@index');
     Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
     Route::get('movies/indexsolo/{id}/{tipo}',                         'MoviesController@indexsolo');
