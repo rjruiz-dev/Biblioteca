@@ -86,7 +86,7 @@
     <li class="treeview {{ setActiveRoute([
                                             'admin.books.index', 'admin.movies.index',
                                             'admin.music.index', 'admin.photographs.index',
-                                            'admin.multimedias.index','admin.importfromrebeca.index'                                           
+                                            'admin.multimedias.index','importfromrebeca.importar'                                           
                                         ]) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->catalogo }}</span>
             <span class="pull-right-container">

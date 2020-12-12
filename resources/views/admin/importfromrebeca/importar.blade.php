@@ -31,9 +31,9 @@
                     <button type="submit" class="btn btn-primary" id="modal-btn-save-importar">Importar</button>
                 </div> 
 
-                <div class="modal-footer" id="modal-footer">
+                <!-- <div class="modal-footer" id="modal-footer">
                     <a href="{{ route('admin.importfromrebeca.index') }}"><i class="fa fa-user-plus"></i> Index Rebeca</a>     
-                </div> 
+                </div>  -->
                 {!! Form::close() !!}                                 
             </div>
         </div>
@@ -85,7 +85,7 @@
                 title : '¡Éxito!',
                 text : '¡Se ha procesado el archivo. Ahora podra ver lo que se proceso!',
             }).then(function() {
-                window.location="/admin/importfromrebeca/index";
+                window.location="/admin/importfromrebeca/";
             });
         },
         error : function (xhr) {

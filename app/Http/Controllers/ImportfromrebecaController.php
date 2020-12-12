@@ -141,45 +141,46 @@ class ImportfromrebecaController extends Controller
                       foreach($documentos as $documento){
                     // -----------------------------TITULO--------------------------------------
                         $titulo = null;
-                        if (strpos($documento, 'Título: ') !== false) {
+                        // se comenta strpos para probar
+                        // if (strpos($documento, 'Título: ') !== false) {
                                  $titulo_del_com = str_after($documento, 'Título: ');
 
-                                 if (strpos($titulo_del_com, ' / ') !== false) {
-                                 $titulo_del_fin = trim(str_before($titulo_del_com, ' / '));
-                                 if($titulo_del_fin != ''){
-                                    $titulo = $titulo_del_fin;
-                                 }
-                                 }
-                        }
+                                //  if (strpos($titulo_del_com, ' / ') !== false) {
+                                    $titulo_del_fin = trim(str_before($titulo_del_com, ' / '));
+                                    if($titulo_del_fin != ''){
+                                        $titulo = $titulo_del_fin;
+                                    }
+                                //  }
+                        // }
                     //  LISTO
                     // -----------------------------AUTORES-------------------------------------- 
                                  $autor_del_com = null;
-                                 if (strpos($documento, ' / ') !== false) {
-                                 $autor_del_com = str_after($documento, ' / ');
-                                 $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
-                                 $autores_linea_completa = reset($arreglo_autor_salto_linea);
-                                 // a "Y" no se le hace un remplace xq si o si tiene q ir entre espacios, sino 
-                                 //se toma como palabra comun de otra palabra.
-                                 $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
-                                 $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
-                                 $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
+                                //  if (strpos($documento, ' / ') !== false) {
+                                    $autor_del_com = str_after($documento, ' / ');
+                                    $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
+                                    $autores_linea_completa = reset($arreglo_autor_salto_linea);
+                                    // a "Y" no se le hace un remplace xq si o si tiene q ir entre espacios, sino 
+                                    //se toma como palabra comun de otra palabra.
+                                    $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
+                                    $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
+                                    $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
                                 
-                                }
+                                // }
                         //  LISTO
                         // -----------------------------EDITORIAL-------------------------------------- 
                        $editorial = null;
-                       if (strpos($documento, 'Editorial:') !== false) {
+                    //    if (strpos($documento, 'Editorial:') !== false) {
                                  $editorial_del_com = str_after($documento, 'Editorial:');
                                  $arreglo_editorial_salto_linea = explode("\n", $editorial_del_com);
                                 // dd(reset($arreglo_editorial_salto_linea)); 
                                 if(trim(reset($arreglo_editorial_salto_linea) != '')){
                                 $editorial = trim(reset($arreglo_editorial_salto_linea));
                                 }
-                            }
+                            // }
                        //  LISTO
                        // -----------------------------DESCRIP FISICA BOOK-------------------------------------- 
                        $quantity = null;
-                       if (strpos($documento, 'Descripción física:') !== false) {
+                    //    if (strpos($documento, 'Descripción física:') !== false) {
                                   $quantity_del_com = str_after($documento, 'Descripción física:');
                                   $arreglo_quantity_salto_linea = explode("\n", $quantity_del_com); 
                                   $quantity_del_fin = trim(str_before(reset($arreglo_quantity_salto_linea), ' ; '));
@@ -192,7 +193,7 @@ class ImportfromrebecaController extends Controller
                                         if($aux_size != ''){
                                             $size = $aux_size;                  
                                         }
-                        }       
+                        // }       
                       // -----------------------------DESCRIP FISICA CINE-------------------------------------- 
                     //    $quantity_cine = null;
                     //               $quantity_cine_del_com = str_after($documento, 'Descripción física:');
@@ -205,16 +206,20 @@ class ImportfromrebecaController extends Controller
                                   //DIRECTAMENTE QUEDO EN ESTAS 2 LINEA DE CODIGO PORQUE SIEMPRE SE CUMPLE QUE 
                                   //HAY UNA LINEA VACIA ENTRE LA TERMINACION DE LA NOTA Y LOS DELIMITADORES 
                                   //SIGUENTES.
-                                  if (strpos($documento, 'Notas:') !== false) {
+                                //   if (strpos($documento, 'Notas:') !== false) {
                                   $notas_del_com = str_after($documento, 'Notas:');
                                   $notas_del_fin = trim(str_before($notas_del_com,"\t\r\n"));
                                   if($notas_del_fin != ''){
-                                    if (strpos($notas_del_fin, 'Sinopsis:') !== false) {
-                                    $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
-                                    }
-                                    $notas = $notas_aux;
+                                      $notas = $notas_del_fin;
+                                    // if (strpos($notas_del_fin, 'Sinopsis:') !== false) {
+                                    // $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
+                                    // $notas = $notas_aux;
+                                    // }
+                                    // else{
+                                    //     $notas = $notas_del_fin;
+                                    // }
                                   } 
-                                  }
+                                //   }
                                   //-----LOGICA NO UTILIZADA PERO DE DEJA POR SI SE NECESITA PARA OTRO DELIMITADOR                                  
                                 //   $notas_del_com = str_after($documento, 'Notas:');
                                 //   $arreglo_notas_salto_linea = explode("\n", $notas_del_com); 
@@ -239,30 +244,30 @@ class ImportfromrebecaController extends Controller
                                     // INSERT IN SINOPSIS
                     //LISTO
                     //------------------------------------------MATERIAS(REFERENCIAS)-----------------------------------------------------------------------------------------
-                    if (strpos($documento, 'Materias:') !== false) {
+                    // if (strpos($documento, 'Materias:') !== false) {
                     $materias_del_com = str_after($documento, 'Materias:');
                     $materias_del_fin = str_before($materias_del_com,"\t\r\n");
                     // dd($materias_del_fin);
                     $arreglo_materias_salto_linea = explode("\n", $materias_del_fin);
-                    }
+                    // }
                     // INSERT IN REFERENCIAS
                     //LISTO
                     //------------------------------------------ISBN-----------------------------------------------------------------------------------------                
                        $isbn = null;
-                       if (strpos($documento, 'ISBN:') !== false) {
+                    //    if (strpos($documento, 'ISBN:') !== false) {
                                    $isbn_del_com = str_after($documento, 'ISBN:');
                                   $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
                        $isbn =   reset($arreglo_isbn_salto_linea);
-                       }
+                    //    }
                       // INSERT IN ISBN
                      //LISTO                  
                       //------------------------------------------CDU-----------------------------------------------------------------------------------------                
                       $cdu = null;
-                      if (strpos($documento, 'ISBN:') !== false) {
+                    //   if (strpos($documento, 'ISBN:') !== false) {
                       $cdu_del_com = str_after($documento, 'CDU:');
                       $arreglo_cdu_salto_linea = explode("\n", $cdu_del_com); 
                       $cdu =   reset($arreglo_cdu_salto_linea);
-                      }
+                    //   }
                       //LISTO
                       //CONSULTAR DONDE MIERDA SE INSERTARIA EN TAL CASO DE Q SE LEVANTE YA Q LO ESTAMSO PREVIENDO SOLAMENTE                  
                       //-----------------------------------------------------------------------------------------------------------------------------------                
@@ -293,18 +298,56 @@ class ImportfromrebecaController extends Controller
 
                     //DESDE ESTE PUNTO SE COMIENZA A INSERTAR LOS DATOS QUE SE PUDIERON LEVANTAR 
                     //A LA TABLA DOCUMENTOS.
+                   
                     $new_document = new Document(); 
+                    $new_document->document_types_id = 6;
+                    $new_document->status_documents_id = 100;
                     
-                    if($titulo != null){
-                        $new_document->titulo = $titulo;
-                    }
+                    // if($titulo != null){
+                        $new_document->title = $titulo;
+                    // }
 
                     
-                    if($notas != null){
-                        $new_document->notas = $notas;
-                    }
+                    // if($notas != null){
+                        $new_document->note = $notas;
+                    // }
 
-                    if(count($arreglo_materias_salto_linea) > 0){
+                   
+                    
+                   
+                    
+                    
+                    // if($quantity != null){
+                        $new_document->quantity_generic = $quantity;
+                    // }
+
+                    // if($size != null){ //solo para libros
+                    //     // $new_document->quantity_generic = $size;
+                        
+                    // }
+
+                    // if($isbn != null){ //solo para libros
+                    //     // $new_document->isbn = $isbn;
+                    // }
+                    
+                    // if($cdu != null){ //se prevee pero no esta en rebecca aun
+                    //     // $cdu;
+                    // }
+
+                  
+                    $new_document->save();
+                    // dd($new_document);
+
+                    // if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
+                        // foreach($autores_linea_completa as $arre_autores){
+                        
+                        //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                        //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
+                        // }
+                        $new_document->syncActors($autores_linea_completa);
+                    // }
+
+                    // if(count($arreglo_materias_salto_linea) > 0){
                         // foreach($arreglo_materias_salto_linea as $arre_materias){
                         
                         //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
@@ -318,37 +361,8 @@ class ImportfromrebecaController extends Controller
                         //     //DEBERIA SER EN BASE A Q CASI SIEMPRE HA
                         // }
                         $new_document->syncReferences($arreglo_materias_salto_linea);
-                    }
-                    
-                    if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
-                        // foreach($autores_linea_completa as $arre_autores){
-                        
-                        //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
-                        //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
-                        // }
-                        $new_document->syncActors($autores_linea_completa);
-                    }
-                    
-                    
-                    if($quantity != null){
-                        $new_document->quantity_generic = $quantity;
-                    }
-
-                    if($size != null){ //solo para libros
-                        // $new_document->quantity_generic = $size;
-                        
-                    }
-
-                    if($isbn != null){ //solo para libros
-                        // $new_document->isbn = $isbn;
-                    }
-                    
-                    if($cdu != null){ //se prevee pero no esta en rebecca aun
-                        // $cdu;
-                    }
-
-                    $new_document->save();
-
+                    // }
+                
                 }else{
                 // si no sube el archivo entra aca . mandar msj de errorr   
                 }  

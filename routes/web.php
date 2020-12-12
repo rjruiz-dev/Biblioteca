@@ -121,7 +121,7 @@ function(){
  
     Route::get('books/obtener/{id}',                            'BookController@obtener');     
     Route::get('books/index/{request}/{idd}',                            'BookController@index');
-    Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
+   
     Route::get('movies/indexsolo/{id}/{tipo}',                         'MoviesController@indexsolo');
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');
@@ -214,7 +214,7 @@ Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')-
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
-
+Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');
