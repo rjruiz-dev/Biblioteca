@@ -16,6 +16,7 @@ use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use File;
+use Illuminate\Support\Str;
 
 class ImportfromrebecaController extends Controller
 {
@@ -101,126 +102,136 @@ class ImportfromrebecaController extends Controller
                 
                 
 
-                if ($request->hasFile('rebeca')) { // verifico si hay un archivo subido.               
+        if ($request->hasFile('rebeca')) { // verifico si hay un archivo subido.               
 
-                    // lo guardo en carpeta rebeca para luego poder leerlo.
-                    $file = $request->file('rebeca');
-                    $name = time().$file->getClientOriginalName();
-                    $file->move(public_path().'/rebeca/', $name);                                 
-                    
-                    // $fp = fopen(asset('rebeca/'.$name), "r");
-                    //         $unica_linea = fgets($fp);
-                    // dd($unica_linea);
-                    // esto de arriba tiraba error asi que descartado.                   
-                    
-                    //  $contents = mb_convert_encoding(File::get(public_path().'/rebeca/'.$name), 'UTF-8');
-                    // eso te trae el archivo con los identificadores de salto de linea y todo pero no lee bien 
-                    // los acentos y esas cosas y les pone ?. no serviria de mucho. lo que si no te pone la b
-                    // al principio como el de abajo q si o si para sacarla tenes q encodearlo.
+            // lo guardo en carpeta rebeca para luego poder leerlo.
+            $file = $request->file('rebeca');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/rebeca/', $name);                                 
+            
+            // $fp = fopen(asset('rebeca/'.$name), "r");
+            //         $unica_linea = fgets($fp);
+            // dd($unica_linea);
+            // esto de arriba tiraba error asi que descartado.                   
+            
+            //  $contents = mb_convert_encoding(File::get(public_path().'/rebeca/'.$name), 'UTF-8');
+            // eso te trae el archivo con los identificadores de salto de linea y todo pero no lee bien 
+            // los acentos y esas cosas y les pone ?. no serviria de mucho. lo que si no te pone la b
+            // al principio como el de abajo q si o si para sacarla tenes q encodearlo.
 
-                     $contents = File::get(public_path().'/rebeca/'.$name);
-                     //esta linea de arriba lo UNICO  que hace es leer el archivo TXT.
-                     $contents = utf8_encode($contents); 
-                     // la primer linea de este bloque te lee tal cual el archivo pero te agrega un "b" arriba
-                     // que no se sabe a q sera. encodeandolo con la 2da linea lo saca y el resto del archivo
-                     // a simple vista es el mismo asi que como para sacar esa "b" se encodea con la 2da linea
+                $contents = File::get(public_path().'/rebeca/'.$name);
+                //esta linea de arriba lo UNICO  que hace es leer el archivo TXT.
+                $contents = utf8_encode($contents); 
+                // la primer linea de este bloque te lee tal cual el archivo pero te agrega un "b" arriba
+                // que no se sabe a q sera. encodeandolo con la 2da linea lo saca y el resto del archivo
+                // a simple vista es el mismo asi que como para sacar esa "b" se encodea con la 2da linea
 
-                    // $contents = preg_replace('/[[:cntrl:]]/', '', $contents);
-                    // esto te saca los indefiticadores de saltos de linea espacios, etc. y te deja el archivo todo
-                    // seguido y los unicos saltos de linea q se hacen es por el salto de linea propio q tiene el
-                    // espacio donde se muestran en este caso que lo vemos en el inspector de google.
+            // $contents = preg_replace('/[[:cntrl:]]/', '', $contents);
+            // esto te saca los indefiticadores de saltos de linea espacios, etc. y te deja el archivo todo
+            // seguido y los unicos saltos de linea q se hacen es por el salto de linea propio q tiene el
+            // espacio donde se muestran en este caso que lo vemos en el inspector de google.
 
-                    //  dd($contents);
-                      
-                    $separador = "-------------------------------------------------------------------------------";
+            //  dd($contents);
+                
+            $separador = "-------------------------------------------------------------------------------";
 
-                     $documentos = explode($separador, $contents);
-                    //  dd($documentos);
-                    
-
-                      foreach($documentos as $documento){
+                $documentos = explode($separador, $contents);
+            //  dd($documentos);
+            
+            
+                    foreach($documentos as $documento){
                     // -----------------------------TITULO--------------------------------------
-                        $titulo = null;
-                        // se comenta strpos para probar
-                        // if (strpos($documento, 'Título: ') !== false) {
-                                 $titulo_del_com = str_after($documento, 'Título: ');
-
-                                //  if (strpos($titulo_del_com, ' / ') !== false) {
+                    // dd($documento);    
+                    $titulo = null;
+                        if (Str::contains($documento,'Título:')){    
+                            $titulo_del_com = str_after($documento, 'Título:');
                                     $titulo_del_fin = trim(str_before($titulo_del_com, ' / '));
                                     if($titulo_del_fin != ''){
                                         $titulo = $titulo_del_fin;
                                     }
-                                //  }
-                        // }
-                    //  LISTO
-                    // -----------------------------AUTORES-------------------------------------- 
-                                 $autor_del_com = null;
-                                //  if (strpos($documento, ' / ') !== false) {
+                                    // LISTOOOOO POSTAAA
+                        }
+                                //  dd("prueba titulo: ".$titulo);
+                    // ----------------1-------------AUTORES-------------------------------------- 
+                                    $autor_del_com = null;
+                                if (Str::contains($documento,' / ')){
                                     $autor_del_com = str_after($documento, ' / ');
                                     $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
                                     $autores_linea_completa = reset($arreglo_autor_salto_linea);
+                                    // dd("yyyy: ".$autores_linea_completa);
                                     // a "Y" no se le hace un remplace xq si o si tiene q ir entre espacios, sino 
                                     //se toma como palabra comun de otra palabra.
                                     $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
                                     $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
+                                    // dd("qqqqq: ".$autores_linea_completa);                                   
                                     $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
-                                
-                                // }
+                                    // LISTOOOOO POSTAAA
+                                    // dd($autores_linea_completa);
+                                }
                         //  LISTO
                         // -----------------------------EDITORIAL-------------------------------------- 
-                       $editorial = null;
-                    //    if (strpos($documento, 'Editorial:') !== false) {
-                                 $editorial_del_com = str_after($documento, 'Editorial:');
-                                 $arreglo_editorial_salto_linea = explode("\n", $editorial_del_com);
-                                // dd(reset($arreglo_editorial_salto_linea)); 
+                        $editorial = null;
+                        if (Str::contains($documento,'Editorial:')){
+                                    $editorial_del_com = str_after($documento, 'Editorial:');
+                                    $arreglo_editorial_salto_linea = explode("\n", $editorial_del_com);
+                                //  dd($arreglo_editorial_salto_linea);
+
+                                    // dd(reset($arreglo_editorial_salto_linea)); 
                                 if(trim(reset($arreglo_editorial_salto_linea) != '')){
                                 $editorial = trim(reset($arreglo_editorial_salto_linea));
+                                    //LISTO POSTAAAAA
                                 }
-                            // }
-                       //  LISTO
-                       // -----------------------------DESCRIP FISICA BOOK-------------------------------------- 
-                       $quantity = null;
-                    //    if (strpos($documento, 'Descripción física:') !== false) {
-                                  $quantity_del_com = str_after($documento, 'Descripción física:');
-                                  $arreglo_quantity_salto_linea = explode("\n", $quantity_del_com); 
-                                  $quantity_del_fin = trim(str_before(reset($arreglo_quantity_salto_linea), ' ; '));
-                                  if($quantity_del_fin != ''){
-                                  $quantity = $quantity_del_fin;
-                                  }
+                        }
+                        //  LISTO
+                        // -----------------------------DESCRIP FISICA BOOK-------------------------------------- 
+                        $quantity = null;
+                        if (Str::contains($documento,'Descripción física:')){
+                                    $quantity_del_com = str_after($documento, 'Descripción física:');
+                                    $arreglo_quantity_salto_linea = explode("\n", $quantity_del_com); 
+                                    $quantity_del_fin = trim(str_before(reset($arreglo_quantity_salto_linea), ' ; '));
+                                    if($quantity_del_fin != ''){
+                                    $quantity = $quantity_del_fin;
+                                // dd("kkk: ".$quantity);  
+                                // LISTO POSTAAAA
+                                }
 
-                       $size  = null;    
-                        $aux_size  =  trim(str_after(reset($arreglo_quantity_salto_linea), ' ; '));
+                                $size  = null;    
+                                $aux_size  =  trim(str_after(reset($arreglo_quantity_salto_linea), ' ; '));
                                         if($aux_size != ''){
-                                            $size = $aux_size;                  
+                                            $size = $aux_size;
+                                            // dd("aassss: ".$size);
+                                            // LISTO POSTAAAA                  
                                         }
-                        // }       
-                      // -----------------------------DESCRIP FISICA CINE-------------------------------------- 
+                        }       
+                        // -----------------------------DESCRIP FISICA CINE-------------------------------------- 
                     //    $quantity_cine = null;
                     //               $quantity_cine_del_com = str_after($documento, 'Descripción física:');
                     //               $arreglo_quantity_cine_salto_linea = explode("\n", $quantity_cine_del_com); 
                     //               $quantity_cine_del_fin = str_before(reset($arreglo_quantity_cine_salto_linea), ',');
                     //    $quantity_cine = $quantity_cine_del_fin;       
-                       //REEVER
-                       //------------------------------------------NOTAS-----------------------------------------------------------------------------------------
-                       $notas = null;
-                                  //DIRECTAMENTE QUEDO EN ESTAS 2 LINEA DE CODIGO PORQUE SIEMPRE SE CUMPLE QUE 
-                                  //HAY UNA LINEA VACIA ENTRE LA TERMINACION DE LA NOTA Y LOS DELIMITADORES 
-                                  //SIGUENTES.
+                        //REEVER
+                        //------------------------------------------NOTAS-----------------------------------------------------------------------------------------
+                        $notas = null;
+                                    //DIRECTAMENTE QUEDO EN ESTAS 2 LINEA DE CODIGO PORQUE SIEMPRE SE CUMPLE QUE 
+                                    //HAY UNA LINEA VACIA ENTRE LA TERMINACION DE LA NOTA Y LOS DELIMITADORES 
+                                    //SIGUENTES.
                                 //   if (strpos($documento, 'Notas:') !== false) {
-                                  $notas_del_com = str_after($documento, 'Notas:');
-                                  $notas_del_fin = trim(str_before($notas_del_com,"\t\r\n"));
-                                  if($notas_del_fin != ''){
-                                      $notas = $notas_del_fin;
-                                    // if (strpos($notas_del_fin, 'Sinopsis:') !== false) {
-                                    // $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
-                                    // $notas = $notas_aux;
-                                    // }
-                                    // else{
-                                    //     $notas = $notas_del_fin;
-                                    // }
-                                  } 
+                                    if (Str::contains($documento,'Notas:')){
+                                        $notas_del_com = str_after($documento, 'Notas:');
+                                        $notas_del_fin = trim(str_before($notas_del_com,"\t\n"));
+                                            if($notas_del_fin != ''){
+                                                $notas = $notas_del_fin;
+                                                //LISTO POSTAAA 
+                                            // if (strpos($notas_del_fin, 'Sinopsis:') !== false) {
+                                            // $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
+                                            // $notas = $notas_aux;
+                                            // }
+                                            // else{
+                                            //     $notas = $notas_del_fin;
+                                            }
+                                    } 
                                 //   }
-                                  //-----LOGICA NO UTILIZADA PERO DE DEJA POR SI SE NECESITA PARA OTRO DELIMITADOR                                  
+                                    //-----LOGICA NO UTILIZADA PERO DE DEJA POR SI SE NECESITA PARA OTRO DELIMITADOR                                  
                                 //   $notas_del_com = str_after($documento, 'Notas:');
                                 //   $arreglo_notas_salto_linea = explode("\n", $notas_del_com); 
                                 //   $entrar = true;
@@ -245,46 +256,50 @@ class ImportfromrebecaController extends Controller
                     //LISTO
                     //------------------------------------------MATERIAS(REFERENCIAS)-----------------------------------------------------------------------------------------
                     // if (strpos($documento, 'Materias:') !== false) {
-                    $materias_del_com = str_after($documento, 'Materias:');
-                    $materias_del_fin = str_before($materias_del_com,"\t\r\n");
-                    // dd($materias_del_fin);
-                    $arreglo_materias_salto_linea = explode("\n", $materias_del_fin);
-                    // }
+                        $materias_del_com = null;
+                        if (Str::contains($documento,'Materias:')){
+                        $materias_del_com = str_after($documento, 'Materias:');
+                        $materias_del_fin = str_before($materias_del_com,"\t\r\n");
+                        // dd($materias_del_fin);
+                        $arreglo_materias_salto_linea = explode("\n", $materias_del_fin);
+                    }
                     // INSERT IN REFERENCIAS
                     //LISTO
                     //------------------------------------------ISBN-----------------------------------------------------------------------------------------                
-                       $isbn = null;
+                        $isbn = null;
                     //    if (strpos($documento, 'ISBN:') !== false) {
-                                   $isbn_del_com = str_after($documento, 'ISBN:');
-                                  $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
-                       $isbn =   reset($arreglo_isbn_salto_linea);
-                    //    }
-                      // INSERT IN ISBN
-                     //LISTO                  
-                      //------------------------------------------CDU-----------------------------------------------------------------------------------------                
-                      $cdu = null;
+                        if (Str::contains($documento,'ISBN:')){
+                                    $isbn_del_com = str_after($documento, 'ISBN:');
+                                    $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
+                        $isbn =   reset($arreglo_isbn_salto_linea);
+                       }
+                        // INSERT IN ISBN
+                        //LISTO                  
+                        //------------------------------------------CDU-----------------------------------------------------------------------------------------                
+                        $cdu = null;
                     //   if (strpos($documento, 'ISBN:') !== false) {
-                      $cdu_del_com = str_after($documento, 'CDU:');
-                      $arreglo_cdu_salto_linea = explode("\n", $cdu_del_com); 
-                      $cdu =   reset($arreglo_cdu_salto_linea);
-                    //   }
-                      //LISTO
-                      //CONSULTAR DONDE MIERDA SE INSERTARIA EN TAL CASO DE Q SE LEVANTE YA Q LO ESTAMSO PREVIENDO SOLAMENTE                  
-                      //-----------------------------------------------------------------------------------------------------------------------------------                
-                                       
+                        if (Str::contains($documento,'CDU:')){    
+                        $cdu_del_com = str_after($documento, 'CDU:');
+                        $arreglo_cdu_salto_linea = explode("\n", $cdu_del_com); 
+                        $cdu =   reset($arreglo_cdu_salto_linea);
+                      }
+                        //LISTO
+                        //CONSULTAR DONDE MIERDA SE INSERTARIA EN TAL CASO DE Q SE LEVANTE YA Q LO ESTAMSO PREVIENDO SOLAMENTE                  
+                        //-----------------------------------------------------------------------------------------------------------------------------------                
+                                        
                         // if(trim($isbn) != null && trim($isbn) != ''){
 
                         // }
 
-                      }
+                        
 
-                     // //   $cantidad = substr_count($contents, 'nam  ', 0);
+                        // //   $cantidad = substr_count($contents, 'nam  ', 0);
                             // dd($cantidad);
-                           // //  for ($i = 1; $i <= $cantidad; $i++) {
+                            // //  for ($i = 1; $i <= $cantidad; $i++) {
                                     
                             // //     echo $i;
 
-                           // //  }
+                            // //  }
                             // // $primera = str_after($contents, 'nam  ');
                             // // $segunda = str_before($primera, '13a');
                             // dd($segunda);
@@ -293,79 +308,80 @@ class ImportfromrebecaController extends Controller
                             // $documentos->library_name = $segunda;
                             // $documentos->save();
                             // dd($titulo);
- 
+
                     // fclose($fp);
 
                     //DESDE ESTE PUNTO SE COMIENZA A INSERTAR LOS DATOS QUE SE PUDIERON LEVANTAR 
                     //A LA TABLA DOCUMENTOS.
-                   
+                    
                     $new_document = new Document(); 
                     $new_document->document_types_id = 6;
                     $new_document->status_documents_id = 100;
-                    
-                    // if($titulo != null){
+                    $new_document->generate_subjects_id = 100;
+                    $new_document->document_subtypes_id = 100;
+                    // dd("asdasd".$titulo);
+                    if($titulo != null){
                         $new_document->title = $titulo;
-                    // }
+                    }
 
                     
-                    // if($notas != null){
+                    if($notas != null){
                         $new_document->note = $notas;
-                    // }
+                    }
 
-                   
-                    
-                   
                     
                     
-                    // if($quantity != null){
+                    
+                    
+                    
+                    if($quantity != null){
                         $new_document->quantity_generic = $quantity;
-                    // }
+                    }
 
                     // if($size != null){ //solo para libros
-                    //     // $new_document->quantity_generic = $size;
-                        
+                    // $new_document->quantity_generic = $size;    
                     // }
 
                     // if($isbn != null){ //solo para libros
-                    //     // $new_document->isbn = $isbn;
+                    //     $new_document->isbn = $isbn;
                     // }
                     
                     // if($cdu != null){ //se prevee pero no esta en rebecca aun
-                    //     // $cdu;
+                    // $cdu;
                     // }
 
-                  
-                    $new_document->save();
                     // dd($new_document);
-
-                    // if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
-                        // foreach($autores_linea_completa as $arre_autores){
-                        
-                        //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
-                        //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
-                        // }
-                        $new_document->syncActors($autores_linea_completa);
-                    // }
-
-                    // if(count($arreglo_materias_salto_linea) > 0){
-                        // foreach($arreglo_materias_salto_linea as $arre_materias){
-                        
-                        //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
-                        //     $new_materias = new Generate_subjects();
-                        //     $new_materias->subject_name = $arre_materias;
-                        //     $new_materias->save();
-                        //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
-
-                        //     //NOTA ULTIMA: SOLO SE INSERTA XQ SE ENCONTRO Q GUARDA MAS DE UN DATO Y EL CAMPO
-                        //     //ES UN SELECT COMUN DE UNA SOLA OPCION Y NO UN SELECT MULTIPLE COMO A LO MEJOR 
-                        //     //DEBERIA SER EN BASE A Q CASI SIEMPRE HA
-                        // }
-                        $new_document->syncReferences($arreglo_materias_salto_linea);
-                    // }
+                    $new_document->status_documents_id = 100;
+                    $new_document->save();
                 
-                }else{
-                // si no sube el archivo entra aca . mandar msj de errorr   
-                }  
+                            // if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
+                            //     foreach($autores_linea_completa as $arre_autores){
+                            //         $new_document->syncActors($autores_linea_completa);
+                            //     //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                            //     //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
+                            //     // }
+                            //     }
+                            // }
+
+                            if(($materias_del_com != null) && count($arreglo_materias_salto_linea) > 0){
+                                foreach($arreglo_materias_salto_linea as $arre_materias){
+                                //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
+                                //     $new_materias = new Generate_subjects();
+                                //     $new_materias->subject_name = $arre_materias;
+                                //     $new_materias->save();
+                                //     //primero las guardo y dsp las voy asociando al documento q se va a guardar
+
+                                //     //NOTA ULTIMA: SOLO SE INSERTA XQ SE ENCONTRO Q GUARDA MAS DE UN DATO Y EL CAMPO
+                                //     //ES UN SELECT COMUN DE UNA SOLA OPCION Y NO UN SELECT MULTIPLE COMO A LO MEJOR 
+                                //     //DEBERIA SER EN BASE A Q CASI SIEMPRE HA
+                                $new_document->syncReferences($arreglo_materias_salto_linea);
+                                
+                                } 
+                            }
+                    }           
+    }else{
+    // si no sube el archivo entra aca . mandar msj de errorr   
+    }  
 
 
                 
@@ -397,9 +413,15 @@ class ImportfromrebecaController extends Controller
      * @param  \App\Importfromrebeca  $importfromrebeca
      * @return \Illuminate\Http\Response
      */
-    public function edit(Importfromrebeca $importfromrebeca)
+    public function edit($id)
     {
+        // dd("ssdfsdfsf");
         //
+    }
+
+    public function edicion($id)
+    {
+        //queda vacio
     }
 
     /**
@@ -512,7 +534,8 @@ class ImportfromrebecaController extends Controller
           ->addColumn('accion', function ($documentos) {
               return view('admin.importfromrebeca.partials._action', [
                   'documentos' => $documentos,                                 
-                  'url_edit'      => route('admin.importfromrebeca.edit', $documentos->id),  
+                //   'url_edit'      => route('admin.importfromrebeca.edit', $documentos->id),
+                //   'url_edicion'      => route('importfromrebeca.edicion', $documentos->id),  
               ]);
           })           
           ->addIndexColumn()   

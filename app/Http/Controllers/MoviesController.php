@@ -84,6 +84,7 @@ class MoviesController extends Controller
 
     public function indexsolo(Request $request, $idd, $tipo)
     {         
+    //   dd($tipo);
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -100,12 +101,44 @@ class MoviesController extends Controller
         $setting            = Setting::where('id', 1)->first();
         $idiomas            = ManyLenguages::all();
 
-        //edito el tipo de documento siempreq se seleccine el tipo
-        $edicion_type_doc = Document::where('id', $idd)->first();       
-        $edicion_type_doc->document_types_id = $tipo;
-        $edicion_type_doc->status_documents_id = 100;
-        $edicion_type_doc->save();
+        if($tipo != 'n'){
 
+            $edicion_doc = Document::where('id', $idd)->first();  
+
+            if($edicion_doc->document_types_id != $tipo){
+
+                if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
+                    
+                        if($edicion_doc->document_types_id == 1){
+                            
+                        }
+                        if($edicion_doc->document_types_id == 2){
+                            
+                        }
+                        if($edicion_doc->document_types_id == 3){
+                            
+                        }
+                        if($edicion_doc->document_types_id == 4){
+                            
+                        }
+                        if($edicion_doc->document_types_id == 5){
+                            
+                        }
+                }
+
+                if($tipo == 2){ //si es cine
+                    $new_movie = new Movies();
+                    $new_movie->documents_id = $edicion_doc->id;
+                    $new_movie->generate_films_id = 100;        
+                    $new_movie->save();
+                }
+
+                $edicion_doc->document_types_id = $tipo;
+                $edicion_doc->save();
+            }
+                
+        }
+        
         // $this->authorize('view', new Movies); 
         // dd($idd);
         return view('admin.movies.index', [
@@ -813,17 +846,17 @@ class MoviesController extends Controller
             ->addColumn('documents_id', function ($movie){
                 return
                     '<i class="fa fa-video-camera"></i>'.' '.$movie->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$movie->document->creator->creator_name."<br>";         
+                    '<i class="fa fa-user"></i>'.' '.$movie->document->creator['creator_name']."<br>";         
             }) 
             ->addColumn('generate_films_id', function ($movie){
-                if($movie->generate_movie->genre_film != null){
-                    return $movie->generate_movie->genre_film;
+                if($movie->generate_movie['genre_film'] != null){
+                    return $movie->generate_movie['genre_film'];
                 }else{
                     return 'Sin Genero';
                 }             
             })
             ->addColumn('photo', function ($movie){                
-                $url=asset("./images/". $movie->document->photo); 
+                $url=asset("./images/". $movie->document['photo']); 
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             }) 
@@ -835,15 +868,15 @@ class MoviesController extends Controller
                 }              
             })  
             ->addColumn('lenguages_id', function ($movie){
-                if($movie->document->lenguage->leguage_description != null){
-                return'<i class="fa  fa-globe"></i>'.' '.$movie->document->lenguage->leguage_description;         
+                if($movie->document->lenguage['leguage_description'] != null){
+                return'<i class="fa  fa-globe"></i>'.' '.$movie->document->lenguage['leguage_description'];         
                 }else{
                     return 'Sin Lenguaje';
                 }
                 })
             ->addColumn('status', function ($movie){
 
-                return'<span class="'.$movie->document->status_document->color.'">'.' '.$movie->document->status_document->name_status.'</span>';
+                return'<span class="'.$movie->document->status_document['color'].'">'.' '.$movie->document->status_document['name_status'].'</span>';
                 // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
             })            
             ->addColumn('created_at', function ($movie){
@@ -868,6 +901,7 @@ class MoviesController extends Controller
             })           
             ->addIndexColumn()   
             ->rawColumns(['id_doc','documents_id', 'generate_films_id', 'photo', 'generate_formats_id', 'lenguages_id', 'status', 'created_at', 'accion']) 
+            // ->rawColumns(['id_doc','documents_id', 'generate_films_id']) 
             ->make(true);  
     }
 

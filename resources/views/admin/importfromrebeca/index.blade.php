@@ -125,7 +125,7 @@
 
         $('body').on('click', '.modal-show', function(event) {
             event.preventDefault();
-
+            // console.log("aaaaaaqa");
             var me = $(this),
             idd = me.attr('title');
             // console.log("aaaaaaaa: " + idd);

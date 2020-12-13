@@ -86,7 +86,7 @@
     <li class="treeview {{ setActiveRoute([
                                             'admin.books.index', 'admin.movies.index',
                                             'admin.music.index', 'admin.photographs.index',
-                                            'admin.multimedias.index','importfromrebeca.importar'                                           
+                                            'admin.multimedias.index','importfromrebeca.importar','admin.importfromrebeca.index'                                           
                                         ]) }}">                
         <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->catalogo }}</span>
             <span class="pull-right-container">
@@ -121,9 +121,14 @@
             </li>  
             <li class="{{ setActiveRoute('importfromrebeca.importar') }}">
                 <a href="{{ route('importfromrebeca.importar') }}"> 
-                    <i class="fa fa-share-square-o"></i> <span>{{ $idioma->importar_rebeca }}</span>
+                    <i class="fa fa-share-square-o"></i> <span>Importar desde Rebecca</span>
                 </a>
-            </li>                   
+            </li>
+            <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
+                <a href="{{ route('admin.importfromrebeca.index') }}"> 
+                    <i class="fa fa-share-square-o"></i> <span>Importaciones Rebecca</span>
+                </a>
+            </li>                    
         </ul>
     </li>
     
