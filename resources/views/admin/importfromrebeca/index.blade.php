@@ -127,8 +127,9 @@
             event.preventDefault();
             // console.log("aaaaaaqa");
             var me = $(this),
-            idd = me.attr('title');
-            // console.log("aaaaaaaa: " + idd);
+            // idd = me.attr('title');
+            idd = me.attr('value');
+            // console.log("aaaaaaaaeee: " + idd);
             (async () => {
             const { value: fruit } = await Swal.fire({
             title: 'Seleccione el tipo de Documento',

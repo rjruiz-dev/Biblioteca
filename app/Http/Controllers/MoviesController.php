@@ -37,6 +37,10 @@ use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
 use App\ml_abm_book_lit;
 use App\Copy;
+use App\Music;
+use App\Book;
+use App\Multimedia;
+use App\Photography;
 use Illuminate\Support\Facades\Auth; 
 
 class MoviesController extends Controller
@@ -101,7 +105,7 @@ class MoviesController extends Controller
         $setting            = Setting::where('id', 1)->first();
         $idiomas            = ManyLenguages::all();
 
-        if($tipo != 'n'){
+        if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
 
             $edicion_doc = Document::where('id', $idd)->first();  
 
@@ -109,21 +113,24 @@ class MoviesController extends Controller
 
                 if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
                     
-                        if($edicion_doc->document_types_id == 1){
-                            
+                        if($edicion_doc->document_types_id == 1){ //eliminacion musica
+                            $edicion_music = Music::where('documents_id', $edicion_doc->id)->first();
+                            $edicion_music->destroy();
                         }
-                        if($edicion_doc->document_types_id == 2){
-                            
+                        if($edicion_doc->document_types_id == 3){ //eliminacion libros
+                            $edicion_book = Book::where('documents_id', $edicion_doc->id)->first();
+                            $edicion_book->destroy();
                         }
-                        if($edicion_doc->document_types_id == 3){
-                            
+                        if($edicion_doc->document_types_id == 4){ //eliminacion multimedia
+                            $edicion_multimedia = Multimedia::where('documents_id', $edicion_doc->id)->first();
+                            $edicion_multimedia->destroy();    
                         }
-                        if($edicion_doc->document_types_id == 4){
-                            
+                        if($edicion_doc->document_types_id == 5){ //eliminacion fotografia
+                            $edicion_fotografia = Photography::where('documents_id', $edicion_doc->id)->first();
+                            $edicion_fotografia->destroy();        
                         }
-                        if($edicion_doc->document_types_id == 5){
-                            
-                        }
+                }else{ // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
+
                 }
 
                 if($tipo == 2){ //si es cine
