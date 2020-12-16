@@ -42,6 +42,7 @@ use App\Book;
 use App\Multimedia;
 use App\Photography;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Str;
 
 class MoviesController extends Controller
 {
@@ -111,6 +112,12 @@ class MoviesController extends Controller
 
             if($edicion_doc->document_types_id != $tipo){
 
+                if($tipo == 2){ //si es cine
+                    $new_movie = new Movies();
+                    $new_movie->documents_id = $edicion_doc->id;
+                    $new_movie->generate_films_id = 100;     
+                }
+
                 if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
                     
                         if($edicion_doc->document_types_id == 1){ //eliminacion musica
@@ -129,19 +136,41 @@ class MoviesController extends Controller
                             $edicion_fotografia = Photography::where('documents_id', $edicion_doc->id)->first();
                             $edicion_fotografia->destroy();        
                         }
-                }else{ // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
+                }else{ 
+                    // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
+                    $datos_pendientes = $edicion_doc->note;
 
-                }
+                    $autor_del_com = null;
+                    if (Str::contains($datos_pendientes,' / ')){
+                        $autor_del_com = str_after($datos_pendientes, ' / ');
+                        $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
+                        $autores_linea_completa = reset($arreglo_autor_salto_linea);
+                        $datos_pendientes = str_replace($autores_linea_completa,'', $datos_pendientes);
+                        $datos_pendientes = str_replace(' / ','', $datos_pendientes);
+                        $datos_pendientes = str_replace(' ; ', '', $datos_pendientes);
+                        // dd("yyyy: ".$autores_linea_completa);
+                        // a "Y" no se le hace un remplace xq si o si tiene q ir entre espacios, sino 
+                        //se toma como palabra comun de otra palabra.
+                        $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
+                        $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
+                        // dd("qqqqq: ".$autores_linea_completa);                                   
+                        $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
+                        // LISTOOOOO POSTAAA
+                        // dd($autores_linea_completa);
+                    }
 
-                if($tipo == 2){ //si es cine
-                    $new_movie = new Movies();
-                    $new_movie->documents_id = $edicion_doc->id;
-                    $new_movie->generate_films_id = 100;        
-                    $new_movie->save();
+                    $edicion_doc->note = trim($datos_pendientes);
+
                 }
 
                 $edicion_doc->document_types_id = $tipo;
                 $edicion_doc->save();
+                $new_movie->save();
+
+                if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
+                    // dd($autores_linea_completa);
+                    $new_movie->syncActors($autores_linea_completa);
+                }
             }
                 
         }
@@ -287,6 +316,7 @@ class MoviesController extends Controller
                 $movie->distributor             = $request->get('distributor');             
                 $movie->documents_id            = $document->id;//guardamos el id del documento 
                 $movie->save();
+                
                 $movie->syncActors($request->get('actors'));
                
                 DB::commit();
@@ -522,6 +552,7 @@ class MoviesController extends Controller
                 $movie->distributor             = $request->get('distributor');
                 $movie->documents_id            = $document->id;//guardamos el id del documento                
                 $movie->save();
+                // dd($request->get('actors'));
                 $movie->syncActors($request->get('actors'));
    
                 DB::commit();

@@ -148,6 +148,9 @@ class ImportfromrebecaController extends Controller
                                     $titulo_del_fin = trim(str_before($titulo_del_com, ' / '));
                                     if($titulo_del_fin != ''){
                                         $titulo = $titulo_del_fin;
+                                        $documento = str_replace($titulo,'', $documento);
+                                        $documento = str_replace('Título:','', $documento);
+                                    
                                     }
                                     // LISTOOOOO POSTAAA
                         }
@@ -163,7 +166,8 @@ class ImportfromrebecaController extends Controller
                                     //se toma como palabra comun de otra palabra.
                                     $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
                                     $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
-                                    // dd("qqqqq: ".$autores_linea_completa);                                   
+                                    // dd("qqqqq: ".$autores_linea_completa);
+                                    // $documento = str_replace($autores_linea_completa,'', $documento);                                   
                                     $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
                                     // LISTOOOOO POSTAAA
                                     // dd($autores_linea_completa);
@@ -179,7 +183,9 @@ class ImportfromrebecaController extends Controller
                                     // dd(reset($arreglo_editorial_salto_linea)); 
                                 if(trim(reset($arreglo_editorial_salto_linea) != '')){
                                 $editorial = trim(reset($arreglo_editorial_salto_linea));
-                                    //LISTO POSTAAAAA
+                                $documento = str_replace($editorial, '', $documento);                                   
+                                $documento = str_replace('Editorial:', '', $documento);                                   
+                                //LISTO POSTAAAAA
                                 }
                         }
                         //  LISTO
@@ -191,6 +197,7 @@ class ImportfromrebecaController extends Controller
                                     $quantity_del_fin = trim(str_before(reset($arreglo_quantity_salto_linea), ' ; '));
                                     if($quantity_del_fin != ''){
                                     $quantity = $quantity_del_fin;
+                                    $documento = str_replace($quantity, '', $documento);
                                 // dd("kkk: ".$quantity);  
                                 // LISTO POSTAAAA
                                 }
@@ -199,9 +206,12 @@ class ImportfromrebecaController extends Controller
                                 $aux_size  =  trim(str_after(reset($arreglo_quantity_salto_linea), ' ; '));
                                         if($aux_size != ''){
                                             $size = $aux_size;
+                                            $documento = str_replace($size, '', $documento);
                                             // dd("aassss: ".$size);
                                             // LISTO POSTAAAA                  
                                         }
+                                
+                                $documento = str_replace('Descripción física:', '', $documento);
                         }       
                         // -----------------------------DESCRIP FISICA CINE-------------------------------------- 
                     //    $quantity_cine = null;
@@ -220,17 +230,20 @@ class ImportfromrebecaController extends Controller
                                         $notas_del_com = str_after($documento, 'Notas:');
                                         $notas_del_fin = trim(str_before($notas_del_com,"\t\n"));
                                             if($notas_del_fin != ''){
-                                                $notas = $notas_del_fin;
+                                                // $notas = $notas_del_fin;
                                                 //LISTO POSTAAA 
-                                            // if (strpos($notas_del_fin, 'Sinopsis:') !== false) {
-                                            // $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
-                                            // $notas = $notas_aux;
-                                            // }
-                                            // else{
-                                            //     $notas = $notas_del_fin;
+                                                
+                                            if (Str::contains($notas_del_fin, 'Sinopsis:')) {
+                                            $notas_aux = str_replace('Sinopsis:', '', $notas_del_fin);
+                                            $notas = $notas_aux;
                                             }
+                                            else{
+                                                $notas = $notas_del_fin;
+                                            }
+                                            $documento = str_replace($notas, '', $documento);
+                                            $documento = str_replace('Notas:', '', $documento);
                                     } 
-                                //   }
+                                  }
                                     //-----LOGICA NO UTILIZADA PERO DE DEJA POR SI SE NECESITA PARA OTRO DELIMITADOR                                  
                                 //   $notas_del_com = str_after($documento, 'Notas:');
                                 //   $arreglo_notas_salto_linea = explode("\n", $notas_del_com); 
@@ -261,6 +274,8 @@ class ImportfromrebecaController extends Controller
                         $materias_del_com = str_after($documento, 'Materias:');
                         $materias_del_fin = str_before($materias_del_com,"\t\r\n");
                         // dd($materias_del_fin);
+                        $documento = str_replace($materias_del_fin, '', $documento);
+                        $documento = str_replace('Materias:', '', $documento);
                         $arreglo_materias_salto_linea = explode("\n", $materias_del_fin);
                     }
                     // INSERT IN REFERENCIAS
@@ -271,7 +286,9 @@ class ImportfromrebecaController extends Controller
                         if (Str::contains($documento,'ISBN:')){
                                     $isbn_del_com = str_after($documento, 'ISBN:');
                                     $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
-                        $isbn =   reset($arreglo_isbn_salto_linea);
+                        $isbn = reset($arreglo_isbn_salto_linea);
+                        $documento = str_replace($isbn, '', $documento);
+                        $documento = str_replace('ISBN:', '', $documento);
                        }
                         // INSERT IN ISBN
                         //LISTO                  
@@ -281,7 +298,9 @@ class ImportfromrebecaController extends Controller
                         if (Str::contains($documento,'CDU:')){    
                         $cdu_del_com = str_after($documento, 'CDU:');
                         $arreglo_cdu_salto_linea = explode("\n", $cdu_del_com); 
-                        $cdu =   reset($arreglo_cdu_salto_linea);
+                        $cdu = reset($arreglo_cdu_salto_linea);
+                        $documento = str_replace($cdu, '', $documento);
+                        $documento = str_replace('CDU:', '', $documento);
                       }
                         //LISTO
                         //CONSULTAR DONDE MIERDA SE INSERTARIA EN TAL CASO DE Q SE LEVANTE YA Q LO ESTAMSO PREVIENDO SOLAMENTE                  
@@ -315,7 +334,7 @@ class ImportfromrebecaController extends Controller
                     //A LA TABLA DOCUMENTOS.
                     
                     $new_document = new Document(); 
-                    $new_document->document_types_id = 6;
+                    $new_document->document_types_id = 100;
                     $new_document->status_documents_id = 100;
                     $new_document->generate_subjects_id = 100;
                     $new_document->document_subtypes_id = 100;
@@ -326,10 +345,12 @@ class ImportfromrebecaController extends Controller
 
                     
                     if($notas != null){
-                        $new_document->note = $notas;
+                        $new_document->synopsis = $notas;
                     }
 
-                    
+                    if(trim($documento) != ''){
+                        $new_document->note = $documento;
+                    }
                     
                     
                     
@@ -354,6 +375,7 @@ class ImportfromrebecaController extends Controller
                     $new_document->status_documents_id = 100;
                     $new_document->save();
                 
+                            // solo para cine osea movie
                             // if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
                             //     foreach($autores_linea_completa as $arre_autores){
                             //         $new_document->syncActors($autores_linea_completa);
@@ -364,7 +386,7 @@ class ImportfromrebecaController extends Controller
                             // }
 
                             if(($materias_del_com != null) && count($arreglo_materias_salto_linea) > 0){
-                                foreach($arreglo_materias_salto_linea as $arre_materias){
+                                // foreach($arreglo_materias_salto_linea as $arre_materias){
                                 //     //inserto las materias que esten delimitadas por saltos de linea en la DB.
                                 //     $new_materias = new Generate_subjects();
                                 //     $new_materias->subject_name = $arre_materias;
@@ -376,7 +398,7 @@ class ImportfromrebecaController extends Controller
                                 //     //DEBERIA SER EN BASE A Q CASI SIEMPRE HA
                                 $new_document->syncReferences($arreglo_materias_salto_linea);
                                 
-                                } 
+                                // } 
                             }
                     }           
     }else{
