@@ -7,22 +7,44 @@
 @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
 <a href="{{ $url_copy }}" class="btn-copy" title="Ver Copias"><i class="fa fa-copy text-danger"></i></a> |
 @endif
-@if ($photograph->document['status_documents_id'] != 3)
-        @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
-        <a href="{{ $url_desidherata }}" class="btn-desidherata" title="Desidherata"><i class="fa fa-pause-circle"></i></a> | 
-        @endif       
-@endif
+
+@if($idd != 'none')
+
 @if ($photograph->document['status_documents_id'] != 2)
         @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
         <a href="{{ $url_baja }}" class="btn-baja" title="Baja"><i class="fa fa-arrow-down text-danger"></i></a> |  
         @endif    
-@endif 
+@endif
+ 
 @if ($photograph->document['status_documents_id'] != 1)
         @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
         <a href="{{ $url_reactivar }}" class="btn-reactivar" title="Reactivar"><i class="fa fa-arrow-up text-green"></i></a> |  
         @endif 
 @endif 
-@if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
-   <a href="{{ $url_print }}" title="Imprimir: {{ $photograph->document['title'] }}"><i class="fa fa-download text-success"></i></a> |  
+
+@else
+
+        @if ($photograph->document['status_documents_id'] != 3)
+                @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
+                <a href="{{ $url_desidherata }}" class="btn-desidherata" title="Desidherata"><i class="fa fa-pause-circle"></i></a> | 
+                @endif       
+        @endif
+
+        @if ($photograph->document['status_documents_id'] != 2)
+                @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
+                <a href="{{ $url_baja }}" class="btn-baja" title="Baja"><i class="fa fa-arrow-down text-danger"></i></a> |  
+                @endif    
+        @endif
+
+        @if ($photograph->document['status_documents_id'] != 1)
+                @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
+                <a href="{{ $url_reactivar }}" class="btn-reactivar" title="Reactivar"><i class="fa fa-arrow-up text-green"></i></a> |  
+                @endif 
+        @endif
+
+        @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
+        <a href="{{ $url_print }}" title="Imprimir: {{ $photograph->document['title'] }}"><i class="fa fa-download text-success"></i></a> |  
+        @endif
+
 @endif 
 

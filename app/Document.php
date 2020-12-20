@@ -9,7 +9,7 @@ class Document extends Model
     protected $fillable = [ 
         'generate_subjects_id', 'generate_references_id', 'adequacies_id', 'lenguages_id', 'document_types_id', 'document_subtypes_id', 'creators_id', 'status_documents_id', 'title', 'original_title', 'acquired',
         'let_author', 'cdu', 'let_title', 'assessment', 'desidherata', 'published', 'made_by', 'year', 'volume', 'quantity', 'collection', 'location',
-        'observation', 'note', 'synopsis', 'photo', 'quantity_generic'
+        'observation', 'note', 'temprebecca', 'synopsis', 'photo', 'quantity_generic'
     ];
 
     protected $dates = ['acquired', 'drop', 'year'];

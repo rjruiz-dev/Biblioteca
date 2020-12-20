@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Music;
+use App\Movies;
 use App\Lenguage;
+use App\Ml_movie;
 use App\Creator;
 use App\Culture;
 use App\Popular;
@@ -13,13 +15,14 @@ use App\Adequacy;
 use App\Document;
 use App\Book_movement;
 use App\Document_type;
+use App\Ml_dashboard;
+use App\Ml_document;
 use App\Generate_subjects;
 use App\Generate_reference;
 use App\Document_subtype;
 use App\Generate_format;
 use App\Generate_music;
 use App\StatusDocument;
-use App\Ml_dashboard;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +43,7 @@ class MusicController extends Controller
      */
     public function index(Request $request)
     {
+        $idd = 'none'; //con esto indico q no tiene q filtrar por un cine solo
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -59,6 +63,94 @@ class MusicController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
+            'idd' => $idd, 
+             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+             'references' => Generate_reference::pluck('reference_description', 'id'),
+             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+             'genders'       => Generate_music::pluck('genre_music', 'id')
+             // replicar esto FIN 
+        ]); 
+    }
+
+    public function indexsolo(Request $request, $idd, $tipo)
+    {         
+    //   dd($tipo);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+
+        //cargo el idioma
+        $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
+        $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
+        $setting            = Setting::where('id', 1)->first();
+        $idiomas            = ManyLenguages::all();
+
+        if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
+
+            $edicion_doc = Document::where('id', $idd)->first();  
+
+            if($edicion_doc->document_types_id != $tipo){
+
+                if($tipo == 1){ //si es cine
+                    $new_music = new Music();
+                    $new_music->documents_id = $edicion_doc->id;
+                    $new_music->generate_musics_id = 100;
+                    $new_music->generate_formats_id = 100;     
+                }
+
+                if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
+                    
+                    if($edicion_doc->document_types_id == 2){ //eliminacion libros
+                        $edicion_movie = Movies::where('documents_id', '=', $edicion_doc->id)->delete();
+                        // $edicion_book->destroy();
+                    }
+                        if($edicion_doc->document_types_id == 3){ //eliminacion libros
+                            $edicion_book = Book::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_book->destroy();
+                        }
+                        if($edicion_doc->document_types_id == 4){ //eliminacion multimedia
+                            $edicion_multimedia = Multimedia::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_multimedia->destroy();    
+                        }
+                        if($edicion_doc->document_types_id == 5){ //eliminacion fotografia
+                            $edicion_fotografia = Photography::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_fotografia->destroy();        
+                        }
+                }
+                // else{ 
+                    // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
+                    $datos_pendientes = $edicion_doc->temprebecca;
+                    // lo que quede lo guardo en notes. si es edicion pisa lo q estaba anterior si estaba con otro documento
+                    $edicion_doc->note = trim($datos_pendientes);
+
+                // }
+
+                $edicion_doc->document_types_id = $tipo;
+                $edicion_doc->save();
+                $new_music->save();
+
+                
+            }
+                
+        }
+        
+        // $this->authorize('view', new Movies); 
+        // dd($idd);
+        return view('admin.music.index', [
+            'idioma'            => $idioma,
+            'idioma_document'   => $idioma_document,
+            'idioma_movie'      => $idioma_movie,
+            'idiomas'           => $idiomas,
+            'setting'           => $setting,
+            'idd'           => $idd,
+            
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
              'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -686,6 +778,7 @@ class MusicController extends Controller
 
     public function dataTable(Request $request)
     {   
+        $idd_bis = 'none';
         if($request->get('subjects') != ''){
             $subjects_mostrar = true; 
         }else{
@@ -710,9 +803,18 @@ class MusicController extends Controller
             $references_mostrar = false;      
         }
 
+        // dd($request->get('indexsolo')); 
+        if($request->get('indexsolo') != ''){
+            $indexsolo_mostrar = true;
+            $idd_bis = $request->get('indexsolo');  
+        }else{
+            $indexsolo_mostrar = false;      
+        }
+        // dd($idd_bis);
+
         if(Auth::user()->getRoleNames() == 'Partner'){
         $musica = Music::with('document.creator', 'document.document_subtype','document','document.lenguage','generate_music', 'document.status_document') 
-        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);            
                 
@@ -721,6 +823,9 @@ class MusicController extends Controller
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -738,13 +843,16 @@ class MusicController extends Controller
         ->get();
         }else{ 
             $musica = Music::with('document.creator', 'document.document_subtype','document','document.lenguage','generate_music', 'document.status_document') 
-        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 if($subjects_mostrar){
                     $q->where('generate_subjects_id', '=', $request->get('subjects'));   
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));   
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -769,14 +877,14 @@ class MusicController extends Controller
             ->addColumn('documents_id', function ($musica){
                 return
                     '<i class="fa fa-music"></i>'.' '.$musica->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$musica->document->creator->creator_name."<br>";         
+                    '<i class="fa fa-user"></i>'.' '.$musica->document->creator['creator_name']."<br>";         
             })                      
             ->addColumn('document_subtypes_id', function ($musica){
 
-                return  $musica->document->document_subtype->subtype_name;              
+                return  $musica->document->document_subtype['subtype_name'];              
             }) 
             ->addColumn('photo', function ($musica){                
-                $url=asset("./images/". $musica->document->photo); 
+                $url=asset("./images/". $musica->document['photo']); 
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             })
@@ -788,22 +896,22 @@ class MusicController extends Controller
                 }                 
             })           
             ->addColumn('lenguages_id', function ($musica){
-                if($musica->document->lenguage->leguage_description == null){
+                if($musica->document->lenguage['leguage_description'] == null){
                     return 'Sin Lenguaje';
                 }else{
-                    return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage->leguage_description;         
+                    return'<i class="fa  fa-globe"></i>'.' '.$musica->document->lenguage['leguage_description'];         
                 }
             })
             ->addColumn('status', function ($musica){
 
-                return'<span class="'.$musica->document->status_document->color.'">'.' '.$musica->document->status_document->name_status.'</span>';
+                return'<span class="'.$musica->document->status_document['color'].'">'.' '.$musica->document->status_document['name_status'].'</span>';
                 // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
             })              
             ->addColumn('created_at', function ($musica){
                 return $musica->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($musica) {
+            ->addColumn('accion', function ($musica) use($idd_bis) {
                 return view('admin.music.partials._action', [
                     'musica'            => $musica,
                     'url_show'          => route('admin.music.show', $musica->id),                        
@@ -812,7 +920,8 @@ class MusicController extends Controller
                     'url_desidherata'   => route('music.desidherata', $musica->document->id),
                     'url_baja'          => route('music.baja', $musica->document->id),
                     'url_reactivar'     => route('music.reactivar', $musica->document->id),
-                    'url_print'         => route('musica.pdf', $musica->id) 
+                    'url_print'         => route('musica.pdf', $musica->id),
+                    'idd' => $idd_bis 
                 ]); 
             })           
             ->addIndexColumn()    

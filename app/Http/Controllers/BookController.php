@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Carbon\Carbon;
+use App\Movies;
+use App\Multimedia;
 use App\Book;
 use App\Creator;
 use App\Adequacy;
@@ -32,8 +34,11 @@ use App\ml_abm_book;
 use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
 use App\ml_abm_book_lit;
+use App\Ml_movie;
+use App\Ml_document;
 use App\Copy;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class BookController extends Controller
@@ -76,8 +81,9 @@ class BookController extends Controller
         
     // }
 
-    public function index(Request $request, $idd)
-    {        
+    public function index(Request $request)
+    {   
+        $idd = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -105,6 +111,134 @@ class BookController extends Controller
             'genders'       => Generate_book::pluck('genre_book', 'id')
             // replicar esto FIN 
 
+        ]); 
+    }
+
+    public function indexsolo(Request $request, $idd, $tipo)
+    {         
+    //   dd($tipo);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+
+        //cargo el idioma
+        $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
+        $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
+        $setting            = Setting::where('id', 1)->first();
+        $idiomas            = ManyLenguages::all();
+
+        if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
+
+            $edicion_doc = Document::where('id', $idd)->first();  
+
+            if($edicion_doc->document_types_id != $tipo){
+
+                if($tipo == 3){ //si es cine
+                    $new_book = new Book();
+                    $new_book->documents_id = $edicion_doc->id;
+                    $new_book->generate_books_id = 100;
+                    $new_book->second_author_id = 100;
+                    $new_book->third_author_id = 100;     
+                }
+
+                if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
+                    
+                    if($edicion_doc->document_types_id == 1){ //eliminacion musica
+                        $edicion_music = Music::where('documents_id', '=', $edicion_doc->id)->delete();
+                        // $edicion_music->destroy();
+                    }
+                    if($edicion_doc->document_types_id == 2){ //eliminacion libros
+                        $edicion_movie = Movies::where('documents_id', '=', $edicion_doc->id)->delete();
+                        // $edicion_book->destroy();
+                    }
+                    if($edicion_doc->document_types_id == 4){ //eliminacion multimedia
+                        $edicion_multimedia = Multimedia::where('documents_id', '=', $edicion_doc->id)->delete();
+                        // $edicion_multimedia->destroy();    
+                    }
+                    if($edicion_doc->document_types_id == 5){ //eliminacion fotografia
+                        $edicion_fotografia = Photography::where('documents_id', '=', $edicion_doc->id)->delete();
+                        // $edicion_fotografia->destroy();        
+                    }
+                }
+                // else{ 
+                    // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
+                    $datos_pendientes = $edicion_doc->temprebecca;
+                    // dd($datos_pendientes);
+                    //------------------------------------------SIZE-----------------------------------------------------------------------------------------                
+                    $size = null;
+                    if (Str::contains($datos_pendientes,'Descripción física:')){
+                        $size_ant_del_com = str_after($datos_pendientes, 'Descripción física:');
+                        $arreglo_size_salto_linea = explode("\n", $size_ant_del_com);
+                        $size_sin_del_com = reset($arreglo_size_salto_linea);
+                        $size_del_fin = trim(str_after($size_sin_del_com, ' ; '));
+                        //en este caso lo evaluo como un delimitador de comienzo pero dice fin xq total ya 
+                        //corte el final con el salto de linea q preevi(?) antes-
+                        // dd($size_del_fin);
+                        if($size_del_fin != ''){
+                            $size = $size_del_fin;
+                            $datos_pendientes = str_replace($size, '', $datos_pendientes);
+                            $datos_pendientes = str_replace('Descripción física:', '', $datos_pendientes);
+                            $datos_pendientes = str_replace(' ; ', '', $datos_pendientes);
+                        }
+                    }
+                    // dd($size);
+                    //------------------------------------------ISBN-----------------------------------------------------------------------------------------                
+                    $isbn = null;
+                    //    if (strpos($documento, 'ISBN:') !== false) {
+                        if (Str::contains($datos_pendientes,'ISBN:')){
+                                    $isbn_del_com = str_after($datos_pendientes, 'ISBN:');
+                                    $arreglo_isbn_salto_linea = explode("\n", $isbn_del_com); 
+                        $isbn = reset($arreglo_isbn_salto_linea);
+                        $datos_pendientes = str_replace($isbn, '', $datos_pendientes);
+                        $datos_pendientes = str_replace('ISBN:', '', $datos_pendientes);
+                       }
+                        // INSERT IN ISBN
+                        //LISTO
+                    // dd($size);
+                    if($size != null){ //solo para libros
+                        // dd("hhh0".$size);
+                    //  dd($new_book);   
+                    $new_book->size = $size;    
+                    }
+
+                    if($isbn != null){ //solo para libros
+                        $new_book->isbn = $isbn;
+                    }
+
+                    // lo que quede lo guardo en notes. si es edicion pisa lo q estaba anterior si estaba con otro documento
+                    $edicion_doc->note = trim($datos_pendientes);
+
+                // }
+
+                $edicion_doc->document_types_id = $tipo;
+                $edicion_doc->save();
+                $new_book->save();
+            }
+                
+        }
+        
+        // $this->authorize('view', new Movies); 
+        // dd($idd);
+        return view('admin.books.index', [ 
+            'idioma'            => $idioma,
+            'idioma_document'   => $idioma_document,
+            'idioma_movie'      => $idioma_movie,
+            'idiomas'           => $idiomas,
+            'setting'           => $setting,
+            'idd'           => $idd,
+            
+             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+             'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+            'genders'       => Generate_book::pluck('genre_book', 'id')
+             // replicar esto FIN 
         ]); 
     }
 
@@ -906,8 +1040,9 @@ class BookController extends Controller
         return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
     }
 
-    public function dataTable(Request $request, $idd)
+    public function dataTable(Request $request)
     {   
+        $idd_bis = 'none';
         if($request->get('subjects') != ''){
             $subjects_mostrar = true; 
         }else{
@@ -932,17 +1067,19 @@ class BookController extends Controller
             $references_mostrar = false;      
         }
 
-        if($idd != null)
-        {
-        $idd_mostrar = true;
+           // dd($request->get('indexsolo')); 
+           if($request->get('indexsolo') != ''){
+            $indexsolo_mostrar = true;
+            $idd_bis = $request->get('indexsolo');  
         }else{
-        $idd_mostrar = false;
-        } 
+            $indexsolo_mostrar = false;      
+        }
+        // dd($idd_bis);
 
         if(Auth::user()->getRoleNames() == 'Partner'){
 
             $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
-            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);            
                 
@@ -954,6 +1091,9 @@ class BookController extends Controller
                 }
                 if($idd_mostrar){
                     $q->where('id', '=', $idd);   
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -974,7 +1114,7 @@ class BookController extends Controller
         }else{
 
             $libros = Book::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_book') 
-            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {        
                 if($subjects_mostrar){
                     $q->where('generate_subjects_id', '=', $request->get('subjects'));   
@@ -982,6 +1122,9 @@ class BookController extends Controller
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
                 } 
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));   
+                }
             })
             ->where(function($q) use($genders_mostrar, $request)
             {
@@ -1006,14 +1149,14 @@ class BookController extends Controller
             ->addColumn('documents_id', function ($libros){
                 return
                     '<i class="fa fa-book"></i>'.' '.$libros->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$libros->document->creator->creator_name."<br>";         
+                    '<i class="fa fa-user"></i>'.' '.$libros->document->creator['creator_name']."<br>";         
             }) 
             ->addColumn('document_subtypes_id', function ($libros){
 
-                return  $libros->document->document_subtype->subtype_name;              
+                return  $libros->document->document_subtype['subtype_name'];              
             }) 
             ->addColumn('photo', function ($libros){                
-                $url=asset("./images/". $libros->document->photo); 
+                $url=asset("./images/". $libros->document['photo']); 
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             })
@@ -1025,22 +1168,22 @@ class BookController extends Controller
                 }
             })            
             ->addColumn('lenguages_id', function ($libros){ 
-                if($libros->document->lenguage->leguage_description == null){
+                if($libros->document->lenguage['leguage_description'] == null){
                     return 'Sin Lenguaje';
                 }else{ 
-                    return'<i class="fa  fa-globe"></i>'.' '.$libros->document->lenguage->leguage_description;         
+                    return'<i class="fa  fa-globe"></i>'.' '.$libros->document->lenguage['leguage_description'];         
                 } 
             }) 
             ->addColumn('status', function ($libros){
 
-                return'<span class="'.$libros->document->status_document->color.'">'.' '.$libros->document->status_document->name_status.'</span>';
+                return'<span class="'.$libros->document->status_document['color'].'">'.' '.$libros->document->status_document['name_status'].'</span>';
                 // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
             })           
             ->addColumn('created_at', function ($libros){
                 return $libros->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($libros) {
+            ->addColumn('accion', function ($libros) use($idd_bis){
                 return view('admin.books.partials._action', [
                     'libros'            => $libros,
                     'url_show'          => route('admin.books.show', $libros->id),                        
@@ -1049,7 +1192,8 @@ class BookController extends Controller
                     'url_desidherata'   => route('books.desidherata', $libros->document->id),
                     'url_baja'          => route('books.baja', $libros->document->id),
                     'url_reactivar'     => route('books.reactivar', $libros->document->id),
-                    'url_print'         => route('libro.pdf', $libros->id)   
+                    'url_print'         => route('libro.pdf', $libros->id),
+                    'idd' => $idd_bis 
                 ]);
             })           
             ->addIndexColumn()   

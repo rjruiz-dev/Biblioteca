@@ -53,7 +53,7 @@ class MoviesController extends Controller
      */
     public function index(Request $request)
     {         
-        $idd = 'none';
+        $idd = 'none'; //con esto indico q no tiene q filtrar por un cine solo
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -121,24 +121,25 @@ class MoviesController extends Controller
                 if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
                     
                         if($edicion_doc->document_types_id == 1){ //eliminacion musica
-                            $edicion_music = Music::where('documents_id', $edicion_doc->id)->first();
-                            $edicion_music->destroy();
+                            $edicion_music = Music::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_music->destroy();
                         }
                         if($edicion_doc->document_types_id == 3){ //eliminacion libros
-                            $edicion_book = Book::where('documents_id', $edicion_doc->id)->first();
-                            $edicion_book->destroy();
+                            $edicion_book = Book::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_book->destroy();
                         }
                         if($edicion_doc->document_types_id == 4){ //eliminacion multimedia
-                            $edicion_multimedia = Multimedia::where('documents_id', $edicion_doc->id)->first();
-                            $edicion_multimedia->destroy();    
+                            $edicion_multimedia = Multimedia::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_multimedia->destroy();    
                         }
                         if($edicion_doc->document_types_id == 5){ //eliminacion fotografia
-                            $edicion_fotografia = Photography::where('documents_id', $edicion_doc->id)->first();
-                            $edicion_fotografia->destroy();        
+                            $edicion_fotografia = Photography::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_fotografia->destroy();        
                         }
-                }else{ 
+                }
+                // else{ 
                     // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
-                    $datos_pendientes = $edicion_doc->note;
+                    $datos_pendientes = $edicion_doc->temprebecca;
 
                     $autor_del_com = null;
                     if (Str::contains($datos_pendientes,' / ')){
@@ -158,10 +159,10 @@ class MoviesController extends Controller
                         // LISTOOOOO POSTAAA
                         // dd($autores_linea_completa);
                     }
-
+                    // lo que quede lo guardo en notes. si es edicion pisa lo q estaba anterior si estaba con otro documento
                     $edicion_doc->note = trim($datos_pendientes);
 
-                }
+                // }
 
                 $edicion_doc->document_types_id = $tipo;
                 $edicion_doc->save();

@@ -202,16 +202,16 @@ class ImportfromrebecaController extends Controller
                                 // LISTO POSTAAAA
                                 }
 
-                                $size  = null;    
-                                $aux_size  =  trim(str_after(reset($arreglo_quantity_salto_linea), ' ; '));
-                                        if($aux_size != ''){
-                                            $size = $aux_size;
-                                            $documento = str_replace($size, '', $documento);
-                                            // dd("aassss: ".$size);
-                                            // LISTO POSTAAAA                  
-                                        }
+                                // $size  = null;    
+                                // $aux_size  =  trim(str_after(reset($arreglo_quantity_salto_linea), ' ; '));
+                                //         if($aux_size != ''){
+                                //             $size = $aux_size;
+                                //             $documento = str_replace($size, '', $documento);
+                                //             // dd("aassss: ".$size);
+                                //             // LISTO POSTAAAA                  
+                                //         }
                                 
-                                $documento = str_replace('Descripción física:', '', $documento);
+                                // $documento = str_replace('Descripción física:', '', $documento);
                         }       
                         // -----------------------------DESCRIP FISICA CINE-------------------------------------- 
                     //    $quantity_cine = null;
@@ -347,9 +347,10 @@ class ImportfromrebecaController extends Controller
                     if($notas != null){
                         $new_document->synopsis = $notas;
                     }
-
-                    if(trim($documento) != ''){
-                        $new_document->note = $documento;
+                    //aqui guadro los datos q no se identificaron como documento y quedan para siempre ahi en ese campo
+                    // si algun dia se les canta cambiar el tipo de documento y entonces ya consultan ahi.
+                    if(trim($documento) != ''){ 
+                        $new_document->temprebecca = $documento;
                     }
                     
                     
@@ -367,7 +368,7 @@ class ImportfromrebecaController extends Controller
                     //     $new_document->isbn = $isbn;
                     // }
                     
-                    // if($cdu != null){ //se prevee pero no esta en rebecca aun
+                    // if($cdu != null){ //se prevee pero no esta en rebecca aun seria para documentos cuando salga
                     // $cdu;
                     // }
 

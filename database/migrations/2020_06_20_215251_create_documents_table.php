@@ -41,6 +41,7 @@ class CreateDocumentsTable extends Migration
             $table->string('location')->nullable();
             $table->mediumText('observation')->nullable();
             $table->string('note')->nullable();
+            $table->string('temprebecca')->nullable();
             $table->mediumText('synopsis')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();

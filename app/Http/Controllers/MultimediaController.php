@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use DataTables;
 use App\Multimedia;
+use App\Movies;
 use App\Creator;
 use App\Document_subtype;
 use App\Adequacy;
@@ -24,6 +25,8 @@ use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_multimedia;
 use App\Copy;
+use App\Ml_document;
+use App\Ml_movie;
 use Illuminate\Support\Facades\Auth;
 
 class MultimediaController extends Controller
@@ -35,6 +38,7 @@ class MultimediaController extends Controller
      */
     public function index(Request $request)
     {
+        $idd = 'none'; //con esto indico q no tiene q filtrar por un cine solo
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -62,6 +66,90 @@ class MultimediaController extends Controller
              // replicar esto FIN 
  
         ]);
+    }
+
+    public function indexsolo(Request $request, $idd, $tipo)
+    {         
+    //   dd($tipo);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+
+        //cargo el idioma
+        $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
+        $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
+        $setting            = Setting::where('id', 1)->first();
+        $idiomas            = ManyLenguages::all();
+
+        if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
+
+            $edicion_doc = Document::where('id', $idd)->first();  
+
+            if($edicion_doc->document_types_id != $tipo){
+
+                if($tipo == 4){ //si es cine
+                    $new_multimedia = new Multimedia();
+                    $new_multimedia->documents_id = $edicion_doc->id;
+                    $new_multimedia->second_author_id = 100;
+                    $new_multimedia->third_author_id = 100;     
+                }
+
+                if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
+                    
+                        if($edicion_doc->document_types_id == 1){ //eliminacion musica
+                            $edicion_music = Music::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_music->destroy();
+                        }
+                        if($edicion_doc->document_types_id == 3){ //eliminacion libros
+                            $edicion_book = Book::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_book->destroy();
+                        }
+                        if($edicion_doc->document_types_id == 2){ //eliminacion libros
+                            $edicion_movie = Movies::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_book->destroy();
+                        }
+                        if($edicion_doc->document_types_id == 5){ //eliminacion fotografia
+                            $edicion_fotografia = Photography::where('documents_id', '=', $edicion_doc->id)->delete();
+                            // $edicion_fotografia->destroy();        
+                        }
+                }
+                // else{ 
+                    // aqui hay que levantar los datos q quedaron pendientes en notas por el hecho de q apuntan a ser de uan tabla la cual se define cuando se elige que subtipo es.
+                    $datos_pendientes = $edicion_doc->temprebecca;
+                    $edicion_doc->note = trim($datos_pendientes);
+
+                // }
+
+                $edicion_doc->document_types_id = $tipo;
+                $edicion_doc->save();
+                $new_multimedia->save();
+            }
+                
+        }
+        
+        // $this->authorize('view', new Movies); 
+        // dd($idd);
+        return view('admin.multimedias.index', [
+            'idioma'            => $idioma,
+            'idioma_document'   => $idioma_document,
+            'idioma_movie'      => $idioma_movie,
+            'idiomas'           => $idiomas,
+            'setting'           => $setting,
+            'idd'           => $idd,
+            
+             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
+             'references' => Generate_reference::pluck('reference_description', 'id'),
+             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),
+             'genders'    => Multimedia::pluck('gender', 'gender')
+             // replicar esto FIN 
+        ]); 
     }
 
     /**
@@ -661,6 +749,7 @@ class MultimediaController extends Controller
 
     public function dataTable(Request $request)
     {   
+        $idd_bis = 'none';
         if($request->get('subjects') != ''){
             $subjects_mostrar = true; 
         }else{
@@ -684,10 +773,21 @@ class MultimediaController extends Controller
         }else{
             $references_mostrar = false;      
         }
+        //  dd($request->get('indexsolo')); 
+         if($request->get('indexsolo') != ''){
+            // dd('entro');
+            $indexsolo_mostrar = true;
+            $idd_bis = $request->get('indexsolo');  
+        }else{
+            // dd('NO entro');
+            $indexsolo_mostrar = false;      
+        }
+        // dd($indexsolo_mostrar);
+        // dd($idd_bis);
 
         if(Auth::user()->getRoleNames() == 'Partner'){
         $multimedia = Multimedia::with('document.creator', 'document', 'document.status_document') 
-        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+        ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $references_mostrar, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);            
                 
@@ -696,6 +796,9 @@ class MultimediaController extends Controller
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -714,7 +817,7 @@ class MultimediaController extends Controller
         ->get();
         }else{
             $multimedia = Multimedia::with('document.creator', 'document', 'document.status_document') 
-            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $references_mostrar, $indexsolo_mostrar)
                 {
                     
                     if($subjects_mostrar){
@@ -722,6 +825,9 @@ class MultimediaController extends Controller
                     }
                     if($adaptations_mostrar){
                         $q->where('adequacies_id', '=', $request->get('adaptations'));   
+                    }
+                    if($indexsolo_mostrar){
+                        $q->where('id', '=', $request->get('indexsolo'));   
                     }
                 })
                 ->where(function($q) use($genders_mostrar, $request)
@@ -747,23 +853,23 @@ class MultimediaController extends Controller
             ->addColumn('documents_id', function ($multimedia){
                 return
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
-                    '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator->creator_name."<br>";         
+                    '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator['creator_name']."<br>";         
             })
             ->addColumn('photo', function ($multimedia){                
-                $url=asset("./images/". $multimedia->document->photo); 
+                $url=asset("./images/". $multimedia->document['photo']); 
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             })
             ->addColumn('status', function ($multimedia){
 
-                return'<span class="'.$multimedia->document->status_document->color.'">'.' '.$multimedia->document->status_document->name_status.'</span>';
+                return'<span class="'.$multimedia->document->status_document['color'].'">'.' '.$multimedia->document->status_document['name_status'].'</span>';
                 // return '<span class="label label-warning sm">'.$usuarios->statu['state_description'].'</span>';         
             })                       
             ->addColumn('created_at', function ($multimedia){
                 return $multimedia->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($multimedia) {
+            ->addColumn('accion', function ($multimedia) use($idd_bis) {
                 return view('admin.multimedias.partials._action', [
                     'multimedia'        => $multimedia,
                     'url_show'          => route('admin.multimedias.show', $multimedia->id),                        
@@ -772,7 +878,8 @@ class MultimediaController extends Controller
                     'url_desidherata'   => route('multimedias.desidherata', $multimedia->document->id),
                     'url_baja'          => route('multimedias.baja', $multimedia->document->id),
                     'url_reactivar'     => route('multimedias.reactivar', $multimedia->document->id),
-                    'url_print'         => route('multimedia.pdf', $multimedia->id)   
+                    'url_print'         => route('multimedia.pdf', $multimedia->id),   
+                    'idd' => $idd_bis
                 ]);
 
             })           

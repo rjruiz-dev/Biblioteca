@@ -8,6 +8,7 @@ use App\Book;
 @section('header')    
     <h1>
        CATÁLOGO DE LIBROS
+       {{ Form::hidden('idd', $idd, ['id' => 'idd']) }}
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -35,7 +36,9 @@ use App\Book;
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
-                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: 0px;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a>
+                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a>
+                    <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style="margin-top: -8px; display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
+                
                 </div>        
             </div>
         </div>
@@ -114,8 +117,25 @@ use App\Book;
      
         fill_datatable();
 
-        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
-            
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = "", indexsolo = ""){
+
+         if( ($('#idd').val() != 'none') && ($('#idd').val() != null) ){
+            indexsolo = $('#idd').val();
+            document.getElementById('aref').style.display = 'block';
+            // document.getElementById('id_btn-desidherata').style.display = 'none';
+            // document.getElementById('id_btn-baja').style.display = 'none';
+            // document.getElementById('id_btn-reactivar').style.display = 'none';
+            // document.getElementById('id_btn-imprimir').style.display = 'none';  
+            // $('aref').attr('href') = "https://www.instagram.com/"; 
+                        // $('#aref').prop('href','/admin/importfromrebeca/');
+                        // $("#aref").text("Volver a Rebecca");
+                // console.log("aaaa: " + $('#idd').val());
+                // console.log('lo trae ?: ' + indexsolo);
+            }else{
+                document.getElementById('btn-btn-create').style.display = 'block';
+            console.log("trajo none o trajo por alguna razon extraña null");
+        }
+
             var dataTable = $('#datatable').DataTable({
                 responsive: true,
                 processing: true,
@@ -168,8 +188,8 @@ use App\Book;
                 ],   
                         
                 ajax:{ 
-                    url: "{{ route('books.table($idd)') }}", 
-                    data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
+                    url: "{{ route('books.table') }}", 
+                    data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders, indexsolo:indexsolo},
                     type: 'GET' 
                     },                   
                 columns: [                
