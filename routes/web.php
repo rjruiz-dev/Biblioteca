@@ -156,8 +156,6 @@ function(){
     Route::delete('music/copy/{id}',            'MusicController@copy')->name('music.copy');
 
     //libros    
-    
-
     Route::delete('books/desidherata/{id}',     'BookController@desidherata')->name('books.desidherata');
     Route::delete('books/baja/{id}',            'BookController@baja')->name('books.baja');    
     Route::delete('books/reactivar/{id}',       'BookController@reactivar')->name('books.reactivar');    
@@ -179,13 +177,12 @@ function(){
     Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
     Route::delete('requests/solicitud/{id}',   'RequestsController@solicitud')->name('requests.solicitud');
 
-    Route::get('statistic/filtrar/{f_desde}/{f_hasta}',                   'StatisticController@filtrar');
+    Route::get('statistic/filtrar/{f_desde}/{f_hasta}', 'StatisticController@filtrar');
     
     Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
-    Route::put('users/update_profile/{id}',   'UserController@update_profile')->name('users.update_profile');
+    Route::put('users/update_profile/{id}',    'UserController@update_profile')->name('users.update_profile');
 
     Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
-
     
     // traduccion mantenimineto-curso
     Route::get('manyLenguages/edit_course/{id}',    'ManyLenguagesController@edit_course')->name('admin.manylenguages.edit_course');
@@ -198,11 +195,7 @@ function(){
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
-<<<<<<< Updated upstream
 Route::get('books/table',               'BookController@dataTable')->name('books.table');
-=======
-Route::get('books/table{idd}',          'BookController@dataTable')->name('books.table');
->>>>>>> Stashed changes
 Route::get('languages/table',           'LenguageController@dataTable')->name('languages.table'); 
 Route::get('periodicals/table',         'PeriodicityController@dataTable')->name('periodicals.table'); 
 Route::get('literatures/table',         'GenerateBookController@dataTable')->name('literatures.table');
@@ -232,15 +225,8 @@ Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')-
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
-<<<<<<< Updated upstream
 Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
 Route::get('importfromrebeca/edicion/{id}',                            'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
-=======
-Route::get('importfromrebeca/importar',  'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
-
-
-
->>>>>>> Stashed changes
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');
