@@ -6,6 +6,7 @@ use App\ManyLenguages;
 use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
+use App\Ml_course;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -347,6 +348,17 @@ class ManyLenguagesController extends Controller
             'ml_show_multimedia' => $ml_show_multimedia,
         ]); 
     }
+
+    public function edit_course($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);         
+        $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        
+        return view('admin.manylenguages.maintenance.partials.form', [          
+            'idioma'    => $idioma,
+            'ml_course' => $ml_course
+        ]); 
+    }
  
     /**
      * Update the specified resource in storage.
@@ -549,6 +561,45 @@ class ManyLenguagesController extends Controller
         }
     }
 
+    public function update_course(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                $ml_course                      = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+                $ml_course->titulo              = $request->get('titulo');     
+                $ml_course->subtitulo           = $request->get('subtitulo');
+                $ml_course->btn_crear           = $request->get('btn_crear');
+                $ml_course->dt_id               = $request->get('dt_id');  
+                $ml_course->dt_curso            = $request->get('dt_curso');
+                $ml_course->dt_grupo            = $request->get('dt_grupo');  
+                $ml_course->dt_agregado         = $request->get('dt_agregado');  
+                $ml_course->dt_estado           = $request->get('dt_estado');  
+                $ml_course->dt_acciones         = $request->get('dt_acciones');  
+                $ml_course->mod_titulo          = $request->get('mod_titulo');  
+                $ml_course->mod_subtitulo       = $request->get('mod_subtitulo');  
+                $ml_course->cam_nombre_curso    = $request->get('cam_nombre_curso');    
+                $ml_course->cam_grupo           = $request->get('cam_grupo');                  
+                $ml_course->cam_grupo_si        = $request->get('cam_grupo_si');    
+                $ml_course->cam_grupo_no        = $request->get('cam_grupo_no');               
+                $ml_course->save();
+               
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -590,9 +641,10 @@ class ManyLenguagesController extends Controller
             
             ->addColumn('accion', function ($idiomas) {
                 return view('admin.manylenguages.partials._action', [
-                    'idiomas'            => $idiomas,                       
+                    'idiomas'           => $idiomas,                       
                     'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
-                    'url_destroy'          => route('admin.manylenguages.destroy', $idiomas->id),   
+                    'url_edit_course'   => route('admin.manylenguages.edit_course', $idiomas->id),
+                    'url_destroy'       => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           
             ->addIndexColumn()   

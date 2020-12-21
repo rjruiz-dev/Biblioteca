@@ -186,10 +186,23 @@ function(){
 
     Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
 
+    
+    // traduccion mantenimineto-curso
+    Route::get('manyLenguages/edit_course/{id}',    'ManyLenguagesController@edit_course')->name('admin.manylenguages.edit_course');
+    Route::put('manyLenguages/update_course/{id}',  'ManyLenguagesController@update_course')->name('admin.manylenguages.update_course');
+
+    // traduccion mantenimineto-referencia
+    Route::get('manyLenguages/edit_reference/{id}',    'ManyLenguagesController@edit_reference')->name('admin.manylenguages.edit_reference');
+    Route::put('manyLenguages/update_reference/{id}',  'ManyLenguagesController@update_reference')->name('admin.manylenguages.update_reference');
+
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
+<<<<<<< Updated upstream
 Route::get('books/table',               'BookController@dataTable')->name('books.table');
+=======
+Route::get('books/table{idd}',          'BookController@dataTable')->name('books.table');
+>>>>>>> Stashed changes
 Route::get('languages/table',           'LenguageController@dataTable')->name('languages.table'); 
 Route::get('periodicals/table',         'PeriodicityController@dataTable')->name('periodicals.table'); 
 Route::get('literatures/table',         'GenerateBookController@dataTable')->name('literatures.table');
@@ -219,8 +232,15 @@ Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')-
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
+<<<<<<< Updated upstream
 Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
 Route::get('importfromrebeca/edicion/{id}',                            'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
+=======
+Route::get('importfromrebeca/importar',  'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
+
+
+
+>>>>>>> Stashed changes
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');

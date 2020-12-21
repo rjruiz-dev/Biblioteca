@@ -22,5 +22,15 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_movie::class);
     }
+
+    public function ml_course()
+    {
+        return $this->hasMany(Ml_course::class);
+    }
+
+    public function ml_reference()
+    {
+        return $this->hasMany(Ml_reference::class);
+    }
     
 }
