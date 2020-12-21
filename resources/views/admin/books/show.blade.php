@@ -40,7 +40,7 @@
                         <b>{{ $idioma_doc->titulo }}:</b> <a class="pull-right">{{ $book->document->title }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>{{ $idioma_doc->autor }}:</b> <a class="pull-right">{{ $book->document->creator->creator_name }}</a>
+                        <b>{{ $idioma_doc->autor }}:</b> <a class="pull-right">{{ $book->document->creator['creator_name'] }}</a>
                     </li>
                     <!-- Publ. periodica -->
                     <li id="ls_tema" class="list-group-item">
@@ -113,7 +113,7 @@
                                         $coma = "";
                                 @endphp
                                 @endif
-                        <p class="text-muted">{{ $book->second_author_id != NULL ? $book->second_author->creator_name : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author->creator_name : null }}</p>
+                        <p class="text-muted">{{ $book->second_author_id != NULL ? $book->second_author['creator_name'] : null }} {{$coma}} {{ $book->third_author_id != NULL ? $book->third_author['creator_name'] : null }}</p>
                         @endif                     
                         <hr>
                     </div>                   
@@ -149,7 +149,7 @@
                 <div class="row col-md-12">
                     <div class="col-md-4">
                         <strong><i class="fa fa-globe margin-r-5"></i> {{ $idioma_doc->idioma }}:</strong>
-                        <p class="text-muted">{{ $book->document->lenguage->leguage_description }}</p>
+                        <p class="text-muted">{{ $book->document->lenguage['leguage_description'] }}</p>
                         <hr>
                     </div> 
                     <!-- <div class="col-md-4">

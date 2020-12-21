@@ -126,7 +126,7 @@ function(){
     Route::get('books/indexsolo/{id}/{tipo}',                         'BookController@indexsolo');
     Route::get('music/indexsolo/{id}/{tipo}',                         'MusicController@indexsolo');
     Route::get('photographs/indexsolo/{id}/{tipo}',                         'PhotographyController@indexsolo');
-    Route::get('multimedias/indexsolo/{id}/{tipo}',                         'MultimediaController@indexsolo');
+    Route::get('multimedias/indexsolo/{id}/{tipo}',                         'MultimediaController@indexsolo'); 
     
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');

@@ -855,6 +855,14 @@ class BookController extends Controller
     public function baja($id)
     {
         $document = Document::findOrFail($id);
+
+        // S : obviamnete se importo desde rebecca y aun no se aprobo, asi q si es rechazado se elimina
+        // N : en algun momento fue aprobado entonces cuando se de de baja no lo va a eliminar.
+        if($document->status_rebecca == 'S'){    
+            $delete_docu = Document::where('id', '=', $document->id)->delete();
+            $delete_book = Book::where('documents_id', '=', $document->id)->delete();                   
+        }else{
+
         $document->status_documents_id = 2;
         $document->desidherata = 0;
         $document->save();
@@ -892,7 +900,7 @@ class BookController extends Controller
                     $copy->save();
                 }
             }
-
+        }
     }
 
     public function copy($id)
@@ -912,6 +920,7 @@ class BookController extends Controller
         // dd($document);
         $document->status_documents_id = 1;
         $document->desidherata = 0;   
+        $document->status_rebecca = 'N';
         $document->save();
 
         $prestamos_en_cancelacion = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              

@@ -48,7 +48,7 @@
                         @endif 
                     </li>                    
                     <li class="list-group-item">
-                        <b>{{ $idioma_movie->dirigido_por }}:</b> <a class="pull-right">{{ $movie->document->creator->creator_name }}</a>
+                        <b>{{ $idioma_movie->dirigido_por }}:</b> <a class="pull-right">{{ $movie->document->creator['creator_name'] }}</a>
                     </li>
                 </ul>
             </div>
@@ -137,7 +137,7 @@
                 <div class="row col-md-12">
                     <div class="col-md-6">
                         <strong><i class="fa fa-globe margin-r-5"></i> {{ $idioma_doc->idioma }}:</strong>
-                        <p class="text-muted">{{ $movie->document->lenguage->leguage_description }}</p>
+                        <p class="text-muted">{{ $movie->document->lenguage['leguage_description'] }}</p>
                         <hr>
                     </div>
                     <div class="col-md-6">

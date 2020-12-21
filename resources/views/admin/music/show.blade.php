@@ -76,7 +76,7 @@
                 <div class="row col-md-12">                 
                     <div class="col-md-6">
                         <strong><i class="fa fa-user margin-r-5"></i> {{ $idioma_music->compositor }}:</strong>
-                        <p class="text-muted">{{ $music->document->creator->creator_name }}</p>
+                        <p class="text-muted">{{ $music->document->creator['creator_name'] }}</p>
                         <hr>
                     </div>
                     <div class="row col-md-6">
@@ -112,7 +112,7 @@
                 <div class="row col-md-12">
                     <div class="col-md-4">
                         <strong><i class="fa fa-globe margin-r-5"></i> {{ $idioma_doc->idioma }}:</strong>
-                        <p class="text-muted">{{ $music->document->lenguage->leguage_description }}</p>
+                        <p class="text-muted">{{ $music->document->lenguage['leguage_description'] }}</p>
                         <hr>
                     </div>
                     <div class="col-md-4">

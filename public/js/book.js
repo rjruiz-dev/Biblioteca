@@ -405,11 +405,19 @@ $('body').on('click', '.btn-baja', function(event) {
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
+        valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    // console.log("aaaa: " + valor);
+    if (valor == 'rechazar') {
+        muestra = 'rechazar';
+    } else {
+        muestra = 'dar de baja';
+    }
 
     swal({
 
-        title: '¿Seguro que quieres dar de baja el documento ?',
+        title: '¿Seguro que quieres ' + muestra + ' el documento ?',
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
@@ -451,11 +459,19 @@ $('body').on('click', '.btn-reactivar', function(event) {
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
+        valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    // console.log("aaaa: " + valor);
+    if (valor == 'aceptar') {
+        muestra = 'aceptar';
+    } else {
+        muestra = 'reactivar';
+    }
 
     swal({
 
-        title: '¿Seguro que quieres reactivar el documento ?',
+        title: '¿Seguro que quieres ' + muestra + ' el documento ?',
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,

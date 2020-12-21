@@ -374,6 +374,8 @@ class ImportfromrebecaController extends Controller
 
                     // dd($new_document);
                     $new_document->status_documents_id = 100;
+                    $new_document->origen = 'REBECCA';
+                    $new_document->status_rebecca = 'S';
                     $new_document->save();
                 
                             // solo para cine osea movie
@@ -533,7 +535,7 @@ class ImportfromrebecaController extends Controller
     
     public function dataTable()
     {                    
-        $documentos = Document::with('document_type', 'document_subtype')      
+        $documentos = Document::with('document_type', 'document_subtype')->where('origen', 'REBECCA')      
         ->get(); 
      
         return dataTables::of($documentos)

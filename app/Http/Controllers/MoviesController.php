@@ -686,8 +686,11 @@ class MoviesController extends Controller
     {
         $document = Document::findOrFail($id);
 
-        if($document->status_documents_id == 100){   
-            $document->destroy();
+        // S : obviamnete se importo desde rebecca y aun no se aprobo, asi q si es rechazado se elimina
+        // N : en algun momento fue aprobado entonces cuando se de de baja no lo va a eliminar.
+        if($document->status_rebecca == 'S'){    
+            $delete_docu = Document::where('id', '=', $document->id)->delete();
+            $delete_music = Movies::where('documents_id', '=', $document->id)->delete();                   
         }else{
 
         
@@ -749,6 +752,7 @@ class MoviesController extends Controller
         // dd($document);
         $document->status_documents_id = 1;
         $document->desidherata = 0;   
+        $document->status_rebecca = 'N';
         $document->save();
 
         $prestamos_en_cancelacion = Book_movement::with('copy.document','user','copy.document.document_type','course', 'copy.document')              

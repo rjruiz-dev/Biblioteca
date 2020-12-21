@@ -13,12 +13,12 @@
 
 @if ($movie->document['status_documents_id'] != 2)
         @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
-                <a href="{{ $url_baja }}" class="btn-baja" id="id_btn-baja" title="Rechazar Importacion: {{ $movie->document->title }}"><i class="fa fa-arrow-down text-danger"></i></a> |  
+                <a href="{{ $url_baja }}" class="btn-baja" id="id_btn-baja" value="rechazar" title="Rechazar Importacion: {{ $movie->document->title }}"><i class="fa fa-arrow-down text-danger"></i></a> |  
         @endif   
 @endif 
 @if ($movie->document['status_documents_id'] != 1)
         @if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
-                <a href="{{ $url_reactivar }}" class="btn-reactivar" id="id_btn-reactivar" title="Aceptar Importacion: {{ $movie->document->title }}"><i class="fa fa-arrow-up text-green"></i></a> |  
+                <a href="{{ $url_reactivar }}" class="btn-reactivar" id="id_btn-reactivar"  value="aceptar"  title="Aceptar Importacion: {{ $movie->document->title }}"><i class="fa fa-arrow-up text-green"></i></a> |  
         @endif
 @endif 
  
