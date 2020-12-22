@@ -1,7 +1,7 @@
 <div class="row">
    
 {!! Form::open([
-    'route' => $idioma->exists ? ['admin.manylenguages.update_course', $idioma->id] : 'admin.manylenguages.store',   
+    'route' => $idioma->exists ? ['admin.manylenguages.update_maintenance', $idioma->id] : 'admin.manylenguages.store',   
     'method' => $idioma->exists ? 'PUT' : 'POST'
 ]) !!}
 
@@ -41,16 +41,16 @@
             <div class="box-body">
                 <div class="col-md-12">                    
                     <div class="form-group">              
-                        {!! Form::label('titulo', 'Título principal') !!}                    
-                        {!! Form::text('titulo', $ml_course['titulo'] ? $ml_course['titulo'] : null, ['class' => 'form-control', 'id' => 'titulo', 'placeholder' => 'Título principal']) !!}
+                        {!! Form::label('titulo_curso', 'Título principal') !!}                    
+                        {!! Form::text('titulo_curso', $ml_course['titulo_curso'] ? $ml_course['titulo_curso'] : null, ['class' => 'form-control', 'id' => 'titulo_curso', 'placeholder' => 'Título principal']) !!}
                     </div>
                     <div class="form-group">              
-                        {!! Form::label('subtitulo', 'Subtítulo datatable') !!}                    
-                        {!! Form::text('subtitulo', $ml_course['subtitulo'] ? $ml_course['subtitulo'] : null, ['class' => 'form-control', 'id' => 'subtitulo', 'placeholder' => 'Subtítulo']) !!}
+                        {!! Form::label('subtitulo_curso', 'Subtítulo datatable') !!}                    
+                        {!! Form::text('subtitulo_curso', $ml_course['subtitulo_curso'] ? $ml_course['subtitulo_curso'] : null, ['class' => 'form-control', 'id' => 'subtitulo_curso', 'placeholder' => 'Subtítulo']) !!}
                     </div> 
                     <div class="form-group">              
-                        {!! Form::label('btn_crear', 'Botón Crear') !!}                    
-                        {!! Form::text('btn_crear', $ml_course['btn_crear'] ? $ml_course['btn_crear'] : null, ['class' => 'form-control', 'id' => 'btn_crear', 'placeholder' => 'Botón Crear']) !!}
+                        {!! Form::label('btn_crear_curso', 'Botón Crear') !!}                    
+                        {!! Form::text('btn_crear_curso', $ml_course['btn_crear_curso'] ? $ml_course['btn_crear_curso'] : null, ['class' => 'form-control', 'id' => 'btn_crear_curso', 'placeholder' => 'Botón Crear']) !!}
                     </div>                                     
                 </div>
             </div>       
@@ -65,8 +65,8 @@
             </div>
             <div class="box-body">              
                 <div class="form-group">              
-                    {!! Form::label('dt_id', 'Id') !!}                    
-                    {!! Form::text('dt_id', $ml_course['dt_id'] ? $ml_course['dt_id'] : null, ['class' => 'form-control', 'id' => 'dt_id', 'placeholder' => 'Id']) !!}
+                    {!! Form::label('dt_id_curso', 'Id') !!}                    
+                    {!! Form::text('dt_id_curso', $ml_course['dt_id_curso'] ? $ml_course['dt_id_curso'] : null, ['class' => 'form-control', 'id' => 'dt_id_curso', 'placeholder' => 'Id']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('dt_curso', 'Curso') !!}                    
@@ -77,16 +77,16 @@
                     {!! Form::text('dt_grupo', $ml_course['dt_grupo'] ? $ml_course['dt_grupo'] : null, ['class' => 'form-control', 'id' => 'dt_grupo', 'placeholder' => 'Grupo']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_agregado', 'Agregados') !!}                    
-                    {!! Form::text('dt_agregado', $ml_course['dt_agregado'] ? $ml_course['dt_agregado'] : null, ['class' => 'form-control', 'id' => 'dt_agregado', 'placeholder' => 'Agregados']) !!}
+                    {!! Form::label('dt_agregado_curso', 'Agregados') !!}                    
+                    {!! Form::text('dt_agregado_curso', $ml_course['dt_agregado_curso'] ? $ml_course['dt_agregado_curso'] : null, ['class' => 'form-control', 'id' => 'dt_agregado_curso', 'placeholder' => 'Agregados']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('dt_estado', 'Estado') !!}                    
                     {!! Form::text('dt_estado', $ml_course['dt_estado'] ? $ml_course['dt_estado'] : null, ['class' => 'form-control', 'id' => 'dt_estado', 'placeholder' => 'Estado']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_acciones', 'Acciones') !!}                    
-                    {!! Form::text('dt_acciones', $ml_course['dt_acciones'] ? $ml_course['dt_acciones'] : null, ['class' => 'form-control', 'id' => 'dt_acciones', 'placeholder' => 'Acciones']) !!}
+                    {!! Form::label('dt_acciones_curso', 'Acciones') !!}                    
+                    {!! Form::text('dt_acciones_curso', $ml_course['dt_acciones_curso'] ? $ml_course['dt_acciones_curso'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_curso', 'placeholder' => 'Acciones']) !!}
                 </div>                        
             </div>
         </div>       
@@ -100,12 +100,12 @@
             </div>
             <div class="box-body">              
                 <div class="form-group">              
-                    {!! Form::label('mod_titulo', 'Título Modal') !!}                    
-                    {!! Form::text('mod_titulo', $ml_course['mod_titulo'] ? $ml_course['mod_titulo'] : null, ['class' => 'form-control', 'id' => 'mod_titulo', 'placeholder' => 'Título Modal']) !!}
+                    {!! Form::label('mod_titulo_curso', 'Título Modal') !!}                    
+                    {!! Form::text('mod_titulo_curso', $ml_course['mod_titulo_curso'] ? $ml_course['mod_titulo_curso'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_curso', 'placeholder' => 'Título Modal']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('mod_subtitulo', 'Subtítulo Modal') !!}                    
-                    {!! Form::text('mod_subtitulo', $ml_course['mod_subtitulo'] ? $ml_course['mod_subtitulo'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo', 'placeholder' => 'Subtítulo Modal']) !!}
+                    {!! Form::label('mod_subtitulo_curso', 'Subtítulo Modal') !!}                    
+                    {!! Form::text('mod_subtitulo_curso', $ml_course['mod_subtitulo_curso'] ? $ml_course['mod_subtitulo_curso'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_curso', 'placeholder' => 'Subtítulo Modal']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cam_nombre_curso', 'Curso') !!}                    
@@ -126,6 +126,95 @@
             </div>
         </div>       
     </div>     
+
+
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Referencia</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Vista Principal </h3>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">                    
+                    <div class="form-group">              
+                        {!! Form::label('titulo_ref', 'Título principal') !!}                    
+                        {!! Form::text('titulo_ref', $ml_reference['titulo_ref'] ? $ml_reference['titulo_ref'] : null, ['class' => 'form-control', 'id' => 'titulo_ref', 'placeholder' => 'Título principal']) !!}
+                    </div>
+                    <div class="form-group">              
+                        {!! Form::label('subtitulo_ref', 'Subtítulo datatable') !!}                    
+                        {!! Form::text('subtitulo_ref', $ml_reference['subtitulo_ref'] ? $ml_reference['subtitulo_ref'] : null, ['class' => 'form-control', 'id' => 'subtitulo_ref', 'placeholder' => 'Subtítulo']) !!}
+                    </div> 
+                    <div class="form-group">              
+                        {!! Form::label('btn_crear_ref', 'Botón Crear') !!}                    
+                        {!! Form::text('btn_crear_ref', $ml_reference['btn_crear_ref'] ? $ml_reference['btn_crear_ref'] : null, ['class' => 'form-control', 'id' => 'btn_crear_ref', 'placeholder' => 'Botón Crear']) !!}
+                    </div>                                     
+                </div>
+            </div>       
+        </div>   
+    </div>     
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Columnas Datatable </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('dt_id_ref', 'Id') !!}                    
+                    {!! Form::text('dt_id_ref', $ml_reference['dt_id_ref'] ? $ml_reference['dt_id_ref'] : null, ['class' => 'form-control', 'id' => 'dt_id_ref', 'placeholder' => 'Id']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('dt_referencia', 'Rwferencia') !!}                    
+                    {!! Form::text('dt_referencia', $ml_reference['dt_referencia'] ? $ml_reference['dt_referencia'] : null, ['class' => 'form-control', 'id' => 'dt_referencia', 'placeholder' => 'Referencia']) !!}
+                </div>
+     
+                <div class="form-group">              
+                    {!! Form::label('dt_agregado_ref', 'Agregados') !!}                    
+                    {!! Form::text('dt_agregado_ref', $ml_reference['dt_agregado_ref'] ? $ml_reference['dt_agregado_ref'] : null, ['class' => 'form-control', 'id' => 'dt_agregado_ref', 'placeholder' => 'Agregados']) !!}
+                </div>
+             
+                <div class="form-group">              
+                    {!! Form::label('dt_acciones_ref', 'Acciones') !!}                    
+                    {!! Form::text('dt_acciones_ref', $ml_reference['dt_acciones_ref'] ? $ml_reference['dt_acciones_ref'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_ref', 'placeholder' => 'Acciones']) !!}
+                </div>                        
+            </div>
+        </div>       
+    </div>   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+            <div class="text-center">
+                <h3 class="box-title">Ventana Modal </h3>
+            </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('mod_titulo_ref', 'Título Modal') !!}                    
+                    {!! Form::text('mod_titulo_ref', $ml_reference['mod_titulo_ref'] ? $ml_reference['mod_titulo_ref'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_ref', 'placeholder' => 'Título Modal']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('mod_subtitulo_ref', 'Subtítulo Modal') !!}                    
+                    {!! Form::text('mod_subtitulo_ref', $ml_reference['mod_subtitulo_ref'] ? $ml_reference['mod_subtitulo_ref'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_ref', 'placeholder' => 'Subtítulo Modal']) !!}
+                </div>
+               
+                <div class="form-group">              
+                    {!! Form::label('cam_formato', 'Formato') !!}                    
+                    {!! Form::text('cam_formato', $ml_reference['cam_formato'] ? $ml_reference['cam_formato'] : null, ['class' => 'form-control', 'id' => 'cam_formato', 'placeholder' => 'Formato']) !!}
+                </div>                                  
+            </div>
+        </div>       
+    </div> 
 {!! Form::close() !!}    
 </div>
 

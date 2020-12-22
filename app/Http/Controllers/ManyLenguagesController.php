@@ -7,6 +7,7 @@ use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
 use App\Ml_course;
+use App\Ml_reference;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -349,16 +350,42 @@ class ManyLenguagesController extends Controller
         ]); 
     }
 
-    public function edit_course($id)
+    public function edit_maintenance($id)
     {
-        $idioma = ManyLenguages::findOrFail($id);         
+        $idioma = ManyLenguages::findOrFail($id);  
+        // $ml_maintenance = ManyLenguages::with('ml_course','ml_reference')->where('many_lenguages_id', $idioma->id)->findOrFail($id);     
         $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $ml_reference = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'    => $idioma,
-            'ml_course' => $ml_course
+            'ml_course' => $ml_course,
+            'ml_reference' => $ml_reference
         ]); 
     }
+
+    
+    // public function edit_course($id)
+    // {
+    //     $idioma = ManyLenguages::findOrFail($id);         
+    //     $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        
+    //     return view('admin.manylenguages.maintenance.partials.form', [          
+    //         'idioma'    => $idioma,
+    //         'ml_course' => $ml_course
+    //     ]); 
+    // }
+
+    // public function edit_reference($id)
+    // {
+    //     $idioma = ManyLenguages::findOrFail($id);         
+    //     $ml_course = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
+        
+    //     return view('admin.manylenguages.maintenance.partials.form', [          
+    //         'idioma'    => $idioma,
+    //         'ml_course' => $ml_course
+    //     ]); 
+    // }
  
     /**
      * Update the specified resource in storage.
@@ -560,8 +587,8 @@ class ManyLenguagesController extends Controller
             }
         }
     }
-
-    public function update_course(Request $request, $id)
+// unificar el guardado
+    public function update_maintenance(Request $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -573,23 +600,40 @@ class ManyLenguagesController extends Controller
                 $idioma->lenguage_description   = $request->get('lenguage_description');             
                 $idioma->save();
                
-                $ml_course                      = Ml_course::where('many_lenguages_id', $idioma->id)->first();
-                $ml_course->titulo              = $request->get('titulo');     
-                $ml_course->subtitulo           = $request->get('subtitulo');
-                $ml_course->btn_crear           = $request->get('btn_crear');
-                $ml_course->dt_id               = $request->get('dt_id');  
-                $ml_course->dt_curso            = $request->get('dt_curso');
-                $ml_course->dt_grupo            = $request->get('dt_grupo');  
-                $ml_course->dt_agregado         = $request->get('dt_agregado');  
-                $ml_course->dt_estado           = $request->get('dt_estado');  
-                $ml_course->dt_acciones         = $request->get('dt_acciones');  
-                $ml_course->mod_titulo          = $request->get('mod_titulo');  
-                $ml_course->mod_subtitulo       = $request->get('mod_subtitulo');  
-                $ml_course->cam_nombre_curso    = $request->get('cam_nombre_curso');    
-                $ml_course->cam_grupo           = $request->get('cam_grupo');                  
-                $ml_course->cam_grupo_si        = $request->get('cam_grupo_si');    
-                $ml_course->cam_grupo_no        = $request->get('cam_grupo_no');               
+                $ml_course                              = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+                $ml_course->titulo_curso                = $request->get('titulo_curso');     
+                $ml_course->subtitulo_curso             = $request->get('subtitulo_curso');
+                $ml_course->btn_crear_curso             = $request->get('btn_crear_curso');
+                $ml_course->dt_id_curso                 = $request->get('dt_id_curso');  
+                $ml_course->dt_curso                    = $request->get('dt_curso');
+                $ml_course->dt_grupo                    = $request->get('dt_grupo');  
+                $ml_course->dt_agregado_curso           = $request->get('dt_agregado_curso');  
+                $ml_course->dt_estado                   = $request->get('dt_estado');  
+                $ml_course->dt_acciones_curso           = $request->get('dt_acciones_curso');  
+                $ml_course->mod_titulo_curso            = $request->get('mod_titulo_curso');  
+                $ml_course->mod_subtitulo_curso         = $request->get('mod_subtitulo_curso');  
+                $ml_course->cam_nombre_curso            = $request->get('cam_nombre_curso');    
+                $ml_course->cam_grupo                   = $request->get('cam_grupo');                  
+                $ml_course->cam_grupo_si                = $request->get('cam_grupo_si');    
+                $ml_course->cam_grupo_no                = $request->get('cam_grupo_no');               
                 $ml_course->save();
+
+                $ml_reference                           = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
+                $ml_reference->titulo_ref                   = $request->get('titulo_ref');     
+                $ml_reference->subtitulo_ref                = $request->get('subtitulo_ref');
+                $ml_reference->btn_crear_ref                = $request->get('btn_crear_ref');
+                $ml_reference->dt_id_ref                    = $request->get('dt_id_ref');  
+                $ml_reference->dt_referencia            = $request->get('dt_referencia');               
+                $ml_reference->dt_agregado_ref              = $request->get('dt_agregado_ref');                 
+                $ml_reference->dt_acciones_ref              = $request->get('dt_acciones_ref');  
+                $ml_reference->mod_titulo_ref               = $request->get('mod_titulo_ref');  
+                $ml_reference->mod_subtitulo_ref            = $request->get('mod_subtitulo_ref');  
+                $ml_reference->cam_formato              = $request->get('cam_formato');                          
+                $ml_reference->save();
+
+
+
+
                
                 DB::commit();               
 
@@ -599,6 +643,7 @@ class ManyLenguagesController extends Controller
             }
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -643,7 +688,8 @@ class ManyLenguagesController extends Controller
                 return view('admin.manylenguages.partials._action', [
                     'idiomas'           => $idiomas,                       
                     'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
-                    'url_edit_course'   => route('admin.manylenguages.edit_course', $idiomas->id),
+                    'url_edit_maintenance'   => route('admin.manylenguages.edit_maintenance', $idiomas->id),
+                    
                     'url_destroy'       => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           

@@ -182,15 +182,13 @@ function(){
     Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
     Route::put('users/update_profile/{id}',    'UserController@update_profile')->name('users.update_profile');
 
-    Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
+    Route::delete('requestsup/rechazar/{id}',  'RequestsUpController@rechazar')->name('requestsup.rechazar');
     
     // traduccion mantenimineto-curso
-    Route::get('manyLenguages/edit_course/{id}',    'ManyLenguagesController@edit_course')->name('admin.manylenguages.edit_course');
-    Route::put('manyLenguages/update_course/{id}',  'ManyLenguagesController@update_course')->name('admin.manylenguages.update_course');
+    Route::get('manyLenguages/edit_maintenance/{id}',    'ManyLenguagesController@edit_maintenance')->name('admin.manylenguages.edit_maintenance');
+    Route::put('manyLenguages/update_maintenance/{id}',  'ManyLenguagesController@update_maintenance')->name('admin.manylenguages.update_maintenance');
 
-    // traduccion mantenimineto-referencia
-    Route::get('manyLenguages/edit_reference/{id}',    'ManyLenguagesController@edit_reference')->name('admin.manylenguages.edit_reference');
-    Route::put('manyLenguages/update_reference/{id}',  'ManyLenguagesController@update_reference')->name('admin.manylenguages.update_reference');
+   
 
 });
 

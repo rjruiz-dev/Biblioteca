@@ -18,15 +18,15 @@ class CreateMlReferencesTable extends Migration
 
             $table->integer('many_lenguages_id')->nullable()->unsigned();
             
-            $table->string('titulo')->nullable();
-            $table->string('subtitulo')->nullable();
-            $table->string('btn_crear')->nullable();
-            $table->string('dt_id')->nullable();
+            $table->string('titulo_ref')->nullable();
+            $table->string('subtitulo_ref')->nullable();
+            $table->string('btn_crear_ref')->nullable();
+            $table->string('dt_id_ref')->nullable();
             $table->string('dt_referencia')->nullable();           
-            $table->string('dt_agregado')->nullable();
-            $table->string('dt_acciones')->nullable();
-            $table->string('mod_titulo')->nullable();
-            $table->string('mod_subtitulo')->nullable();           
+            $table->string('dt_agregado_ref')->nullable();
+            $table->string('dt_acciones_ref')->nullable();
+            $table->string('mod_titulo_ref')->nullable();
+            $table->string('mod_subtitulo_ref')->nullable();           
             $table->string('cam_formato')->nullable();
           
             $table->timestamps();
