@@ -757,7 +757,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Género Adecuaciónes</h3>
+                    <h3 class="box-title">Traducciones Globales Adecuaciónes</h3>
                 </div>
             </div>
         </div>
@@ -846,7 +846,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Género Materias</h3>
+                    <h3 class="box-title">Traducciones Globales Materias</h3>
                 </div>
             </div>
         </div>
@@ -936,6 +936,115 @@
                     {!! Form::label('cam_cdu_subject', 'Cdu') !!}                    
                     {!! Form::text('cam_cdu_subject', $ml_subject['cam_cdu_subject'] ? $ml_subject['cam_cdu_subject'] : null, ['class' => 'form-control', 'id' => 'cam_cdu_subject', 'placeholder' => 'Cdu']) !!}
                 </div>                               
+            </div>
+        </div>       
+    </div> 
+
+    <!--Traduccion Cartas -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Modelo de Cartas</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Vista Principal </h3>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">                    
+                    <div class="form-group">              
+                        {!! Form::label('titulo_letter', 'Título principal') !!}                    
+                        {!! Form::text('titulo_letter', $ml_letter['titulo_letter'] ? $ml_letter['titulo_letter'] : null, ['class' => 'form-control', 'id' => 'titulo_letter', 'placeholder' => 'Título principal']) !!}
+                    </div>
+                    <div class="form-group">              
+                        {!! Form::label('subtitulo_letter', 'Subtítulo datatable') !!}                    
+                        {!! Form::text('subtitulo_letter', $ml_letter['subtitulo_letter'] ? $ml_letter['subtitulo_letter'] : null, ['class' => 'form-control', 'id' => 'subtitulo_letter', 'placeholder' => 'Subtítulo']) !!}
+                    </div> 
+                    <div class="form-group">              
+                        {!! Form::label('btn_crear_letter', 'Botón Crear') !!}                    
+                        {!! Form::text('btn_crear_letter', $ml_letter['btn_crear_letter'] ? $ml_letter['btn_crear_letter'] : null, ['class' => 'form-control', 'id' => 'btn_crear_letter', 'placeholder' => 'Botón Crear']) !!}
+                    </div>                                     
+                </div>
+            </div>       
+        </div>   
+    </div>     
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Columnas Datatable </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('dt_id_letter', 'Id') !!}                    
+                    {!! Form::text('dt_id_letter', $ml_letter['dt_id_letter'] ? $ml_letter['dt_id_letter'] : null, ['class' => 'form-control', 'id' => 'dt_id_letter', 'placeholder' => 'Id']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('dt_titulo_letter', 'Título') !!}                    
+                    {!! Form::text('dt_titulo_letter', $ml_letter['dt_titulo_letter'] ? $ml_letter['dt_titulo_letter'] : null, ['class' => 'form-control', 'id' => 'dt_titulo_letter', 'placeholder' => 'Título']) !!}
+                </div>
+
+                <div class="form-group">              
+                    {!! Form::label('dt_cuerpo_letter', 'Contenido') !!}                    
+                    {!! Form::text('dt_cuerpo_letter', $ml_letter['dt_cuerpo_letter'] ? $ml_letter['dt_cuerpo_letter'] : null, ['class' => 'form-control', 'id' => 'dt_cuerpo_letter', 'placeholder' => 'Contenido']) !!}
+                </div>
+
+                <div class="form-group">              
+                    {!! Form::label('dt_despedida_letter', 'Despedida') !!}                    
+                    {!! Form::text('dt_despedida_letter', $ml_letter['dt_despedida_letter'] ? $ml_letter['dt_despedida_letter'] : null, ['class' => 'form-control', 'id' => 'dt_despedida_letter', 'placeholder' => 'Despedida']) !!}
+                </div>
+     
+                <div class="form-group">              
+                    {!! Form::label('dt_agregado_letter', 'Agregados') !!}                    
+                    {!! Form::text('dt_agregado_letter', $ml_letter['dt_agregado_letter'] ? $ml_letter['dt_agregado_letter'] : null, ['class' => 'form-control', 'id' => 'dt_agregado_letter', 'placeholder' => 'Agregados']) !!}
+                </div>
+             
+                <div class="form-group">              
+                    {!! Form::label('dt_acciones_letter', 'Acciones') !!}                    
+                    {!! Form::text('dt_acciones_letter', $ml_letter['dt_acciones_letter'] ? $ml_letter['dt_acciones_letter'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_letter', 'placeholder' => 'Acciones']) !!}
+                </div>                        
+            </div>
+        </div>       
+    </div>   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+            <div class="text-center">
+                <h3 class="box-title">Ventana Modal </h3>
+            </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('mod_titulo_letter', 'Título Modal') !!}                    
+                    {!! Form::text('mod_titulo_letter', $ml_letter['mod_titulo_letter'] ? $ml_letter['mod_titulo_letter'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_letter', 'placeholder' => 'Título Modal']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('mod_subtitulo_letter', 'Subtítulo Modal') !!}                    
+                    {!! Form::text('mod_subtitulo_letter', $ml_letter['mod_subtitulo_letter'] ? $ml_letter['mod_subtitulo_letter'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_letter', 'placeholder' => 'Subtítulo Modal']) !!}
+                </div>
+               
+                <div class="form-group">              
+                    {!! Form::label('cam_titulo_letter', 'Título') !!}                    
+                    {!! Form::text('cam_titulo_letter', $ml_letter['cam_titulo_letter'] ? $ml_letter['cam_titulo_letter'] : null, ['class' => 'form-control', 'id' => 'cam_titulo_letter', 'placeholder' => 'Título']) !!}
+                </div>   
+
+                <div class="form-group">              
+                    {!! Form::label('cam_cuerpo_letter', 'Cuerpo') !!}                    
+                    {!! Form::text('cam_cuerpo_letter', $ml_letter['cam_cuerpo_letter'] ? $ml_letter['cam_cuerpo_letter'] : null, ['class' => 'form-control', 'id' => 'cam_cuerpo_letter', 'placeholder' => 'Cuerpo']) !!}
+                </div> 
+
+                 <div class="form-group">              
+                    {!! Form::label('cam_despedida_letter', 'Despedida') !!}                    
+                    {!! Form::text('cam_despedida_letter', $ml_letter['cam_despedida_letter'] ? $ml_letter['cam_despedida_letter'] : null, ['class' => 'form-control', 'id' => 'cam_despedida_letter', 'placeholder' => 'Despedida']) !!}
+                </div>                              
             </div>
         </div>       
     </div> 

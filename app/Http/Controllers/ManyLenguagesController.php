@@ -16,6 +16,7 @@ use App\Ml_musical_genre;
 use App\Ml_cinematographic_genre;
 use App\Ml_adequacy;
 use App\Ml_subjects;
+use App\Ml_letter;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -372,6 +373,7 @@ class ManyLenguagesController extends Controller
         $ml_gc = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
         $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
         $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+        $ml_letter = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'        => $idioma,
@@ -384,7 +386,8 @@ class ManyLenguagesController extends Controller
             'ml_gm'         => $ml_gm,
             'ml_gc'         => $ml_gc,
             'ml_adequacy'   => $ml_adequacy,
-            'ml_subject'    => $ml_subject
+            'ml_subject'    => $ml_subject,
+            'ml_letter'     => $ml_letter
         ]); 
     }
  
@@ -718,7 +721,7 @@ class ManyLenguagesController extends Controller
                 $ml_gc->cam_gc                        = $request->get('cam_gc');                          
                 $ml_gc->save();
 
-                // Genero Adequacy
+                // Genero Adecuaciones
                 $ml_adequacy                          = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
                 $ml_adequacy->titulo_adequacy         = $request->get('titulo_adequacy');     
                 $ml_adequacy->subtitulo_adequacy      = $request->get('subtitulo_adequacy');
@@ -732,22 +735,39 @@ class ManyLenguagesController extends Controller
                 $ml_adequacy->cam_adequacy            = $request->get('cam_adequacy');                          
                 $ml_adequacy->save();
 
-                 // Genero Subject
-                 $ml_subject                         = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
-                 $ml_subject->titulo_subject         = $request->get('titulo_subject');     
-                 $ml_subject->subtitulo_subject      = $request->get('subtitulo_subject');
-                 $ml_subject->btn_crear_subject      = $request->get('btn_crear_subject');
-                 $ml_subject->dt_id_subject          = $request->get('dt_id_subject');  
-                 $ml_subject->dt_subject             = $request->get('dt_subject');             
-                 $ml_subject->dt_cdu_subject         = $request->get('dt_cdu_subject');               
-                 $ml_subject->dt_agregado_subject    = $request->get('dt_agregado_subject');                 
-                 $ml_subject->dt_acciones_subject    = $request->get('dt_acciones_subject');  
-                 $ml_subject->mod_titulo_subject     = $request->get('mod_titulo_subject');  
-                 $ml_subject->mod_subtitulo_subject  = $request->get('mod_subtitulo_subject');  
-                 $ml_subject->cam_subject            = $request->get('cam_subject'); 
-                 $ml_subject->cam_cdu_subject        = $request->get('cam_cdu_subject');                          
-                 $ml_subject->save();
-     
+                // Genero Materias
+                $ml_subject                           = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+                $ml_subject->titulo_subject           = $request->get('titulo_subject');     
+                $ml_subject->subtitulo_subject        = $request->get('subtitulo_subject');
+                $ml_subject->btn_crear_subject        = $request->get('btn_crear_subject');
+                $ml_subject->dt_id_subject            = $request->get('dt_id_subject');  
+                $ml_subject->dt_subject               = $request->get('dt_subject');             
+                $ml_subject->dt_cdu_subject           = $request->get('dt_cdu_subject');               
+                $ml_subject->dt_agregado_subject      = $request->get('dt_agregado_subject');                 
+                $ml_subject->dt_acciones_subject      = $request->get('dt_acciones_subject');  
+                $ml_subject->mod_titulo_subject       = $request->get('mod_titulo_subject');  
+                $ml_subject->mod_subtitulo_subject    = $request->get('mod_subtitulo_subject');  
+                $ml_subject->cam_subject              = $request->get('cam_subject'); 
+                $ml_subject->cam_cdu_subject          = $request->get('cam_cdu_subject');                          
+                $ml_subject->save();     
+
+                // Genero Cartas
+                $ml_letter                            = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+                $ml_letter->titulo_letter             = $request->get('titulo_letter');     
+                $ml_letter->subtitulo_letter          = $request->get('subtitulo_letter');
+                $ml_letter->btn_crear_letter          = $request->get('btn_crear_letter');
+                $ml_letter->dt_id_letter              = $request->get('dt_id_letter');  
+                $ml_letter->dt_titulo_letter          = $request->get('dt_titulo_letter');             
+                $ml_letter->dt_cuerpo_letter          = $request->get('dt_cuerpo_letter');   
+                $ml_letter->dt_despedida_letter       = $request->get('dt_despedida_letter');                           
+                $ml_letter->dt_agregado_letter        = $request->get('dt_agregado_letter');                 
+                $ml_letter->dt_acciones_letter        = $request->get('dt_acciones_letter');  
+                $ml_letter->mod_titulo_letter         = $request->get('mod_titulo_letter');  
+                $ml_letter->mod_subtitulo_letter      = $request->get('mod_subtitulo_letter');  
+                $ml_letter->cam_titulo_letter         = $request->get('cam_titulo_letter'); 
+                $ml_letter->cam_cuerpo_letter         = $request->get('cam_cuerpo_letter');   
+                $ml_letter->cam_despedida_letter      = $request->get('cam_despedida_letter'); 
+                $ml_letter->save();
 
                 DB::commit();               
 

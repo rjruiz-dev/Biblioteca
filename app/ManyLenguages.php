@@ -72,4 +72,9 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_subjects::class);
     }
+
+    public function ml_letter()
+    {
+        return $this->hasMany(Ml_letter::class);
+    }
 }
