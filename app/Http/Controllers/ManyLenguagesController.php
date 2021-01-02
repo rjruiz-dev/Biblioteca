@@ -17,6 +17,10 @@ use App\Ml_cinematographic_genre;
 use App\Ml_adequacy;
 use App\Ml_subjects;
 use App\Ml_letter;
+use App\Ml_loan_by_date;
+use App\Ml_classroom_loan;
+use App\Ml_database_record;
+use App\Ml_statistic;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -388,6 +392,38 @@ class ManyLenguagesController extends Controller
             'ml_adequacy'   => $ml_adequacy,
             'ml_subject'    => $ml_subject,
             'ml_letter'     => $ml_letter
+        ]); 
+    }
+
+    public function edit_list($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $ml_ld = Ml_loan_by_date::where('many_lenguages_id', $idioma->id)->first();
+        $ml_lc = Ml_classroom_loan::where('many_lenguages_id', $idioma->id)->first();
+        $ml_dr = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
+      
+        return view('admin.manylenguages.list.partials.form', [          
+            'idioma'    => $idioma,
+            'ml_ld'     => $ml_ld,
+            'ml_lc'     => $ml_lc,
+            'ml_dr'     => $ml_dr,
+           
+           
+        ]); 
+    }
+
+    public function edit_statistic($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $ml_statistic = Ml_statistic::where('many_lenguages_id', $idioma->id)->first();
+              
+        return view('admin.manylenguages.statistic.partials.form', [          
+            'idioma'        => $idioma,           
+            'ml_statistic'  => $ml_statistic
+           
+           
         ]); 
     }
  
@@ -778,6 +814,120 @@ class ManyLenguagesController extends Controller
         }
     }
 
+    public function update_list(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                // Prestamo por fecha
+                $ml_ld                          = Ml_loan_by_date::where('many_lenguages_id', $idioma->id)->first();
+                $ml_ld->titulo_ld               = $request->get('titulo_ld');     
+                $ml_ld->subtitulo_ld            = $request->get('subtitulo_ld');
+                $ml_ld->fecha_desde_ld          = $request->get('fecha_desde_ld');     
+                $ml_ld->fecha_hasta_ld          = $request->get('fecha_hasta_ld');
+                $ml_ld->btn_crear_ld            = $request->get('btn_crear_ld');
+                $ml_ld->dt_id_ld                = $request->get('dt_id_ld');  
+                $ml_ld->dt_registro_ld          = $request->get('dt_registro_ld');
+                $ml_ld->dt_titulo_ld            = $request->get('dt_titulo_ld');  
+                $ml_ld->dt_tipodoc_ld           = $request->get('dt_tipodoc_ld');  
+                $ml_ld->dt_subtipodoc_ld        = $request->get('dt_subtipodoc_ld');  
+                $ml_ld->dt_nrosocio_ld          = $request->get('dt_nrosocio_ld');  
+                $ml_ld->dt_nombre_ld            = $request->get('dt_nombre_ld');  
+                $ml_ld->dt_fechaprestamo_ld     = $request->get('dt_fechaprestamo_ld');  
+                $ml_ld->dt_fechadevolucion_ld   = $request->get('dt_fechadevolucion_ld');    
+                $ml_ld->save();
+
+                // Prestamo por aula
+                $ml_lc                          = Ml_classroom_loan::where('many_lenguages_id', $idioma->id)->first();
+                $ml_lc->titulo_lc              = $request->get('titulo_lc');     
+                $ml_lc->subtitulo_lc            = $request->get('subtitulo_lc');
+                $ml_lc->curso_lc                = $request->get('curso_lc');     
+                $ml_lc->letra_lc                = $request->get('letra_lc');
+                $ml_lc->turno_lc                = $request->get('turno_lc');
+                $ml_lc->btn_crear_lc            = $request->get('btn_crear_lc');                
+                $ml_lc->dt_registro_lc          = $request->get('dt_registro_lc');
+                $ml_lc->dt_titulo_lc            = $request->get('dt_titulo_lc');  
+                $ml_lc->dt_autor_lc             = $request->get('dt_autor_lc');
+                $ml_lc->dt_tipodoc_lc           = $request->get('dt_tipodoc_lc');  
+                $ml_lc->dt_subtipodoc_lc        = $request->get('dt_subtipodoc_lc');  
+                $ml_lc->dt_nrosocio_lc          = $request->get('dt_nrosocio_lc');  
+                $ml_lc->dt_socio_lc             = $request->get('dt_socio_lc');  
+                $ml_lc->dt_curso_lc             = $request->get('dt_curso_lc');  
+                $ml_lc->dt_fechaprestamo_lc     = $request->get('dt_fechaprestamo_lc');  
+                $ml_lc->dt_fechadevolucion_lc   = $request->get('dt_fechadevolucion_lc');    
+                $ml_lc->save();
+
+                 // Registro base de datos
+                 $ml_dr                         = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
+                 $ml_dr->titulo_dr              = $request->get('titulo_dr');                      
+                 $ml_dr->dt_id_dr               = $request->get('dt_id_dr');  
+                 $ml_dr->dt_concepto_dr         = $request->get('dt_concepto_dr');  
+                 $ml_dr->dt_registro_dr         = $request->get('dt_registro_dr');                   
+                 $ml_dr->save();
+
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
+    public function update_statistic(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                // Prestamo por fecha
+                $ml_statistic                   = Ml_statistic::where('many_lenguages_id', $idioma->id)->first();
+                $ml_statistic->estadistica      = $request->get('estadistica');     
+                $ml_statistic->mes_y_año        = $request->get('mes_y_año');
+                $ml_statistic->ph_mes_y_año     = $request->get('ph_mes_y_año');     
+                $ml_statistic->btn_buscar       = $request->get('btn_buscar');
+                $ml_statistic->total            = $request->get('total');
+                $ml_statistic->sub_socio        = $request->get('sub_socio');  
+                $ml_statistic->sub_prestamo     = $request->get('sub_prestamo');
+                $ml_statistic->sub_coleccion    = $request->get('sub_coleccion');  
+                $ml_statistic->col_tipodesocio  = $request->get('col_tipodesocio');  
+                $ml_statistic->col_alta         = $request->get('col_alta');  
+                $ml_statistic->col_baja         = $request->get('col_baja');  
+                $ml_statistic->col_prestamo     = $request->get('col_prestamo');  
+                $ml_statistic->col_libro        = $request->get('col_libro');  
+                $ml_statistic->col_cine         = $request->get('col_cine');
+                $ml_statistic->col_multimedia   = $request->get('col_multimedia');  
+                $ml_statistic->col_fotografia   = $request->get('col_fotografia');  
+                $ml_statistic->col_librodigital = $request->get('col_librodigital');  
+                $ml_statistic->col_coleccion    = $request->get('col_coleccion');  
+                $ml_statistic->infantil         = $request->get('infantil');    
+                $ml_statistic->adulto           = $request->get('adulto');    
+                $ml_statistic->incorporacion    = $request->get('incorporacion');    
+                $ml_statistic->baja             = $request->get('baja');    
+                $ml_statistic->save();              
+
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -822,8 +972,10 @@ class ManyLenguagesController extends Controller
                 return view('admin.manylenguages.partials._action', [
                     'idiomas'           => $idiomas,                       
                     'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
-                    'url_edit_maintenance'   => route('admin.manylenguages.edit_maintenance', $idiomas->id),                    
-                    'url_destroy'       => route('admin.manylenguages.destroy', $idiomas->id),   
+                    'url_edit_maintenance'  => route('admin.manylenguages.edit_maintenance', $idiomas->id),                  
+                    'url_edit_list'         => route('admin.manylenguages.edit_list', $idiomas->id),                    
+                    'url_edit_statistic'    => route('admin.manylenguages.edit_statistic', $idiomas->id),                    
+                    'url_destroy'           => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           
             ->addIndexColumn()   

@@ -184,9 +184,17 @@ function(){
 
     Route::delete('requestsup/rechazar/{id}',  'RequestsUpController@rechazar')->name('requestsup.rechazar');
     
-    // traduccion mantenimineto-curso
+    // traduccion mantenimineto
     Route::get('manyLenguages/edit_maintenance/{id}',    'ManyLenguagesController@edit_maintenance')->name('admin.manylenguages.edit_maintenance');
     Route::put('manyLenguages/update_maintenance/{id}',  'ManyLenguagesController@update_maintenance')->name('admin.manylenguages.update_maintenance');
+
+    // traduccion listado
+    Route::get('manyLenguages/edit_list/{id}',    'ManyLenguagesController@edit_list')->name('admin.manylenguages.edit_list');
+    Route::put('manyLenguages/update_list/{id}',  'ManyLenguagesController@update_list')->name('admin.manylenguages.update_list');
+
+      // traduccion estadistica
+      Route::get('manyLenguages/edit_statistic/{id}',    'ManyLenguagesController@edit_statistic')->name('admin.manylenguages.edit_statistic');
+      Route::put('manyLenguages/update_statistic/{id}',  'ManyLenguagesController@update_statistic')->name('admin.manylenguages.update_statistic');
 
    
 

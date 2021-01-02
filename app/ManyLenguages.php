@@ -77,4 +77,24 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_letter::class);
     }
+
+    public function ml_loan_by_date()
+    {
+        return $this->hasMany(Ml_loan_by_date::class);
+    }
+
+    public function ml_classroom_loan()
+    {
+        return $this->hasMany(Ml_classroom_loan::class);
+    }
+    
+    public function ml_database_record()
+    {
+        return $this->hasMany(Ml_database_record::class);
+    }
+
+    public function ml_statistic()
+    {
+        return $this->hasMany(Ml_statistic::class);
+    }
 }
