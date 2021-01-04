@@ -4,6 +4,8 @@
     <a href="{{ $url_edit_maintenance }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Mantenimiento"><i class="fa fa-wrench text-dark btn-btn-edit-user"></i></a> | 
     <a href="{{ $url_edit_list }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Listado"><i class="fa fa-list text-dark btn-btn-edit-user"></i></a> | 
     <a href="{{ $url_edit_statistic }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Estadistica"><i class="fa fa-bar-chart text-dark btn-btn-edit-user"></i></a> | 
+    <a href="{{ $url_library_profile }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Perfil Biblioteca"><i class="fa fa-suitcase text-dark btn-btn-edit-user"></i></a> | 
+    <a href="{{ $url_edit_manual_loan }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Prestamo Manual"><i class="fa fa-hand-o-right text-dark btn-btn-edit-user"></i></a> | 
 
     
 

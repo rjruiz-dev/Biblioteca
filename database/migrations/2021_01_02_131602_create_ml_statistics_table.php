@@ -25,7 +25,7 @@ class CreateMlStatisticsTable extends Migration
             $table->string('total')->nullable();
             $table->string('sub_socio')->nullable();
             $table->string('sub_prestamo')->nullable();
-            $table->string('sub_coleccion')->nullable();           
+            $table->string('sub_coleccion')->nullable();                      
             $table->string('col_tipodesocio')->nullable();
             $table->string('col_alta')->nullable();
             $table->string('col_baja')->nullable();            

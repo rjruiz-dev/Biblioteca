@@ -1,7 +1,7 @@
 <div class="row">
    
 {!! Form::open([
-    'route' => $idioma->exists ? ['admin.manylenguages.update_list', $idioma->id] : 'admin.manylenguages.store',   
+    'route' => $idioma->exists ? ['admin.manylenguages.update_statistic', $idioma->id] : 'admin.manylenguages.store',   
     'method' => $idioma->exists ? 'PUT' : 'POST'
 ]) !!}
 
@@ -22,17 +22,17 @@
             </div>
         </div>
     </div> 
-    <!-- Prestamo por Fecha -->
+    <!-- Estadisticas -->
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Prestamo por Fecha</h3>
+                    <h3 class="box-title">Traducciones Globales Estadisticas</h3>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">        
+    <div class="col-md-12">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -42,25 +42,27 @@
             <div class="box-body">
                 <div class="col-md-12">                    
                     <div class="form-group">              
-                        {!! Form::label('titulo_ld', 'Título principal') !!}                    
-                        {!! Form::text('titulo_ld', $ml_ld['titulo_ld'] ? $ml_ld['titulo_ld'] : null, ['class' => 'form-control', 'id' => 'titulo_ld', 'placeholder' => 'Título principal']) !!}
+                        {!! Form::label('estadistica', 'Estadisticas') !!}                    
+                        {!! Form::text('estadistica', $ml_statistic['estadistica'] ? $ml_statistic['estadistica'] : null, ['class' => 'form-control', 'id' => 'estadistica', 'placeholder' => 'Estadisticas']) !!}
                     </div>
                     <div class="form-group">              
-                        {!! Form::label('subtitulo_ld', 'Subtítulo') !!}                    
-                        {!! Form::text('subtitulo_ld', $ml_ld['subtitulo_ld'] ? $ml_ld['subtitulo_ld'] : null, ['class' => 'form-control', 'id' => 'subtitulo_ld', 'placeholder' => 'Subtítulo']) !!}
+                        {!! Form::label('mes_y_año', 'Mes y Año') !!}                    
+                        {!! Form::text('mes_y_año', $ml_statistic['mes_y_año'] ? $ml_statistic['mes_y_año'] : null, ['class' => 'form-control', 'id' => 'mes_y_año', 'placeholder' => 'Mes y Año']) !!}
                     </div> 
+
                     <div class="form-group">              
-                        {!! Form::label('fecha_desde_ld', 'Fecha desde') !!}                    
-                        {!! Form::text('fecha_desde_ld', $ml_ld['fecha_desde_ld'] ? $ml_ld['fecha_desde_ld'] : null, ['class' => 'form-control', 'id' => 'fecha_desde_ld', 'placeholder' => 'Fecha desde']) !!}
+                        {!! Form::label('ph_mes_y_año', 'Selecciona un Año') !!}                    
+                        {!! Form::text('ph_mes_y_año', $ml_statistic['ph_mes_y_año'] ? $ml_statistic['ph_mes_y_año'] : null, ['class' => 'form-control', 'id' => 'ph_mes_y_año', 'placeholder' => 'Selecciona un Año']) !!}
                     </div> 
+
                     <div class="form-group">              
-                        {!! Form::label('fecha_hasta_ld', 'Fecha hasta') !!}                    
-                        {!! Form::text('fecha_hasta_ld', $ml_ld['fecha_hasta_ld'] ? $ml_ld['fecha_hasta_ld'] : null, ['class' => 'form-control', 'id' => 'fecha_hasta_ld', 'placeholder' => 'Fecha hasta']) !!}
-                    </div> 
+                        {!! Form::label('btn_buscar', 'Botón Buscar') !!}                    
+                        {!! Form::text('btn_buscar', $ml_statistic['btn_buscar'] ? $ml_statistic['btn_buscar'] : null, ['class' => 'form-control', 'id' => 'btn_buscar', 'placeholder' => 'Botón Buscar']) !!}
+                    </div>
                     <div class="form-group">              
-                        {!! Form::label('btn_crear_ld', 'Botón Crear') !!}                    
-                        {!! Form::text('btn_crear_ld', $ml_ld['btn_crear_ld'] ? $ml_ld['btn_crear_ld'] : null, ['class' => 'form-control', 'id' => 'btn_crear_ld', 'placeholder' => 'Botón Crear']) !!}
-                    </div>                                     
+                        {!! Form::label('total', 'Total') !!}                    
+                        {!! Form::text('total', $ml_statistic['total'] ? $ml_statistic['total'] : null, ['class' => 'form-control', 'id' => 'total', 'placeholder' => 'Total']) !!}
+                    </div>                                      
                 </div>
             </div>       
         </div>   
@@ -69,203 +71,134 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
-                    <h3 class="box-title">Columnas Datatable </h3>
+                    <h3 class="box-title">Tabla Socios </h3>
                 </div>
             </div>
             <div class="box-body">              
                 <div class="form-group">              
-                    {!! Form::label('dt_id_ld', 'Id') !!}                    
-                    {!! Form::text('dt_id_ld', $ml_ld['dt_id_ld'] ? $ml_ld['dt_id_ld'] : null, ['class' => 'form-control', 'id' => 'dt_id_ld', 'placeholder' => 'Id']) !!}
+                    {!! Form::label('sub_socio', 'Socios') !!}                    
+                    {!! Form::text('sub_socio', $ml_statistic['sub_socio'] ? $ml_statistic['sub_socio'] : null, ['class' => 'form-control', 'Socio' => 'sub_socio', 'placeholder' => 'Socios']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_registro_ld', 'Registro') !!}                    
-                    {!! Form::text('dt_registro_ld', $ml_ld['dt_registro_ld'] ? $ml_ld['dt_registro_ld'] : null, ['class' => 'form-control', 'id' => 'dt_registro_ld', 'placeholder' => 'Registro']) !!}
+                    {!! Form::label('col_tipodesocio', 'Tipo de socio') !!}                    
+                    {!! Form::text('col_tipodesocio', $ml_statistic['col_tipodesocio'] ? $ml_statistic['col_tipodesocio'] : null, ['class' => 'form-control', 'id' => 'col_tipodesocio', 'placeholder' => 'Tipo de socio']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_titulo_ld', 'Titulo') !!}                    
-                    {!! Form::text('dt_titulo_ld', $ml_ld['dt_titulo_ld'] ? $ml_ld['dt_titulo_ld'] : null, ['class' => 'form-control', 'id' => 'dt_titulo_ld', 'placeholder' => 'Titulo']) !!}
+                    {!! Form::label('col_alta', 'Altas') !!}                    
+                    {!! Form::text('col_alta', $ml_statistic['col_alta'] ? $ml_statistic['col_alta'] : null, ['class' => 'form-control', 'id' => 'col_alta', 'placeholder' => 'Altas']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_titpodoc_ld', 'Tipo Documento') !!}                    
-                    {!! Form::text('dt_titpodoc_ld', $ml_ld['dt_titpodoc_ld'] ? $ml_ld['dt_titpodoc_ld'] : null, ['class' => 'form-control', 'id' => 'dt_titpodoc_ld', 'placeholder' => 'Tipo Documento']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_subtipodoc_ld', 'Subtipo Documento') !!}                    
-                    {!! Form::text('dt_subtipodoc_ld', $ml_ld['dt_subtipodoc_ld'] ? $ml_ld['dt_subtipodoc_ld'] : null, ['class' => 'form-control', 'id' => 'dt_subtipodoc_ld', 'placeholder' => 'Subtipo Documento']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_nrosocio_ld', 'Nro socio') !!}                    
-                    {!! Form::text('dt_nrosocio_ld', $ml_ld['dt_nrosocio_ld'] ? $ml_ld['dt_nrosocio_ld'] : null, ['class' => 'form-control', 'id' => 'dt_nrosocio_ld', 'placeholder' => 'Nro socio']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_nombre_ld', 'Nombre') !!}                    
-                    {!! Form::text('dt_nombre_ld', $ml_ld['dt_nombre_ld'] ? $ml_ld['dt_nombre_ld'] : null, ['class' => 'form-control', 'id' => 'dt_nombre_ld', 'placeholder' => 'Nombre']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_fechaprestamo_ld', 'Fecha préstamo') !!}                    
-                    {!! Form::text('dt_fechaprestamo_ld', $ml_ld['dt_fechaprestamo_ld'] ? $ml_ld['dt_fechaprestamo_ld'] : null, ['class' => 'form-control', 'id' => 'dt_fechaprestamo_ld', 'placeholder' => 'Fecha préstamo']) !!}
-                </div>   
-                <div class="form-group">              
-                    {!! Form::label('dt_fechadevolucion_ld', 'Fecha devolución') !!}                    
-                    {!! Form::text('dt_fechadevolucion_ld', $ml_ld['dt_fechadevolucion_ld'] ? $ml_ld['dt_fechadevolucion_ld'] : null, ['class' => 'form-control', 'id' => 'dt_fechadevolucion_ld', 'placeholder' => 'Fecha devolución']) !!}
-                </div>                        
+                    {!! Form::label('col_baja', 'Bajas') !!}                    
+                    {!! Form::text('col_baja', $ml_statistic['col_baja'] ? $ml_statistic['col_baja'] : null, ['class' => 'form-control', 'id' => 'col_baja', 'placeholder' => 'Bajas']) !!}
+                </div>                              
             </div>
         </div>       
     </div>      
 
-    <!-- Prestamo por Aula -->
-    <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Prestamo por Aula</h3>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-6">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
-                    <h3 class="box-title">Vista Principal </h3>
+                    <h3 class="box-title">Tabla Prestamos - Tabla Colecciones </h3>
                 </div>
             </div>
-            <div class="box-body">
-                <div class="col-md-12">                    
-                    <div class="form-group">              
-                        {!! Form::label('titulo_lc', 'Título principal') !!}                    
-                        {!! Form::text('titulo_lc', $ml_lc['titulo_lc'] ? $ml_lc['titulo_lc'] : null, ['class' => 'form-control', 'id' => 'titulo_lc', 'placeholder' => 'Título principal']) !!}
-                    </div>
-                    <div class="form-group">              
-                        {!! Form::label('subtitulo_lc', 'Subtítulo') !!}                    
-                        {!! Form::text('subtitulo_lc', $ml_lc['subtitulo_lc'] ? $ml_lc['subtitulo_lc'] : null, ['class' => 'form-control', 'id' => 'subtitulo_lc', 'placeholder' => 'Subtítulo']) !!}
-                    </div> 
-                    <div class="form-group">              
-                        {!! Form::label('curso_lc', 'Curso') !!}                    
-                        {!! Form::text('curso_lc', $ml_lc['curso_lc'] ? $ml_lc['curso_lc'] : null, ['class' => 'form-control', 'id' => 'curso_lc', 'placeholder' => 'Curso']) !!}
-                    </div> 
-                    <div class="form-group">              
-                        {!! Form::label('letra_lc', 'Letra') !!}                    
-                        {!! Form::text('letra_lc', $ml_lc['letra_lc'] ? $ml_lc['letra_lc'] : null, ['class' => 'form-control', 'id' => 'letra_lc', 'placeholder' => 'Letra']) !!}
-                    </div> 
-                    <div class="form-group">              
-                        {!! Form::label('turno_lc', 'Turno') !!}                    
-                        {!! Form::text('turno_lc', $ml_lc['turno_lc'] ? $ml_lc['turno_lc'] : null, ['class' => 'form-control', 'id' => 'turno_lc', 'placeholder' => 'Turno']) !!}
-                    </div> 
-                    <div class="form-group">              
-                        {!! Form::label('btn_crear_lc', 'Botón Crear') !!}                    
-                        {!! Form::text('btn_crear_lc', $ml_lc['btn_crear_lc'] ? $ml_lc['btn_crear_lc'] : null, ['class' => 'form-control', 'id' => 'btn_crear_lc', 'placeholder' => 'Botón Crear']) !!}
-                    </div>                                     
-                </div>
-            </div>       
-        </div>   
-    </div>     
-    <div class="col-md-6">        
-        <div class="box box-primary">
-            <div class="box-header with-border">
+            <div class="box-body">  
                 <div class="text-center">
-                    <h3 class="box-title">Columnas Datatable </h3>
-                </div>
-            </div>
-            <div class="box-body">               
+                    <h4 class="box-title">Prestamo</h4>
+                </div>            
                 <div class="form-group">              
-                    {!! Form::label('dt_registro_lc', 'Registro') !!}                    
-                    {!! Form::text('dt_registro_lc', $ml_lc['dt_registro_lc'] ? $ml_lc['dt_registro_lc'] : null, ['class' => 'form-control', 'id' => 'dt_registro_lc', 'placeholder' => 'Registro']) !!}
+                    {!! Form::label('sub_prestamo', 'Prestamos') !!}                    
+                    {!! Form::text('sub_prestamo', $ml_statistic['sub_prestamo'] ? $ml_statistic['sub_prestamo'] : null, ['class' => 'form-control', 'id' => 'sub_prestamo', 'placeholder' => 'Prestamos']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_titulo_lc', 'Titulo') !!}                    
-                    {!! Form::text('dt_titulo_lc', $ml_lc['dt_titulo_lc'] ? $ml_lc['dt_titulo_lc'] : null, ['class' => 'form-control', 'id' => 'dt_titulo_lc', 'placeholder' => 'Titulo']) !!}
+                    {!! Form::label('col_prestamo', 'Prestamo') !!}                    
+                    {!! Form::text('col_prestamo', $ml_statistic['col_prestamo'] ? $ml_statistic['col_prestamo'] : null, ['class' => 'form-control', 'id' => 'col_prestamo', 'placeholder' => 'Prestamo']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_autor_lc', 'Autor') !!}                    
-                    {!! Form::text('dt_autor_lc', $ml_lc['dt_autor_lc'] ? $ml_lc['dt_autor_lc'] : null, ['class' => 'form-control', 'id' => 'dt_autor_lc', 'placeholder' => 'Autor']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_titpodoc_lc', 'Tipo Documento') !!}                    
-                    {!! Form::text('dt_titpodoc_lc', $ml_lc['dt_titpodoc_lc'] ? $ml_lc['dt_titpodoc_lc'] : null, ['class' => 'form-control', 'id' => 'dt_titpodoc_lc', 'placeholder' => 'Tipo Documento']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_subtipodoc_lc', 'Subtipo Documento') !!}                    
-                    {!! Form::text('dt_subtipodoc_lc', $ml_lc['dt_subtipodoc_lc'] ? $ml_lc['dt_subtipodoc_lc'] : null, ['class' => 'form-control', 'id' => 'dt_subtipodoc_lc', 'placeholder' => 'Subtipo Documento']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_nrosocio_lc', 'Nro socio') !!}                    
-                    {!! Form::text('dt_nrosocio_lc', $ml_lc['dt_nrosocio_lc'] ? $ml_lc['dt_nrosocio_lc'] : null, ['class' => 'form-control', 'id' => 'dt_nrosocio_lc', 'placeholder' => 'Nro socio']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_socio_lc', 'Socio') !!}                    
-                    {!! Form::text('dt_socio_lc', $ml_lc['dt_socio_lc'] ? $ml_lc['dt_socio_lc'] : null, ['class' => 'form-control', 'id' => 'dt_socio_lc', 'placeholder' => 'Socio']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_curso_lc', 'Curso') !!}                    
-                    {!! Form::text('dt_curso_lc', $ml_lc['dt_curso_lc'] ? $ml_lc['dt_curso_lc'] : null, ['class' => 'form-control', 'id' => 'dt_curso_lc', 'placeholder' => 'Curso']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('dt_fechaprestamo_lc', 'Fecha préstamo') !!}                    
-                    {!! Form::text('dt_fechaprestamo_lc', $ml_lc['dt_fechaprestamo_lc'] ? $ml_lc['dt_fechaprestamo_lc'] : null, ['class' => 'form-control', 'id' => 'dt_fechaprestamo_lc', 'placeholder' => 'Fecha préstamo']) !!}
+                    {!! Form::label('col_libro', 'Libro') !!}                    
+                    {!! Form::text('col_libro', $ml_statistic['col_libro'] ? $ml_statistic['col_libro'] : null, ['class' => 'form-control', 'id' => 'col_libro', 'placeholder' => 'Libro']) !!}
                 </div>   
                 <div class="form-group">              
-                    {!! Form::label('dt_fechadevolucion_lc', 'Fecha devolución') !!}                    
-                    {!! Form::text('dt_fechadevolucion_lc', $ml_lc['dt_fechadevolucion_lc'] ? $ml_lc['dt_fechadevolucion_lc'] : null, ['class' => 'form-control', 'id' => 'dt_fechadevolucion_lc', 'placeholder' => 'Fecha devolución']) !!}
-                </div>                        
+                    {!! Form::label('col_cine', 'Cine') !!}                    
+                    {!! Form::text('col_cine', $ml_statistic['col_cine'] ? $ml_statistic['col_cine'] : null, ['class' => 'form-control', 'id' => 'col_cine', 'placeholder' => 'Cine']) !!}
+                </div>      
+                <div class="form-group">     
+                    {!! Form::label('col_multimedia', 'Multimedia') !!}                    
+                    {!! Form::text('col_multimedia', $ml_statistic['col_multimedia'] ? $ml_statistic['col_multimedia'] : null, ['class' => 'form-control', 'id' => 'col_multimedia', 'placeholder' => 'Multimedia']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('col_fotografia', 'Fotografia') !!}                    
+                    {!! Form::text('col_fotografia', $ml_statistic['col_fotografia'] ? $ml_statistic['col_fotografia'] : null, ['class' => 'form-control', 'id' => 'col_fotografia', 'placeholder' => 'Fotografia']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('col_librodigital', 'Libro digital') !!}                    
+                    {!! Form::text('col_librodigital', $ml_statistic['col_librodigital'] ? $ml_statistic['col_librodigital'] : null, ['class' => 'form-control', 'id' => 'col_librodigital', 'placeholder' => 'Libro digital']) !!}
+                </div>    
+
+                <div class="text-center">
+                    <h4 class="box-title">Colección</h4>
+                </div>
+
+                <div class="form-group">              
+                    {!! Form::label('sub_coleccion', 'Colecciones') !!}                    
+                    {!! Form::text('sub_coleccion', $ml_statistic['sub_coleccion'] ? $ml_statistic['sub_coleccion'] : null, ['class' => 'form-control', 'id' => 'sub_coleccion', 'placeholder' => 'Colecciones']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('sub_coleccion', 'Colección') !!}                    
+                    {!! Form::text('sub_coleccion', $ml_statistic['sub_coleccion'] ? $ml_statistic['sub_coleccion'] : null, ['class' => 'form-control', 'id' => 'sub_coleccion', 'placeholder' => 'Colección']) !!}
+                </div>                                     
             </div>
         </div>       
     </div>   
 
-     <!-- Registro Base de Datos-->
-    <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Registro Base de Datos</h3>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-6">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
-                    <h3 class="box-title">Vista Principal </h3>
+                    <h3 class="box-title">Filas tablas Socios - Prestamos</h3>
                 </div>
             </div>
-            <div class="box-body">
-                <div class="col-md-12">                    
-                    <div class="form-group">              
-                        {!! Form::label('titulo_dr', 'Título principal') !!}                    
-                        {!! Form::text('titulo_dr', $ml_dr['titulo_dr'] ? $ml_dr['titulo_dr'] : null, ['class' => 'form-control', 'id' => 'titulo_dr', 'placeholder' => 'Título principal']) !!}
-                    </div>
-                                                   
-                </div>
-            </div>       
-        </div>   
-    </div>     
-    <div class="col-md-6">        
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="text-center">
-                    <h3 class="box-title">Columnas Datatable </h3>
-                </div>
-            </div>
-            <div class="box-body">     
+            <div class="box-body">              
                 <div class="form-group">              
-                    {!! Form::label('dt_id_dr', 'Id') !!}                    
-                    {!! Form::text('dt_id_dr', $ml_dr['dt_id_dr'] ? $ml_dr['dt_id_dr'] : null, ['class' => 'form-control', 'id' => 'dt_id_dr', 'placeholder' => 'Id']) !!}
-                </div>
+                    {!! Form::label('infantil', 'Infantil') !!}                    
+                    {!! Form::text('infantil', $ml_statistic['infantil'] ? $ml_statistic['infantil'] : null, ['class' => 'form-control', 'id' => 'infantil', 'placeholder' => 'Infantil']) !!}
+                </div>   
                 <div class="form-group">              
-                    {!! Form::label('dt_concepto_dr', 'Concepto') !!}                    
-                    {!! Form::text('dt_concepto_dr', $ml_dr['dt_concepto_dr'] ? $ml_dr['dt_concepto_dr'] : null, ['class' => 'form-control', 'id' => 'dt_concepto_dr', 'placeholder' => 'Concepto']) !!}
-                </div>          
-                <div class="form-group">              
-                    {!! Form::label('dt_registro_dr', 'Registro') !!}                    
-                    {!! Form::text('dt_registro_dr', $ml_dr['dt_registro_dr'] ? $ml_dr['dt_registro_dr'] : null, ['class' => 'form-control', 'id' => 'dt_registro_dr', 'placeholder' => 'Registro']) !!}
-                </div>                
+                    {!! Form::label('adulto', 'Adulto') !!}                    
+                    {!! Form::text('adulto', $ml_statistic['adulto'] ? $ml_statistic['adulto'] : null, ['class' => 'form-control', 'id' => 'adulto', 'placeholder' => 'Adulto']) !!}
+                </div>                     
             </div>
         </div>       
     </div>          
+
+     <div class="col-md-6">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Filas tabla Incorporaciones</h3>
+                </div>
+            </div>
+            <div class="box-body">    
+                <div class="form-group">              
+                    {!! Form::label('incorporacion', 'Incorporaciones') !!}                    
+                    {!! Form::text('incorporacion', $ml_statistic['incorporacion'] ? $ml_statistic['incorporacion'] : null, ['class' => 'form-control', 'id' => 'incorporacion', 'placeholder' => 'Incorporaciones']) !!}
+                </div>   
+                <div class="form-group">              
+                    {!! Form::label('baja', 'Dados de baja') !!}                    
+                    {!! Form::text('baja', $ml_statistic['baja'] ? $ml_statistic['baja'] : null, ['class' => 'form-control', 'id' => 'baja', 'placeholder' => 'Dados de baja']) !!}
+                </div>            
+            </div>
+        </div>       
+    </div>                
 {!! Form::close() !!}    
 </div>
 
+
+               
+                
+
+
+                      
 
 
 

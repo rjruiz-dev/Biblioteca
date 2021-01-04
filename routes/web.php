@@ -192,9 +192,17 @@ function(){
     Route::get('manyLenguages/edit_list/{id}',    'ManyLenguagesController@edit_list')->name('admin.manylenguages.edit_list');
     Route::put('manyLenguages/update_list/{id}',  'ManyLenguagesController@update_list')->name('admin.manylenguages.update_list');
 
-      // traduccion estadistica
-      Route::get('manyLenguages/edit_statistic/{id}',    'ManyLenguagesController@edit_statistic')->name('admin.manylenguages.edit_statistic');
-      Route::put('manyLenguages/update_statistic/{id}',  'ManyLenguagesController@update_statistic')->name('admin.manylenguages.update_statistic');
+    // traduccion estadistica
+    Route::get('manyLenguages/edit_statistic/{id}',    'ManyLenguagesController@edit_statistic')->name('admin.manylenguages.edit_statistic');
+    Route::put('manyLenguages/update_statistic/{id}',  'ManyLenguagesController@update_statistic')->name('admin.manylenguages.update_statistic');
+
+    // traduccion perfil bilbioteca
+    Route::get('manyLenguages/edit_library_profile/{id}',    'ManyLenguagesController@edit_library_profile')->name('admin.manylenguages.edit_library_profile');
+    Route::put('manyLenguages/update_library_profile/{id}',  'ManyLenguagesController@update_library_profile')->name('admin.manylenguages.update_library_profile');
+
+    // traduccion prestamo manual
+    Route::get('manyLenguages/edit_manual_loan/{id}',    'ManyLenguagesController@edit_manual_loan')->name('admin.manylenguages.edit_manual_loan');
+    Route::put('manyLenguages/update_manual_loan/{id}',  'ManyLenguagesController@update_manual_loan')->name('admin.manylenguages.update_manual_loan');
 
    
 

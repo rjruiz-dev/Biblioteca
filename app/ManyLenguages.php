@@ -97,4 +97,14 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_statistic::class);
     }
+
+    public function ml_library_profile()
+    {
+        return $this->hasMany(Ml_library_profile::class);
+    }
+
+    public function ml_manual_loan()
+    {
+        return $this->hasMany(Ml_manual_loan::class);
+    }
 }
