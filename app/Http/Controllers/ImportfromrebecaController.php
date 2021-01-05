@@ -175,16 +175,24 @@ class ImportfromrebecaController extends Controller
                         //  LISTO
                         // -----------------------------EDITORIAL-------------------------------------- 
                         $editorial = null;
+                        $ciudad = null;
+                        $anio = null;
                         if (Str::contains($documento,'Editorial:')){
                                     $editorial_del_com = str_after($documento, 'Editorial:');
                                     $arreglo_editorial_salto_linea = explode("\n", $editorial_del_com);
-                                //  dd($arreglo_editorial_salto_linea);
-
-                                    // dd(reset($arreglo_editorial_salto_linea)); 
+                            
                                 if(trim(reset($arreglo_editorial_salto_linea) != '')){
-                                $editorial = trim(reset($arreglo_editorial_salto_linea));
-                                $documento = str_replace($editorial, '', $documento);                                   
-                                $documento = str_replace('Editorial:', '', $documento);                                   
+                                $ciudad = trim(str_before(reset($arreglo_editorial_salto_linea), ' : '));
+                                $editorial_pre = trim(str_after(reset($arreglo_editorial_salto_linea), ' : '));
+                                $editorial = trim(str_before($editorial_pre, ', '));
+                                $anio = trim(str_after($editorial_pre, ', '));  
+
+                                // $documento = str_replace($editorial, '', $documento);
+                                // $documento = str_replace($anio, '', $documento);
+                                // $documento = str_replace($ciudad, '', $documento);                                   
+                                // $documento = str_replace('Editorial:', '', $documento);
+                                // $documento = str_replace(' : ', '', $documento);
+                                // $documento = str_replace(', ', '', $documento);                                   
                                 //LISTO POSTAAAAA
                                 }
                         }
@@ -341,14 +349,34 @@ class ImportfromrebecaController extends Controller
                     // dd("asdasd".$titulo);
                     if($titulo != null){
                         $new_document->title = $titulo;
+                        $new_document->let_title = substr($titulo, 0, 3);
                     }
 
+                    if($editorial != null){
+                        $new_document->made_by = $editorial;
+                    }
+
+                    if($ciudad != null){
+                        $new_document->published = $ciudad;
+                    }
+
+                    if($anio != null){
+                        $new_document->year = $anio;
+                    }
                     
                     if($notas != null){
                         $new_document->synopsis = $notas;
                     }
                     //aqui guadro los datos q no se identificaron como documento y quedan para siempre ahi en ese campo
                     // si algun dia se les canta cambiar el tipo de documento y entonces ya consultan ahi.
+                    
+                    $documento = str_replace($editorial, '', $documento);
+                    $documento = str_replace($anio, '', $documento);
+                    $documento = str_replace($ciudad, '', $documento);                                   
+                    $documento = str_replace('Editorial:', '', $documento);
+                    $documento = str_replace(' : ', '', $documento);
+                    $documento = str_replace(', ', '', $documento); 
+                    
                     if(trim($documento) != ''){ 
                         $new_document->temprebecca = $documento;
                     }
@@ -360,6 +388,7 @@ class ImportfromrebecaController extends Controller
                         $new_document->quantity_generic = $quantity;
                     }
 
+                    $new_document->acquired = Carbon::now();
                     // if($size != null){ //solo para libros
                     // $new_document->quantity_generic = $size;    
                     // }
@@ -373,10 +402,11 @@ class ImportfromrebecaController extends Controller
                     // }
 
                     // dd($new_document);
+
                     $new_document->status_documents_id = 100;
                     $new_document->origen = 'REBECCA';
                     $new_document->status_rebecca = 'S';
-                    $new_document->save();
+                    $new_document->save(); 
                 
                             // solo para cine osea movie
                             // if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){

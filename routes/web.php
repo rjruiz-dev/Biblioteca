@@ -192,6 +192,14 @@ function(){
     Route::get('manyLenguages/edit_reference/{id}',    'ManyLenguagesController@edit_reference')->name('admin.manylenguages.edit_reference');
     Route::put('manyLenguages/update_reference/{id}',  'ManyLenguagesController@update_reference')->name('admin.manylenguages.update_reference');
 
+    // traduccion mantenimineto-book
+    Route::get('manyLenguages/edit_book/{id}',    'ManyLenguagesController@edit_book')->name('admin.manylenguages.edit_book');
+    Route::put('manyLenguages/update_book/{id}',  'ManyLenguagesController@update_book')->name('admin.manylenguages.update_book');
+
+    // traduccion mantenimineto-music
+    Route::get('manyLenguages/edit_music/{id}',    'ManyLenguagesController@edit_music')->name('admin.manylenguages.edit_music');
+    Route::put('manyLenguages/update_music/{id}',  'ManyLenguagesController@update_music')->name('admin.manylenguages.update_music');
+
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

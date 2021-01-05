@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Movies;
+use App\Music;
 use App\Multimedia;
 use App\Book;
 use App\Creator;
@@ -179,7 +180,7 @@ class BookController extends Controller
                         $size_del_fin = trim(str_after($size_sin_del_com, ' ; '));
                         //en este caso lo evaluo como un delimitador de comienzo pero dice fin xq total ya 
                         //corte el final con el salto de linea q preevi(?) antes-
-                        // dd($size_del_fin);
+                        // dd($size_del_fin); 
                         if($size_del_fin != ''){
                             $size = $size_del_fin;
                             $datos_pendientes = str_replace($size, '', $datos_pendientes);
@@ -200,6 +201,107 @@ class BookController extends Controller
                        }
                         // INSERT IN ISBN
                         //LISTO
+
+                       //------------------------------------------EDICION-----------------------------------------------------------------------------------------                
+                    $edition = null;
+                    //    if (strpos($documento, 'edition:') !== false) {
+                        if (Str::contains($datos_pendientes,'Edición:')){
+                                    $edition_del_com = str_after($datos_pendientes, 'Edición:');
+                                    $arreglo_edition_salto_linea = explode("\n", $edition_del_com); 
+                        $edition = trim(reset($arreglo_edition_salto_linea));
+                        $datos_pendientes = str_replace($edition, '', $datos_pendientes);
+                        $datos_pendientes = str_replace('Edición:', '', $datos_pendientes);
+                       }
+
+                        $autor_del_com = null;
+                        if (Str::contains($datos_pendientes,' / ')){
+                            $autor_del_com = str_after($datos_pendientes, ' / ');
+                            $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
+                            $autores_linea_completa = reset($arreglo_autor_salto_linea);
+                            
+                            $datos_pendientes = str_replace($autores_linea_completa,'', $datos_pendientes);
+                            $datos_pendientes = str_replace(' / ','', $datos_pendientes);
+                            $datos_pendientes = str_replace(' ; ', '', $datos_pendientes);
+                            // dd("yyyy: ".$autores_linea_completa);
+                            // a "Y" no se le hace un remplace xq si o si tiene q ir entre espacios, sino 
+                            //se toma como palabra comun de otra palabra.
+                            $autores_linea_completa = str_replace(',',' , ', $autores_linea_completa);
+                            $autores_linea_completa = str_replace(';',' ; ', $autores_linea_completa);
+                            // dd("qqqqq: ".$autores_linea_completa);                                   
+                            $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
+                            // LISTOOOOO POSTAAA
+                            // dd($autores_linea_completa);
+                        }
+
+                        // dd("aaaaaa: ".count($autores_linea_completa));
+                    // dd($autores_linea_completa);
+                    if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
+                        $num_aux = 0;
+                        foreach($autores_linea_completa as $autoree){
+                            if($num_aux == 0){
+                                // $autoree = 'Nicklaus Kautzer';
+                                // dd($autoree);                            
+                                // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
+                                $creadores = Creator::where('creator_name', '=', $autoree)->first();
+                                // dd($creadores);
+                                if($creadores != null) 
+                                {
+                                    // dd('entro al iff');
+                                    $edicion_doc->creators_id = $creadores->id;  
+                                    $edicion_doc->let_author = substr($creadores->creator_name, 0, 3); 
+                                }else{
+                                    // dd('entro al else');
+                                    $creator = new Creator;
+                                    $creator->creator_name  = $autoree;
+                                    $creator->document_types_id = 3;
+                                    $creator->save();
+                                    $edicion_doc->creators_id = $creator->id;
+                                    $edicion_doc->let_title = substr($autoree, 0, 3);
+                                }
+                            }
+                            if($num_aux == 1){
+                                // $autoree = 'Nicklaus Kautzer';
+                                // dd($autoree);                            
+                                // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
+                                $creadores = Creator::where('creator_name', '=', $autoree)->first();
+                                // dd($creadores);
+                                if($creadores != null) 
+                                {
+                                    // dd('entro al iff');
+                                    $new_book->second_author_id = $creadores->id;  
+                                }else{
+                                    // dd('entro al else');
+                                    $creator = new Creator;
+                                    $creator->creator_name  = $autoree;
+                                    $creator->document_types_id = 3;
+                                    $creator->save();
+                                    $new_book->second_author_id = $creator->id;
+                                }  
+                            }
+                            if($num_aux == 2){
+                                // $autoree = 'Nicklaus Kautzer';
+                                // dd($autoree);                            
+                                // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
+                                $creadores = Creator::where('creator_name', '=', $autoree)->first();
+                                // dd($creadores);
+                                if($creadores != null) 
+                                {
+                                    // dd('entro al iff');
+                                    $new_book->third_author_id = $creadores->id;  
+                                }else{
+                                    // dd('entro al else');
+                                    $creator = new Creator;
+                                    $creator->creator_name  = $autoree;
+                                    $creator->document_types_id = 3;
+                                    $creator->save();
+                                    $new_book->third_author_id = $creator->id;
+                                }  
+                            }
+                            $num_aux = $num_aux + 1;
+                        }
+                    }
+
+
                     // dd($size);
                     if($size != null){ //solo para libros
                         // dd("hhh0".$size);
@@ -207,8 +309,8 @@ class BookController extends Controller
                     $new_book->size = $size;    
                     }
 
-                    if($isbn != null){ //solo para libros
-                        $new_book->isbn = $isbn;
+                    if($edition != null){ //solo para libros
+                        $new_book->edition = $edition;
                     }
 
                     // lo que quede lo guardo en notes. si es edicion pisa lo q estaba anterior si estaba con otro documento

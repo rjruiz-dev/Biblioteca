@@ -167,7 +167,7 @@
                 </div>
                 <div class="form-group">                  
                     {!! Form::label('quantity_generic', $idioma_abm_book->numero_de_paginas) !!}               
-                    {!! Form::number('quantity_generic', $book->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => $idioma_abm_book->numero_de_paginas]) !!}
+                    {!! Form::text('quantity_generic', $book->document['quantity_generic'], ['class' => 'form-control', 'id' => 'quantity_generic', 'placeholder' => $idioma_abm_book->numero_de_paginas]) !!}
                 </div>
                 <div class="form-group">                   
                     {!! Form::label('size', $idioma_abm_doc->tamanio) !!}               

@@ -7,6 +7,8 @@ use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
 use App\Ml_course;
+use App\ml_cat_edit_book;
+use App\ml_cat_edit_music;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -168,86 +170,90 @@ class ManyLenguagesController extends Controller
                 $ml_dashboard->many_lenguages_id       = $idioma->id;               
                 $ml_dashboard->save();
                 
-                $ml_show_doc                       = new ml_show_doc;
-                $ml_show_doc->many_lenguages_id    = $idioma->id;
+                //-------------------------------------------------------------------------------------------------------------------------
+
+                // $ml_show_doc                       = new ml_show_doc;
+                // $ml_show_doc->many_lenguages_id    = $idioma->id;
                  
-                $ml_show_doc->imagen_de_portada    = $request->get('imagen_de_portada');
-                $ml_show_doc->idioma               = $request->get('idioma');
-                $ml_show_doc->disponible_desde     = $request->get('disponible_desde');
-                $ml_show_doc->adecuado_para        = $request->get('adecuado_para');
-                $ml_show_doc->ubicacion            = $request->get('ubicacion');
-                $ml_show_doc->solicitar_prestamo   = $request->get('solicitar_prestamo');
-                $ml_show_doc->valoracion           = $request->get('valoracion');
-                $ml_show_doc->anio                 = $request->get('anio');
-                $ml_show_doc->subtipo_de_documento = $request->get('subtipo_de_documento');
-                $ml_show_doc->titulo               = $request->get('titulo');
-                $ml_show_doc->autor                = $request->get('autor');
-                $ml_show_doc->sinopsis             = $request->get('sinopsis');
-                $ml_show_doc->titulo_original      = $request->get('titulo_original');
-                $ml_show_doc->editorial            = $request->get('editorial');
-                $ml_show_doc->nacionalidad         = $request->get('nacionalidad');
-                $ml_show_doc->genero               = $request->get('genero');
-                $ml_show_doc->duracion             = $request->get('duracion');
-                $ml_show_doc->formato              = $request->get('formato');
-                $ml_show_doc->save();
+                // $ml_show_doc->imagen_de_portada    = $request->get('imagen_de_portada');
+                // $ml_show_doc->idioma               = $request->get('idioma');
+                // $ml_show_doc->disponible_desde     = $request->get('disponible_desde');
+                // $ml_show_doc->adecuado_para        = $request->get('adecuado_para');
+                // $ml_show_doc->ubicacion            = $request->get('ubicacion');
+                // $ml_show_doc->solicitar_prestamo   = $request->get('solicitar_prestamo');
+                // $ml_show_doc->valoracion           = $request->get('valoracion');
+                // $ml_show_doc->anio                 = $request->get('anio');
+                // $ml_show_doc->subtipo_de_documento = $request->get('subtipo_de_documento');
+                // $ml_show_doc->titulo               = $request->get('titulo');
+                // $ml_show_doc->autor                = $request->get('autor');
+                // $ml_show_doc->sinopsis             = $request->get('sinopsis');
+                // $ml_show_doc->titulo_original      = $request->get('titulo_original');
+                // $ml_show_doc->editorial            = $request->get('editorial');
+                // $ml_show_doc->nacionalidad         = $request->get('nacionalidad');
+                // $ml_show_doc->genero               = $request->get('genero');
+                // $ml_show_doc->duracion             = $request->get('duracion');
+                // $ml_show_doc->formato              = $request->get('formato');
+                // $ml_show_doc->save();
 
 
-                $ml_show_book                      = new ml_show_book;
-                 $ml_show_book->many_lenguages_id  = $idioma->id;
+                // $ml_show_book                      = new ml_show_book;
+                //  $ml_show_book->many_lenguages_id  = $idioma->id;
                  
-                $ml_show_book->tema_de_portada     = $request->get('tema_de_portada');
-                $ml_show_book->sobre_el_documento  = $request->get('sobre_el_documento');
-                $ml_show_book->subtitulo           = $request->get('subtitulo');
-                $ml_show_book->otros_autores       = $request->get('otros_autores');
-                $ml_show_book->publicado_en        = $request->get('publicado_en');
-                $ml_show_book->detalles_del_documento = $request->get('detalles_del_documento');
-                $ml_show_book->volumen                = $request->get('volumen');
-                $ml_show_book->numero_de_paginas      = $request->get('numero_de_paginas');
-                $ml_show_book->tamanio                = $request->get('tamanio');
-                $ml_show_book->save();
+                // $ml_show_book->tema_de_portada     = $request->get('tema_de_portada');
+                // $ml_show_book->sobre_el_documento  = $request->get('sobre_el_documento');
+                // $ml_show_book->subtitulo           = $request->get('subtitulo');
+                // $ml_show_book->otros_autores       = $request->get('otros_autores');
+                // $ml_show_book->publicado_en        = $request->get('publicado_en');
+                // $ml_show_book->detalles_del_documento = $request->get('detalles_del_documento');
+                // $ml_show_book->volumen                = $request->get('volumen');
+                // $ml_show_book->numero_de_paginas      = $request->get('numero_de_paginas');
+                // $ml_show_book->tamanio                = $request->get('tamanio');
+                // $ml_show_book->save();
 
-                $ml_show_movie                       = new ml_show_movie;
-                $ml_show_movie->many_lenguages_id    = $idioma->id;
+                // $ml_show_movie                       = new ml_show_movie;
+                // $ml_show_movie->many_lenguages_id    = $idioma->id;
                  
-                $ml_show_movie->dirigido_por         = $request->get('dirigido_por');
-                $ml_show_movie->sobre_la_pelicula    = $request->get('sobre_la_pelicula');
-                $ml_show_movie->reparto              = $request->get('reparto');
-                $ml_show_movie->productora           = $request->get('productora');
-                $ml_show_movie->distribuidora        = $request->get('distribuidora');
-                $ml_show_movie->detalles_de_la_pelicula  = $request->get('detalles_de_la_pelicula');
-                $ml_show_movie->fotografia               = $request->get('fotografia');
-                $ml_show_movie->save();
+                // $ml_show_movie->dirigido_por         = $request->get('dirigido_por');
+                // $ml_show_movie->sobre_la_pelicula    = $request->get('sobre_la_pelicula');
+                // $ml_show_movie->reparto              = $request->get('reparto');
+                // $ml_show_movie->productora           = $request->get('productora');
+                // $ml_show_movie->distribuidora        = $request->get('distribuidora');
+                // $ml_show_movie->detalles_de_la_pelicula  = $request->get('detalles_de_la_pelicula');
+                // $ml_show_movie->fotografia               = $request->get('fotografia');
+                // $ml_show_movie->save();
 
-                $ml_show_music                       = new ml_show_music;
-                $ml_show_music->many_lenguages_id    = $idioma->id;
+                // $ml_show_music                       = new ml_show_music;
+                // $ml_show_music->many_lenguages_id    = $idioma->id;
                  
-                $ml_show_music->titulo_de_la_obra    = $request->get('titulo_de_la_obra');
-                $ml_show_music->director             = $request->get('director');
-                $ml_show_music->sobre_la_musica      = $request->get('sobre_la_musica');
-                $ml_show_music->compositor           = $request->get('compositor');
-                $ml_show_music->orquesta             = $request->get('orquesta');
-                $ml_show_music->editado_en           = $request->get('editado_en');
-                $ml_show_music->sello_discofrafico   = $request->get('sello_discofrafico');
-                $ml_show_music->detalles_de_la_musica = $request->get('detalles_de_la_musica');
-                $ml_show_music->save();
+                // $ml_show_music->titulo_de_la_obra    = $request->get('titulo_de_la_obra');
+                // $ml_show_music->director             = $request->get('director');
+                // $ml_show_music->sobre_la_musica      = $request->get('sobre_la_musica');
+                // $ml_show_music->compositor           = $request->get('compositor');
+                // $ml_show_music->orquesta             = $request->get('orquesta');
+                // $ml_show_music->editado_en           = $request->get('editado_en');
+                // $ml_show_music->sello_discofrafico   = $request->get('sello_discofrafico');
+                // $ml_show_music->detalles_de_la_musica = $request->get('detalles_de_la_musica');
+                // $ml_show_music->save();
 
-                $ml_show_fotografia                       = new ml_show_fotografia;
-                $ml_show_fotografia->many_lenguages_id    = $idioma->id;
+                // $ml_show_fotografia                       = new ml_show_fotografia;
+                // $ml_show_fotografia->many_lenguages_id    = $idioma->id;
                  
-                $ml_show_fotografia->detalles_de_la_fotografia  = $request->get('detalles_de_la_fotografia');
-                $ml_show_fotografia->notas                      = $request->get('notas');
-                $ml_show_fotografia->observaciones              = $request->get('observaciones');
-                $ml_show_fotografia->save();
+                // $ml_show_fotografia->detalles_de_la_fotografia  = $request->get('detalles_de_la_fotografia');
+                // $ml_show_fotografia->notas                      = $request->get('notas');
+                // $ml_show_fotografia->observaciones              = $request->get('observaciones');
+                // $ml_show_fotografia->save();
 
-                $ml_show_multimedia                       = new ml_show_multimedia;
-                $ml_show_multimedia->many_lenguages_id    = $idioma->id;
+                // $ml_show_multimedia                       = new ml_show_multimedia;
+                // $ml_show_multimedia->many_lenguages_id    = $idioma->id;
                  
-                $ml_show_multimedia->sobre_multimedia   = $request->get('sobre_multimedia');
-                $ml_show_multimedia->detalles_de_multimedia = $request->get('detalles_de_multimedia');
-                $ml_show_multimedia->paginas                = $request->get('paginas');
-                $ml_show_multimedia->volumen                = $request->get('volumen');
-                $ml_show_multimedia->edicion                = $request->get('edicion');
-                $ml_show_multimedia->save();
+                // $ml_show_multimedia->sobre_multimedia   = $request->get('sobre_multimedia');
+                // $ml_show_multimedia->detalles_de_multimedia = $request->get('detalles_de_multimedia');
+                // $ml_show_multimedia->paginas                = $request->get('paginas');
+                // $ml_show_multimedia->volumen                = $request->get('volumen');
+                // $ml_show_multimedia->edicion                = $request->get('edicion');
+                // $ml_show_multimedia->save();
+
+                //-------------------------------------------------------------------------------------------------------------------------
 
                 // $ml_document                        = new Ml_document;
                 // $ml_document->cdu                   = $request->get('cdu');
@@ -357,6 +363,30 @@ class ManyLenguagesController extends Controller
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'    => $idioma,
             'ml_course' => $ml_course
+        ]); 
+    }
+
+    public function edit_book($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id); 
+
+        $ml_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id', $idioma->id)->first();
+        
+        return view('admin.manylenguages.cat_edit_book.partials.form', [          
+            'idioma'    => $idioma,
+            'ml_cat_edit_book' => $ml_cat_edit_book
+        ]); 
+    }
+
+    public function edit_music($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id); 
+
+        $ml_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id', $idioma->id)->first();
+        
+        return view('admin.manylenguages.cat_edit_music.partials.form', [          
+            'idioma'    => $idioma,
+            'ml_cat_edit_music' => $ml_cat_edit_music
         ]); 
     }
  
@@ -600,6 +630,205 @@ class ManyLenguagesController extends Controller
         }
     }
 
+
+    public function update_book(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                    
+                $ml_cat_edit_book                      = ml_cat_edit_book::where('many_lenguages_id', $id)->first();
+                       
+                $ml_cat_edit_book->compl_editar   = $request->get('compl_editar');
+                $ml_cat_edit_book->compl_area_de_titulo   = $request->get('compl_area_de_titulo');
+                $ml_cat_edit_book->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
+                $ml_cat_edit_book->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');
+                $ml_cat_edit_book->cuerpo_tipo_de_libro   = $request->get('cuerpo_tipo_de_libro');
+                $ml_cat_edit_book->ph_cuerpo_tipo_de_libro   = $request->get('ph_cuerpo_tipo_de_libro'); 
+                $ml_cat_edit_book->cuerpo_titulo   = $request->get('cuerpo_titulo');
+                $ml_cat_edit_book->ph_cuerpo_titulo   = $request->get('ph_cuerpo_titulo');
+                $ml_cat_edit_book->cuerpo_tema_portada   = $request->get('cuerpo_tema_portada');
+                $ml_cat_edit_book->ph_cuerpo_tema_portada   = $request->get('ph_cuerpo_tema_portada');
+                $ml_cat_edit_book->cuerpo_volumen_numero_fecha   = $request->get('cuerpo_volumen_numero_fecha');
+                $ml_cat_edit_book->ph_cuerpo_volumen_numero_fecha   = $request->get('ph_cuerpo_volumen_numero_fecha');
+                $ml_cat_edit_book->cuerpo_subtitulo   = $request->get('cuerpo_subtitulo');
+                $ml_cat_edit_book->ph_cuerpo_subtitulo   = $request->get('ph_cuerpo_subtitulo');
+                $ml_cat_edit_book->cuerpo_autor   = $request->get('cuerpo_autor');
+                $ml_cat_edit_book->ph_cuerpo_autor   = $request->get('ph_cuerpo_autor');
+                $ml_cat_edit_book->cuerpo_segundo_autor   = $request->get('cuerpo_segundo_autor');
+                $ml_cat_edit_book->ph_cuerpo_segundo_autor   = $request->get('ph_cuerpo_segundo_autor');
+                $ml_cat_edit_book->cuerpo_tercer_autor   = $request->get('cuerpo_tercer_autor');
+                $ml_cat_edit_book->ph_cuerpo_tercer_autor   = $request->get('ph_cuerpo_tercer_autor');
+                $ml_cat_edit_book->cuerpo_titulo_original   = $request->get('cuerpo_titulo_original');
+                $ml_cat_edit_book->ph_cuerpo_titulo_original   = $request->get('ph_cuerpo_titulo_original');
+                $ml_cat_edit_book->cuerpo_traductor   = $request->get('cuerpo_traductor');
+                $ml_cat_edit_book->ph_cuerpo_traductor   = $request->get('ph_cuerpo_traductor');
+                $ml_cat_edit_book->cuerpo_isbn   = $request->get('cuerpo_isbn');
+                $ml_cat_edit_book->ph_cuerpo_isbn   = $request->get('ph_cuerpo_isbn');
+                $ml_cat_edit_book->cuerpo_adquirido   = $request->get('cuerpo_adquirido');
+                $ml_cat_edit_book->ph_cuerpo_adquirido   = $request->get('ph_cuerpo_adquirido');
+                $ml_cat_edit_book->cuerpo_genero   = $request->get('cuerpo_genero');
+                $ml_cat_edit_book->ph_cuerpo_genero   = $request->get('ph_cuerpo_genero');
+                $ml_cat_edit_book->cuerpo_adecuado_para   = $request->get('cuerpo_adecuado_para');
+                $ml_cat_edit_book->ph_cuerpo_adecuado_para   = $request->get('ph_cuerpo_adecuado_para');
+                $ml_cat_edit_book->cuerpo_periodicidad   = $request->get('cuerpo_periodicidad');
+                $ml_cat_edit_book->ph_cuerpo_periodicidad   = $request->get('ph_cuerpo_periodicidad');
+                $ml_cat_edit_book->cuerpo_issn   = $request->get('cuerpo_issn');
+                $ml_cat_edit_book->ph_cuerpo_issn   = $request->get('ph_cuerpo_issn');
+                $ml_cat_edit_book->cuerpo_otros   = $request->get('cuerpo_otros');
+                $ml_cat_edit_book->ph_cuerpo_otros   = $request->get('ph_cuerpo_otros');
+                $ml_cat_edit_book->cuerpo_siglas_autor   = $request->get('cuerpo_siglas_autor');
+                $ml_cat_edit_book->ph_cuerpo_siglas_autor   = $request->get('ph_cuerpo_siglas_autor');
+                $ml_cat_edit_book->cuerpo_siglas_titulo   = $request->get('cuerpo_siglas_titulo');
+                $ml_cat_edit_book->ph_cuerpo_siglas_titulo   = $request->get('ph_cuerpo_siglas_titulo');
+                $ml_cat_edit_book->cuerpo_cdu   = $request->get('cuerpo_cdu');
+                $ml_cat_edit_book->ph_cuerpo_cdu   = $request->get('ph_cuerpo_cdu');
+                $ml_cat_edit_book->cuerpo_valoracion   = $request->get('cuerpo_valoracion');
+                $ml_cat_edit_book->ph_cuerpo_valoracion   = $request->get('ph_cuerpo_valoracion');
+                $ml_cat_edit_book->cuerpo_estado   = $request->get('cuerpo_estado');
+                $ml_cat_edit_book->ph_cuerpo_estado   = $request->get('ph_cuerpo_estado');
+                $ml_cat_edit_book->cuerpo_publicado_en   = $request->get('cuerpo_publicado_en');
+                $ml_cat_edit_book->ph_cuerpo_publicado_en   = $request->get('ph_cuerpo_publicado_en');
+                $ml_cat_edit_book->cuerpo_editorial   = $request->get('cuerpo_editorial');
+                $ml_cat_edit_book->ph_cuerpo_editorial   = $request->get('ph_cuerpo_editorial');
+                $ml_cat_edit_book->cuerpo_anio_de_publicacion   = $request->get('cuerpo_anio_de_publicacion');
+                $ml_cat_edit_book->ph_cuerpo_anio_de_publicacion   = $request->get('ph_cuerpo_anio_de_publicacion');
+                $ml_cat_edit_book->cuerpo_edicion   = $request->get('cuerpo_edicion');
+                $ml_cat_edit_book->ph_cuerpo_edicion   = $request->get('ph_cuerpo_edicion');
+                $ml_cat_edit_book->cuerpo_volumenes   = $request->get('cuerpo_volumenes');
+                $ml_cat_edit_book->ph_cuerpo_volumenes   = $request->get('ph_cuerpo_volumenes');
+                $ml_cat_edit_book->cuerpo_numero_de_paginas   = $request->get('cuerpo_numero_de_paginas');
+                $ml_cat_edit_book->ph_cuerpo_numero_de_paginas   = $request->get('ph_cuerpo_numero_de_paginas');
+                $ml_cat_edit_book->cuerpo_tamanio   = $request->get('cuerpo_tamanio');
+                $ml_cat_edit_book->ph_cuerpo_tamanio   = $request->get('ph_cuerpo_tamanio');
+                $ml_cat_edit_book->cuerpo_coleccion   = $request->get('cuerpo_coleccion');
+                $ml_cat_edit_book->ph_cuerpo_coleccion   = $request->get('ph_cuerpo_coleccion');
+                $ml_cat_edit_book->cuerpo_ubicacion   = $request->get('cuerpo_ubicacion');
+                $ml_cat_edit_book->ph_cuerpo_ubicacion   = $request->get('ph_cuerpo_ubicacion');
+                $ml_cat_edit_book->cuerpo_idioma   = $request->get('cuerpo_idioma');
+                $ml_cat_edit_book->ph_cuerpo_idioma   = $request->get('ph_cuerpo_idioma');
+                $ml_cat_edit_book->cuerpo_referencia   = $request->get('cuerpo_referencia');
+                $ml_cat_edit_book->ph_cuerpo_referencia   = $request->get('ph_cuerpo_referencia');
+                $ml_cat_edit_book->cuerpo_observacion   = $request->get('cuerpo_observacion');
+                $ml_cat_edit_book->ph_cuerpo_observacion   = $request->get('ph_cuerpo_observacion');
+                $ml_cat_edit_book->cuerpo_nota   = $request->get('cuerpo_nota');
+                $ml_cat_edit_book->ph_cuerpo_nota   = $request->get('ph_cuerpo_nota');
+                $ml_cat_edit_book->cuerpo_fotografia   = $request->get('cuerpo_fotografia');
+                $ml_cat_edit_book->ph_cuerpo_fotografia   = $request->get('ph_cuerpo_fotografia');
+                $ml_cat_edit_book->cuerpo_sinopsis   = $request->get('cuerpo_sinopsis');
+                $ml_cat_edit_book->ph_cuerpo_sinopsis = $request->get('ph_cuerpo_sinopsis'); 
+
+                $ml_cat_edit_book->save();
+               
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
+    public function update_music(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                    
+                $ml_cat_edit_book                      = ml_cat_edit_book::where('many_lenguages_id', $id)->first();
+                       
+                $ml_cat_edit_book->compl_editar   = $request->get('compl_editar');
+                $ml_cat_edit_book->compl_area_de_titulo   = $request->get('compl_area_de_titulo');
+                $ml_cat_edit_book->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
+                $ml_cat_edit_book->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');
+                $ml_cat_edit_book->cuerpo_tipo_de_libro   = $request->get('cuerpo_tipo_de_libro');
+                $ml_cat_edit_book->ph_cuerpo_tipo_de_libro   = $request->get('ph_cuerpo_tipo_de_libro'); 
+                $ml_cat_edit_book->cuerpo_titulo   = $request->get('cuerpo_titulo');
+                $ml_cat_edit_book->ph_cuerpo_titulo   = $request->get('ph_cuerpo_titulo');
+                $ml_cat_edit_book->cuerpo_tema_portada   = $request->get('cuerpo_tema_portada');
+                $ml_cat_edit_book->ph_cuerpo_tema_portada   = $request->get('ph_cuerpo_tema_portada');
+                $ml_cat_edit_book->cuerpo_volumen_numero_fecha   = $request->get('cuerpo_volumen_numero_fecha');
+                $ml_cat_edit_book->ph_cuerpo_volumen_numero_fecha   = $request->get('ph_cuerpo_volumen_numero_fecha');
+                $ml_cat_edit_book->cuerpo_subtitulo   = $request->get('cuerpo_subtitulo');
+                $ml_cat_edit_book->ph_cuerpo_subtitulo   = $request->get('ph_cuerpo_subtitulo');
+                $ml_cat_edit_book->cuerpo_autor   = $request->get('cuerpo_autor');
+                $ml_cat_edit_book->ph_cuerpo_autor   = $request->get('ph_cuerpo_autor');
+                $ml_cat_edit_book->cuerpo_segundo_autor   = $request->get('cuerpo_segundo_autor');
+                $ml_cat_edit_book->ph_cuerpo_segundo_autor   = $request->get('ph_cuerpo_segundo_autor');
+                $ml_cat_edit_book->cuerpo_tercer_autor   = $request->get('cuerpo_tercer_autor');
+                $ml_cat_edit_book->ph_cuerpo_tercer_autor   = $request->get('ph_cuerpo_tercer_autor');
+                $ml_cat_edit_book->cuerpo_titulo_original   = $request->get('cuerpo_titulo_original');
+                $ml_cat_edit_book->ph_cuerpo_titulo_original   = $request->get('ph_cuerpo_titulo_original');
+                $ml_cat_edit_book->cuerpo_traductor   = $request->get('cuerpo_traductor');
+                $ml_cat_edit_book->ph_cuerpo_traductor   = $request->get('ph_cuerpo_traductor');
+                $ml_cat_edit_book->cuerpo_isbn   = $request->get('cuerpo_isbn');
+                $ml_cat_edit_book->ph_cuerpo_isbn   = $request->get('ph_cuerpo_isbn');
+                $ml_cat_edit_book->cuerpo_adquirido   = $request->get('cuerpo_adquirido');
+                $ml_cat_edit_book->ph_cuerpo_adquirido   = $request->get('ph_cuerpo_adquirido');
+                $ml_cat_edit_book->cuerpo_genero   = $request->get('cuerpo_genero');
+                $ml_cat_edit_book->ph_cuerpo_genero   = $request->get('ph_cuerpo_genero');
+                $ml_cat_edit_book->cuerpo_adecuado_para   = $request->get('cuerpo_adecuado_para');
+                $ml_cat_edit_book->ph_cuerpo_adecuado_para   = $request->get('ph_cuerpo_adecuado_para');
+                $ml_cat_edit_book->cuerpo_periodicidad   = $request->get('cuerpo_periodicidad');
+                $ml_cat_edit_book->ph_cuerpo_periodicidad   = $request->get('ph_cuerpo_periodicidad');
+                $ml_cat_edit_book->cuerpo_issn   = $request->get('cuerpo_issn');
+                $ml_cat_edit_book->ph_cuerpo_issn   = $request->get('ph_cuerpo_issn');
+                $ml_cat_edit_book->cuerpo_otros   = $request->get('cuerpo_otros');
+                $ml_cat_edit_book->ph_cuerpo_otros   = $request->get('ph_cuerpo_otros');
+                $ml_cat_edit_book->cuerpo_siglas_autor   = $request->get('cuerpo_siglas_autor');
+                $ml_cat_edit_book->ph_cuerpo_siglas_autor   = $request->get('ph_cuerpo_siglas_autor');
+                $ml_cat_edit_book->cuerpo_siglas_titulo   = $request->get('cuerpo_siglas_titulo');
+                $ml_cat_edit_book->ph_cuerpo_siglas_titulo   = $request->get('ph_cuerpo_siglas_titulo');
+                $ml_cat_edit_book->cuerpo_cdu   = $request->get('cuerpo_cdu');
+                $ml_cat_edit_book->ph_cuerpo_cdu   = $request->get('ph_cuerpo_cdu');
+                $ml_cat_edit_book->cuerpo_valoracion   = $request->get('cuerpo_valoracion');
+                $ml_cat_edit_book->ph_cuerpo_valoracion   = $request->get('ph_cuerpo_valoracion');
+                $ml_cat_edit_book->cuerpo_estado   = $request->get('cuerpo_estado');
+                $ml_cat_edit_book->ph_cuerpo_estado   = $request->get('ph_cuerpo_estado');
+                $ml_cat_edit_book->cuerpo_publicado_en   = $request->get('cuerpo_publicado_en');
+                $ml_cat_edit_book->ph_cuerpo_publicado_en   = $request->get('ph_cuerpo_publicado_en');
+                $ml_cat_edit_book->cuerpo_editorial   = $request->get('cuerpo_editorial');
+                $ml_cat_edit_book->ph_cuerpo_editorial   = $request->get('ph_cuerpo_editorial');
+                $ml_cat_edit_book->cuerpo_anio_de_publicacion   = $request->get('cuerpo_anio_de_publicacion');
+                $ml_cat_edit_book->ph_cuerpo_anio_de_publicacion   = $request->get('ph_cuerpo_anio_de_publicacion');
+                $ml_cat_edit_book->cuerpo_edicion   = $request->get('cuerpo_edicion');
+                $ml_cat_edit_book->ph_cuerpo_edicion   = $request->get('ph_cuerpo_edicion');
+                $ml_cat_edit_book->cuerpo_volumenes   = $request->get('cuerpo_volumenes');
+                $ml_cat_edit_book->ph_cuerpo_volumenes   = $request->get('ph_cuerpo_volumenes');
+                $ml_cat_edit_book->cuerpo_numero_de_paginas   = $request->get('cuerpo_numero_de_paginas');
+                $ml_cat_edit_book->ph_cuerpo_numero_de_paginas   = $request->get('ph_cuerpo_numero_de_paginas');
+                $ml_cat_edit_book->cuerpo_tamanio   = $request->get('cuerpo_tamanio');
+                $ml_cat_edit_book->ph_cuerpo_tamanio   = $request->get('ph_cuerpo_tamanio');
+                $ml_cat_edit_book->cuerpo_coleccion   = $request->get('cuerpo_coleccion');
+                $ml_cat_edit_book->ph_cuerpo_coleccion   = $request->get('ph_cuerpo_coleccion');
+                $ml_cat_edit_book->cuerpo_ubicacion   = $request->get('cuerpo_ubicacion');
+                $ml_cat_edit_book->ph_cuerpo_ubicacion   = $request->get('ph_cuerpo_ubicacion');
+                $ml_cat_edit_book->cuerpo_idioma   = $request->get('cuerpo_idioma');
+                $ml_cat_edit_book->ph_cuerpo_idioma   = $request->get('ph_cuerpo_idioma');
+                $ml_cat_edit_book->cuerpo_referencia   = $request->get('cuerpo_referencia');
+                $ml_cat_edit_book->ph_cuerpo_referencia   = $request->get('ph_cuerpo_referencia');
+                $ml_cat_edit_book->cuerpo_observacion   = $request->get('cuerpo_observacion');
+                $ml_cat_edit_book->ph_cuerpo_observacion   = $request->get('ph_cuerpo_observacion');
+                $ml_cat_edit_book->cuerpo_nota   = $request->get('cuerpo_nota');
+                $ml_cat_edit_book->ph_cuerpo_nota   = $request->get('ph_cuerpo_nota');
+                $ml_cat_edit_book->cuerpo_fotografia   = $request->get('cuerpo_fotografia');
+                $ml_cat_edit_book->ph_cuerpo_fotografia   = $request->get('ph_cuerpo_fotografia');
+                $ml_cat_edit_book->cuerpo_sinopsis   = $request->get('cuerpo_sinopsis');
+                $ml_cat_edit_book->ph_cuerpo_sinopsis = $request->get('ph_cuerpo_sinopsis'); 
+
+                $ml_cat_edit_book->save();
+               
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -644,6 +873,8 @@ class ManyLenguagesController extends Controller
                     'idiomas'           => $idiomas,                       
                     'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
                     'url_edit_course'   => route('admin.manylenguages.edit_course', $idiomas->id),
+                    'url_edit_book'   => route('admin.manylenguages.edit_book', $idiomas->id),
+                    'url_edit_music'   => route('admin.manylenguages.edit_music', $idiomas->id),
                     'url_destroy'       => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           
