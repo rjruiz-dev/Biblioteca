@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Music;
+use App\ml_cat_edit_music;
 use App\Movies;
 use App\Lenguage;
 use App\Ml_movie;
@@ -52,6 +53,8 @@ class MusicController extends Controller
         }
         $session = session('idiomas');
 
+        $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
+        
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();
@@ -63,7 +66,9 @@ class MusicController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'idd' => $idd, 
+            'idd' => $idd,
+            'idioma_cat_edit_music'       => $idioma_cat_edit_music,
+  
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
              'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -84,7 +89,7 @@ class MusicController extends Controller
         }
         $session = session('idiomas');
 
-
+        $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
         //cargo el idioma
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
@@ -150,6 +155,8 @@ class MusicController extends Controller
             'idiomas'           => $idiomas,
             'setting'           => $setting,
             'idd'           => $idd,
+            'idioma_cat_edit_music'       => $idioma_cat_edit_music,
+  
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -165,11 +172,22 @@ class MusicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+        
         $music = new Music();    
-        $document = new Document();      
+        $document = new Document();  
 
+        $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
+        
         // $this->authorize('create', $music);     
                               
         return view('admin.music.partials.form', [
@@ -188,7 +206,9 @@ class MusicController extends Controller
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
             'status_documents' => StatusDocument::pluck('name_status', 'id'), 
             'music'         => $music,
-            'document'      => $document
+            'document'      => $document,
+            'idioma_cat_edit_music'       => $idioma_cat_edit_music,
+  
         ]); 
     }
 
@@ -312,6 +332,73 @@ class MusicController extends Controller
         }  
     }
 
+    public function obtener(Request $request, $id)
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        // dd($id);
+        // if($id == 1){
+        // $respuesta = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $respuesta = ml_cat_edit_music::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 2){
+        // // $respuesta = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 3){
+        // // $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // // if($id == 4){
+        // // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // // // dd($respuesta);
+        // // }
+
+        // if($id == 4){
+        // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // dd($respuesta);
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // if($id == 5){
+        //     $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+
+        // }
+
+
+     
+        if($request->ajax())
+        {
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+ 
+            // return $respuesta->toJson();
+            
+            // if($id == 5){
+            //  return response()->json(array('respuesta_doc'=>$respuesta_doc,'respuesta_book'=>$respuesta_book));
+
+            // }else{
+                return $respuesta->toJson();
+            // }
+            // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
+
+            // return $count->toJson();
+          
+        }  
+      
+        return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -381,11 +468,22 @@ class MusicController extends Controller
      * @param  \App\Music  $music
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+        
         $musics = Music::with('document', 'generate_music')->findOrFail($id);
         $document = Document::findOrFail($musics->documents_id);   
-                      
+          
+        $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
+        
         // $this->authorize('update', $music);
         // $id_docum = $document->id;
         // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
@@ -426,7 +524,8 @@ class MusicController extends Controller
                     'languages'     => Lenguage::pluck('leguage_description', 'id'),
                     'status_documents' => StatusDocument::pluck('name_status', 'id'), 
                     'music'         => $musics,
-                    'document'      => $document
+                    'document'      => $document,
+                    'idioma_cat_edit_music'       => $idioma_cat_edit_music,
                 ]);
         // } 
     }

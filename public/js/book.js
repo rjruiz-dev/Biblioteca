@@ -4,7 +4,7 @@ $('body').on('click', '.modal-show', function(event) {
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title');
-    console.log('rodrigo');
+    // console.log('rodrigo');
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
         .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
@@ -120,6 +120,7 @@ $('body').on('click', '.modal-show', function(event) {
 
 
             yesnoCheck();
+            obtenercamposestaticos(5);
         }
     });
 
@@ -435,11 +436,21 @@ $('body').on('click', '.btn-baja', function(event) {
                 },
                 success: function(response) {
                     $('#datatable').DataTable().ajax.reload();
-                    swal({
+                    if (valor != 'rechazar') {
+                        swal({
                         type: 'success',
                         title: '¡Éxito!',
                         text: '¡Se ha dado de baja el documento!'
                     });
+                    }else{
+                        swal({
+                            type: 'success', 
+                            title: '¡Éxito!',
+                            text: '¡Se ha rechazado la importacion del documento!'
+                        }).then(function() {
+                            window.location = "/admin/importfromrebeca";
+                        });
+                    }   
                 },
                 error: function(xhr) {
                     swal({
@@ -489,11 +500,22 @@ $('body').on('click', '.btn-reactivar', function(event) {
                 },
                 success: function(response) {
                     $('#datatable').DataTable().ajax.reload();
+                    if (valor != 'aceptar') {
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
                         text: '¡Se ha reactivado el documento!'
                     });
+                }else{
+                    swal({
+                        type: 'success',
+                        title: '¡Éxito!',
+                        text: '¡Se ha aprobado la importacion del documento!'
+                    }).then(function() {
+                        window.location = "/admin/importfromrebeca";
+                    });
+
+                }
                 },
                 error: function(xhr) {
                     swal({
@@ -551,8 +573,9 @@ if ($("#bande").val() != null) {
 }
 
 function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
 
+    if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
+        console.log("publ periodica");
         obtenercamposdinamicos(1); //publ periodica
 
         //CAMBIO DE LABEL
@@ -570,10 +593,12 @@ function yesnoCheck() {
     } else { //si NOO es publ periodica
 
         if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS   
+            console.log("otros");
             obtenercamposdinamicos(2); //otros
             //CAMBIO DE LABEL
             // document.getElementById("l_generate_books_id").innerHTML = 'Otros';
         } else {
+            console.log("literatura");
             obtenercamposdinamicos(3); //literatura 
             // document.getElementById("l_generate_books_id").innerHTML = 'Genero'; 
         }
@@ -604,30 +629,31 @@ function obtenercamposdinamicos(accion) {
         },
         dataType: 'json',
         success: function(response) {
+            // console.log("accion que viene: " + accion);
 
             if (accion == 1) { // publicacion periodica                   
-                document.getElementById("l_subtitle").innerHTML = response.tema_de_portada;
-                $('#subtitle').attr('placeholder', response.tema_de_portada);
+                document.getElementById("l_subtitle").innerHTML = response.cuerpo_tema_portada;
+                $('#subtitle').attr('placeholder', response.ph_cuerpo_tema_portada);
             }
 
             if (accion == 2) { //otros
-                document.getElementById("l_generate_books_id").innerHTML = 'Otros';
+                document.getElementById("l_generate_books_id").innerHTML = response.cuerpo_otros;
                 $('#generate_books_id').select2({
-                    placeholder: 'Otros',
+                    placeholder: response.ph_cuerpo_otros,
                     // placeholder: response.plh_otros,
                 });
             }
 
             if (accion == 3) { //literatura 
-                document.getElementById("l_generate_books_id").innerHTML = 'Genero';
+                document.getElementById("l_generate_books_id").innerHTML = response.cuerpo_genero;
                 $('#generate_books_id').select2({
-                    placeholder: 'Genero',
+                    placeholder: response.ph_cuerpo_genero,
                     // placeholder: response.plh_genero,
                 });
             }
             if (accion == 4) { // NO PUBLICACION PERIODICA(OTROS O LITERATURA)
-                document.getElementById("l_subtitle").innerHTML = response.subtítulo;
-                $('#subtitle').attr('placeholder', response.subtítulo);
+                document.getElementById("l_subtitle").innerHTML = response.cuerpo_subtitulo;
+                $('#subtitle').attr('placeholder', response.ph_cuerpo_subtitulo);
             }
 
         },
@@ -637,6 +663,8 @@ function obtenercamposdinamicos(accion) {
         }
     })
 }
+// obtenercamposestaticos(5);
+
 
 function obtenercamposestaticos(accion) {
 
@@ -652,8 +680,47 @@ function obtenercamposestaticos(accion) {
         success: function(response) {
 
             if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
-                document.getElementById("l_subtitle").innerHTML = response.subtítulo;
-                $('#subtitle').attr('placeholder', response.subtítulo);
+                // console.log("uiuiuiui" + accion);
+                // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
+                // $('#subtitle').attr('placeholder', response.subtítulo);
+                $('#document_subtypes_id').select2({
+                    placeholder: response.ph_cuerpo_tipo_de_libro,
+                });
+                $("#creators_id").select2({
+                    placeholder: response.ph_cuerpo_autor,
+                });
+                $("#second_author_id").select2({
+                    placeholder: response.ph_cuerpo_segundo_autor,
+                });
+                $("#third_author_id").select2({
+                    placeholder: response.ph_cuerpo_tercer_autor,
+                });
+                $('#adequacies_id').select2({
+                    placeholder: response.ph_cuerpo_adecuado_para,
+                });
+                $('#periodicities_id').select2({
+                    placeholder: response.ph_cuerpo_periodicidad,
+                });
+                $("#generate_subjects_id").select2({
+                    placeholder: response.ph_cuerpo_cdu,
+                });
+                $('#published').select2({
+                    placeholder: response.ph_cuerpo_publicado_en,
+                });
+                $('#made_by').select2({
+                    placeholder: response.ph_cuerpo_editorial,
+                });
+                $('#edition').select2({
+                    placeholder: response.ph_cuerpo_edicion,
+                });
+                $('#volume').select2({
+                    placeholder: response.ph_cuerpo_volumenes,
+                });
+                $('#lenguages_id').select2({
+                    placeholder: response.ph_cuerpo_idioma,
+                });
+                // $('#modal-btn-save')
+                document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;
             }
 
         },

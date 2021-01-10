@@ -2,25 +2,50 @@
 
 @section('header')    
     <h1>
-       {{ $document->title }} 
+    @if($document->status_rebecca == 'S')
+        @php
+        $mensaje = 'Ir al listado de : ';
+        @endphp
+        @if($document->document_type->id == 1)  <!-- musica --> 
+         <a title="Volver a Importacion de: {{$document->title}}" href="{{ route('music.indexsolo', ['id' =>  $document->id, 'tipo' =>  1]) }}"> {{$document->title}} </a>   
+        @endif
+        @if($document->document_type->id == 2)  <!-- cine --> 
+        <a title="Volver a Importacion de: {{$document->title}}" href="{{ route('movies.indexsolo', ['id' =>  $document->id, 'tipo' =>  2]) }}"> {{$document->title}} </a>
+        @endif
+        @if($document->document_type->id == 3)  <!-- libro --> 
+        <a title="Volver a Importacion de: {{$document->title}}" href="{{ route('books.indexsolo', ['id' =>  $document->id, 'tipo' =>  3]) }}"> {{$document->title}} </a>
+        @endif
+        @if($document->document_type->id == 4)  <!-- multimedia --> 
+        <a title="Volver a Importacion de: {{$document->title}}" href="{{ route('multimedias.indexsolo', ['id' =>  $document->id, 'tipo' =>  4]) }}"> {{$document->title}} </a>   
+        @endif
+        @if($document->document_type->id == 5)  <!-- fotografia --> 
+        <a title="Volver a Importacion de: {{$document->title}}" href="{{ route('photographs.indexsolo', ['id' =>  $document->id, 'tipo' =>  5]) }}"> {{$document->title}} </a>   
+        @endif
+    
+    @else
+    @php
+    $mensaje = 'Regresar a listado de : ';
+    @endphp
+    {{ $document->title }} 
+    @endif
         <small>{{ $document->document_type->document_description }} - {{ $document->document_subtype->subtype_name }}</small>
     </h1>
     <ol class="breadcrumb">
         
         @if($document->document_type->id == 1)  <!-- musica --> 
-        <li class="active"><a href="{{ route('admin.music.index') }}"><i class="fa fa-music"></i> Musica </a> </li>
+        <li class="active"><a title="{{ $mensaje.$document->document_type->document_description}}" href="{{ route('admin.music.index') }}"><i class="fa fa-music"></i> Musica </a> </li>
         @endif
         @if($document->document_type->id == 2)  <!-- cine --> 
-        <li class="active"><a href="{{ route('admin.movies.index') }}"><i class="fa fa-video-camera"></i> Cines </a> </li>
+        <li class="active"><a title="{{ $mensaje.$document->document_type->document_description}}" href="{{ route('admin.movies.index') }}"><i class="fa fa-video-camera"></i> Cines </a> </li>
         @endif
         @if($document->document_type->id == 3)  <!-- libro --> 
-        <li class="active"><a href="{{ route('admin.books.index') }}"><i class="fa fa-book"></i> Libros </a> </li>
+        <li class="active"><a title="{{ $mensaje.$document->document_type->document_description}}" href="{{ route('admin.books.index') }}"><i class="fa fa-book"></i> Libros </a> </li>
         @endif
         @if($document->document_type->id == 4)  <!-- multimedia --> 
-        <li class="active"><a href="{{ route('admin.multimedias.index') }}"><i class="fa fa-youtube-play"></i> Multimedias </a> </li>
+        <li class="active"><a title="{{ $mensaje.$document->document_type->document_description}}" href="{{ route('admin.multimedias.index') }}"><i class="fa fa-youtube-play"></i> Multimedias </a> </li>
         @endif
         @if($document->document_type->id == 5)  <!-- fotografia --> 
-        <li class="active"><a href="{{ route('admin.photographs.index') }}"><i class="fa fa-photo"></i> Fotografias </a> </li>
+        <li class="active"><a title="{{ $mensaje.$document->document_type->document_description}}" href="{{ route('admin.photographs.index') }}"><i class="fa fa-photo"></i> Fotografias </a> </li>
         @endif
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         

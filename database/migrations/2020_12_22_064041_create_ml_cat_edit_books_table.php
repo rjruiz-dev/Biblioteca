@@ -19,10 +19,13 @@ class CreateMlCatEditBooksTable extends Migration
 
             $table->integer('many_lenguages_id')->nullable()->unsigned();
             
-            $table->string('compl_editar')->nullable();
+            $table->string('cuerpo_desidherata')->nullable();
             $table->string('compl_area_de_titulo')->nullable();
             $table->string('compl_area_de_edicion')->nullable();
             $table->string('compl_area_de_contenidos')->nullable();
+            $table->string('compl_btn_cancelar')->nullable();
+            $table->string('compl_btn_guardar')->nullable();
+
 
             $table->string('cuerpo_tipo_de_libro')->nullable();
             $table->string('ph_cuerpo_tipo_de_libro')->nullable(); 

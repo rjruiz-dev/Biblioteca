@@ -116,37 +116,20 @@
                     {!! Form::text('ph_cuerpo_artista', $ml_cat_edit_music['ph_cuerpo_artista'] ? $ml_cat_edit_music['ph_cuerpo_artista'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_artista', 'placeholder' => 'Artista(Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_otros_artistas', Otros Artistas (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_otros_artistas', $ml_cat_edit_music['cuerpo_otros_artistas'] ? $ml_cat_edit_music['cuerpo_otros_artistas'] : null, ['class' => 'form-control', 'id' => 'cuerpo_otros_artistas', 'placeholder' => Otros Artistas (Titulo)']) !!}
+                    {!! Form::label('cuerpo_otros_artistas', 'Otros Artistas (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_otros_artistas', $ml_cat_edit_music['cuerpo_otros_artistas'] ? $ml_cat_edit_music['cuerpo_otros_artistas'] : null, ['class' => 'form-control', 'id' => 'cuerpo_otros_artistas', 'placeholder' => 'Otros Artistas (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('ph_cuerpo_otros_artistas', 'Otros Artistas (Descripcion)') !!}                    
                     {!! Form::text('ph_cuerpo_otros_artistas', $ml_cat_edit_music['ph_cuerpo_otros_artistas'] ? $ml_cat_edit_music['ph_cuerpo_otros_artistas'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_otros_artistas', 'placeholder' => 'Otros Artistas (Descripcion)']) !!}
                 </div>
-                
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_autor', 'Autor (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_autor', $ml_cat_edit_music['cuerpo_autor'] ? $ml_cat_edit_music['cuerpo_autor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_autor', 'placeholder' => 'Autor (Titulo)']) !!}
-                </div>   
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_autor', 'Autor (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_autor', $ml_cat_edit_music['ph_cuerpo_autor'] ? $ml_cat_edit_music['ph_cuerpo_autor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_autor', 'placeholder' => 'Autor (Descripcion)']) !!}
+                    {!! Form::label('cuerpo_musica', 'Musica (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_musica', $ml_cat_edit_music['cuerpo_musica'] ? $ml_cat_edit_music['cuerpo_musica'] : null, ['class' => 'form-control', 'id' => 'cuerpo_musica', 'placeholder' => 'Musica (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_segundo_autor', 'Segundo Autor (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_segundo_autor', $ml_cat_edit_music['cuerpo_segundo_autor'] ? $ml_cat_edit_music['cuerpo_segundo_autor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_segundo_autor', 'placeholder' => 'Segundo Autor (Titulo)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_segundo_autor', 'Segundo Autor (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_segundo_autor', $ml_cat_edit_music['ph_cuerpo_segundo_autor'] ? $ml_cat_edit_music['ph_cuerpo_segundo_autor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_segundo_autor', 'placeholder' => 'Segundo Autor (Descripcion)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('cuerpo_tercer_autor', 'Tercer Autor (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_tercer_autor', $ml_cat_edit_music['cuerpo_tercer_autor'] ? $ml_cat_edit_music['cuerpo_tercer_autor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_tercer_autor', 'placeholder' => 'Tercer Autor (Titulo)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_tercer_autor', 'Tercer Autor (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_tercer_autor', $ml_cat_edit_music['ph_cuerpo_tercer_autor'] ? $ml_cat_edit_music['ph_cuerpo_tercer_autor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_tercer_autor', 'placeholder' => 'Tercer Autor (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_musica', 'Musica (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_musica', $ml_cat_edit_music['ph_cuerpo_musica'] ? $ml_cat_edit_music['ph_cuerpo_musica'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_musica', 'placeholder' => 'Musica (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_titulo_original', 'Titulo Original (Titulo)') !!}                    
@@ -157,26 +140,45 @@
                     {!! Form::text('ph_cuerpo_titulo_original', $ml_cat_edit_music['ph_cuerpo_titulo_original'] ? $ml_cat_edit_music['ph_cuerpo_titulo_original'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_titulo_original', 'placeholder' => 'Titulo Original (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_traductor', 'Traductor (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_traductor', $ml_cat_edit_music['cuerpo_traductor'] ? $ml_cat_edit_music['cuerpo_traductor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_traductor', 'placeholder' => 'Traductor (Titulo)']) !!}
+                    {!! Form::label('cuerpo_titulo_del_disco', 'Titulo del Disco (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_titulo_del_disco', $ml_cat_edit_music['cuerpo_titulo_del_disco'] ? $ml_cat_edit_music['cuerpo_titulo_del_disco'] : null, ['class' => 'form-control', 'id' => 'cuerpo_titulo_del_disco', 'placeholder' => 'Titulo del Disco (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_traductor', 'Traductor (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_traductor', $ml_cat_edit_music['ph_cuerpo_traductor'] ? $ml_cat_edit_music['ph_cuerpo_traductor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_traductor', 'placeholder' => 'Traductor (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_titulo_del_disco', 'Titulo del Disco (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_titulo_del_disco', $ml_cat_edit_music['ph_cuerpo_titulo_del_disco'] ? $ml_cat_edit_music['ph_cuerpo_titulo_del_disco'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_titulo_del_disco', 'placeholder' => 'Titulo del Disco (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_isbn', 'ISBN (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_isbn', $ml_cat_edit_music['cuerpo_isbn'] ? $ml_cat_edit_music['cuerpo_isbn'] : null, ['class' => 'form-control', 'id' => 'cuerpo_isbn', 'placeholder' => 'ISBN (Titulo)']) !!}
+                    {!! Form::label('cuerpo_compositor', 'Compositor (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_compositor', $ml_cat_edit_music['cuerpo_compositor'] ? $ml_cat_edit_music['cuerpo_compositor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_compositor', 'placeholder' => 'Compositor (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_isbn', 'ISBN (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_isbn', $ml_cat_edit_music['ph_cuerpo_isbn'] ? $ml_cat_edit_music['ph_cuerpo_isbn'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_isbn', 'placeholder' => 'ISBN (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_compositor', 'Compositor (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_compositor', $ml_cat_edit_music['ph_cuerpo_compositor'] ? $ml_cat_edit_music['ph_cuerpo_compositor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_compositor', 'placeholder' => 'Compositor (Descripcion)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('cuerpo_director', 'Director (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_director', $ml_cat_edit_music['cuerpo_director'] ? $ml_cat_edit_music['cuerpo_director'] : null, ['class' => 'form-control', 'id' => 'cuerpo_director', 'placeholder' => 'Director (Titulo)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('ph_cuerpo_director', 'Director (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_director', $ml_cat_edit_music['ph_cuerpo_director'] ? $ml_cat_edit_music['ph_cuerpo_director'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_director', 'placeholder' => 'Director (Descripcion)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('cuerpo_orquesta', 'Orquesta (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_orquesta', $ml_cat_edit_music['cuerpo_orquesta'] ? $ml_cat_edit_music['cuerpo_orquesta'] : null, ['class' => 'form-control', 'id' => 'cuerpo_orquesta', 'placeholder' => 'Orquesta (Titulo)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('ph_cuerpo_orquesta', 'Orquesta (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_orquesta', $ml_cat_edit_music['ph_cuerpo_orquesta'] ? $ml_cat_edit_music['ph_cuerpo_orquesta'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_orquesta', 'placeholder' => 'Orquesta (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_adquirido', 'Adquirido (Titulo)') !!}                    
                     {!! Form::text('cuerpo_adquirido', $ml_cat_edit_music['cuerpo_adquirido'] ? $ml_cat_edit_music['cuerpo_adquirido'] : null, ['class' => 'form-control', 'id' => 'cuerpo_adquirido', 'placeholder' => 'Adquirido (Titulo)']) !!}
                 </div>
-                <div class="form-group">              
+        
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">              
                     {!! Form::label('ph_cuerpo_adquirido', 'Adquirido (Descripcion)') !!}                    
                     {!! Form::text('ph_cuerpo_adquirido', $ml_cat_edit_music['ph_cuerpo_adquirido'] ? $ml_cat_edit_music['ph_cuerpo_adquirido'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_adquirido', 'placeholder' => 'Adquirido (Descripcion)']) !!}
                 </div>
@@ -184,12 +186,6 @@
                     {!! Form::label('cuerpo_genero', 'Genero (Titulo)') !!}                    
                     {!! Form::text('cuerpo_genero', $ml_cat_edit_music['cuerpo_genero'] ? $ml_cat_edit_music['cuerpo_genero'] : null, ['class' => 'form-control', 'id' => 'cuerpo_genero', 'placeholder' => 'Genero (Titulo)']) !!}
                 </div>
-            </div>
-            <div class="col-md-4">
-                
-               
-                
-                
                 <div class="form-group">              
                     {!! Form::label('ph_cuerpo_genero', 'Genero (Descripcion)') !!}                    
                     {!! Form::text('ph_cuerpo_genero', $ml_cat_edit_music['ph_cuerpo_genero'] ? $ml_cat_edit_music['ph_cuerpo_genero'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_genero', 'placeholder' => 'Genero (Descripcion)']) !!}
@@ -203,36 +199,28 @@
                     {!! Form::text('ph_cuerpo_adecuado_para', $ml_cat_edit_music['ph_cuerpo_adecuado_para'] ? $ml_cat_edit_music['ph_cuerpo_adecuado_para'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_adecuado_para', 'placeholder' => 'Adecuado para (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_periodicidad', 'Periocidad (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_periodicidad', $ml_cat_edit_music['cuerpo_periodicidad'] ? $ml_cat_edit_music['cuerpo_periodicidad'] : null, ['class' => 'form-control', 'id' => 'cuerpo_periodicidad', 'placeholder' => 'Periocidad (Titulo)']) !!}
+                    {!! Form::label('cuerpo_solista', 'Solista (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_solista', $ml_cat_edit_music['cuerpo_solista'] ? $ml_cat_edit_music['cuerpo_solista'] : null, ['class' => 'form-control', 'id' => 'cuerpo_solista', 'placeholder' => 'Solista (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_periodicidad', 'Periocidad (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_periodicidad', $ml_cat_edit_music['ph_cuerpo_periodicidad'] ? $ml_cat_edit_music['ph_cuerpo_periodicidad'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_periodicidad', 'placeholder' => 'Periocidad (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_solista', 'Solista (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_solista', $ml_cat_edit_music['ph_cuerpo_solista'] ? $ml_cat_edit_music['ph_cuerpo_solista'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_solista', 'placeholder' => 'Solista (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_issn', 'ISSN (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_issn', $ml_cat_edit_music['cuerpo_issn'] ? $ml_cat_edit_music['cuerpo_issn'] : null, ['class' => 'form-control', 'id' => 'cuerpo_issn', 'placeholder' => 'ISSN (Titulo)']) !!}
+                    {!! Form::label('cuerpo_productor', 'Productor (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_productor', $ml_cat_edit_music['cuerpo_productor'] ? $ml_cat_edit_music['cuerpo_productor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_productor', 'placeholder' => 'Productor (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_issn', 'ISSN (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_issn', $ml_cat_edit_music['ph_cuerpo_issn'] ? $ml_cat_edit_music['ph_cuerpo_issn'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_issn', 'placeholder' => 'ISSN (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_productor', 'Productor (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_productor', $ml_cat_edit_music['ph_cuerpo_productor'] ? $ml_cat_edit_music['ph_cuerpo_productor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_productor', 'placeholder' => 'Productor (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_otros', 'Otros (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_otros', $ml_cat_edit_music['cuerpo_otros'] ? $ml_cat_edit_music['cuerpo_otros'] : null, ['class' => 'form-control', 'id' => 'cuerpo_otros', 'placeholder' => 'Otros (Titulo)']) !!}
+                    {!! Form::label('cuerpo_siglas_compositor', 'Siglas compositor (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_siglas_compositor', $ml_cat_edit_music['cuerpo_siglas_compositor'] ? $ml_cat_edit_music['cuerpo_siglas_compositor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_siglas_compositor', 'placeholder' => 'Siglas compositor (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_otros', 'Otros (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_otros', $ml_cat_edit_music['ph_cuerpo_otros'] ? $ml_cat_edit_music['ph_cuerpo_otros'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_otros', 'placeholder' => 'Otros (Descripcion)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('cuerpo_siglas_autor', 'Siglas Autor (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_siglas_autor', $ml_cat_edit_music['cuerpo_siglas_autor'] ? $ml_cat_edit_music['cuerpo_siglas_autor'] : null, ['class' => 'form-control', 'id' => 'cuerpo_siglas_autor', 'placeholder' => 'Siglas Autor (Titulo)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_siglas_autor', 'Siglas Autor (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_siglas_autor', $ml_cat_edit_music['ph_cuerpo_siglas_autor'] ? $ml_cat_edit_music['ph_cuerpo_siglas_autor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_siglas_autor', 'placeholder' => 'Siglas Autor (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_siglas_compositor', 'Siglas compositor (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_siglas_compositor', $ml_cat_edit_music['ph_cuerpo_siglas_compositor'] ? $ml_cat_edit_music['ph_cuerpo_siglas_compositor'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_siglas_compositor', 'placeholder' => 'Siglas compositor (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_siglas_titulo', 'Siglas Titulo (Titulo)') !!}                    
@@ -267,20 +255,20 @@
                     {!! Form::text('ph_cuerpo_estado', $ml_cat_edit_music['ph_cuerpo_estado'] ? $ml_cat_edit_music['ph_cuerpo_estado'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_estado', 'placeholder' => 'Estado (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_publicado_en', 'Publicado en (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_publicado_en', $ml_cat_edit_music['cuerpo_publicado_en'] ? $ml_cat_edit_music['cuerpo_publicado_en'] : null, ['class' => 'form-control', 'id' => 'cuerpo_publicado_en', 'placeholder' => 'Publicado en (Titulo)']) !!}
+                    {!! Form::label('cuerpo_editado_en', 'editado en (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_editado_en', $ml_cat_edit_music['cuerpo_editado_en'] ? $ml_cat_edit_music['cuerpo_editado_en'] : null, ['class' => 'form-control', 'id' => 'cuerpo_editado_en', 'placeholder' => 'editado en (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_publicado_en', 'Publicado en (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_publicado_en', $ml_cat_edit_music['ph_cuerpo_publicado_en'] ? $ml_cat_edit_music['ph_cuerpo_publicado_en'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_publicado_en', 'placeholder' => 'Publicado en (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_editado_en', 'editado en (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_editado_en', $ml_cat_edit_music['ph_cuerpo_editado_en'] ? $ml_cat_edit_music['ph_cuerpo_editado_en'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_editado_en', 'placeholder' => 'editado en (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_editorial', 'Editorial (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_editorial', $ml_cat_edit_music['cuerpo_editorial'] ? $ml_cat_edit_music['cuerpo_editorial'] : null, ['class' => 'form-control', 'id' => 'cuerpo_editorial', 'placeholder' => 'Editorial (Titulo)']) !!}
+                    {!! Form::label('cuerpo_sello_discografico', 'Sello Discografico (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_sello_discografico', $ml_cat_edit_music['cuerpo_sello_discografico'] ? $ml_cat_edit_music['cuerpo_sello_discografico'] : null, ['class' => 'form-control', 'id' => 'cuerpo_sello_discografico', 'placeholder' => 'Sello Discografico (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_editorial', 'Editorial (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_editorial', $ml_cat_edit_music['ph_cuerpo_editorial'] ? $ml_cat_edit_music['ph_cuerpo_editorial'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_editorial', 'placeholder' => 'Editorial (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_sello_discografico', 'Sello Discografico (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_sello_discografico', $ml_cat_edit_music['ph_cuerpo_sello_discografico'] ? $ml_cat_edit_music['ph_cuerpo_sello_discografico'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_sello_discografico', 'placeholder' => 'Sello Discografico (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_anio_de_publicacion', 'Año de publicacion (Titulo)') !!}                    
@@ -290,20 +278,23 @@
                     {!! Form::label('ph_cuerpo_anio_de_publicacion', 'Año de publicacion (Descripcion)') !!}                    
                     {!! Form::text('ph_cuerpo_anio_de_publicacion', $ml_cat_edit_music['ph_cuerpo_anio_de_publicacion'] ? $ml_cat_edit_music['ph_cuerpo_anio_de_publicacion'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_anio_de_publicacion', 'placeholder' => 'Año de publicacion (Descripcion)']) !!}
                 </div>
+                
+                
+                
+                <!-- ---- -->
+                
+                
+
+                
             </div>
             <div class="col-md-4">
-                
-                
-                
-                
-               
-                <div class="form-group">              
-                    {!! Form::label('cuerpo_edicion', 'Edicion (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_edicion', $ml_cat_edit_music['cuerpo_edicion'] ? $ml_cat_edit_music['cuerpo_edicion'] : null, ['class' => 'form-control', 'id' => 'cuerpo_edicion', 'placeholder' => 'Edicion (Titulo)']) !!}
+            <div class="form-group">              
+                    {!! Form::label('cuerpo_fotografia', 'Fotografia (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_fotografia', $ml_cat_edit_music['cuerpo_fotografia'] ? $ml_cat_edit_music['cuerpo_fotografia'] : null, ['class' => 'form-control', 'id' => 'cuerpo_fotografia', 'placeholder' => 'Fotografia (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_edicion', 'Edicion (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_edicion', $ml_cat_edit_music['ph_cuerpo_edicion'] ? $ml_cat_edit_music['ph_cuerpo_edicion'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_edicion', 'placeholder' => 'Edicion (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_fotografia', 'Fotografia (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_fotografia', $ml_cat_edit_music['ph_cuerpo_fotografia'] ? $ml_cat_edit_music['ph_cuerpo_fotografia'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_fotografia', 'placeholder' => 'Fotografia (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_volumenes', 'Volumenes (Titulo)') !!}                    
@@ -314,20 +305,20 @@
                     {!! Form::text('ph_cuerpo_volumenes', $ml_cat_edit_music['ph_cuerpo_volumenes'] ? $ml_cat_edit_music['ph_cuerpo_volumenes'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_volumenes', 'placeholder' => 'Volumenes (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_numero_de_paginas', 'Numero de Paginas (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_numero_de_paginas', $ml_cat_edit_music['cuerpo_numero_de_paginas'] ? $ml_cat_edit_music['cuerpo_numero_de_paginas'] : null, ['class' => 'form-control', 'id' => 'cuerpo_numero_de_paginas', 'placeholder' => 'Numero de Paginas (Titulo)']) !!}
+                    {!! Form::label('cuerpo_duracion', 'Duracion (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_duracion', $ml_cat_edit_music['cuerpo_duracion'] ? $ml_cat_edit_music['cuerpo_duracion'] : null, ['class' => 'form-control', 'id' => 'cuerpo_duracion', 'placeholder' => 'Duracion (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_numero_de_paginas', 'Numero de Paginas (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_numero_de_paginas', $ml_cat_edit_music['ph_cuerpo_numero_de_paginas'] ? $ml_cat_edit_music['ph_cuerpo_numero_de_paginas'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_numero_de_paginas', 'placeholder' => 'Numero de Paginas (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_duracion', 'Duracion (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_duracion', $ml_cat_edit_music['ph_cuerpo_duracion'] ? $ml_cat_edit_music['ph_cuerpo_duracion'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_duracion', 'placeholder' => 'Duracion (Descripcion)']) !!}
+                </div>
+            <div class="form-group">              
+                    {!! Form::label('cuerpo_formato', 'Formato (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_formato', $ml_cat_edit_music['cuerpo_formato'] ? $ml_cat_edit_music['cuerpo_formato'] : null, ['class' => 'form-control', 'id' => 'cuerpo_formato', 'placeholder' => 'Formato (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_tamanio', 'Tamaño (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_tamanio', $ml_cat_edit_music['cuerpo_tamanio'] ? $ml_cat_edit_music['cuerpo_tamanio'] : null, ['class' => 'form-control', 'id' => 'cuerpo_tamanio', 'placeholder' => 'Tamaño (Titulo)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_tamanio', 'Tamaño (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_tamanio', $ml_cat_edit_music['ph_cuerpo_tamanio'] ? $ml_cat_edit_music['ph_cuerpo_tamanio'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_tamanio', 'placeholder' => 'Tamaño (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_formato', 'Formato (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_formato', $ml_cat_edit_music['ph_cuerpo_formato'] ? $ml_cat_edit_music['ph_cuerpo_formato'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_formato', 'placeholder' => 'Formato (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_coleccion', 'Coleccion (Titulo)') !!}                    
@@ -346,22 +337,6 @@
                     {!! Form::text('ph_cuerpo_ubicacion', $ml_cat_edit_music['ph_cuerpo_ubicacion'] ? $ml_cat_edit_music['ph_cuerpo_ubicacion'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_ubicacion', 'placeholder' => 'Ubicacion (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_idioma', 'Idioma (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_idioma', $ml_cat_edit_music['cuerpo_idioma'] ? $ml_cat_edit_music['cuerpo_idioma'] : null, ['class' => 'form-control', 'id' => 'cuerpo_idioma', 'placeholder' => 'Idioma (Titulo)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_idioma', 'Idioma (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_idioma', $ml_cat_edit_music['ph_cuerpo_idioma'] ? $ml_cat_edit_music['ph_cuerpo_idioma'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_idioma', 'placeholder' => 'Idioma (Descripcion)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('cuerpo_referencia', 'Referencia (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_referencia', $ml_cat_edit_music['cuerpo_referencia'] ? $ml_cat_edit_music['cuerpo_referencia'] : null, ['class' => 'form-control', 'id' => 'cuerpo_referencia', 'placeholder' => 'Referencia (Titulo)']) !!}
-                </div>
-                <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_referencia', 'Referencia (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_referencia', $ml_cat_edit_music['ph_cuerpo_referencia'] ? $ml_cat_edit_music['ph_cuerpo_referencia'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_referencia', 'placeholder' => 'Referencia (Descripcion)']) !!}
-                </div>
-                <div class="form-group">              
                     {!! Form::label('cuerpo_observacion', 'Observacion (Titulo)') !!}                    
                     {!! Form::text('cuerpo_observacion', $ml_cat_edit_music['cuerpo_observacion'] ? $ml_cat_edit_music['cuerpo_observacion'] : null, ['class' => 'form-control', 'id' => 'cuerpo_observacion', 'placeholder' => 'Observacion (Titulo)']) !!}
                 </div>
@@ -378,12 +353,28 @@
                     {!! Form::text('ph_cuerpo_nota', $ml_cat_edit_music['ph_cuerpo_nota'] ? $ml_cat_edit_music['ph_cuerpo_nota'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_nota', 'placeholder' => 'Notas (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('cuerpo_fotografia', 'Fotografia (Titulo)') !!}                    
-                    {!! Form::text('cuerpo_fotografia', $ml_cat_edit_music['cuerpo_fotografia'] ? $ml_cat_edit_music['cuerpo_fotografia'] : null, ['class' => 'form-control', 'id' => 'cuerpo_fotografia', 'placeholder' => 'Fotografia (Titulo)']) !!}
+                    {!! Form::label('cuerpo_idioma', 'Idioma (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_idioma', $ml_cat_edit_music['cuerpo_idioma'] ? $ml_cat_edit_music['cuerpo_idioma'] : null, ['class' => 'form-control', 'id' => 'cuerpo_idioma', 'placeholder' => 'Idioma (Titulo)']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('ph_cuerpo_fotografia', 'Fotografia (Descripcion)') !!}                    
-                    {!! Form::text('ph_cuerpo_fotografia', $ml_cat_edit_music['ph_cuerpo_fotografia'] ? $ml_cat_edit_music['ph_cuerpo_fotografia'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_fotografia', 'placeholder' => 'Fotografia (Descripcion)']) !!}
+                    {!! Form::label('ph_cuerpo_idioma', 'Idioma (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_idioma', $ml_cat_edit_music['ph_cuerpo_idioma'] ? $ml_cat_edit_music['ph_cuerpo_idioma'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_idioma', 'placeholder' => 'Idioma (Descripcion)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('cuerpo_referencia', 'Referencia (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_referencia', $ml_cat_edit_music['cuerpo_referencia'] ? $ml_cat_edit_music['cuerpo_referencia'] : null, ['class' => 'form-control', 'id' => 'cuerpo_referencia', 'placeholder' => 'Referencia (Titulo)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('ph_cuerpo_referencia', 'Referencia (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_referencia', $ml_cat_edit_music['ph_cuerpo_referencia'] ? $ml_cat_edit_music['ph_cuerpo_referencia'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_referencia', 'placeholder' => 'Referencia (Descripcion)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('cuerpo_imagen', 'Imagen (Titulo)') !!}                    
+                    {!! Form::text('cuerpo_imagen', $ml_cat_edit_music['cuerpo_imagen'] ? $ml_cat_edit_music['cuerpo_imagen'] : null, ['class' => 'form-control', 'id' => 'cuerpo_imagen', 'placeholder' => 'Imagen (Titulo)']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('ph_cuerpo_imagen', 'Imagen (Descripcion)') !!}                    
+                    {!! Form::text('ph_cuerpo_imagen', $ml_cat_edit_music['ph_cuerpo_imagen'] ? $ml_cat_edit_music['ph_cuerpo_imagen'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_imagen', 'placeholder' => 'Imagen (Descripcion)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('cuerpo_sinopsis', 'Sinopsis (Titulo)') !!}                    
@@ -393,6 +384,8 @@
                     {!! Form::label('ph_cuerpo_sinopsis', 'Sinopsis (Descripcion)') !!}                    
                     {!! Form::text('ph_cuerpo_sinopsis', $ml_cat_edit_music['ph_cuerpo_sinopsis'] ? $ml_cat_edit_music['ph_cuerpo_sinopsis'] : null, ['class' => 'form-control', 'id' => 'ph_cuerpo_sinopsis', 'placeholder' => 'Sinopsis (Descripcion)']) !!}
                 </div>
+                
+                
             </div>
             </div>
         </div>       

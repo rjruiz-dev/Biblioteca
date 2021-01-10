@@ -1,0 +1,78 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ml_cat_edit_fotografia extends Model
+{
+    protected $fillable = [
+        'compl_editar', 
+        'compl_area_de_titulo', 
+        'compl_area_de_edicion', 
+        'compl_area_de_contenidos', 
+        
+            'cuerpo_tipo_de_fotografia',
+            'ph_cuerpo_tipo_de_fotografia',
+            'cuerpo_titulo', 
+            'ph_cuerpo_titulo',  
+            'cuerpo_subtitulo',
+            'ph_cuerpo_subtitulo',
+            'cuerpo_autor', 
+            'ph_cuerpo_autor',
+            'cuerpo_segundo_autor', 
+            'ph_cuerpo_segundo_autor',
+            'cuerpo_tercer_autor', 
+            'ph_cuerpo_tercer_autor',
+            'cuerpo_titulo_original', 
+            'ph_cuerpo_titulo_original',
+            'cuerpo_realizador', 
+            'ph_cuerpo_realizador',
+            'cuerpo_adquirido', 
+            'ph_cuerpo_adquirido', 
+            'cuerpo_adecuado_para',
+            'ph_cuerpo_adecuado_para',
+            'cuerpo_siglas_autor', 
+            'ph_cuerpo_siglas_autor',
+            'cuerpo_siglas_titulo', 
+            'ph_cuerpo_siglas_titulo',
+            'cuerpo_cdu', 
+            'ph_cuerpo_cdu',
+            'cuerpo_valoracion', 
+            'ph_cuerpo_valoracion',
+            'cuerpo_estado', 
+            'ph_cuerpo_estado',
+            'cuerpo_editado_en', 
+            'ph_cuerpo_editado_en',
+            'cuerpo_sello_discografico', 
+            'ph_cuerpo_sello_discografico',
+            'cuerpo_anio_de_publicacion', 
+            'ph_cuerpo_anio_de_publicacion',
+            'cuerpo_edicion', 
+            'ph_cuerpo_edicion',
+            'cuerpo_volumenes',
+            'ph_cuerpo_volumenes', 
+            
+            'cuerpo_numero_de_diapositivas', 
+            'ph_cuerpo_numero_de_diapositivas', 
+            'cuerpo_formato', 
+            'ph_cuerpo_formato',
+            'cuerpo_coleccion', 
+            'ph_cuerpo_coleccion',
+            'cuerpo_ubicacion', 
+            'ph_cuerpo_ubicacion',
+            'cuerpo_obsevacion',
+            'ph_cuerpo_obsevacion',
+            'cuerpo_notas', 
+            'ph_cuerpo_notas',
+            'cuerpo_idioma', 
+            'ph_cuerpo_idioma',
+            'cuerpo_referencia', 
+            'ph_cuerpo_referencia',
+            'cuerpo_imagen', 
+            'ph_cuerpo_imagen',
+            'cuerpo_sinopsis', 
+            'ph_cuerpo_sinopsis',
+    ];
+
+}

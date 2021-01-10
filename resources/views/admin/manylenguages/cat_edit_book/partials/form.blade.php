@@ -43,12 +43,16 @@
                     <div class="col-md-6">                    
 
                         <div class="form-group">              
-                            {!! Form::label('compl_editar', 'Título Superior') !!}                    
-                            {!! Form::text('compl_editar', $ml_cat_edit_book['compl_editar'] ? $ml_cat_edit_book['compl_editar'] : null, ['class' => 'form-control', 'id' => 'compl_editar', 'placeholder' => 'Título principal']) !!}
+                            {!! Form::label('cuerpo_desidherata', 'Desidherata') !!}                    
+                            {!! Form::text('cuerpo_desidherata', $ml_cat_edit_book['cuerpo_desidherata'] ? $ml_cat_edit_book['cuerpo_desidherata'] : null, ['class' => 'form-control', 'id' => 'cuerpo_desidherata', 'placeholder' => 'Desidherata']) !!}
                         </div>
                         <div class="form-group">              
                             {!! Form::label('compl_area_de_titulo', 'Area de Titulo') !!}                    
                             {!! Form::text('compl_area_de_titulo', $ml_cat_edit_book['compl_area_de_titulo'] ? $ml_cat_edit_book['compl_area_de_titulo'] : null, ['class' => 'form-control', 'id' => 'compl_area_de_titulo', 'placeholder' => 'Area de Titulo']) !!}
+                        </div>
+                        <div class="form-group">              
+                            {!! Form::label('compl_btn_cancelar', 'Boton Cancelar') !!}                    
+                            {!! Form::text('compl_btn_cancelar', $ml_cat_edit_book['compl_btn_cancelar'] ? $ml_cat_edit_book['compl_btn_cancelar'] : null, ['class' => 'form-control', 'id' => 'compl_btn_cancelar', 'placeholder' => 'Boton Cancelar']) !!}
                         </div> 
                                                             
                     </div>
@@ -60,6 +64,10 @@
                         <div class="form-group">              
                             {!! Form::label('compl_area_de_contenidos', 'Area de Contenidos') !!}                    
                             {!! Form::text('compl_area_de_contenidos', $ml_cat_edit_book['compl_area_de_contenidos'] ? $ml_cat_edit_book['compl_area_de_contenidos'] : null, ['class' => 'form-control', 'id' => 'compl_area_de_contenidos', 'placeholder' => 'Area de Contenidos']) !!}
+                        </div>
+                        <div class="form-group">              
+                            {!! Form::label('compl_btn_guardar', 'Boton Guardar') !!}                    
+                            {!! Form::text('compl_btn_guardar', $ml_cat_edit_book['compl_btn_guardar'] ? $ml_cat_edit_book['compl_btn_guardar'] : null, ['class' => 'form-control', 'id' => 'compl_btn_guardar', 'placeholder' => 'Boton Guardar']) !!}
                         </div>
                     </div>
                 </div>

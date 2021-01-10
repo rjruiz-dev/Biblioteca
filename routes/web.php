@@ -120,13 +120,15 @@ function(){
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
  
     Route::get('books/obtener/{id}',                            'BookController@obtener');     
+    Route::get('musics/obtener/{id}',                            'MusicController@obtener');     
+    
     // Route::get('books/index/{request}/{idd}',                            'BookController@index');
    
-    Route::get('movies/indexsolo/{id}/{tipo}',                         'MoviesController@indexsolo');
-    Route::get('books/indexsolo/{id}/{tipo}',                         'BookController@indexsolo');
-    Route::get('music/indexsolo/{id}/{tipo}',                         'MusicController@indexsolo');
-    Route::get('photographs/indexsolo/{id}/{tipo}',                         'PhotographyController@indexsolo');
-    Route::get('multimedias/indexsolo/{id}/{tipo}',                         'MultimediaController@indexsolo'); 
+    Route::get('movies/indexsolo/{id}/{tipo}',                         'MoviesController@indexsolo')->name('movies.indexsolo');
+    Route::get('books/indexsolo/{id}/{tipo}',                         'BookController@indexsolo')->name('books.indexsolo');
+    Route::get('music/indexsolo/{id}/{tipo}',                         'MusicController@indexsolo')->name('music.indexsolo');
+    Route::get('photographs/indexsolo/{id}/{tipo}',                         'PhotographyController@indexsolo')->name('photographs.indexsolo');
+    Route::get('multimedias/indexsolo/{id}/{tipo}',                         'MultimediaController@indexsolo')->name('multimedias.indexsolo'); 
     
     Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
     Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');
@@ -200,6 +202,18 @@ function(){
     Route::get('manyLenguages/edit_music/{id}',    'ManyLenguagesController@edit_music')->name('admin.manylenguages.edit_music');
     Route::put('manyLenguages/update_music/{id}',  'ManyLenguagesController@update_music')->name('admin.manylenguages.update_music');
 
+    // traduccion mantenimineto-movie
+    Route::get('manyLenguages/edit_movie/{id}',    'ManyLenguagesController@edit_movie')->name('admin.manylenguages.edit_movie');
+    Route::put('manyLenguages/update_movie/{id}',  'ManyLenguagesController@update_movie')->name('admin.manylenguages.update_movie');
+ 
+    // traduccion mantenimineto-multimedia
+    Route::get('manyLenguages/edit_multimedia/{id}',    'ManyLenguagesController@edit_multimedia')->name('admin.manylenguages.edit_multimedia');
+    Route::put('manyLenguages/update_multimedia/{id}',  'ManyLenguagesController@update_multimedia')->name('admin.manylenguages.update_multimedia');
+
+     // traduccion mantenimineto-fotografia
+     Route::get('manyLenguages/edit_fotografia/{id}',    'ManyLenguagesController@edit_fotografia')->name('admin.manylenguages.edit_fotografia');
+     Route::put('manyLenguages/update_fotografia/{id}',  'ManyLenguagesController@update_fotografia')->name('admin.manylenguages.update_fotografia');
+ 
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

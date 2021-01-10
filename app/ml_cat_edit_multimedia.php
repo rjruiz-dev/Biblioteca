@@ -1,0 +1,78 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ml_cat_edit_multimedia extends Model
+{
+    protected $fillable = [
+        'compl_editar', 
+        'compl_area_de_titulo', 
+        'compl_area_de_edicion', 
+        'compl_area_de_contenidos', 
+        
+            'cuerpo_titulo', 
+            'ph_cuerpo_titulo',  
+            'cuerpo_subtitulo',
+            'ph_cuerpo_subtitulo',
+            'cuerpo_autor', 
+            'ph_cuerpo_autor',
+            'cuerpo_segundo_autor', 
+            'ph_cuerpo_segundo_autor',
+            'cuerpo_tercer_autor', 
+            'ph_cuerpo_tercer_autor',
+            'cuerpo_titulo_original', 
+            'ph_cuerpo_titulo_original',
+            'cuerpo_traductor', 
+            'ph_cuerpo_traductor', 
+            'cuerpo_isbn', 
+            'ph_cuerpo_isbn',
+            'cuerpo_adquirido', 
+            'ph_cuerpo_adquirido',
+            'cuerpo_adecuado_para',
+            'ph_cuerpo_adecuado_para',
+            'cuerpo_siglas_autor', 
+            'ph_cuerpo_siglas_autor',
+            'cuerpo_siglas_titulo', 
+            'ph_cuerpo_siglas_titulo',
+            'cuerpo_cdu', 
+            'ph_cuerpo_cdu',
+            'cuerpo_valoracion', 
+            'ph_cuerpo_valoracion',
+            'cuerpo_estado', 
+            'ph_cuerpo_estado',
+            'cuerpo_publicado_en', 
+            'ph_cuerpo_publicado_en', 
+            'cuerpo_editorial', 
+            'ph_cuerpo_editorial', 
+            'cuerpo_anio_de_publicacion', 
+            'ph_cuerpo_anio_de_publicacion', 
+            'cuerpo_edicion', 
+            'ph_cuerpo_edicion',
+            'cuerpo_volumenes',
+            'ph_cuerpo_volumenes', 
+            'cuerpo_duracion', 
+            'ph_cuerpo_duracion',
+            'cuerpo_tamanio',
+            'ph_cuerpo_tamanio', 
+            'cuerpo_coleccion', 
+            'ph_cuerpo_coleccion',
+            'cuerpo_ubicacion', 
+            'ph_cuerpo_ubicacion',
+            'cuerpo_obsevacion',
+            'ph_cuerpo_obsevacion',
+            
+            'cuerpo_notas', 
+            'ph_cuerpo_notas',
+            'cuerpo_idioma', 
+            'ph_cuerpo_idioma',
+            'cuerpo_referencia', 
+            'ph_cuerpo_referencia',
+            'cuerpo_imagen', 
+            'ph_cuerpo_imagen',
+            'cuerpo_sinopsis', 
+            'ph_cuerpo_sinopsis',
+    ];
+
+}

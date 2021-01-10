@@ -100,44 +100,47 @@ $('body').on('click', '.modal-show', function(event) {
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
 
-            if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
-                //PLACEHOLDERS SOLOS
-                document.getElementById("title").placeholder = 'Titulo';
-                //PLACEHOLDERS DE SELECT
+            // if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
+            //     //PLACEHOLDERS SOLOS
+            //     document.getElementById("title").placeholder = 'Titulo';
+            //     //PLACEHOLDERS DE SELECT
 
 
 
-                document.getElementById("l_title").innerHTML = 'Titulo';
-                document.getElementById("l_creators_id").innerHTML = 'Artista';
+            //     document.getElementById("l_title").innerHTML = 'Titulo';
+            //     document.getElementById("l_creators_id").innerHTML = 'Artista';
 
-                document.getElementById("din_album_title").style.display = "none";
-                document.getElementById("din_director").style.display = "none";
-                document.getElementById("din_orchestra").style.display = "none";
-                document.getElementById("din_soloist").style.display = "none";
+            //     document.getElementById("din_album_title").style.display = "none";
+            //     document.getElementById("din_director").style.display = "none";
+            //     document.getElementById("din_orchestra").style.display = "none";
+            //     document.getElementById("din_soloist").style.display = "none";
 
-                document.getElementById("din_subtitle").style.display = "block";
-                document.getElementById("din_other_artists").style.display = "block";
-                document.getElementById("din_music_populars").style.display = "block";
-                document.getElementById("din_original_title").style.display = "block";
-            } else { // si es culta
-                //PLACEHOLDERS SOLOS
-                document.getElementById("title").placeholder = 'Titulo de la Obra';
-                //PLACEHOLDERS DE SELECT
+            //     document.getElementById("din_subtitle").style.display = "block";
+            //     document.getElementById("din_other_artists").style.display = "block";
+            //     document.getElementById("din_music_populars").style.display = "block";
+            //     document.getElementById("din_original_title").style.display = "block";
+            // } else { // si es culta
+            //     //PLACEHOLDERS SOLOS
+            //     document.getElementById("title").placeholder = 'Titulo de la Obra';
+            //     //PLACEHOLDERS DE SELECT
 
 
-                document.getElementById("l_title").innerHTML = 'Titulo de la obra';
-                document.getElementById("l_creators_id").innerHTML = 'Compositor';
+            //     document.getElementById("l_title").innerHTML = 'Titulo de la obra';
+            //     document.getElementById("l_creators_id").innerHTML = 'Compositor';
 
-                document.getElementById("din_album_title").style.display = "block";
-                document.getElementById("din_director").style.display = "block";
-                document.getElementById("din_orchestra").style.display = "block";
-                document.getElementById("din_soloist").style.display = "block";
+            //     document.getElementById("din_album_title").style.display = "block";
+            //     document.getElementById("din_director").style.display = "block";
+            //     document.getElementById("din_orchestra").style.display = "block";
+            //     document.getElementById("din_soloist").style.display = "block";
 
-                document.getElementById("din_subtitle").style.display = "none";
-                document.getElementById("din_other_artists").style.display = "none";
-                document.getElementById("din_music_populars").style.display = "none";
-                document.getElementById("din_original_title").style.display = "none";
-            }
+            //     document.getElementById("din_subtitle").style.display = "none";
+            //     document.getElementById("din_other_artists").style.display = "none";
+            //     document.getElementById("din_music_populars").style.display = "none";
+            //     document.getElementById("din_original_title").style.display = "none";
+            // }
+
+            yesnoCheck();
+            obtenercamposestaticos(5);
 
         }
     });
@@ -546,21 +549,132 @@ $('body').on('click', '.btn-show', function(event) {
     $('#modal').modal('show');
 });
 
+function obtenercamposdinamicos(accion) {
+
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        url: '/admin/musics/obtener/' + accion, //este 1 se pasa para q ande el metodo 
+        type: 'GET',
+        data: {
+            '_token': csrf_token
+        },
+        dataType: 'json',
+        success: function(response) {
+            // console.log("accion que viene: " + accion);
+
+            if (accion == 1) { // culta    
+                //PLACEHOLDERS SOLOS
+                document.getElementById("title").placeholder = response.ph_cuerpo_titulo_de_la_obra;
+                //PLACEHOLDERS DE SELECT
+                $('#creators_id').select2({
+                    placeholder: response.ph_cuerpo_compositor,
+                    tags: true,
+                });
+
+                document.getElementById("l_title").innerHTML = response.cuerpo_titulo_de_la_obra;
+                document.getElementById("l_creators_id").innerHTML = response.cuerpo_compositor;
+
+            }
+
+            if (accion == 2) { //popular
+                //PLACEHOLDERS SOLOS
+                document.getElementById("title").placeholder = response.ph_cuerpo_titulo;
+                //PLACEHOLDERS DE SELECT
+                $('#creators_id').select2({
+                    placeholder: response.ph_cuerpo_artista,
+                    tags: true,
+                });
+                document.getElementById("l_title").innerHTML = response.cuerpo_titulo;
+                document.getElementById("l_creators_id").innerHTML = response.cuerpo_artista;
+            }
+
+        },
+        error: function() {
+            // console.log(error);
+            alert('Hubo un error obteniendo los datos de la traduccion');
+        }
+    })
+}
+
+function obtenercamposestaticos(accion) {
+
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        url: '/admin/musics/obtener/' + accion, //este 1 se pasa para q ande el metodo 
+        type: 'GET',
+        data: {
+            '_token': csrf_token
+        },
+        dataType: 'json',
+        success: function(response) {
+
+            if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+                // console.log("uiuiuiui" + accion);
+                // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
+                // $('#subtitle').attr('placeholder', response.subtítulo);
+                $('#document_subtypes_id').select2({
+                    placeholder: response.ph_cuerpo_tipo_de_musica,
+                });
+                $('#adequacies_id').select2({
+                    placeholder: response.ph_cuerpo_adecuado_para,
+                });
+                $('#generate_musics_id').select2({
+                    placeholder: response.ph_cuerpo_genero,
+                });
+                $("#generate_subjects_id").select2({
+                    placeholder: response.ph_cuerpo_cdu,
+                });
+                $('#published').select2({
+                    placeholder: response.ph_cuerpo_editado_en,
+                });
+                $('#made_by').select2({
+                    placeholder: response.ph_cuerpo_sello_discografico,
+                });
+                $('#sound').select2({
+                    placeholder: response.ph_cuerpo_fotografia,
+                });
+                $('#volume').select2({
+                    placeholder: response.ph_cuerpo_volumenes,
+                });
+                $('#generate_formats_id').select2({
+                    placeholder: response.ph_cuerpo_formato,
+                });
+                $('#lenguages_id').select2({
+                    placeholder: response.ph_cuerpo_idioma,
+                });
+                
+
+                // $('#modal-btn-save')
+                document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;
+            }
+
+        },
+        error: function() {
+            // console.log(error);
+            alert('Hubo un error obteniendo los datos de la traduccion');
+        }
+    })
+}
+
 function yesnoCheck() {
     if (document.getElementById("document_subtypes_id").value == 2) { // si es popular
         // document.getElementById("popular").style.display = "block";
         // document.getElementById("culta").style.display = "none";
-        //PLACEHOLDERS SOLOS
-        document.getElementById("title").placeholder = 'Titulo';
-        //PLACEHOLDERS DE SELECT
-        $('#creators_id').select2({
-            placeholder: 'Selecciona o Ingresa un Artista',
-            tags: true,
 
-        });
+        obtenercamposdinamicos(2);
+        // //PLACEHOLDERS SOLOS
+        // document.getElementById("title").placeholder = 'Titulo';
+        // //PLACEHOLDERS DE SELECT
+        // $('#creators_id').select2({
+        //     placeholder: 'Selecciona o Ingresa un Artista',
+        //     tags: true,
 
-        document.getElementById("l_title").innerHTML = 'Titulo';
-        document.getElementById("l_creators_id").innerHTML = 'Artista';
+        // });
+        // document.getElementById("l_title").innerHTML = 'Titulo';
+        // document.getElementById("l_creators_id").innerHTML = 'Artista';
+
 
         document.getElementById("din_album_title").style.display = "none";
         document.getElementById("din_director").style.display = "none";
@@ -571,20 +685,25 @@ function yesnoCheck() {
         document.getElementById("din_other_artists").style.display = "block";
         document.getElementById("din_music_populars").style.display = "block";
         document.getElementById("din_original_title").style.display = "block";
+
     } else { // si es culta
+
+        obtenercamposdinamicos(1);
         // document.getElementById("culta").style.display = "block";
         // document.getElementById("popular").style.display = "none";
-        //PLACEHOLDERS SOLOS
-        document.getElementById("title").placeholder = 'Titulo de la Obra';
-        //PLACEHOLDERS DE SELECT
-        $('#creators_id').select2({
-            placeholder: 'Selecciona o Ingresa un Compositor',
-            tags: true,
-        });
+
+        // //PLACEHOLDERS SOLOS
+        // document.getElementById("title").placeholder = 'Titulo de la Obra';
+        // //PLACEHOLDERS DE SELECT
+        // $('#creators_id').select2({
+        //     placeholder: 'Selecciona o Ingresa un Compositor',
+        //     tags: true,
+        // });
+
+        // document.getElementById("l_title").innerHTML = 'Titulo de la obra';
+        // document.getElementById("l_creators_id").innerHTML = 'Compositor';
 
 
-        document.getElementById("l_title").innerHTML = 'Titulo de la obra';
-        document.getElementById("l_creators_id").innerHTML = 'Compositor';
 
         document.getElementById("din_album_title").style.display = "block";
         document.getElementById("din_director").style.display = "block";
@@ -597,3 +716,4 @@ function yesnoCheck() {
         document.getElementById("din_original_title").style.display = "none";
     }
 }
+

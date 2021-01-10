@@ -147,10 +147,9 @@ class ImportfromrebecaController extends Controller
                             $titulo_del_com = str_after($documento, 'Título:');
                                     $titulo_del_fin = trim(str_before($titulo_del_com, ' / '));
                                     if($titulo_del_fin != ''){
-                                        $titulo = $titulo_del_fin;
+                                        $titulo = trim(str_before($titulo_del_fin, ' : '));
                                         $documento = str_replace($titulo,'', $documento);
                                         $documento = str_replace('Título:','', $documento);
-                                    
                                     }
                                     // LISTOOOOO POSTAAA
                         }
@@ -185,8 +184,10 @@ class ImportfromrebecaController extends Controller
                                 $ciudad = trim(str_before(reset($arreglo_editorial_salto_linea), ' : '));
                                 $editorial_pre = trim(str_after(reset($arreglo_editorial_salto_linea), ' : '));
                                 $editorial = trim(str_before($editorial_pre, ', '));
-                                $anio = trim(str_after($editorial_pre, ', '));  
-
+                                $anio = trim(str_after($editorial_pre, ', '));
+                                $anio = str_replace('.', '', $anio);  
+                                $anio_convertido = date_create($anio."-01-01");
+                                // dd($anio);
                                 // $documento = str_replace($editorial, '', $documento);
                                 // $documento = str_replace($anio, '', $documento);
                                 // $documento = str_replace($ciudad, '', $documento);                                   
@@ -349,9 +350,11 @@ class ImportfromrebecaController extends Controller
                     // dd("asdasd".$titulo);
                     if($titulo != null){
                         $new_document->title = $titulo;
-                        $new_document->let_title = substr($titulo, 0, 3);
+                        $new_document->let_title = Str::lower(substr($titulo, 0, 3));
                     }
 
+                
+                    
                     if($editorial != null){
                         $new_document->made_by = $editorial;
                     }
@@ -361,7 +364,8 @@ class ImportfromrebecaController extends Controller
                     }
 
                     if($anio != null){
-                        $new_document->year = $anio;
+                        
+                        $new_document->year = $anio_convertido;
                     }
                     
                     if($notas != null){
@@ -406,8 +410,11 @@ class ImportfromrebecaController extends Controller
                     $new_document->status_documents_id = 100;
                     $new_document->origen = 'REBECCA';
                     $new_document->status_rebecca = 'S';
-                    $new_document->save(); 
-                
+                    $new_document->archivo = $name;
+                    if(trim($documento) != ''){
+                        $new_document->save(); 
+                    }
+                    
                             // solo para cine osea movie
                             // if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
                             //     foreach($autores_linea_completa as $arre_autores){
@@ -565,7 +572,7 @@ class ImportfromrebecaController extends Controller
     
     public function dataTable()
     {                    
-        $documentos = Document::with('document_type', 'document_subtype')->where('origen', 'REBECCA')      
+        $documentos = Document::with('document_type', 'document_subtype')->where('origen', 'REBECCA')->where('status_documents_id', 100)->where('status_rebecca', 'S')      
         ->get(); 
      
         return dataTables::of($documentos)
@@ -584,7 +591,7 @@ class ImportfromrebecaController extends Controller
               }
           })     
           ->addColumn('created_at', function ($documentos){
-              return $documentos->created_at->format('d-m-y');
+              return $documentos->created_at->toDateTimeString();
           })  
           ->addColumn('accion', function ($documentos) {
               return view('admin.importfromrebeca.partials._action', [

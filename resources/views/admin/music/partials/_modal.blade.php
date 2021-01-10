@@ -10,8 +10,8 @@
             </div>
             
             <div class="modal-footer" id="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="modal-btn-save">Save changes</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">{{ $idioma_cat_edit_music->compl_btn_cancelar }}</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-save">{{ $idioma_cat_edit_music->compl_btn_guardar }}</button>
             </div>
         </div>
     </div>

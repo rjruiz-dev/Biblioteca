@@ -28,7 +28,8 @@
                         <th>Titulo</th> 
                         <th>Tipo Documento</th>                         
                         <th>SubTipo Documento</th>                        
-                        <th>Agregado</th>                                
+                        <th>Archivo</th>
+                        <th>Carga</th>                                
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -117,6 +118,7 @@
                 {data: 'title', name: 'title'},               
                 {data: 'document_types_id', name: 'document_types_id'}, 
                 {data: 'document_subtypes_id', name: 'document_subtypes_id'}, 
+                {data: 'archivo', name: 'archivo'}, 
                 {data: 'created_at', name: 'agregado'},                  
                 {data: 'accion', name: 'accion'}                         
             ]
@@ -135,42 +137,42 @@
             title: 'Seleccione el tipo de Documento',
             input: 'select',
             inputOptions: {  
-                '1': 'Musica',  
-                '2': 'Cine',     
+                // '1': 'Musica',  
+                // '2': 'Cine',     
                 '3': 'Libros',
-                '4': 'Multimedia',
-                '5': 'Fotografia'
+                // '4': 'Multimedia',
+                // '5': 'Fotografia'
             },
             inputPlaceholder: 'Seleccione un tipo',
             showCancelButton: true,
             inputValidator: (value) => {
                 return new Promise((resolve) => {
-                if (value === '1') {
-                    // window.location = "/admin/books/index";
-                    window.location="/admin/music/";
-                    window.location="/admin/music/indexsolo/" + idd + "/" + 1;
+                // if (value === '1') {
+                //     // window.location = "/admin/books/index";
+                //     window.location="/admin/music/";
+                //     window.location="/admin/music/indexsolo/" + idd + "/" + 1;
 
-                }
-                if (value === '2') {
-                    window.location="/admin/movies/indexsolo/" + idd + "/" + 2; 
+                // }
+                // if (value === '2') {
+                //     window.location="/admin/movies/indexsolo/" + idd + "/" + 2; 
 
-                    // window.location = "/admin/movies";
-                } 
+                //     // window.location = "/admin/movies";
+                // } 
                 if (value === '3') {
                     // window.location="/admin/books/{request}/{idd}";
                     window.location="/admin/books/indexsolo/" + idd + "/" + 3; 
                     // window.location = "/admin/movies";
                 } 
-                if (value === '4') {
-                    // window.location="/admin/multimedias/";
-                    window.location="/admin/multimedias/indexsolo/" + idd + "/" + 4;
-                    // window.location = "/admin/movies";
-                } 
-                if (value === '5') {
-                    // window.location="/admin/photographs/";
-                    window.location="/admin/photographs/indexsolo/" + idd + "/" + 5;
-                    // window.location = "/admin/movies";
-                } 
+                // if (value === '4') {
+                //     // window.location="/admin/multimedias/";
+                //     window.location="/admin/multimedias/indexsolo/" + idd + "/" + 4;
+                //     // window.location = "/admin/movies";
+                // } 
+                // if (value === '5') {
+                //     // window.location="/admin/photographs/";
+                //     window.location="/admin/photographs/indexsolo/" + idd + "/" + 5;
+                //     // window.location = "/admin/movies";
+                // } 
                 })
              }
             })

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Movies;
+use App\ml_cat_edit_book;
 use App\Music;
 use App\Multimedia;
 use App\Book;
@@ -84,6 +85,7 @@ class BookController extends Controller
 
     public function index(Request $request)
     {   
+        
         $idd = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
         if ($request->session()->has('idiomas')) {
             $existe = 1;
@@ -99,11 +101,14 @@ class BookController extends Controller
         $setting    = Setting::where('id', 1)->first();
         // $this->authorize('view', new Book); 
 
+        $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+        // dd($idioma_cat_edit_book);
         return view('admin.books.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
             'idd'       => $idd,
+            'idioma_cat_edit_book'       => $idioma_cat_edit_book,
  
             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
             'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -126,7 +131,7 @@ class BookController extends Controller
         }
         $session = session('idiomas');
 
-
+        $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
         //cargo el idioma
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
@@ -144,8 +149,8 @@ class BookController extends Controller
                     $new_book = new Book();
                     $new_book->documents_id = $edicion_doc->id;
                     $new_book->generate_books_id = 100;
-                    $new_book->second_author_id = 100;
-                    $new_book->third_author_id = 100;     
+                    // $new_book->second_author_id = 100;
+                    // $new_book->third_author_id = 100;     
                 }
 
                 if($edicion_doc->document_types_id != 100){ // si es distinto de 100 tiene q borrar el q corresponda q tenia
@@ -214,7 +219,12 @@ class BookController extends Controller
                        }
 
                         $autor_del_com = null;
+                        $subtitulo = null;
                         if (Str::contains($datos_pendientes,' / ')){
+                            $subtitulo = trim(str_before($datos_pendientes, ' / '));
+                            // dd("q onda: ".$subtitulo);
+                            $datos_pendientes = str_replace($subtitulo,'', $datos_pendientes);
+
                             $autor_del_com = str_after($datos_pendientes, ' / ');
                             $arreglo_autor_salto_linea = explode("\n", $autor_del_com);
                             $autores_linea_completa = reset($arreglo_autor_salto_linea);
@@ -231,6 +241,7 @@ class BookController extends Controller
                             $autores_linea_completa = preg_split('/ (,|;|y) /', $autores_linea_completa);
                             // LISTOOOOO POSTAAA
                             // dd($autores_linea_completa);
+                            // ya que tengo la validacion de la / aprovecho y valido aca el subtitulo.  
                         }
 
                         // dd("aaaaaa: ".count($autores_linea_completa));
@@ -248,15 +259,18 @@ class BookController extends Controller
                                 {
                                     // dd('entro al iff');
                                     $edicion_doc->creators_id = $creadores->id;  
-                                    $edicion_doc->let_author = substr($creadores->creator_name, 0, 3); 
+                                    $edicion_doc->let_author = Str::upper(substr($creadores->creator_name, 0, 3)); 
                                 }else{
                                     // dd('entro al else');
+                                   
+                                    $autoree = str_replace('.','', $autoree);
+                                    // dd($autoree);
                                     $creator = new Creator;
                                     $creator->creator_name  = $autoree;
                                     $creator->document_types_id = 3;
                                     $creator->save();
                                     $edicion_doc->creators_id = $creator->id;
-                                    $edicion_doc->let_title = substr($autoree, 0, 3);
+                                    $edicion_doc->let_author = Str::upper(substr($creator->creator_name, 0, 3)); 
                                 }
                             }
                             if($num_aux == 1){
@@ -301,7 +315,9 @@ class BookController extends Controller
                         }
                     }
 
-
+                    if($subtitulo != null){ //solo para libros  
+                        $new_book->subtitle = $subtitulo;    
+                    }
                     // dd($size);
                     if($size != null){ //solo para libros
                         // dd("hhh0".$size);
@@ -314,6 +330,8 @@ class BookController extends Controller
                     }
 
                     // lo que quede lo guardo en notes. si es edicion pisa lo q estaba anterior si estaba con otro documento
+                    $datos_pendientes = str_replace('.', '', $datos_pendientes);
+                    $datos_pendientes = str_replace('Sinopsis:', '', $datos_pendientes);
                     $edicion_doc->note = trim($datos_pendientes);
 
                 // }
@@ -334,6 +352,8 @@ class BookController extends Controller
             'idiomas'           => $idiomas,
             'setting'           => $setting,
             'idd'           => $idd,
+            'idioma_cat_edit_book'       => $idioma_cat_edit_book,
+ 
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -371,6 +391,8 @@ class BookController extends Controller
         // $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
                 
+        $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+
         // dd($idioma_abm_doc->valoración);
 
         return view('admin.books.partials.form', [           
@@ -395,7 +417,8 @@ class BookController extends Controller
             'idioma_abm_book' => $idioma_abm_book,
             'idioma_abm_book' => $idioma_abm_book,
             // 'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
-            'idioma_abm_book_lit' => $idioma_abm_book_lit            
+            'idioma_abm_book_lit' => $idioma_abm_book_lit,
+            'idioma_cat_edit_book' => $idioma_cat_edit_book            
         ]);  
     }
 
@@ -640,7 +663,8 @@ class BookController extends Controller
         $idioma_abm_book_otros = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
-             
+        
+        $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
 
         
 
@@ -688,7 +712,8 @@ class BookController extends Controller
             'idioma_abm_book' => $idioma_abm_book,
             'idioma_abm_book' => $idioma_abm_book,
             'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
-            'idioma_abm_book_lit' => $idioma_abm_book_lit   
+            'idioma_abm_book_lit' => $idioma_abm_book_lit,
+            'idioma_cat_edit_book' => $idioma_cat_edit_book    
           
         ]); 
     // }   
@@ -1101,30 +1126,36 @@ class BookController extends Controller
         $session = session('idiomas');
 
         // dd($id);
-        if($id == 1){
-        $respuesta = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
-        }
-        if($id == 2){
-        $respuesta = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
-        }
-        if($id == 3){
-        $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
-        }
+        // if($id == 1){
+        // $respuesta = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 2){
+        // // $respuesta = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 3){
+        // // $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
 
-        if($id == 4){
-        $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
-        // dd($respuesta);
-    }
-        if($id == 4){
-        $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
-        // dd($respuesta);
-        }
-        
-        if($id == 5){
-            $respuesta_doc = ml_abm_doc::where('many_lenguages_id',$session)->first();
-            $respuesta_book = ml_abm_book::where('many_lenguages_id',$session)->first();
-        }
-        // dd($idioma_abm_book_publ_period);
+        // // if($id == 4){
+        // // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // // // dd($respuesta);
+        // // }
+
+        // if($id == 4){
+        // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // dd($respuesta);
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // if($id == 5){
+        //     $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+
+        // }
+
 
      
         if($request->ajax())
@@ -1136,12 +1167,12 @@ class BookController extends Controller
  
             // return $respuesta->toJson();
             
-            if($id == 5){
-             return response()->json(array('respuesta_doc'=>$respuesta_doc,'respuesta_book'=>$respuesta_book));
+            // if($id == 5){
+            //  return response()->json(array('respuesta_doc'=>$respuesta_doc,'respuesta_book'=>$respuesta_book));
 
-            }else{
+            // }else{
                 return $respuesta->toJson();
-            }
+            // }
             // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
 
             // return $count->toJson();

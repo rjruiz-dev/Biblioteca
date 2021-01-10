@@ -46,6 +46,7 @@ class CreateDocumentsTable extends Migration
             $table->string('photo')->nullable();
             $table->string('origen')->nullable();
             $table->string('status_rebecca')->nullable();    
+            $table->string('archivo')->nullable();    
             $table->timestamps();
 
             $table->foreign('generate_subjects_id')->references('id')->on('generate_subjects')
