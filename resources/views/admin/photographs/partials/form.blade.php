@@ -108,7 +108,7 @@
                     {!! Form::checkbox('desidherata', '1')!!}
                 </div>
 
-                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                <div class="form-group" id="fg_status_documents_id" style="{{{ $visible_status_doc }}}">
                     {!! Form::label('status_documents_id', 'Estado') !!}             
                     {!! Form::select('status_documents_id', $status_documents, $photograph->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'placeholder' => '', 'style' => 'width:100%;']) !!}    
                 </div> 

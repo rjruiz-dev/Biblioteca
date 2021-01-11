@@ -17,6 +17,7 @@ class CreateStatusDocumentsTable extends Migration
             $table->increments('id');
             $table->string('name_status')->nullable();
             $table->string('color')->nullable();
+            $table->string('view_public')->nullable();
             $table->timestamps();
         });
     }

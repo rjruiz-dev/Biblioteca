@@ -5,30 +5,30 @@
     'enctype' => 'multipart/form-data'
 ]) !!}
 
-    @if ($book->document['status_documents_id'] == 100)
+    
 
-    @php
-    $mostrar_estado = 'disabled';
-    @endphp
 
-    @else
-
-    @php
-    $mostrar_estado = '';
-    @endphp
-
-    @endif
-
-    @if (!$book->exists)
+    @if (!$book->exists)<!-- SI NO EXISTE, OSEA SI ES NUEVO --> 
         @php 
-        $visible_status_doc = "display:none";
+            $visible_status_doc = "display:none";
             $visible_desidherata = "";
         @endphp
     @else
-        @php  
-        $visible_status_doc = "";
+
+            @php 
             $visible_desidherata = "display:none";
-        @endphp
+            @endphp
+
+        @if ($book->document['status_documents_id'] == 100)
+            @php  
+            $visible_status_doc = "display:none";
+            @endphp
+        @else
+            @php  
+            $visible_status_doc = "";
+            @endphp
+        @endif
+
     @endif       
 
     <div class="col-md-6">
@@ -138,7 +138,7 @@
 
                 <div class="form-group" id="fg_status_documents_id" style="{{{ $visible_status_doc }}}">
                 {!! Form::label('status_documents_id', $idioma_cat_edit_book->cuerpo_estado) !!}             
-                {!! Form::select('status_documents_id', $status_documents, $book->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'style' => 'width:100%;', $mostrar_estado]) !!}    
+                {!! Form::select('status_documents_id', $status_documents, $book->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'style' => 'width:100%;']) !!}    
                 </div>
             </div>
         </div>       

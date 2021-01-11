@@ -183,7 +183,7 @@ class PhotographyController extends Controller
             'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),           
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
             'photograph'    => $photograph,
             'document'      => $document
         ]); 
@@ -422,7 +422,7 @@ class PhotographyController extends Controller
                     'adaptations'   => Adequacy::pluck('adequacy_description', 'id'),          
                     'volumes'       => Document::pluck('volume', 'volume'),
                     'languages'     => Lenguage::pluck('leguage_description', 'id'),
-                    'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+                    'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
                     'photograph'    => $photograph,
                     'document'      => $document
                 ]);

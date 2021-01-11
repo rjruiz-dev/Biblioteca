@@ -109,6 +109,10 @@ $('body').on('click', '.modal-show', function(event) {
                 dropdownParent: $("#fg_references"),
                 tags: true
             });
+            $('#status_documents_id').select2({
+                dropdownParent: $("#fg_status_documents_id"),
+                tags: false
+            });
             // $('#edition').select2({
             //     placeholder: 'Selecciona Número de Edición',
             //     dropdownParent: $('#modal'),

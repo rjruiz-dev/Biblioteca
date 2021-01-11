@@ -121,6 +121,9 @@ function(){
  
     Route::get('books/obtener/{id}',                            'BookController@obtener');     
     Route::get('musics/obtener/{id}',                            'MusicController@obtener');     
+    Route::get('movies/obtener/{id}',                            'MoviesController@obtener');     
+    Route::get('photographs/obtener/{id}',                       'PhotographyController@obtener');     
+    Route::get('multimedias/obtener/{id}',                       'MultimediaController@obtener');     
     
     // Route::get('books/index/{request}/{idd}',                            'BookController@index');
    

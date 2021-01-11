@@ -147,6 +147,17 @@
             showCancelButton: true,
             inputValidator: (value) => {
                 return new Promise((resolve) => {
+                    // console.log("valor elegido: " + value);
+                
+                    if (value === '') {
+                        swal({
+                        type: 'error',
+                        title: '¡Cuidado!',
+                        text: '¡No ha seleccionado el Tipo de Documento!'
+                    });
+                    }
+                
+                
                 // if (value === '1') {
                 //     // window.location = "/admin/books/index";
                 //     window.location="/admin/music/";

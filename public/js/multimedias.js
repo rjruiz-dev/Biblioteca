@@ -88,10 +88,16 @@ $('body').on('click', '.modal-show', function(event) {
                 dropdownParent: $("#fg_lenguages_id"),
                 placeholder: 'Selecciona un Idioma'
             });
+            $('#status_documents_id').select2({
+                dropdownParent: $("#fg_status_documents_id"),
+                tags: false
+            });
 
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
+
+            obtenercamposestaticos(5);
         }
     });
 
@@ -498,12 +504,72 @@ $('body').on('click', '.btn-show', function(event) {
     $('#modal').modal('show');
 });
 
-function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 3) {
-        document.getElementById("popular").style.display = "block";
-        document.getElementById("culta").style.display = "none";
-    } else {
-        document.getElementById("culta").style.display = "block";
-        document.getElementById("popular").style.display = "none";
-    }
+// function yesnoCheck() {
+//     if (document.getElementById("document_subtypes_id").value == 3) {
+//         document.getElementById("popular").style.display = "block";
+//         document.getElementById("culta").style.display = "none";
+//     } else {
+//         document.getElementById("culta").style.display = "block";
+//         document.getElementById("popular").style.display = "none";
+//     }
+// }
+
+function obtenercamposestaticos(accion) {
+
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        url: '/admin/multimedias/obtener/' + accion, //este 1 se pasa para q ande el metodo 
+        type: 'GET',
+        data: {
+            '_token': csrf_token
+        },
+        dataType: 'json',
+        success: function(response) {
+
+            if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+                // console.log("uiuiuiui" + accion);
+                // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
+                // $('#subtitle').attr('placeholder', response.subtítulo);
+                $("#creators_id").select2({
+                    placeholder: response.ph_cuerpo_autor,
+                });
+                $("#second_author_id").select2({
+                    placeholder: response.ph_cuerpo_segundo_autor,
+                });
+                $("#third_author_id").select2({
+                    placeholder: response.ph_cuerpo_tercer_autor,
+                });
+                $('#adequacies_id').select2({
+                    placeholder: response.ph_cuerpo_adecuado_para,
+                });
+                $("#generate_subjects_id").select2({
+                    placeholder: response.ph_cuerpo_cdu,
+                });
+                $('#published').select2({
+                    placeholder: response.ph_cuerpo_publicado_en,
+                });
+                $('#made_by').select2({
+                    placeholder: response.ph_cuerpo_editorial,
+                });
+                $('#edition').select2({
+                    placeholder: response.ph_cuerpo_edicion,
+                });
+                $('#volume').select2({
+                    placeholder: response.ph_cuerpo_volumenes,
+                });
+                $('#lenguages_id').select2({
+                    placeholder: response.ph_cuerpo_idioma,
+                });
+        
+                // $('#modal-btn-save')
+                document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;
+            }
+
+        },
+        error: function() {
+            // console.log(error);
+            alert('Hubo un error obteniendo los datos de la traduccion');
+        }
+    })
 }

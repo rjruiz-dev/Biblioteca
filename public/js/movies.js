@@ -100,10 +100,7 @@ $('body').on('click', '.modal-show', function(event) {
                 language: 'es'
             });
 
-            $('#generate_films_id').select2({
-                dropdownParent: $("#fg_generate_films_id"),
-                placeholder: 'Selecciona un Género'
-            });
+           
 
             $('#year').datepicker({
                 autoclose: true,
@@ -115,6 +112,8 @@ $('body').on('click', '.modal-show', function(event) {
 
             CKEDITOR.replace('synopsis');
             CKEDITOR.config.height = 190;
+
+            obtenercamposestaticos(5);
         }
     });
 
@@ -504,33 +503,98 @@ $('body').on('click', '.btn-reactivar', function(event) {
 });
 
 
-$('body').on('click', '.btn-show', function(event) {
-    event.preventDefault();
+// $('body').on('click', '.btn-show', function(event) {
+//     event.preventDefault();
 
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title');
+//     var me = $(this),
+//         url = me.attr('href'),
+//         title = me.attr('title');
 
-    $('#modal-title').text(title);
-    $('#modal-btn-save').addClass('hide');
+//     $('#modal-title').text(title);
+//     $('#modal-btn-save').addClass('hide');
+
+//     $.ajax({
+//         url: url,
+//         dataType: 'html',
+//         success: function(response) {
+//             $('#modal-body').html(response);
+//         }
+//     });
+
+//     $('#modal').modal('show');
+// });
+
+// function yesnoCheck() {
+//     if (document.getElementById("document_subtypes_id").value == 3) {
+//         document.getElementById("popular").style.display = "block";
+//         document.getElementById("culta").style.display = "none";
+//     } else {
+//         document.getElementById("culta").style.display = "block";
+//         document.getElementById("popular").style.display = "none";
+//     }
+// }
+
+function obtenercamposestaticos(accion) {
+
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
     $.ajax({
-        url: url,
-        dataType: 'html',
+        url: '/admin/movies/obtener/' + accion, //este 1 se pasa para q ande el metodo 
+        type: 'GET',
+        data: {
+            '_token': csrf_token
+        },
+        dataType: 'json',
         success: function(response) {
-            $('#modal-body').html(response);
+
+            if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+                // console.log("uiuiuiui" + accion);
+                // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
+                // $('#subtitle').attr('placeholder', response.subtítulo);
+                $("#creators_id").select2({
+                    placeholder: response.ph_cuerpo_director,
+                });
+                $('#adaptations_id').select2({
+                    placeholder: response.ph_cuerpo_adaptacion,
+                });
+                $('#adequacies_id').select2({
+                    placeholder: response.ph_cuerpo_adecuado_para,
+                });
+                $('#generate_films_id').select2({
+                    placeholder: response.ph_cuerpo_genero,
+                });
+                $("#generate_subjects_id").select2({
+                    placeholder: response.ph_cuerpo_cdu,
+                });
+                $('#status_documents_id').select2({
+                    dropdownParent: response.ph_cuerpo_estado,
+                });
+                $('#published').select2({
+                    placeholder: response.ph_cuerpo_nacionalidad,
+                });
+                $('#made_by').select2({
+                    placeholder: response.ph_cuerpo_productora,
+                });
+                $('#photography_movies_id').select2({
+                    placeholder: response.ph_cuerpo_fotografia,
+                });
+                $('#generate_formats_id').select2({
+                    placeholder: response.ph_cuerpo_formato,
+                });
+                $('#distributor').select2({
+                    placeholder: response.ph_cuerpo_distribuidora,
+                });
+                $('#lenguages_id').select2({
+                    placeholder: response.ph_cuerpo_idioma,
+                });
+                // $('#modal-btn-save')
+                document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;
+            }
+
+        },
+        error: function() {
+            // console.log(error);
+            alert('Hubo un error obteniendo los datos de la traduccion');
         }
-    });
-
-    $('#modal').modal('show');
-});
-
-function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 3) {
-        document.getElementById("popular").style.display = "block";
-        document.getElementById("culta").style.display = "none";
-    } else {
-        document.getElementById("culta").style.display = "block";
-        document.getElementById("popular").style.display = "none";
-    }
+    })
 }

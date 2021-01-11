@@ -124,7 +124,7 @@
                     {!! Form::checkbox('desidherata', '1')!!}
                 </div>
 
-                <div class="form-group" style="{{{ $visible_status_doc }}}">
+                <div class="form-group" id="fg_status_documents_id" style="{{{ $visible_status_doc }}}">
                 {!! Form::label('status_documents_id', $idioma_cat_edit_music->cuerpo_estado) !!}             
                 {!! Form::select('status_documents_id', $status_documents, $music->document['status_documents_id'], ['class' => 'form-control  select2', 'id' => 'status_documents_id', 'style' => 'width:100%;']) !!}    
                 </div>

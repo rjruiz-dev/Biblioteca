@@ -409,7 +409,7 @@ class BookController extends Controller
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'),  
             'book'          => $book,
             'document'      => $document,
 
@@ -654,7 +654,7 @@ class BookController extends Controller
         
         $book = Book::with('document', 'generate_book', 'periodical_publication.periodicidad')->findOrFail($id);       
         $document = Document::findOrFail($book->documents_id);
-
+        // dd("count let titulo: ".strlen($document->let_title));
         // $this->authorize('update', $book);
         $id_docum = $document->id;
 
@@ -704,7 +704,7 @@ class BookController extends Controller
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
             'book'          => $book,
             'document'      => $document,
 
@@ -1223,7 +1223,9 @@ class BookController extends Controller
             $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.references','document.lenguage','generate_book') 
             ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
-                $q->where('status_documents_id', '=', 1);            
+                $q->where('status_documents_id', '=', 1);
+                
+                // $q->where('status_documents_id', '<>', 100);
                 
                 if($subjects_mostrar){
                     $q->where('generate_subjects_id', '=', $request->get('subjects'));   
@@ -1236,6 +1238,8 @@ class BookController extends Controller
                 }
                 if($indexsolo_mostrar){
                     $q->where('id', '=', $request->get('indexsolo'));  
+                }else{
+                    $q->where('status_documents_id', '<>', 100);    
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -1258,6 +1262,8 @@ class BookController extends Controller
             $libros = Book::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_book') 
             ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {        
+                // $q->where('status_documents_id', '<>', 100);
+
                 if($subjects_mostrar){
                     $q->where('generate_subjects_id', '=', $request->get('subjects'));   
                 }
@@ -1266,6 +1272,8 @@ class BookController extends Controller
                 } 
                 if($indexsolo_mostrar){
                     $q->where('id', '=', $request->get('indexsolo'));   
+                }else{
+                    $q->where('status_documents_id', '<>', 100);    
                 }
             })
             ->where(function($q) use($genders_mostrar, $request)
@@ -1297,8 +1305,18 @@ class BookController extends Controller
 
                 return  $libros->document->document_subtype['subtype_name'];              
             }) 
-            ->addColumn('photo', function ($libros){                
-                $url=asset("./images/". $libros->document['photo']); 
+            ->addColumn('photo', function ($libros){  
+                if($libros->document['photo'] == null){
+                    $url=asset("./images/doc-default.jpg");
+                }else{
+                    if(file_exists(asset("./images/". $libros->document['photo']))){
+                        $url=asset("./images/". $libros->document['photo']);
+                    }else{
+                        $url=asset("./images/doc-default.jpg");  
+                    }
+                     
+                }              
+    
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             })

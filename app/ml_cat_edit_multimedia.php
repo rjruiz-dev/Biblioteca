@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class ml_cat_edit_multimedia extends Model
 {
     protected $fillable = [
-        'compl_editar', 
-        'compl_area_de_titulo', 
-        'compl_area_de_edicion', 
-        'compl_area_de_contenidos', 
+        'cuerpo_desidherata', 
+            'compl_area_de_titulo', 
+            'compl_area_de_edicion', 
+            'compl_area_de_contenidos',
+            'compl_btn_cancelar',
+            'compl_btn_guardar', 
         
             'cuerpo_titulo', 
             'ph_cuerpo_titulo',  

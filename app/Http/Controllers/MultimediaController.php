@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DataTables;
 use App\Multimedia;
 use App\Movies;
+use App\ml_cat_edit_multimedia;
 use App\Creator;
 use App\Document_subtype;
 use App\Adequacy;
@@ -53,12 +54,14 @@ class MultimediaController extends Controller
         $idiomas    = ManyLenguages::all();
 
         // $this->authorize('view', new Multimedia);
-
+        $idioma_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();
+        
         return view('admin.multimedias.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
             'idd'       => $idd,
+            'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
              'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -80,7 +83,8 @@ class MultimediaController extends Controller
         }
         $session = session('idiomas');
 
-
+        $idioma_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();
+        
         //cargo el idioma
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
@@ -143,6 +147,7 @@ class MultimediaController extends Controller
             'idiomas'           => $idiomas,
             'setting'           => $setting,
             'idd'           => $idd,
+            'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -158,10 +163,21 @@ class MultimediaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
         $multimedia = new Multimedia();    
         $document = new Document();  
+
+        $idioma_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();
+
         
         // $this->authorize('create', $multimedia); 
                               
@@ -176,9 +192,10 @@ class MultimediaController extends Controller
             'editions'      => Multimedia::pluck('edition', 'id'),         
             'editorials'    => Document::pluck('made_by', 'made_by'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
             'multimedia'    => $multimedia,
-            'document'      => $document               
+            'document'      => $document,
+            'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,               
         ]); 
     }
 
@@ -377,12 +394,22 @@ class MultimediaController extends Controller
      * @param  \App\multimedia  $multimedia
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
         // $multimedia = new Multimedia();  
         $multimedia = Multimedia::with('document')->findOrFail($id);
         $document   = Document::findOrFail($multimedia->documents_id);      
-                 
+       
+        $idioma_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();
+
         // $this->authorize('update', $multimedia);
         $id_docum = $document->id;
         // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
@@ -418,12 +445,82 @@ class MultimediaController extends Controller
                     'editorials'    => Document::pluck('made_by', 'made_by'),            
                     'editions'      => Multimedia::pluck('edition', 'id'),         
                     'languages'     => Lenguage::pluck('leguage_description', 'id'),
-                    'status_documents' => StatusDocument::pluck('name_status', 'id'), 
+                    'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'),
                     'multimedia'    => $multimedia,
-                    'document'      => $document
+                    'document'      => $document,
+                    'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,
                 ]);
         // }  
     }
+
+
+    public function obtener(Request $request, $id)
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        // dd($id);
+        // if($id == 1){
+        // $respuesta = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $respuesta = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 2){
+        // // $respuesta = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 3){
+        // // $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // // if($id == 4){
+        // // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // // // dd($respuesta);
+        // // }
+
+        // if($id == 4){
+        // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // dd($respuesta);
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // if($id == 5){
+        //     $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+
+        // }
+
+
+     
+        if($request->ajax())
+        {
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+ 
+            // return $respuesta->toJson();
+            
+            // if($id == 5){
+            //  return response()->json(array('respuesta_doc'=>$respuesta_doc,'respuesta_book'=>$respuesta_book));
+
+            // }else{
+                return $respuesta->toJson();
+            // }
+            // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
+
+            // return $count->toJson();
+          
+        }  
+      
+        return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
+    }
+
 
     /**
      * Update the specified resource in storage.

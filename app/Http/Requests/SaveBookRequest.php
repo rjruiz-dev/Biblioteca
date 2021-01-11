@@ -26,8 +26,8 @@ class SaveBookRequest extends FormRequest
     {
         $rules = [           
             'title'         => 'required|string',
-            'let_author'    => 'required|alpha|min:3|max:3',
-            'let_title'     => 'required|alpha||min:3|max:3',            
+            'let_author'    => 'required|alpha|min:2|max:3',
+            'let_title'     => 'required|alpha||min:2|max:3',            
             'year'          => 'required',
             'acquired'      => 'required',
         ];
@@ -35,7 +35,7 @@ class SaveBookRequest extends FormRequest
         if($this->method() !== 'PUT')
         {          
             $rules ['creators_id']          = 'required|string' . $this->id;  
-            $rules ['document_subtypes_id'] = 'required' . $this->id;  
+            // $rules ['document_subtypes_id'] = 'required' . $this->id;  
             // $rules ['generate_books_id']    = 'required' . $this->id;  
             $rules ['lenguages_id']         = 'required' . $this->id;
             $rules ['generate_subjects_id'] = 'required' . $this->id;    
@@ -54,6 +54,7 @@ class SaveBookRequest extends FormRequest
                 $rules ['isbn']   = 'required|string|between:13,17|unique:books,isbn' . $this->id;
             }
         }
+        $rules ['document_subtypes_id'] = 'required' . $this->id;  
  
         return $rules;  
 
@@ -66,11 +67,11 @@ class SaveBookRequest extends FormRequest
             'title.required'                    => 'Debe introducir un Título para Catalogar un Documento.',    
             'let_author.alpha'                  => 'Solo debe introducir letras para el campo Siglas Autor.',         
             'let_author.required'               => 'El campo Siglas Autor es requerido.',        
-            'let_author.min'                    => 'El campo Siglas Autor debe contener 3 caracteres como minimo',        
+            'let_author.min'                    => 'El campo Siglas Autor debe contener 2 caracteres como minimo',        
             'let_author.max'                    => 'El campo Siglas Autor no debe ser mayor a 3 caracteres',    
             'let_title.alpha'                   => 'Solo debe introducir letras para el campo Siglas Título.',               
             'let_title.required'                => 'El campo Siglas Título es requerido.',  
-            'let_title.min'                     => 'El campo Siglas Título debe contener 3 caracteres como minimo',        
+            'let_title.min'                     => 'El campo Siglas Título debe contener 2 caracteres como minimo',        
             'let_title.max'                     => 'El campo Siglas Título no debe ser mayor a 3 caracteres',       
             'isbn.required'                     => 'Debe introducir Isbn para Catalogar un Documento.',  
             // 'isbn.min'                          => 'Isbn debe contener una longitud minima de 13 caracteres.', 
@@ -78,7 +79,7 @@ class SaveBookRequest extends FormRequest
             // 'issn.min'                          => 'Issn debe contener una longitud minima de 13 caracteres.',            
             // 'photo.mimes'                       => 'La imagen debe ser del tipo jpeg, bmp, png, jpg.',                    
             'creators_id.required'              => 'Debe seleccionar o ingresar un Autor.',           
-            'document_subtypes_id.required'     => 'Debe seleccionar un Subtipo para Catalogar un Documento.',   
+            'document_subtypes_id.required'     => 'Debe seleccionar un Tipo de Libro para poder Catalogar.',   
             // 'generate_books_id.required'        => 'Debe seleccionar un Género para Catalogar un Documento.',          
             'lenguages_id.required'             => 'Debe seleccionar un Idioma para Catalogar un Documento.',          
             'generate_subjects_id.required'     => 'Debe seleccionar Cdu para Catalogar un Documento.',

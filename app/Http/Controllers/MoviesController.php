@@ -6,6 +6,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Movies;
 use App\Actor;
+use App\ml_cat_edit_movie;
 use App\Creator;
 use App\Adequacy;
 use App\Generate_film;
@@ -69,6 +70,9 @@ class MoviesController extends Controller
         $setting            = Setting::where('id', 1)->first();
         $idiomas            = ManyLenguages::all();
 
+        $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
+        
+
         // $this->authorize('view', new Movies); 
 
         return view('admin.movies.index', [
@@ -77,7 +81,8 @@ class MoviesController extends Controller
             'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
             'setting'           => $setting,
-            'idd' => $idd,    
+            'idd' => $idd, 
+            'idioma_cat_edit_movie'       => $idioma_cat_edit_movie,   
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
              'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -98,7 +103,8 @@ class MoviesController extends Controller
         }
         $session = session('idiomas');
 
-
+        $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
+        
         //cargo el idioma
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
@@ -185,6 +191,7 @@ class MoviesController extends Controller
             'idiomas'           => $idiomas,
             'setting'           => $setting,
             'idd'           => $idd,
+            'idioma_cat_edit_movie'       => $idioma_cat_edit_movie,
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -194,17 +201,96 @@ class MoviesController extends Controller
              // replicar esto FIN 
         ]); 
     }
+
+    public function obtener(Request $request, $id)
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        // dd($id);
+        // if($id == 1){
+        // $respuesta = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
+        $respuesta = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 2){
+        // // $respuesta = ml_abm_book_otros::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+        // if($id == 3){
+        // // $respuesta = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // // if($id == 4){
+        // // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // // // dd($respuesta);
+        // // }
+
+        // if($id == 4){
+        // // $respuesta = ml_abm_doc::where('many_lenguages_id',$session)->first();
+        // // dd($respuesta);
+        // $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();    
+        // }
+
+        // if($id == 5){
+        //     $respuesta = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+
+        // }
+
+
+     
+        if($request->ajax())
+        {
+            // return response()->json(
+            //     $partner->toArray(),
+            //     $count->toArray()
+            // );
+ 
+            // return $respuesta->toJson();
+            
+            // if($id == 5){
+            //  return response()->json(array('respuesta_doc'=>$respuesta_doc,'respuesta_book'=>$respuesta_book));
+
+            // }else{
+                return $respuesta->toJson();
+            // }
+            // return response()->json(array('partner'=>$partner,'count'=>$count,'limit'=>$maximo_dias_parce));
+
+            // return $count->toJson();
+          
+        }  
+      
+        return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+         // $request->session()->put('idiomas', 2);
+         if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
         $movie = new Movies(); 
         $document = new Document();      
       
-        // $this->authorize('create', $movie);            
+        // $this->authorize('create', $movie);    
+        
+        $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
+
                               
         return view('admin.movies.partials.form', [           
             'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
@@ -222,9 +308,10 @@ class MoviesController extends Controller
             'formats'           => Generate_format::pluck('genre_format', 'id'),
             'volumes'           => Document::pluck('volume', 'volume'),
             'languages'         => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
+            'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'),  
             'movie'             => $movie,
-            'document'          => $document
+            'document'          => $document,
+            'idioma_cat_edit_movie' => $idioma_cat_edit_movie,
            
         ]); 
     }
@@ -423,6 +510,9 @@ class MoviesController extends Controller
         $idioma_abm_book_publ_period = ml_abm_book_publ_period::where('many_lenguages_id',$session)->first();
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
        
+        $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
+
+
         // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
         // ->whereHas('copy', function($q) use ($id_docum)
         // {
@@ -462,9 +552,10 @@ class MoviesController extends Controller
                     'formats'           => Generate_format::pluck('genre_format', 'id'),
                     'volumes'           => Document::pluck('volume', 'volume'),
                     'languages'         => Lenguage::pluck('leguage_description', 'id'),
-                    'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
+                    'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'),   
                     'movie'             => $movie,
-                    'document'          => $document
+                    'document'          => $document,
+                    'idioma_cat_edit_movie' => $idioma_cat_edit_movie,
                 
                 ]);
         // }
