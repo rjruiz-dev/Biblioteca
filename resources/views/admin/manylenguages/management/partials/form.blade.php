@@ -1,7 +1,7 @@
 <div class="row">
    
 {!! Form::open([
-    'route' => $idioma->exists ? ['admin.manylenguages.update_manual_loan', $idioma->id] : 'admin.manylenguages.store',   
+    'route' => $idioma->exists ? ['admin.manylenguages.update_loan', $idioma->id] : 'admin.manylenguages.store',   
     'method' => $idioma->exists ? 'PUT' : 'POST'
 ]) !!}
 
@@ -22,18 +22,18 @@
             </div>
         </div>
     </div> 
-    <!-- Estadisticas -->
+    <!--  Préstamo Manual -->
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Prestamo Manual</h3>
+                    <h3 class="box-title">Traducciones Globales Préstamo Manual</h3>
                 </div>
             </div>
         </div>
     </div>
    
-    <div class="col-md-12">        
+    <div class="col-md-6">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -43,7 +43,7 @@
             <div class="box-body">
                 <div class="col-md-12">                    
                     <div class="form-group">              
-                        {!! Form::label('titulo_ml', 'Título Principal') !!}                    
+                        {!! Form::label('titulo_wl', 'Título Principal') !!}                    
                         {!! Form::text('titulo_ml', $ml_ml['titulo_ml'] ? $ml_ml['titulo_ml'] : null, ['class' => 'form-control', 'id' => 'titulo_ml', 'placeholder' => 'Título Principal']) !!}
                     </div>   
                     <div class="form-group">              
@@ -84,12 +84,12 @@
      
                 <div class="form-group">              
                     {!! Form::label('dt_copias_ml', 'Copias disponibles') !!}                    
-                    {!! Form::text('dt_copias_ml', $ml_ml['dt_copias_ml'] ? $ml_ml['dt_copias_ml'] : null, ['class' => 'form-control', 'id' => 'dt_agregado_letter', 'placeholder' => 'Copias disponibles']) !!}
+                    {!! Form::text('dt_copias_ml', $ml_ml['dt_copias_ml'] ? $ml_ml['dt_copias_ml'] : null, ['class' => 'form-control', 'id' => 'dt_copias_ml', 'placeholder' => 'Copias disponibles']) !!}
                 </div>
              
                 <div class="form-group">              
                     {!! Form::label('dt_acciones_ml', 'Acciones') !!}                    
-                    {!! Form::text('dt_acciones_ml', $ml_ml['dt_acciones_ml'] ? $ml_ml['dt_acciones_ml'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_letter', 'placeholder' => 'Acciones']) !!}
+                    {!! Form::text('dt_acciones_ml', $ml_ml['dt_acciones_ml'] ? $ml_ml['dt_acciones_ml'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_ml', 'placeholder' => 'Acciones']) !!}
                 </div>                        
             </div>
         </div>       
@@ -208,10 +208,137 @@
                 <div class="form-group">              
                     {!! Form::label('fecha_prestamo', 'Prestado hasta') !!}                    
                     {!! Form::text('fecha_prestamo', $ml_ml['fecha_prestamo'] ? $ml_ml['fecha_prestamo'] : null, ['class' => 'form-control', 'id' => 'fecha_prestamo', 'placeholder' => 'Prestado hasta']) !!}                                     
+                </div>
             </div>       
         </div>   
     </div>  
   
+
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Préstamo desde la Web</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Vista Principal </h3>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">                    
+                    <div class="form-group">              
+                        {!! Form::label('titulo_wl', 'Título Principal') !!}                    
+                        {!! Form::text('titulo_wl', $ml_wl['titulo_wl'] ? $ml_wl['titulo_wl'] : null, ['class' => 'form-control', 'id' => 'titulo_wl', 'placeholder' => 'Título Principal']) !!}
+                    </div>   
+                    <div class="form-group">              
+                        {!! Form::label('subtitulo_wl', 'Subtítulo datatable') !!}                    
+                        {!! Form::text('subtitulo_wl', $ml_wl['subtitulo_wl'] ? $ml_wl['subtitulo_wl'] : null, ['class' => 'form-control', 'id' => 'subtitulo_wl', 'placeholder' => 'Subtítulo']) !!}
+                    </div> 
+                                         
+                </div>
+            </div>       
+        </div>   
+    </div>     
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Columnas Datatable </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('dt_id_wl', 'Id') !!}                    
+                    {!! Form::text('dt_id_wl', $ml_wl['dt_id_wl'] ? $ml_wl['dt_id_wl'] : null, ['class' => 'form-control', 'id' => 'dt_id_wl', 'placeholder' => 'Id']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('dt_titulo_wl', 'Título') !!}                    
+                    {!! Form::text('dt_titulo_wl', $ml_wl['dt_titulo_wl'] ? $ml_wl['dt_titulo_wl'] : null, ['class' => 'form-control', 'id' => 'dt_titulo_wl', 'placeholder' => 'Título']) !!}
+                </div>
+
+                <div class="form-group">              
+                    {!! Form::label('dt_documento_wl', 'Documento') !!}                    
+                    {!! Form::text('dt_documento_wl', $ml_wl['dt_documento_wl'] ? $ml_wl['dt_documento_wl'] : null, ['class' => 'form-control', 'id' => 'dt_documento_wl', 'placeholder' => 'Documento']) !!}
+                </div>
+
+                <div class="form-group">              
+                    {!! Form::label('dt_tipo_wl', 'Tipo') !!}                    
+                    {!! Form::text('dt_tipo_wl', $ml_wl['dt_tipo_wl'] ? $ml_wl['dt_tipo_wl'] : null, ['class' => 'form-control', 'id' => 'dt_tipo_wl', 'placeholder' => 'Tipo']) !!}
+                </div>
+                
+
+                <div class="form-group">              
+                    {!! Form::label('dt_subtipo_wl', 'Subtipo') !!}                    
+                    {!! Form::text('dt_subtipo_wl', $ml_wl['dt_subtipo_wl'] ? $ml_wl['dt_subtipo_wl'] : null, ['class' => 'form-control', 'id' => 'dt_subtipo_wl', 'placeholder' => 'Subtipo']) !!}
+                </div>
+     
+                <div class="form-group">              
+                    {!! Form::label('dt_curso_wl', 'Curso') !!}                    
+                    {!! Form::text('dt_curso_wl', $ml_wl['dt_curso_wl'] ? $ml_wl['dt_curso_wl'] : null, ['class' => 'form-control', 'id' => 'dt_curso_wl', 'placeholder' => 'Curso']) !!}
+                </div>
+             
+                <div class="form-group">              
+                    {!! Form::label('dt_agregado_wl', 'Agregado') !!}                    
+                    {!! Form::text('dt_agregado_wl', $ml_wl['dt_agregado_wl'] ? $ml_wl['dt_agregado_wl'] : null, ['class' => 'form-control', 'id' => 'dt_agregado_wl', 'placeholder' => 'Agregado']) !!}
+                </div> 
+
+                <div class="form-group">              
+                    {!! Form::label('dt_acciones_wl', 'Acciones') !!}                    
+                    {!! Form::text('dt_acciones_wl', $ml_wl['dt_acciones_wl'] ? $ml_wl['dt_acciones_wl'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_wl', 'placeholder' => 'Acciones']) !!}
+                </div>                        
+            </div>
+        </div>       
+    </div>   
+
+    
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Sección Documento</h3>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">              
+                    {!! Form::label('mod_titulo', 'Solicitud') !!}                    
+                    {!! Form::text('mod_titulo', $ml_wl['mod_titulo'] ? $ml_wl['mod_titulo'] : null, ['class' => 'form-control', 'id' => 'mod_titulo', 'placeholder' => 'Solicitud']) !!}
+                </div>    
+                <div class="form-group">              
+                    {!! Form::label('mod_tipo_doc', 'Tipo documento') !!}                    
+                    {!! Form::text('mod_tipo_doc', $ml_wl['mod_tipo_doc'] ? $ml_wl['mod_tipo_doc'] : null, ['class' => 'form-control', 'id' => 'mod_tipo_doc', 'placeholder' => 'Tipo documento']) !!}
+                </div>    
+                <div class="form-group">              
+                    {!! Form::label('mod_subtipo_doc', 'Subtipo de documento') !!}                    
+                    {!! Form::text('mod_subtipo_doc', $ml_wl['mod_subtipo_doc'] ? $ml_wl['mod_subtipo_doc'] : null, ['class' => 'form-control', 'id' => 'mod_subtipo_doc', 'placeholder' => 'Subtipo de documento']) !!}
+                </div>  
+
+                 <div class="form-group">              
+                    {!! Form::label('mod_socio', 'Socio solicitante') !!}                    
+                    {!! Form::text('mod_socio', $ml_wl['mod_socio'] ? $ml_wl['mod_socio'] : null, ['class' => 'form-control', 'id' => 'mod_socio', 'placeholder' => 'Socio solicitante']) !!}
+                </div>    
+                <div class="form-group">              
+                    {!! Form::label('mod_fecha', 'Fecha de Solicitud') !!}                    
+                    {!! Form::text('mod_fecha', $ml_wl['mod_fecha'] ? $ml_wl['mod_fecha'] : null, ['class' => 'form-control', 'id' => 'mod_fecha', 'placeholder' => 'Fecha de Solicitud']) !!}
+                </div>    
+                <div class="form-group">              
+                    {!! Form::label('btn_aceptar', 'Aceptar solicitud') !!}                    
+                    {!! Form::text('btn_aceptar', $ml_wl['btn_aceptar'] ? $ml_wl['btn_aceptar'] : null, ['class' => 'form-control', 'id' => 'btn_aceptar', 'placeholder' => 'Aceptar solicitud']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('btn_rechazar', 'Rechazar solicitud') !!}                    
+                    {!! Form::text('btn_rechazar', $ml_wl['btn_rechazar'] ? $ml_wl['btn_rechazar'] : null, ['class' => 'form-control', 'id' => 'btn_rechazar', 'placeholder' => 'Rechazar solicitud']) !!}
+                </div>                   
+            </div>       
+        </div>   
+    </div>  
 
 {!! Form::close() !!}    
 </div>

@@ -23,6 +23,12 @@ use App\Ml_database_record;
 use App\Ml_statistic;
 use App\Ml_library_profile;
 use App\Ml_manual_loan;
+use App\Ml_web_loan;
+use App\Ml_loan_partner;
+use App\Ml_loan_document;
+use App\Ml_send_letter;
+use App\Ml_partner;
+use App\Ml_web_request;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -441,15 +447,60 @@ class ManyLenguagesController extends Controller
         ]); 
     }
 
-    public function edit_manual_loan($id)
+    public function edit_loan($id)
     {
         $idioma = ManyLenguages::findOrFail($id);  
 
         $ml_ml = Ml_manual_loan::where('many_lenguages_id', $idioma->id)->first();
+        $ml_wl = Ml_web_loan::where('many_lenguages_id', $idioma->id)->first();
               
         return view('admin.manylenguages.management.partials.form', [          
             'idioma' => $idioma,           
-            'ml_ml'  => $ml_ml          
+            'ml_ml'  => $ml_ml,
+            'ml_wl'  => $ml_wl           
+           
+        ]); 
+    }
+
+    public function edit_loan_repayment($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $ml_lp = Ml_loan_partner::where('many_lenguages_id', $idioma->id)->first();
+        $ml_ld = Ml_loan_document::where('many_lenguages_id', $idioma->id)->first();
+                     
+        return view('admin.manylenguages.loan_repayment.partials.form', [          
+            'idioma' => $idioma,           
+            'ml_lp'  => $ml_lp,   
+            'ml_ld'  => $ml_ld          
+           
+        ]); 
+    }
+
+    public function edit_send_letter($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $ml_sl = Ml_send_letter::where('many_lenguages_id', $idioma->id)->first();
+                             
+        return view('admin.manylenguages.correspondence.partials.form', [          
+            'idioma' => $idioma,           
+            'ml_sl'  => $ml_sl        
+           
+        ]); 
+    }
+
+    public function edit_partner($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $ml_partner = Ml_partner::where('many_lenguages_id', $idioma->id)->first();
+        $ml_wr = Ml_web_request::where('many_lenguages_id', $idioma->id)->first();
+                             
+        return view('admin.manylenguages.partner.partials.form', [          
+            'idioma' => $idioma,           
+            'ml_partner'  => $ml_partner,  
+            'ml_wr'  => $ml_wr        
            
         ]); 
     }
@@ -1009,8 +1060,8 @@ class ManyLenguagesController extends Controller
             }
         }
     }
-
-    public function update_manual_loan(Request $request, $id)
+    
+    public function update_loan(Request $request, $id)
     {
         if ($request->ajax()){
             try {
@@ -1022,7 +1073,7 @@ class ManyLenguagesController extends Controller
                 $idioma->lenguage_description   = $request->get('lenguage_description');             
                 $idioma->save();
                
-                // Prestamo por fecha
+                // Prestamo manual
                 $ml_ml                     = Ml_manual_loan::where('many_lenguages_id', $idioma->id)->first();
                 $ml_ml->titulo_ml          = $request->get('titulo_ml');     
                 $ml_ml->subtitulo_ml       = $request->get('subtitulo_ml');
@@ -1053,6 +1104,247 @@ class ManyLenguagesController extends Controller
                 $ml_ml->ph_turno           = $request->get('ph_turno');    
                 $ml_ml->fecha_prestamo     = $request->get('fecha_prestamo');   
                 $ml_ml->save();              
+
+                // Prestamo desde la web
+                $ml_wl                     = Ml_web_loan::where('many_lenguages_id', $idioma->id)->first();
+                $ml_wl->titulo_wl          = $request->get('titulo_wl');     
+                $ml_wl->subtitulo_wl       = $request->get('subtitulo_wl');
+                $ml_wl->dt_id_wl           = $request->get('dt_id_wl');     
+                $ml_wl->dt_titulo_wl       = $request->get('dt_titulo_wl');
+                $ml_wl->dt_documento_wl    = $request->get('dt_documento_wl');
+                $ml_wl->dt_tipo_wl         = $request->get('dt_tipo_wl');
+                $ml_wl->dt_subtipo_wl      = $request->get('dt_subtipo_wl');  
+                $ml_wl->dt_curso_wl        = $request->get('dt_curso_wl');
+                $ml_wl->dt_agregado_wl     = $request->get('dt_agregado_wl');                  
+                $ml_wl->mod_titulo         = $request->get('mod_titulo');    
+                $ml_wl->mod_tipo_doc       = $request->get('mod_tipo_doc');    
+                $ml_wl->mod_subtipo_doc    = $request->get('mod_subtipo_doc');    
+                $ml_wl->mod_socio          = $request->get('mod_socio');    
+                $ml_wl->mod_fecha          = $request->get('mod_fecha');    
+                $ml_wl->btn_aceptar        = $request->get('btn_aceptar');    
+                $ml_wl->btn_rechazar       = $request->get('btn_rechazar');                  
+                $ml_wl->save();              
+
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
+    public function update_loan_repayment(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                // Prestamo por socio
+                $ml_lp                     = Ml_loan_partner::where('many_lenguages_id', $idioma->id)->first();
+                $ml_lp->titulo_lp          = $request->get('titulo_lp');     
+                $ml_lp->subtitulo_lp       = $request->get('subtitulo_lp');
+                $ml_lp->dt_id_lp           = $request->get('dt_id_lp');     
+                $ml_lp->dt_socio_lp        = $request->get('dt_socio_lp');
+                $ml_lp->dt_nickname_lp     = $request->get('dt_nickname_lp');
+                $ml_lp->dt_nombre_lp       = $request->get('dt_nombre_lp');  
+                $ml_lp->dt_email_lp        = $request->get('dt_email_lp');
+                $ml_lp->dt_estado_lp       = $request->get('dt_estado_lp');
+                $ml_lp->dt_acciones_lp     = $request->get('dt_acciones_lp');  
+                $ml_lp->titulo_index_lp    = $request->get('titulo_index_lp');  
+                $ml_lp->seccion_socio      = $request->get('seccion_socio');  
+                $ml_lp->genero             = $request->get('genero');  
+                $ml_lp->fecha_nac          = $request->get('fecha_nac'); 
+                $ml_lp->email              = $request->get('email');
+                $ml_lp->telefono           = $request->get('telefono');
+                $ml_lp->direccion          = $request->get('direccion');
+                $ml_lp->cod_postal         = $request->get('cod_postal');
+                $ml_lp->ciudad             = $request->get('ciudad');
+                $ml_lp->provincia          = $request->get('provincia');                
+                $ml_lp->seccion_prestamo   = $request->get('seccion_prestamo');  
+                $ml_lp->num_copia          = $request->get('num_copia');
+                $ml_lp->prestado_el        = $request->get('prestado_el');  
+                $ml_lp->devolver_el        = $request->get('devolver_el');  
+                $ml_lp->dias_retraso       = $request->get('dias_retraso');  
+                $ml_lp->sancion            = $request->get('sancion');  
+                $ml_lp->economica          = $request->get('economica');    
+                $ml_lp->btn_devolver       = $request->get('btn_devolver');    
+                $ml_lp->btn_renovar        = $request->get('btn_renovar');    
+                $ml_lp->btn_cerrar         = $request->get('btn_cerrar');    
+                $ml_lp->btn_si             = $request->get('btn_si');    
+                $ml_lp->mod_titulo_lp      = $request->get('mod_titulo_lp');    
+                $ml_lp->mod_subtitulo_lp   = $request->get('mod_subtitulo_lp');    
+                $ml_lp->cam_devolver_lp    = $request->get('cam_devolver_lp');    
+                $ml_lp->save();  
+
+                // Prestamo por documento
+                $ml_ld                     = Ml_loan_document::where('many_lenguages_id', $idioma->id)->first();
+                $ml_ld->titulo_ld         = $request->get('titulo_ld');     
+                $ml_ld->subtitulo_ld       = $request->get('subtitulo_ld');
+                $ml_ld->dt_id_ld           = $request->get('dt_id_ld');     
+                $ml_ld->dt_titulo_ld       = $request->get('dt_titulo_ld');
+                $ml_ld->dt_tipo_ld         = $request->get('dt_tipo_ld');
+                $ml_ld->dt_subtipo_ld      = $request->get('dt_subtipo_ld');  
+                $ml_ld->dt_copias_ld       = $request->get('dt_copias_ld');
+                $ml_ld->dt_acciones_ld     = $request->get('dt_acciones_ld');
+        
+                $ml_ld->titulo_index_ld    = $request->get('titulo_index_ld');  
+                $ml_ld->seccion_doc        = $request->get('seccion_doc');  
+                $ml_ld->tipo_doc           = $request->get('tipo_doc');  
+                $ml_ld->tipo_libro         = $request->get('tipo_libro'); 
+
+                $ml_ld->num_copia_ld       = $request->get('num_copia_ld');
+                $ml_ld->estado             = $request->get('estado');
+                $ml_ld->prestado_a         = $request->get('prestado_a');
+                $ml_ld->prestado_ld        = $request->get('prestado_ld');
+                $ml_ld->devolver_ld        = $request->get('devolver_ld');
+                $ml_ld->dias_retraso_ld    = $request->get('dias_retraso_ld');                
+                $ml_ld->sancion_ld         = $request->get('sancion_ld');  
+                $ml_ld->economica_ld       = $request->get('economica_ld');
+            
+                $ml_ld->btn_devolver_ld    = $request->get('btn_devolver_ld');    
+                $ml_ld->btn_renovar_ld     = $request->get('btn_renovar_ld');    
+                $ml_ld->btn_cerrar_ld      = $request->get('btn_cerrar_ld');    
+                $ml_ld->btn_si_ld          = $request->get('btn_si_ld');    
+                $ml_ld->mod_titulo_ld      = $request->get('mod_titulo_ld');    
+                $ml_ld->mod_subtitulo_ld   = $request->get('mod_subtitulo_ld');    
+                $ml_ld->cam_devolver_ld    = $request->get('cam_devolver_ld');    
+                $ml_ld->save();  
+
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
+    public function update_send_letter(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                // Prestamo por socio
+                $ml_sl                          = Ml_send_letter::where('many_lenguages_id', $idioma->id)->first();
+                $ml_sl->titulo                  = $request->get('titulo');     
+                $ml_sl->subtitulo               = $request->get('subtitulo');
+                $ml_sl->select_modelo           = $request->get('select_modelo');     
+                $ml_sl->ph_modelo               = $request->get('ph_modelo');
+                $ml_sl->fecha                   = $request->get('fecha');
+                $ml_sl->select_enviar           = $request->get('select_enviar');  
+                $ml_sl->ph_enviar               = $request->get('ph_enviar');                
+                $ml_sl->check_informe           = $request->get('check_informe');  
+                $ml_sl->btn_email               = $request->get('btn_email');                                   
+                $ml_sl->save();  
+
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
+
+    public function update_partner(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                // Prestamo por socio
+                $ml_partner                     = Ml_partner::where('many_lenguages_id', $idioma->id)->first();
+                $ml_partner->titulo_ams         = $request->get('titulo_ams');
+                $ml_partner->subtitulo_ams      = $request->get('subtitulo_ams');
+                $ml_partner->dt_id_ams          = $request->get('dt_id_ams');
+                $ml_partner->dt_usuario_ams     = $request->get('dt_usuario_ams'); 
+                $ml_partner->dt_nickname_ams    = $request->get('dt_nickname_ams');
+                $ml_partner->dt_perfil_ams      = $request->get('dt_perfil_ams');           
+                $ml_partner->dt_nombre_ams      = $request->get('dt_nombre_ams');
+                $ml_partner->dt_email_ams       = $request->get('dt_email_ams');
+                $ml_partner->dt_estado_ams      = $request->get('dt_estado_ams');           
+                $ml_partner->dt_agregado_ams    = $request->get('dt_agregado_ams');
+                $ml_partner->dt_acciones_ams    = $request->get('dt_acciones_ams');
+                // form
+                $ml_partner->mod_titulo         = $request->get('mod_titulo');
+                
+                $ml_partner->seccion_perfil     = $request->get('seccion_perfil');  
+                $ml_partner->mod_select_tipo    = $request->get('mod_select_tipo');
+                $ml_partner->mod_check_biblio   = $request->get('mod_check_biblio');  
+                $ml_partner->mod_check_socio    = $request->get('mod_check_socio');
+                $ml_partner->mod_num_user       = $request->get('mod_num_user');  
+                $ml_partner->mod_span_num       = $request->get('mod_span_num');
+                $ml_partner->mod_nickname       = $request->get('mod_nickname'); 
+                $ml_partner->mod_select_estado  = $request->get('mod_select_estado');  
+                $ml_partner->mod_ph_estado      = $request->get('mod_ph_estado');
+                $ml_partner->mod_imagen         = $request->get('mod_imagen');  
+                $ml_partner->mod_email          = $request->get('mod_email');
+                $ml_partner->mod_span_email     = $request->get('mod_span_email');             
+            
+                $ml_partner->seccion_personales = $request->get('seccion_personales');  
+                $ml_partner->mod_nombre         = $request->get('mod_nombre');
+                $ml_partner->mod_apellido       = $request->get('mod_apellido');  
+                $ml_partner->mod_select_genero  = $request->get('mod_select_genero');
+                $ml_partner->mod_ph_genero      = $request->get('mod_ph_genero');  
+                $ml_partner->mod_fecha_nac      = $request->get('mod_fecha_nac');  
+                $ml_partner->mod_pass           = $request->get('mod_pass');  
+                $ml_partner->mod_span_pass      = $request->get('mod_span_pass');  
+                $ml_partner->mod_repite_pass    = $request->get('mod_repite_pass');            
+
+                $ml_partner->seccion_direccion  = $request->get('seccion_direccion');  
+                $ml_partner->mod_telefono       = $request->get('mod_telefono');
+                $ml_partner->mod_direccion      = $request->get('mod_direccion');  
+                $ml_partner->mod_cod_postal     = $request->get('mod_cod_postal');
+                $ml_partner->mod_ciudad         = $request->get('mod_ciudad');  
+                $ml_partner->mod_select_provincia = $request->get('mod_select_provincia');
+                $ml_partner->mod_ph_provincia   = $request->get('mod_ph_provincia');            
+                    
+                // show
+                $ml_partner->mod_titulo_show    = $request->get('mod_titulo_show');
+                $ml_partner->mod_usuario        = $request->get('mod_usuario');              
+                $ml_partner->mod_estado         = $request->get('mod_estado');            
+                $ml_partner->mod_info_direccion = $request->get('mod_info_direccion');  
+                $ml_partner->mod_info_cod_postal= $request->get('mod_info_cod_postal');
+                $ml_partner->mod_info_telefono  = $request->get('mod_info_telefono');
+                
+                // botones
+                $ml_partner->btn_crear          = $request->get('btn_crear');     
+                $ml_partner->btn_actualizar     = $request->get('btn_actualizar');       
+                $ml_partner->btn_cerrar         = $request->get('btn_cerrar'); 
+                $ml_partner->save(); 
+
+                // Solicitud desde la web
+                $ml_wr                          = Ml_web_request::where('many_lenguages_id', $idioma->id)->first();
+                $ml_wr->titulo_wr               = $request->get('titulo_wr');
+                $ml_wr->subtitulo_wr            = $request->get('subtitulo_wr');
+                $ml_wr->dt_id_wr                = $request->get('dt_id_wr');
+                $ml_wr->dt_nombre_wr            = $request->get('dt_nombre_wr');
+                $ml_wr->dt_usuario_wr           = $request->get('dt_usuario_wr'); 
+                $ml_wr->dt_email_wr             = $request->get('dt_email_wr');
+                $ml_wr->dt_estado_wr            = $request->get('dt_estado_wr');           
+                $ml_wr->dt_agregado_wr          = $request->get('dt_agregado_wr');
+                $ml_wr->dt_acciones_wr          = $request->get('dt_acciones_wr');
+                $ml_wr->save();                   
 
                 DB::commit();               
 
@@ -1109,7 +1401,10 @@ class ManyLenguagesController extends Controller
                     'url_edit_list'         => route('admin.manylenguages.edit_list', $idiomas->id),                    
                     'url_edit_statistic'    => route('admin.manylenguages.edit_statistic', $idiomas->id),                    
                     'url_library_profile'   => route('admin.manylenguages.edit_library_profile', $idiomas->id), 
-                    'url_edit_manual_loan'  => route('admin.manylenguages.edit_manual_loan', $idiomas->id),                    
+                    'url_loan'              => route('admin.manylenguages.edit_loan', $idiomas->id),
+                    'url_loan_repayment'    => route('admin.manylenguages.edit_loan_repayment', $idiomas->id),                    
+                    'url_send_letter'       => route('admin.manylenguages.edit_send_letter', $idiomas->id),                    
+                    'url_edit_partner'      => route('admin.manylenguages.edit_partner', $idiomas->id),                    
                     'url_destroy'           => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           

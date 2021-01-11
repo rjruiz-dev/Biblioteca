@@ -200,11 +200,21 @@ function(){
     Route::get('manyLenguages/edit_library_profile/{id}',    'ManyLenguagesController@edit_library_profile')->name('admin.manylenguages.edit_library_profile');
     Route::put('manyLenguages/update_library_profile/{id}',  'ManyLenguagesController@update_library_profile')->name('admin.manylenguages.update_library_profile');
 
-    // traduccion prestamo manual
-    Route::get('manyLenguages/edit_manual_loan/{id}',    'ManyLenguagesController@edit_manual_loan')->name('admin.manylenguages.edit_manual_loan');
-    Route::put('manyLenguages/update_manual_loan/{id}',  'ManyLenguagesController@update_manual_loan')->name('admin.manylenguages.update_manual_loan');
+    // traduccion gestion prestamo 
+    Route::get('manyLenguages/edit_loan/{id}',    'ManyLenguagesController@edit_loan')->name('admin.manylenguages.edit_loan');
+    Route::put('manyLenguages/update_loan/{id}',  'ManyLenguagesController@update_loan')->name('admin.manylenguages.update_loan');
+    
+    // traduccion prestamo y devoluciones
+    Route::get('manyLenguages/edit_loan_repayment/{id}',    'ManyLenguagesController@edit_loan_repayment')->name('admin.manylenguages.edit_loan_repayment');
+    Route::put('manyLenguages/update_loan_repayment/{id}',  'ManyLenguagesController@update_loan_repayment')->name('admin.manylenguages.update_loan_repayment');
 
-   
+    // traduccion correspondencia
+    Route::get('manyLenguages/edit_send_letter/{id}',    'ManyLenguagesController@edit_send_letter')->name('admin.manylenguages.edit_send_letter');
+    Route::put('manyLenguages/update_send_letter/{id}',  'ManyLenguagesController@update_send_letter')->name('admin.manylenguages.update_send_letter');
+
+    // traduccion socio
+    Route::get('manyLenguages/edit_partner/{id}',    'ManyLenguagesController@edit_partner')->name('admin.manylenguages.edit_partner');
+    Route::put('manyLenguages/update_partner/{id}',  'ManyLenguagesController@update_partner')->name('admin.manylenguages.update_partner');
 
 });
 
