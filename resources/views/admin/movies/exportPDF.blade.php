@@ -147,7 +147,7 @@
                     <b>Distribuidora:</b> <i>{{ $movie->distributor }}</i><br>
                     @endif                       
                     <b>Año:</b> <i>{{ Carbon\Carbon::parse($movie->document->year)->format('Y')  }}</i><br>
-                    <b>Idioma:</b> <i>{{ $movie->document->lenguage->leguage_description }}</i><br>
+                    <b>Idioma:</b> <i>{{ $movie->document->lenguage['leguage_description'] }}</i><br>
                     @if ( ( trim($movie->generate_movie->genre_film  != NULL) ) && ( trim($movie->generate_movie->genre_film  != '') ) )   
                     <b>Género:</b> <i>{{ $movie->generate_movie->genre_film  }}</i><br>
                     @endif

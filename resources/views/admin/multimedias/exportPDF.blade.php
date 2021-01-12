@@ -108,7 +108,7 @@
                     @if ( ( trim($multimedia->document->made_by != NULL) ) && ( trim($multimedia->document->made_by != '') ) )   
                         <b>Editorial:</b> <i>{{ $multimedia->document->made_by }}</i><br>
                     @endif
-                        <b>Idioma:</b> <i>{{ $multimedia->document->lenguage->leguage_description  }}</i><br>
+                        <b>Idioma:</b> <i>{{ $multimedia->document->lenguage['leguage_description']  }}</i><br>
                         <b>Año:</b> <i>{{ Carbon\Carbon::parse($multimedia->document->year)->format('Y')  }}</i><br>                           
                         <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($multimedia->document->acquired)->format('d-m-Y') }}</i><br>       
                     @if ( ( trim($multimedia->document->adequacy['adequacy_description'] != NULL) ) && ( trim($multimedia->document->adequacy['adequacy_description'] != '') ) )   

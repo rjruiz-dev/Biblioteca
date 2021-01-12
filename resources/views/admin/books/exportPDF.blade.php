@@ -135,7 +135,7 @@
                         <b>Editorial:</b> <i>{{ $book->document->made_by }}</i><br>
                     @endif                   
                         <b>Año:</b> <i>{{ Carbon\Carbon::parse($book->document->year)->format('Y')  }}</i><br>                          
-                        <b>Idioma:</b> <i>{{ $book->document->lenguage->leguage_description  }}</i><br>                 
+                        <b>Idioma:</b> <i>{{ $book->document->lenguage['leguage_description'] }}</i><br>                 
                     @if ( ( trim($book->document->volume != NULL) ) && ( trim($book->document->volume != '') ) )   
                         <b>Volumen:</b> <i>{{ $book->document->volume }}</i><br>
                     @endif                   

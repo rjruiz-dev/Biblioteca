@@ -260,7 +260,16 @@ class VMoviesController extends Controller
                 }             
             }) 
             ->addColumn('photo', function ($movie){                
-                $url=asset("./images/". $movie->document->photo); 
+                if($movie->document['photo'] == null){
+                    $url=asset("./images/doc-default.jpg");
+                }else{
+                    if(file_exists("./images/". $movie->document['photo'])){
+                        $url=asset("./images/". $movie->document['photo']);
+                    }else{
+                        $url=asset("./images/doc-default.jpg");  
+                    }
+                     
+                }
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             }) 
@@ -272,8 +281,8 @@ class VMoviesController extends Controller
                 }              
             })  
             ->addColumn('lenguages_id', function ($movie){
-                if($movie->document->lenguage->leguage_description != null){
-                return'<i class="fa  fa-globe"></i>'.' '.$movie->document->lenguage->leguage_description;         
+                if($movie->document->lenguage['leguage_description'] != null){
+                return'<i class="fa  fa-globe"></i>'.' '.$movie->document->lenguage['leguage_description'];         
                 }else{
                     return 'Sin Lenguaje';
                 }

@@ -104,7 +104,7 @@
             <td align="right" style="width: 40%;">          
                 <div style="text-align: center; margin-top: -120px;">
                     <b>Disponible desde:</b> <i>{{ Carbon\Carbon::parse($photograph->document->acquired)->format('d-m-Y') }}</i><br>
-                    <b>Idioma:</b> <i>{{ $photograph->document->lenguage->leguage_description  }}</i><br>
+                    <b>Idioma:</b> <i>{{ $photograph->document->lenguage['leguage_description']  }}</i><br>
                     @if ( ( trim($photograph->document->adequacy['adequacy_description'] != NULL) ) && ( trim($photograph->document->adequacy['adequacy_description'] != '') ) )  
                     <b>Adecuado para:</b> <i>{{ $photograph->document->adequacy['adequacy_description'] }}</i><br>
                     @endif      

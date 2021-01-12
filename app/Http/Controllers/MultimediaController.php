@@ -963,7 +963,17 @@ class MultimediaController extends Controller
                     '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator['creator_name']."<br>";         
             })
             ->addColumn('photo', function ($multimedia){                
-                $url=asset("./images/". $multimedia->document['photo']); 
+                if($multimedia->document['photo'] == null){
+                    $url=asset("./images/doc-default.jpg");
+                }else{
+                    if(file_exists("./images/". $multimedia->document['photo'])){
+                        $url=asset("./images/". $multimedia->document['photo']);
+                    }else{
+                        $url=asset("./images/doc-default.jpg");  
+                    }
+                     
+                } 
+
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             })

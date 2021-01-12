@@ -990,7 +990,16 @@ class MoviesController extends Controller
                 }             
             })
             ->addColumn('photo', function ($movie){                
-                $url=asset("./images/". $movie->document['photo']); 
+                if($movie->document['photo'] == null){
+                    $url=asset("./images/doc-default.jpg");
+                }else{
+                    if(file_exists("./images/". $movie->document['photo'])){
+                        $url=asset("./images/". $movie->document['photo']);
+                    }else{
+                        $url=asset("./images/doc-default.jpg");  
+                    }
+                     
+                }  
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             }) 

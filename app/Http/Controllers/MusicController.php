@@ -992,7 +992,16 @@ class MusicController extends Controller
                 return  $musica->document->document_subtype['subtype_name'];              
             }) 
             ->addColumn('photo', function ($musica){                
-                $url=asset("./images/". $musica->document['photo']); 
+                if($musica->document['photo'] == null){
+                    $url=asset("./images/doc-default.jpg");
+                }else{
+                    if(file_exists("./images/". $musica->document['photo'])){
+                        $url=asset("./images/". $musica->document['photo']);
+                    }else{
+                        $url=asset("./images/doc-default.jpg");  
+                    }
+                     
+                }
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             })

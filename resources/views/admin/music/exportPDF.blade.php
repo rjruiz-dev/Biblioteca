@@ -121,7 +121,7 @@
                 @if ( ( trim($music->document->made_by != NULL) ) && ( trim($music->document->made_by != '') ) )   
                     <b>Sello discografico:</b> <i>{{ $music->document->made_by }}</i><br>
                 @endif                               
-                    <b>Idioma:</b> <i>{{ $music->document->lenguage->leguage_description  }}</i><br>
+                    <b>Idioma:</b> <i>{{ $music->document->lenguage['leguage_description']  }}</i><br>
                     <b>Año:</b> <i>{{ Carbon\Carbon::parse($music->document->year)->format('Y')  }}</i><br>
                 @if ( ( trim($music->generate_music->genre_music != NULL) ) && ( trim($music->generate_music->genre_music != '') ) )   
                     <b>Género:</b> <i>{{ $music->generate_music->genre_music }}</i><br>

@@ -1309,7 +1309,7 @@ class BookController extends Controller
                 if($libros->document['photo'] == null){
                     $url=asset("./images/doc-default.jpg");
                 }else{
-                    if(file_exists(asset("./images/". $libros->document['photo']))){
+                    if(file_exists("./images/". $libros->document['photo'])){
                         $url=asset("./images/". $libros->document['photo']);
                     }else{
                         $url=asset("./images/doc-default.jpg");  

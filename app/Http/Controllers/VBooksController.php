@@ -251,6 +251,8 @@ class VBooksController extends Controller
             ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
             {
                 $q->where('status_documents_id', '=', 1);
+
+                
             
                 if($subjects_mostrar){
                     $q->where('generate_subjects_id', '=', $request->get('subjects'));   
@@ -288,8 +290,18 @@ class VBooksController extends Controller
 
                 return  $libros->document->document_subtype->subtype_name;              
             })
-            ->addColumn('photo', function ($libros){                
-                $url=asset("./images/". $libros->document->photo); 
+            ->addColumn('photo', function ($libros){  
+                if($libros->document['photo'] == null){
+                    $url=asset("./images/doc-default.jpg");
+                }else{
+                    if(file_exists("./images/". $libros->document['photo'])){
+                        $url=asset("./images/". $libros->document['photo']);
+                    }else{
+                        $url=asset("./images/doc-default.jpg");  
+                    }
+                     
+                }             
+    
                 return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
                
             }) 
@@ -302,10 +314,10 @@ class VBooksController extends Controller
             }) 
          
             ->addColumn('lenguages_id', function ($libros){ 
-                if($libros->document->lenguage->leguage_description == null){
+                if($libros->document->lenguage['leguage_description'] == null){
                     return 'Sin Lenguaje';
                 }else{ 
-                    return'<i class="fa  fa-globe"></i>'.' '.$libros->document->lenguage->leguage_description;         
+                    return'<i class="fa  fa-globe"></i>'.' '.$libros->document->lenguage['leguage_description'];         
                 } 
             }) 
             ->addColumn('status', function ($libros){
