@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE CURSOS
-        <small>Listado</small>
+        {{ $ml_course->titulo_curso }}       
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Cursos  
+            <h3 class="panel-title">{{ $ml_course->subtitulo_curso }}  
           
-                <a href="{{ route('admin.courses.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Curso"><i class="fa fa-user-plus"></i> Crear Curso</a>
+                <a href="{{ route('admin.courses.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Curso"><i class="fa fa-user-plus"></i> {{ $ml_course->btn_crear_curso }}</a>
     
             </h3>
         </div>
@@ -24,12 +23,12 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Curso</th>
-                        <th>Grupo</th> 
-                        <th>Agregado</th>                      
-                        <th>Estado</th>                               
-                        <th>Acciones</th>
+                        <th>{{ $ml_course->dt_id_curso }}</th>
+                        <th>{{ $ml_course->dt_curso }}</th>
+                        <th>{{ $ml_course->dt_grupo }}</th> 
+                        <th>{{ $ml_course->dt_agregado_curso }}</th>                      
+                        <th>{{ $ml_course->dt_estado }}</th>                               
+                        <th>{{ $ml_course->dt_acciones_curso }}</th>
                     </tr>
                 </thead>
                 <tbody>

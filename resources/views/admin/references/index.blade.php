@@ -2,21 +2,20 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE REFERENCIAS
-        <small>Listado</small>
+        {{ $ml_reference->titulo_ref }}     
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Maestros de Referencias</li>
+        <li class="active">Referencias</li>
     </ol> 
 @stop
 
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Maestros de Referencias  
+            <h3 class="panel-title">{{ $ml_reference->subtitulo_ref }}
           
-                <a href="{{ route('admin.references.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Referencia"><i class="fa fa-user-plus"></i> Crear Referencia</a>
+                <a href="{{ route('admin.references.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Referencia"><i class="fa fa-user-plus"></i> {{ $ml_reference->btn_crear_ref }}</a>
     
             </h3>
         </div>
@@ -24,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Referencia</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_reference->dt_id_ref }}</th>
+                        <th>{{ $ml_reference->dt_referencia }}</th>                       
+                        <th>{{ $ml_reference->dt_agregado_ref }}</th>                                
+                        <th>{{ $ml_reference->dt_acciones_ref }}</th>
                     </tr>
                 </thead>
                 <tbody>

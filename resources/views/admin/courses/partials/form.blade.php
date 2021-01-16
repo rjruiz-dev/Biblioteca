@@ -7,20 +7,20 @@
 <div class="col-md-12">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">Cursos</h3>
+            <h3 class="box-title">{{ $ml_course->mod_subtitulo_curso }}</h3>
         </div>
         <div class="box-body">
             <div class="form-group">
-                {!! Form::label('course_name', 'Nombre del Curso') !!}
-                {!! Form::text('course_name', null, ['class' => 'form-control', 'id' => 'course_name', 'placeholder' => 'Nombre del Curso']) !!}                                      
+                {!! Form::label('course_name', $ml_course->cam_nombre_curso ) !!}
+                {!! Form::text('course_name', null, ['class' => 'form-control', 'id' => 'course_name', 'placeholder' => $ml_course->cam_nombre_curso ]) !!}                                      
             </div>
             <div class="form-group">
-                {!! Form::label('group', 'Tiene Grupos') !!}&nbsp;
+                {!! Form::label('group',  $ml_course->cam_grupo ) !!}&nbsp;
                 <label>
-                    &nbsp;{!! Form::radio('group', 'Si') !!}Si                                
+                    &nbsp;{!! Form::radio('group', 'Si') !!}{{ $ml_course->cam_grupo_si }}                                
                 </label>
                 <label>
-                    &nbsp;{!! Form::radio('group', 'No') !!}No                                   
+                    &nbsp;{!! Form::radio('group', 'No') !!}{{ $ml_course->cam_grupo_no }}                               
                 </label>
             </div>
         </div>

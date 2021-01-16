@@ -211,8 +211,8 @@
                 </div>
                
                 <div class="form-group">              
-                    {!! Form::label('cam_formato', 'Formato') !!}                    
-                    {!! Form::text('cam_formato', $ml_reference['cam_formato'] ? $ml_reference['cam_formato'] : null, ['class' => 'form-control', 'id' => 'cam_formato', 'placeholder' => 'Formato']) !!}
+                    {!! Form::label('cam_referencia', 'Referencia') !!}                    
+                    {!! Form::text('cam_referencia', $ml_reference['cam_referencia'] ? $ml_reference['cam_referencia'] : null, ['class' => 'form-control', 'id' => 'cam_referencia', 'placeholder' => 'Referencia']) !!}
                 </div>                                  
             </div>
         </div>       

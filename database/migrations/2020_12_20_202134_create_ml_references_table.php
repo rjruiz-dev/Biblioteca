@@ -27,7 +27,7 @@ class CreateMlReferencesTable extends Migration
             $table->string('dt_acciones_ref')->nullable();
             $table->string('mod_titulo_ref')->nullable();
             $table->string('mod_subtitulo_ref')->nullable();           
-            $table->string('cam_formato')->nullable();
+            $table->string('cam_referencia')->nullable();
           
             $table->timestamps();
 

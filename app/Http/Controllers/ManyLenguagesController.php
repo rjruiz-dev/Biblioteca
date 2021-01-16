@@ -748,7 +748,7 @@ class ManyLenguagesController extends Controller
                 $ml_reference->dt_acciones_ref          = $request->get('dt_acciones_ref');  
                 $ml_reference->mod_titulo_ref           = $request->get('mod_titulo_ref');  
                 $ml_reference->mod_subtitulo_ref        = $request->get('mod_subtitulo_ref');  
-                $ml_reference->cam_formato              = $request->get('cam_formato');                          
+                $ml_reference->cam_referencia           = $request->get('cam_referencia');                          
                 $ml_reference->save();
 
                 // Formato Grafico

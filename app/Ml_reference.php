@@ -8,7 +8,7 @@ class Ml_reference extends Model
 {
     protected $fillable = [ 
         'many_lenguages_id', 'titulo_ref', 'subtitulo_ref', 'btn_crear_ref', 'dt_id_ref', 'dt_referencia',
-        'dt_agregado_ref', 'dt_acciones_ref','mod_titulo_ref','mod_subtitulo_ref','cam_formato'       
+        'dt_agregado_ref', 'dt_acciones_ref','mod_titulo_ref','mod_subtitulo_ref','cam_referencia'       
     ];
 
     public function many_lenguage()

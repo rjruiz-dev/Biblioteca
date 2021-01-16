@@ -6,6 +6,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Course;
 use App\Setting;
+use App\Ml_course;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Book;
@@ -22,23 +23,25 @@ class CourseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {       
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+    {    
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        // $ml_course = Ml_course::where('many_lenguages_id',$session)->first();
+        $ml_course  = Ml_course::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
-       
+     
         return view('admin.courses.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,  
+            'ml_course' => $ml_course
         ]);         
       
     }
@@ -48,12 +51,25 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $course = new Course();      
+        $course = new Course();
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_course  = Ml_course::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.courses.partials.form', [           
-            'course'  => $course
+            'course'  => $course,
+            'idioma'    => $idioma,            
+            'ml_course' => $ml_course
+
         ]);  
     }
 
@@ -103,12 +119,24 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit(Request $request, $id)
+    {       
         $course = Course::findOrFail($id);
-                             
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_course  = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        
         return view('admin.courses.partials.form', [           
-            'course'  => $course
+            'course'    => $course,
+            'idioma'    => $idioma,            
+            'ml_course' => $ml_course         
         ]); 
     }
 
