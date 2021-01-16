@@ -705,7 +705,7 @@ class ManyLenguagesController extends Controller
             }
         }
     }
-// unificar el guardado
+    // unificar el guardado
     public function update_maintenance(Request $request, $id)
     {
         if ($request->ajax()){
