@@ -155,7 +155,7 @@ class GenericCopiesController extends Controller
         $status = Movement_type::where('view', 1)->orderBy('orden', 'DESC')->pluck('book_status_priv', 'id');
 
         $status_actual = Movement_type::where('id', $copies->status_copy_id)->where('view', 0)->first();
-        if($status_actual->count() > 0){ // si encuentra movimientos q no se debe mostrar la user(los q tienen 0 en view)
+        if($status_actual != null){ // si encuentra movimientos q no se debe mostrar la user(los q tienen 0 en view)
 
             $status = Arr::add($status, $status_actual->id, $status_actual->description_movement);
             // dd($status);
