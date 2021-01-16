@@ -5,7 +5,7 @@
    <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar: {{ $musica->document->title }}"><i class="fa fa-edit text-success btn-btn-edit-user"></i></a> | 
 @endif
 
-@if(Auth::user() != null && (Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian') )
+@if($musica->document['status_documents_id'] == 1 && Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')) )
    <a href="{{ $url_copy }}" class="btn-copy" title="Ver Ejemplares: {{ $musica->document->title }}"><i class="fa fa-copy text-danger"></i></a> |
 @endif
 

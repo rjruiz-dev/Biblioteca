@@ -9,6 +9,8 @@ use App\ml_cat_edit_music;
 use App\Movies;
 use App\Lenguage;
 use App\Ml_movie;
+use App\ml_cat_sweetalert;
+use App\ml_cat_list_book; 
 use App\Creator;
 use App\Culture;
 use App\Popular;
@@ -55,6 +57,11 @@ class MusicController extends Controller
 
         $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
         
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();
@@ -68,7 +75,8 @@ class MusicController extends Controller
             'setting'   => $setting,
             'idd' => $idd,
             'idioma_cat_edit_music'       => $idioma_cat_edit_music,
-  
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
              'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -91,6 +99,12 @@ class MusicController extends Controller
 
         $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
         //cargo el idioma
+
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
         $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
@@ -156,7 +170,8 @@ class MusicController extends Controller
             'setting'           => $setting,
             'idd'           => $idd,
             'idioma_cat_edit_music'       => $idioma_cat_edit_music,
-  
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -320,10 +335,13 @@ class MusicController extends Controller
                     $culture->music_id      = $music->id; //guardamos el id del libro
                     $culture->save();
                 }
-                 
+
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                
                 DB::commit();
 
-                return response()->json(['data' => $document->id, 'bandera' => 1]);
+                return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -666,10 +684,13 @@ class MusicController extends Controller
                         $culture->music_id      = $music->id; //guardamos el id del libro
                         $culture->save();
                 }
-                 
+
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+    
                 DB::commit();
 
-                return response()->json(['data' => $document->id, 'bandera' => 0]);
+                return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -776,6 +797,10 @@ class MusicController extends Controller
             $copy->save();
         }
     }
+    $session = session('idiomas');
+    $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+    return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'resp_desidherata_documento' => $traduccionsweet->resp_desidherata_documento]);
+    
     }
     
 
@@ -783,11 +808,15 @@ class MusicController extends Controller
     {
         $document = Document::findOrFail($id);
 
+        $session = session('idiomas');
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        
         // S : obviamnete se importo desde rebecca y aun no se aprobo, asi q si es rechazado se elimina
         // N : en algun momento fue aprobado entonces cuando se de de baja no lo va a eliminar.
         if($document->status_rebecca == 'S'){    
             $delete_docu = Document::where('id', '=', $document->id)->delete();
             $delete_music = Music::where('documents_id', '=', $document->id)->delete();                   
+            $baja_rechazar = $traduccionsweet->resp_rechazar_documento;
         }else{
 
         $document->status_documents_id = 2;
@@ -827,7 +856,9 @@ class MusicController extends Controller
             $copy->save();
         }
     }
+    $baja_rechazar = $traduccionsweet->resp_baja_documento;
     }
+    return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'baja_rechazar' => $baja_rechazar]);
     }
 
     public function copy($id)
@@ -880,6 +911,9 @@ class MusicController extends Controller
             $copy->save();
         }
     }
+        $session = session('idiomas');
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'resp_reactivar_documento' => $traduccionsweet->resp_reactivar_documento, 'resp_aceptar_documento' => $traduccionsweet->resp_aceptar_documento]);
 
     }
     

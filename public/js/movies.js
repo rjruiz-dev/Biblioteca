@@ -163,21 +163,26 @@ $('#modal-btn-save').click(function(event) {
             var id_new_doc = response.data;
             var bandera = response.bandera;
 
+            var mensaje_exito = response.mensaje_exito;
+            var actualizacion_documento = response.actualizacion_documento;
+            var alta_documento = response.alta_documento;
+            
+
             console.log("id: " + id_new_doc);
             console.log("bandera: " + bandera);
             if (bandera == 1) {
                 swal({
                     type: 'success',
-                    title: '¡Éxito!',
-                    text: '¡Se han guardado el documento! Ahora debe registrar las copias del mismo',
+                    title: mensaje_exito,
+                    text: alta_documento,
                 }).then(function() {
                     window.location = "../admin/genericcopies/copies/" + id_new_doc;
                 });
             } else {
                 swal({
                     type: 'success',
-                    title: '¡Éxito!',
-                    text: '¡Se ha actualizado el documento!'
+                    title: mensaje_exito,
+                    text: actualizacion_documento
                 });
             }
         },
@@ -202,15 +207,17 @@ $('body').on('click', '.btn-solicitud', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
-
+        
+        preg_solicitar_documento = $('#preg_solicitar_documento').val();
+    
     swal({
-        title: '¿Seguro que desea solicitar este documento ?',
+        title: preg_solicitar_documento,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Solicitar!'
+        // confirmButtonText: 'Sí, Solicitar!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -222,13 +229,16 @@ $('body').on('click', '.btn-solicitud', function(event) {
                 },
                 success: function(response) {
                     var info = response.error;
+                    var mensaje_exito = response.mensaje_exito;
+                    var resp_solicitar_documento = response.resp_solicitar_documento;
+                    
                     $('#modal').modal('hide');
                     $('#datatable').DataTable().ajax.reload();
                     if (info == 0) {
                         swal({
                             type: 'success',
-                            title: '¡Éxito!',
-                            text: '¡El documento ha sido solicitado!'
+                            title: mensaje_exito,
+                            text: resp_solicitar_documento
                         });
                     }
                     if (info == 1) {
@@ -283,7 +293,7 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
+        // confirmButtonText: 'Sí!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -361,15 +371,17 @@ $('body').on('click', '.btn-desidherata', function(event) {
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
     console.log("url: " + url)
+    desidherata = $('#preg_desidherata_documento').val();
+    
     swal({
 
-        title: '¿Seguro que quieres poner en desidherata el documento ?',
+        title: desidherata,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
+        // confirmButtonText: 'Sí!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -380,11 +392,15 @@ $('body').on('click', '.btn-desidherata', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
+
+                    var mensaje_exito = response.mensaje_exito;
+                    var resp_desidherata_documento = response.resp_desidherata_documento;
+                    
                     $('#datatable').DataTable().ajax.reload();
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡El documento se ha puesto en desidherata!'
+                        title: mensaje_exito,
+                        text: resp_desidherata_documento
                     });
                 },
                 error: function(xhr) {
@@ -408,20 +424,21 @@ $('body').on('click', '.btn-baja', function(event) {
         valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-    if (valor == 'rechazar') {
-        muestra = 'rechazar';
+     // console.log("aaaa: " + valor);
+     if (valor == 'rechazar') {
+        baja_rechazar = $('#preg_rechazar_documento').val();
     } else {
-        muestra = 'dar de baja';
+        baja_rechazar = $('#preg_baja_documento').val();
     }
     swal({
 
-        title: '¿Seguro que quieres ' + muestra + ' el documento ?',
+        title: baja_rechazar,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
+        // confirmButtonText: 'Sí!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -432,11 +449,15 @@ $('body').on('click', '.btn-baja', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
+
+                    var mensaje_exito = response.mensaje_exito;
+                    var baja_rechazar = response.baja_rechazar;
+                    
                     $('#datatable').DataTable().ajax.reload();
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha dado de baja el documento!'
+                        title: mensaje_exito,
+                        text: baja_rechazar
                     });
                 },
                 error: function(xhr) {
@@ -460,19 +481,19 @@ $('body').on('click', '.btn-reactivar', function(event) {
         valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-    if (valor == 'aceptar') {
-        muestra = 'aceptar';
-    } else {
-        muestra = 'reactivar';
-    }
+        if (valor == 'aceptar') {
+            reactivar_aceptar = $('#preg_aceptar_documento').val();
+        } else {
+            reactivar_aceptar = $('#preg_reactivar_documento').val();
+        }
     swal({
-        title: '¿Seguro que quieres ' + muestra + ' el documento ? ',
+        title: reactivar_aceptar,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
+        // confirmButtonText: 'Sí!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -483,11 +504,15 @@ $('body').on('click', '.btn-reactivar', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
+
+                    var mensaje_exito = response.mensaje_exito;
+                    var resp_reactivar_documento = response.resp_reactivar_documento;
+
                     $('#datatable').DataTable().ajax.reload();
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha reactivado el documento!'
+                        title: mensaje_exito,
+                        text: resp_reactivar_documento
                     });
                 },
                 error: function(xhr) {
@@ -503,26 +528,26 @@ $('body').on('click', '.btn-reactivar', function(event) {
 });
 
 
-// $('body').on('click', '.btn-show', function(event) {
-//     event.preventDefault();
+$('body').on('click', '.btn-show', function(event) {
+    event.preventDefault();
 
-//     var me = $(this),
-//         url = me.attr('href'),
-//         title = me.attr('title');
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title');
 
-//     $('#modal-title').text(title);
-//     $('#modal-btn-save').addClass('hide');
+    $('#modal-title').text(title);
+    $('#modal-btn-save').addClass('hide');
 
-//     $.ajax({
-//         url: url,
-//         dataType: 'html',
-//         success: function(response) {
-//             $('#modal-body').html(response);
-//         }
-//     });
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function(response) {
+            $('#modal-body').html(response);
+        }
+    });
 
-//     $('#modal').modal('show');
-// });
+    $('#modal').modal('show');
+});
 
 // function yesnoCheck() {
 //     if (document.getElementById("document_subtypes_id").value == 3) {

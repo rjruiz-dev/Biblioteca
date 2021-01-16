@@ -64,7 +64,13 @@ function(){
     Route::get('vusers/create',         'HomeController@create')->name('vusers.create');
     Route::post('vusers/store',         'HomeController@store')->name('vusers.store');
 
-    Route::get('libros/index2/{id}',     'VBooksController@index2')->name('libros.index2');
+    // Route::get('books/indexsolo/{id}/{tipo}',                         'BookController@indexsolo')->name('books.indexsolo');
+     
+    Route::get('libros/indexsolo/{id}',     'VBooksController@indexsolo')->name('libros.indexsolo');
+    Route::get('cines/indexsolo/{id}',     'VMoviesController@indexsolo')->name('cines.indexsolo');
+    Route::get('musicas/indexsolo/{id}',     'VMusicController@indexsolo')->name('musicas.indexsolo');
+    Route::get('fotografias/indexsolo/{id}',     'VPhotographyController@indexsolo')->name('fotografias.indexsolo');
+    Route::get('multimedias/indexsolo/{id}',     'VMultimediaController@indexsolo')->name('multimedias.indexsolo');
     // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
 });
@@ -124,6 +130,13 @@ function(){
     Route::get('movies/obtener/{id}',                            'MoviesController@obtener');     
     Route::get('photographs/obtener/{id}',                       'PhotographyController@obtener');     
     Route::get('multimedias/obtener/{id}',                       'MultimediaController@obtener');     
+
+
+    Route::get('books/obtenersweet/{id}',                            'BookController@obtenersweet');     
+    Route::get('musics/obtenersweet/{id}',                            'MusicController@obtenersweet');     
+    Route::get('movies/obtenersweet/{id}',                            'MoviesController@obtenersweet');     
+    Route::get('photographs/obtenersweet/{id}',                       'PhotographyController@obtenersweet');     
+    Route::get('multimedias/obtenersweet/{id}',                       'MultimediaController@obtenersweet');  
     
     // Route::get('books/index/{request}/{idd}',                            'BookController@index');
    
@@ -216,6 +229,10 @@ function(){
      // traduccion mantenimineto-fotografia
      Route::get('manyLenguages/edit_fotografia/{id}',    'ManyLenguagesController@edit_fotografia')->name('admin.manylenguages.edit_fotografia');
      Route::put('manyLenguages/update_fotografia/{id}',  'ManyLenguagesController@update_fotografia')->name('admin.manylenguages.update_fotografia');
+    
+     // traduccion mantenimineto-listado
+     Route::get('manyLenguages/edit_listado/{id}',    'ManyLenguagesController@edit_listado')->name('admin.manylenguages.edit_listado');
+     Route::put('manyLenguages/update_listado/{id}',  'ManyLenguagesController@update_listado')->name('admin.manylenguages.update_listado');
  
 });
 

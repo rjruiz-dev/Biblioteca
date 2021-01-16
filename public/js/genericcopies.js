@@ -151,6 +151,11 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             var data = response.data;
             var bandera = response.bandera;
+            var mensaje_exito = response.mensaje_exito;
+            var actualizacion_copia = response.actualizacion_copia;
+            var alta_copia = response.alta_copia;
+            
+            
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
@@ -158,8 +163,8 @@ $('#modal-btn-save').click(function(event) {
                 if (data == true) {
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se han guardado los datos!'
+                        title: mensaje_exito,
+                        text: alta_copia
                     });
                 } else {
                     swal({
@@ -173,8 +178,8 @@ $('#modal-btn-save').click(function(event) {
                 if (data == true) {
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se han actualizado los datos!'
+                        title: mensaje_exito,
+                        text: actualizacion_copia
                     });
                 } else {
                     swal({

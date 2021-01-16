@@ -16,8 +16,21 @@
                     @if ( ( trim($doc['synopsis'] != NULL) ) && ( trim($doc['synopsis'] != '') ) )
                     <p>{!! $doc['synopsis'] !!}</p>
                     @endif 
-                 
-                    <p class="text-center"><a href="{{ route('libros.index2', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    @if($doc['document_types_id'] == 1)
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    @endif
+                    @if($doc['document_types_id'] == 2)
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    @endif
+                    @if($doc['document_types_id'] == 3)
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    @endif
+                    @if($doc['document_types_id'] == 4)
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    @endif
+                    @if($doc['document_types_id'] == 5)
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    @endif
                 </div>
                 <hr class="visible-xs">
             </div>     

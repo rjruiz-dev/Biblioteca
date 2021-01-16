@@ -6,11 +6,12 @@ use App\Multimedia;
 
 @section('header')    
     <h1>
-       CATÁLOGO DE MULTIMEDIAS
+    {{$ml_cat_list_book->multimedias_text_titulo}}
         <small>Listado</small>
     </h1>
+    {{ Form::hidden('idf', $idf, ['id' => 'idf']) }}
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$ml_cat_list_book->multimedias_text_inicio}}</a></li>
         <!-- <li class="active">Catálogo</li>
          -->
     </ol> 
@@ -33,7 +34,7 @@ use App\Multimedia;
                     {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
-                    <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>                
+                    <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->multimedias_btn_buscar}}</button>                
                 </div>        
             </div>
         </div>
@@ -41,12 +42,12 @@ use App\Multimedia;
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>                                   
-                        <th>Título</th> 
-                        <th>Portada</th>  
-                        <th>Estado</th>                     
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                    <th>{{$ml_cat_list_book->multimedias_dt_id}}</th>                                   
+                        <th>{{$ml_cat_list_book->multimedias_dt_titulo}}</th>
+                        <th>{{$ml_cat_list_book->multimedias_dt_portada}}</th>    
+                        <th>{{$ml_cat_list_book->multimedias_dt_estado}}</th>                     
+                        <th>{{$ml_cat_list_book->multimedias_dt_agregado}}</th>                                
+                        <th>{{$ml_cat_list_book->multimedias_dt_acciones}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,21 +81,21 @@ use App\Multimedia;
     <script src="{{ asset('js/multimedias.js') }}"></script>
     
     <script>
-        $('#references').select2({                
-            placeholder: 'Elija Referencia' ,
-            allowClear: true                                           
+       $('#references').select2({                
+            placeholder: '{!! $ml_cat_list_book->multimedias_ph_referencia !!}',
+            allowClear: true                                                      
         });
         $('#subjects').select2({                
-            placeholder: 'Elija Materia',
-            allowClear: true                                                   
+            placeholder: '{!! $ml_cat_list_book->multimedias_ph_materia !!}',
+            allowClear: true                                                      
         });
         $('#adaptations').select2({                
-            placeholder: 'Elija Adecuación',      
-            allowClear: true                                                                                
+            placeholder: '{!! $ml_cat_list_book->multimedias_ph_adecuacion !!}',
+            allowClear: true                                                      
         });
         $('#genders').select2({                
-            placeholder: 'Elija Género',
-            allowClear: true                                                                                      
+            placeholder: '{!! $ml_cat_list_book->multimedias_ph_genero !!}',
+            allowClear: true                                                      
         });
                 
         let date = new Date();
@@ -104,10 +105,26 @@ use App\Multimedia;
         var fechaActual = day + '-' + month + '-' + year;
         fill_datatable();
 
-        function fill_datatable(references = "", subjects = "", adaptations = "", genders = ""){
+        function fill_datatable(references = "", subjects = "", adaptations = "", genders = "", indexsolo = ""){
 
+            if( ($('#idf').val() != 'none') && ($('#idf').val() != null) ){
+            indexsolo = $('#idf').val();
+            // document.getElementById('aref').style.display = 'block';
+            // document.getElementById('id_btn-desidherata').style.display = 'none';
+            // document.getElementById('id_btn-baja').style.display = 'none';
+            // document.getElementById('id_btn-reactivar').style.display = 'none';
+            // document.getElementById('id_btn-imprimir').style.display = 'none';  
+            // $('aref').attr('href') = "https://www.instagram.com/"; 
+                        // $('#aref').prop('href','/admin/importfromrebeca/');
+                        // $("#aref").text("Volver a Rebecca");
+                // console.log("aaaa: " + $('#idf').val());
+                // console.log('lo trae ?: ' + indexsolo);
+            }else{
+                // document.getElementById('btn-btn-create').style.display = 'block';
+            console.log("trajo none o trajo por alguna razon extraña null");
+        }
 
-        $('#datatable').DataTable({
+        var dataTable =  $('#datatable').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
@@ -158,7 +175,7 @@ use App\Multimedia;
             ],  
             ajax:{ 
                 url: "{{ route('multimedia.table') }}",        
-                data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders},
+                data: {references:references, subjects:subjects, adaptations:adaptations, genders:genders, indexsolo:indexsolo},
                 type: 'GET' 
             },            
             columns: [                

@@ -6,6 +6,8 @@ use DataTables;
 use Carbon\Carbon;
 use App\Movies;
 use App\ml_cat_edit_book;
+use App\ml_cat_list_book;
+use App\ml_cat_sweetalert;
 use App\Music;
 use App\Multimedia;
 use App\Book;
@@ -87,21 +89,27 @@ class BookController extends Controller
     {   
         
         $idd = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
-            $request->session()->put('idiomas', 1);
-            $existe = 0;
+        
+        
+        if (!$request->session()->has('idiomas')) { //valida si existe la variable si no existe la crea 
+            $request->session()->put('idiomas', 1); // 1 es el idioma español osea el por defecto.
         }
-        $session = session('idiomas');
+        $session = session('idiomas'); // id referencaindo al idioma.
 
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
         // $this->authorize('view', new Book); 
-
+        
         $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
+        
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                
         // dd($idioma_cat_edit_book);
         return view('admin.books.index', [
             'idioma'    => $idioma,
@@ -109,7 +117,9 @@ class BookController extends Controller
             'setting'   => $setting,
             'idd'       => $idd,
             'idioma_cat_edit_book'       => $idioma_cat_edit_book,
- 
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
+             
             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -133,6 +143,13 @@ class BookController extends Controller
 
         $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
         //cargo el idioma
+        
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
         $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
@@ -353,7 +370,8 @@ class BookController extends Controller
             'setting'           => $setting,
             'idd'           => $idd,
             'idioma_cat_edit_book'       => $idioma_cat_edit_book,
- 
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet, 
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -561,9 +579,12 @@ class BookController extends Controller
 
                 }
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                
                 DB::commit();
-
-                return response()->json(['data' => $document->id, 'bandera' => 1]);
+                
+                return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -859,10 +880,12 @@ class BookController extends Controller
                     $periodical_publication->save();
 
                 }
-                 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                // dd("ccc: ".$traduccionsweet->actualizacion_documento); 
                 DB::commit();
 
-                return response()->json(['data' => $document->id, 'bandera' => 0]);
+                return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -975,19 +998,26 @@ class BookController extends Controller
             $copy->save();
         }
     }
-        
-    }
+    $session = session('idiomas');
+    $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+    return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'resp_desidherata_documento' => $traduccionsweet->resp_desidherata_documento]);
+            
+    } 
     
 
     public function baja($id)
     {
         $document = Document::findOrFail($id);
 
+        $session = session('idiomas');
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                    
         // S : obviamnete se importo desde rebecca y aun no se aprobo, asi q si es rechazado se elimina
         // N : en algun momento fue aprobado entonces cuando se de de baja no lo va a eliminar.
         if($document->status_rebecca == 'S'){    
             $delete_docu = Document::where('id', '=', $document->id)->delete();
             $delete_book = Book::where('documents_id', '=', $document->id)->delete();                   
+            $baja_rechazar = $traduccionsweet->resp_rechazar_documento;
         }else{
 
         $document->status_documents_id = 2;
@@ -1025,9 +1055,14 @@ class BookController extends Controller
                     $prestam->save();
                     $new_movement->save();
                     $copy->save();
+                    
                 }
             }
+            $baja_rechazar = $traduccionsweet->resp_baja_documento;
         }
+                    
+                return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'baja_rechazar' => $baja_rechazar]);
+
     }
 
     public function copy($id)
@@ -1079,6 +1114,10 @@ class BookController extends Controller
             $copy->save();
         }
     }
+        $session = session('idiomas');
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'resp_reactivar_documento' => $traduccionsweet->resp_reactivar_documento, 'resp_aceptar_documento' => $traduccionsweet->resp_aceptar_documento, 'id_doc' => $document->id]);
+
     }
 
     public function obtener2(Request $request)
@@ -1113,6 +1152,25 @@ class BookController extends Controller
 
         return response()->json(['message' => 'recibimos el request pero no es ajax']);
     
+    }
+
+    public function obtenersweet(Request $request, $id)
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        $respuesta = ml_cat_list_book::where('many_lenguages_id',$session)->first();    
+       
+        if($request->ajax())
+        {
+                return $respuesta->toJson();  
+        }  
+        return response()->json(['message' => 'recibimos el sdfsdfrequest pero no es ajax']);
     }
 
     public function obtener(Request $request, $id)

@@ -8,6 +8,7 @@ use App\Copy;
 use App\User;
 use App\Course;
 use DataTables;
+use App\ml_cat_sweetalert;
 use App\Document;
 use Carbon\Carbon;
 use App\Ml_dashboard;
@@ -139,8 +140,13 @@ class RequestsController extends Controller
 
     public function solicitud($id)
     {           //recibimos como parametro id de documento
-                DB::beginTransaction();
                 
+        
+        DB::beginTransaction();
+        
+        $session = session('idiomas');
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+         
                 $error = 1; // error en 1 es error Si osea HAY ERROR
                 $copy = Copy::where('documents_id', $id)->where(function ($query) {
                     $query->where('status_copy_id', '=', 3)
@@ -186,7 +192,7 @@ class RequestsController extends Controller
                     $error = 2; // error 2 = error xq no existe copias de ese doc
                 } 
 
-                    return response()->json(['error' => $error]); 
+                    return response()->json(['error' => $error,'mensaje_exito' => $traduccionsweet->mensaje_exito,'resp_solicitar_documento' => $traduccionsweet->resp_solicitar_documento]); 
     }
 
     /**

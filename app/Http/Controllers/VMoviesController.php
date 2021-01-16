@@ -7,6 +7,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Movies;
 use App\Actor;
+use App\ml_cat_list_book;
 use App\Creator;
 use App\Adequacy;
 use App\Generate_film;
@@ -38,7 +39,9 @@ class VMoviesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {       
+    {  
+        $idf = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
+             
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -52,15 +55,51 @@ class VMoviesController extends Controller
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();        
 
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
         return view('web.movies.index', [
             'idioma'     => $idioma,
             'idiomas'    => $idiomas,
             'setting'    => $setting,
+            'idf' => $idf,
+            'ml_cat_list_book' => $ml_cat_list_book, 
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
             'genders'    => Generate_film::pluck('genre_film', 'id')
         ]);        
+    }
+
+    public function indexsolo(Request $request, $idf)
+    {
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas    = ManyLenguages::all();
+        $setting    = Setting::where('id', 1)->first();        
+
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+        return view('web.movies.index', [
+            'idioma'     => $idioma,
+            'idiomas'    => $idiomas,
+            'setting'    => $setting,
+            'idf' => $idf,
+            'ml_cat_list_book' => $ml_cat_list_book, 
+            'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
+            'genders'    => Generate_film::pluck('genre_film', 'id')
+        ]);
     }
 
     /**
@@ -214,10 +253,15 @@ class VMoviesController extends Controller
         }else{
             $references_mostrar = false;      
         }
+        if($request->get('indexsolo') != ''){
+            $indexsolo_mostrar = true; 
+        }else{
+            $indexsolo_mostrar = false;      
+        }
         
           // $movie = Movies::with('document.creator','generate_movie','generate_format', 'document.lenguage', 'document.status_document')
         $movie = Movies::with('document.creator', 'document', 'generate_movie', 'generate_format', 'document.references', 'document.status_document', 'document.lenguage') 
-            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);
             
@@ -227,6 +271,9 @@ class VMoviesController extends Controller
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
                 } 
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
+                }
             })    
             ->where(function($q) use($genders_mostrar, $request)
             {

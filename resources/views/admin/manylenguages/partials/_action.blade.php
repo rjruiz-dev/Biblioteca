@@ -14,6 +14,8 @@
 
     <a href="{{ $url_edit_fotografia }}" class="modal-show edit" id="btn-btn-edit" title="Catalogo Fotografia"><i class="fa fa-photo text-info btn-btn-edit-user"></i></a> | 
 
+    <a href="{{ $url_edit_listado }}" class="modal-show edit" id="btn-btn-edit" title="Catalogo Listado de Catalogos"><i class="fa fa-photo text-info btn-btn-edit-user"></i></a> | 
+
     @if ($idiomas['baja'] == 1)
     <a href="{{ $url_destroy }}" class="btn-delete" title="Reactivar"><i class="fa fa-arrow-up text-green"></i></a> |         
     @endif

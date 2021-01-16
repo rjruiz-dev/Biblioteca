@@ -6,12 +6,23 @@ use App\Photography;
 
 @section('header')    
     <h1>
-       CATÁLOGO DE FOTOGRAFIAS
+    {{$ml_cat_list_book->fotografia_text_titulo}}
        {{ Form::hidden('idd', $idd, ['id' => 'idd']) }}
+       
+       {{ Form::hidden('preg_solicitar_documento', $traduccionsweet->preg_solicitar_documento, ['id' => 'preg_solicitar_documento']) }}
+       
+       {{ Form::hidden('preg_desidherata_documento', $traduccionsweet->preg_desidherata_documento, ['id' => 'preg_desidherata_documento']) }}
+       
+       {{ Form::hidden('preg_baja_documento', $traduccionsweet->preg_baja_documento, ['id' => 'preg_baja_documento']) }}
+       {{ Form::hidden('preg_rechazar_documento', $traduccionsweet->preg_rechazar_documento, ['id' => 'preg_rechazar_documento']) }}
+       
+       {{ Form::hidden('preg_aceptar_documento', $traduccionsweet->preg_aceptar_documento, ['id' => 'preg_aceptar_documento']) }}
+       {{ Form::hidden('preg_reactivar_documento', $traduccionsweet->preg_reactivar_documento, ['id' => 'preg_reactivar_documento']) }}
+            
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$ml_cat_list_book->fotografia_text_inicio}}</a></li>
         <!-- <li class="active">Catálogo</li>
          -->
     </ol> 
@@ -34,8 +45,8 @@ use App\Photography;
                 {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => 'Elija Genero', 'style' => 'width:100%;']) !!}   
             </div>
             <div  class="col-md-4" style="margin-bottom:5px;">
-                <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
-                <a href="{{ route('admin.photographs.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Fotografias"><i class="fa fa-user-plus"></i> Crear Fotografias</a>
+                <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->fotografia_btn_buscar}}</button>
+                <a href="{{ route('admin.photographs.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Fotografias"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->fotografia_btn_crear}}</a>
                 <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style="margin-top: -8px; display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
                 
             </div>        
@@ -45,14 +56,14 @@ use App\Photography;
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>          
-                        <th>Título</th>             
-                        <th>Subtipo</th> 
-                        <th>Portada</th>   
-                        <th>Formato</th> 
-                        <th>Estado</th>                         
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{$ml_cat_list_book->fotografia_dt_id}}</th>          
+                        <th>{{$ml_cat_list_book->fotografia_dt_titulo}}</th>             
+                        <th>{{$ml_cat_list_book->fotografia_dt_subtipo}}</th> 
+                        <th>{{$ml_cat_list_book->fotografia_dt_portada}}</th>   
+                        <th>{{$ml_cat_list_book->fotografia_dt_formato}}</th> 
+                        <th>{{$ml_cat_list_book->fotografia_dt_estado}}</th>                         
+                        <th>{{$ml_cat_list_book->fotografia_dt_agregado}}</th>                                
+                        <th>{{$ml_cat_list_book->fotografia_dt_acciones}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,6 +101,22 @@ use App\Photography;
     <script src="{{ asset('js/photographs.js') }}"></script>
     
     <script>
+     $('#references').select2({                
+            placeholder: '{!! $ml_cat_list_book->fotografia_ph_referencia !!}',
+            allowClear: true                                                      
+        });
+        $('#subjects').select2({                
+            placeholder: '{!! $ml_cat_list_book->fotografia_ph_materia !!}',
+            allowClear: true                                                      
+        });
+        $('#adaptations').select2({                
+            placeholder: '{!! $ml_cat_list_book->fotografia_ph_adecuacion !!}',
+            allowClear: true                                                      
+        });
+        $('#genders').select2({                
+            placeholder: '{!! $ml_cat_list_book->fotografia_ph_genero !!}',
+            allowClear: true                                                      
+        });
     let date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;

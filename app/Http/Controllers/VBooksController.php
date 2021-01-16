@@ -6,6 +6,7 @@ use DataTables;
 use Carbon\Carbon;
 use App\Book;
 use App\Creator;
+use App\ml_cat_list_book;
 use App\Adequacy;
 use App\Document;
 use App\Lenguage;
@@ -33,7 +34,7 @@ class VBooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index2(Request $request, $id)
+    public function indexsolo(Request $request, $idf)
     {
         // $request->session()->put('idiomas', 2);
         if ($request->session()->has('idiomas')) {
@@ -50,6 +51,10 @@ class VBooksController extends Controller
         $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
         $setting        = Setting::where('id', 1)->first();        
         $idiomas        = ManyLenguages::all();
+
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
 
         return view('web.books.index', [
             'idioma'     => $idioma,
@@ -57,13 +62,20 @@ class VBooksController extends Controller
             'idioma_doc' => $idioma_doc,
             'idioma_book'=> $idioma_book,
             'setting'    => $setting,
-            'id'    => $id
+            'idf' => $idf,
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
+            'genders'    => Generate_book::pluck('genre_book', 'id')
         ]); 
     }
 
 
     public function index(Request $request)
     {
+        $idf = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
+        
         // $request->session()->put('idiomas', 2);
         if ($request->session()->has('idiomas')) {
             $existe = 1;
@@ -79,13 +91,18 @@ class VBooksController extends Controller
         $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
         $setting        = Setting::where('id', 1)->first();        
         $idiomas        = ManyLenguages::all();
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
 
         return view('web.books.index', [
             'idioma'     => $idioma,
             'idiomas'    => $idiomas,
             'idioma_doc' => $idioma_doc,
             'idioma_book'=> $idioma_book,
-            'setting'    => $setting,            
+            'setting'    => $setting,
+            'idf' => $idf,   
+            'ml_cat_list_book' => $ml_cat_list_book,         
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
@@ -246,9 +263,15 @@ class VBooksController extends Controller
         }else{
             $references_mostrar = false;      
         }
+         // dd($request->get('indexsolo')); 
+         if($request->get('indexsolo') != ''){
+            $indexsolo_mostrar = true; 
+        }else{
+            $indexsolo_mostrar = false;      
+        }
         
         $libros = Book::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage','generate_book') 
-            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);
 
@@ -259,7 +282,10 @@ class VBooksController extends Controller
                 }
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
-                } 
+                }
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
+                }
             })    
             ->where(function($q) use($genders_mostrar, $request)
             {

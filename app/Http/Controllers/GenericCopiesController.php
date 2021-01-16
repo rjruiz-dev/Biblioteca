@@ -7,6 +7,7 @@ use App\Copy;
 use App\Statuscopy;
 use App\Document;
 use App\Book_movement;
+use App\ml_cat_sweetalert;
 use App\Movement_type;
 use DataTables;
 use App\Setting;
@@ -109,11 +110,14 @@ class GenericCopiesController extends Controller
                 $new_movement->active = 1;
                 $new_movement->save();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                
                 DB::commit();
                  
                 $error = true;
 
-                return response()->json(array('data' => $error,'bandera' => 0)); // 0 = store
+                return response()->json(['data' => $error,'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_copia' => $traduccionsweet->alta_copia]); // 0 = store
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -226,9 +230,13 @@ class GenericCopiesController extends Controller
                 if($error){
                 $copy->registry_number = $request->get('registry_number');
                 $copy->save();
+
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                
                 DB::commit();
                 }
-                return response()->json(array('data' => $error,'bandera' => 1)); // 1 = update
+                return response()->json(['data' => $error,'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_copia' => $traduccionsweet->actualizacion_copia]); // 1 = update
                            
             } catch (Exception $e) {
                 // anula la transacion

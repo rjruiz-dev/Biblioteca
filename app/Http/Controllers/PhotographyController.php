@@ -6,8 +6,10 @@ use Carbon\Carbon;
 use DataTables;
 use App\Creator;
 use App\Ml_document;
+use App\ml_cat_sweetalert;
 use App\ml_cat_edit_fotografia;
 use App\Ml_movie;
+use App\ml_cat_list_book;
 use App\Photography;
 use App\Document_subtype;
 use App\Adequacy;
@@ -56,14 +58,20 @@ class PhotographyController extends Controller
 
         // $this->authorize('view', new Photography); 
         $idioma_cat_edit_fotografia = ml_cat_edit_fotografia::where('many_lenguages_id',$session)->first();
-
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        
         return view('admin.photographs.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
             'idd'       => $idd,
             'idioma_cat_edit_fotografia' => $idioma_cat_edit_fotografia, 
-
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
+            
             // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -153,6 +161,10 @@ class PhotographyController extends Controller
         $session = session('idiomas');
 
         $idioma_cat_edit_fotografia = ml_cat_edit_fotografia::where('many_lenguages_id',$session)->first();
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         
         //cargo el idioma
         $idioma             = Ml_dashboard::where('many_lenguages_id',$session)->first();
@@ -221,7 +233,9 @@ class PhotographyController extends Controller
             'setting'           => $setting,
             'idd'           => $idd,
             'idioma_cat_edit_fotografia' => $idioma_cat_edit_fotografia,
-            
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
+                
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'      => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
@@ -385,10 +399,14 @@ class PhotographyController extends Controller
                 $photograph->generate_formats_id = $request->get('generate_formats_id');              
                 $photograph->documents_id  = $document->id;//guardamos el id del documento                
                 $photograph->save();
-   
+                
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                
                 DB::commit();
 
-                return response()->json(['data' => $document->id, 'bandera' => 1]);
+                return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
+
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -642,9 +660,13 @@ class PhotographyController extends Controller
                 $photograph->documents_id          = $document->id;//guardamos el id del documento
                 $photograph->save();
    
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+    
                 DB::commit();
 
-                return response()->json(['data' => $document->id, 'bandera' => 0]);
+                return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
+
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -754,7 +776,10 @@ class PhotographyController extends Controller
             $copy->save();
         }
     }
-
+    $session = session('idiomas');
+    $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+    return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'resp_desidherata_documento' => $traduccionsweet->resp_desidherata_documento]);
+    
     }
     
 
@@ -762,11 +787,15 @@ class PhotographyController extends Controller
     {
         $document = Document::findOrFail($id);
 
+        $session = session('idiomas');
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+        
         // S : obviamnete se importo desde rebecca y aun no se aprobo, asi q si es rechazado se elimina
         // N : en algun momento fue aprobado entonces cuando se de de baja no lo va a eliminar.
         if($document->status_rebecca == 'S'){    
             $delete_docu = Document::where('id', '=', $document->id)->delete();
             $delete_photo = Photography::where('documents_id', '=', $document->id)->delete();                   
+            $baja_rechazar = $traduccionsweet->resp_rechazar_documento;
         }else{
 
         $document->status_documents_id = 2;
@@ -807,8 +836,9 @@ class PhotographyController extends Controller
             $copy->save();
         }
     }
+    $baja_rechazar = $traduccionsweet->resp_baja_documento;
     }
-
+    return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'baja_rechazar' => $baja_rechazar]);
     }
 
     public function copy($id)
@@ -860,6 +890,9 @@ class PhotographyController extends Controller
             $copy->save();
         }
     }
+    $session = session('idiomas');
+    $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+    return response()->json(['mensaje_exito' => $traduccionsweet->mensaje_exito, 'resp_reactivar_documento' => $traduccionsweet->resp_reactivar_documento, 'resp_aceptar_documento' => $traduccionsweet->resp_aceptar_documento]);
 
     }
 

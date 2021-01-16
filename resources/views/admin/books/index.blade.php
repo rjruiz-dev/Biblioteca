@@ -7,12 +7,22 @@ use App\Book;
 
 @section('header')    
     <h1>
-       CATÁLOGO DE LIBROS
+    {{$ml_cat_list_book->book_text_titulo}}
        {{ Form::hidden('idd', $idd, ['id' => 'idd']) }}
-        <small>Listado</small>
+
+       {{ Form::hidden('preg_solicitar_documento', $traduccionsweet->preg_solicitar_documento, ['id' => 'preg_solicitar_documento']) }}
+       
+       {{ Form::hidden('preg_desidherata_documento', $traduccionsweet->preg_desidherata_documento, ['id' => 'preg_desidherata_documento']) }}
+       
+       {{ Form::hidden('preg_baja_documento', $traduccionsweet->preg_baja_documento, ['id' => 'preg_baja_documento']) }}
+       {{ Form::hidden('preg_rechazar_documento', $traduccionsweet->preg_rechazar_documento, ['id' => 'preg_rechazar_documento']) }}
+       
+       {{ Form::hidden('preg_aceptar_documento', $traduccionsweet->preg_aceptar_documento, ['id' => 'preg_aceptar_documento']) }}
+       {{ Form::hidden('preg_reactivar_documento', $traduccionsweet->preg_reactivar_documento, ['id' => 'preg_reactivar_documento']) }}
+            
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$ml_cat_list_book->book_text_inicio}}</a></li>
         <!-- <li class="active">Catálogo</li>
      -->
     </ol> 
@@ -35,8 +45,8 @@ use App\Book;
                     {!! Form::select('genders', $genders, null, ['class' => 'form-control select2', 'id' => 'genders', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
-                    <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
-                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a>
+                    <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->book_btn_buscar}}</button>
+                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->book_btn_crear}}</a>
                     <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style="margin-top: -8px; display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
                 
                 </div>        
@@ -46,15 +56,15 @@ use App\Book;
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th> 
-                        <th>Título</th>                   
-                        <th>Subtipo</th> 
-                        <th>Portada</th>                         
-                        <th>Genero</th>                                      
-                        <th>Idioma</th> 
-                        <th>Estado</th>                                                      
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{$ml_cat_list_book->book_dt_id}}</th> 
+                        <th>{{$ml_cat_list_book->book_dt_titulo}}</th>                   
+                        <th>{{$ml_cat_list_book->book_dt_subtipo}}</th> 
+                        <th>{{$ml_cat_list_book->book_dt_portada}}</th>                         
+                        <th>{{$ml_cat_list_book->book_dt_genero}}</th>                                      
+                        <th>{{$ml_cat_list_book->book_dt_idioma}}</th> 
+                        <th>{{$ml_cat_list_book->book_dt_estado}}</th>                                                      
+                        <th>{{$ml_cat_list_book->book_dt_agregado}}</th>                                
+                        <th>{{$ml_cat_list_book->book_dt_acciones}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,19 +104,19 @@ use App\Book;
     
     <script>
         $('#references').select2({                
-            placeholder: 'Elija Referencia',
+            placeholder: '{!! $ml_cat_list_book->book_ph_referencia !!}',
             allowClear: true                                                      
         });
         $('#subjects').select2({                
-            placeholder: 'Elija Materia',
+            placeholder: '{!! $ml_cat_list_book->book_ph_materia !!}',
             allowClear: true                                                      
         });
         $('#adaptations').select2({                
-            placeholder: 'Elija Adecuación',
+            placeholder: '{!! $ml_cat_list_book->book_ph_adecuacion !!}',
             allowClear: true                                                      
         });
         $('#genders').select2({                
-            placeholder: 'Elija Género',
+            placeholder: '{!! $ml_cat_list_book->book_ph_genero !!}',
             allowClear: true                                                      
         });
         let date = new Date();

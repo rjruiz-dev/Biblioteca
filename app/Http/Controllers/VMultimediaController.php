@@ -8,6 +8,7 @@ use App\Multimedia;
 use App\Creator;
 use App\Document_subtype;
 use App\Adequacy;
+use App\ml_cat_list_book;
 use App\Lenguage;
 use App\Document;
 use App\Book_movement;
@@ -30,6 +31,8 @@ class VMultimediaController extends Controller
      */
     public function index(Request $request)
     {
+        $idf = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
+       
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -42,11 +45,47 @@ class VMultimediaController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();  
-
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
         return view('web.multimedias.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
+            'idf' => $idf,
+            'ml_cat_list_book' => $ml_cat_list_book, 
+            'references' => Generate_reference::pluck('reference_description', 'id'),
+            'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
+            'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
+            'genders'    => Multimedia::pluck('gender', 'gender')
+        ]);        
+        
+    }
+
+    public function indexsolo(Request $request, $idf)
+    {
+       
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        //cargo el idioma
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idiomas    = ManyLenguages::all();
+        $setting    = Setting::where('id', 1)->first();  
+        // de esta forma cargo el idioma. en la variable esta el unico registro
+        $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        
+        return view('web.multimedias.index', [
+            'idioma'    => $idioma,
+            'idiomas'   => $idiomas,
+            'setting'   => $setting,
+            'idf' => $idf, 
+            'ml_cat_list_book' => $ml_cat_list_book, 
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
@@ -203,9 +242,15 @@ class VMultimediaController extends Controller
         }else{
             $references_mostrar = false;      
         }
+          // dd($request->get('indexsolo')); 
+          if($request->get('indexsolo') != ''){
+            $indexsolo_mostrar = true; 
+        }else{
+            $indexsolo_mostrar = false;      
+        }
          
         $multimedia = Multimedia::with('document.creator', 'document.document_subtype', 'document.references', 'document', 'document.lenguage', 'document.status_document') 
-            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request)
+            ->whereHas('document', function($q) use($subjects_mostrar, $adaptations_mostrar, $request, $indexsolo_mostrar)
             {
                 $q->where('status_documents_id', '=', 1);
             
@@ -215,6 +260,9 @@ class VMultimediaController extends Controller
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
                 } 
+                if($indexsolo_mostrar){
+                    $q->where('id', '=', $request->get('indexsolo'));  
+                }
             })    
             ->where(function($q) use($genders_mostrar, $request)
             {

@@ -6,7 +6,9 @@ use App\ManyLenguages;
 use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
+use App\ml_cat_list_book;
 use App\Ml_course;
+use App\ml_cat_sweetalert;
 use App\ml_cat_edit_book;
 use App\ml_cat_edit_music;
 use App\ml_cat_edit_movie;
@@ -381,6 +383,21 @@ class ManyLenguagesController extends Controller
         ]); 
     }
 
+    public function edit_listado($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id); 
+
+        $ml_catalogos_listado = ml_cat_list_book::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_cat_sweetalert = ml_cat_sweetalert::where('many_lenguages_id', $idioma->id)->first();
+        
+        return view('admin.manylenguages.catalogos_listado.partials.form', [          
+            'idioma'    => $idioma,
+            'ml_catalogos_listado' => $ml_catalogos_listado,
+            'ml_cat_sweetalert' => $ml_cat_sweetalert
+        ]); 
+    }
+
     public function edit_music($id)
     {
         $idioma = ManyLenguages::findOrFail($id); 
@@ -668,6 +685,141 @@ class ManyLenguagesController extends Controller
         }
     }
 
+    public function update_listado(Request $request, $id)
+    {
+        if ($request->ajax()){
+            try {
+                //  Transacciones
+                DB::beginTransaction();
+                    
+                $ml_catalogos_listado                      = ml_cat_list_book::where('many_lenguages_id', $id)->first();
+                
+                $ml_cat_sweetalert                      = ml_cat_sweetalert::where('many_lenguages_id', $id)->first();
+                
+                $ml_catalogos_listado->book_text_titulo   = $request->get('book_text_titulo');
+                $ml_catalogos_listado->book_ph_referencia   = $request->get('book_ph_referencia');
+                $ml_catalogos_listado->book_ph_materia   = $request->get('book_ph_materia');
+                $ml_catalogos_listado->book_ph_adecuacion   = $request->get('book_ph_adecuacion');
+                $ml_catalogos_listado->book_ph_genero   = $request->get('book_ph_genero');
+                $ml_catalogos_listado->book_text_inicio   = $request->get('book_text_inicio');
+                $ml_catalogos_listado->book_btn_buscar   = $request->get('book_btn_buscar');
+                $ml_catalogos_listado->book_btn_crear   = $request->get('book_btn_crear');
+                $ml_catalogos_listado->book_dt_id   = $request->get('book_dt_id');
+                $ml_catalogos_listado->book_dt_titulo   = $request->get('book_dt_titulo');
+                $ml_catalogos_listado->book_dt_subtipo   = $request->get('book_dt_subtipo');
+                $ml_catalogos_listado->book_dt_portada   = $request->get('book_dt_portada');
+                $ml_catalogos_listado->book_dt_genero   = $request->get('book_dt_genero');
+                $ml_catalogos_listado->book_dt_idioma   = $request->get('book_dt_idioma');
+                $ml_catalogos_listado->book_dt_estado   = $request->get('book_dt_estado');
+                $ml_catalogos_listado->book_dt_agregado   = $request->get('book_dt_agregado');
+                $ml_catalogos_listado->book_dt_acciones   = $request->get('book_dt_acciones');
+
+                $ml_catalogos_listado->movie_text_titulo   = $request->get('movie_text_titulo');
+                $ml_catalogos_listado->movie_ph_referencia   = $request->get('movie_ph_referencia');
+                $ml_catalogos_listado->movie_ph_materia   = $request->get('movie_ph_materia');
+                $ml_catalogos_listado->movie_ph_adecuacion   = $request->get('movie_ph_adecuacion');
+                $ml_catalogos_listado->movie_ph_genero   = $request->get('movie_ph_genero');
+                $ml_catalogos_listado->movie_text_inicio   = $request->get('movie_text_inicio');
+                $ml_catalogos_listado->movie_btn_buscar   = $request->get('movie_btn_buscar');
+                $ml_catalogos_listado->movie_btn_crear   = $request->get('movie_btn_crear');
+                $ml_catalogos_listado->movie_dt_id   = $request->get('movie_dt_id');
+                $ml_catalogos_listado->movie_dt_titulo   = $request->get('movie_dt_titulo');
+                $ml_catalogos_listado->movie_dt_genero   = $request->get('movie_dt_genero');
+                $ml_catalogos_listado->movie_dt_portada   = $request->get('movie_dt_portada');
+                $ml_catalogos_listado->movie_formato   = $request->get('movie_formato');
+                $ml_catalogos_listado->movie_dt_idioma   = $request->get('movie_dt_idioma');
+                $ml_catalogos_listado->movie_dt_estado   = $request->get('movie_dt_estado');
+                $ml_catalogos_listado->movie_dt_agregado   = $request->get('movie_dt_agregado');
+                $ml_catalogos_listado->movie_dt_acciones   = $request->get('movie_dt_acciones');
+
+                $ml_catalogos_listado->music_text_titulo   = $request->get('music_text_titulo');
+                $ml_catalogos_listado->music_ph_referencia   = $request->get('music_ph_referencia');
+                $ml_catalogos_listado->music_ph_materia   = $request->get('music_ph_materia');
+                $ml_catalogos_listado->music_ph_adecuacion   = $request->get('music_ph_adecuacion');
+                $ml_catalogos_listado->music_ph_genero   = $request->get('music_ph_genero');
+                $ml_catalogos_listado->music_text_inicio   = $request->get('music_text_inicio');
+                $ml_catalogos_listado->music_btn_buscar   = $request->get('music_btn_buscar');
+                $ml_catalogos_listado->music_btn_crear   = $request->get('music_btn_crear');
+                $ml_catalogos_listado->music_dt_id   = $request->get('music_dt_id');
+                $ml_catalogos_listado->music_dt_titulo   = $request->get('music_dt_titulo');
+                $ml_catalogos_listado->music_dt_subtipo   = $request->get('music_dt_subtipo');
+                $ml_catalogos_listado->music_dt_portada   = $request->get('music_dt_portada');
+                $ml_catalogos_listado->music_dt_genero   = $request->get('music_dt_genero');
+                $ml_catalogos_listado->music_dt_idioma   = $request->get('music_dt_idioma');
+                $ml_catalogos_listado->music_dt_estado   = $request->get('music_dt_estado');
+                $ml_catalogos_listado->music_dt_agregado   = $request->get('music_dt_agregado');
+                $ml_catalogos_listado->music_dt_acciones   = $request->get('music_dt_acciones');
+
+                $ml_catalogos_listado->fotografia_text_titulo   = $request->get('fotografia_text_titulo');
+                $ml_catalogos_listado->fotografia_ph_referencia   = $request->get('fotografia_ph_referencia');
+                $ml_catalogos_listado->fotografia_ph_materia   = $request->get('fotografia_ph_materia');
+                $ml_catalogos_listado->fotografia_ph_adecuacion   = $request->get('fotografia_ph_adecuacion');
+                $ml_catalogos_listado->fotografia_ph_genero   = $request->get('fotografia_ph_genero');
+                $ml_catalogos_listado->fotografia_text_inicio   = $request->get('fotografia_text_inicio');
+                $ml_catalogos_listado->fotografia_btn_buscar   = $request->get('fotografia_btn_buscar');
+                $ml_catalogos_listado->fotografia_btn_crear   = $request->get('fotografia_btn_crear');
+                $ml_catalogos_listado->fotografia_dt_id   = $request->get('fotografia_dt_id');
+                $ml_catalogos_listado->fotografia_dt_titulo   = $request->get('fotografia_dt_titulo');
+                $ml_catalogos_listado->fotografia_dt_subtipo   = $request->get('fotografia_dt_subtipo');
+                $ml_catalogos_listado->fotografia_dt_portada   = $request->get('fotografia_dt_portada');
+                $ml_catalogos_listado->fotografia_dt_formato   = $request->get('fotografia_dt_formato');
+                $ml_catalogos_listado->fotografia_dt_estado   = $request->get('fotografia_dt_estado');
+                $ml_catalogos_listado->fotografia_dt_agregado   = $request->get('fotografia_dt_agregado');
+                $ml_catalogos_listado->fotografia_dt_acciones   = $request->get('fotografia_dt_acciones');
+
+                $ml_catalogos_listado->multimedias_text_titulo   = $request->get('multimedias_text_titulo');
+                $ml_catalogos_listado->multimedias_ph_referencia   = $request->get('multimedias_ph_referencia');
+                $ml_catalogos_listado->multimedias_ph_materia   = $request->get('multimedias_ph_materia');
+                $ml_catalogos_listado->multimedias_ph_adecuacion   = $request->get('multimedias_ph_adecuacion');
+                $ml_catalogos_listado->multimedias_ph_genero   = $request->get('multimedias_ph_genero');
+                $ml_catalogos_listado->multimedias_text_inicio   = $request->get('multimedias_text_inicio');
+                $ml_catalogos_listado->multimedias_btn_buscar   = $request->get('multimedias_btn_buscar');
+                $ml_catalogos_listado->multimedias_btn_crear   = $request->get('multimedias_btn_crear');
+                $ml_catalogos_listado->multimedias_dt_id   = $request->get('multimedias_dt_id');
+                $ml_catalogos_listado->multimedias_dt_titulo   = $request->get('multimedias_dt_titulo');
+                $ml_catalogos_listado->multimedias_dt_portada   = $request->get('multimedias_dt_portada');
+                $ml_catalogos_listado->multimedias_dt_estado   = $request->get('multimedias_dt_estado');
+                $ml_catalogos_listado->multimedias_dt_agregado   = $request->get('multimedias_dt_agregado');
+                $ml_catalogos_listado->multimedias_dt_acciones   = $request->get('multimedias_dt_acciones'); 
+
+                
+                $ml_cat_sweetalert->mensaje_exito   = $request->get('mensaje_exito');
+                $ml_cat_sweetalert->alta_documento   = $request->get('alta_documento');
+                $ml_cat_sweetalert->actualizacion_documento   = $request->get('actualizacion_documento');
+
+                $ml_cat_sweetalert->preg_solicitar_documento   = $request->get('preg_solicitar_documento');
+                $ml_cat_sweetalert->resp_solicitar_documento   = $request->get('resp_solicitar_documento');
+
+                $ml_cat_sweetalert->preg_baja_documento   = $request->get('preg_baja_documento');
+                $ml_cat_sweetalert->resp_baja_documento   = $request->get('resp_baja_documento');
+
+                $ml_cat_sweetalert->preg_rechazar_documento   = $request->get('preg_rechazar_documento');
+                $ml_cat_sweetalert->resp_rechazar_documento   = $request->get('resp_rechazar_documento');
+
+                $ml_cat_sweetalert->preg_reactivar_documento   = $request->get('preg_reactivar_documento');
+                $ml_cat_sweetalert->resp_reactivar_documento   = $request->get('resp_reactivar_documento');
+
+                $ml_cat_sweetalert->preg_aceptar_documento   = $request->get('preg_aceptar_documento');
+                $ml_cat_sweetalert->resp_aceptar_documento   = $request->get('resp_aceptar_documento');
+
+                $ml_cat_sweetalert->preg_desidherata_documento   = $request->get('preg_desidherata_documento');
+                $ml_cat_sweetalert->resp_desidherata_documento   = $request->get('resp_desidherata_documento');
+
+                $ml_cat_sweetalert->actualizacion_copia   = $request->get('actualizacion_copia');
+                $ml_cat_sweetalert->alta_copia   = $request->get('alta_copia');
+                
+                $ml_catalogos_listado->save();
+                
+                $ml_cat_sweetalert->save();
+               
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
 
     public function update_book(Request $request, $id)
     {
@@ -1185,6 +1337,7 @@ class ManyLenguagesController extends Controller
                     'url_edit_movie'   => route('admin.manylenguages.edit_movie', $idiomas->id),
                     'url_edit_multimedia'   => route('admin.manylenguages.edit_multimedia', $idiomas->id),
                     'url_edit_fotografia'   => route('admin.manylenguages.edit_fotografia', $idiomas->id),
+                    'url_edit_listado'   => route('admin.manylenguages.edit_listado', $idiomas->id),
                     'url_destroy'       => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           
