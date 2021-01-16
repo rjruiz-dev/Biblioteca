@@ -9,7 +9,7 @@
     </li>    
 
     <li class="treeview {{ setActiveRoute(['admin.requests.index','admin.loanmanual.index', ]) }}">                
-        <a href="#"><i class="fa fa-list"></i> <span>{{ $idioma->gestion }}</span>
+        <a href="#"><i class="fa fa-th-large"></i> <span>{{ $idioma->gestion }}</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>

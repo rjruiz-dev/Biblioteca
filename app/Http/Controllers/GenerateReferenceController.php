@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Document;
+use App\Ml_reference;
 use App\Generate_reference;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -22,23 +23,25 @@ class GenerateReferenceController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
 
-        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $session = session('idiomas'); 
+
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();       
+        $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
+        $setting        = Setting::where('id', 1)->first();    
+        $idiomas        = ManyLenguages::all();   
     
         return view('admin.references.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
-        ]);                 
+            'setting'   => $setting,
+            'ml_reference'   => $ml_reference
+        ]);       
+             
     }
 
     /**
@@ -46,13 +49,27 @@ class GenerateReferenceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $reference = new Generate_reference();      
+        $reference = new Generate_reference(); 
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.references.partials.form', [           
-            'reference'  => $reference
+            'reference' => $reference,
+            'idioma'    => $idioma,            
+            'ml_reference' => $ml_reference
         ]);  
+      
+
     }
 
     /**
@@ -99,12 +116,24 @@ class GenerateReferenceController extends Controller
      * @param  \App\Generate_reference  $generate_reference
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $reference = Generate_reference::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.references.partials.form', [           
-            'reference'  => $reference
+            'reference'  => $reference,
+            'idioma'    => $idioma,            
+            'ml_reference' => $ml_reference
         ]); 
     }
 

@@ -8,6 +8,7 @@ use App\Music;
 use App\Movies;
 use App\Photography;
 use App\Generate_format;
+use App\Ml_graphic_format;
 use App\Ml_dashboard;
 use App\Setting;
 use App\ManyLenguages;
@@ -24,24 +25,23 @@ class GenerateFormatController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+        $session = session('idiomas'); 
 
-        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();     
+        $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
         return view('admin.formats.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
-        ]);         
-       
+            'setting'   => $setting,
+            'ml_fg'     => $ml_fg
+        ]);
     }
 
     /**
@@ -49,12 +49,24 @@ class GenerateFormatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $format = new Generate_format();      
+        $format = new Generate_format();   
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.formats.partials.form', [           
-            'format'  => $format
+            'format'    => $format,
+            'idioma'    => $idioma,            
+            'ml_fg'     => $ml_fg
         ]);  
     }
 
@@ -102,12 +114,24 @@ class GenerateFormatController extends Controller
      * @param  \App\Generate_format  $generate_format
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $format = Generate_format::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.formats.partials.form', [           
-            'format'  => $format
+            'format'    => $format,
+            'idioma'    => $idioma,            
+            'ml_fg'     => $ml_fg
         ]); 
     }
 

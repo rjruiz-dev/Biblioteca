@@ -200,15 +200,39 @@ function(){
     Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
     Route::put('users/update_profile/{id}',    'UserController@update_profile')->name('users.update_profile');
 
-    Route::delete('requestsup/rechazar/{id}',       'RequestsUpController@rechazar')->name('requestsup.rechazar');
+    Route::delete('requestsup/rechazar/{id}',  'RequestsUpController@rechazar')->name('requestsup.rechazar');
     
-    // traduccion mantenimineto-curso
-    Route::get('manyLenguages/edit_course/{id}',    'ManyLenguagesController@edit_course')->name('admin.manylenguages.edit_course');
-    Route::put('manyLenguages/update_course/{id}',  'ManyLenguagesController@update_course')->name('admin.manylenguages.update_course');
+    // traduccion mantenimineto
+    Route::get('manyLenguages/edit_maintenance/{id}',    'ManyLenguagesController@edit_maintenance')->name('admin.manylenguages.edit_maintenance');
+    Route::put('manyLenguages/update_maintenance/{id}',  'ManyLenguagesController@update_maintenance')->name('admin.manylenguages.update_maintenance');
 
-    // traduccion mantenimineto-referencia
-    Route::get('manyLenguages/edit_reference/{id}',    'ManyLenguagesController@edit_reference')->name('admin.manylenguages.edit_reference');
-    Route::put('manyLenguages/update_reference/{id}',  'ManyLenguagesController@update_reference')->name('admin.manylenguages.update_reference');
+    // traduccion listado
+    Route::get('manyLenguages/edit_list/{id}',    'ManyLenguagesController@edit_list')->name('admin.manylenguages.edit_list');
+    Route::put('manyLenguages/update_list/{id}',  'ManyLenguagesController@update_list')->name('admin.manylenguages.update_list');
+
+    // traduccion estadistica
+    Route::get('manyLenguages/edit_statistic/{id}',    'ManyLenguagesController@edit_statistic')->name('admin.manylenguages.edit_statistic');
+    Route::put('manyLenguages/update_statistic/{id}',  'ManyLenguagesController@update_statistic')->name('admin.manylenguages.update_statistic');
+
+    // traduccion perfil bilbioteca
+    Route::get('manyLenguages/edit_library_profile/{id}',    'ManyLenguagesController@edit_library_profile')->name('admin.manylenguages.edit_library_profile');
+    Route::put('manyLenguages/update_library_profile/{id}',  'ManyLenguagesController@update_library_profile')->name('admin.manylenguages.update_library_profile');
+
+    // traduccion gestion prestamo 
+    Route::get('manyLenguages/edit_loan/{id}',    'ManyLenguagesController@edit_loan')->name('admin.manylenguages.edit_loan');
+    Route::put('manyLenguages/update_loan/{id}',  'ManyLenguagesController@update_loan')->name('admin.manylenguages.update_loan');
+    
+    // traduccion prestamo y devoluciones
+    Route::get('manyLenguages/edit_loan_repayment/{id}',    'ManyLenguagesController@edit_loan_repayment')->name('admin.manylenguages.edit_loan_repayment');
+    Route::put('manyLenguages/update_loan_repayment/{id}',  'ManyLenguagesController@update_loan_repayment')->name('admin.manylenguages.update_loan_repayment');
+
+    // traduccion correspondencia
+    Route::get('manyLenguages/edit_send_letter/{id}',    'ManyLenguagesController@edit_send_letter')->name('admin.manylenguages.edit_send_letter');
+    Route::put('manyLenguages/update_send_letter/{id}',  'ManyLenguagesController@update_send_letter')->name('admin.manylenguages.update_send_letter');
+
+    // traduccion socio
+    Route::get('manyLenguages/edit_partner/{id}',    'ManyLenguagesController@edit_partner')->name('admin.manylenguages.edit_partner');
+    Route::put('manyLenguages/update_partner/{id}',  'ManyLenguagesController@update_partner')->name('admin.manylenguages.update_partner');
 
     // traduccion mantenimineto-book
     Route::get('manyLenguages/edit_book/{id}',    'ManyLenguagesController@edit_book')->name('admin.manylenguages.edit_book');
