@@ -2084,7 +2084,7 @@ class ManyLenguagesController extends Controller
                 return view('admin.manylenguages.partials._action', [
                     'idiomas'           => $idiomas,                       
                     'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
-                    'url_edit_course'   => route('admin.manylenguages.edit_course', $idiomas->id),
+                    // 'url_edit_course'   => route('admin.manylenguages.edit_course', $idiomas->id),
                     'url_edit_book'   => route('admin.manylenguages.edit_book', $idiomas->id),
                     'url_edit_music'   => route('admin.manylenguages.edit_music', $idiomas->id),
                     'url_edit_movie'   => route('admin.manylenguages.edit_movie', $idiomas->id),
