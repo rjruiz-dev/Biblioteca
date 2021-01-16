@@ -29,7 +29,7 @@ class GenericCopiesController extends Controller
       
     }
 
-    public function copies(Request $request,$id)
+    public function copies(Request $request,$id, $bandera)
     {
         if ($request->session()->has('idiomas')) {
             $existe = 1;
@@ -48,7 +48,8 @@ class GenericCopiesController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'document'  => $document
+            'document'  => $document,
+            'bandera' => $bandera
         ]);    
 
     }

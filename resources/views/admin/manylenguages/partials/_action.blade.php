@@ -1,5 +1,5 @@
 
-
+ 
     <a href="{{ $url_edit }}" class="modal-show edit" id="btn-btn-edit" title="Editar"><i class="fa fa-edit text-dark btn-btn-edit-user"></i></a> | 
     <a href="{{ $url_edit_maintenance }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Mantenimiento"><i class="fa fa-wrench text-dark btn-btn-edit-user"></i></a> | 
     <a href="{{ $url_edit_list }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Listado"><i class="fa fa-list text-dark btn-btn-edit-user"></i></a> | 

@@ -197,7 +197,7 @@ $('#modal-btn-save').click(function(event) {
                     title: mensaje_exito,
                     text: alta_documento,
                 }).then(function() {
-                    window.location = "../admin/genericcopies/copies/" + id_new_doc;
+                    window.location = "../admin/genericcopies/copies/" + id_new_doc + "/c";
                 });
             } else {
                 swal({
@@ -360,7 +360,7 @@ $('body').on('click', '.btn-copy', function(event) {
                     text: 'Para ver sus copias, debe estar activo o en desidherata'
                 });
             } else {
-                window.location = "/admin/genericcopies/copies/" + info;
+                window.location = "/admin/genericcopies/copies/" + info + "/c";
             }
 
         },

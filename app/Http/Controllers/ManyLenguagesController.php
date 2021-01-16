@@ -848,7 +848,7 @@ class ManyLenguagesController extends Controller
                 $ml_fg->mod_titulo_fg                   = $request->get('mod_titulo_fg');  
                 $ml_fg->mod_subtitulo_fg                = $request->get('mod_subtitulo_fg');  
                 $ml_fg->cam_fg                          = $request->get('cam_fg');                          
-                $ml_fg->save();
+                $ml_fg->save(); 
 
                 // Lenguaje
                 $ml_lang                                = Ml_language::where('many_lenguages_id', $idioma->id)->first();

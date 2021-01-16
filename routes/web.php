@@ -152,7 +152,7 @@ function(){
     Route::get('fastprocess/vista_devo_reno/{id}/{bandera}/{fecha}',    'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
     Route::get('fastprocess/edit2/{id}',                        'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
     Route::get('loanmanual/prestar/{id}',                       'LoanManualController@prestar')->name('loanmanual.prestar');
-    Route::get('genericcopies/copies/{id}',                     'GenericCopiesController@copies')->name('genericcopies.copies');
+    Route::get('genericcopies/copies/{id}/{bandera}',                     'GenericCopiesController@copies')->name('genericcopies.copies');
     Route::get('/newcopies/{id}',                               'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
     Route::get('loanmanual/abm_prestamo/{id}/{bandera}/{n_mov}','LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
     
@@ -194,7 +194,7 @@ function(){
     //desestimar en request(solicitudes desde la web)
     Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
     Route::delete('requests/solicitud/{id}',   'RequestsController@solicitud')->name('requests.solicitud');
-
+ 
     Route::get('statistic/filtrar/{f_desde}/{f_hasta}', 'StatisticController@filtrar');
     
     Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
