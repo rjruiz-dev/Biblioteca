@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-        {{ $ml_fg->titulo_fg }}    MANTENIMIENTO DE FORMATOS        
+        {{ $ml_fg->titulo_fg }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -13,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">{{ $ml_fg->subtitulo_fg }} Listado de Formatos Gráficos  
+            <h3 class="panel-title">{{ $ml_fg->subtitulo_fg }} 
           
-                <a href="{{ route('admin.formats.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_fg->btn_crear_fg }}Crear Formato"><i class="fa fa-user-plus"></i> {{ $ml_fg->btn_crear_fg }}Crear Formato</a>
+                <a href="{{ route('admin.formats.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_fg->btn_crear_fg }}"><i class="fa fa-user-plus"></i> {{ $ml_fg->btn_crear_fg }}</a>
     
             </h3>
         </div>
@@ -23,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>{{ $ml_fg->subtitulo_fg }}ID</th>
-                        <th>{{ $ml_fg->subtitulo_fg }}Formato Gráfico</th>                       
-                        <th>{{ $ml_fg->subtitulo_fg }}Agregado</th>                                
-                        <th>{{ $ml_fg->subtitulo_fg }}Acciones</th>
+                        <th>{{ $ml_fg->dt_id_fg }}</th>
+                        <th>{{ $ml_fg->dt_fg }}</th>                       
+                        <th>{{ $ml_fg->dt_agregado_fg }}</th>                                
+                        <th>{{ $ml_fg->dt_acciones_fg }}</th>
                     </tr>
                 </thead>
                 <tbody>
