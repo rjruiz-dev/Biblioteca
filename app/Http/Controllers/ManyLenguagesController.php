@@ -512,6 +512,7 @@ class ManyLenguagesController extends Controller
      * @param  \App\ManyLenguages  $manyLenguages
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, $id)
     {
         if ($request->ajax()){
