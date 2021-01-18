@@ -11,6 +11,7 @@ use App\Ml_dashboard;
 use App\Document;
 use App\Setting;
 use App\ManyLenguages;
+use App\Ml_adequacy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveAdequacyRequest;
@@ -24,22 +25,23 @@ class AdequacyController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
 
-        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
-    
+        $session = session('idiomas'); 
+
+        $idioma      = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
+        $setting     = Setting::where('id', 1)->first();
+        $idiomas     = ManyLenguages::all();
+
         return view('admin.adequacies.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_adequacy'   => $ml_adequacy
         ]);        
     }
 
@@ -48,12 +50,24 @@ class AdequacyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $adequacy = new Adequacy();      
+        $adequacy = new Adequacy();     
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma      = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.adequacies.partials.form', [           
-            'adequacy'  => $adequacy
+            'adequacy'      => $adequacy,
+            'idioma'        => $idioma,
+            'ml_adequacy'   => $ml_adequacy
         ]);  
     }
 
@@ -101,12 +115,24 @@ class AdequacyController extends Controller
      * @param  \App\adequacy  $adequacy
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-         $adequacy  = Adequacy::findOrFail($id);
+        $adequacy  = Adequacy::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma      = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.adequacies.partials.form', [           
-            'adequacy'  =>  $adequacy 
+            'adequacy'      =>  $adequacy,
+            'idioma'        => $idioma,
+            'ml_adequacy'   => $ml_adequacy 
         ]); 
     }
 

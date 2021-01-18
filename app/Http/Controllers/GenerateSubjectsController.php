@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
+use App\Ml_subjects;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveSubjectRequest;
 
@@ -22,22 +23,24 @@ class GenerateSubjectsController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
+        
         return view('admin.subjects.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_subject'   => $ml_subject
             
         ]);    
     }
@@ -47,12 +50,25 @@ class GenerateSubjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $subject = new Generate_subjects();      
+        $subject = new Generate_subjects();  
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.subjects.partials.form', [           
-            'subject'  => $subject
+            'subject'       => $subject,
+            'idioma'        => $idioma,
+            'ml_subject'    => $ml_subject
+
         ]);  
     }
 
@@ -101,12 +117,24 @@ class GenerateSubjectsController extends Controller
      * @param  \App\Generate_subjects  $generate_subjects
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $subject = Generate_subjects::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.subjects.partials.form', [           
-            'subject'  => $subject
+            'subject'  => $subject,
+            'idioma'        => $idioma,
+            'ml_subject'    => $ml_subject
         ]);
     }
 

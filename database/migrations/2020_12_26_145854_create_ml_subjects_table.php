@@ -26,7 +26,6 @@ class CreateMlSubjectsTable extends Migration
             $table->string('dt_cdu_subject')->nullable();          
             $table->string('dt_agregado_subject')->nullable();         
             $table->string('dt_acciones_subject')->nullable();
-            $table->string('mod_titulo_subject')->nullable();
             $table->string('mod_subtitulo_subject')->nullable();           
             $table->string('cam_subject')->nullable(); 
             $table->string('cam_cdu_subject')->nullable(); 

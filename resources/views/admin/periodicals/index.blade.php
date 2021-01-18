@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE PERIODICIDADES
-        <small>Listado</small>
+        {{ $ml_pp->titulo_publ }}        
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Periodicidades  
+            <h3 class="panel-title">{{ $ml_pp->subtitulo_publ }}  
           
-                <a href="{{ route('admin.periodicals.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Periódicidad"><i class="fa fa-user-plus"></i> Crear Periodicidad</a>
+                <a href="{{ route('admin.periodicals.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_pp->btn_crear_publ }}"><i class="fa fa-user-plus"></i> {{ $ml_pp->btn_crear_publ }}</a>
     
             </h3>
         </div>
@@ -24,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Periodicidades</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_pp->dt_id_publ }}</th>
+                        <th>{{ $ml_pp->dt_publ }}</th>                       
+                        <th>{{ $ml_pp->dt_agregado_publ }}</th>                                
+                        <th>{{ $ml_pp->dt_acciones_publ }}</th>
                     </tr>
                 </thead>
                 <tbody>

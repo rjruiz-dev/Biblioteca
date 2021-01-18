@@ -9,6 +9,7 @@ use App\Movies;
 use App\Setting;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Ml_cinematographic_genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveFilmRequest;
@@ -22,22 +23,24 @@ class GenerateFilmController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_gc      = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
         return view('admin.cinematographics.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_gc'     => $ml_gc
+
         ]);  
     }
 
@@ -46,12 +49,24 @@ class GenerateFilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $film = new Generate_film();      
+        $film = new Generate_film();     
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_gc      = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.cinematographics.partials.form', [           
-            'film'  => $film
+            'film'      => $film,
+            'idioma'    => $idioma,
+            'ml_gc'     => $ml_gc
         ]);  
     }
 
@@ -99,12 +114,24 @@ class GenerateFilmController extends Controller
      * @param  \App\Generate_film  $generate_film
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $film = Generate_film::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_gc      = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.cinematographics.partials.form', [           
-            'film'  => $film
+            'film'      => $film,
+            'idioma'    => $idioma,
+            'ml_gc'     => $ml_gc
         ]); 
     }
 

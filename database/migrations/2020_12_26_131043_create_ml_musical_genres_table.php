@@ -25,7 +25,6 @@ class CreateMlMusicalGenresTable extends Migration
             $table->string('dt_gm')->nullable();          
             $table->string('dt_agregado_gm')->nullable();         
             $table->string('dt_acciones_gm')->nullable();
-            $table->string('mod_titulo_gm')->nullable();
             $table->string('mod_subtitulo_gm')->nullable();           
             $table->string('cam_gm')->nullable(); 
 

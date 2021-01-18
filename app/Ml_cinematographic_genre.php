@@ -8,7 +8,7 @@ class Ml_cinematographic_genre extends Model
 {
     protected $fillable = [ 
         'many_lenguages_id', 'btn_crear_gc', 'titulo_gc', 'subtitulo_gc', 'dt_id_gc', 'dt_gc','dt_agregado_gc',
-        'dt_acciones_gc', 'mod_titulo_gc','mod_subtitulo_gc','cam_gc'
+        'dt_acciones_gc', 'mod_subtitulo_gc','cam_gc'
     ];
 
    

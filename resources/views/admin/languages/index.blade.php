@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE IDIOMAS
-        <small>Listado</small>
+        {{ $ml_lang->titulo_lang }}  
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Idiomas  
+            <h3 class="panel-title">{{ $ml_lang->subtitulo_lang }}
           
-                <a href="{{ route('admin.languages.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Idioma"><i class="fa fa-user-plus"></i> Crear Idiomas</a>
+                <a href="{{ route('admin.languages.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_lang->btn_crear_lang }}"><i class="fa fa-user-plus"></i> {{ $ml_lang->btn_crear_lang }}</a>
     
             </h3>
         </div>
@@ -24,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Idioma</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_lang->dt_id_lang }}</th>
+                        <th>{{ $ml_lang->dt_lang }}</th>                       
+                        <th>{{ $ml_lang->dt_agregado_lang }}</th>                                
+                        <th>{{ $ml_lang->dt_acciones_lang }}</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -7,16 +7,16 @@
 <div class="col-md-12">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">Materias</h3>
+            <h3 class="box-title">{{ $ml_subject->mod_subtitulo_subject }}</h3>
         </div>
         <div class="box-body">
             <div class="form-group">
-                {!! Form::label('subject_name', 'Materia') !!}
-                {!! Form::text('subject_name', null, ['class' => 'form-control', 'id' => 'subject_name', 'placeholder' => 'Materia']) !!}                                      
+                {!! Form::label('subject_name', $ml_subject->cam_subject) !!}
+                {!! Form::text('subject_name', null, ['class' => 'form-control', 'id' => 'subject_name', 'placeholder' => $ml_subject->cam_subject]) !!}                                      
             </div>
             <div class="form-group">
-                {!! Form::label('cdu', 'Cdu') !!}
-                {!! Form::text('cdu', null, ['class' => 'form-control', 'id' => 'cdu', 'placeholder' => 'Cdu']) !!}                                      
+                {!! Form::label('cdu', $ml_subject->cam_cdu_subject) !!}
+                {!! Form::text('cdu', null, ['class' => 'form-control', 'id' => 'cdu', 'placeholder' => $ml_subject->cam_cdu_subject]) !!}                                      
             </div>
         </div>
     </div>

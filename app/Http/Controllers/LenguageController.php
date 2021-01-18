@@ -6,6 +6,7 @@ use DataTables;
 use App\Lenguage;
 use App\Document;
 use Carbon\Carbon;
+use App\Ml_language;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -21,24 +22,25 @@ class LenguageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+    {        
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();        
         $idiomas    = ManyLenguages::all();
-    
+      
         return view('admin.languages.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
-        ]);     
+            'setting'   => $setting,
+            'ml_lang'   => $ml_lang
+        ]); 
     }
 
     /**
@@ -46,13 +48,25 @@ class LenguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $language = new Lenguage();      
+        $language = new Lenguage();     
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.languages.partials.form', [           
-            'language'      => $language
-        ]);  
+            'language'  => $language,
+            'idioma'    => $idioma,            
+            'ml_lang'   => $ml_lang
+        ]);          
     }
 
     /**
@@ -99,12 +113,24 @@ class LenguageController extends Controller
      * @param  \App\Lenguage  $lenguage
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $language = Lenguage::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.languages.partials.form', [           
-            'language'      => $language
+            'language'  => $language,
+            'idioma'    => $idioma,
+            'ml_lang'   => $ml_lang
         ]); 
     }
 

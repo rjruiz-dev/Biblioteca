@@ -25,7 +25,6 @@ class CreateMlReferencesTable extends Migration
             $table->string('dt_referencia')->nullable();           
             $table->string('dt_agregado_ref')->nullable();
             $table->string('dt_acciones_ref')->nullable();
-            $table->string('mod_titulo_ref')->nullable();
             $table->string('mod_subtitulo_ref')->nullable();           
             $table->string('cam_referencia')->nullable();
           

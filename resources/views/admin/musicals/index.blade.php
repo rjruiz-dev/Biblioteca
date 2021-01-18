@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE GENEROS
-        <small>Listado</small>
+        {{ $ml_gm->titulo_gm }}MANTENIMIENTO DE GENEROS       
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Géneros Musicales  
+            <h3 class="panel-title">{{ $ml_gm->subtitulo_gm }}
           
-                <a href="{{ route('admin.musicals.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Género"><i class="fa fa-user-plus"></i> Crear Género</a>
+                <a href="{{ route('admin.musicals.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_gm->btn_crear_gm }}"><i class="fa fa-user-plus"></i> {{ $ml_gm->btn_crear_gm }}</a>
     
             </h3>
         </div>
@@ -24,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Género Musical</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_gm->dt_id_gm }}</th>
+                        <th>{{ $ml_gm->dt_gm }}</th>                       
+                        <th>{{ $ml_gm->dt_agregado_gm }}</th>                                
+                        <th>{{ $ml_gm->dt_acciones_gm }}</th>
                     </tr>
                 </thead>
                 <tbody>

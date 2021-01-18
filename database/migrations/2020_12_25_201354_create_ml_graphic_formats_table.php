@@ -25,7 +25,6 @@ class CreateMlGraphicFormatsTable extends Migration
             $table->string('dt_fg')->nullable();          
             $table->string('dt_agregado_fg')->nullable();         
             $table->string('dt_acciones_fg')->nullable();
-            $table->string('mod_titulo_fg')->nullable();
             $table->string('mod_subtitulo_fg')->nullable();           
             $table->string('cam_fg')->nullable();       
 

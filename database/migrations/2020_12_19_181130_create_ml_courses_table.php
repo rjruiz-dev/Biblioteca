@@ -27,7 +27,6 @@ class CreateMlCoursesTable extends Migration
             $table->string('dt_agregado_curso')->nullable();
             $table->string('dt_estado')->nullable();
             $table->string('dt_acciones_curso')->nullable();
-            $table->string('mod_titulo_curso')->nullable();
             $table->string('mod_subtitulo_curso')->nullable();           
             $table->string('cam_nombre_curso')->nullable();
             $table->string('cam_grupo')->nullable();

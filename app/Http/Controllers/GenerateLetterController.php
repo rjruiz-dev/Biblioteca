@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Generate_letter;
+use App\Ml_letter;
 use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,23 +22,24 @@ class GenerateLetterController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
 
-        //cargo el idioma
+        $session = session('idiomas'); 
+
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
+        
 
         return view('admin.letters.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_letter' => $ml_letter
         ]); 
         
     }
@@ -47,12 +49,24 @@ class GenerateLetterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $letter = new Generate_letter();  
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.letters.partials.form', [           
-            'letter'  => $letter
+            'letter'    => $letter,
+            'idioma'    => $idioma,            
+            'ml_letter' => $ml_letter
         ]);  
     }
 
@@ -102,12 +116,24 @@ class GenerateLetterController extends Controller
      * @param  \App\Generate_letter  $generate_letter
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $letter = Generate_letter::findOrFail($id);
                              
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+
         return view('admin.letters.partials.form', [           
-            'letter'  => $letter
+            'letter'    => $letter,
+            'idioma'    => $idioma,            
+            'ml_letter' => $ml_letter
         ]);
     }
 

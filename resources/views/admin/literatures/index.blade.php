@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE GENEROS
-        <small>Listado</small>
+        {{ $ml_gl->titulo_gl }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Géneros Literarios  
+            <h3 class="panel-title">{{ $ml_gl->subtitulo_gl }}  
           
-                <a href="{{ route('admin.literatures.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Género"><i class="fa fa-user-plus"></i> Crear Género</a>
+                <a href="{{ route('admin.literatures.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_gl->btn_crear_gl }}"><i class="fa fa-user-plus"></i> {{ $ml_gl->btn_crear_gl }}</a>
     
             </h3>
         </div>
@@ -24,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Género Literario</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_gl->dt_id_gl }}</th>
+                        <th>{{ $ml_gl->dt_gl }}</th>                       
+                        <th>{{ $ml_gl->dt_agregado_gl }}</th>                                
+                        <th>{{ $ml_gl->dt_acciones_gl }}</th>
                     </tr>
                 </thead>
                 <tbody>

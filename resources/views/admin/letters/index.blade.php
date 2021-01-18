@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE CARTAS
-        <small>Listado</small>
+        {{ $ml_letter->titulo_letter }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Modelos de Cartas  
+            <h3 class="panel-title">{{ $ml_letter->subtitulo_letter }}
           
-                <a href="{{ route('admin.letters.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Carta"><i class="fa fa-user-plus"></i> Crear Carta</a>
+                <a href="{{ route('admin.letters.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_letter->btn_crear_letter }}"><i class="fa fa-user-plus"></i> {{ $ml_letter->btn_crear_letter }}</a>
     
             </h3>
         </div>
@@ -24,12 +23,12 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Título</th> 
-                        <th>Contenido</th> 
-                        <th>Despedida</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_letter->dt_id_letter }}</th>
+                        <th>{{ $ml_letter->dt_titulo_letter }}</th> 
+                        <th>{{ $ml_letter->dt_cuerpo_letter }}</th> 
+                        <th>{{ $ml_letter->dt_despedida_letter }}</th>                       
+                        <th>{{ $ml_letter->dt_agregado_letter }}</th>                                
+                        <th>{{ $ml_letter->dt_acciones_letter }}</th>
                     </tr>
                 </thead>
                 <tbody>

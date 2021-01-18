@@ -24,8 +24,7 @@ class CreateMlCinematographicGenresTable extends Migration
             $table->string('dt_id_gc')->nullable();
             $table->string('dt_gc')->nullable();          
             $table->string('dt_agregado_gc')->nullable();         
-            $table->string('dt_acciones_gc')->nullable();
-            $table->string('mod_titulo_gc')->nullable();
+            $table->string('dt_acciones_gc')->nullable();           
             $table->string('mod_subtitulo_gc')->nullable();           
             $table->string('cam_gc')->nullable(); 
 
