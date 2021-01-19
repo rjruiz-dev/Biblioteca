@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       SOCIOS
+    {{$Ml_loan_partner->titulo_lp}}
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -14,21 +14,20 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Socios con Documentos Prestados Actualmente
-            </h3>
+            <h3 class="panel-title"> {{$Ml_loan_partner->subtitulo_lp}} </h3>
         </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>N° de Socio</th> 
-                        <th>Nickname</th>
-                        <th>Nombre</th>                         
-                        <th>Email</th>   
-                        <th>Estado</th>  
+                        <th>{{$Ml_loan_partner->dt_id_lp}}</th>
+                        <th>{{$Ml_loan_partner->dt_socio_lp}}</th> 
+                        <th>{{$Ml_loan_partner->dt_nickname_lp}}</th>
+                        <th>{{$Ml_loan_partner->dt_nombre_lp}}</th>                         
+                        <th>{{$Ml_loan_partner->dt_email_lp}}</th>   
+                        <th>{{$Ml_loan_partner->dt_estado_lp}}</th>  
                         <!-- <th>Agregado</th>                                 -->
-                        <th>Acciones</th>
+                        <th>{{$Ml_loan_partner->dt_acciones_lp}}</th>
                     </tr>
                 </thead>
                 <tbody>

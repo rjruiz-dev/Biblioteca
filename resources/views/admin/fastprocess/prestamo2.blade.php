@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       DOCUMENTOS
+    {{$Ml_loan_document->titulo_index_ld}}
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -17,7 +17,7 @@
     <div class="col-md-6">    
         <div class="box box-primary"> 
             <div class="box-header with-border">
-                <h3 class="box-title">Documento: <b>{{ $documento->id }}</h3>                
+                <h3 class="box-title">{{$Ml_loan_document->seccion_doc}} <b>{{ $documento->id }}</h3>                
             </div>       
             <div class="box-body box-profile"> 
                 <div class="text-center">      
@@ -27,10 +27,10 @@
                 <p class="text-muted text-center">{{ $documento->creator->creator_name }}</p>
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Tipo de Documento: </b> <a class="pull-right">{{ $documento->document_type->document_description }}</a>
+                        <b>{{$Ml_loan_document->tipo_doc}} </b> <a class="pull-right">{{ $documento->document_type->document_description }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Tipo de {{ $documento->document_type->document_description }} </b> <a class="pull-right">{{ $documento->document_subtype->subtype_name }}</a>
+                        <b>{{$Ml_loan_document->tipo_libro}}</a>
                     </li>                                        
                 </ul>                        
             </div>
@@ -118,14 +118,14 @@
                         <b>{{ $copie->id }}</b>                        
                         <div class="row"> 
                             <div class="col-md-12">
-                                <h3 class="profile-username text-center">N° copia: {{ $copie->copy->registry_number }}</h3>   
+                                <h3 class="profile-username text-center">{{$Ml_loan_document->num_copia_ld." ".$copie->copy->registry_number }}</h3>   
                                 <p class="text-muted text-center"></p>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>Estado: </b><a class="pull-right">{{ $copie->movement_type['description_movement'] }} </a>
+                                <b>{{$Ml_loan_document->estado }} </b><a class="pull-right">{{ $copie->movement_type['description_movement'] }} </a>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>Prestado a: </b> <a class="pull-right">{{ $copie->user['name'] }} </a>
+                                <b>{{$Ml_loan_document->prestado_a }} </b> <a class="pull-right">{{ $copie->user['name'] }} </a>
                                 <img class="profile-user-img img-responsive img-circle" 
                                                         src="/images/{{ $copie->user['user_photo'] }}" 
                                                         alt="{{ $copie->user['name'] }}"
@@ -133,25 +133,25 @@
                                                        
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>Prestado el: </b><a class="pull-right">{{ Carbon\Carbon::parse($copie->date)->format('d-m-Y') }} </a>
+                                <b>{{$Ml_loan_document->prestado_ld }} </b><a class="pull-right">{{ Carbon\Carbon::parse($copie->date)->format('d-m-Y') }} </a>
                                
                             </div> 
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>A devolver el: </b><a class="pull-right">{{ Carbon\Carbon::parse($copie->date_until)->format('d-m-Y') }}</a>
+                                <b>{{$Ml_loan_document->devolver_ld }}</b><a class="pull-right">{{ Carbon\Carbon::parse($copie->date_until)->format('d-m-Y') }}</a>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
                                 <b class="{{$color}}">{{ $info }} </b><a class="pull-right {{$color}}">{{ $dif }}</a>
                             </div> 
                     
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b class="{{$color_sancion}}">Sancion:   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
+                                <b class="{{$color_sancion}}">{{$Ml_loan_document->sancion_ld }}   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
                             </div>
 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">{{$Ml_loan_document->btn_devolver }}</a>
                             </div> 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">Renovar</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">{{$Ml_loan_document->btn_devolver }}</a>
                             </div>
                         </div> 
                         </li> 

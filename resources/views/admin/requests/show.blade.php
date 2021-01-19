@@ -8,16 +8,16 @@
                 <h3 class="profile-username text-center"> <strong>{{ $prestamo_solicitado->copy->document['title'] }}</strong></h3>             
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Tipo de Documento</b> <a class="pull-right">{{ $prestamo_solicitado->copy->document->document_type['document_description'] }}</a>
+                        <b>{{$Ml_web_loan->mod_tipo_doc}}</b> <a class="pull-right">{{ $prestamo_solicitado->copy->document->document_type['document_description'] }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Sub-Tipo de Documento</b> <a class="pull-right">{{ $prestamo_solicitado->copy->document->document_subtype['subtype_name'] }}</a>
+                        <b>{{$Ml_web_loan->mod_subtipo_doc}}</b> <a class="pull-right">{{ $prestamo_solicitado->copy->document->document_subtype['subtype_name'] }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Socio Solicitante</b> <a class="pull-right">{{ $prestamo_solicitado->user['nickname'] }}</a>
+                        <b>{{$Ml_web_loan->mod_socio}}</b> <a class="pull-right">{{ $prestamo_solicitado->user['nickname'] }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Fecha de Solicitud</b> <a class="pull-right">{{ $prestamo_solicitado->date }}</a>
+                        <b>{{$Ml_web_loan->mod_fecha}}</b> <a class="pull-right">{{ $prestamo_solicitado->date }}</a>
                     </li>       
                 </ul>
             </div>
@@ -25,14 +25,14 @@
         <div class="col-md-6">
             <ul class="list-group list-group-unbordered "> 
                 <li class="list-group-item text-center">                    
-                    <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  3, 'n_mov' =>  $prestamo_solicitado->id ]) }}" title="Aceptar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-success"  type="button">Aceptar Solicitud</a>       
+                    <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $prestamo_solicitado->copy->document->id, 'bandera' =>  3, 'n_mov' =>  $prestamo_solicitado->id ]) }}" title="Aceptar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn btn-success"  type="button">{{$Ml_web_loan->btn_aceptar}}</a>       
                 </li>                      
             </ul> 
         </div>  
         <div class="col-md-6">
             <ul class="list-group list-group-unbordered "> 
                 <li class="list-group-item text-center">                    
-                    <a href="{{ route('requests.desestimar', ['id' =>  $prestamo_solicitado->copies_id, 'bandera' =>  1 ]) }}" title="Rechazar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn-desestimar btn btn-danger"  type="button">Rechazar Solicitud</a>       
+                    <a href="{{ route('requests.desestimar', ['id' =>  $prestamo_solicitado->copies_id, 'bandera' =>  1 ]) }}" title="Rechazar Solicitud a: {{ $prestamo_solicitado->user['nickname'] }}" class="btn-desestimar btn btn-danger"  type="button">{{$Ml_web_loan->btn_rechazar}}</a>       
                 </li>                     
             </ul>  
         </div>  

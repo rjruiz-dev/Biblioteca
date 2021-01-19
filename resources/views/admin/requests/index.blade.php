@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       LISTADO DE SOLICITUDES DESDE LA WEB
+    {{$Ml_web_loan->titulo_wl}}
         <!-- <small>Listado</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -14,7 +14,7 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <!-- <h3 class="panel-title">Listado de Documentos    -->
+            <h3 class="panel-title">{{$Ml_web_loan->subtitulo_wl}}   
           
                 <!-- <a href="{{ route('admin.requests.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a> -->
     
@@ -24,15 +24,15 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                    <th>ID</th>
+                    <th>{{$Ml_web_loan->dt_id_wl}}</th>
                         <!-- <th>Tipo Mov(provis)</th>  -->
-                        <th>Socio</th>                         
-                        <th>Documento</th>
-                        <th>Tipo</th>
-                        <th>Subtipo</th>
-                        <th>Curso</th>                        
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{$Ml_web_loan->dt_titulo_wl}}</th>                         
+                        <th>{{$Ml_web_loan->dt_documento_wl}}</th>
+                        <th>{{$Ml_web_loan->dt_tipo_wl}}</th>
+                        <th>{{$Ml_web_loan->dt_subtipo_wl}}</th>
+                        <th>{{$Ml_web_loan->dt_curso_wl}}</th>                        
+                        <th>{{$Ml_web_loan->dt_agregado_wl}}</th>                                
+                        <th>{{$Ml_web_loan->dt_acciones_wl}}</th>
                     </tr>
                 </thead>
                 <tbody>

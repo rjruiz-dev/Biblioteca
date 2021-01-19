@@ -11,6 +11,7 @@ use DataTables;
 use App\ml_cat_sweetalert;
 use App\Document;
 use Carbon\Carbon;
+use App\Ml_web_loan;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Document_type;
@@ -41,11 +42,14 @@ class RequestsController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();     
         $idiomas    = ManyLenguages::all();
+
+        $Ml_web_loan     = Ml_web_loan::where('many_lenguages_id',$session)->first();
         
         return view('admin.requests.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'Ml_web_loan' => $Ml_web_loan
         ]);         
     }
 
@@ -78,11 +82,14 @@ class RequestsController extends Controller
      */
     public function show($id)
     {
+        $session = session('idiomas');
         $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($id);       
-      
+        $Ml_web_loan     = Ml_web_loan::where('many_lenguages_id',$session)->first();
+        
         return view('admin.requests.show', [          
-            'prestamo_solicitado'          => $prestamo_solicitado
-           ]);
+            'prestamo_solicitado'          => $prestamo_solicitado,
+            'Ml_web_loan' => $Ml_web_loan
+            ]);
     }
 
     /**
@@ -218,7 +225,10 @@ class RequestsController extends Controller
         //
     }
     public function dataTable()
-    {                    
+    {    
+        $session = session('idiomas');          
+        $Ml_web_loan     = Ml_web_loan::where('many_lenguages_id',$session)->first();
+              
         $prestamos_solicitados = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')       
         ->where('movement_types_id', '=', 7)
         ->where('active', '=', 1)
@@ -253,11 +263,12 @@ class RequestsController extends Controller
                 return $prestamos_solicitados->created_at->format('d-m-y');
             })                 
             
-            ->addColumn('accion', function ($prestamos_solicitados) {
+            ->addColumn('accion', function ($prestamos_solicitados) use($Ml_web_loan) {
                 return view('admin.requests.partials._action', [
                     'prestamos_solicitados' => $prestamos_solicitados,
                     'url_show' => route('admin.requests.show', $prestamos_solicitados->id),        
-                ]);
+                    'Ml_web_loan' => $Ml_web_loan
+                    ]);
             })           
             ->addIndexColumn()   
             ->rawColumns(['tipo_movimiento', 'usuario_solicitante', 'tipo_solicitado', 'sub_tipo_solicitado', 'documento_solicitado', 'curso', 'created_at', 'accion']) 

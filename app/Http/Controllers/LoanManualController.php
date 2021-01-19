@@ -10,6 +10,7 @@ use App\Document_type;
 use App\Document_subtype;
 use App\Book_movement;
 use App\Copy;
+use App\Ml_manual_loan;
 use App\Setting;
 use App\User;
 use App\Course;
@@ -39,11 +40,15 @@ class LoanManualController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas    = ManyLenguages::all();
+
+        $Ml_manual_loan     = Ml_manual_loan::where('many_lenguages_id',$session)->first();
+       
         // dd($idioma->navegacion);
         return view('admin.loanmanual.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'Ml_manual_loan' => $Ml_manual_loan
         ]);       
     }
 
@@ -176,7 +181,9 @@ class LoanManualController extends Controller
         $idiomas = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first(); 
         // dd($idioma->navegacion);
-           
+        
+        $Ml_manual_loan     = Ml_manual_loan::where('many_lenguages_id',$session)->first();
+       
 
         if($n_mov != 0){ // si se pasa n_mov con NO 0 es xq carga una solicitud
         $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($n_mov);       
@@ -226,7 +233,8 @@ class LoanManualController extends Controller
             'bandera'       => $bandera,
             'setting'       => $setting,
             'prestamo_solicitado'   => $prestamo_solicitado, 
-            'n_mov'                 => $n_mov
+            'n_mov'                 => $n_mov,
+            'Ml_manual_loan' => $Ml_manual_loan
         ]);    
     }
 

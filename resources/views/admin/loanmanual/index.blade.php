@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       LISTADO DE DOCUMENTOS
+    {{$Ml_manual_loan->titulo_ml}}
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -14,7 +14,7 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Documentos   
+            <h3 class="panel-title">{{$Ml_manual_loan->subtitulo_ml}}   
           
                 <!-- <a href="{{ route('admin.loanmanual.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Libro"><i class="fa fa-user-plus"></i> Crear libro</a> -->
     
@@ -24,12 +24,12 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                    <th>ID</th>
-                        <th>Titulo</th> 
-                        <th>Tipo</th>                         
-                        <th>Subtipo</th>                        
-                        <th>Copias Disponibles</th>                                
-                        <th>Acciones</th>
+                    <th>{{$Ml_manual_loan->dt_id_ml}}</th>
+                        <th>{{$Ml_manual_loan->dt_titulo_ml}}</th> 
+                        <th>{{$Ml_manual_loan->dt_tipo_ml}}</th>                         
+                        <th>{{$Ml_manual_loan->dt_subtipo_ml}}</th>                        
+                        <th>{{$Ml_manual_loan->dt_copias_ml}}</th>                                
+                        <th>{{$Ml_manual_loan->dt_acciones_ml}}</th>
                     </tr>
                 </thead>
                 <tbody>

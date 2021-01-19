@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Fine;
 use App\Statu;
+use App\Ml_loan_partner;
+use App\Ml_loan_document;
 use App\Copy;
 use DataTables;
 use App\Document;
@@ -36,6 +38,8 @@ class FastPartnerProcessController extends Controller
         }
         $session = session('idiomas');
 
+        $Ml_loan_partner     = Ml_loan_partner::where('many_lenguages_id',$session)->first();
+        
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
@@ -44,7 +48,8 @@ class FastPartnerProcessController extends Controller
         return view('admin.fastprocess.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'Ml_loan_partner' => $Ml_loan_partner
         ]);         
     }
 
@@ -62,11 +67,15 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas    = ManyLenguages::all();
+
+        $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
+        
         
         return view('admin.fastprocess.index2', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'Ml_loan_document' => $Ml_loan_document
         ]);                 
     }
 
@@ -220,6 +229,9 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
+
+        $Ml_loan_partner     = Ml_loan_partner::where('many_lenguages_id',$session)->first();
+        
                  
         $user = User::findOrFail($id); //datos del socio 
         
@@ -248,7 +260,8 @@ class FastPartnerProcessController extends Controller
             'idioma'        => $idioma,
             'idiomas'       => $idiomas,
             'setting'       => $setting,
-            'multa'         => $multa   
+            'multa'         => $multa,
+            'Ml_loan_partner' => $Ml_loan_partner  
         ]);
     }
 
@@ -267,6 +280,9 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
+
+        $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
+        
 
         $documento = Document::with('document_type','document_subtype','creator')
         ->findOrFail($id); 
@@ -354,7 +370,8 @@ class FastPartnerProcessController extends Controller
             'idioma'                => $idioma,
             'idiomas'               => $idiomas,
             'multa'                 => $multa,
-            'setting'               => $setting
+            'setting'               => $setting,
+            'Ml_loan_document' => $Ml_loan_document
         ]);    
     }
 

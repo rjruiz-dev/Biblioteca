@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       PRESTAMOS ASIGNADOS       
+    {{$Ml_loan_partner->titulo_index_lp}}       
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -16,7 +16,7 @@
     <div class="col-md-6">    
         <div class="box box-primary"> 
             <div class="box-header with-border">
-                <h3 class="box-title">Socio: <b>{{ $user->membership }}</h3>                
+                <h3 class="box-title">{{$Ml_loan_partner->seccion_socio}}   <b>{{ $user->membership }}</h3>                
             </div>       
             <div class="box-body box-profile">            
                 <div class="text-center">      
@@ -32,54 +32,54 @@
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item"> 
                         @if ( $user->gender === NULL )       
-                            <b>Genero</b> <a class="pull-right"><small class="tex-muted">No tiene genero asignado</small></a> 
+                            <b>{{$Ml_loan_partner->genero}}</b> <a class="pull-right"><small class="tex-muted">No tiene genero asignado</small></a> 
                         @else
-                            <b>Genero</b> <a class="pull-right">{{ $user->gender }}</a>                                                    
+                            <b>{{$Ml_loan_partner->genero}}</b> <a class="pull-right">{{ $user->gender }}</a>                                                    
                         @endif    
                     </li>                     
                     <li class="list-group-item">
                         @if ( $user->birthdate === NULL )       
-                            <b>Fecha de Nacimiento</b> <a class="pull-right"><small class="tex-muted">No tiene fecha de nacimiento asignada</small></a> 
+                            <b>{{$Ml_loan_partner->fecha_nac}}</b> <a class="pull-right"><small class="tex-muted">No tiene fecha de nacimiento asignada</small></a> 
                         @else
-                            <b>Fecha de Nacimiento</b> <a class="pull-right">{{ $user->birthdate }}</a>                                                    
+                            <b>{{$Ml_loan_partner->fecha_nac}}</b> <a class="pull-right">{{ $user->birthdate }}</a>                                                    
                         @endif                           
                     </li>     
                     <li class="list-group-item">
-                        <b>Email</b> <a class="pull-right">{{ $user->email }}</a>
+                        <b>{{$Ml_loan_partner->email}}</b> <a class="pull-right">{{ $user->email }}</a>
                     </li>
                     <li class="list-group-item">
                         @if ( $user->phone  === NULL )       
-                            <b>Telefono</b> <a class="pull-right"><small class="tex-muted">No tiene número de telefono asignado</small></a> 
+                            <b>{{$Ml_loan_partner->telefono}}</b> <a class="pull-right"><small class="tex-muted">No tiene número de telefono asignado</small></a> 
                         @else
-                            <b>Telefono</b> <a class="pull-right">{{ $user->phone }}</a>                                                    
+                            <b>{{$Ml_loan_partner->telefono}}</b> <a class="pull-right">{{ $user->phone }}</a>                                                    
                         @endif                        
                     </li> 
                     <li class="list-group-item">
                         @if ( $user->address  === NULL )       
-                            <b>Dirección</b> <a class="pull-right"><small class="tex-muted">No tiene dirección asignada</small></a> 
+                            <b>{{$Ml_loan_partner->direccion}}</b> <a class="pull-right"><small class="tex-muted">No tiene dirección asignada</small></a> 
                         @else
-                            <b>Dirección</b> <a class="pull-right">{{ $user->address }}</a>                                                    
+                            <b>{{$Ml_loan_partner->direccion}}</b> <a class="pull-right">{{ $user->address }}</a>                                                    
                         @endif                      
                     </li> 
                     <li class="list-group-item">
                         @if (  $user->postcode  === NULL )       
-                            <b>Codigo Postal</b> <a class="pull-right"><small class="tex-muted">No tiene codigo postal asignado</small></a> 
+                            <b>{{$Ml_loan_partner->cod_postal}}</b> <a class="pull-right"><small class="tex-muted">No tiene codigo postal asignado</small></a> 
                         @else
-                            <b>Codigo Postal</b> <a class="pull-right">{{  $user->postcode }}</a>                                                    
+                            <b>{{$Ml_loan_partner->cod_postal}}</b> <a class="pull-right">{{  $user->postcode }}</a>                                                    
                         @endif                       
                     </li>     
                     <li class="list-group-item">
                         @if (  $user->city  === NULL )       
-                            <b>Ciudad</b> <a class="pull-right"><small class="tex-muted">No tiene ciudad asignada</small></a> 
+                            <b>{{$Ml_loan_partner->ciudad}}</b> <a class="pull-right"><small class="tex-muted">No tiene ciudad asignada</small></a> 
                         @else
-                            <b>Ciudad</b> <a class="pull-right">{{  $user->city }}</a>                                                    
+                            <b>{{$Ml_loan_partner->ciudad}}</b> <a class="pull-right">{{  $user->city }}</a>                                                    
                         @endif                          
                     </li>   
                     <li class="list-group-item">
                         @if ( $user->province  === NULL )       
-                            <b>Provincia</b> <a class="pull-right"><small class="tex-muted">No tiene provinicia asignada</small></a> 
+                            <b>{{$Ml_loan_partner->provincia}}</b> <a class="pull-right"><small class="tex-muted">No tiene provinicia asignada</small></a> 
                         @else
-                            <b>Provincia</b> <a class="pull-right">{{ $user->province }}</a>                                                    
+                            <b>{{$Ml_loan_partner->provincia}}</b> <a class="pull-right">{{ $user->province }}</a>                                                    
                         @endif                      
                     </li>     
                 </ul>               
@@ -89,7 +89,7 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Sus Prestamos:</h3>                
+                <h3 class="box-title">{{$Ml_loan_partner->seccion_prestamo}}</h3>                
             </div>
             <div class="box-body">          
                 <ul class="list-group list-group-unbordered">
@@ -115,7 +115,7 @@
                             @endphp 
                         @else
                             @php
-                                $info = "dias de retraso";
+                                $info = $Ml_loan_partner->dias_retraso;
                                 $color = "text-danger";
                                 $color_sancion = "text-danger";
                                 $mostrar_sancion = true;
@@ -133,26 +133,26 @@
                                     <img class="img-responsive img-thumbnail" src="/images/{{ $docs_of_use->copy->document->photo }}"  alt="{{ $docs_of_use->copy->document->title }}" width="200" height="200">     
                                 </div>
                                 <h3 class="profile-username text-center"> <b>{{ $docs_of_use->copy->document->id }} - {{ $docs_of_use->copy->document->title }}</b></h3>
-                                <p class="text-muted text-center"> <b>N° copia: {{ $docs_of_use->copy->registry_number }}</b></p>
+                                <p class="text-muted text-center"> <b>{{$Ml_loan_partner->num_copia." ".$docs_of_use->copy->registry_number }}</b></p>
                                 <p class="text-muted text-center"> <b>{{ $docs_of_use->copy->document->creator->creator_name }}</b></p>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>Prestado el: </b><a class="pull-right">{{ Carbon\Carbon::parse($docs_of_use->date)->format('d-m-Y') }} </a>
+                                <b>{{$Ml_loan_partner->prestado_el}} </b><a class="pull-right">{{ Carbon\Carbon::parse($docs_of_use->date)->format('d-m-Y') }} </a>
                             </div> 
                             <div class="col-md-6" style="padding-top: 1rem;">
-                                <b>A devolver el: </b><a class="pull-right">{{ Carbon\Carbon::parse($docs_of_use->date_until)->format('d-m-Y') }}</a>
+                                <b>{{$Ml_loan_partner->devolver_el}} </b><a class="pull-right">{{ Carbon\Carbon::parse($docs_of_use->date_until)->format('d-m-Y') }}</a>
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">
                             <b class="{{$color}}">{{ $info }} </b><a class="pull-right {{$color}}">{{ $dif }}</a>
                             </div> 
                             <div class="col-md-6" style="padding-top: 1rem;">
-                            <b class="{{$color_sancion}}">Sancion:   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
+                            <b class="{{$color_sancion}}">{{$Ml_loan_partner->sancion}}   </b><a class="pull-right {{$color_sancion}}">{{ $sancion }}</a>
                             </div>
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $docs_of_use->copies_id, 'bandera' =>  1, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Devolver: {{ $docs_of_use->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">Devolver</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $docs_of_use->copies_id, 'bandera' =>  1, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Devolver: {{ $docs_of_use->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">{{$Ml_loan_partner->btn_devolver}}</a>
                             </div>
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $docs_of_use->copies_id, 'bandera' =>  2, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Renovar: {{ $docs_of_use->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">Renovar</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $docs_of_use->copies_id, 'bandera' =>  2, 'fecha' =>  $docs_of_use->date_until ]) }}" title="Renovar: {{ $docs_of_use->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">{{$Ml_loan_partner->btn_renovar}}</a>
                             </div>  
                         </div> 
                     </li> 

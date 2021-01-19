@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       DOCUMENTOS
+    {{$Ml_loan_document->titulo_ld}}
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -13,19 +13,19 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Documentos Prestados Actualmente   
+            <h3 class="panel-title">{{$Ml_loan_document->subtitulo_ld}}   
             </h3>
         </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Titulo</th> 
-                        <th>Tipo</th>                         
-                        <th>Subtipo</th>                        
-                        <th>Copias Disponibles</th>                                
-                        <th>Acciones</th>
+                        <th>{{$Ml_loan_document->dt_id_ld}}</th>
+                        <th>{{$Ml_loan_document->dt_titulo_ld}}</th> 
+                        <th>{{$Ml_loan_document->dt_tipo_ld}}</th>                         
+                        <th>{{$Ml_loan_document->dt_subtipo_ld}}</th>                        
+                        <th>{{$Ml_loan_document->dt_copias_ld}}</th>                                
+                        <th>{{$Ml_loan_document->dt_acciones_ld}}</th>
                     </tr>
                 </thead>
                 <tbody>
