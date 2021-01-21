@@ -353,9 +353,10 @@ class PhotographyController extends Controller
                 
                 
                 if ($request->hasFile('photo')) {               
-
                     $file = $request->file('photo');
-                    $name = time().$file->getClientOriginalName();
+                    $file_name_original = $file->getClientOriginalName();
+                    $name_file_edit = str_replace(' ','-', $file_name_original);
+                    $name = time().$name_file_edit;
                     $file->move(public_path().'/images/', $name);   
                 }else{                
                     $name = 'doc-default.jpg';
@@ -614,11 +615,11 @@ class PhotographyController extends Controller
                 $name = $document->photo; 
                 if ($request->hasFile('photo')) {               
                     $file = $request->file('photo');
-                    $name = time().$file->getClientOriginalName();
+                    $file_name_original = $file->getClientOriginalName();
+                    $name_file_edit = str_replace(' ','-', $file_name_original);
+                    $name = time().$name_file_edit;
                     $file->move(public_path().'/images/', $name);    
-                }else{                
-                    $name = 'doc-default.jpg';
-                }  
+                }   
                 $document->photo = $name; 
                 $document->save();
                 $document->syncReferences($request->get('references'));

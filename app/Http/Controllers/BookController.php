@@ -456,9 +456,10 @@ class BookController extends Controller
                 // $this->authorize('create', new Book);
                 
                 if ($request->hasFile('photo')) {               
-
                     $file = $request->file('photo');
-                    $name = time().$file->getClientOriginalName();
+                    $file_name_original = $file->getClientOriginalName();
+                    $name_file_edit = str_replace(' ','-', $file_name_original);
+                    $name = time().$name_file_edit;
                     $file->move(public_path().'/images/', $name);   
                 }else{                
                     $name = 'doc-default.jpg';
@@ -811,12 +812,9 @@ class BookController extends Controller
                     $file = $request->file('photo');
                     $file_name_original = $file->getClientOriginalName();
                     $name_file_edit = str_replace(' ','-', $file_name_original);
-                    // dd($name_file_edit);
                     $name = time().$name_file_edit;
                     $file->move(public_path().'/images/', $name);    
-                }else{                
-                    $name = 'doc-default.jpg';
-                }  
+                } 
                 $document->photo = $name; 
                 $document->save();
                 $document->syncReferences($request->get('references'));
