@@ -142,11 +142,7 @@
                 <div class="form-group">              
                     {!! Form::label('mod_check_biblio', 'Bibliotecario') !!}                    
                     {!! Form::text('mod_check_biblio', $ml_partner['mod_check_biblio'] ? $ml_partner['mod_check_biblio'] : null, ['class' => 'form-control', 'id' => 'mod_check_biblio', 'placeholder' => 'Bibliotecario']) !!}
-                </div>    
-                <div class="form-group">              
-                    {!! Form::label('mod_check_biblio', 'Bibliotecario') !!}                    
-                    {!! Form::text('mod_check_biblio', $ml_partner['mod_check_biblio'] ? $ml_partner['mod_check_biblio'] : null, ['class' => 'form-control', 'id' => 'mod_check_biblio', 'placeholder' => 'Bibliotecario']) !!}
-                </div>    
+                </div>        
                 <div class="form-group">              
                     {!! Form::label('mod_check_socio', 'Socio') !!}                    
                     {!! Form::text('mod_check_socio', $ml_partner['mod_check_socio'] ? $ml_partner['mod_check_socio'] : null, ['class' => 'form-control', 'id' => 'mod_check_socio', 'placeholder' => 'Socio']) !!}

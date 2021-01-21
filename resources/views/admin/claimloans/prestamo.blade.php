@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       RECLAMAR PRESTAMOS ATRASADOS       
+    {{$ml_sl->titulo}}       
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -20,18 +20,18 @@
     <div class="col-md-8">    
         <div class="box box-primary">  
             <div class="box-header with-border">
-                <h3 class="box-title">Reclamos</h3>                
+                <h3 class="box-title">{{$ml_sl->subtitulo}}</h3>                
             </div>       
             <div class="box-body box-profile">            
             
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item"> 
-                        {!! Form::label('model_types', 'Tipo de Modelo') !!}
+                        {!! Form::label('model_types', $ml_sl->select_modelo) !!}
                         {!! Form::select('model_types', $model_types, null, ['class' => 'form-control select2', 'id' => 'model_types', 'placeholder' => '', 'style' => 'width:100%;']) !!}   
                     </li>
             
                     <li class="list-group-item"> 
-                        <label>Hasta</label>
+                        <label>{{$ml_sl->fecha}}</label>
                         <div class="input-group date">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -45,18 +45,18 @@
                     </li>
 
                     <li class="list-group-item"> 
-                        <label>Enviar a: </label>
+                        <label>{{$ml_sl->select_enviar}} </label>
                         <select name="send_to" id="send_to" class="form-control select2"                           
-                                data-placeholder="Seleccione a quien/quienes se enviara el reclamo" style="width: 100%;">
+                                data-placeholder="{{$ml_sl->ph_enviar}}" style="width: 100%;">
                                 <option selected value="9999">Todos</option> 
                         </select>
                     </li>
                     <li class="list-group-item"> 
-                        {!! Form::label('informe', 'informe por mail para el bibliotecario ? ') !!}                    
+                        {!! Form::label('informe', $ml_sl->check_informe) !!}                    
                         {!! Form::checkbox('informe', '1')!!}
                     </li> 
                     <li class="list-group-item">                     
-                        <button type="submit" name="filter" id="send-mail" class="btn btn-info">Enviar Mails de Reclamo</button>
+                        <button type="submit" name="filter" id="send-mail" class="btn btn-info">{{$ml_sl->btn_email}}</button>
                     </li>
                 </ul>               
             </div>

@@ -83,11 +83,11 @@
                     {!! Form::text('ph_enviar', $ml_sl['ph_enviar'] ? $ml_sl['ph_enviar'] : null, ['class' => 'form-control', 'id' => 'ph_enviar', 'placeholder' => 'Placeholder enviar a']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('check_informe', 'Enviar informe') !!}                    
+                    {!! Form::label('check_informe', 'Informe por email') !!}                    
                     {!! Form::text('check_informe', $ml_sl['check_informe'] ? $ml_sl['check_informe'] : null, ['class' => 'form-control', 'id' => 'check_informe', 'placeholder' => 'Enviar informe']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('btn_email', 'Informe por email') !!}                    
+                    {!! Form::label('btn_email', 'Enviar informe') !!}                    
                     {!! Form::text('btn_email', $ml_sl['btn_email'] ? $ml_sl['btn_email'] : null, ['class' => 'form-control', 'id' => 'btn_email', 'placeholder' => 'Informe por email']) !!}
                 </div>                                      
             </div>       

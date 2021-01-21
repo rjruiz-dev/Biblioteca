@@ -148,10 +148,10 @@
                             </div>
 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">                   
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">{{$Ml_loan_document->btn_devolver }}</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id' =>  $copie->copies_id, 'bandera' =>  1, 'fecha' =>  $copie->date_until]) }}" title="Devolver: {{ $copie->copy->document->title }}" class="btn btn-warning modal-show btn-sm"  type="button">{{$Ml_loan_document->btn_devolver_ld }}</a>
                             </div> 
                             <div class="col-md-6 text-center" style="padding-top: 1rem;">
-                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">{{$Ml_loan_document->btn_devolver }}</a>
+                                <a href="{{ route('fastprocess.vista_devo_reno', ['id_copy' =>  $copie->copies_id, 'bandera' =>  0, 'fecha' =>  $copie->date_until]) }}" title="Renovar: {{ $copie->copy->document->title }}" class="btn btn-info modal-show btn-sm {{ $disabled_reno }}">{{$Ml_loan_document->btn_renovar_ld }}</a>
                             </div>
                         </div> 
                         </li> 

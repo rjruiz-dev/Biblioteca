@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Providers\ClaimLoan;
 use App\Providers\ReportClaimLoan;
 use App\Book_movement;
+use App\Ml_send_letter;
 use App\Copy;
 use App\User;
 use App\Document;
@@ -39,10 +40,13 @@ class ClaimLoansController extends Controller
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas    = ManyLenguages::all();
       
+        $ml_sl                          = Ml_send_letter::where('many_lenguages_id', $session)->first();
+                
         return view('admin.claimloans.prestamo', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,     
             'setting'   => $setting, 
+            'ml_sl' => $ml_sl,
             'model_types' => Generate_letter::pluck('title', 'id') 
         ]);
     }

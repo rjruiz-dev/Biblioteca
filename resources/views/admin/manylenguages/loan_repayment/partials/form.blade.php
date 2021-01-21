@@ -416,24 +416,24 @@
                     {!! Form::text('prestado_a', $ml_ld['prestado_a'] ? $ml_ld['prestado_a'] : null, ['class' => 'form-control', 'id' => 'prestado_a', 'placeholder' => 'Préstado a']) !!}
                 </div> 
                 <div class="form-group">              
-                    {!! Form::label('prestado_el', 'Péstado el') !!}                    
-                    {!! Form::text('prestado_el', $ml_ld['prestado_el'] ? $ml_ld['prestado_el'] : null, ['class' => 'form-control', 'id' => 'prestado_el', 'placeholder' => 'Péstado el']) !!}
+                    {!! Form::label('prestado_ld', 'Péstado el') !!}                    
+                    {!! Form::text('prestado_ld', $ml_ld['prestado_ld'] ? $ml_ld['prestado_ld'] : null, ['class' => 'form-control', 'id' => 'prestado_ld', 'placeholder' => 'Péstado el']) !!}
                 </div>    
                 <div class="form-group">              
-                    {!! Form::label('devolver_el', 'A devolver el') !!}                    
-                    {!! Form::text('devolver_el', $ml_ld['devolver_el'] ? $ml_ld['devolver_el'] : null, ['class' => 'form-control', 'id' => 'devolver_el', 'placeholder' => 'A devolver el']) !!}
+                    {!! Form::label('devolver_ld', 'A devolver el') !!}                    
+                    {!! Form::text('devolver_ld', $ml_ld['devolver_ld'] ? $ml_ld['devolver_ld'] : null, ['class' => 'form-control', 'id' => 'devolver_ld', 'placeholder' => 'A devolver el']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dias_retraso', 'Días de retraso') !!}                    
-                    {!! Form::text('dias_retraso', $ml_ld['dias_retraso'] ? $ml_ld['dias_retraso'] : null, ['class' => 'form-control', 'id' => 'dias_retraso', 'placeholder' => 'Días de retraso']) !!}
+                    {!! Form::label('dias_retraso_ld', 'Días de retraso') !!}                    
+                    {!! Form::text('dias_retraso_ld', $ml_ld['dias_retraso_ld'] ? $ml_ld['dias_retraso_ld'] : null, ['class' => 'form-control', 'id' => 'dias_retraso_ld', 'placeholder' => 'Días de retraso']) !!}
                 </div>    
                 <div class="form-group">              
-                    {!! Form::label('sancion', 'Sanción') !!}                    
-                    {!! Form::text('sancion', $ml_ld['sancion'] ? $ml_ld['sancion'] : null, ['class' => 'form-control', 'id' => 'sancion', 'placeholder' => 'Sanción']) !!}
+                    {!! Form::label('sancion_ld', 'Sanción') !!}                    
+                    {!! Form::text('sancion_ld', $ml_ld['sancion_ld'] ? $ml_ld['sancion_ld'] : null, ['class' => 'form-control', 'id' => 'sancion_ld', 'placeholder' => 'Sanción']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('economica', 'Económica') !!}                    
-                    {!! Form::text('economica', $ml_ld['economica'] ? $ml_ld['economica'] : null, ['class' => 'form-control', 'id' => 'economica', 'placeholder' => 'Económica']) !!}
+                    {!! Form::label('economica_ld', 'Económica') !!}                    
+                    {!! Form::text('economica_ld', $ml_ld['economica_ld'] ? $ml_ld['economica_ld'] : null, ['class' => 'form-control', 'id' => 'economica_ld', 'placeholder' => 'Económica']) !!}
                 </div>                                     
             </div>       
         </div>   

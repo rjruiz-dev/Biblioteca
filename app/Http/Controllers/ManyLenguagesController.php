@@ -1472,7 +1472,7 @@ class ManyLenguagesController extends Controller
                
                 // Prestamo por socio
                 $ml_lp                     = Ml_loan_partner::where('many_lenguages_id', $idioma->id)->first();
-                dd($ml_lp);
+                
                 $ml_lp->titulo_lp          = $request->get('titulo_lp');     
                 $ml_lp->subtitulo_lp       = $request->get('subtitulo_lp');
                 $ml_lp->dt_id_lp           = $request->get('dt_id_lp');     
@@ -1533,6 +1533,7 @@ class ManyLenguagesController extends Controller
                 $ml_ld->sancion_ld         = $request->get('sancion_ld');  
                 $ml_ld->economica_ld       = $request->get('economica_ld');
             
+                $ml_ld->btn_prestamo_ld    = $request->get('btn_prestamo_ld');    
                 $ml_ld->btn_devolver_ld    = $request->get('btn_devolver_ld');    
                 $ml_ld->btn_renovar_ld     = $request->get('btn_renovar_ld');    
                 $ml_ld->btn_cerrar_ld      = $request->get('btn_cerrar_ld');    
