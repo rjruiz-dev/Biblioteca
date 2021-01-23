@@ -5,33 +5,33 @@
     <div class="box box-primary">
         <div class="pad margin no-print">
             <div class="callout callout-info" style="margin-bottom: 0!important;">
-                <h4><i class="fa fa-info"></i> Importante:</h4>
-                Complete el formulario con los campos solicitados para enviar la solicitud de socio adherente.
+                <h4><i class="fa fa-info"></i>{{ $ml_registry->titulo_reg }} </h4>
+                {{ $ml_registry->info_reg }}
             </div>
         </div> 
         <div class="box-header with-border">
-            <h3 class="box-title">Datos Personales</h3>                
+            <h3 class="box-title">{{ $ml_registry->seccion }}</h3>                
         </div>
               
         <div class="box-body">
             <div class="form-group">              
-                {!! Form::label('name', 'Nombres') !!}                    
-                {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nombres']) !!}
+                {!! Form::label('name', $ml_registry->nombre_reg) !!}                    
+                {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => $ml_registry->nombre_reg]) !!}
             </div>
             <div class="form-group">              
-                {!! Form::label('surname', 'Apellidos') !!}                    
-                {!! Form::text('surname', null, ['class' => 'form-control', 'id' => 'surname', 'placeholder' => 'Apellidos']) !!}
+                {!! Form::label('surname', $ml_registry->apellido_reg) !!}                    
+                {!! Form::text('surname', null, ['class' => 'form-control', 'id' => 'surname', 'placeholder' => $ml_registry->apellido_reg]) !!}
             </div>                                
             <div class="form-group">              
-                {!! Form::label('nickname', 'Nickname') !!}                    
-                {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
+                {!! Form::label('nickname', $ml_registry->nickname_reg) !!}                    
+                {!! Form::text('nickname', null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => $ml_registry->nickname_reg]) !!}
             </div> 
             <div class="form-group">
-                {!! Form::label('email', 'Email') !!}             
-                {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email']) !!}
+                {!! Form::label('email', $ml_registry->email_reg) !!}             
+                {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => $ml_registry->email_reg]) !!}
             </div>
             <div class="form-group">
-                <label>Fecha de Nacimiento</label>
+                <label>{{ $ml_registry->fecha_nac_reg }}</label>
                 <div class="input-group date">
                     <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
@@ -41,7 +41,7 @@
                         value="{{ old('birthdate',  $user->birthdate ?  $user->birthdate->format('d/m/Y') : null) }}" 
                         type="text"
                         id="birthdate"
-                        placeholder= "Selecciona una Fecha">                       
+                        placeholder= "{{ $ml_registry->ph_fecha_nac_reg }}">                       
                 </div>                  
             </div>
         </div>

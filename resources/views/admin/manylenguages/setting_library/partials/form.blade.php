@@ -22,7 +22,7 @@
             </div>
         </div>
     </div> 
-    <!-- Estadisticas -->
+   
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -137,9 +137,8 @@
                 </div>                              
             </div>
         </div>       
-    </div>    
-
-    <div class="col-md-6">        
+    </div> 
+    <div class="col-md-12">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -183,7 +182,7 @@
         </div>       
     </div>  
 
-    <div class="col-md-6">        
+    <div class="col-md-12">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -219,11 +218,15 @@
                 <div class="form-group">              
                     {!! Form::label('info_color_fuente', 'Seleccionar color de fuente para cambiar estilo del footer') !!}                    
                     {!! Form::text('info_color_fuente', $ml_library['info_color_fuente'] ? $ml_library['info_color_fuente'] : null, ['class' => 'form-control', 'id' => 'info_color_fuente', 'placeholder' => 'Seleccionar color de fuente para cambiar estilo del footer']) !!}
-                </div>                   
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('btn_guardar', 'Botón guardar') !!}                    
+                    {!! Form::text('btn_guardar', $ml_library['btn_guardar'] ? $ml_library['btn_guardar'] : null, ['class' => 'form-control', 'id' => 'btn_guardar', 'placeholder' => 'Botón guardar']) !!}
+                </div> 
             </div>
         </div>       
     </div> 
-</div> 
+
 
 {!! Form::close() !!}    
 </div>

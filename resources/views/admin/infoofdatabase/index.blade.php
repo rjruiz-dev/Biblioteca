@@ -2,13 +2,10 @@
 
 @section('header')    
     <h1>
-       INFORMACION GENERAL DE LA BASE DE DATOS
-        <!-- <small>Listado</small> -->
+        {{ $ml_ld->titulo_dr }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <!-- <li class="active">Catálogo</li>
-         -->
     </ol> 
 @stop
 
@@ -21,9 +18,9 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Concepto</th>                                   
-                        <th>Cantidad de Registro</th>
+                        <th>{{ $ml_ld->dt_id_dr }}</th>
+                        <th>{{ $ml_ld->dt_concepto_dr }}</th>                                   
+                        <th>{{ $ml_ld->dt_registro_dr }}</th>
                         </tr>
                 </thead>
                 <tbody>

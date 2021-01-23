@@ -215,7 +215,10 @@ function(){
     // traduccion socio
     Route::get('manyLenguages/edit_partner/{id}',    'ManyLenguagesController@edit_partner')->name('admin.manylenguages.edit_partner');
     Route::put('manyLenguages/update_partner/{id}',  'ManyLenguagesController@update_partner')->name('admin.manylenguages.update_partner');
-
+  
+    // traduccion  login-registro-recuperar pass
+    Route::get('manyLenguages/edit_credentials/{id}',    'ManyLenguagesController@edit_credentials')->name('admin.manylenguages.edit_credentials');
+    Route::put('manyLenguages/update_credentials/{id}',  'ManyLenguagesController@update_credentials')->name('admin.manylenguages.update_credentials');
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

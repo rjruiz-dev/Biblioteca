@@ -2,13 +2,10 @@
 
 @section('header')    
     <h1>
-       LISTADO DE PRESTAMOS
-        <!-- <small>Listado</small> -->
+        {{ $ml_lc->titulo_lc }}       
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <!-- <li class="active">Catálogo</li>
-         -->
     </ol> 
 @stop
 
@@ -17,24 +14,24 @@
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
         <div class="row">
                 <div  class="col-md-2">
-                <h3 class="panel-title" style="margin-top:25px; margin-bottom:8px;">Por datos del aula</h3>
+                <h3 class="panel-title" style="margin-top:25px; margin-bottom:8px;">{{ $ml_lc->subtitulo_lc }}</h3>
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                {!! Form::label('cursos', 'Cursos') !!} 
+                {!! Form::label('cursos', $ml_lc->curso_lc ) !!} 
                 {!! Form::select('cursos', $cursos, null, ['class' => 'form-control  select2', 'id' => 'cursos', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 
                 </div>
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                {!! Form::label('letra', 'Letra') !!} 
+                {!! Form::label('letra', $ml_lc->letra_lc) !!} 
                 {!! Form::select('letra', array('A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', 'G' => 'G'), null, ['class' => 'form-control  select2', 'id' => 'letra', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 
                 </div>    
                 <div  class="col-md-2" style="margin-bottom:5px;">
-                {!! Form::label('turno', 'Turno') !!} 
+                {!! Form::label('turno', $ml_lc->turno_lc) !!} 
                 {!! Form::select('turno', array('D' => 'D', 'T' => 'T', 'N' => 'N'), null, ['class' => 'form-control  select2', 'id' => 'turno', 'placeholder' => '',  'style' => 'width:100%;']) !!}                     
                 </div>
             <div  class="col-md-4" style="margin-top:25px;margin-bottom:5px;">
-            <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
+            <button type="button" name="filter" id="filter" class="btn btn-info">{{ $ml_lc->btn_crear_lc }}</button>
             </div>
         </div>
         </div>
@@ -42,16 +39,16 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>N° Registro</th>                                   
-                        <th>Titulo</th>
-                        <th>Autor</th>   
-                        <th>Tipo Doc</th>  
-                        <th>Sub Tipo Doc</th>   
-                        <th>N° Socio</th> 
-                        <th>Socio</th>
-                        <th>Curso</th>
-                        <th>Fecha Prestamo</th>
-                        <th>Fecha Devolucion</th>                                
+                        <th>{{ $ml_lc->dt_registro_lc }}</th>                                   
+                        <th>{{ $ml_lc->dt_titulo_lc }}</th>
+                        <th>{{ $ml_lc->dt_autor_lc }}</th>   
+                        <th>{{ $ml_lc->dt_tipodoc_lc }}</th>  
+                        <th>{{ $ml_lc->dt_subtipodoc_lc }}</th>   
+                        <th>{{ $ml_lc->dt_nrosocio_lc }}</th> 
+                        <th>{{ $ml_lc->dt_socio_lc }}</th>
+                        <th>{{ $ml_lc->dt_curso_lc }}</th>
+                        <th>{{ $ml_lc->dt_fechaprestamo_lc }}</th>
+                        <th>{{ $ml_lc->dt_fechadevolucion_lc }}</th>                                
                     </tr>
                 </thead>
                 <tbody>

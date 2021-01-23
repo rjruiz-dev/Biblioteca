@@ -54,7 +54,7 @@ class CreateMlLibraryProfilesTable extends Migration
             $table->string('info_color')->nullable();  
             $table->string('select_color_fuente')->nullable();         
             $table->string('info_color_fuente')->nullable();  
-            
+            $table->string('btn_guardar')->nullable();  
 
             $table->timestamps();
 

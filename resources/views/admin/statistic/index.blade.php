@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-       ESTADISTICAS
+      {{ $ml_statistic->estadistica }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -21,7 +21,7 @@
       <div class="row">                                                    
         <div  class="col-md-6" style="margin-bottom:5px;">
           <div class="form-group">
-            <label>Mes y Año</label>
+            <label>{{ $ml_statistic->mes_y_año }}</label>
             <div class="input-group date">
               <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
@@ -32,12 +32,12 @@
                       type="text"
                       type="text"
                       id="yearandmonth"
-                      placeholder= "Selecciona un Año">                       
+                      placeholder= "{{ $ml_statistic->ph_mes_y_año }}">                       
               </div>                  
             </div>   
         </div>
         <div  class="col-md-6" style="margin-top:25px;margin-bottom:5px;">
-            <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
+            <button type="button" name="filter" id="filter" class="btn btn-info">{{ $ml_statistic->btn_buscar }}</button>
         </div>
       </div>
       <div  class="col-md-12">
@@ -53,7 +53,7 @@
         <div class="box box-primary">             
           <div class="box-header with-border">
             <div  class="col-md-4"> 
-              <h2>Socios</h2>                
+              <h2>{{ $ml_statistic->sub_socio }}</h2>                
             </div>
             <div  class="col-md-6"> 
             </div>
@@ -66,19 +66,19 @@
               <table class="table">
                 <thead>
                   <tr>     
-                    <th scope="col">Tipo de Socios</th>
-                    <th scope="col">Altas</th>
-                    <th scope="col">Bajas</th>
+                    <th scope="col">{{ $ml_statistic->col_tipodesocio }}</th>
+                    <th scope="col">{{ $ml_statistic->col_alta }}</th>
+                    <th scope="col">{{ $ml_statistic->col_baja }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>      
-                    <td>Adultos</td>
+                    <td>{{ $ml_statistic->adulto }}</td>
                     <td id="soc_adul_alta"></td>
                     <td id="soc_adul_baja"></td>
                   </tr>
                   <tr>     
-                    <td>Infantiles</td>
+                    <td>{{ $ml_statistic->infantil }}</td>
                     <td id="soc_menor_alta"></td>
                     <td id="soc_menor_baja"></td>
                   </tr>
@@ -92,7 +92,7 @@
       <div class="box box-primary">             
         <div class="box-header with-border">
           <div  class="col-md-4"> 
-              <h2>Prestamos</h2>                
+              <h2>{{ $ml_statistic->sub_prestamo }}</h2>                
           </div>
           <div  class="col-md-6">                               
           </div>
@@ -104,18 +104,18 @@
             <table class="table">
               <thead>
                 <tr>      
-                  <th scope="col">Prestamos</th>
-                    <th scope="col">Libros</th>
-                    <th scope="col">Cine </th>
-                    <th scope="col">Musica</th>
-                    <th scope="col">Fotografia</th>
-                    <th scope="col">Multimedia</th>
-                    <th scope="col">Libros Digitales</th>
+                  <th scope="col">{{ $ml_statistic->col_prestamo }}</th>
+                    <th scope="col">{{ $ml_statistic->col_libro }}</th>
+                    <th scope="col">{{ $ml_statistic->col_cine }} </th>
+                    <th scope="col">{{ $ml_statistic->col_musica }}</th>
+                    <th scope="col">{{ $ml_statistic->col_fotografia }}</th>
+                    <th scope="col">{{ $ml_statistic->col_multimedia }}</th>
+                    <th scope="col">{{ $ml_statistic->col_librodigital }}</th>
                   </tr>
               </thead>
               <tbody>
                 <tr>      
-                  <td>Adultos</td>
+                  <td>{{ $ml_statistic->adulto }}</td>
                   <td id="pres_adult_book"></td>
                   <td id="pres_adult_cine"></td>
                   <td id="pres_adult_music"></td>
@@ -124,7 +124,7 @@
                   <td>-</td>
                 </tr>
                 <tr>    
-                  <td>Infantiles</td>
+                  <td>{{ $ml_statistic->infantil }}</td>
                   <td id="pres_infantil_book"></td>
                   <td id="pres_infantil_cine"></td>
                   <td id="pres_infantil_music"></td>
@@ -142,7 +142,7 @@
       <div class="box box-primary">       
         <div class="box-header with-border">
           <div  class="col-md-4"> 
-              <h2>Colecciones</h2>                
+              <h2>{{ $ml_statistic->sub_coleccion }}</h2>                
           </div>
           <div  class="col-md-6"> 
                               
@@ -156,18 +156,18 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Colecciones</th>
-                    <th scope="col">Libros</th>
-                    <th scope="col">Cine </th>
-                    <th scope="col">Musica</th>
-                    <th scope="col">Fotografia</th>
-                    <th scope="col">Multimedia</th>
-                    <th scope="col">Libros Digitales</th>
+                  <th scope="col">{{ $ml_statistic->col_coleccion }}</th>
+                    <th scope="col">{{ $ml_statistic->col_libro }}</th>
+                    <th scope="col">{{ $ml_statistic->col_cine }} </th>
+                    <th scope="col">{{ $ml_statistic->col_musica }}</th>
+                    <th scope="col">{{ $ml_statistic->col_multimedia }}</th>
+                    <th scope="col">{{ $ml_statistic->col_fotografia }}</th>
+                    <th scope="col">{{ $ml_statistic->col_librodigital }}</th>
                   </tr>
               </thead>
               <tbody>
                 <tr>      
-                  <td>Incorporaciones</td>
+                  <td>{{ $ml_statistic->incorporacion }}</td>
                   <td id="col_libros"></td>
                   <td id="col_cine"></td>
                   <td id="col_music"></td>
@@ -176,7 +176,7 @@
                   <td>-</td>
                 </tr>
                 <tr>          
-                  <td>Dados de Baja</td>
+                  <td>{{ $ml_statistic->baja }}</td>
                   <td id="col_baja_book"></td>
                   <td id="col_baja_cine"></td>
                   <td id="col_baja_music"></td>
@@ -295,7 +295,7 @@
         $('#soc_adul_baja').text(data.soc_adul_baja.count_soc_adul_baja);
         $('#soc_menor_baja').text(data.soc_menor_baja.count_soc_menor_baja);
 
-        $('#total_socios').text("Total: " + (data.soc_adul_alta.count_soc_adul_alta + 
+        $('#total_socios').text("{{ $ml_statistic->total }} " + (data.soc_adul_alta.count_soc_adul_alta + 
                                 data.soc_menor_alta.count_soc_menor_alta +
                                 data.soc_adul_baja.count_soc_adul_baja +
                                 data.soc_menor_baja.count_soc_menor_baja));

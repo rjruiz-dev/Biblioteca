@@ -6,6 +6,7 @@ use App\Setting;
 use App\Ml_dashboard;
 use App\Fine;
 use App\ManyLenguages;
+use App\Ml_library_profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,17 +19,17 @@ class SettingController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
 
-        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
-        $setting = Setting::where('id', 1)->first();
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_library = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
+        $setting    = Setting::where('id', 1)->first();
+        $idiomas    = ManyLenguages::all();        
           
         $multas = Fine::all(); //obtengo las 2 multas. solo esta la econimica y la suspension de prestamos
         // dd($multas);
@@ -39,8 +40,9 @@ class SettingController extends Controller
             'idioma'     => $idioma,
             'idiomas'    => $idiomas,
             'setting'    => $setting,
-            'multa_economica'    => $multa_economica,
-            'multa_suspension'    => $multa_suspension
+            'ml_library'        => $ml_library,
+            'multa_economica'   => $multa_economica,
+            'multa_suspension'  => $multa_suspension
         ]);
     }
 

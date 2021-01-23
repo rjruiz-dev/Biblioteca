@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Biblioteca&nbsp;Online | Login</title>  
+  <title>{{ $ml_login->pri_nombre_is }}&nbsp;{{ $ml_login->seg_nombre_is }} | {{ $ml_login->login_is }}</title>  
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
@@ -16,18 +16,18 @@
 <div class="login-box">
   <div class="login-logo">
     <!-- <a href="/">{{ env('APP_NAME') }}</a> -->
-    <a href="/"><b>Biblioteca&nbsp;</b>Online</a>
+    <a href="/"><b>{{ $ml_login->pri_nombre_is }}&nbsp;</b>{{ $ml_login->seg_nombre_is }}</a>
   </div>
 
   <div class="login-box-body">
-    <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
+    <p class="login-box-msg">{{ $ml_login->login_msg_is }} </p>
 
     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
         @csrf
       <div class="form-group {{ $errors->has('email') ? ' is-invalid' : '' }} has-feedback">
         <input type="email"
                class="form-control"
-               placeholder="Email"
+               placeholder="{{ $ml_login->email_is }}"
                name="email"
                value="{{ old('email') }}" 
                required autofocus>
@@ -41,7 +41,7 @@
       <div class="form-group {{ $errors->has('password') ? ' is-invalid' : '' }} has-feedback">
         <input type="password" 
               class="form-control" 
-              placeholder="Contraseña" 
+              placeholder="{{ $ml_login->contraseña_is }}" 
               name="password" 
               required>
         @if ($errors->has('password'))
@@ -54,14 +54,14 @@
       <div class="row">
         <div class="col-xs-8">
           <div class="form-group">
-          <a href="{{ route('password.request') }}">Olvidaste tu contraseña?</a><br>   
+          <a href="{{ route('password.request') }}">{{ $ml_login->link_pass_is }}</a><br>   
             <!-- <label>
               <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Recuérdame                       
             </label> -->
           </div>
         </div>     
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">{{ $ml_login->btn_entrar_is }}</button>
         </div>
       </div>
     </form>
