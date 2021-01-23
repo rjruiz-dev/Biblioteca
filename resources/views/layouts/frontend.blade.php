@@ -2,17 +2,31 @@
 
 @section('content')
 <section class="all-pages-content">
-    <div class="container">
+    <!-- <div class="container"> -->
         <div class="row">
-            <div class="col-xs-12">
-                <h1 class="text-center wow pulse all-titles-pages">Documentos más recientes</h1>
-                <br><br><br>
-            </div>
+                <div class="col-xs-12">
+                    <h1 class="text-center wow pulse all-titles-pages">Documentos más recientes</h1>
+                    <br><br><br>
+                </div>
             @foreach($documentos as $doc)
-            <div class="col-xs-12 col-sm-4">           
-                <div>
-                    <img  src="{{ asset('images/'.$doc['photo']) }}" alt="{{ $doc['title'] }}"  class="img-responsive img-circle center-box-content">
-                    <h3 class="text-center all-titles-pages">{{ $doc['title'] }}</h3>
+            @php
+                    if($doc['photo'] == null){
+                        $url=asset("images/doc-default.png");
+                    }else{
+                        if(file_exists("images/". $doc['photo'])){
+                            $url=asset("images/". $doc['photo']);
+                        }else{
+                            $url=asset("images/doc-default.png");  
+                        }    
+                    }
+                    @endphp
+            <div class="col-md-3">   
+                <div class="box box-primary">        
+                    <div class="box-body box-profile">            
+                        <img class="img-responsive img-rounded center-box-content" 
+                        src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de;"> 
+                            
+                        <h3 class="text-center all-titles-pages">{{ $doc['title'] }}</h3>
                     @if ( ( trim($doc['synopsis'] != NULL) ) && ( trim($doc['synopsis'] != '') ) )
                     <p>{!! $doc['synopsis'] !!}</p>
                     @endif 
@@ -31,8 +45,12 @@
                     @if($doc['document_types_id'] == 5)
                     <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
                     @endif
-                </div>
-                <hr class="visible-xs">
+                        
+                        
+                        <!-- <a href="#" class="btn btn-primary btn-block"><b>Editar</b></a> -->
+                    </div>
+                    <!-- /.box-body -->
+                </div> 
             </div>     
             @endforeach	
         </div>
@@ -58,6 +76,6 @@
             </div>          
             @endforeach	
         </div>     
-    </div>
+    <!-- </div> -->
 </section>
 @stop

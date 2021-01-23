@@ -48,7 +48,7 @@ class HomeController extends Controller
         $setting = Setting::where('id', 1)->first();
         $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)
                     ->orderBy('id', 'DESC')
-                    ->take(3)
+                    ->take(7)
                     ->get();
 
         $CincoMasResevados =  DB::select('SELECT d.id, d.title, d.synopsis,d.photo, COUNT(d.id)                  
