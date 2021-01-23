@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Providers\UserWasCreated;
 use App\Providers\Requests;
 use App\Providers\LoanClamin;
+use App\Ml_partner;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
 use Illuminate\Support\Facades\Storage;
@@ -45,10 +46,14 @@ class UserController extends Controller
         $setting    = Setting::where('id', 1)->first();  
         $idiomas    = ManyLenguages::all();
 
+        $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+        
+
         return view('admin.users.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'Ml_partner' => $Ml_partner
         ]); 
         
     }
@@ -207,11 +212,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if (!$request->session()->has('idiomas')) { //valida si existe la variable si no existe la crea 
+            $request->session()->put('idiomas', 1); // 1 es el idioma español osea el por defecto.
+        }
+        $session = session('idiomas'); // id referencaindo al idioma.
+
         $user = User::with('statu')->findOrFail($id);
       
-        return view('admin.users.show', compact('user'));
+        $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+        
+        return view('admin.users.show', compact('user'),[
+            'Ml_partner' => $Ml_partner
+        ]);
     }
 
     /**
@@ -220,8 +234,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!$request->session()->has('idiomas')) { //valida si existe la variable si no existe la crea 
+            $request->session()->put('idiomas', 1); // 1 es el idioma español osea el por defecto.
+        }
+        $session = session('idiomas'); // id referencaindo al idioma.
+        
         $user = User::with('statu')->findOrFail($id);
         $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
         $num_socio = $sugerido->membership + 1;
@@ -236,6 +255,8 @@ class UserController extends Controller
             $rol_part = true;
         }
 
+        $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+        
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
@@ -244,6 +265,7 @@ class UserController extends Controller
             'user'      => $user,
             'rol_lib'   => $rol_lib,
             'rol_part'  => $rol_part,
+            'Ml_partner' => $Ml_partner
         ]);  
     }
 

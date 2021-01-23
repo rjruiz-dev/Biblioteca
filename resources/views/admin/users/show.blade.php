@@ -13,13 +13,13 @@
                 
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Usuario</b> <a class="pull-right">{{ $user->nickname }}</a>
+                        <b>{{$Ml_partner->mod_usuario}}</b> <a class="pull-right">{{ $user->nickname }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Email</b> <a class="pull-right">{{ $user->email }}</a>
+                        <b>{{$Ml_partner->mod_email}}</b> <a class="pull-right">{{ $user->email }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Estado</b> <a class="pull-right">{{ $user->statu['state_description'] }}</a>
+                        <b>{{$Ml_partner->mod_estado}}</b> <a class="pull-right">{{ $user->statu['state_description'] }}</a>
                     </li>           
                                     
                 </ul>
@@ -31,31 +31,31 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Datos Personales</h3>
+                <h3 class="box-title">{{$Ml_partner->seccion_personales}}</h3>
             </div>
             <div class="box-body">
                          
                 <ul class="list-group list-group-unbordered"> 
                     <li class="list-group-item">                    
                     @if ( $user->address === NULL )       
-                        <b>Direccion</b> <a class="pull-right"><small class="tex-muted">No tiene direccion asignada</small></a> 
+                        <b>{{$Ml_partner->mod_info_direccion}}</b> <a class="pull-right"><small class="tex-muted">No tiene direccion asignada</small></a> 
                     @else
-                        <b>Direccion</b> <a class="pull-right">{{ $user->address}}</a>
+                        <b>{{$Ml_partner->mod_info_direccion}}</b> <a class="pull-right">{{ $user->address}}</a>
                                                  
                     @endif    
                     </li>                     
                     <li class="list-group-item">
                     @if ( $user->postcode === NULL )       
-                        <b>Codigo Postal</b> <a class="pull-right"><small class="tex-muted">No tiene codigo postal asignado</small></a> 
+                        <b>{{$Ml_partner->mod_info_cod_postal}}</b> <a class="pull-right"><small class="tex-muted">No tiene codigo postal asignado</small></a> 
                     @else
-                        <b>Codigo Postal</b> <a class="pull-right">{{ $user->postcode }}</a>
+                        <b>{{$Ml_partner->mod_info_cod_postal}}</b> <a class="pull-right">{{ $user->postcode }}</a>
                     @endif
                     </li> 
                     <li class="list-group-item">
                     @if ( $user->phone === NULL )       
-                        <b>Telefono</b> <a class="pull-right"><small class="tex-muted">No tiene telefono asignado</small></a> 
+                        <b>{{$Ml_partner->mod_info_telefono}}</b> <a class="pull-right"><small class="tex-muted">No tiene telefono asignado</small></a> 
                     @else
-                        <b>Telefono</b> <a class="pull-right">{{ $user->phone}}</a>                                                 
+                        <b>{{$Ml_partner->mod_info_telefono}}</b> <a class="pull-right">{{ $user->phone}}</a>                                                 
                     @endif    
                     </li> 
                 </ul> 

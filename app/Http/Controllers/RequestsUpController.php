@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Statu;
+use App\Ml_web_request;
 use DataTables;
 use Carbon\Carbon;
 use App\Providers\Requests;
@@ -44,11 +45,15 @@ class RequestsUpController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas    = ManyLenguages::all();
+
+        $Ml_web_request     = Ml_web_request::where('many_lenguages_id',$session)->first();
+        
         // dd($idioma->navegacion);
         return view('admin.requestsup.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'Ml_web_request' => $Ml_web_request
         ]);
     }
 

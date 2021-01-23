@@ -6,7 +6,7 @@
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$Ml_partner->titulo_ams}} </a></li>
         <li class="active">Socios</li>
     </ol> 
 @stop
@@ -14,9 +14,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de socios     
+            <h3 class="panel-title">{{$Ml_partner->subtitulo_ams}}     
           
-                <a href="{{ route('admin.users.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Socio"><i class="fa fa-user-plus"></i> Crear usuario</a>
+                <a href="{{ route('admin.users.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Socio"><i class="fa fa-user-plus"></i> {{$Ml_partner->btn_crear}}</a>
     
             </h3>
         </div>
@@ -24,15 +24,15 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>N° Usuario</th>       
-                        <th>Nickname</th>
-                        <th>Perfil</th>       
-                        <th>Nombre</th>                                           
-                        <th>Email</th>   
-                        <th>Estado</th>  
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{$Ml_partner->dt_id_ams}}</th>
+                        <th>{{$Ml_partner->dt_usuario_ams}}</th>       
+                        <th>{{$Ml_partner->dt_nickname_ams}}</th>
+                        <th>{{$Ml_partner->dt_perfil_ams}}</th>       
+                        <th>{{$Ml_partner->dt_nombre_ams}}</th>                                           
+                        <th>{{$Ml_partner->dt_email_ams}}</th>   
+                        <th>{{$Ml_partner->dt_estado_ams}}</th>  
+                        <th>{{$Ml_partner->dt_agregado_ams}}</th>                                
+                        <th>{{$Ml_partner->dt_acciones_ams}}</th>
                     </tr>
                 </thead>
                 <tbody>
