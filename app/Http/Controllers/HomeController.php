@@ -42,13 +42,19 @@ class HomeController extends Controller
         }
         $session = session('idiomas');
 
+        // $request->session()->put('idiomas', 2);
+        if (!$request->session()->has('recientes')) {
+            $request->session()->put('recientes', 5);
+        }
+        $recientes = session('recientes');
+
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
         $setting = Setting::where('id', 1)->first();
         $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)
                     ->orderBy('id', 'DESC')
-                    ->take(7)
+                    ->take($recientes)
                     ->get();
 
         $CincoMasResevados =  DB::select('SELECT d.id, d.title, d.synopsis,d.photo, COUNT(d.id)                  
@@ -66,6 +72,12 @@ class HomeController extends Controller
             'documentos'  => $documentos,
             'CincoMasResevados'  => $CincoMasResevados
         ]); 
+    }
+
+    public function filtrarhome($cantidad)
+    {
+        $request->session()->put('recientes', $cantidad);
+         
     }
 
 

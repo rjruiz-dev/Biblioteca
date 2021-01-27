@@ -73,6 +73,8 @@ function(){
     Route::get('multimedias/indexsolo/{id}',     'VMultimediaController@indexsolo')->name('multimedias.indexsolo');
     // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
+    Route::get('filtrarhome/{cantidad}',             'HomeController@filtrarhome');
+    
 });
 
 Route::get('libros/table',      'VBooksController@dataTable')->name('libros.table');
