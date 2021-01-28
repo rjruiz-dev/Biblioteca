@@ -48,6 +48,11 @@ class HomeController extends Controller
         }
         $recientes = session('recientes');
 
+        if (!$request->session()->has('reservados')) {
+            $request->session()->put('reservados', 5);
+        }
+        $reservados = session('reservados');
+        // dd("recientes: ".$recientes);
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
@@ -57,34 +62,46 @@ class HomeController extends Controller
                     ->take($recientes)
                     ->get();
 
-        $CincoMasResevados =  DB::select('SELECT d.id, d.title, d.synopsis,d.photo, COUNT(d.id)                  
+        $CincoMasResevados =  DB::select('SELECT d.id, d.title, d.document_types_id, d.synopsis,d.photo, COUNT(d.id)                  
                                 FROM book_movements bm                  
                                 LEFT JOIN copies c ON bm.copies_id = c.id 
                                 LEFT JOIN documents d ON c.documents_id = d.id
                                 WHERE bm.movement_types_id = 7
-                                GROUP BY d.id, d.title, d.synopsis, d.photo
-                                ORDER BY COUNT(d.id) DESC LIMIT 5');
+                                GROUP BY d.id, d.title, d.document_types_id, d.synopsis, d.photo
+                                ORDER BY COUNT(d.id) DESC LIMIT '.$reservados);
 
         return view('layouts.frontend', [
             'idioma'      => $idioma,
             'idiomas'     => $idiomas,
             'setting'     => $setting,
             'documentos'  => $documentos,
+            'recientes'  => $recientes,
+            'reservados'  => $reservados,
             'CincoMasResevados'  => $CincoMasResevados
         ]); 
     }
 
-    public function filtrarhome($cantidad)
+    public function filtrarhome(Request $request, $cantidad)
     {
         $request->session()->put('recientes', $cantidad);
-         
+        // dd("llega"); 
+        return response()->json(['recientes' => session('recientes')]);
+     
+    }
+
+    public function filtrarhome_reservados(Request $request, $cantidad)
+    {
+        $request->session()->put('reservados', $cantidad);
+        // dd("llega"); 
+        return response()->json(['reservados' => session('reservados')]);
+     
     }
 
 
     public function cambiar(Request $request, $id)
     {
         $request->session()->put('idiomas', $id);
-        // dd("llega"); 
+        
     }
 
     public function create()

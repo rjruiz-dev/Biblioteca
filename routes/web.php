@@ -74,6 +74,7 @@ function(){
     // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
     Route::get('filtrarhome/{cantidad}',             'HomeController@filtrarhome');
+    Route::get('filtrarhome_reservados/{cantidad}',             'HomeController@filtrarhome_reservados');
     
 });
 
