@@ -31,6 +31,7 @@ use App\Ml_partner;
 use App\Ml_web_request;
 use App\Ml_login;
 use App\Ml_registry;
+use App\Ml_password;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -513,11 +514,14 @@ class ManyLenguagesController extends Controller
 
         $ml_login       = Ml_login::where('many_lenguages_id', $idioma->id)->first();
         $ml_registry    = Ml_registry::where('many_lenguages_id', $idioma->id)->first();
+        $ml_password    = Ml_password::where('many_lenguages_id', $idioma->id)->first();
                                     
         return view('admin.manylenguages.credentials.partials.form', [          
             'idioma'        => $idioma,           
             'ml_login'      => $ml_login,
-            'ml_registry'   => $ml_registry       
+            'ml_registry'   => $ml_registry,
+            'ml_password'   => $ml_password,
+
            
         ]); 
     }
@@ -941,7 +945,7 @@ class ManyLenguagesController extends Controller
 
                 // Prestamo por aula
                 $ml_lc                          = Ml_classroom_loan::where('many_lenguages_id', $idioma->id)->first();
-                $ml_lc->titulo_lc              = $request->get('titulo_lc');     
+                $ml_lc->titulo_lc               = $request->get('titulo_lc');     
                 $ml_lc->subtitulo_lc            = $request->get('subtitulo_lc');
                 $ml_lc->curso_lc                = $request->get('curso_lc');     
                 $ml_lc->letra_lc                = $request->get('letra_lc');
@@ -959,13 +963,13 @@ class ManyLenguagesController extends Controller
                 $ml_lc->dt_fechadevolucion_lc   = $request->get('dt_fechadevolucion_lc');    
                 $ml_lc->save();
 
-                 // Registro base de datos
-                 $ml_dr                         = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
-                 $ml_dr->titulo_dr              = $request->get('titulo_dr');                      
-                 $ml_dr->dt_id_dr               = $request->get('dt_id_dr');  
-                 $ml_dr->dt_concepto_dr         = $request->get('dt_concepto_dr');  
-                 $ml_dr->dt_registro_dr         = $request->get('dt_registro_dr');                   
-                 $ml_dr->save();
+                // Registro base de datos
+                $ml_dr                         = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
+                $ml_dr->titulo_dr              = $request->get('titulo_dr');                      
+                $ml_dr->dt_id_dr               = $request->get('dt_id_dr');  
+                $ml_dr->dt_concepto_dr         = $request->get('dt_concepto_dr');  
+                $ml_dr->dt_registro_dr         = $request->get('dt_registro_dr');                   
+                $ml_dr->save();
 
                 DB::commit();               
 
@@ -1396,6 +1400,16 @@ class ManyLenguagesController extends Controller
                 $ml_login->link_pass_is     = $request->get('link_pass_is');
                 $ml_login->btn_entrar_is    = $request->get('btn_entrar_is');
                 $ml_login->save(); 
+
+                 // Reestablecer contraseña
+                 $ml_password                       = Ml_password::where('many_lenguages_id', $idioma->id)->first();
+                 $ml_password->pri_nombre_rp        = $request->get('pri_nombre_rp');
+                 $ml_password->seg_nombre_rp        = $request->get('seg_nombre_rp');
+                 $ml_password->reset_rp             = $request->get('reset_rp');
+                 $ml_password->reset_msg_rp         = $request->get('reset_msg_rp');
+                 $ml_password->email_rp             = $request->get('email_rp');                
+                 $ml_password->btn_reestablecer_rp  = $request->get('btn_reestablecer_rp');
+                 $ml_password->save(); 
                 
                 // Solicitud de registro
                 $ml_registry                   = Ml_registry::where('many_lenguages_id', $idioma->id)->first();

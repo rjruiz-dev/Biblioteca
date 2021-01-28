@@ -2,7 +2,7 @@
 
 @section('header')    
     <h1>
-        {{ $ml_ld->titulo_dr }}
+        {{ $ml_dr->titulo_dr }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -12,15 +12,14 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-        
-        </div>
+    </div>
         <div class="panel-body">
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>{{ $ml_ld->dt_id_dr }}</th>
-                        <th>{{ $ml_ld->dt_concepto_dr }}</th>                                   
-                        <th>{{ $ml_ld->dt_registro_dr }}</th>
+                        <th>{{ $ml_dr->dt_id_dr }}</th>
+                        <th>{{ $ml_dr->dt_concepto_dr }}</th>                                   
+                        <th>{{ $ml_dr->dt_registro_dr }}</th>
                         </tr>
                 </thead>
                 <tbody>
@@ -28,7 +27,7 @@
                 </tbody>                
             </table>
         </div>
-    </div> 
+</div> 
 @stop
 
 @include('admin.movies.partials._modal')

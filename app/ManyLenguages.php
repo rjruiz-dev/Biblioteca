@@ -147,4 +147,9 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_registry::class);
     }
+
+    public function ml_password()
+    {
+        return $this->hasMany(Ml_password::class);
+    }
 }

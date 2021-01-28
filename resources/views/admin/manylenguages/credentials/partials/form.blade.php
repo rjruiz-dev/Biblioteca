@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-     <!-- Sección Login-->
+    <!-- Sección Login-->
     <div class="col-md-12">        
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -42,12 +42,12 @@
             </div>
             <div class="box-body">  
                 <div class="form-group">              
-                    {!! Form::label('pri_nombre_is', 'Primer nombre') !!}                    
-                    {!! Form::text('pri_nombre_is', $ml_login['pri_nombre_is'] ? $ml_login['pri_nombre_is'] : null, ['class' => 'form-control', 'id' => 'pri_nombre_is', 'placeholder' => 'Primer nombre']) !!}
+                    {!! Form::label('pri_nombre_is', 'Primer nombre biblioteca') !!}             |       
+                    {!! Form::text('pri_nombre_is', $ml_login['pri_nombre_is'] ? $ml_login['pri_nombre_is'] : null, ['class' => 'form-control', 'id' => 'pri_nombre_is', 'placeholder' => 'Primer nombre biblioteca']) !!}
                 </div> 
                 <div class="form-group">              
-                    {!! Form::label('seg_nombre_is', 'Segundo nombre') !!}                    
-                    {!! Form::text('seg_nombre_is', $ml_login['seg_nombre_is'] ? $ml_login['seg_nombre_is'] : null, ['class' => 'form-control', 'id' => 'seg_nombre_is', 'placeholder' => 'Segundo nombre']) !!}
+                    {!! Form::label('seg_nombre_is', 'Segundo nombre biblioteca') !!}                    
+                    {!! Form::text('seg_nombre_is', $ml_login['seg_nombre_is'] ? $ml_login['seg_nombre_is'] : null, ['class' => 'form-control', 'id' => 'seg_nombre_is', 'placeholder' => 'Segundo nombre biblioteca']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('login_is', 'Pestaña login') !!}                    
@@ -77,8 +77,45 @@
         </div>   
     </div>  
 
-      <!-- Sección registro -->
-      <div class="col-md-12">        
+    <!-- Sección Reset pass-->
+    <div class="col-md-12">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                     <h3 class="box-title"> Sección Recuperar contraseña</h3>
+                </div>
+            </div>
+            <div class="box-body">  
+                <div class="form-group">              
+                    {!! Form::label('pri_nombre_rp', 'Primer nombre biblioteca') !!}                    
+                    {!! Form::text('pri_nombre_rp', $ml_password['pri_nombre_rp'] ? $ml_password['pri_nombre_rp'] : null, ['class' => 'form-control', 'id' => 'pri_nombre_rp', 'placeholder' => 'Primer nombre biblioteca']) !!}
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('seg_nombre_rp', 'Segundo nombre biblioteca') !!}                    
+                    {!! Form::text('seg_nombre_rp', $ml_password['seg_nombre_rp'] ? $ml_password['seg_nombre_rp'] : null, ['class' => 'form-control', 'id' => 'seg_nombre_rp', 'placeholder' => 'Segundo nombre biblioteca']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('reset_rp', 'Pestaña reset') !!}                    
+                    {!! Form::text('reset_rp', $ml_password['reset_rp'] ? $ml_password['reset_rp'] : null, ['class' => 'form-control', 'id' => 'reset_rp', 'placeholder' => 'Pestaña reset']) !!}
+                </div>                   
+                <div class="form-group">              
+                    {!! Form::label('reset_msg_rp', 'Información de acceso') !!}                    
+                    {!! Form::text('reset_msg_rp', $ml_password['reset_msg_rp'] ? $ml_password['reset_msg_rp'] : null, ['class' => 'form-control', 'id' => 'reset_msg_rp', 'placeholder' => 'Información de acceso']) !!}
+                </div>                                          
+                <div class="form-group">              
+                    {!! Form::label('email_rp', 'Email') !!}                    
+                    {!! Form::text('email_rp', $ml_password['email_rp'] ? $ml_password['email_rp'] : null, ['class' => 'form-control', 'id' => 'email_rp', 'placeholder' => 'Email']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('btn_reestablecer_rp', 'Botón reestablecer contraseña') !!}                    
+                    {!! Form::text('btn_reestablecer_rp', $ml_password['btn_reestablecer_rp'] ? $ml_password['btn_reestablecer_rp'] : null, ['class' => 'form-control', 'id' => 'btn_reestablecer_rp', 'placeholder' => 'Botón reestablecer contraseña']) !!}
+                </div>                                                                        
+            </div>       
+        </div>   
+    </div>  
+
+    <!-- Sección registro -->
+    <div class="col-md-12">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">

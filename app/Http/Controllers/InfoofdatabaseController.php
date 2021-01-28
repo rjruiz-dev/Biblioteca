@@ -46,12 +46,12 @@ class infoofdatabaseController extends Controller
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();        
         $cursos     = Course::pluck('course_name', 'id');
-               
+             
         return view('admin.infoofdatabase.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_dr'     => $ml_dr,
+            'ml_dr'     => $ml_dr
         ]);
       
     }

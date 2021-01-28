@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Biblioteca&nbsp;Online | Reset Password</title>
+  <title>{{ $ml_password->pri_nombre_rp }}&nbsp;{{ $ml_password->seg_nombre_rp }} | {{ $ml_password->reset_rp }}</title>
 
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css"> 
@@ -16,10 +16,10 @@
 <div class="login-box">
   <div class="login-logo">
     <!-- <a href="/">{{ env('APP_NAME') }}</a> -->
-    <a href="/"><b>Biblioteca&nbsp;</b>Online</a>
+    <a href="/"><b>{{ $ml_password->pri_nombre_rp }}&nbsp;</b>{{ $ml_password->seg_nombre_rp }}</a>
   </div> 
   <div class="login-box-body">
-    <p class="login-box-msg">Ingresa tu email para restablecer contraseña</p>
+    <p class="login-box-msg">{{ $ml_password->reset_msg_rp }}</p>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -30,7 +30,7 @@
         <div class="form-group {{ $errors->has('email') ? ' is-invalid' : '' }} has-feedback">
             <input type="email"
                 class="form-control"
-                placeholder="Email"
+                placeholder="{{ $ml_password->email_rp }}"
                 name="email"
                 value="{{ old('email') }}" 
                 required autofocus>
@@ -44,7 +44,7 @@
 
         <div class="row">        
             <div class="col-xs-12"> 
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Enviar enlace de restablecimiento de contraseña</button>
+                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ $ml_password->btn_reestablecer_rp }}</button>
             </div>
       </div>       
     </form>

@@ -90,7 +90,8 @@ class CourseController extends Controller
                 // Creamos el genero           
                 $course = new Course;  
                 $course->course_name  = $request->get('course_name'); 
-                $course->group        = $request->get('group');           
+                $course->group        = $request->get('group');  
+                $course->baja         = 0;                    
                 $course->save();
 
                 DB::commit();
@@ -158,7 +159,7 @@ class CourseController extends Controller
 
                 // Actualizamos el genero               
                 $course->course_name  = $request->get('course_name');  
-                $course->group        = $request->get('group');             
+                $course->group        = $request->get('group');                 
                 $course->save();
                  
                 DB::commit();
