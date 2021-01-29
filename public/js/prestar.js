@@ -80,35 +80,35 @@ if( $("#bandera").val() == 3){
     // alert(id_usuario_traido);
     obtenerDetalleDePartner(id_usuario_traido);
 }
-    $('#copies_id').select2({
-        placeholder: 'Selecciona un Numero de Copia',
-        tags: false                 
+    // $('#copies_id').select2({
+    //     // placeholder: 'Selecciona un Numero de Copia',
+    //     tags: false                 
 
-    });
+    // });
 
-    $('#users_id').select2({
-        placeholder: 'Selecciona un Socio',
-        tags: false                 
+    // $('#users_id').select2({
+    //     placeholder: 'Selecciona un Socio',
+    //     tags: false                 
 
-    });
+    // });
 
-    $('#course_id').select2({
-        placeholder: 'Selecciona un Curso',
-        tags: false                 
+    // $('#course_id').select2({
+    //     placeholder: 'Selecciona un Curso',
+    //     tags: false                 
 
-    });
+    // });
 
-    $('#grupo').select2({
-        placeholder: 'Selecciona un Grupo',
-        tags: false                 
+    // $('#grupo').select2({
+    //     placeholder: 'Selecciona un Grupo',
+    //     tags: false                 
 
-    });
+    // });
 
-    $('#turno').select2({
-        placeholder: 'Selecciona un Grupo',
-        tags: false                 
+    // $('#turno').select2({
+    //     placeholder: 'Selecciona un Grupo',
+    //     tags: false                 
 
-    });
+    // });
 
     
 

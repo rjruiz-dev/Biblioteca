@@ -12,7 +12,7 @@ class Ml_loan_partner extends Model
         'genero','fecha_nac', 'email','telefono','direccion','cod_postal','ciudad', 'provincia',
         'seccion_prestamo','num_copia','prestado_el', 'devolver_el','dias_retraso','sancion',
         'economica','btn_devolver','btn_renovar', 'btn_cerrar','btn_si', 'mod_titulo_lp', 'mod_subtitulo_lp',           
-        'cam_devolver_lp'      
+        'cam_devolver_lp','dias_resto_lp'     
     
     ];
     

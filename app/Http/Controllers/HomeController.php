@@ -52,6 +52,7 @@ class HomeController extends Controller
             $request->session()->put('reservados', 5);
         }
         $reservados = session('reservados');
+        
         // dd("recientes: ".$recientes);
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();

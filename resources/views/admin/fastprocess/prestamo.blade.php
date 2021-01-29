@@ -5,8 +5,8 @@
     {{$Ml_loan_partner->titulo_index_lp}}       
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Socios</li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$idioma->inicio}}</a></li>
+        <li><a href="{{ route('admin.fastprocess.index') }}"><i class="fa fa-retweet"></i>{{$idioma->prest_y_dev.' - '}}<i class="fa fa-users"></i>{{$idioma->pyd_por_socio}}</a></li>
     </ol> 
 @stop
 
@@ -106,7 +106,7 @@
                                 <!-- 12-11-2020  >=  13-10-2020  -->
                         @if (Carbon\Carbon::parse($docs_of_use->date_until) >= Carbon\Carbon::now())
                             @php
-                                $info = "dias de resto";
+                                $info = $Ml_loan_partner->dias_resto_lp;
                                 $color = "text-success";
                                 $mostrar_sancion = false;
                                 $color_sancion = "";
@@ -120,9 +120,20 @@
                                 $color_sancion = "text-danger";
                                 $mostrar_sancion = true;
                                 $calculo = ($multa->unit * $dif);
-                                $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
-                                $disabled_reno = 'disabled';
                             @endphp
+                                @if ($multa->id == 1)
+                                    @php
+                                    $idioma_multa = $traduccion_multa->economica;
+                                    @endphp
+                                @else
+                                    @php
+                                    $idioma_multa = $traduccion_multa->suspension;
+                                    @endphp
+                                @endif
+                                    @php
+                                    $sancion = $idioma_multa." ".$multa->label." ".$calculo;
+                                    $disabled_reno = 'disabled';
+                                    @endphp
                         @endif
 
                     <li class="list-group-item">

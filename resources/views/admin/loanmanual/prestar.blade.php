@@ -6,8 +6,8 @@
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Documentos</li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$idioma->inicio}}</a></li>
+        <li><a href="{{ route('admin.loanmanual.index') }}"><i class="fa fa-hand-o-right"></i>{{$idioma->prestamos_manuales}}</a></li>
     </ol> 
 @stop
 
@@ -70,7 +70,7 @@
                             {{ Form::hidden('bandera', $bandera,['id' => 'bandera']) }} 
                             <div class="form-group">
                                 {!! Form::label('copies_id', $Ml_manual_loan->select_registro) !!}
-                                {!! Form::select('copies_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => '', 'id' => 'copies_id',  $visible ? 'disabled' : '', 'style' => 'width:100%;']) !!}
+                                {!! Form::select('copies_id', $copies, null, ['class' => 'form-control select2', 'placeholder' => 'ssss', 'id' => 'copies_id',  $visible ? 'disabled' : '', 'style' => 'width:100%;']) !!}
                                 {!! $var_copy !!}     
                             </div>
                             <div class="form-group">
@@ -134,7 +134,7 @@
                         </div>                        
                     </li> 
                     <div class="modal-footer" id="modal-footer">                  
-                        <button type="submit" class="btn btn-primary" id="modal-btn-save-prestar">Prestar</button>
+                        <button type="submit" class="btn btn-primary" id="modal-btn-save-prestar">{{$Ml_manual_loan->btn_prestar}}</button>
                     </div>     
                     {!! Form::close() !!}                                                   
                 </ul>  
@@ -159,4 +159,36 @@
     <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('js/prestar.js') }}"></script>  
     
+
+    <script> 
+$('#copies_id').select2({
+        placeholder: '{!! $Ml_manual_loan->ph_registro !!}',
+        tags: false                 
+
+    });
+
+    $('#users_id').select2({
+        placeholder: '{!! $Ml_manual_loan->ph_usuario !!}',
+        tags: false                 
+
+    });
+
+    $('#course_id').select2({
+        placeholder: '{!! $Ml_manual_loan->ph_curso !!}',
+        tags: false                 
+
+    });
+
+    $('#grupo').select2({
+        placeholder: '{!! $Ml_manual_loan->ph_grupo !!}',
+        tags: false                 
+
+    });
+
+    $('#turno').select2({
+        placeholder: '{!! $Ml_manual_loan->ph_turno !!}',
+        tags: false                 
+
+    });
+    </script> 
 @endpush

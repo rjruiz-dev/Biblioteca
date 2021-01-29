@@ -12,6 +12,7 @@ use DataTables;
 use App\Document;
 use Carbon\Carbon;
 use App\Setting;
+use App\ml_fines;
 use App\Sanction;
 use App\Book_movement;
 use App\Document_type;
@@ -39,6 +40,7 @@ class FastPartnerProcessController extends Controller
         $session = session('idiomas');
 
         $Ml_loan_partner     = Ml_loan_partner::where('many_lenguages_id',$session)->first();
+        $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
         
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
@@ -49,7 +51,8 @@ class FastPartnerProcessController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'Ml_loan_partner' => $Ml_loan_partner
+            'Ml_loan_partner' => $Ml_loan_partner,
+            'Ml_loan_document' => $Ml_loan_document
         ]);         
     }
 
@@ -227,11 +230,13 @@ class FastPartnerProcessController extends Controller
 
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
 
         $Ml_loan_partner     = Ml_loan_partner::where('many_lenguages_id',$session)->first();
         
+        $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
                  
         $user = User::findOrFail($id); //datos del socio 
         
@@ -261,7 +266,9 @@ class FastPartnerProcessController extends Controller
             'idiomas'       => $idiomas,
             'setting'       => $setting,
             'multa'         => $multa,
-            'Ml_loan_partner' => $Ml_loan_partner  
+            'traduccion_multa' => $traduccion_multa,
+            'Ml_loan_partner' => $Ml_loan_partner,
+            'Ml_loan_document' =>  $Ml_loan_document  
         ]);
     }
 
@@ -280,7 +287,8 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas    = ManyLenguages::all();
         $setting    = Setting::where('id', 1)->first();
-
+        $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
+        
         $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
         
 
@@ -371,6 +379,7 @@ class FastPartnerProcessController extends Controller
             'idiomas'               => $idiomas,
             'multa'                 => $multa,
             'setting'               => $setting,
+            'traduccion_multa' => $traduccion_multa,
             'Ml_loan_document' => $Ml_loan_document
         ]);    
     }

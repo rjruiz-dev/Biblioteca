@@ -209,6 +209,10 @@
                     {!! Form::label('fecha_prestamo', 'Prestado hasta') !!}                    
                     {!! Form::text('fecha_prestamo', $ml_ml['fecha_prestamo'] ? $ml_ml['fecha_prestamo'] : null, ['class' => 'form-control', 'id' => 'fecha_prestamo', 'placeholder' => 'Prestado hasta']) !!}                                     
                 </div>
+                <div class="form-group">              
+                    {!! Form::label('btn_prestar', 'Boton Prestar') !!}                    
+                    {!! Form::text('btn_prestar', $ml_ml['btn_prestar'] ? $ml_ml['btn_prestar'] : null, ['class' => 'form-control', 'id' => 'btn_prestar', 'placeholder' => 'Boton Prestar']) !!}                                     
+                </div>
             </div>       
         </div>   
     </div>  
@@ -335,7 +339,11 @@
                 <div class="form-group">              
                     {!! Form::label('btn_rechazar', 'Rechazar solicitud') !!}                    
                     {!! Form::text('btn_rechazar', $ml_wl['btn_rechazar'] ? $ml_wl['btn_rechazar'] : null, ['class' => 'form-control', 'id' => 'btn_rechazar', 'placeholder' => 'Rechazar solicitud']) !!}
-                </div>                   
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('btn_cerrar', 'Boton Cerrar') !!}                    
+                    {!! Form::text('btn_cerrar', $ml_wl['btn_cerrar'] ? $ml_wl['btn_cerrar'] : null, ['class' => 'form-control', 'id' => 'btn_cerrar', 'placeholder' => 'Boton Cerrar']) !!}
+                </div>                  
             </div>       
         </div>   
     </div>  

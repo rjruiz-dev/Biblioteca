@@ -10,8 +10,8 @@
             </div>
             
             <div class="modal-footer" id="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="modal-btn-save">Save changes</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">{{$Ml_loan_document->btn_cerrar_ld }}</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-save">{{$Ml_loan_document->btn_si_ld }}</button>
             </div>
         </div>
     </div>

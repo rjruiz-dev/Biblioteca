@@ -6,8 +6,8 @@
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Documentos</li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$idioma->inicio}}</a></li>
+        <li><a href="{{ route('admin.fastprocess.index') }}"><i class="fa fa-retweet"></i>{{$idioma->prest_y_dev.' - '}}<i class="fa fa-folder-open"></i>{{$idioma->pyd_por_doc}}</a></li>
     </ol> 
 @stop
 
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="col-md-2">              
-                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right {{ $disabled }}" title="Nuevo Prestamo"><i class="fa ion-android-add-circle"></i> Prestamo</a>
+                <a href="{{ route('loanmanual.abm_prestamo', ['id' =>  $documento->id, 'bandera' =>  0, 'n_mov' =>  0 ]) }}" class="btn btn-success pull-right {{ $disabled }}" title="{{$Ml_loan_document->btn_prestamo_ld }}"><i class="fa ion-android-add-circle"></i> {{$Ml_loan_document->btn_prestamo_ld }}</a>
             </div>        
         </div>
             <div class="box-body">          
@@ -93,7 +93,7 @@
                                   
                         @if (Carbon\Carbon::parse($copie->date_until) >= Carbon\Carbon::now())
                             @php
-                                $info = "dias de resto";
+                                $info = $Ml_loan_document->dias_resto_ld;
                                 $color = "text-success";
                                 $mostrar_sancion = false;
                                 $color_sancion = "";
@@ -102,14 +102,25 @@
                             @endphp 
                         @else
                             @php
-                                $info = "dias de retraso";
+                                $info = $Ml_loan_document->dias_retraso_ld;
                                 $color = "text-danger";
                                 $color_sancion = "text-danger";
                                 $mostrar_sancion = true;
                                 $calculo = ($multa->unit * $dif);
-                                $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
-                                $disabled_reno = 'disabled';      
                             @endphp
+                                @if ($multa->id == 1)
+                                    @php
+                                    $idioma_multa = $traduccion_multa->economica;
+                                    @endphp
+                                @else
+                                    @php
+                                    $idioma_multa = $traduccion_multa->suspension;
+                                    @endphp
+                                @endif
+                                    @php
+                                    $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
+                                    $disabled_reno = 'disabled';      
+                                    @endphp
                         @endif
 
                         

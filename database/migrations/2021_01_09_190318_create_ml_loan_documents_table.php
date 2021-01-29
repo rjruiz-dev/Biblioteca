@@ -39,6 +39,7 @@ class CreateMlLoanDocumentsTable extends Migration
             $table->string('prestado_ld')->nullable();                      
             $table->string('devolver_ld')->nullable();
             $table->string('dias_retraso_ld')->nullable();  
+            $table->string('dias_resto_ld')->nullable();  
             $table->string('sancion_ld')->nullable();
             $table->string('economica_ld')->nullable();            
             $table->string('btn_devolver_ld')->nullable();      

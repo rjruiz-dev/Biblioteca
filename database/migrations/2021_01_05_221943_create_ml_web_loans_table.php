@@ -37,6 +37,7 @@ class CreateMlWebLoansTable extends Migration
             
             $table->string('btn_aceptar')->nullable();
             $table->string('btn_rechazar')->nullable();
+            $table->string('btn_cerrar')->nullable();
             $table->timestamps();
 
             $table->foreign('many_lenguages_id')->references('id')->on('many_lenguages')

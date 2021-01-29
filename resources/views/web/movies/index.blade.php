@@ -12,7 +12,7 @@ use App\Movies;
     </h1>
     {{ Form::hidden('idf', $idf, ['id' => 'idf']) }}
     <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$ml_cat_list_book->movie_text_inicio}}</a></li>
+        <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{$ml_cat_list_book->movie_text_inicio}}</a></li>
         <!-- <li class="active">Catálogo</li>
          -->
     </ol> 

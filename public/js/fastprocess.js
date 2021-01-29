@@ -6,8 +6,8 @@ $('body').on('click', '.modal-show', function (event) {
         title = me.attr('title');
 
     $('#modal-title').text(title);
-    $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Si');
+    // $('#modal-btn-save').removeClass('hide')
+    // .text(me.hasClass('edit') ? 'Actualizar' : 'Si');
 
     $.ajax({
         url: url,

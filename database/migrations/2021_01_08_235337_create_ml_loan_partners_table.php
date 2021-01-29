@@ -46,6 +46,7 @@ class CreateMlLoanPartnersTable extends Migration
             $table->string('prestado_el')->nullable();                      
             $table->string('devolver_el')->nullable();
             $table->string('dias_retraso')->nullable();  
+            $table->string('dias_resto_lp')->nullable(); 
             $table->string('sancion')->nullable();
             $table->string('economica')->nullable();            
             $table->string('btn_devolver')->nullable();      

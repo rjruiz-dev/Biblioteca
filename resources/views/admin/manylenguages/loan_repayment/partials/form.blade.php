@@ -195,7 +195,11 @@
                 <div class="form-group">              
                     {!! Form::label('dias_retraso', 'Días de retraso') !!}                    
                     {!! Form::text('dias_retraso', $ml_lp['dias_retraso'] ? $ml_lp['dias_retraso'] : null, ['class' => 'form-control', 'id' => 'dias_retraso', 'placeholder' => 'Días de retraso']) !!}
-                </div>    
+                </div>  
+                <div class="form-group">              
+                    {!! Form::label('dias_resto_lp', 'Días de resto') !!}                    
+                    {!! Form::text('dias_resto_lp', $ml_lp['dias_resto_lp'] ? $ml_lp['dias_resto_lp'] : null, ['class' => 'form-control', 'id' => 'dias_resto_lp', 'placeholder' => 'Días de resto']) !!}
+                </div>  
                 <div class="form-group">              
                     {!! Form::label('sancion', 'Sanción') !!}                    
                     {!! Form::text('sancion', $ml_lp['sancion'] ? $ml_lp['sancion'] : null, ['class' => 'form-control', 'id' => 'sancion', 'placeholder' => 'Sanción']) !!}
@@ -426,7 +430,11 @@
                 <div class="form-group">              
                     {!! Form::label('dias_retraso_ld', 'Días de retraso') !!}                    
                     {!! Form::text('dias_retraso_ld', $ml_ld['dias_retraso_ld'] ? $ml_ld['dias_retraso_ld'] : null, ['class' => 'form-control', 'id' => 'dias_retraso_ld', 'placeholder' => 'Días de retraso']) !!}
-                </div>    
+                </div>   
+                <div class="form-group">              
+                    {!! Form::label('dias_resto_ld', 'Días de resto') !!}                    
+                    {!! Form::text('dias_resto_ld', $ml_ld['dias_resto_ld'] ? $ml_ld['dias_resto_ld'] : null, ['class' => 'form-control', 'id' => 'dias_resto_ld', 'placeholder' => 'Días de resto']) !!}
+                </div> 
                 <div class="form-group">              
                     {!! Form::label('sancion_ld', 'Sanción') !!}                    
                     {!! Form::text('sancion_ld', $ml_ld['sancion_ld'] ? $ml_ld['sancion_ld'] : null, ['class' => 'form-control', 'id' => 'sancion_ld', 'placeholder' => 'Sanción']) !!}
@@ -506,7 +514,7 @@
                 <div class="form-group">              
                     {!! Form::label('btn_si_ld', 'Botón si') !!}                    
                     {!! Form::text('btn_si_ld', $ml_ld['btn_si_ld'] ? $ml_ld['btn_si_ld'] : null, ['class' => 'form-control', 'id' => 'btn_si_ld', 'placeholder' => 'Botón si']) !!}
-                </div>                                                  
+                </div>                                                 
             </div>
         </div>       
     </div> 

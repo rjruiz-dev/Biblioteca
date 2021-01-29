@@ -33,7 +33,7 @@
                     }
             @endphp
             <div class="col-md-15">   
-                <div class="box box-primary">        
+                <div class="box box-primary" style="border-top-color: {{ $setting->skin }};">        
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 

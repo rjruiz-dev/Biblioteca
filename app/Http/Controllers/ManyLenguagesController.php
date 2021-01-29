@@ -1187,7 +1187,8 @@ class ManyLenguagesController extends Controller
                 $ml_ml->ph_grupo           = $request->get('ph_grupo');    
                 $ml_ml->select_turno       = $request->get('select_turno');    
                 $ml_ml->ph_turno           = $request->get('ph_turno');    
-                $ml_ml->fecha_prestamo     = $request->get('fecha_prestamo');   
+                $ml_ml->fecha_prestamo     = $request->get('fecha_prestamo');
+                $ml_ml->btn_prestar        = $request->get('btn_prestar');   
                 $ml_ml->save();              
 
                 // Prestamo desde la web
@@ -1207,7 +1208,8 @@ class ManyLenguagesController extends Controller
                 $ml_wl->mod_socio          = $request->get('mod_socio');    
                 $ml_wl->mod_fecha          = $request->get('mod_fecha');    
                 $ml_wl->btn_aceptar        = $request->get('btn_aceptar');    
-                $ml_wl->btn_rechazar       = $request->get('btn_rechazar');                  
+                $ml_wl->btn_rechazar       = $request->get('btn_rechazar');  
+                $ml_wl->btn_cerrar       = $request->get('btn_cerrar');                  
                 $ml_wl->save();              
 
                 DB::commit();               
@@ -1497,6 +1499,7 @@ class ManyLenguagesController extends Controller
                 $ml_lp->prestado_el        = $request->get('prestado_el');  
                 $ml_lp->devolver_el        = $request->get('devolver_el');  
                 $ml_lp->dias_retraso       = $request->get('dias_retraso');  
+                $ml_lp->dias_resto_lp       = $request->get('dias_resto_lp'); 
                 $ml_lp->sancion            = $request->get('sancion');  
                 $ml_lp->economica          = $request->get('economica');    
                 $ml_lp->btn_devolver       = $request->get('btn_devolver');    
@@ -1529,7 +1532,8 @@ class ManyLenguagesController extends Controller
                 $ml_ld->prestado_a         = $request->get('prestado_a');
                 $ml_ld->prestado_ld        = $request->get('prestado_ld');
                 $ml_ld->devolver_ld        = $request->get('devolver_ld');
-                $ml_ld->dias_retraso_ld    = $request->get('dias_retraso_ld');                
+                $ml_ld->dias_retraso_ld    = $request->get('dias_retraso_ld');
+                $ml_ld->dias_resto_ld       = $request->get('dias_resto_ld');               
                 $ml_ld->sancion_ld         = $request->get('sancion_ld');  
                 $ml_ld->economica_ld       = $request->get('economica_ld');
             
