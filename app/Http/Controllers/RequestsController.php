@@ -140,8 +140,11 @@ class RequestsController extends Controller
                     }else{ 
                         $error = 1; // error en 1 es error Si osea HAY ERROR
                     } 
+                    $session = session('idiomas');
+                    $Ml_web_loan = Ml_web_loan::where('many_lenguages_id',$session)->first();
+                    return response()->json(['error' => $error, 'mensaje_exito' => $Ml_web_loan->mensaje_exito, 'resp_rechazar_solicitud' => $Ml_web_loan->resp_rechazar_solicitud]);
 
-                    return response()->json(['error' => $error]); 
+                    // return response()->json(['error' => $error]); 
     }
 
 

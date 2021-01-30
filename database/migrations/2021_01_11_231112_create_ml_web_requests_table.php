@@ -27,7 +27,13 @@ class CreateMlWebRequestsTable extends Migration
             $table->string('dt_email_wr')->nullable();
             $table->string('dt_estado_wr')->nullable();
             $table->string('dt_agregado_wr')->nullable();
-            $table->string('dt_acciones_wr')->nullable();         
+            $table->string('dt_acciones_wr')->nullable();  
+            
+            $table->string('preg_aceptar_socio')->nullable();
+            $table->string('resp_aceptar_socio')->nullable();
+            $table->string('preg_rechazar_socio')->nullable();
+            $table->string('resp_rechazar_socio')->nullable();
+            $table->string('mensaje_exito_solicitud')->nullable();
           
             $table->timestamps();
 

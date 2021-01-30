@@ -3,6 +3,8 @@
 @section('header')    
     <h1>
     {{$Ml_web_loan->titulo_wl}}
+    {{ Form::hidden('preg_rechazar_solicitud', $Ml_web_loan->preg_rechazar_solicitud, ['id' => 'preg_rechazar_solicitud']) }}
+       
         <!-- <small>Listado</small> -->
     </h1>
     <ol class="breadcrumb">

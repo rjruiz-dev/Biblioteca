@@ -27,6 +27,8 @@ class CreateMlSendLettersTable extends Migration
             $table->string('ph_enviar')->nullable();
             $table->string('check_informe')->nullable();                     
             $table->string('btn_email')->nullable(); 
+            $table->string('mensaje_exito')->nullable();
+            $table->string('noti_envio_mails')->nullable();  
                       
             $table->timestamps();
 

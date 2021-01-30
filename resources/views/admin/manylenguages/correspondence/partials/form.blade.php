@@ -89,7 +89,15 @@
                 <div class="form-group">              
                     {!! Form::label('btn_email', 'Enviar informe') !!}                    
                     {!! Form::text('btn_email', $ml_sl['btn_email'] ? $ml_sl['btn_email'] : null, ['class' => 'form-control', 'id' => 'btn_email', 'placeholder' => 'Informe por email']) !!}
-                </div>                                      
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('mensaje_exito', 'Mensaje de Exito') !!}                    
+                    {!! Form::text('mensaje_exito', $ml_sl['mensaje_exito'] ? $ml_sl['mensaje_exito'] : null, ['class' => 'form-control', 'id' => 'mensaje_exito', 'placeholder' => 'Mensaje de Exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('noti_envio_mails', 'Mensaje de Envio Mail') !!}                    
+                    {!! Form::text('noti_envio_mails', $ml_sl['noti_envio_mails'] ? $ml_sl['noti_envio_mails'] : null, ['class' => 'form-control', 'id' => 'noti_envio_mails', 'placeholder' => 'Mensaje de Envio Mail']) !!}
+                </div>                                     
             </div>       
         </div>   
     </div>  

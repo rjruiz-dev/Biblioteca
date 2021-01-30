@@ -1189,6 +1189,8 @@ class ManyLenguagesController extends Controller
                 $ml_ml->ph_turno           = $request->get('ph_turno');    
                 $ml_ml->fecha_prestamo     = $request->get('fecha_prestamo');
                 $ml_ml->btn_prestar        = $request->get('btn_prestar');   
+                $ml_ml->mensaje_exito_prestar        = $request->get('mensaje_exito_prestar');
+                $ml_ml->noti_prestamo_exitoso        = $request->get('noti_prestamo_exitoso');
                 $ml_ml->save();              
 
                 // Prestamo desde la web
@@ -1209,7 +1211,10 @@ class ManyLenguagesController extends Controller
                 $ml_wl->mod_fecha          = $request->get('mod_fecha');    
                 $ml_wl->btn_aceptar        = $request->get('btn_aceptar');    
                 $ml_wl->btn_rechazar       = $request->get('btn_rechazar');  
-                $ml_wl->btn_cerrar       = $request->get('btn_cerrar');                  
+                $ml_wl->btn_cerrar       = $request->get('btn_cerrar');    
+                $ml_wl->mensaje_exito       = $request->get('mensaje_exito');  
+                $ml_wl->preg_rechazar_solicitud       = $request->get('preg_rechazar_solicitud');  
+                $ml_wl->resp_rechazar_solicitud       = $request->get('resp_rechazar_solicitud');              
                 $ml_wl->save();              
 
                 DB::commit();               
@@ -1544,7 +1549,11 @@ class ManyLenguagesController extends Controller
                 $ml_ld->btn_si_ld          = $request->get('btn_si_ld');    
                 $ml_ld->mod_titulo_ld      = $request->get('mod_titulo_ld');    
                 $ml_ld->mod_subtitulo_ld   = $request->get('mod_subtitulo_ld');    
-                $ml_ld->cam_devolver_ld    = $request->get('cam_devolver_ld');    
+                $ml_ld->cam_devolver_ld    = $request->get('cam_devolver_ld'); 
+
+                $ml_ld->mensaje_exito_ld      = $request->get('mensaje_exito_ld');    
+                $ml_ld->noti_devolucion_ld   = $request->get('noti_devolucion_ld');    
+                $ml_ld->noti_renovacion_ld    = $request->get('noti_renovacion_ld');  
                 $ml_ld->save();  
                 DB::commit();               
 
@@ -1765,7 +1774,9 @@ class ManyLenguagesController extends Controller
                 $ml_sl->select_enviar           = $request->get('select_enviar');  
                 $ml_sl->ph_enviar               = $request->get('ph_enviar');                
                 $ml_sl->check_informe           = $request->get('check_informe');  
-                $ml_sl->btn_email               = $request->get('btn_email');                                   
+                $ml_sl->btn_email               = $request->get('btn_email');    
+                $ml_sl->mensaje_exito               = $request->get('mensaje_exito');    
+                $ml_sl->noti_envio_mails               = $request->get('noti_envio_mails');                                   
                 $ml_sl->save();  
                 DB::commit();               
 
@@ -2021,6 +2032,15 @@ class ManyLenguagesController extends Controller
          $ml_partner->btn_crear          = $request->get('btn_crear');     
          $ml_partner->btn_actualizar     = $request->get('btn_actualizar');       
          $ml_partner->btn_cerrar         = $request->get('btn_cerrar'); 
+
+         $ml_partner->noti_alta_socio          = $request->get('noti_alta_socio');
+        //  $ml_partner->noti_edicion_socio          = $request->get('noti_edicion_socio');
+         $ml_partner->preg_reactivar_socio          = $request->get('preg_reactivar_socio');
+         $ml_partner->resp_reactivar_socio          = $request->get('resp_reactivar_socio');
+         $ml_partner->preg_baja_socio          = $request->get('preg_baja_socio');
+         $ml_partner->resp_baja_socio          = $request->get('resp_baja_socio');
+         $ml_partner->mensaje_exito          = $request->get('mensaje_exito');    
+         
          $ml_partner->save(); 
 
          // Solicitud desde la web
@@ -2034,6 +2054,13 @@ class ManyLenguagesController extends Controller
          $ml_wr->dt_estado_wr            = $request->get('dt_estado_wr');           
          $ml_wr->dt_agregado_wr          = $request->get('dt_agregado_wr');
          $ml_wr->dt_acciones_wr          = $request->get('dt_acciones_wr');
+
+         $ml_wr->preg_aceptar_socio          = $request->get('preg_aceptar_socio');
+         $ml_wr->resp_aceptar_socio          = $request->get('resp_aceptar_socio');
+         $ml_wr->preg_rechazar_socio          = $request->get('preg_rechazar_socio');
+         $ml_wr->resp_rechazar_socio          = $request->get('resp_rechazar_socio');
+         $ml_wr->mensaje_exito_solicitud          = $request->get('mensaje_exito_solicitud');        
+
          $ml_wr->save(); 
 
          DB::commit();               

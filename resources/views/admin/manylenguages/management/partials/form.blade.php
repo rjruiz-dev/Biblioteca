@@ -213,6 +213,14 @@
                     {!! Form::label('btn_prestar', 'Boton Prestar') !!}                    
                     {!! Form::text('btn_prestar', $ml_ml['btn_prestar'] ? $ml_ml['btn_prestar'] : null, ['class' => 'form-control', 'id' => 'btn_prestar', 'placeholder' => 'Boton Prestar']) !!}                                     
                 </div>
+                <div class="form-group">              
+                    {!! Form::label('mensaje_exito_prestar', 'Mensaje Exito') !!}                    
+                    {!! Form::text('mensaje_exito_prestar', $ml_ml['mensaje_exito_prestar'] ? $ml_ml['mensaje_exito_prestar'] : null, ['class' => 'form-control', 'id' => 'mensaje_exito_prestar', 'placeholder' => 'Mensaje Exito']) !!}
+                </div>
+                <div class="form-group">               
+                    {!! Form::label('noti_prestamo_exitoso', 'Notificacion Prestamo Exitoso') !!}                    
+                    {!! Form::text('noti_prestamo_exitoso', $ml_ml['noti_prestamo_exitoso'] ? $ml_ml['noti_prestamo_exitoso'] : null, ['class' => 'form-control', 'id' => 'noti_prestamo_exitoso', 'placeholder' => 'Notificacion Prestamo Exitoso']) !!}
+                </div>
             </div>       
         </div>   
     </div>  
@@ -343,6 +351,22 @@
                 <div class="form-group">              
                     {!! Form::label('btn_cerrar', 'Boton Cerrar') !!}                    
                     {!! Form::text('btn_cerrar', $ml_wl['btn_cerrar'] ? $ml_wl['btn_cerrar'] : null, ['class' => 'form-control', 'id' => 'btn_cerrar', 'placeholder' => 'Boton Cerrar']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('btn_cerrar', 'Boton Cerrar') !!}                    
+                    {!! Form::text('btn_cerrar', $ml_wl['btn_cerrar'] ? $ml_wl['btn_cerrar'] : null, ['class' => 'form-control', 'id' => 'btn_cerrar', 'placeholder' => 'Boton Cerrar']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('mensaje_exito', 'Mensaje Exito') !!}                    
+                    {!! Form::text('mensaje_exito', $ml_wl['mensaje_exito'] ? $ml_wl['mensaje_exito'] : null, ['class' => 'form-control', 'id' => 'mensaje_exito', 'placeholder' => 'Mensaje Exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('preg_rechazar_solicitud', 'Mensaje Pregunta Rechazar Solicitud') !!}                    
+                    {!! Form::text('preg_rechazar_solicitud', $ml_wl['preg_rechazar_solicitud'] ? $ml_wl['preg_rechazar_solicitud'] : null, ['class' => 'form-control', 'id' => 'preg_rechazar_solicitud', 'placeholder' => 'Mensaje Pregunta Rechazar Solicitud']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('resp_rechazar_solicitud', 'Mensaje Respuesta Rechazo de Solicitud') !!}                    
+                    {!! Form::text('resp_rechazar_solicitud', $ml_wl['resp_rechazar_solicitud'] ? $ml_wl['resp_rechazar_solicitud'] : null, ['class' => 'form-control', 'id' => 'resp_rechazar_solicitud', 'placeholder' => 'Mensaje Respuesta Rechazo de Solicitud']) !!}
                 </div>                  
             </div>       
         </div>   

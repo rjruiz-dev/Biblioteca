@@ -72,14 +72,16 @@ $('body').on('click', '.btn-desestimar', function (event) {
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
+        preg_rechazar_solicitud = $('#preg_rechazar_solicitud').val();
+
     swal({
-        title: '¿Seguro que quieres rechazar esta solicitud ?',
+        title: preg_rechazar_solicitud,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Rechazar!'
+        // confirmButtonText: 'Sí, Rechazar!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -91,13 +93,17 @@ $('body').on('click', '.btn-desestimar', function (event) {
                 },
                 success: function (response) {
                     var info = response.error;
+
+                    var mensaje_exito = response.mensaje_exito;
+                    var resp_rechazar_solicitud = response.resp_rechazar_solicitud;
+
                     $('#modal').modal('hide');
                     $('#datatable').DataTable().ajax.reload();
                     if(info == 0){
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡La solicitud ha sido rechazada!'
+                        title: mensaje_exito,
+                        text: resp_rechazar_solicitud
                     });
                 }else{
                     swal({

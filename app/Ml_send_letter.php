@@ -9,7 +9,7 @@ class Ml_send_letter extends Model
     protected $fillable = [ 
         'many_lenguages_id', 'titulo', 'subtitulo', 'select_modelo',
         'ph_modelo', 'fecha', 'select_enviar', 'ph_enviar', 'check_informe',                     
-        'btn_email'    
+        'btn_email','mensaje_exito','noti_envio_mails'    
     ];
     
     public function many_lenguage()

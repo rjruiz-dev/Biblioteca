@@ -362,6 +362,41 @@
             </div>       
         </div>   
     </div> 
+    <div class="col-md-12">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Avisos y Notificaciones</h3>
+                </div>
+            </div>
+            <div class="box-body">
+            <div class="form-group">              
+                    {!! Form::label('mensaje_exito', 'Mensaje Exito') !!}                    
+                    {!! Form::text('mensaje_exito',  $ml_partner['mensaje_exito'] ?  $ml_partner['mensaje_exito'] : null, ['class' => 'form-control', 'id' => 'mensaje_exito', 'placeholder' => 'Mensaje Exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('noti_alta_socio', 'Alta/Edicion de Socio') !!}                    
+                    {!! Form::text('noti_alta_socio',  $ml_partner['noti_alta_socio'] ?  $ml_partner['noti_alta_socio'] : null, ['class' => 'form-control', 'id' => 'noti_alta_socio', 'placeholder' => 'Alta/Edicion de Socio']) !!}
+                </div>    
+                <div class="form-group">              
+                    {!! Form::label('preg_reactivar_socio', 'Pregunta Reactivar Socio') !!}                    
+                    {!! Form::text('preg_reactivar_socio',  $ml_partner['preg_reactivar_socio'] ?  $ml_partner['preg_reactivar_socio'] : null, ['class' => 'form-control', 'id' => 'preg_reactivar_socio', 'placeholder' => 'Pregunta Reactivar Socio']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('resp_reactivar_socio', 'Notificacion Socio Reactivado') !!}                    
+                    {!! Form::text('resp_reactivar_socio',  $ml_partner['resp_reactivar_socio'] ?  $ml_partner['resp_reactivar_socio'] : null, ['class' => 'form-control', 'id' => 'resp_reactivar_socio', 'placeholder' => 'Notificacion Socio Reactivado']) !!}
+                </div>   
+                <div class="form-group">              
+                    {!! Form::label('preg_baja_socio', 'Pregunta Baja Socio') !!}                    
+                    {!! Form::text('preg_baja_socio',  $ml_partner['preg_baja_socio'] ?  $ml_partner['preg_baja_socio'] : null, ['class' => 'form-control', 'id' => 'preg_baja_socio', 'placeholder' => 'Pregunta Baja Socio']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('resp_baja_socio', 'Notificacion Socio Dado de Baja') !!}                    
+                    {!! Form::text('resp_baja_socio',  $ml_partner['resp_baja_socio'] ?  $ml_partner['resp_baja_socio'] : null, ['class' => 'form-control', 'id' => 'resp_baja_socio', 'placeholder' => 'Notificacion Socio Dado de Baja']) !!}
+                </div>              
+            </div>       
+        </div>   
+    </div> 
 
     <!-- Solcitud desde la web -->
     <div class="col-md-12">
@@ -431,6 +466,37 @@
                 <div class="form-group">              
                     {!! Form::label('dt_acciones_wr', 'Acciones') !!}                    
                     {!! Form::text('dt_acciones_wr', $ml_wr['dt_acciones_wr'] ? $ml_wr['dt_acciones_wr'] : null, ['class' => 'form-control', 'id' => 'dt_acciones_wr', 'placeholder' => 'Acciones']) !!}
+                </div>                        
+            </div>
+        </div>       
+    </div>
+    <div class="col-md-12">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Avisos y Notificaciones </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('preg_aceptar_socio', 'Pregunta Aceptar Socio') !!}                    
+                    {!! Form::text('preg_aceptar_socio', $ml_wr['preg_aceptar_socio'] ? $ml_wr['preg_aceptar_socio'] : null, ['class' => 'form-control', 'id' => 'preg_aceptar_socio', 'placeholder' => 'Pregunta Aceptar Socio']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('resp_aceptar_socio', 'Aceptacion de Socio') !!}                    
+                    {!! Form::text('resp_aceptar_socio', $ml_wr['resp_aceptar_socio'] ? $ml_wr['resp_aceptar_socio'] : null, ['class' => 'form-control', 'id' => 'resp_aceptar_socio', 'placeholder' => 'Aceptacion de Socio']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('preg_rechazar_socio', 'Pregunta Rechazar Socio') !!}                    
+                    {!! Form::text('preg_rechazar_socio', $ml_wr['preg_rechazar_socio'] ? $ml_wr['preg_rechazar_socio'] : null, ['class' => 'form-control', 'id' => 'preg_rechazar_socio', 'placeholder' => 'Pregunta Rechazar Socio']) !!}
+                </div>    
+                <div class="form-group">              
+                    {!! Form::label('resp_rechazar_socio', 'Rechazo de Solicitud') !!}                    
+                    {!! Form::text('resp_rechazar_socio', $ml_wr['resp_rechazar_socio'] ? $ml_wr['resp_rechazar_socio'] : null, ['class' => 'form-control', 'id' => 'resp_rechazar_socio', 'placeholder' => 'Rechazo de Solicitud']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('mensaje_exito_solicitud', 'Mensaje de Exito') !!}                    
+                    {!! Form::text('mensaje_exito_solicitud', $ml_wr['mensaje_exito_solicitud'] ? $ml_wr['mensaje_exito_solicitud'] : null, ['class' => 'form-control', 'id' => 'mensaje_exito_solicitud', 'placeholder' => 'Mensaje de Exito']) !!}
                 </div>                        
             </div>
         </div>       

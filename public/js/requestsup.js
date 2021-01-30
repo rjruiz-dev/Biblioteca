@@ -124,17 +124,19 @@ $('body').on('click', '.btn-delete', function (event) {
    
     var me = $(this),
         url = me.attr('href'),
-        title = me.attr('title'),
+        // title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
+        aceptar_socio = $('#preg_aceptar_socio').val();
+
     swal({
-        title: '¿Seguro que desea ' + title + ' ?',
+        title: aceptar_socio,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Aceptar Solicitud!'
+        // confirmButtonText: 'Sí, Aceptar Solicitud!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -145,11 +147,15 @@ $('body').on('click', '.btn-delete', function (event) {
                     '_token': csrf_token
                 },
                 success: function (response) {
+
+                    var mensaje_exito_solicitud = response.mensaje_exito_solicitud;
+                    var resp_aceptar_socio = response.resp_aceptar_socio;
+
                     $('#datatable').DataTable().ajax.reload();
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha dado de alta al Socio Solicitante!'
+                        title: mensaje_exito_solicitud,
+                        text: resp_aceptar_socio
                     });
                 },
                 error: function (xhr) {
@@ -172,14 +178,16 @@ $('body').on('click', '.btn-rechazar', function (event) {
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
+        rechazar_socio = $('#preg_rechazar_socio').val();
+
     swal({
-        title: '¿Seguro que desea ' + title + ' ?',
+        title: rechazar_socio,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Rechazar Solicitud!'
+        // confirmButtonText: 'Sí, Rechazar Solicitud!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -190,11 +198,15 @@ $('body').on('click', '.btn-rechazar', function (event) {
                     '_token': csrf_token
                 },
                 success: function (response) {
+
+                    var mensaje_exito_solicitud = response.mensaje_exito_solicitud;
+                    var resp_rechazar_socio = response.resp_rechazar_socio;
+
                     $('#datatable').DataTable().ajax.reload();
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha dado rechazado la Solicitud!'
+                        title: mensaje_exito_solicitud,
+                        text: resp_rechazar_socio
                     });
                 },
                 error: function (xhr) {

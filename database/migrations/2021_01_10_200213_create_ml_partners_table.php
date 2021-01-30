@@ -79,6 +79,14 @@ class CreateMlPartnersTable extends Migration
             $table->string('btn_actualizar')->nullable();       
             $table->string('btn_cerrar')->nullable(); 
 
+            $table->string('mensaje_exito')->nullable(); 
+            $table->string('noti_alta_socio')->nullable(); 
+            $table->string('noti_edicion_socio')->nullable(); 
+            $table->string('preg_reactivar_socio')->nullable(); 
+            $table->string('resp_reactivar_socio')->nullable(); 
+            $table->string('preg_baja_socio')->nullable(); 
+            $table->string('resp_baja_socio')->nullable();
+            
             $table->timestamps();
 
             $table->foreign('many_lenguages_id')->references('id')->on('many_lenguages')

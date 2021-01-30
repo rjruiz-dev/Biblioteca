@@ -53,6 +53,10 @@ $('#modal-btn-save').click(function (event) {
             var renodev = response.renodev;
             var error = response.error;
 
+            var mensaje_exito_ld = response.mensaje_exito_ld;
+            var noti_devolucion_ld = response.noti_devolucion_ld;
+            var noti_renovacion_ld = response.noti_renovacion_ld;
+
             form.trigger('reset');
             $('#modal').modal('hide');
             // $('#datatable').DataTable().ajax.reload();
@@ -61,15 +65,15 @@ $('#modal-btn-save').click(function (event) {
             if(renodev == 3){ //Devolucion
                 swal({
                     type : 'success',
-                    title : '¡Éxito!',
-                    text : '¡La copia se ha devuelto!'
+                    title : mensaje_exito_ld,
+                    text : noti_devolucion_ld
                 });
             }
             if(renodev == 2){ //Renovacion
                 swal({
                     type : 'success',
-                    title : '¡Éxito!',
-                    text : '¡La copia se ha renovado!'
+                    title : mensaje_exito_ld,
+                    text : noti_renovacion_ld
                 });
             }
             }else{

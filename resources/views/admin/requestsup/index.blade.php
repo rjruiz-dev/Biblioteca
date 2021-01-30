@@ -5,6 +5,9 @@
     {{$Ml_web_request->titulo_wr}}
         <!-- <small>Listado</small> -->
     </h1>
+    {{ Form::hidden('preg_aceptar_socio', $Ml_web_request->preg_aceptar_socio, ['id' => 'preg_aceptar_socio']) }}
+    {{ Form::hidden('preg_rechazar_socio', $Ml_web_request->preg_rechazar_socio, ['id' => 'preg_rechazar_socio']) }}
+       
     <ol class="breadcrumb">
     <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$idioma->inicio}}</a></li>
     </ol> 

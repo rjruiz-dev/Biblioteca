@@ -5,6 +5,9 @@
        SOCIOS
         <small>Listado</small>
     </h1>
+    {{ Form::hidden('preg_reactivar_socio', $Ml_partner->preg_reactivar_socio, ['id' => 'preg_reactivar_socio']) }}
+    {{ Form::hidden('preg_baja_socio', $Ml_partner->preg_baja_socio, ['id' => 'preg_baja_socio']) }}
+       
     <ol class="breadcrumb">
     <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$idioma->inicio}}</a></li>
     </ol> 

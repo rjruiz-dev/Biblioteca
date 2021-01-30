@@ -50,7 +50,11 @@ class CreateMlLoanDocumentsTable extends Migration
   
             $table->string('mod_titulo_ld')->nullable();
             $table->string('mod_subtitulo_ld')->nullable();           
-            $table->string('cam_devolver_ld')->nullable();           
+            $table->string('cam_devolver_ld')->nullable(); 
+            
+            $table->string('mensaje_exito_ld')->nullable(); 
+            $table->string('noti_devolucion_ld')->nullable(); 
+            $table->string('noti_renovacion_ld')->nullable(); 
 
             $table->timestamps();
 

@@ -196,12 +196,16 @@
                 contentType: false,
                 success: function (response) {
                     var info = response.bandera;
+
+                    var mensaje_exito = response.mensaje_exito;
+                    var noti_envio_mails = response.noti_envio_mails;
+                    
                     form.trigger('reset');
                     $('#form_reclamo').modal('hide');
                     swal({
                         type : 'success',
-                        title : '¡Éxito!',
-                        text : '¡Se han enviado los mails correctamente!',
+                        title : mensaje_exito,
+                        text : noti_envio_mails,
                     }) 
                     // .then(function() {
                     //     // window.location = "../";

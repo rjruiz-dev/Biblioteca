@@ -18,6 +18,10 @@ $('#modal-btn-save-prestar').click(function (event) {
             var info = response.bandera;
             var info2 = response.id;
             var error = response.error;
+            console.log(response);
+            var mensaje_exito_prestar = response.mensaje_exito_prestar;
+            var noti_prestamo_exitoso = response.noti_prestamo_exitoso;
+
             console.log("id" + info2);
             console.log("ALGO" + info);
             form.trigger('reset');
@@ -27,8 +31,8 @@ $('#modal-btn-save-prestar').click(function (event) {
             if(info == 1){
             swal({
                 type : 'success',
-                title : '¡Éxito!',
-                text : '¡El prestamos se ha realizado de manera exitosa!',
+                title : mensaje_exito_prestar,
+                text : noti_prestamo_exitoso,
             }).then(function() {
                 // window.location = "../";
                 window.location="/admin/loanmanual/";
@@ -37,8 +41,8 @@ $('#modal-btn-save-prestar').click(function (event) {
         if(info == 0){
             swal({
                 type : 'success',
-                title : '¡Éxito!',
-                text : '¡El prestamos se ha realizado de manera exitosa!',
+                title : mensaje_exito_prestar,
+                text : noti_prestamo_exitoso,
             }).then(function() {
                 window.location = "/admin/fastprocess/edit2/" + info2;
             });
@@ -46,8 +50,8 @@ $('#modal-btn-save-prestar').click(function (event) {
         if(info == 3){
             swal({
                 type : 'success',
-                title : '¡Éxito!',
-                text : '¡El prestamos se ha realizado de manera exitosa!',
+                title : mensaje_exito_prestar,
+                text : noti_prestamo_exitoso,
             }).then(function() {
                 window.location="/admin/requests/";
             });

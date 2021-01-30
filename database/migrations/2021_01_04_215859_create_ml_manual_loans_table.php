@@ -50,6 +50,8 @@ class CreateMlManualLoansTable extends Migration
             $table->string('ph_turno')->nullable();              
             $table->string('fecha_prestamo')->nullable();
             $table->string('btn_prestar')->nullable();
+            $table->string('mensaje_exito_prestar')->nullable();
+            $table->string('noti_prestamo_exitoso')->nullable();
             
             $table->timestamps();
 

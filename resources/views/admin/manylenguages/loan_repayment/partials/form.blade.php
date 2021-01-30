@@ -518,6 +518,37 @@
             </div>
         </div>       
     </div> 
+
+    <div class="col-md-12">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Avisos y Notificaciones </h3>
+                </div>
+            </div>                 
+        </div>   
+    </div>     
+
+    <div class="col-md-12">        
+        <div class="box box-primary">
+            <div class="box-header with-border">             
+            </div>
+            <div class="box-body">    
+                <div class="form-group">              
+                    {!! Form::label('mensaje_exito_ld', 'Mensaje Exito') !!}                    
+                    {!! Form::text('mensaje_exito_ld', $ml_ld['mensaje_exito_ld'] ? $ml_ld['mensaje_exito_ld'] : null, ['class' => 'form-control', 'id' => 'mensaje_exito_ld', 'placeholder' => 'Mensaje Exito']) !!}
+                </div>          
+                <div class="form-group">              
+                    {!! Form::label('noti_devolucion_ld', 'Notificacion Devolucion') !!}                    
+                    {!! Form::text('noti_devolucion_ld', $ml_ld['noti_devolucion_ld'] ? $ml_ld['noti_devolucion_ld'] : null, ['class' => 'form-control', 'id' => 'noti_devolucion_ld', 'placeholder' => 'Notificacion Devolucion']) !!}
+                </div>  
+                <div class="form-group">              
+                    {!! Form::label('noti_renovacion_ld', 'Notificacion Renovacion') !!}                    
+                    {!! Form::text('noti_renovacion_ld', $ml_ld['noti_renovacion_ld'] ? $ml_ld['noti_renovacion_ld'] : null, ['class' => 'form-control', 'id' => 'noti_renovacion_ld', 'placeholder' => 'Notificacion Renovacion']) !!}
+                </div>                                            
+            </div>
+        </div>       
+    </div>
    
 {!! Form::close() !!}    
 </div>

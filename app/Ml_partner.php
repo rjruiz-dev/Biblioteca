@@ -16,7 +16,8 @@ class Ml_partner extends Model
         'mod_telefono', 'mod_direccion', 'mod_cod_postal', 'mod_ciudad', 'mod_select_provincia',
         'mod_ph_provincia', 'mod_titulo_show', 'mod_usuario', 'mod_email', 'mod_estado',            
         'mod_info_direccion', 'mod_info_cod_postal', 'mod_info_telefono', 'btn_crear','btn_actualizar',       
-        'btn_cerrar'
+        'btn_cerrar','noti_alta_socio','noti_edicion_socio','preg_reactivar_socio','resp_reactivar_socio',
+        'preg_baja_socio','resp_baja_socio','mensaje_exito'
     ];
     
     public function many_lenguage()

@@ -76,6 +76,10 @@ class UserController extends Controller
 
         $rol_lib = false;
         $rol_part = false;
+
+        $session = session('idiomas');
+        $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+        
           
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
@@ -85,6 +89,7 @@ class UserController extends Controller
             'user'      => $user,
             'rol_lib'      => $rol_lib,
             'rol_part'      => $rol_part,
+            'Ml_partner' => $Ml_partner
         ]);  
     }
 
@@ -179,7 +184,11 @@ class UserController extends Controller
 
                 }
                
-                
+                $session = session('idiomas');
+                $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+                return response()->json(['mensaje_exito' => $Ml_partner->mensaje_exito, 'noti_alta_socio' => $Ml_partner->noti_alta_socio]);
+
+          
                 DB::commit();
 
             } catch (Exception $e) {
@@ -353,7 +362,11 @@ class UserController extends Controller
                 // $user->status_id    = $status; 
                 $user->user_photo   = $name;
                 $user->save();
-                       
+
+                $session = session('idiomas');
+                $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+                return response()->json(['mensaje_exito' => $Ml_partner->mensaje_exito, 'noti_alta_socio' => $Ml_partner->noti_alta_socio]);
+
                 DB::commit();
                
             } catch (Exception $e) {
@@ -447,6 +460,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $session = session('idiomas');
+        $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
+
         if($user->status_id == 3){ //si esta activo lo doy de baja
             $user->status_id = 4;
             $user->save();
@@ -454,7 +470,8 @@ class UserController extends Controller
                    $mov_user->actions_id = 4;
                    $mov_user->users_id = $user->id;
                    $mov_user->usuario_aud = 'USER AUD';
-                   $mov_user->save();   
+                   $mov_user->save();  
+                   $alta_baja =  $Ml_partner->resp_baja_socio;
         }else{
             if($user->status_id == 4){ //si esta en baja lo doy de alta
                 $user->status_id = 3;
@@ -465,7 +482,11 @@ class UserController extends Controller
                    $mov_user->usuario_aud = 'USER AUD';
                    $mov_user->save();  
             }
+            $alta_baja = $Ml_partner->resp_reactivar_socio;
         }
+
+        return response()->json(['mensaje_exito' => $Ml_partner->mensaje_exito, 'alta_baja' => $alta_baja]);
+
     }
 
     public function dataTable()

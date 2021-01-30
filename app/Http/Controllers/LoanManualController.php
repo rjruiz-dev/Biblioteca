@@ -10,6 +10,7 @@ use App\Document_type;
 use App\Document_subtype;
 use App\Book_movement;
 use App\Copy;
+use App\Ml_web_loan;
 use App\Ml_manual_loan;
 use App\Setting;
 use App\User;
@@ -295,7 +296,12 @@ class LoanManualController extends Controller
 
                     }
 
-                    return response()->json(array('bandera' => $request->get('bandera'),'id' => $id,'error' => $error));
+                    $session = session('idiomas');
+                    $Ml_manual_loan = Ml_manual_loan::where('many_lenguages_id',$session)->first();
+                    return response()->json(['bandera' => $request->get('bandera'),'id' => $id,'error' => $error, 'mensaje_exito_prestar' => $Ml_manual_loan->mensaje_exito_prestar, 'noti_prestamo_exitoso' => $Ml_manual_loan->noti_prestamo_exitoso]);
+
+
+                    // return response()->json(array('bandera' => $request->get('bandera'),'id' => $id,'error' => $error));
                 
                 } catch (Exception $e) {
                 // anula la transacion

@@ -109,6 +109,11 @@ class RequestsUpController extends Controller
         $mensaje = 0;
         
         Requests::dispatch($user, $mensaje);
+
+        $session = session('idiomas');
+        $Ml_web_request     = Ml_web_request::where('many_lenguages_id',$session)->first();
+        return response()->json(['mensaje_exito_solicitud' => $Ml_web_request->mensaje_exito_solicitud, 'resp_rechazar_socio' => $Ml_web_request->resp_rechazar_socio]);
+
     }
 
     /**
@@ -153,6 +158,11 @@ class RequestsUpController extends Controller
         // UserWasCreated::dispatch($user, $password, $accion);
 
         UserWasCreated::dispatch($user, $data['password'], $accion);
+        
+        $session = session('idiomas');
+        $Ml_web_request     = Ml_web_request::where('many_lenguages_id',$session)->first();
+        return response()->json(['mensaje_exito_solicitud' => $Ml_web_request->mensaje_exito_solicitud, 'resp_aceptar_socio' => $Ml_web_request->resp_aceptar_socio]);
+
     }
 
     public function dataTable()

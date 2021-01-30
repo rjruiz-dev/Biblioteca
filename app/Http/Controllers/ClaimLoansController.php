@@ -186,6 +186,9 @@ class ClaimLoansController extends Controller
 
                     ReportClaimLoan::dispatch($user, $prestamos);
                 }
+                $session = session('idiomas');
+                $Ml_send_letter = Ml_send_letter::where('many_lenguages_id',$session)->first();
+                return response()->json(['mensaje_exito' => $Ml_send_letter->mensaje_exito, 'noti_envio_mails' => $Ml_send_letter->noti_envio_mails]);
 
                 
         }  
