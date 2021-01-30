@@ -896,8 +896,7 @@ class ManyLenguagesController extends Controller
                 $ml_letter->dt_cuerpo_letter          = $request->get('dt_cuerpo_letter');   
                 $ml_letter->dt_despedida_letter       = $request->get('dt_despedida_letter');                           
                 $ml_letter->dt_agregado_letter        = $request->get('dt_agregado_letter');                 
-                $ml_letter->dt_acciones_letter        = $request->get('dt_acciones_letter');  
-                $ml_letter->mod_titulo_letter         = $request->get('mod_titulo_letter');  
+                $ml_letter->dt_acciones_letter        = $request->get('dt_acciones_letter');              
                 $ml_letter->mod_subtitulo_letter      = $request->get('mod_subtitulo_letter');  
                 $ml_letter->cam_titulo_letter         = $request->get('cam_titulo_letter'); 
                 $ml_letter->cam_cuerpo_letter         = $request->get('cam_cuerpo_letter');   
@@ -945,7 +944,7 @@ class ManyLenguagesController extends Controller
 
                 // Prestamo por aula
                 $ml_lc                          = Ml_classroom_loan::where('many_lenguages_id', $idioma->id)->first();
-                $ml_lc->titulo_lc               = $request->get('titulo_lc');     
+                $ml_lc->titulo_lc              = $request->get('titulo_lc');     
                 $ml_lc->subtitulo_lc            = $request->get('subtitulo_lc');
                 $ml_lc->curso_lc                = $request->get('curso_lc');     
                 $ml_lc->letra_lc                = $request->get('letra_lc');
@@ -963,13 +962,13 @@ class ManyLenguagesController extends Controller
                 $ml_lc->dt_fechadevolucion_lc   = $request->get('dt_fechadevolucion_lc');    
                 $ml_lc->save();
 
-                // Registro base de datos
-                $ml_dr                         = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
-                $ml_dr->titulo_dr              = $request->get('titulo_dr');                      
-                $ml_dr->dt_id_dr               = $request->get('dt_id_dr');  
-                $ml_dr->dt_concepto_dr         = $request->get('dt_concepto_dr');  
-                $ml_dr->dt_registro_dr         = $request->get('dt_registro_dr');                   
-                $ml_dr->save();
+                 // Registro base de datos
+                 $ml_dr                         = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
+                 $ml_dr->titulo_dr              = $request->get('titulo_dr');                      
+                 $ml_dr->dt_id_dr               = $request->get('dt_id_dr');  
+                 $ml_dr->dt_concepto_dr         = $request->get('dt_concepto_dr');  
+                 $ml_dr->dt_registro_dr         = $request->get('dt_registro_dr');                   
+                 $ml_dr->save();
 
                 DB::commit();               
 
