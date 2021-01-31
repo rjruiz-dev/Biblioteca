@@ -9,6 +9,7 @@ use App\Setting;
 use App\Ml_course;
 use App\Ml_dashboard;
 use App\ManyLenguages;
+use App\Swal_course;
 use App\Book;
 use App\Book_movement;
 use Illuminate\Http\Request;
@@ -96,6 +97,13 @@ class CourseController extends Controller
 
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_course = Swal_course::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito'        => $swal_course->swal_exito,
+                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -164,6 +172,13 @@ class CourseController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_course = Swal_course::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito'        => $swal_course->swal_exito,
+                                            'swal_info_exito'   => $swal_course->swal_info_exito
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -182,25 +197,39 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
 
         if($course->baja == 0){ // si esta activo evaluo si se puede dar de baja
-        $genre = Book_movement::where('courses_id', $id)->where('active', 1)->get();
+            $genre = Book_movement::where('courses_id', $id)->where('active', 1)->get();
       
-        if($genre->isEmpty())
-        {  
-            $bandera = 1;
-            
-            $course->baja = 1; // lo pongo en baja
-            $course->save();
-            // $course->delete();
+            if($genre->isEmpty())
+            {  
+                $bandera = 1;
+                
+                $course->baja = 1; // lo pongo en baja
+                $course->save();
+                // $course->delete();
 
-        }else{          
-            $bandera = 0; // si es 0 no se puede dar de baja xq hay prestamos vigentes          
+            }else{          
+                $bandera = 0; // si es 0 no se puede dar de baja xq hay prestamos vigentes          
+            }
+        }else{  // si esta en baja directamente lo doy de alta 
+                $bandera = 1; // si retorno 1 es xq se pudo o dar de baja o reactivar
+                $course->baja = 0; // lo pongo en alta
+                $course->save();
         }
-    }else{  // si esta en baja directamente lo doy de alta 
-        $bandera = 1; // si retorno 1 es xq se pudo o dar de baja o reactivar
-        $course->baja = 0; // lo pongo en alta
-        $course->save();
-    }
-        return response()->json(['data' => $bandera]);  
+
+         
+        $session = session('idiomas');
+        $swal_course = Swal_course::where('many_lenguages_id',$session)->first();
+        return response()->json([
+                                    'data' => $bandera,                                
+    
+                                    'swal_br'           => $swal_course->swal_br,
+                                    'swal_btn_br'       => $swal_course->swal_btn_br,
+                                    'swal_info_br'      => $swal_course->swal_info_br,
+    
+                                    'swal_advertencia'      => $swal_course->swal_advertencia,
+                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia,
+    
+                                ]);              
     }
 
     public function dataTable()

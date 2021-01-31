@@ -20,16 +20,14 @@ class CreateSwalCoursesTable extends Migration
 
             $table->string('swal_exito')->nullable();
             $table->string('swal_info_exito')->nullable();
-            $table->string('swal_baja')->nullable();           
-            $table->string('swal_info_baja')->nullable();
-            $table->string('swal_reactivar')->nullable();           
-            $table->string('swal_info_reactivar')->nullable();
-            $table->string('swal_warning_baja_')->nullable();           
-            $table->string('swal_bajado')->nullable();
-            $table->string('swal_warning_reactivar')->nullable();           
-            $table->string('swal_reactivado')->nullable();
-            $table->string('swal_info_savebtn_borrar_c')->nullable();           
-            
+                            
+            $table->string('swal_br')->nullable();
+            $table->string('swal_btn_br')->nullable();
+            $table->string('swal_info_br')->nullable();
+
+            $table->string('swal_advertencia')->nullable();     
+            $table->string('swal_info_advertencia')->nullable();                  
+           
             $table->timestamps();
 
             $table->foreign('many_lenguages_id')->references('id')->on('many_lenguages')

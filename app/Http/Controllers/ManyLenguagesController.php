@@ -7,6 +7,7 @@ use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
 use App\Ml_course;
+use App\Swal_course;
 use App\Ml_reference;
 use App\Ml_graphic_format;
 use App\Ml_language;
@@ -379,6 +380,8 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id);  
 
         $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $swal_course = Swal_course::where('many_lenguages_id', $idioma->id)->first();
+
         $ml_reference = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
         $ml_fg = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
         $ml_lang = Ml_language::where('many_lenguages_id', $idioma->id)->first();
@@ -392,7 +395,10 @@ class ManyLenguagesController extends Controller
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'        => $idioma,
+            
             'ml_course'     => $ml_course,
+            'swal_course'   => $swal_course,
+
             'ml_reference'  => $ml_reference,
             'ml_fg'         => $ml_fg,
             'ml_lang'       => $ml_lang,
@@ -757,6 +763,18 @@ class ManyLenguagesController extends Controller
                 $ml_course->cam_grupo_si                = $request->get('cam_grupo_si');    
                 $ml_course->cam_grupo_no                = $request->get('cam_grupo_no');               
                 $ml_course->save();
+
+                // Swal cursos
+                $swal_course                            = Swal_course::where('many_lenguages_id', $idioma->id)->first();
+                $swal_course->swal_exito                = $request->get('swal_exito');     
+                $swal_course->swal_info_exito           = $request->get('swal_info_exito');
+                $swal_course->swal_br                   = $request->get('swal_br');  
+                $swal_course->swal_btn_br               = $request->get('swal_btn_br');  
+                $swal_course->swal_info_br              = $request->get('swal_info_br');  
+                $swal_course->swal_advertencia          = $request->get('swal_advertencia');  
+                $swal_course->swal_info_advertencia     = $request->get('swal_info_advertencia');  
+                $swal_course->save();
+
 
                 // Maestros de Referencia
                 $ml_reference                           = Ml_reference::where('many_lenguages_id', $idioma->id)->first();

@@ -1,4 +1,4 @@
-$('body').on('click', '.modal-show', function (event) {
+$('body').on('click', '.modal-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -7,12 +7,12 @@ $('body').on('click', '.modal-show', function (event) {
 
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+        .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
 
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
         }
     });
@@ -20,7 +20,7 @@ $('body').on('click', '.modal-show', function (event) {
     $('#modal').modal('show');
 });
 
-$('#modal-btn-save').click(function (event) {
+$('#modal-btn-save').click(function(event) {
     event.preventDefault();
 
     var form = $('#modal-body form'),
@@ -31,24 +31,27 @@ $('#modal-btn-save').click(function (event) {
     form.find('.form-group').removeClass('has-error');
 
     $.ajax({
-        url : url,
+        url: url,
         method: method,
-        data : form.serialize(),
-        success: function (response) {
+        data: form.serialize(),
+        success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
 
+            var swal_exito = response.swal_exito;
+            var swal_info_exito = response.swal_info_exito;
+
             swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
+                type: 'success',
+                title: swal_exito,
+                text: swal_info_exito
             });
         },
-        error : function (xhr) {
+        error: function(xhr) {
             var res = xhr.responseJSON;
             if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
+                $.each(res.errors, function(key, value) {
                     $('#' + key)
                         .closest('.form-group')
                         .addClass('has-error')
@@ -60,9 +63,9 @@ $('#modal-btn-save').click(function (event) {
 });
 
 
-$('body').on('click', '.btn-delete2', function (event) {
+$('body').on('click', '.btn-delete2', function(event) {
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
@@ -85,19 +88,17 @@ $('body').on('click', '.btn-delete2', function (event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
+                success: function(response) {
                     $('#datatable').DataTable().ajax.reload();
                     var info = response.data;
-                    if(info == 1)
-                    {
+                    if (info == 1) {
                         swal({
                             type: 'success',
                             title: '¡Éxito!',
                             text: '¡El formato ha sido eliminado!'
                         });
 
-                    }else
-                    {
+                    } else {
                         swal({
                             type: 'warning',
                             title: '¡Advertencia!',
@@ -105,7 +106,7 @@ $('body').on('click', '.btn-delete2', function (event) {
                         });
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -117,32 +118,33 @@ $('body').on('click', '.btn-delete2', function (event) {
     });
 });
 
-$('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja xq es dinamico y puede servir. Rodri salaminnn jajjaj
+$('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja xq es dinamico y puede servir. Rodri salaminnn jajjaj
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-        // console.log("url:sdfdsf " + url)
+    // console.log("url:sdfdsf " + url)
 
-        if(title == 'Baja'){
-            title_noti = 'dar de baja';
-            title_noti_fin = 'dado de baja';
-        }else{
-            title_noti = 'reactivar';
-            title_noti_fin = 'reactivado';
-        }
+    if (title == 'Baja') {
+        title_noti = 'dar de baja';
+        title_noti_fin = 'dado de baja';
+    } else {
+        title_noti = 'reactivar';
+        title_noti_fin = 'reactivado';
+    }
+
     swal({
-        
-        title: '¿Seguro que quieres ' + title_noti + ' el lenguaje ?',
+
+        title: swal_br + title_noti + ' el curso?',
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
+        confirmButtonText: swal_btn_br
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -152,24 +154,35 @@ $('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
+                success: function(response) {
                     var info = response.data;
-                     if(info == 1){
-                            $('#datatable').DataTable().ajax.reload();
-                            swal({
-                                type: 'success',
-                                title: '¡Éxito!',
-                                text: '¡Se ha el '+ title_noti_fin +' el Curso!'
-                            });
-                     }else{
+
+                    var swal_exito = response.swal_exito;
+
+                    var swal_br = response.swal_br;
+                    var swal_btn_br = response.swal_btn_br;
+                    var swal_info_br = response.swal_info_br;
+
+                    var swal_advertencia = response.swal_advertencia;
+                    var swal_info_advertencia = response.swal_info_advertencia;
+
+
+                    if (info == 1) {
+                        $('#datatable').DataTable().ajax.reload();
+                        swal({
+                            type: 'success',
+                            title: swal_exito,
+                            text: swal_info_br + title_noti_fin + ' el Curso!'
+                        });
+                    } else {
                         swal({
                             type: 'warning',
-                            title: '¡Advertencia!',
-                            text: '¡No puede dar de baja este curso, ya que esta en uno o mas prestamos vigente!'
+                            title: swal_advertencia,
+                            text: swal_info_advertencia
                         });
-                     }
+                    }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -180,6 +193,3 @@ $('body').on('click', '.btn-delete', function (event) { // nose usa pero se deja
         }
     });
 });
-
-
-

@@ -129,6 +129,81 @@
         </div>       
     </div>     
 
+     <!--Swal Cursos -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Mensajes de Alertas Curso</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Exito </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_exito', 'Titulo del mensaje de exito') !!}                    
+                    {!! Form::text('swal_exito', $swal_course['swal_exito'] ? $swal_course['swal_exito'] : null, ['class' => 'form-control', 'id' => 'swal_exito', 'placeholder' => 'Titulo del mensaje de exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('swal_info_exito', 'Mensaje de exito') !!}                    
+                    {!! Form::text('swal_info_exito', $swal_course['swal_info_exito'] ? $swal_course['swal_info_exito'] : null, ['class' => 'form-control', 'id' => 'swal_info_exito', 'placeholder' => 'Mensaje de exito']) !!}
+                </div>                    
+            </div>
+        </div>       
+    </div>  
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Baja y Reactivar </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_br', 'Mensaje para dar de baja o reactivar') !!}                    
+                    {!! Form::text('swal_br', $swal_course['swal_br'] ? $swal_course['swal_br'] : null, ['class' => 'form-control', 'id' => 'swal_br', 'placeholder' => 'Mensaje para dar de baja o reactivar']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_btn_br', 'Botón baja y reactivación') !!}                    
+                    {!! Form::text('swal_btn_br', $swal_course['swal_btn_br'] ? $swal_course['swal_btn_br'] : null, ['class' => 'form-control', 'id' => 'swal_btn_br', 'placeholder' => 'Botón baja y reactivación']) !!}
+                </div> 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_br', 'Mensaje para confirmar baja o reactivación') !!}                    
+                    {!! Form::text('swal_info_br', $swal_course['swal_info_br'] ? $swal_course['swal_info_br'] : null, ['class' => 'form-control', 'id' => 'swal_info_br', 'placeholder' => 'Mensaje para confirmar baja o reactivación']) !!}
+                </div>    
+            </div>
+        </div>       
+    </div>
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Adevertencias </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_advertencia', 'Titulo del mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_advertencia', $swal_course['swal_advertencia'] ? $swal_course['swal_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_advertencia', 'placeholder' => 'Titulo del mensaje de advertencia']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_advertencia', 'Mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_info_advertencia', $swal_course['swal_info_advertencia'] ? $swal_course['swal_info_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_info_advertencia', 'placeholder' => 'Mensaje de advertencia']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div>   
+
     <!--Traduccion Referencias -->
     <div class="col-md-12">
         <div class="box box-primary">

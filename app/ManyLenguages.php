@@ -152,4 +152,9 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_password::class);
     }
+
+    public function swal_course()
+    {
+        return $this->hasMany(Swal_course::class);
+    }
 }
