@@ -19,9 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'status_id', 'surname', 'nickname','email','email_verified_at'
-        ,'password','gender','birthdate','edad', 'province', 'city', 'address','postcode','phone'
-        ,'user_photo', 'membership'];
+        'status_id', 'membership', 'name', 'surname', 'nickname', 'email', 'email_verified_at'
+        ,'password', 'gender', 'province', 'city', 'address', 'postcode', 'phone'
+        , 'user_photo', 'edad', 'birthdate'];
 
     protected $dates = ['birthdate'];
     /**
