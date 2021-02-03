@@ -261,6 +261,10 @@ function(){
      Route::get('manyLenguages/edit_listado/{id}',    'ManyLenguagesController@edit_listado')->name('admin.manylenguages.edit_listado');
      Route::put('manyLenguages/update_listado/{id}',  'ManyLenguagesController@update_listado')->name('admin.manylenguages.update_listado');
  
+  
+    // traduccion  login-registro-recuperar pass
+    Route::get('manyLenguages/edit_credentials/{id}',    'ManyLenguagesController@edit_credentials')->name('admin.manylenguages.edit_credentials');
+    Route::put('manyLenguages/update_credentials/{id}',  'ManyLenguagesController@update_credentials')->name('admin.manylenguages.update_credentials');
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

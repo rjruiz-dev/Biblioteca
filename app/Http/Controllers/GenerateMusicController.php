@@ -8,6 +8,7 @@ use App\Generate_music;
 use App\Music;
 use App\Setting;
 use App\Ml_dashboard;
+use App\Ml_musical_genre;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,23 +22,24 @@ class GenerateMusicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+    {          
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_gm      = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
         return view('admin.musicals.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_gm'     => $ml_gm
         ]);    
     }
 
@@ -46,12 +48,24 @@ class GenerateMusicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $musical = new Generate_music();      
+        $musical = new Generate_music(); 
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_gm      = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.musicals.partials.form', [           
-            'musical'  => $musical
+            'musical'  => $musical,
+            'idioma'    => $idioma,
+            'ml_gm'     => $ml_gm
         ]);  
     }
 
@@ -99,12 +113,24 @@ class GenerateMusicController extends Controller
      * @param  \App\Generate_music  $generate_music
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $musical = Generate_music::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_gm      = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.musicals.partials.form', [           
-            'musical'  => $musical
+            'musical'  => $musical,
+            'idioma'    => $idioma,
+            'ml_gm'     => $ml_gm
         ]); 
     }
 

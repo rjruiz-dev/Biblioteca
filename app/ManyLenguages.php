@@ -137,4 +137,24 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Ml_web_request::class);
     }
+
+    public function ml_login()
+    {
+        return $this->hasMany(Ml_login::class);
+    }
+
+    public function ml_registry()
+    {
+        return $this->hasMany(Ml_registry::class);
+    }
+
+    public function ml_password()
+    {
+        return $this->hasMany(Ml_password::class);
+    }
+
+    public function swal_course()
+    {
+        return $this->hasMany(Swal_course::class);
+    }
 }

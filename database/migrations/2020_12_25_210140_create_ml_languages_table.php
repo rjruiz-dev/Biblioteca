@@ -25,7 +25,6 @@ class CreateMlLanguagesTable extends Migration
             $table->string('dt_lang')->nullable();          
             $table->string('dt_agregado_lang')->nullable();         
             $table->string('dt_acciones_lang')->nullable();
-            $table->string('mod_titulo_lang')->nullable();
             $table->string('mod_subtitulo_lang')->nullable();           
             $table->string('cam_lang')->nullable(); 
 

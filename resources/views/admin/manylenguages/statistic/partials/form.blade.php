@@ -27,7 +27,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">  
-                    <h3 class="box-title">Traducciones Globales Estadisticas</h3>
+                    <h3 class="box-title">Traducciones Globales Estadísticas</h3>
                 </div>
             </div>
         </div>
@@ -42,8 +42,8 @@
             <div class="box-body">
                 <div class="col-md-12">                    
                     <div class="form-group">              
-                        {!! Form::label('estadistica', 'Estadisticas') !!}                    
-                        {!! Form::text('estadistica', $ml_statistic['estadistica'] ? $ml_statistic['estadistica'] : null, ['class' => 'form-control', 'id' => 'estadistica', 'placeholder' => 'Estadisticas']) !!}
+                        {!! Form::label('estadistica', 'Estadísticas') !!}                    
+                        {!! Form::text('estadistica', $ml_statistic['estadistica'] ? $ml_statistic['estadistica'] : null, ['class' => 'form-control', 'id' => 'estadistica', 'placeholder' => 'Estadísticas']) !!}
                     </div>
                     <div class="form-group">              
                         {!! Form::label('mes_y_año', 'Mes y Año') !!}                    
@@ -99,19 +99,19 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
-                    <h3 class="box-title">Tabla Prestamos - Tabla Colecciones </h3>
+                    <h3 class="box-title">Tabla Préstamos - Tabla Colecciones </h3>
                 </div>
             </div>
             <div class="box-body">  
                 <div class="text-center">
-                    <h4 class="box-title">Prestamo</h4>
+                    <h4 class="box-title">Préstamo</h4>
                 </div>            
                 <div class="form-group">              
-                    {!! Form::label('sub_prestamo', 'Prestamos') !!}                    
-                    {!! Form::text('sub_prestamo', $ml_statistic['sub_prestamo'] ? $ml_statistic['sub_prestamo'] : null, ['class' => 'form-control', 'id' => 'sub_prestamo', 'placeholder' => 'Prestamos']) !!}
+                    {!! Form::label('sub_prestamo', 'Préstamos') !!}                    
+                    {!! Form::text('sub_prestamo', $ml_statistic['sub_prestamo'] ? $ml_statistic['sub_prestamo'] : null, ['class' => 'form-control', 'id' => 'sub_prestamo', 'placeholder' => 'Préstamos']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('col_prestamo', 'Prestamo') !!}                    
+                    {!! Form::label('col_prestamo', 'Préstamo') !!}                    
                     {!! Form::text('col_prestamo', $ml_statistic['col_prestamo'] ? $ml_statistic['col_prestamo'] : null, ['class' => 'form-control', 'id' => 'col_prestamo', 'placeholder' => 'Prestamo']) !!}
                 </div>
                 <div class="form-group">              
@@ -121,7 +121,11 @@
                 <div class="form-group">              
                     {!! Form::label('col_cine', 'Cine') !!}                    
                     {!! Form::text('col_cine', $ml_statistic['col_cine'] ? $ml_statistic['col_cine'] : null, ['class' => 'form-control', 'id' => 'col_cine', 'placeholder' => 'Cine']) !!}
-                </div>      
+                </div>     
+                <div class="form-group">     
+                    {!! Form::label('col_musica', 'Musica') !!}                    
+                    {!! Form::text('col_musica', $ml_statistic['col_musica'] ? $ml_statistic['col_musica'] : null, ['class' => 'form-control', 'id' => 'col_musica', 'placeholder' => 'Musica']) !!}
+                </div> 
                 <div class="form-group">     
                     {!! Form::label('col_multimedia', 'Multimedia') !!}                    
                     {!! Form::text('col_multimedia', $ml_statistic['col_multimedia'] ? $ml_statistic['col_multimedia'] : null, ['class' => 'form-control', 'id' => 'col_multimedia', 'placeholder' => 'Multimedia']) !!}
@@ -155,7 +159,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
-                    <h3 class="box-title">Filas tablas Socios - Prestamos</h3>
+                    <h3 class="box-title">Filas tablas Socios - Préstamos</h3>
                 </div>
             </div>
             <div class="box-body">              

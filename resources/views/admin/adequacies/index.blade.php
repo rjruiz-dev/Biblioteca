@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE ADECUACIONES
-        <small>Listado</small>
+        {{ $ml_adequacy->titulo_adequacy }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Personas Adecuadas  
+            <h3 class="panel-title">{{ $ml_adequacy->subtitulo_adequacy }}  
             
-                <a href="{{ route('admin.adequacies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Adecuación"><i class="fa fa-user-plus"></i> Crear Adecuación</a>
+                <a href="{{ route('admin.adequacies.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_adequacy->btn_crear_adequacy }}"><i class="fa fa-user-plus"></i> {{ $ml_adequacy->btn_crear_adequacy }}</a>
 
             </h3>
         </div>
@@ -24,10 +23,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Personas Adecuadas</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_adequacy->dt_id_adequacy }}</th>
+                        <th>{{ $ml_adequacy->dt_adequacy }}</th>                       
+                        <th>{{ $ml_adequacy->dt_agregado_adequacy }}</th>                                
+                        <th>{{ $ml_adequacy->dt_acciones_adequacy }}</th>
                     </tr>
                 </thead>
                 <tbody>

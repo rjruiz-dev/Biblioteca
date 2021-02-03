@@ -4,6 +4,10 @@
     <h1>
         {{ $ml_course->titulo_curso }}       
     </h1>
+
+    {{ Form::hidden('swal_baja', $swal_course->swal_baja, ['id' => 'swal_baja']) }}
+    {{ Form::hidden('swal_reactivar', $swal_course->swal_reactivar, ['id' => 'swal_reactivar']) }}
+
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Cursos</li>
@@ -15,7 +19,7 @@
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">{{ $ml_course->subtitulo_curso }}  
           
-                <a href="{{ route('admin.courses.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Curso"><i class="fa fa-user-plus"></i> {{ $ml_course->btn_crear_curso }}</a>
+                <a href="{{ route('admin.courses.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_course->btn_crear_curso }}"><i class="fa fa-user-plus"></i> {{ $ml_course->btn_crear_curso }}</a>
     
             </h3>
         </div>

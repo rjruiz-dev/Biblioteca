@@ -14,6 +14,7 @@ use App\ml_cat_edit_music;
 use App\ml_cat_edit_movie;
 use App\ml_cat_edit_multimedia;
 use App\ml_cat_edit_fotografia;
+use App\Swal_course;
 use App\Ml_reference;
 use App\Ml_graphic_format;
 use App\Ml_language;
@@ -36,6 +37,9 @@ use App\Ml_loan_document;
 use App\Ml_send_letter;
 use App\Ml_partner;
 use App\Ml_web_request;
+use App\Ml_login;
+use App\Ml_registry;
+use App\Ml_password;
 use DataTables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -387,6 +391,8 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id);  
 
         $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $swal_course = Swal_course::where('many_lenguages_id', $idioma->id)->first();
+
         $ml_reference = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
         $ml_fg = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
         $ml_lang = Ml_language::where('many_lenguages_id', $idioma->id)->first();
@@ -400,7 +406,10 @@ class ManyLenguagesController extends Controller
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'        => $idioma,
+            
             'ml_course'     => $ml_course,
+            'swal_course'   => $swal_course,
+
             'ml_reference'  => $ml_reference,
             'ml_fg'         => $ml_fg,
             'ml_lang'       => $ml_lang,
@@ -575,7 +584,24 @@ class ManyLenguagesController extends Controller
         
         return view('admin.manylenguages.cat_edit_multimedia.partials.form', [          
             'idioma'    => $idioma,
-            'ml_cat_edit_multimedia' => $ml_cat_edit_multimedia
+            'ml_cat_edit_multimedia' => $ml_cat_edit_multimedia]);
+    }
+
+    public function edit_credentials($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $ml_login       = Ml_login::where('many_lenguages_id', $idioma->id)->first();
+        $ml_registry    = Ml_registry::where('many_lenguages_id', $idioma->id)->first();
+        $ml_password    = Ml_password::where('many_lenguages_id', $idioma->id)->first();
+                                    
+        return view('admin.manylenguages.credentials.partials.form', [          
+            'idioma'        => $idioma,           
+            'ml_login'      => $ml_login,
+            'ml_registry'   => $ml_registry,
+            'ml_password'   => $ml_password,
+
+           
         ]); 
     }
  
@@ -822,6 +848,19 @@ class ManyLenguagesController extends Controller
                 $ml_course->cam_grupo_no                = $request->get('cam_grupo_no');               
                 $ml_course->save();
 
+                // Swal cursos
+                $swal_course                            = Swal_course::where('many_lenguages_id', $idioma->id)->first();
+                $swal_course->swal_exito                = $request->get('swal_exito');     
+                $swal_course->swal_info_exito           = $request->get('swal_info_exito');               
+                $swal_course->swal_advertencia          = $request->get('swal_advertencia');  
+                $swal_course->swal_info_advertencia     = $request->get('swal_info_advertencia');  
+                $swal_course->swal_baja                 = $request->get('swal_baja');  
+                $swal_course->swal_bajado               = $request->get('swal_bajado');  
+                $swal_course->swal_reactivar            = $request->get('swal_reactivar');  
+                $swal_course->swal_reactivado           = $request->get('swal_reactivado');  
+                $swal_course->save();
+
+
                 // Maestros de Referencia
                 $ml_reference                           = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
                 $ml_reference->titulo_ref               = $request->get('titulo_ref');     
@@ -960,8 +999,7 @@ class ManyLenguagesController extends Controller
                 $ml_letter->dt_cuerpo_letter          = $request->get('dt_cuerpo_letter');   
                 $ml_letter->dt_despedida_letter       = $request->get('dt_despedida_letter');                           
                 $ml_letter->dt_agregado_letter        = $request->get('dt_agregado_letter');                 
-                $ml_letter->dt_acciones_letter        = $request->get('dt_acciones_letter');  
-                $ml_letter->mod_titulo_letter         = $request->get('mod_titulo_letter');  
+                $ml_letter->dt_acciones_letter        = $request->get('dt_acciones_letter');              
                 $ml_letter->mod_subtitulo_letter      = $request->get('mod_subtitulo_letter');  
                 $ml_letter->cam_titulo_letter         = $request->get('cam_titulo_letter'); 
                 $ml_letter->cam_cuerpo_letter         = $request->get('cam_cuerpo_letter');   
@@ -1045,7 +1083,7 @@ class ManyLenguagesController extends Controller
     }
 
     public function update_statistic(Request $request, $id)
-    {
+    {        
         if ($request->ajax()){
             try {
                 //  Transacciones
@@ -1072,6 +1110,7 @@ class ManyLenguagesController extends Controller
                 $ml_statistic->col_prestamo     = $request->get('col_prestamo');  
                 $ml_statistic->col_libro        = $request->get('col_libro');  
                 $ml_statistic->col_cine         = $request->get('col_cine');
+                $ml_statistic->col_musica       = $request->get('col_musica');  
                 $ml_statistic->col_multimedia   = $request->get('col_multimedia');  
                 $ml_statistic->col_fotografia   = $request->get('col_fotografia');  
                 $ml_statistic->col_librodigital = $request->get('col_librodigital');  
@@ -1079,7 +1118,8 @@ class ManyLenguagesController extends Controller
                 $ml_statistic->infantil         = $request->get('infantil');    
                 $ml_statistic->adulto           = $request->get('adulto');    
                 $ml_statistic->incorporacion    = $request->get('incorporacion');    
-                $ml_statistic->baja             = $request->get('baja');    
+                $ml_statistic->baja             = $request->get('baja');
+                $ml_statistic->btn_guardar      = $request->get('btn_guardar');    
                 $ml_statistic->save();              
 
                 DB::commit();               
@@ -2063,7 +2103,61 @@ class ManyLenguagesController extends Controller
 
          $ml_wr->save(); 
 
-         DB::commit();               
+         DB::commit(); 
+        } catch (Exception $e) {
+            // anula la transacion
+            DB::rollBack();
+        }
+    }
+}
+public function update_credentials(Request $request, $id)
+{              
+        if ($request->ajax()){
+            try {    
+            DB::beginTransaction();                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+                $idioma->lenguage_description   = $request->get('lenguage_description');             
+                $idioma->save();
+               
+                // Iniciar sesion
+                $ml_login                   = Ml_login::where('many_lenguages_id', $idioma->id)->first();
+                $ml_login->pri_nombre_is    = $request->get('pri_nombre_is');
+                $ml_login->seg_nombre_is    = $request->get('seg_nombre_is');
+                $ml_login->login_is         = $request->get('login_is');
+                $ml_login->login_msg_is     = $request->get('login_msg_is');
+                $ml_login->email_is         = $request->get('email_is');
+                $ml_login->contraseña_is    = $request->get('contraseña_is'); 
+                $ml_login->link_pass_is     = $request->get('link_pass_is');
+                $ml_login->btn_entrar_is    = $request->get('btn_entrar_is');
+                $ml_login->save(); 
+
+                 // Reestablecer contraseña
+                 $ml_password                       = Ml_password::where('many_lenguages_id', $idioma->id)->first();
+                 $ml_password->pri_nombre_rp        = $request->get('pri_nombre_rp');
+                 $ml_password->seg_nombre_rp        = $request->get('seg_nombre_rp');
+                 $ml_password->reset_rp             = $request->get('reset_rp');
+                 $ml_password->reset_msg_rp         = $request->get('reset_msg_rp');
+                 $ml_password->email_rp             = $request->get('email_rp');                
+                 $ml_password->btn_reestablecer_rp  = $request->get('btn_reestablecer_rp');
+                 $ml_password->save(); 
+                
+                // Solicitud de registro
+                $ml_registry                   = Ml_registry::where('many_lenguages_id', $idioma->id)->first();
+                $ml_registry->titulo_reg       = $request->get('titulo_reg');
+                $ml_registry->info_reg         = $request->get('info_reg');
+                $ml_registry->seccion          = $request->get('seccion');
+                $ml_registry->nombre_reg       = $request->get('nombre_reg');
+                $ml_registry->apellido_reg     = $request->get('apellido_reg');
+                $ml_registry->nickname_reg     = $request->get('nickname_reg'); 
+                $ml_registry->email_reg        = $request->get('email_reg');
+                $ml_registry->fecha_nac_reg    = $request->get('fecha_nac_reg');
+                $ml_registry->ph_fecha_nac_reg = $request->get('ph_fecha_nac_reg');
+                // $ml_registry->btn_cerrar_reg   = $request->get('btn_cerrar_reg');
+                // $ml_registry->btn_enviar_reg   = $request->get('btn_enviar_reg');
+                $ml_registry->save(); 
+
+                DB::commit();               
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -2123,8 +2217,7 @@ class ManyLenguagesController extends Controller
                     'url_edit_movie'   => route('admin.manylenguages.edit_movie', $idiomas->id),
                     'url_edit_multimedia'   => route('admin.manylenguages.edit_multimedia', $idiomas->id),
                     'url_edit_fotografia'   => route('admin.manylenguages.edit_fotografia', $idiomas->id),
-                    'url_edit_listado'   => route('admin.manylenguages.edit_listado', $idiomas->id),
-                    'url_destroy'       => route('admin.manylenguages.destroy', $idiomas->id),   
+                    'url_edit_listado'   => route('admin.manylenguages.edit_listado', $idiomas->id),                         
                     'url_edit_maintenance'  => route('admin.manylenguages.edit_maintenance', $idiomas->id),                  
                     'url_edit_list'         => route('admin.manylenguages.edit_list', $idiomas->id),                    
                     'url_edit_statistic'    => route('admin.manylenguages.edit_statistic', $idiomas->id),                    
@@ -2132,7 +2225,8 @@ class ManyLenguagesController extends Controller
                     'url_loan'              => route('admin.manylenguages.edit_loan', $idiomas->id),
                     'url_loan_repayment'    => route('admin.manylenguages.edit_loan_repayment', $idiomas->id),                    
                     'url_send_letter'       => route('admin.manylenguages.edit_send_letter', $idiomas->id),                    
-                    'url_edit_partner'      => route('admin.manylenguages.edit_partner', $idiomas->id),                    
+                    'url_edit_partner'      => route('admin.manylenguages.edit_partner', $idiomas->id),
+                    'url_edit_credentials'  => route('admin.manylenguages.edit_credentials', $idiomas->id),                                        
                     'url_destroy'           => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           

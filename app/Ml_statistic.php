@@ -8,7 +8,7 @@ class Ml_statistic extends Model
 {
     protected $fillable = [ 
         'many_lenguages_id', 'estadistica', 'mes_y_año', 'ph_mes_y_año', 'btn_buscar', 'total', 'sub_socio', 'sub_prestamo',
-        'sub_coleccion', 'col_tipodesocio', 'col_alta', 'col_baja', 'col_prestamo',  'col_libro', 'col_cine', 'col_multimedia',
+        'sub_coleccion', 'col_tipodesocio', 'col_alta', 'col_baja', 'col_prestamo',  'col_libro', 'col_cine','col_musica', 'col_multimedia',
         'col_fotografia', 'col_librodigital', 'col_coleccion', 'infantil', 'adulto', 'incorporacion', 'baja', 
     ];
     

@@ -25,7 +25,6 @@ class CreateMlAdequaciesTable extends Migration
             $table->string('dt_adequacy')->nullable();          
             $table->string('dt_agregado_adequacy')->nullable();         
             $table->string('dt_acciones_adequacy')->nullable();
-            $table->string('mod_titulo_adequacy')->nullable();
             $table->string('mod_subtitulo_adequacy')->nullable();           
             $table->string('cam_adequacy')->nullable(); 
 

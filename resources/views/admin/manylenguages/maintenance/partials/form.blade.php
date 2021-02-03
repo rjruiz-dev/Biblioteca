@@ -101,10 +101,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_curso', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_curso', $ml_course['mod_titulo_curso'] ? $ml_course['mod_titulo_curso'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_curso', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_curso', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_curso', $ml_course['mod_subtitulo_curso'] ? $ml_course['mod_subtitulo_curso'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_curso', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -128,6 +128,85 @@
             </div>
         </div>       
     </div>     
+
+     <!--Swal Cursos -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Mensajes de Alertas Curso</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Exito </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_exito', 'Titulo del mensaje de exito') !!}                    
+                    {!! Form::text('swal_exito', $swal_course['swal_exito'] ? $swal_course['swal_exito'] : null, ['class' => 'form-control', 'id' => 'swal_exito', 'placeholder' => 'Titulo del mensaje de exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('swal_info_exito', 'Mensaje de exito') !!}                    
+                    {!! Form::text('swal_info_exito', $swal_course['swal_info_exito'] ? $swal_course['swal_info_exito'] : null, ['class' => 'form-control', 'id' => 'swal_info_exito', 'placeholder' => 'Mensaje de exito']) !!}
+                </div>                    
+            </div>
+        </div>       
+    </div>    
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Adevertencias </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_advertencia', 'Titulo del mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_advertencia', $swal_course['swal_advertencia'] ? $swal_course['swal_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_advertencia', 'placeholder' => 'Titulo del mensaje de advertencia']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_advertencia', 'Mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_info_advertencia', $swal_course['swal_info_advertencia'] ? $swal_course['swal_info_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_info_advertencia', 'placeholder' => 'Mensaje de advertencia']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div>   
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Baja y Reactivar Curso </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_baja', 'Dar de baja') !!}                    
+                    {!! Form::text('swal_baja', $swal_course['swal_baja'] ? $swal_course['swal_baja'] : null, ['class' => 'form-control', 'id' => 'swal_baja', 'placeholder' => 'Dar de baja']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_bajado', 'Dado de baja') !!}                    
+                    {!! Form::text('swal_bajado', $swal_course['swal_bajado'] ? $swal_course['swal_bajado'] : null, ['class' => 'form-control', 'id' => 'swal_bajado', 'placeholder' => 'Dado de baja']) !!}
+                </div>   
+                <div class="form-group">              
+                    {!! Form::label('swal_reactivar', 'Reactivar') !!}                    
+                    {!! Form::text('swal_reactivar', $swal_course['swal_reactivar'] ? $swal_course['swal_reactivar'] : null, ['class' => 'form-control', 'id' => 'swal_reactivar', 'placeholder' => 'Reactivar']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_reactivado', 'Reactivado') !!}                    
+                    {!! Form::text('swal_reactivado', $swal_course['swal_reactivado'] ? $swal_course['swal_reactivado'] : null, ['class' => 'form-control', 'id' => 'swal_reactivado', 'placeholder' => 'Reactivado']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div>   
 
     <!--Traduccion Referencias -->
     <div class="col-md-12">
@@ -201,10 +280,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_ref', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_ref', $ml_reference['mod_titulo_ref'] ? $ml_reference['mod_titulo_ref'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_ref', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_ref', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_ref', $ml_reference['mod_subtitulo_ref'] ? $ml_reference['mod_subtitulo_ref'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_ref', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -290,10 +369,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_fg', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_fg', $ml_fg['mod_titulo_fg'] ? $ml_fg['mod_titulo_fg'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_fg', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_fg', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_fg', $ml_fg['mod_subtitulo_fg'] ? $ml_fg['mod_subtitulo_fg'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_fg', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -379,10 +458,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_lang', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_lang', $ml_lang['mod_titulo_lang'] ? $ml_lang['mod_titulo_lang'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_lang', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_lang', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_lang', $ml_lang['mod_subtitulo_lang'] ? $ml_lang['mod_subtitulo_lang'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_lang', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -468,10 +547,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_publ', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_publ', $ml_pp['mod_titulo_publ'] ? $ml_pp['mod_titulo_publ'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_publ', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_publ', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_publ', $ml_pp['mod_subtitulo_publ'] ? $ml_pp['mod_subtitulo_publ'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_publ', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -557,10 +636,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_gl', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_gl', $ml_gl['mod_titulo_gl'] ? $ml_gl['mod_titulo_gl'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_gl', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_gl', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_gl', $ml_gl['mod_subtitulo_gl'] ? $ml_gl['mod_subtitulo_gl'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_gl', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -646,10 +725,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_gm', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_gm', $ml_gm['mod_titulo_gm'] ? $ml_gm['mod_titulo_gm'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_gm', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_gm', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_gm', $ml_gm['mod_subtitulo_gm'] ? $ml_gm['mod_subtitulo_gm'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_gm', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -735,10 +814,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_gc', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_gc', $ml_gc['mod_titulo_gc'] ? $ml_gc['mod_titulo_gc'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_gc', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_gc', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_gc', $ml_gc['mod_subtitulo_gc'] ? $ml_gc['mod_subtitulo_gc'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_gc', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -824,10 +903,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_adequacy', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_adequacy', $ml_adequacy['mod_titulo_adequacy'] ? $ml_adequacy['mod_titulo_adequacy'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_adequacy', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_adequacy', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_adequacy', $ml_adequacy['mod_subtitulo_adequacy'] ? $ml_adequacy['mod_subtitulo_adequacy'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_adequacy', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -918,10 +997,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_subject', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_subject', $ml_subject['mod_titulo_subject'] ? $ml_subject['mod_titulo_subject'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_subject', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_subject', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_subject', $ml_subject['mod_subtitulo_subject'] ? $ml_subject['mod_subtitulo_subject'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_subject', 'placeholder' => 'Subtítulo Modal']) !!}
@@ -1022,10 +1101,10 @@
             </div>
             </div>
             <div class="box-body">              
-                <div class="form-group">              
+                <!-- <div class="form-group">              
                     {!! Form::label('mod_titulo_letter', 'Título Modal') !!}                    
                     {!! Form::text('mod_titulo_letter', $ml_letter['mod_titulo_letter'] ? $ml_letter['mod_titulo_letter'] : null, ['class' => 'form-control', 'id' => 'mod_titulo_letter', 'placeholder' => 'Título Modal']) !!}
-                </div>
+                </div> -->
                 <div class="form-group">              
                     {!! Form::label('mod_subtitulo_letter', 'Subtítulo Modal') !!}                    
                     {!! Form::text('mod_subtitulo_letter', $ml_letter['mod_subtitulo_letter'] ? $ml_letter['mod_subtitulo_letter'] : null, ['class' => 'form-control', 'id' => 'mod_subtitulo_letter', 'placeholder' => 'Subtítulo Modal']) !!}

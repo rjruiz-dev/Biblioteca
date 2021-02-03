@@ -11,7 +11,7 @@ class Ml_library_profile extends Model
         'idioma', 'select_logo', 'medidas_logo', 'direccion','calle','codigo_postal', 'ciudad',          
         'provincia', 'pais', 'config_prestamo', 'cant_max_prestamo','cant_max_dias', 'tipo_multa',          
         'economica', 'sancion','sancion_economica','dias_sancion', 'otros_detalles', 'edad_infantil',
-        'edad_adulto', 'select_color','info_color','select_color_fuente','info_color_fuente', 
+        'edad_adulto', 'select_color','info_color','select_color_fuente','info_color_fuente','btn_guardar' 
     ];
     
     public function many_lenguage()

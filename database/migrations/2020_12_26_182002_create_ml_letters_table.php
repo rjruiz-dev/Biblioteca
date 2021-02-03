@@ -27,7 +27,6 @@ class CreateMlLettersTable extends Migration
             $table->string('dt_despedida_letter')->nullable();          
             $table->string('dt_agregado_letter')->nullable();         
             $table->string('dt_acciones_letter')->nullable();
-            $table->string('mod_titulo_letter')->nullable();
             $table->string('mod_subtitulo_letter')->nullable();           
             $table->string('cam_titulo_letter')->nullable(); 
             $table->string('cam_cuerpo_letter')->nullable(); 

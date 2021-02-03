@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE GENEROS
-        <small>Listado</small>
+        {{ $ml_gc->titulo_gc }}      
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -15,9 +14,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Géneros Cinematográficos  
+            <h3 class="panel-title">{{ $ml_gc->subtitulo_gc }}  
           
-                <a href="{{ route('admin.cinematographics.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Género"><i class="fa fa-user-plus"></i> Crear Género</a>
+                <a href="{{ route('admin.cinematographics.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_gc->btn_crear_gc }}"><i class="fa fa-user-plus"></i> {{ $ml_gc->btn_crear_gc }}</a>
     
             </h3>
         </div>
@@ -25,10 +24,10 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Género</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_gc->dt_id_gc }}ID</th>
+                        <th>{{ $ml_gc->dt_gc }}</th>                       
+                        <th>{{ $ml_gc->dt_agregado_gc }}</th>                                
+                        <th>{{ $ml_gc->dt_acciones_gc }}</th>
                     </tr>
                 </thead>
                 <tbody>

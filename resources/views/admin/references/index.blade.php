@@ -15,7 +15,7 @@
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">{{ $ml_reference->subtitulo_ref }}
           
-                <a href="{{ route('admin.references.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Referencia"><i class="fa fa-user-plus"></i> {{ $ml_reference->btn_crear_ref }}</a>
+                <a href="{{ route('admin.references.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_reference->btn_crear_ref }}"><i class="fa fa-user-plus"></i> {{ $ml_reference->btn_crear_ref }}</a>
     
             </h3>
         </div>

@@ -2,8 +2,7 @@
 
 @section('header')    
     <h1>
-       MANTENIMIENTO DE MATERIAS
-        <small>Listado</small>
+        {{ $ml_subject->titulo_subject }}     
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,9 +13,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">Listado de Materias  
+            <h3 class="panel-title">{{ $ml_subject->subtitulo_subject }}
           
-                <a href="{{ route('admin.subjects.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Materia"><i class="fa fa-user-plus"></i> Crear Materia</a>
+                <a href="{{ route('admin.subjects.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_subject->btn_crear_subject }}"><i class="fa fa-user-plus"></i> {{ $ml_subject->btn_crear_subject }}</a>
     
             </h3>
         </div>
@@ -24,11 +23,11 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Materias</th>  
-                        <th>Cdu</th>                       
-                        <th>Agregado</th>                                
-                        <th>Acciones</th>
+                        <th>{{ $ml_subject->dt_id_subject }}</th>
+                        <th>{{ $ml_subject->dt_subject }}</th>  
+                        <th>{{ $ml_subject->dt_cdu_subject }}</th>                       
+                        <th>{{ $ml_subject->dt_agregado_subject }}</th>                                
+                        <th>{{ $ml_subject->dt_acciones_subject }}</th>
                     </tr>
                 </thead>
                 <tbody>

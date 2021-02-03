@@ -25,7 +25,6 @@ class CreateMlLiteraryGenresTable extends Migration
             $table->string('dt_gl')->nullable();          
             $table->string('dt_agregado_gl')->nullable();         
             $table->string('dt_acciones_gl')->nullable();
-            $table->string('mod_titulo_gl')->nullable();
             $table->string('mod_subtitulo_gl')->nullable();           
             $table->string('cam_gl')->nullable(); 
 

@@ -13,6 +13,7 @@ use App\Book;
 use App\Music;
 use App\Multimedia;
 use App\Movie;
+use App\Ml_registry;
 use App\Photography;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -105,15 +106,27 @@ class HomeController extends Controller
         
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $user = new User();      
-                             
+        $user = new User();
+         
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_registry    = Ml_registry::where('many_lenguages_id', $idioma->id)->first();
+                            
         return view('web.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::pluck('state_description', 'id'),           
-            'user'      => $user
+            'user'          => $user,
+            'idioma'        => $idioma,
+            'ml_registry'   => $ml_registry
         ]); 
 
     }

@@ -8,6 +8,7 @@ use App\Book_movement;
 use App\User_movement;
 use App\User;
 use App\Ml_dashboard;
+use App\Ml_statistic;
 use App\ManyLenguages;
 use App\Setting;
 use Illuminate\Support\Facades\DB;
@@ -21,17 +22,17 @@ class StatisticController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
 
-        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $session = session('idiomas'); 
+
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_statistic   = Ml_statistic::where('many_lenguages_id', $idioma->id)->first();
+        $setting        = Setting::where('id', 1)->first();
+        $idiomas        = ManyLenguages::all();        
         
         $users = User::all();
         foreach($users as $user){
@@ -46,11 +47,11 @@ class StatisticController extends Controller
                 $user->save();
             }
         }
-
         return view('admin.statistic.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_statistic'   => $ml_statistic
         ]);         
       
     }

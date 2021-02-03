@@ -17,6 +17,7 @@ use App\Book_movement;
 use App\Document;
 use App\Generate_reference;
 use App\InfoOfDataBase;
+use App\Ml_database_record;
 use Carbon\Carbon;
 use DataTables;
 use App\Ml_dashboard;
@@ -33,23 +34,24 @@ class infoofdatabaseController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_dr      = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas    = ManyLenguages::all();        
         $cursos     = Course::pluck('course_name', 'id');
-        
+             
         return view('admin.infoofdatabase.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_dr'     => $ml_dr
         ]);
       
     }

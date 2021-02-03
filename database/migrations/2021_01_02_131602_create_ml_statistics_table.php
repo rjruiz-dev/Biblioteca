@@ -22,8 +22,10 @@ class CreateMlStatisticsTable extends Migration
             $table->string('mes_y_año')->nullable();
             $table->string('ph_mes_y_año')->nullable();
             $table->string('btn_buscar')->nullable();
+
             $table->string('total')->nullable();
-            $table->string('sub_socio')->nullable();
+
+            $table->string('sub_socio')->nullable();            
             $table->string('sub_prestamo')->nullable();
             $table->string('sub_coleccion')->nullable();                      
             $table->string('col_tipodesocio')->nullable();
@@ -32,6 +34,7 @@ class CreateMlStatisticsTable extends Migration
             $table->string('col_prestamo')->nullable();      
             $table->string('col_libro')->nullable();          
             $table->string('col_cine')->nullable();
+            $table->string('col_musica')->nullable();
             $table->string('col_multimedia')->nullable();
             $table->string('col_fotografia')->nullable();          
             $table->string('col_librodigital')->nullable();         

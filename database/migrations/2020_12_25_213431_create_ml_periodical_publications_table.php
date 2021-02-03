@@ -25,7 +25,6 @@ class CreateMlPeriodicalPublicationsTable extends Migration
             $table->string('dt_publ')->nullable();          
             $table->string('dt_agregado_publ')->nullable();         
             $table->string('dt_acciones_publ')->nullable();
-            $table->string('mod_titulo_publ')->nullable();
             $table->string('mod_subtitulo_publ')->nullable();           
             $table->string('cam_publ')->nullable(); 
 

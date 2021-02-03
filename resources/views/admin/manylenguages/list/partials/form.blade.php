@@ -58,8 +58,8 @@
                         {!! Form::text('fecha_hasta_ld', $ml_ld['fecha_hasta_ld'] ? $ml_ld['fecha_hasta_ld'] : null, ['class' => 'form-control', 'id' => 'fecha_hasta_ld', 'placeholder' => 'Fecha hasta']) !!}
                     </div> 
                     <div class="form-group">              
-                        {!! Form::label('btn_crear_ld', 'Botón Crear') !!}                    
-                        {!! Form::text('btn_crear_ld', $ml_ld['btn_crear_ld'] ? $ml_ld['btn_crear_ld'] : null, ['class' => 'form-control', 'id' => 'btn_crear_ld', 'placeholder' => 'Botón Crear']) !!}
+                        {!! Form::label('btn_crear_ld', 'Botón Buscar') !!}                    
+                        {!! Form::text('btn_crear_ld', $ml_ld['btn_crear_ld'] ? $ml_ld['btn_crear_ld'] : null, ['class' => 'form-control', 'id' => 'btn_crear_ld', 'placeholder' => 'Botón Buscar']) !!}
                     </div>                                     
                 </div>
             </div>       
@@ -153,8 +153,8 @@
                         {!! Form::text('turno_lc', $ml_lc['turno_lc'] ? $ml_lc['turno_lc'] : null, ['class' => 'form-control', 'id' => 'turno_lc', 'placeholder' => 'Turno']) !!}
                     </div> 
                     <div class="form-group">              
-                        {!! Form::label('btn_crear_lc', 'Botón Crear') !!}                    
-                        {!! Form::text('btn_crear_lc', $ml_lc['btn_crear_lc'] ? $ml_lc['btn_crear_lc'] : null, ['class' => 'form-control', 'id' => 'btn_crear_lc', 'placeholder' => 'Botón Crear']) !!}
+                        {!! Form::label('btn_crear_lc', 'Botón Buscar') !!}                    
+                        {!! Form::text('btn_crear_lc', $ml_lc['btn_crear_lc'] ? $ml_lc['btn_crear_lc'] : null, ['class' => 'form-control', 'id' => 'btn_crear_lc', 'placeholder' => 'Botón Buscar']) !!}
                     </div>                                     
                 </div>
             </div>       

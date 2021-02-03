@@ -2,13 +2,10 @@
 
 @section('header')    
     <h1>
-       LISTADO DE PRESTAMOS
-        <!-- <small>Listado</small> -->
+        {{ $ml_ld->titulo_ld }}      
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <!-- <li class="active">Catálogo</li>
-         -->
     </ol> 
 @stop
 
@@ -17,7 +14,7 @@
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
         <div class="row">
                 <div  class="col-md-3">
-                <h3 class="panel-title" style="margin-top:8px; margin-bottom:8px;">Por rango de fecha de devolucion</h3>
+                <h3 class="panel-title" style="margin-top:8px; margin-bottom:8px;">{{ $ml_ld->subtitulo_ld }}</h3>
                 </div>
                 <div  class="col-md-3" style="margin-bottom:5px;">
                                 <div class="input-group date">
@@ -28,7 +25,7 @@
                                         class="form-control pull-right"                                                                                   
                                         type="text"
                                         id="desde"
-                                        placeholder= "Fecha desde">                       
+                                        placeholder= "{{ $ml_ld->fecha_desde_ld }}">                       
                                 </div>
                 </div>
                     <div  class="col-md-3" style="margin-bottom:5px;">
@@ -40,11 +37,11 @@
                                             class="form-control pull-right"                                                                                   
                                             type="text"
                                             id="hasta"
-                                            placeholder= "Fecha hasta">                       
+                                            placeholder= "{{ $ml_ld->fecha_hasta_ld }}">                       
                                     </div>
                     </div>
             <div  class="col-md-3" style="margin-bottom:5px;">
-            <button type="button" name="filter" id="filter" class="btn btn-info">Buscar</button>
+            <button type="button" name="filter" id="filter" class="btn btn-info">{{ $ml_ld->btn_crear_ld }}</button>
             </div>
         </div>
         </div>
@@ -52,15 +49,15 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>N° Registro</th>                                   
-                        <th>Titulo</th>  
-                        <th>Tipo Doc</th>  
-                        <th>SubTipo Doc</th>   
-                        <th>N° Socio</th> 
-                        <th>Nombre</th>
-                        <th>Fecha Prestamo</th>
-                        <th>Fecha Devolucion</th>                                
+                        <th>{{ $ml_ld->dt_id_ld }}</th>
+                        <th>{{ $ml_ld->dt_registro_ld }}</th>                                   
+                        <th>{{ $ml_ld->dt_titulo_ld }}</th>  
+                        <th>{{ $ml_ld->dt_tipodoc_ld }}</th>  
+                        <th>{{ $ml_ld->dt_subtipodoc_ld }}</th>   
+                        <th>{{ $ml_ld->dt_nrosocio_ld }}</th> 
+                        <th>{{ $ml_ld->dt_nombre_ld }}</th>
+                        <th>{{ $ml_ld->dt_fechaprestamo_ld }}</th>
+                        <th>{{ $ml_ld->dt_fechadevolucion_ld }}</th>                                
                     </tr>
                 </thead>
                 <tbody>

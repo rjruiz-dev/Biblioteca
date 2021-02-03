@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Periodical_publication;
+use App\Ml_periodical_publication;
 use App\Periodicity;
 use App\Setting;
 use Illuminate\Http\Request;
@@ -22,22 +23,23 @@ class PeriodicityController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
+        if (!$request->session()->has('idiomas')) { 
+            
             $request->session()->put('idiomas', 1);
-            $existe = 0;
         }
-        $session = session('idiomas');
+
+        $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
-    
+            
         return view('admin.periodicals.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
-            'setting'   => $setting
+            'setting'   => $setting,
+            'ml_pp'     => $ml_pp
         ]);        
     }
 
@@ -46,12 +48,25 @@ class PeriodicityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $periodical = new Periodicity();      
+        $periodical = new Periodicity();     
+        
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.periodicals.partials.form', [           
-            'periodical'  => $periodical
+            'periodical'=> $periodical,
+            'idioma'    => $idioma,
+            'ml_pp'     => $ml_pp
+
         ]); 
     }
 
@@ -99,12 +114,24 @@ class PeriodicityController extends Controller
      * @param  \App\Periodicity  $periodicity
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $periodical = Periodicity::findOrFail($id);
+
+        if (!$request->session()->has('idiomas')) { 
+            
+            $request->session()->put('idiomas', 1);
+        }
+
+        $session = session('idiomas'); 
+
+        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
+        $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
                                   
         return view('admin.periodicals.partials.form', [           
-            'periodical'  => $periodical
+            'periodical'    => $periodical,
+            'idioma'        => $idioma,
+            'ml_pp'         => $ml_pp
         ]);
     }
 
