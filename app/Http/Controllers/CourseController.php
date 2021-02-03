@@ -32,16 +32,18 @@ class CourseController extends Controller
 
         $session = session('idiomas'); 
 
-        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $ml_course  = Ml_course::where('many_lenguages_id', $idioma->id)->first();
-        $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_course      = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $swal_course    = Swal_course::where('many_lenguages_id',$session)->first();
+        $setting        = Setting::where('id', 1)->first();
+        $idiomas        = ManyLenguages::all();
      
         return view('admin.courses.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,  
-            'ml_course' => $ml_course
+            'ml_course' => $ml_course,
+            'swal_course' => $swal_course
         ]);         
       
     }
@@ -195,12 +197,18 @@ class CourseController extends Controller
     public function destroy($id)
     {
         $course = Course::findOrFail($id);
+        $session = session('idiomas');
+        $swal_course = Swal_course::where('many_lenguages_id',$session)->first();
+
 
         if($course->baja == 0){ // si esta activo evaluo si se puede dar de baja
             $genre = Book_movement::where('courses_id', $id)->where('active', 1)->get();
-      
+            
+            
+            
             if($genre->isEmpty())
             {  
+                $bajado_reactivado = $swal_course->swal_bajado;
                 $bandera = 1;
                 
                 $course->baja = 1; // lo pongo en baja
@@ -211,20 +219,19 @@ class CourseController extends Controller
                 $bandera = 0; // si es 0 no se puede dar de baja xq hay prestamos vigentes          
             }
         }else{  // si esta en baja directamente lo doy de alta 
+                $bajado_reactivado = $swal_course->swal_reactivado;
                 $bandera = 1; // si retorno 1 es xq se pudo o dar de baja o reactivar
                 $course->baja = 0; // lo pongo en alta
                 $course->save();
         }
 
          
-        $session = session('idiomas');
-        $swal_course = Swal_course::where('many_lenguages_id',$session)->first();
+      
         return response()->json([
                                     'data' => $bandera,                                
     
-                                    'swal_br'           => $swal_course->swal_br,
-                                    'swal_btn_br'       => $swal_course->swal_btn_br,
-                                    'swal_info_br'      => $swal_course->swal_info_br,
+                                    'swal_exito'        => $swal_course->swal_exito,
+                                    'bajado_reactivado' => $bajado_reactivado,                                  
     
                                     'swal_advertencia'      => $swal_course->swal_advertencia,
                                     'swal_info_advertencia' => $swal_course->swal_info_advertencia,

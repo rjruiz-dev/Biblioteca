@@ -158,31 +158,7 @@
                 </div>                    
             </div>
         </div>       
-    </div>  
-
-    <div class="col-md-4">        
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="text-center">
-                    <h3 class="box-title">Alertas Baja y Reactivar </h3>
-                </div>
-            </div>
-            <div class="box-body">              
-                <div class="form-group">              
-                    {!! Form::label('swal_br', 'Mensaje para dar de baja o reactivar') !!}                    
-                    {!! Form::text('swal_br', $swal_course['swal_br'] ? $swal_course['swal_br'] : null, ['class' => 'form-control', 'id' => 'swal_br', 'placeholder' => 'Mensaje para dar de baja o reactivar']) !!}
-                </div>                 
-                <div class="form-group">              
-                    {!! Form::label('swal_btn_br', 'Botón baja y reactivación') !!}                    
-                    {!! Form::text('swal_btn_br', $swal_course['swal_btn_br'] ? $swal_course['swal_btn_br'] : null, ['class' => 'form-control', 'id' => 'swal_btn_br', 'placeholder' => 'Botón baja y reactivación']) !!}
-                </div> 
-                <div class="form-group">              
-                    {!! Form::label('swal_info_br', 'Mensaje para confirmar baja o reactivación') !!}                    
-                    {!! Form::text('swal_info_br', $swal_course['swal_info_br'] ? $swal_course['swal_info_br'] : null, ['class' => 'form-control', 'id' => 'swal_info_br', 'placeholder' => 'Mensaje para confirmar baja o reactivación']) !!}
-                </div>    
-            </div>
-        </div>       
-    </div>
+    </div>    
 
     <div class="col-md-4">        
         <div class="box box-primary">
@@ -199,6 +175,34 @@
                 <div class="form-group">              
                     {!! Form::label('swal_info_advertencia', 'Mensaje de advertencia') !!}                    
                     {!! Form::text('swal_info_advertencia', $swal_course['swal_info_advertencia'] ? $swal_course['swal_info_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_info_advertencia', 'placeholder' => 'Mensaje de advertencia']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div>   
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Baja y Reactivar Curso </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_baja', 'Dar de baja') !!}                    
+                    {!! Form::text('swal_baja', $swal_course['swal_baja'] ? $swal_course['swal_baja'] : null, ['class' => 'form-control', 'id' => 'swal_baja', 'placeholder' => 'Dar de baja']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_bajado', 'Dado de baja') !!}                    
+                    {!! Form::text('swal_bajado', $swal_course['swal_bajado'] ? $swal_course['swal_bajado'] : null, ['class' => 'form-control', 'id' => 'swal_bajado', 'placeholder' => 'Dado de baja']) !!}
+                </div>   
+                <div class="form-group">              
+                    {!! Form::label('swal_reactivar', 'Reactivar') !!}                    
+                    {!! Form::text('swal_reactivar', $swal_course['swal_reactivar'] ? $swal_course['swal_reactivar'] : null, ['class' => 'form-control', 'id' => 'swal_reactivar', 'placeholder' => 'Reactivar']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_reactivado', 'Reactivado') !!}                    
+                    {!! Form::text('swal_reactivado', $swal_course['swal_reactivado'] ? $swal_course['swal_reactivado'] : null, ['class' => 'form-control', 'id' => 'swal_reactivado', 'placeholder' => 'Reactivado']) !!}
                 </div>     
             </div>
         </div>       

@@ -129,22 +129,23 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
     // console.log("url:sdfdsf " + url)
 
     if (title == 'Baja') {
-        title_noti = 'dar de baja';
-        title_noti_fin = 'dado de baja';
+        baja_rechazar = $('#swal_baja').val();
+        // title_noti = 'dar de baja';
+
     } else {
-        title_noti = 'reactivar';
-        title_noti_fin = 'reactivado';
+        // title_noti = 'reactivar';
+        baja_rechazar = $('#swal_reactivar').val();
     }
 
     swal({
 
-        title: swal_br + title_noti + ' el curso?',
+        title: baja_rechazar,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: swal_btn_br
+        // confirmButtonText: swal_btn_br
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -158,11 +159,7 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
                     var info = response.data;
 
                     var swal_exito = response.swal_exito;
-
-                    var swal_br = response.swal_br;
-                    var swal_btn_br = response.swal_btn_br;
-                    var swal_info_br = response.swal_info_br;
-
+                    var bajado_reactivado = response.bajado_reactivado;
                     var swal_advertencia = response.swal_advertencia;
                     var swal_info_advertencia = response.swal_info_advertencia;
 
@@ -172,7 +169,7 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
                         swal({
                             type: 'success',
                             title: swal_exito,
-                            text: swal_info_br + title_noti_fin + ' el Curso!'
+                            text: bajado_reactivado
                         });
                     } else {
                         swal({

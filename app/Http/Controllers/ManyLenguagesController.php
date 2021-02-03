@@ -767,12 +767,13 @@ class ManyLenguagesController extends Controller
                 // Swal cursos
                 $swal_course                            = Swal_course::where('many_lenguages_id', $idioma->id)->first();
                 $swal_course->swal_exito                = $request->get('swal_exito');     
-                $swal_course->swal_info_exito           = $request->get('swal_info_exito');
-                $swal_course->swal_br                   = $request->get('swal_br');  
-                $swal_course->swal_btn_br               = $request->get('swal_btn_br');  
-                $swal_course->swal_info_br              = $request->get('swal_info_br');  
+                $swal_course->swal_info_exito           = $request->get('swal_info_exito');               
                 $swal_course->swal_advertencia          = $request->get('swal_advertencia');  
                 $swal_course->swal_info_advertencia     = $request->get('swal_info_advertencia');  
+                $swal_course->swal_baja                 = $request->get('swal_baja');  
+                $swal_course->swal_bajado               = $request->get('swal_bajado');  
+                $swal_course->swal_reactivar            = $request->get('swal_reactivar');  
+                $swal_course->swal_reactivado           = $request->get('swal_reactivado');  
                 $swal_course->save();
 
 
