@@ -16,6 +16,7 @@ use App\ml_cat_edit_multimedia;
 use App\ml_cat_edit_fotografia;
 use App\Swal_course;
 use App\Ml_reference;
+use App\ml_fines;
 use App\Ml_graphic_format;
 use App\Ml_language;
 use App\Ml_periodical_publication;
@@ -200,6 +201,186 @@ class ManyLenguagesController extends Controller
                 $ml_dashboard->gestion_multi_idioma    = $request->get('gestion_multi_idioma');
                 $ml_dashboard->many_lenguages_id       = $idioma->id;               
                 $ml_dashboard->save();
+                
+                $Ml_adequacy                       = new Ml_adequacy;
+                $Ml_adequacy->many_lenguages_id       = $idioma->id;
+                $Ml_adequacy->save();
+
+                $ml_cat_edit_book                       = new ml_cat_edit_book;
+                $ml_cat_edit_book->many_lenguages_id       = $idioma->id;
+                $ml_cat_edit_book->save();
+
+                $ml_cat_edit_fotografia                       = new ml_cat_edit_fotografia;
+                $ml_cat_edit_fotografia->many_lenguages_id       = $idioma->id;
+                $ml_cat_edit_fotografia->save();
+
+                $ml_cat_edit_movie                       = new ml_cat_edit_movie;
+                $ml_cat_edit_movie->many_lenguages_id       = $idioma->id;
+                $ml_cat_edit_movie->save();
+                
+                $ml_cat_edit_multimedia                       = new ml_cat_edit_multimedia;
+                $ml_cat_edit_multimedia->many_lenguages_id       = $idioma->id;
+                $ml_cat_edit_multimedia->save();
+                
+                $ml_cat_edit_music                       = new ml_cat_edit_music;
+                $ml_cat_edit_music->many_lenguages_id       = $idioma->id;
+                $ml_cat_edit_music->save();
+                
+                $ml_cat_list_book                       = new ml_cat_list_book;
+                $ml_cat_list_book->many_lenguages_id       = $idioma->id;
+                $ml_cat_list_book->save();
+
+                $ml_cat_sweetalert                       = new ml_cat_sweetalert;
+                $ml_cat_sweetalert->many_lenguages_id       = $idioma->id;
+                $ml_cat_sweetalert->save();
+
+                $Ml_cinematographic_genre                       = new Ml_cinematographic_genre;
+                $Ml_cinematographic_genre->many_lenguages_id       = $idioma->id;
+                $Ml_cinematographic_genre->save();
+
+                $Ml_classroom_loan                       = new Ml_classroom_loan;
+                $Ml_classroom_loan->many_lenguages_id       = $idioma->id;
+                $Ml_classroom_loan->save();
+
+                $Ml_course                       = new Ml_course;
+                $Ml_course->many_lenguages_id       = $idioma->id;
+                $Ml_course->save();
+
+                $Ml_database_record                       = new Ml_database_record;
+                $Ml_database_record->many_lenguages_id       = $idioma->id;
+                $Ml_database_record->save();
+
+                $ml_fines                       = new ml_fines;
+                $ml_fines->many_lenguages_id       = $idioma->id;
+                $ml_fines->save();
+
+                $Ml_graphic_format                       = new Ml_graphic_format;
+                $Ml_graphic_format->many_lenguages_id       = $idioma->id;
+                $Ml_graphic_format->save();
+
+                $Ml_language                       = new Ml_language;
+                $Ml_language->many_lenguages_id       = $idioma->id;
+                $Ml_language->save();
+
+                $Ml_letter                       = new Ml_letter;
+                $Ml_letter->many_lenguages_id       = $idioma->id;
+                $Ml_letter->save();
+
+                $Ml_library_profile                       = new Ml_library_profile;
+                $Ml_library_profile->many_lenguages_id       = $idioma->id;
+                $Ml_library_profile->save();
+
+                $Ml_literary_genre                       = new Ml_literary_genre;
+                $Ml_literary_genre->many_lenguages_id       = $idioma->id;
+                $Ml_literary_genre->save();
+
+                $Ml_loan_by_date                       = new Ml_loan_by_date;
+                $Ml_loan_by_date->many_lenguages_id       = $idioma->id;
+                $Ml_loan_by_date->save();
+
+                $Ml_loan_document                       = new Ml_loan_document;
+                $Ml_loan_document->many_lenguages_id       = $idioma->id;
+                $Ml_loan_document->save();
+
+                $Ml_loan_partner                       = new Ml_loan_partner;
+                $Ml_loan_partner->many_lenguages_id       = $idioma->id;
+                $Ml_loan_partner->save();
+
+                $Ml_login                       = new Ml_login;
+                $Ml_login->many_lenguages_id       = $idioma->id;
+                $Ml_login->save();
+
+                $Ml_manual_loan                       = new Ml_manual_loan;
+                $Ml_manual_loan->many_lenguages_id       = $idioma->id;
+                $Ml_manual_loan->save();
+
+                        
+                $Ml_movie                       = new Ml_movie;
+                $Ml_movie->many_lenguages_id       = $idioma->id;
+                $Ml_movie->save();
+
+                $Ml_musical_genre                       = new Ml_musical_genre;
+                $Ml_musical_genre->many_lenguages_id       = $idioma->id;
+                $Ml_musical_genre->save();
+
+                $Ml_partner                       = new Ml_partner;
+                $Ml_partner->many_lenguages_id       = $idioma->id;
+                $Ml_partner->save();
+
+                
+                $Ml_password                       = new Ml_password;
+                $Ml_password->many_lenguages_id       = $idioma->id;
+                $Ml_password->save();
+
+                $Ml_reference                       = new Ml_reference;
+                $Ml_reference->many_lenguages_id       = $idioma->id;
+                $Ml_reference->save();
+
+                $Ml_registry                       = new Ml_registry;
+                $Ml_registry->many_lenguages_id       = $idioma->id;
+                $Ml_registry->save();
+
+                
+                $Ml_send_letter                       = new Ml_send_letter;
+                $Ml_send_letter->many_lenguages_id       = $idioma->id;
+                $Ml_send_letter->save();
+
+                
+                $ml_show_book                       = new ml_show_book;
+                $ml_show_book->many_lenguages_id       = $idioma->id;
+                $ml_show_book->save();
+
+                // ----------------
+
+                $ml_show_doc                       = new ml_show_doc;
+                $ml_show_doc->many_lenguages_id       = $idioma->id;
+                $ml_show_doc->save();
+
+                $ml_show_fotografia                       = new ml_show_fotografia;
+                $ml_show_fotografia->many_lenguages_id       = $idioma->id;
+                $ml_show_fotografia->save();
+
+                $ml_show_movie                       = new ml_show_movie;
+                $ml_show_movie->many_lenguages_id       = $idioma->id;
+                $ml_show_movie->save();
+
+                $ml_show_multimedia                       = new ml_show_multimedia;
+                $ml_show_multimedia->many_lenguages_id       = $idioma->id;
+                $ml_show_multimedia->save();
+
+                $ml_show_music                       = new ml_show_music;
+                $ml_show_music->many_lenguages_id       = $idioma->id;
+                $ml_show_music->save();
+
+                $Ml_statistic                       = new Ml_statistic;
+                $Ml_statistic->many_lenguages_id       = $idioma->id;
+                $Ml_statistic->save();
+
+                $Ml_subjects                       = new Ml_subjects;
+                $Ml_subjects->many_lenguages_id       = $idioma->id;
+                $Ml_subjects->save();
+
+                $Ml_web_loan                       = new Ml_web_loan;
+                $Ml_web_loan->many_lenguages_id       = $idioma->id;
+                $Ml_web_loan->save();
+
+                $Ml_web_request                       = new Ml_web_request;
+                $Ml_web_request->many_lenguages_id       = $idioma->id;
+                $Ml_web_request->save();
+
+                $Swal_course                       = new Swal_course;
+                $Swal_course->many_lenguages_id       = $idioma->id;
+                $Swal_course->save();
+
+                
+                $Ml_periodical_publication                       = new Ml_periodical_publication;
+                $Ml_periodical_publication->many_lenguages_id       = $idioma->id;
+                $Ml_periodical_publication->save();     
+                
+               
+               
+
+                
                 
                 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -684,7 +865,7 @@ class ManyLenguagesController extends Controller
 
                 // $ml_dashboard->many_lenguages_id = $idioma->id;
                 $ml_dashboard->save();
-
+                // dd("aaaaaaa: ".$idioma->id);
                 $ml_show_doc                       = ml_show_doc::where('many_lenguages_id', $idioma->id)->first();
                 $ml_show_doc->many_lenguages_id    = $idioma->id;
                 
@@ -1119,7 +1300,7 @@ class ManyLenguagesController extends Controller
                 $ml_statistic->adulto           = $request->get('adulto');    
                 $ml_statistic->incorporacion    = $request->get('incorporacion');    
                 $ml_statistic->baja             = $request->get('baja');
-                $ml_statistic->btn_guardar      = $request->get('btn_guardar');    
+                // $ml_statistic->btn_guardar      = $request->get('btn_guardar');    
                 $ml_statistic->save();              
 
                 DB::commit();               
@@ -1416,7 +1597,7 @@ class ManyLenguagesController extends Controller
                 $ml_cat_edit_book->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
                 $ml_cat_edit_book->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');
                 $ml_cat_edit_book->compl_btn_cancelar   = $request->get('compl_btn_cancelar');
-                $ml_cat_edit_book->compl_btn_guardar   = $request->get('compl_btn_guardar');
+                // $ml_cat_edit_book->compl_btn_guardar   = $request->get('compl_btn_guardar');
                 
                 $ml_cat_edit_book->cuerpo_tipo_de_libro   = $request->get('cuerpo_tipo_de_libro');
                 $ml_cat_edit_book->ph_cuerpo_tipo_de_libro   = $request->get('ph_cuerpo_tipo_de_libro'); 
@@ -1614,7 +1795,7 @@ class ManyLenguagesController extends Controller
                 $ml_cat_edit_music                      = ml_cat_edit_music::where('many_lenguages_id', $id)->first();
                 
                 
-           $ml_cat_edit_music->compl_editar   = $request->get('compl_editar'); 
+           $ml_cat_edit_music->cuerpo_desidherata   = $request->get('cuerpo_desidherata'); 
            $ml_cat_edit_music->compl_area_de_titulo   = $request->get('compl_area_de_titulo'); 
            $ml_cat_edit_music->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
            $ml_cat_edit_music->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');
@@ -1715,7 +1896,7 @@ class ManyLenguagesController extends Controller
                 $ml_cat_edit_multimedia                      = ml_cat_edit_multimedia::where('many_lenguages_id', $id)->first();
                 
                 
-           $ml_cat_edit_multimedia->compl_editar   = $request->get('compl_editar'); 
+           $ml_cat_edit_multimedia->cuerpo_desidherata   = $request->get('cuerpo_desidherata'); 
            $ml_cat_edit_multimedia->compl_area_de_titulo   = $request->get('compl_area_de_titulo'); 
            $ml_cat_edit_multimedia->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
            $ml_cat_edit_multimedia->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');
@@ -1837,7 +2018,7 @@ class ManyLenguagesController extends Controller
                 $ml_cat_edit_fotografia                      = ml_cat_edit_fotografia::where('many_lenguages_id', $id)->first();
                 
                 
-           $ml_cat_edit_fotografia->compl_editar   = $request->get('compl_editar'); 
+           $ml_cat_edit_fotografia->cuerpo_desidherata   = $request->get('cuerpo_desidherata'); 
            $ml_cat_edit_fotografia->compl_area_de_titulo   = $request->get('compl_area_de_titulo'); 
            $ml_cat_edit_fotografia->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
            $ml_cat_edit_fotografia->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');
@@ -1926,7 +2107,7 @@ class ManyLenguagesController extends Controller
                 $ml_cat_edit_movie                      = ml_cat_edit_movie::where('many_lenguages_id', $id)->first();
                 
                 
-           $ml_cat_edit_movie->compl_editar   = $request->get('compl_editar'); 
+           $ml_cat_edit_movie->cuerpo_desidherata   = $request->get('cuerpo_desidherata'); 
            $ml_cat_edit_movie->compl_area_de_titulo   = $request->get('compl_area_de_titulo'); 
            $ml_cat_edit_movie->compl_area_de_edicion   = $request->get('compl_area_de_edicion');
            $ml_cat_edit_movie->compl_area_de_contenidos   = $request->get('compl_area_de_contenidos');

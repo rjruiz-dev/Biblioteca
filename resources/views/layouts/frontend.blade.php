@@ -52,14 +52,12 @@
                     @if ( strlen(trim($doc['synopsis'])) > 35)
                     @php
                     $sinopsis = substr(trim($doc['synopsis']), 0, 35)."..";
-                    $sinopsis = str_replace('<p>','', $sinopsis);
-                    $sinopsis = str_replace('</p>','', $sinopsis);
+                    $sinopsis = strip_tags($sinopsis);
                     @endphp
                     @else
                     @php
                     $sinopsis = trim($doc['synopsis']);
-                    $sinopsis = str_replace('<p>','', $sinopsis);
-                    $sinopsis = str_replace('</p>','', $sinopsis);
+                    $sinopsis = strip_tags($sinopsis);
                     @endphp
                     @endif
                       
@@ -95,7 +93,7 @@
         <div  id="recargar_reservados">
             <!-- <div class="col-xs-12"> -->
                 <h1 class="text-center wow pulse all-titles-pages">Documentos más reservados</h1>
-                {!! Form::select('filtro_reservados', ['1' => '1 mas Reservados', '2' => '2 mas Reservados'], $reservados, ['class' => 'form-control select2', 'id' => 'filtro_reservados','onchange' => 'filtrar_reservados()', 'style' => 'width:200px; margin-left:10px;']) !!}
+                {!! Form::select('filtro_reservados', ['5' => '5 mas Recientes', '10' => '10 mas Recientes', '20' => '20 mas Recientes', '50' => '50 mas Recientes'], $reservados, ['class' => 'form-control select2', 'id' => 'filtro_reservados','onchange' => 'filtrar_reservados()', 'style' => 'width:200px; margin-left:10px;']) !!}
 
                    <br>
                     <br>
@@ -132,14 +130,12 @@
                     @if ( strlen(trim($masreservados->synopsis)) > 35)
                     @php
                     $sinopsis_d = substr(trim($masreservados->synopsis), 0, 35)."..";
-                    $sinopsis_d = str_replace('<p>','', $sinopsis_d);
-                    $sinopsis_d = str_replace('</p>','', $sinopsis_d);
+                    $sinopsis_d = strip_tags($sinopsis_d);
                     @endphp
                     @else
                     @php
                     $sinopsis_d = trim($masreservados->synopsis);
-                    $sinopsis_d = str_replace('<p>','', $sinopsis_d);
-                    $sinopsis_d = str_replace('</p>','', $sinopsis_d);
+                    $sinopsis_d = strip_tags($sinopsis_d);
                     @endphp
                     @endif
                       
