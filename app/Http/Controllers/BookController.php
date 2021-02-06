@@ -231,7 +231,7 @@ class BookController extends Controller
             'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
             'setting'           => $setting,
-            'idd'           => $idd,
+            'idd'               => $idd,
             
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -398,23 +398,21 @@ class BookController extends Controller
                     }
               
                 if($request->get('document_subtypes_id') != 4){
-
                      
-                        if( is_numeric($request->get('third_author_id'))) 
-                        {                 
-                                $book->third_author_id = $request->get('third_author_id');    
+                    if( is_numeric($request->get('third_author_id'))) 
+                    {                 
+                        $book->third_author_id = $request->get('third_author_id');    
 
-                            }else{ 
-                                
-                                if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
-                                    $creator = new Creator;
-                                    $creator->creator_name      = $request->get('third_author_id');
-                                    $creator->document_types_id = 2;
-                                    $creator->save();
-                                    $book->third_author_id      = $creator->id;
-                                }
-                            }
-                    
+                    }else{ 
+                        
+                        if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
+                            $creator = new Creator;
+                            $creator->creator_name      = $request->get('third_author_id');
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $book->third_author_id      = $creator->id;
+                        }
+                    }                    
                 }
                 
                 $book->translator       = $request->get('translator');        
@@ -578,13 +576,13 @@ class BookController extends Controller
             'periodicities' => Periodicity::pluck('periodicity_name', 'id'),
             'volumes'       => Document::pluck('volume', 'volume'),
             'languages'     => Lenguage::pluck('leguage_description', 'id'),
-            'status_documents' => StatusDocument::pluck('name_status', 'id'), 
-            'book'          => $book,
-            'document'      => $document,
+            'status_documents'  => StatusDocument::pluck('name_status', 'id'), 
+            'book'              => $book,
+            'document'          => $document,
 
-            'idioma_abm_doc' => $idioma_abm_doc,
-            'idioma_abm_book' => $idioma_abm_book,
-            'idioma_abm_book' => $idioma_abm_book,
+            'idioma_abm_doc'    => $idioma_abm_doc,
+            'idioma_abm_book'   => $idioma_abm_book,
+            'idioma_abm_book'   => $idioma_abm_book,
             'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
             'idioma_abm_book_lit' => $idioma_abm_book_lit   
           
