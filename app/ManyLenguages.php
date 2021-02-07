@@ -157,4 +157,19 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Swal_course::class);
     }
+
+    public function swal_reference()
+    {
+        return $this->hasMany(Swal_reference::class);
+    }
+
+    public function swal_graphic_format()
+    {
+        return $this->hasMany(Swal_graphic_format::class);
+    }
+
+    public function swal_language()
+    {
+        return $this->hasMany(Swal_language::class);
+    }
 }

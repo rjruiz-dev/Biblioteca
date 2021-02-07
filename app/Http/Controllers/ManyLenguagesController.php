@@ -6,11 +6,19 @@ use App\ManyLenguages;
 use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
+
 use App\Ml_course;
 use App\Swal_course;
+
 use App\Ml_reference;
+use App\Swal_reference;
+
 use App\Ml_graphic_format;
+use App\Swal_graphic_format;
+
 use App\Ml_language;
+use App\Swal_language;
+
 use App\Ml_periodical_publication;
 use App\Ml_literary_genre;
 use App\Ml_musical_genre;
@@ -377,21 +385,27 @@ class ManyLenguagesController extends Controller
 
     public function edit_maintenance($id)
     {
-        $idioma = ManyLenguages::findOrFail($id);  
+        $idioma         = ManyLenguages::findOrFail($id);  
 
-        $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
-        $swal_course = Swal_course::where('many_lenguages_id', $idioma->id)->first();
+        $ml_course      = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $swal_course    = Swal_course::where('many_lenguages_id', $idioma->id)->first();
 
-        $ml_reference = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
-        $ml_fg = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
-        $ml_lang = Ml_language::where('many_lenguages_id', $idioma->id)->first();
-        $ml_pp = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-        $ml_gl = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-        $ml_gm = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
-        $ml_gc = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
-        $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
-        $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
-        $ml_letter = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+        $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
+        $swal_reference = Swal_reference::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_fg          = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+        $swal_fg        = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_lang        = Ml_language::where('many_lenguages_id', $idioma->id)->first();
+        $swal_lang      = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+
+        $ml_pp          = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
+        $ml_gl          = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
+        $ml_gm          = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
+        $ml_gc          = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
+        $ml_adequacy    = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
+        $ml_subject     = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+        $ml_letter      = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'        => $idioma,
@@ -400,8 +414,14 @@ class ManyLenguagesController extends Controller
             'swal_course'   => $swal_course,
 
             'ml_reference'  => $ml_reference,
+            'swal_reference'=> $swal_reference,
+
             'ml_fg'         => $ml_fg,
+            '$swal_fg'      => $swal_fg,
+
             'ml_lang'       => $ml_lang,
+            'swal_lang'     => $swal_lang,
+           
             'ml_pp'         => $ml_pp,
             'ml_gl'         => $ml_gl,
             'ml_gm'         => $ml_gm,
@@ -791,6 +811,17 @@ class ManyLenguagesController extends Controller
                 $ml_reference->cam_referencia           = $request->get('cam_referencia');                          
                 $ml_reference->save();
 
+                // Swal referencia
+                $swal_reference                         = Swal_reference::where('many_lenguages_id', $idioma->id)->first();
+                $swal_reference->swal_reference         = $request->get('swal_reference');  
+                $swal_reference->swal_exito             = $request->get('swal_exito');     
+                $swal_reference->swal_info_exito        = $request->get('swal_info_exito');
+                $swal_reference->swal_eliminar          = $request->get('swal_eliminar');  
+                $swal_reference->swal_info_eliminar     = $request->get('swal_info_eliminar');                 
+                $swal_reference->swal_advertencia       = $request->get('swal_advertencia');  
+                $swal_reference->swal_info_advertencia  = $request->get('swal_info_advertencia');  
+                $swal_reference->save();
+
                 // Formato Grafico
                 $ml_fg                                  = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
                 $ml_fg->titulo_fg                       = $request->get('titulo_fg');     
@@ -805,6 +836,17 @@ class ManyLenguagesController extends Controller
                 $ml_fg->cam_fg                          = $request->get('cam_fg');                          
                 $ml_fg->save();
 
+                // Swal Formato grafico
+                $swal_fg                                = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+                $swal_fg->swal_formato                  = $request->get('swal_formato');  
+                $swal_fg->swal_exito                    = $request->get('swal_exito');     
+                $swal_fg->swal_info_exito               = $request->get('swal_info_exito');
+                $swal_fg->swal_eliminar                 = $request->get('swal_eliminar');  
+                $swal_fg->swal_info_eliminar            = $request->get('swal_info_eliminar');                 
+                $swal_fg->swal_advertencia              = $request->get('swal_advertencia');  
+                $swal_fg->swal_info_advertencia         = $request->get('swal_info_advertencia');  
+                $swal_fg->save();
+
                 // Lenguaje
                 $ml_lang                                = Ml_language::where('many_lenguages_id', $idioma->id)->first();
                 $ml_lang->titulo_lang                   = $request->get('titulo_lang');     
@@ -818,6 +860,17 @@ class ManyLenguagesController extends Controller
                 $ml_lang->mod_subtitulo_lang            = $request->get('mod_subtitulo_lang');  
                 $ml_lang->cam_lang                      = $request->get('cam_lang');                          
                 $ml_lang->save();
+
+                // Swal Lenguaje
+                $swal_lang                              = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+                $swal_lang->swal_language               = $request->get('swal_language');  
+                $swal_lang->swal_exito                  = $request->get('swal_exito');     
+                $swal_lang->swal_info_exito             = $request->get('swal_info_exito');
+                $swal_lang->swal_eliminar               = $request->get('swal_eliminar');  
+                $swal_lang->swal_info_eliminar          = $request->get('swal_info_eliminar');                 
+                $swal_lang->swal_advertencia            = $request->get('swal_advertencia');  
+                $swal_lang->swal_info_advertencia       = $request->get('swal_info_advertencia');  
+                $swal_lang->save();
 
                 // Publicacion Periodica
                 $ml_pp                                = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();

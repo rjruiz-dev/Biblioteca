@@ -7,6 +7,7 @@ use App\Lenguage;
 use App\Document;
 use Carbon\Carbon;
 use App\Ml_language;
+use App\Swal_language;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -32,6 +33,7 @@ class LenguageController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
+        $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();        
         $idiomas    = ManyLenguages::all();
       
@@ -39,7 +41,8 @@ class LenguageController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_lang'   => $ml_lang
+            'ml_lang'   => $ml_lang,
+            'swal_lang' => $swal_lang
         ]); 
     }
 
@@ -88,6 +91,13 @@ class LenguageController extends Controller
                 $language->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+                return response()->json([   
+                                            'swal_exito'        => $swal_course->swal_exito,
+                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -157,6 +167,13 @@ class LenguageController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+                return response()->json([   
+                                            'swal_exito'        => $swal_course->swal_exito,
+                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -172,7 +189,9 @@ class LenguageController extends Controller
      */
     public function destroy($id)
     {
-        $document = Document::where('lenguages_id', $id)->get();
+        $document   = Document::where('lenguages_id', $id)->get();
+        $session    = session('idiomas');
+        $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
       
         if( $document->isEmpty())
         {  
@@ -184,7 +203,14 @@ class LenguageController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);  
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito'        => $swal_course->swal_exito,
+                                    'bajado_reactivado' => $bajado_reactivado,                                  
+    
+                                    'swal_advertencia'      => $swal_course->swal_advertencia,
+                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
+                                ]);  
       
     }
 
