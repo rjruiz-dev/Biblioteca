@@ -8,6 +8,7 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Periodical_publication;
 use App\Ml_periodical_publication;
+use App\Swal_periodical;
 use App\Periodicity;
 use App\Setting;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class PeriodicityController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
+        $swal_pp    = Swal_periodical::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
             
@@ -39,7 +41,8 @@ class PeriodicityController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_pp'     => $ml_pp
+            'ml_pp'     => $ml_pp,
+            'swal_pp'   => $swal_pp
         ]);        
     }
 
@@ -89,6 +92,13 @@ class PeriodicityController extends Controller
                 $periodical->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_pp = Swal_periodical::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito'        => $swal_course->swal_exito,
+                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -157,6 +167,13 @@ class PeriodicityController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_pp = Swal_periodical::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito'        => $swal_course->swal_exito,
+                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -173,7 +190,9 @@ class PeriodicityController extends Controller
     public function destroy($id)
     {
         $publication = Periodical_publication::where('periodicities_id', $id)->get();
-      
+        $session = session('idiomas');
+        $swal_pp = Swal_periodical::where('many_lenguages_id',$session)->first();
+
         if($publication->isEmpty())
         {  
             $bandera = 1;
@@ -183,7 +202,14 @@ class PeriodicityController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito'        => $swal_course->swal_exito,
+                                    'bajado_reactivado' => $bajado_reactivado,                                  
+    
+                                    'swal_advertencia'      => $swal_course->swal_advertencia,
+                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
+                                ]);
     }
 
     public function dataTable()

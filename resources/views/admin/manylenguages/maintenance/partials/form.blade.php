@@ -789,6 +789,81 @@
         </div>       
     </div> 
 
+    <!--Swal Publicacion periodica -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Mensajes de Alertas Publicaciones Periódicas</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Exito </h3>
+                </div>
+            </div>
+            <div class="box-body">  
+                <div class="form-group">              
+                    {!! Form::label('swal_periodical', 'Alerta para') !!}                    
+                    {!! Form::text('swal_periodical', $swal_pp['swal_periodical'] ? $swal_pp['swal_periodical'] : null, ['class' => 'form-control', 'id' => 'swal_periodical', 'placeholder' => 'Alerta para']) !!}
+                </div>            
+                <div class="form-group">              
+                    {!! Form::label('swal_exito', 'Titulo del mensaje de exito') !!}                    
+                    {!! Form::text('swal_exito', $swal_pp['swal_exito'] ? $swal_pp['swal_exito'] : null, ['class' => 'form-control', 'id' => 'swal_exito', 'placeholder' => 'Titulo del mensaje de exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('swal_info_exito', 'Mensaje de exito') !!}                    
+                    {!! Form::text('swal_info_exito', $swal_pp['swal_info_exito'] ? $swal_pp['swal_info_exito'] : null, ['class' => 'form-control', 'id' => 'swal_info_exito', 'placeholder' => 'Mensaje de exito']) !!}
+                </div>                    
+            </div>
+        </div>       
+    </div>  
+    
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Eliminación </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_eliminar', 'Titulo del mensaje de eliminación') !!}                    
+                    {!! Form::text('swal_eliminar', $swal_pp['swal_eliminar'] ? $swal_pp['swal_eliminar'] : null, ['class' => 'form-control', 'id' => 'swal_eliminar', 'placeholder' => 'Titulo del mensaje de eliminación']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_eliminar', 'Mensaje de eliminación') !!}                    
+                    {!! Form::text('swal_info_eliminar', $swal_pp['swal_info_eliminar'] ? $swal_pp['swal_info_eliminar'] : null, ['class' => 'form-control', 'id' => 'swal_info_eliminar', 'placeholder' => 'Mensaje de eliminación']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div> 
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Advertencias </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_advertencia', 'Titulo del mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_advertencia', $swal_pp['swal_advertencia'] ? $swal_pp['swal_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_advertencia', 'placeholder' => 'Titulo del mensaje de advertencia']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_advertencia', 'Mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_info_advertencia', $swal_pp['swal_info_advertencia'] ? $swal_pp['swal_info_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_info_advertencia', 'placeholder' => 'Mensaje de advertencia']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div>  
+
      <!--Traduccion Genero Literario  -->
     <div class="col-md-12">
         <div class="box box-primary">
@@ -878,8 +953,83 @@
         </div>       
     </div> 
 
-     <!--Traduccion Genero Musical  -->
-     <div class="col-md-12">
+    <!--Swal Genero Literario-->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Mensajes de Alertas Géneros Literarios</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Exito </h3>
+                </div>
+            </div>
+            <div class="box-body">  
+                <div class="form-group">              
+                    {!! Form::label('swal_literature', 'Alerta para') !!}                    
+                    {!! Form::text('swal_literature', $swal_gl['swal_literature'] ? $swal_gl['swal_literature'] : null, ['class' => 'form-control', 'id' => 'swal_literature', 'placeholder' => 'Alerta para']) !!}
+                </div>            
+                <div class="form-group">              
+                    {!! Form::label('swal_exito', 'Titulo del mensaje de exito') !!}                    
+                    {!! Form::text('swal_exito', $swal_gl['swal_exito'] ? $swal_gl['swal_exito'] : null, ['class' => 'form-control', 'id' => 'swal_exito', 'placeholder' => 'Titulo del mensaje de exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('swal_info_exito', 'Mensaje de exito') !!}                    
+                    {!! Form::text('swal_info_exito', $swal_gl['swal_info_exito'] ? $swal_gl['swal_info_exito'] : null, ['class' => 'form-control', 'id' => 'swal_info_exito', 'placeholder' => 'Mensaje de exito']) !!}
+                </div>                    
+            </div>
+        </div>       
+    </div>  
+    
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Eliminación </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_eliminar', 'Titulo del mensaje de eliminación') !!}                    
+                    {!! Form::text('swal_eliminar', $swal_gl['swal_eliminar'] ? $swal_gl['swal_eliminar'] : null, ['class' => 'form-control', 'id' => 'swal_eliminar', 'placeholder' => 'Titulo del mensaje de eliminación']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_eliminar', 'Mensaje de eliminación') !!}                    
+                    {!! Form::text('swal_info_eliminar', $swal_gl['swal_info_eliminar'] ? $swal_gl['swal_info_eliminar'] : null, ['class' => 'form-control', 'id' => 'swal_info_eliminar', 'placeholder' => 'Mensaje de eliminación']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div> 
+
+    <div class="col-md-4">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Advertencias </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_advertencia', 'Titulo del mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_advertencia', $swal_gl['swal_advertencia'] ? $swal_gl['swal_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_advertencia', 'placeholder' => 'Titulo del mensaje de advertencia']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_advertencia', 'Mensaje de advertencia') !!}                    
+                    {!! Form::text('swal_info_advertencia', $swal_gl['swal_info_advertencia'] ? $swal_gl['swal_info_advertencia'] : null, ['class' => 'form-control', 'id' => 'swal_info_advertencia', 'placeholder' => 'Mensaje de advertencia']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div>  
+
+    <!--Traduccion Genero Musical  -->
+    <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">  

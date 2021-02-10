@@ -20,7 +20,11 @@ use App\Ml_language;
 use App\Swal_language;
 
 use App\Ml_periodical_publication;
+use App\Swal_periodical;
+
 use App\Ml_literary_genre;
+use App\Swal_literature;
+
 use App\Ml_musical_genre;
 use App\Ml_cinematographic_genre;
 use App\Ml_adequacy;
@@ -400,7 +404,11 @@ class ManyLenguagesController extends Controller
         $swal_lang      = Swal_language::where('many_lenguages_id', $idioma->id)->first();
 
         $ml_pp          = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
+        $swal_pp        = Swal_periodical::where('many_lenguages_id',$session)->first();
+        
         $ml_gl          = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gl        = Swal_literature::where('many_lenguages_id',$session)->first();
+        
         $ml_gm          = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
         $ml_gc          = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
         $ml_adequacy    = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
@@ -423,7 +431,11 @@ class ManyLenguagesController extends Controller
             'swal_lang'     => $swal_lang,
            
             'ml_pp'         => $ml_pp,
+            'swal_pp'       => $swal_pp,
+
             'ml_gl'         => $ml_gl,
+            'swal_gl'       => $swal_gl,
+
             'ml_gm'         => $ml_gm,
             'ml_gc'         => $ml_gc,
             'ml_adequacy'   => $ml_adequacy,
@@ -886,6 +898,17 @@ class ManyLenguagesController extends Controller
                 $ml_pp->cam_publ                      = $request->get('cam_publ');                          
                 $ml_pp->save();
 
+                // Swal Publicacion Periodica
+                $swal_pp                              = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
+                $swal_pp->swal_periodical             = $request->get('swal_periodical');  
+                $swal_pp->swal_exito                  = $request->get('swal_exito');     
+                $swal_pp->swal_info_exito             = $request->get('swal_info_exito');
+                $swal_pp->swal_eliminar               = $request->get('swal_eliminar');  
+                $swal_pp->swal_info_eliminar          = $request->get('swal_info_eliminar');                 
+                $swal_pp->swal_advertencia            = $request->get('swal_advertencia');  
+                $swal_pp->swal_info_advertencia       = $request->get('swal_info_advertencia');  
+                $swal_pp->save();
+
                 // Genero Literario
                 $ml_gl                                = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
                 $ml_gl->titulo_gl                     = $request->get('titulo_gl');     
@@ -899,6 +922,17 @@ class ManyLenguagesController extends Controller
                 $ml_gl->mod_subtitulo_gl              = $request->get('mod_subtitulo_gl');  
                 $ml_gl->cam_gl                        = $request->get('cam_gl');                          
                 $ml_gl->save();
+
+                // Swal Genero Literario
+                $swal_gl                              = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
+                $swal_gl->swal_literature             = $request->get('swal_literature');  
+                $swal_gl->swal_exito                  = $request->get('swal_exito');     
+                $swal_gl->swal_info_exito             = $request->get('swal_info_exito');
+                $swal_gl->swal_eliminar               = $request->get('swal_eliminar');  
+                $swal_gl->swal_info_eliminar          = $request->get('swal_info_eliminar');                 
+                $swal_gl->swal_advertencia            = $request->get('swal_advertencia');  
+                $swal_gl->swal_info_advertencia       = $request->get('swal_info_advertencia');  
+                $swal_gl->save();
 
                 // Genero Musical
                 $ml_gm                                = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();

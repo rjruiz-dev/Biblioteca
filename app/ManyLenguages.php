@@ -172,4 +172,14 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Swal_language::class);
     }
+
+    public function swal_periodical()
+    {
+        return $this->hasMany(Swal_periodical::class);
+    }
+
+    public function swal_literature()
+    {
+        return $this->hasMany(Swal_literature::class);
+    }
 }
