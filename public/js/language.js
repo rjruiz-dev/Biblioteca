@@ -39,13 +39,13 @@ $('#modal-btn-save').click(function(event) {
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
 
-            var swal_exito = response.swal_exito;
-            var swal_info_exito = response.swal_info_exito;
+            var swal_exito_lan = response.swal_exito_lan;
+            var swal_info_exito_lan = response.swal_info_exito_lan;
 
             swal({
                 type: 'success',
-                title: swal_exito,
-                text: swal_info_exito
+                title: swal_exito_lan,
+                text: swal_info_exito_lan
             });
         },
         error: function(xhr) {
@@ -70,9 +70,10 @@ $('body').on('click', '.btn-delete', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
+    swal_eliminar_lan = $('#swal_eliminar_lan').val();
 
     swal({
-        title: '¿Seguro que quieres eliminar a : ' + title + ' ?',
+        title: swal_eliminar_lan,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
@@ -92,23 +93,23 @@ $('body').on('click', '.btn-delete', function(event) {
                     $('#datatable').DataTable().ajax.reload();
 
                     var info = response.data;
-                    var swal_exito = response.swal_exito;
-                    var bajado_reactivado = response.bajado_reactivado;
-                    var swal_advertencia = response.swal_advertencia;
-                    var swal_info_advertencia = response.swal_info_advertencia;
+                    var swal_exito_lan = response.swal_exito_lan;
+                    var swal_info_eliminar_lan = response.swal_info_eliminar_lan;
+                    var swal_advertencia_lan = response.swal_advertencia_lan;
+                    var swal_info_advertencia_lan = response.swal_info_advertencia_lan;
 
                     if (info == 1) {
                         swal({
                             type: 'success',
-                            title: swal_exito,
-                            text: '¡El idioma ha sido eliminado!'
+                            title: swal_exito_lan,
+                            text: swal_info_eliminar_lan
                         });
 
                     } else {
                         swal({
                             type: 'warning',
-                            title: swal_advertencia,
-                            text: swal_info_advertencia
+                            title: swal_advertencia_lan,
+                            text: swal_info_advertencia_lan
                         });
                     }
                 },

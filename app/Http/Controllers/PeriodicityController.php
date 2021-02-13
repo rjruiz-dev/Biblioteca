@@ -33,7 +33,7 @@ class PeriodicityController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-        $swal_pp    = Swal_periodical::where('many_lenguages_id',$session)->first();
+        $swal_pp    = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
             
@@ -96,8 +96,8 @@ class PeriodicityController extends Controller
                 $session = session('idiomas');
                 $swal_pp = Swal_periodical::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_course->swal_exito,
-                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                            'swal_exito_per'        => $swal_pp->swal_exito_per,
+                                            'swal_info_exito_per'   => $swal_pp->swal_info_exito_per                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -170,8 +170,8 @@ class PeriodicityController extends Controller
                 $session = session('idiomas');
                 $swal_pp = Swal_periodical::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_course->swal_exito,
-                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                            'swal_exito_per'        => $swal_pp->swal_exito_per,
+                                            'swal_info_exito_per'   => $swal_pp->swal_info_exito_per                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -204,11 +204,11 @@ class PeriodicityController extends Controller
         }
         return response()->json([
                                     'data' => $bandera,
-                                    'swal_exito'        => $swal_course->swal_exito,
-                                    'bajado_reactivado' => $bajado_reactivado,                                  
-    
-                                    'swal_advertencia'      => $swal_course->swal_advertencia,
-                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
+                                    'swal_exito_per'            => $swal_pp->swal_exito_per,
+                                    'swal_eliminar_per'         => $swal_pp->swal_eliminar_per,
+                                    'swal_info_eliminar_per'    => $swal_pp->swal_info_eliminar_per,   
+                                    'swal_advertencia_per'      => $swal_pp->swal_advertencia_per,
+                                    'swal_info_advertencia_per' => $swal_pp->swal_info_advertencia_per
                                 ]);
     }
 

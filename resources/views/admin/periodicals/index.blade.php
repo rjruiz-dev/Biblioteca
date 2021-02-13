@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_pp->titulo_publ }}        
     </h1>
+    {{ Form::hidden('swal_eliminar_per', $swal_pp->swal_eliminar_per, ['id' => 'swal_eliminar_per']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Periodicidades</li>

@@ -93,10 +93,10 @@ class LenguageController extends Controller
                 DB::commit();
 
                 $session = session('idiomas');
-                $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+                $swal_lang  = Swal_language::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_course->swal_exito,
-                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                            'swal_exito_lan'        => $swal_lang->swal_exito_lan,
+                                            'swal_info_exito_lan'   => $swal_lang->swal_info_exito_lan                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -168,10 +168,10 @@ class LenguageController extends Controller
                 DB::commit();
 
                 $session = session('idiomas');
-                $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+                $swal_lang  = Swal_language::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_course->swal_exito,
-                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                            'swal_exito_lan'        => $swal_lang->swal_exito_lan,
+                                            'swal_info_exito_lan'   => $swal_lang->swal_info_exito_lan                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -191,7 +191,7 @@ class LenguageController extends Controller
     {
         $document   = Document::where('lenguages_id', $id)->get();
         $session    = session('idiomas');
-        $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+        $swal_lang  = Swal_language::where('many_lenguages_id',$session)->first();
       
         if( $document->isEmpty())
         {  
@@ -205,11 +205,11 @@ class LenguageController extends Controller
         }
         return response()->json([
                                     'data' => $bandera,
-                                    'swal_exito'        => $swal_course->swal_exito,
-                                    'bajado_reactivado' => $bajado_reactivado,                                  
-    
-                                    'swal_advertencia'      => $swal_course->swal_advertencia,
-                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
+                                    'swal_exito_lan'            => $swal_lang->swal_exito_lan,
+                                    'swal_eliminar_lan'         => $swal_lang->swal_eliminar_lan,
+                                    'swal_info_eliminar_lan'    => $swal_lang->swal_info_eliminar_lan,   
+                                    'swal_advertencia_lan'      => $swal_lang->swal_advertencia_lan,
+                                    'swal_info_advertencia_lan' => $swal_lang->swal_info_advertencia_lan
                                 ]);  
       
     }

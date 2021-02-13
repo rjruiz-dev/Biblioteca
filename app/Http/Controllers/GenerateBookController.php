@@ -33,7 +33,7 @@ class GenerateBookController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-        $swal_gl    = Swal_literature::where('many_lenguages_id',$session)->first();
+        $swal_gl    = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
@@ -96,8 +96,8 @@ class GenerateBookController extends Controller
                 $session = session('idiomas');
                 $swal_gl = Swal_literature::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_course->swal_exito,
-                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                            'swal_exito_lit'        => $swal_gl->swal_exito_lit,
+                                            'swal_info_exito_lit'   => $swal_gl->swal_info_exito_lit                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -170,8 +170,8 @@ class GenerateBookController extends Controller
                 $session = session('idiomas');
                 $swal_gl = Swal_literature::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_course->swal_exito,
-                                            'swal_info_exito'   => $swal_course->swal_info_exito                                      
+                                            'swal_exito_lit'        => $swal_gl->swal_exito_lit,
+                                            'swal_info_exito_lit'   => $swal_gl->swal_info_exito_lit                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -204,11 +204,11 @@ class GenerateBookController extends Controller
         }
         return response()->json([
                                     'data' => $bandera,
-                                    'swal_exito'        => $swal_course->swal_exito,
-                                    'bajado_reactivado' => $bajado_reactivado,                                  
-    
-                                    'swal_advertencia'      => $swal_course->swal_advertencia,
-                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia,
+                                    'swal_exito_lit'            => $swal_gl->swal_exito_lit,
+                                    'swal_eliminar_lit'         => $swal_gl->swal_eliminar_lit,
+                                    'swal_info_eliminar_lit'    => $swal_gl->swal_info_eliminar_lit,       
+                                    'swal_advertencia_lit'      => $swal_gl->swal_advertencia_lit,
+                                    'swal_info_advertencia_lit' => $swal_gl->swal_info_advertencia_lit,
                                 ]);          
     }
 

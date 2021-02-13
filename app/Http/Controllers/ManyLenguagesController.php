@@ -425,7 +425,7 @@ class ManyLenguagesController extends Controller
             'swal_reference'=> $swal_reference,
 
             'ml_fg'         => $ml_fg,
-            'swal_fg'      => $swal_fg,
+            'swal_fg'       => $swal_fg,
 
             'ml_lang'       => $ml_lang,
             'swal_lang'     => $swal_lang,
