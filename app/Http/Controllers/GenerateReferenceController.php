@@ -41,8 +41,8 @@ class GenerateReferenceController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_reference'      => $ml_reference,
-            'swal_reference'    => $swal_reference
+            'ml_reference'    => $ml_reference,
+            'swal_reference'  => $swal_reference
         ]);       
              
     }
@@ -98,8 +98,8 @@ class GenerateReferenceController extends Controller
                 $session = session('idiomas');
                 $swal_reference = Swal_reference::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_reference->swal_exito,
-                                            'swal_info_exito'   => $swal_reference->swal_info_exito                                      
+                                            'swal_exito_ref'        => $swal_reference->swal_exito_ref,
+                                            'swal_info_exito_ref'   => $swal_reference->swal_info_exito_ref                                      
                                         ]);
 
             } catch (Exception $e) {
@@ -172,8 +172,8 @@ class GenerateReferenceController extends Controller
                 $session = session('idiomas');
                 $swal_reference = Swal_reference::where('many_lenguages_id',$session)->first();
                 return response()->json([   
-                                            'swal_exito'        => $swal_reference->swal_exito,
-                                            'swal_info_exito'   => $swal_reference->swal_info_exito                                      
+                                            'swal_exito_ref'        => $swal_reference->swal_exito_ref,
+                                            'swal_info_exito_ref'   => $swal_reference->swal_info_exito_ref                                    
                                         ]);
 
             } catch (Exception $e) {
@@ -217,11 +217,11 @@ class GenerateReferenceController extends Controller
         }
         return response()->json([
                                     'data' => $bandera,
-                                    'swal_exito'        => $swal_course->swal_exito,
-                                    'bajado_reactivado' => $bajado_reactivado,                                  
-    
-                                    'swal_advertencia'      => $swal_course->swal_advertencia,
-                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
+                                    'swal_exito_ref'            => $swal_reference->swal_exito_ref,
+                                    'swal_eliminar_ref'         => $swal_reference->swal_eliminar_ref,
+                                    'swal_info_eliminar_ref'    => $swal_reference->swal_info_eliminar_ref,   
+                                    'swal_advertencia_ref'      => $swal_reference->swal_advertencia_ref,
+                                    'swal_info_advertencia_ref' => $swal_reference->swal_info_advertencia_ref
                                 ]);
     }
 

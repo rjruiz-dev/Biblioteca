@@ -39,13 +39,13 @@ $('#modal-btn-save').click(function(event) {
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload();
 
-            var swal_exito = response.swal_exito;
-            var swal_info_exito = response.swal_info_exito;
+            var swal_exito_ref = response.swal_exito_ref;
+            var swal_info_exito_ref = response.swal_info_exito_ref;
 
             swal({
                 type: 'success',
-                title: swal_exito,
-                text: swal_info_exito
+                title: swal_exito_ref,
+                text: swal_info_exito_ref
             });
         },
         error: function(xhr) {
@@ -70,9 +70,11 @@ $('body').on('click', '.btn-delete', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
+    swal_eliminar_ref = $('#swal_eliminar_ref').val();
 
     swal({
-        title: '¿Seguro que quieres eliminar a : ' + title + ' ?',
+        title: swal_eliminar_ref,
+        // swal_eliminar
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
@@ -91,23 +93,24 @@ $('body').on('click', '.btn-delete', function(event) {
                 success: function(response) {
                     $('#datatable').DataTable().ajax.reload();
 
-                    var swal_exito = response.swal_exito;
-                    var swal_advertencia = response.swal_advertencia;
-                    var swal_info_advertencia = response.swal_info_advertencia;
+                    var swal_exito_ref = response.swal_exito_ref;
+                    var swal_info_eliminar_ref = response.swal_info_eliminar_ref;
+                    var swal_advertencia_ref = response.swal_advertencia_ref;
+                    var swal_info_advertencia_ref = response.swal_info_advertencia_ref;
                     var info = response.data;
 
                     if (info == 1) {
                         swal({
                             type: 'success',
-                            title: swal_exito,
-                            text: '¡La referencia ha sido eliminada!'
+                            title: swal_exito_ref,
+                            text: swal_info_eliminar_ref
                         });
 
                     } else {
                         swal({
                             type: 'warning',
-                            title: swal_advertencia,
-                            text: swal_info_advertencia
+                            title: swal_advertencia_ref,
+                            text: swal_info_advertencia_ref
                         });
                     }
                 },

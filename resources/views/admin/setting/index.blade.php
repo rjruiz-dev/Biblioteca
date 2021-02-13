@@ -61,7 +61,7 @@
                         {!! Form::text('library_email', null, ['class' => 'form-control', 'id' => 'library_email', 'placeholder' => $ml_library->email]) !!}
                     </div>  
                     <div class="form-group">
-                        {!! Form::label('language', $ml_library->idioma'Idioma') !!}             
+                        {!! Form::label('language', $ml_library->idioma) !!}             
                         {!! Form::text('language', null, ['class' => 'form-control', 'id' => 'language', 'placeholder' => $ml_library->idioma]) !!}
                     </div>  
                     <div class="form-group">

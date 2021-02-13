@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_fg->titulo_fg }}
     </h1>
+    {{ Form::hidden('swal_eliminar_gra', $swal_fg->swal_eliminar_gra, ['id' => 'swal_eliminar_gra']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Formatos Gráficos</li>

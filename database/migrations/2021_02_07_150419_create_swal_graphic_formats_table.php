@@ -18,15 +18,14 @@ class CreateSwalGraphicFormatsTable extends Migration
 
             $table->integer('many_lenguages_id')->nullable()->unsigned();
 
-            $table->string('swal_formato')->nullable();
-            $table->string('swal_exito')->nullable();
-            $table->string('swal_info_exito')->nullable();
+            $table->string('swal_exito_gra')->nullable();
+            $table->string('swal_info_exito_gra')->nullable();
             
-            $table->string('swal_eliminar')->nullable();
-            $table->string('swal_info_eliminar')->nullable();
+            $table->string('swal_eliminar_gra')->nullable();
+            $table->string('swal_info_eliminar_gra')->nullable();
 
-            $table->string('swal_advertencia')->nullable();     
-            $table->string('swal_info_advertencia')->nullable();            
+            $table->string('swal_advertencia_gra')->nullable();     
+            $table->string('swal_info_advertencia_gra')->nullable();            
            
             $table->timestamps();
 

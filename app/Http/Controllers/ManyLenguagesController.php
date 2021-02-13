@@ -404,10 +404,10 @@ class ManyLenguagesController extends Controller
         $swal_lang      = Swal_language::where('many_lenguages_id', $idioma->id)->first();
 
         $ml_pp          = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-        $swal_pp        = Swal_periodical::where('many_lenguages_id',$session)->first();
+        $swal_pp        = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
         
         $ml_gl          = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-        $swal_gl        = Swal_literature::where('many_lenguages_id',$session)->first();
+        $swal_gl        = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
         
         $ml_gm          = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
         $ml_gc          = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
@@ -425,7 +425,7 @@ class ManyLenguagesController extends Controller
             'swal_reference'=> $swal_reference,
 
             'ml_fg'         => $ml_fg,
-            '$swal_fg'      => $swal_fg,
+            'swal_fg'      => $swal_fg,
 
             'ml_lang'       => $ml_lang,
             'swal_lang'     => $swal_lang,
@@ -825,14 +825,14 @@ class ManyLenguagesController extends Controller
 
                 // Swal referencia
                 $swal_reference                         = Swal_reference::where('many_lenguages_id', $idioma->id)->first();
-                $swal_reference->swal_reference         = $request->get('swal_reference');  
-                $swal_reference->swal_exito             = $request->get('swal_exito');     
-                $swal_reference->swal_info_exito        = $request->get('swal_info_exito');
-                $swal_reference->swal_eliminar          = $request->get('swal_eliminar');  
-                $swal_reference->swal_info_eliminar     = $request->get('swal_info_eliminar');                 
-                $swal_reference->swal_advertencia       = $request->get('swal_advertencia');  
-                $swal_reference->swal_info_advertencia  = $request->get('swal_info_advertencia');  
+                $swal_reference->swal_exito_ref         = $request->get('swal_exito_ref');     
+                $swal_reference->swal_info_exito_ref    = $request->get('swal_info_exito_ref');
+                $swal_reference->swal_eliminar_ref      = $request->get('swal_eliminar_ref');  
+                $swal_reference->swal_info_eliminar_ref = $request->get('swal_info_eliminar_ref');                 
+                $swal_reference->swal_advertencia_ref   = $request->get('swal_advertencia_ref');  
+                $swal_reference->swal_info_advertencia_ref  = $request->get('swal_info_advertencia_ref');  
                 $swal_reference->save();
+                
 
                 // Formato Grafico
                 $ml_fg                                  = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
@@ -850,13 +850,12 @@ class ManyLenguagesController extends Controller
 
                 // Swal Formato grafico
                 $swal_fg                                = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
-                $swal_fg->swal_formato                  = $request->get('swal_formato');  
-                $swal_fg->swal_exito                    = $request->get('swal_exito');     
-                $swal_fg->swal_info_exito               = $request->get('swal_info_exito');
-                $swal_fg->swal_eliminar                 = $request->get('swal_eliminar');  
-                $swal_fg->swal_info_eliminar            = $request->get('swal_info_eliminar');                 
-                $swal_fg->swal_advertencia              = $request->get('swal_advertencia');  
-                $swal_fg->swal_info_advertencia         = $request->get('swal_info_advertencia');  
+                $swal_fg->swal_exito_gra                = $request->get('swal_exito_gra');     
+                $swal_fg->swal_info_exito_gra           = $request->get('swal_info_exito_gra');
+                $swal_fg->swal_eliminar_gra             = $request->get('swal_eliminar_gra');  
+                $swal_fg->swal_info_eliminar_gra        = $request->get('swal_info_eliminar_gra');                 
+                $swal_fg->swal_advertencia_gra          = $request->get('swal_advertencia_gra');  
+                $swal_fg->swal_info_advertencia_gra     = $request->get('swal_info_advertencia_gra');  
                 $swal_fg->save();
 
                 // Lenguaje
@@ -875,13 +874,12 @@ class ManyLenguagesController extends Controller
 
                 // Swal Lenguaje
                 $swal_lang                              = Swal_language::where('many_lenguages_id', $idioma->id)->first();
-                $swal_lang->swal_language               = $request->get('swal_language');  
-                $swal_lang->swal_exito                  = $request->get('swal_exito');     
-                $swal_lang->swal_info_exito             = $request->get('swal_info_exito');
-                $swal_lang->swal_eliminar               = $request->get('swal_eliminar');  
-                $swal_lang->swal_info_eliminar          = $request->get('swal_info_eliminar');                 
-                $swal_lang->swal_advertencia            = $request->get('swal_advertencia');  
-                $swal_lang->swal_info_advertencia       = $request->get('swal_info_advertencia');  
+                $swal_lang->swal_exito_lan              = $request->get('swal_exito_lan');     
+                $swal_lang->swal_info_exito_lan         = $request->get('swal_info_exito_lan');
+                $swal_lang->swal_eliminar_lan           = $request->get('swal_eliminar_lan');  
+                $swal_lang->swal_info_eliminar_lan      = $request->get('swal_info_eliminar_lan');                 
+                $swal_lang->swal_advertencia_lan        = $request->get('swal_advertencia_lan');  
+                $swal_lang->swal_info_advertencia_lan   = $request->get('swal_info_advertencia_lan');  
                 $swal_lang->save();
 
                 // Publicacion Periodica
@@ -900,13 +898,12 @@ class ManyLenguagesController extends Controller
 
                 // Swal Publicacion Periodica
                 $swal_pp                              = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
-                $swal_pp->swal_periodical             = $request->get('swal_periodical');  
-                $swal_pp->swal_exito                  = $request->get('swal_exito');     
-                $swal_pp->swal_info_exito             = $request->get('swal_info_exito');
-                $swal_pp->swal_eliminar               = $request->get('swal_eliminar');  
-                $swal_pp->swal_info_eliminar          = $request->get('swal_info_eliminar');                 
-                $swal_pp->swal_advertencia            = $request->get('swal_advertencia');  
-                $swal_pp->swal_info_advertencia       = $request->get('swal_info_advertencia');  
+                $swal_pp->swal_exito_per              = $request->get('swal_exito_per');     
+                $swal_pp->swal_info_exito_per         = $request->get('swal_info_exito_per');
+                $swal_pp->swal_eliminar_per           = $request->get('swal_eliminar_per');  
+                $swal_pp->swal_info_eliminar_per      = $request->get('swal_info_eliminar_per');                 
+                $swal_pp->swal_advertencia_per        = $request->get('swal_advertencia_per');  
+                $swal_pp->swal_info_advertencia_per   = $request->get('swal_info_advertencia_per');  
                 $swal_pp->save();
 
                 // Genero Literario
@@ -925,13 +922,12 @@ class ManyLenguagesController extends Controller
 
                 // Swal Genero Literario
                 $swal_gl                              = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
-                $swal_gl->swal_literature             = $request->get('swal_literature');  
-                $swal_gl->swal_exito                  = $request->get('swal_exito');     
-                $swal_gl->swal_info_exito             = $request->get('swal_info_exito');
-                $swal_gl->swal_eliminar               = $request->get('swal_eliminar');  
-                $swal_gl->swal_info_eliminar          = $request->get('swal_info_eliminar');                 
-                $swal_gl->swal_advertencia            = $request->get('swal_advertencia');  
-                $swal_gl->swal_info_advertencia       = $request->get('swal_info_advertencia');  
+                $swal_gl->swal_exito_lit              = $request->get('swal_exito_lit');     
+                $swal_gl->swal_info_exito_lit         = $request->get('swal_info_exito_lit');
+                $swal_gl->swal_eliminar_lit           = $request->get('swal_eliminar_lit');  
+                $swal_gl->swal_info_eliminar_lit      = $request->get('swal_info_eliminar_lit');                 
+                $swal_gl->swal_advertencia_lit        = $request->get('swal_advertencia_lit');  
+                $swal_gl->swal_info_advertencia_lit   = $request->get('swal_info_advertencia_lit');  
                 $swal_gl->save();
 
                 // Genero Musical

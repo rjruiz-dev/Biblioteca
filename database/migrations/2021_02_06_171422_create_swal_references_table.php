@@ -17,16 +17,15 @@ class CreateSwalReferencesTable extends Migration
             $table->increments('id');
             
             $table->integer('many_lenguages_id')->nullable()->unsigned();
-
-            $table->string('swal_reference')->nullable();
-            $table->string('swal_exito')->nullable();
-            $table->string('swal_info_exito')->nullable();
+           
+            $table->string('swal_exito_ref')->nullable();
+            $table->string('swal_info_exito_ref')->nullable();
             
-            $table->string('swal_eliminar')->nullable();
-            $table->string('swal_info_eliminar')->nullable();
+            $table->string('swal_eliminar_ref')->nullable();
+            $table->string('swal_info_eliminar_ref')->nullable();
 
-            $table->string('swal_advertencia')->nullable();     
-            $table->string('swal_info_advertencia')->nullable();            
+            $table->string('swal_advertencia_ref')->nullable();     
+            $table->string('swal_info_advertencia_ref')->nullable();            
            
             $table->timestamps();
 

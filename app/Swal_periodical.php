@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Swal_periodical extends Model
 {
     protected $fillable = [ 
-        'many_lenguages_id', 'swal_periodical', 'swal_exito',
-        'swal_info_exito', 'swal_eliminar', 'swal_info_eliminar','swal_advertencia', 'swal_info_advertencia',    
+        'many_lenguages_id', 'swal_exito_per',
+        'swal_info_exito_per', 'swal_eliminar_per', 'swal_info_eliminar_per','swal_advertencia_per', 'swal_info_advertencia_per',    
     ];
 
     public function many_lenguage()
