@@ -182,4 +182,31 @@ class ManyLenguages extends Model
     {
         return $this->hasMany(Swal_literature::class);
     }
+
+    public function swal_musical()
+    {
+        return $this->hasMany(Swal_musical::class);
+    }
+
+    public function swal_cinematographic()
+    {
+        return $this->hasMany(Swal_cinematographic::class);
+    }
+
+    public function swal_adequacy()
+    {
+        return $this->hasMany(Swal_adequacy::class);
+    }
+
+    public function swal_subject()
+    {
+        return $this->hasMany(Swal_subject::class);
+    }
+
+    public function swal_letter()
+    {
+        return $this->hasMany(Swal_letter::class);
+    }
+
 }
+

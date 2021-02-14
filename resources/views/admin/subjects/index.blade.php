@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_subject->titulo_subject }}     
     </h1>
+    {{ Form::hidden('swal_eliminar_sub', $swal_subject->swal_eliminar_sub, ['id' => 'swal_eliminar_sub']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Materias</li>

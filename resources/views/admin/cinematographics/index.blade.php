@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_gc->titulo_gc }}      
     </h1>
+    {{ Form::hidden('swal_eliminar_cin', $swal_gc->swal_eliminar_cin, ['id' => 'swal_eliminar_cin']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Géneros Cinematográficos</li>

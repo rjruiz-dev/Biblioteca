@@ -74,7 +74,6 @@ $('body').on('click', '.btn-delete', function(event) {
 
     swal({
         title: swal_eliminar_ref,
-        // swal_eliminar
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,

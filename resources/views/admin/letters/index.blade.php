@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_letter->titulo_letter }}
     </h1>
+    {{ Form::hidden('swal_eliminar_let', $swal_letter->swal_eliminar_let, ['id' => 'swal_eliminar_let']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Modelos de Cartas</li>
