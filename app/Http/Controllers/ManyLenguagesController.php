@@ -6,6 +6,8 @@ use App\ManyLenguages;
 use App\Ml_dashboard;
 use App\Ml_document;
 use App\Ml_movie;
+use App\ml_panel_admin;
+use App\ml_front_end;
 use App\ml_cat_list_book;
 use App\Ml_course;
 use App\ml_cat_sweetalert;
@@ -783,6 +785,30 @@ class ManyLenguagesController extends Controller
             'ml_password'   => $ml_password,
 
            
+        ]); 
+    }
+
+    public function edit_panel_admin($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $panel_admin       = ml_panel_admin::where('many_lenguages_id', $idioma->id)->first();
+                                    
+        return view('admin.manylenguages.panel_admin.partials.form', [          
+            'idioma'        => $idioma,           
+            'panel_admin'      => $panel_admin   
+        ]); 
+    }
+
+    public function edit_front_end($id)
+    {
+        $idioma = ManyLenguages::findOrFail($id);  
+
+        $front_end       = ml_front_end::where('many_lenguages_id', $idioma->id)->first();
+                                    
+        return view('admin.manylenguages.front_end.partials.form', [          
+            'idioma'        => $idioma,           
+            'front_end'      => $front_end   
         ]); 
     }
  
@@ -2347,8 +2373,91 @@ public function update_credentials(Request $request, $id)
         }
     }
 
+    public function update_front_end(Request $request, $id)
+{              
+        if ($request->ajax()){
+            try {    
+            DB::beginTransaction();                
+                         
+                $idioma                         = ManyLenguages::findOrFail($id);
+     
+                // Iniciar sesion
+               $ml_front_end                   = ml_front_end::where('many_lenguages_id', $idioma->id)->first();
+               
+               $ml_front_end->doc_mas_recientes    = $request->get('doc_mas_recientes');
+               $ml_front_end->recientes_cinco    = $request->get('recientes_cinco');
+               $ml_front_end->recientes_diez    = $request->get('recientes_diez');
+               $ml_front_end->recientes_veinte    = $request->get('recientes_veinte');
+               $ml_front_end->recientes_cincuenta    = $request->get('recientes_cincuenta');
+               $ml_front_end->doc_mas_reservados    = $request->get('doc_mas_reservados');
+               $ml_front_end->reservados_cinco    = $request->get('reservados_cinco');
+               $ml_front_end->reservados_diez    = $request->get('reservados_diez');
+               $ml_front_end->reservados_veinte    = $request->get('reservados_veinte');
+               $ml_front_end->reservados_cincuenta    = $request->get('reservados_cincuenta');
+               $ml_front_end->mas_info    = $request->get('mas_info');
+
+               $ml_front_end->save(); 
+
+                DB::commit();               
+
+            } catch (Exception $e) {
+                // anula la transacion
+                DB::rollBack();
+            }
+        }
+    }
 
 
+    public function update_panel_admin(Request $request, $id)
+    {              
+            if ($request->ajax()){
+                try {    
+                DB::beginTransaction();                
+                             
+                    $idioma                         = ManyLenguages::findOrFail($id);
+         
+                    // Iniciar sesion
+                   $ml_panel_admin                   = ml_panel_admin::where('many_lenguages_id', $idioma->id)->first();
+                   
+                    // $ml_panel_admin->doc_mas_recientes    = $request->get('doc_mas_recientes');
+                    $ml_panel_admin->panel_de_control    = $request->get('panel_de_control');
+                    $ml_panel_admin->documentos    = $request->get('documentos');
+                    $ml_panel_admin->documentos_registrados    = $request->get('documentos_registrados');
+                    $ml_panel_admin->prestamos    = $request->get('prestamos');
+                    $ml_panel_admin->prestamos_registrados    = $request->get('prestamos_registrados');
+                    $ml_panel_admin->prestamos_vencidos    = $request->get('prestamos_vencidos');
+                    $ml_panel_admin->vencidos_registrados    = $request->get('vencidos_registrados');
+                    $ml_panel_admin->usuarios    = $request->get('usuarios');
+                    $ml_panel_admin->usuarios_registrados    = $request->get('usuarios_registrados');
+                    $ml_panel_admin->ultimos_cinco_prestamos    = $request->get('ultimos_cinco_prestamos');
+                    $ml_panel_admin->pres_id    = $request->get('pres_id');
+                    $ml_panel_admin->pres_prefil    = $request->get('pres_prefil');
+                    $ml_panel_admin->pres_nombre    = $request->get('pres_nombre');
+                    $ml_panel_admin->pres_email    = $request->get('pres_email');
+                    $ml_panel_admin->pres_titulo    = $request->get('pres_titulo');
+                    $ml_panel_admin->pres_fecha_devolucion    = $request->get('pres_fecha_devolucion');
+                    $ml_panel_admin->pres_n_ejemplar    = $request->get('pres_n_ejemplar');
+                    $ml_panel_admin->pres_cant_prestamos    = $request->get('pres_cant_prestamos');
+                    $ml_panel_admin->prestamos_vencidos    = $request->get('prestamos_vencidos');
+                    $ml_panel_admin->venc_id    = $request->get('venc_id');
+                    $ml_panel_admin->venc_perfil    = $request->get('venc_perfil');
+                    $ml_panel_admin->venc_nombre    = $request->get('venc_nombre');
+                    $ml_panel_admin->venc_email    = $request->get('venc_email');
+                    $ml_panel_admin->venc_titulo    = $request->get('venc_titulo');
+                    $ml_panel_admin->venc_fecha_devolucion    = $request->get('venc_fecha_devolucion');
+                    $ml_panel_admin->venc_n_ejemplar    = $request->get('venc_n_ejemplar');
+                    $ml_panel_admin->venc_cant_prestamos    = $request->get('venc_cant_prestamos');
+    
+                   $ml_panel_admin->save(); 
+    
+                    DB::commit();               
+    
+                } catch (Exception $e) {
+                    // anula la transacion
+                    DB::rollBack();
+                }
+            }
+        }
     /**
      * Remove the specified resource from storage.
      *
@@ -2408,6 +2517,8 @@ public function update_credentials(Request $request, $id)
                     'url_send_letter'       => route('admin.manylenguages.edit_send_letter', $idiomas->id),                    
                     'url_edit_partner'      => route('admin.manylenguages.edit_partner', $idiomas->id),
                     'url_edit_credentials'  => route('admin.manylenguages.edit_credentials', $idiomas->id),                                        
+                    'url_edit_panel_admin'  => route('admin.manylenguages.edit_panel_admin', $idiomas->id),                                        
+                    'url_edit_front_end'  => route('admin.manylenguages.edit_front_end', $idiomas->id),                                        
                     'url_destroy'           => route('admin.manylenguages.destroy', $idiomas->id),   
                 ]);
             })           

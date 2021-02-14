@@ -6,7 +6,7 @@
         <div class="row">
         <div  id="recargar">
                 <!-- <div class="col-xs-12"> -->
-                    <h1 class="text-center wow pulse all-titles-pages">Documentos más recientes</h1>
+                    <h1 class="text-center wow pulse all-titles-pages">{{$ml_front_end->doc_mas_recientes}}</h1>
                  
                     <!-- <select name="filtro" id="filtro" class="form-control select2 text-center" onchange="filtrar()" style="width:200px; margin-left:10px;">
                                     <option value="2">Ultimos 2</option> 
@@ -14,7 +14,7 @@
                                     <option value="4">Ultimos 4</option>
                                     <option value="5">Ultimos 5</option>
                                 </select> -->
-                    {!! Form::select('filtro', ['5' => '5 mas Recientes', '10' => '10 mas Recientes', '20' => '20 mas Recientes', '50' => '50 mas Recientes'], $recientes, ['class' => 'form-control select2', 'id' => 'filtro','onchange' => 'filtrar()', 'style' => 'width:200px; margin-left:10px;']) !!}
+                    {!! Form::select('filtro', ['5' => $ml_front_end->recientes_cinco, '10' => $ml_front_end->recientes_diez, '20' => $ml_front_end->recientes_veinte, '50' => $ml_front_end->recientes_cincuenta], $recientes, ['class' => 'form-control select2', 'id' => 'filtro','onchange' => 'filtrar()', 'style' => 'width:200px; margin-left:10px;']) !!}
 
                    <br>
                     <br>
@@ -64,19 +64,19 @@
                         <h3 class="text-center" style="height: 45px;">{{ $titulo }}</h3>
                      <p style="height: 45px;">{!! $sinopsis !!}</p>
                      @if($doc['document_types_id'] == 1)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 2)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 3)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 4)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 5)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                         
                         
@@ -92,8 +92,8 @@
         <div class="row">
         <div  id="recargar_reservados">
             <!-- <div class="col-xs-12"> -->
-                <h1 class="text-center wow pulse all-titles-pages">Documentos más reservados</h1>
-                {!! Form::select('filtro_reservados', ['5' => '5 mas Recientes', '10' => '10 mas Recientes', '20' => '20 mas Recientes', '50' => '50 mas Recientes'], $reservados, ['class' => 'form-control select2', 'id' => 'filtro_reservados','onchange' => 'filtrar_reservados()', 'style' => 'width:200px; margin-left:10px;']) !!}
+                <h1 class="text-center wow pulse all-titles-pages">{{$ml_front_end->doc_mas_reservados}}</h1>
+                {!! Form::select('filtro_reservados', ['5' => $ml_front_end->reservados_cinco, '10' => $ml_front_end->reservados_diez, '20' => $ml_front_end->reservados_veinte, '50' => $ml_front_end->reservados_cincuenta], $reservados, ['class' => 'form-control select2', 'id' => 'filtro_reservados','onchange' => 'filtrar_reservados()', 'style' => 'width:200px; margin-left:10px;']) !!}
 
                    <br>
                     <br>
@@ -142,19 +142,19 @@
                         <h3 class="text-center" style="height: 45px;">{{ $titulo_d }}</h3>
                      <p style="height: 45px;">{!! $sinopsis_d !!}</p>
                      @if($masreservados->document_types_id == 1)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 2)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 3)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 4)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 5)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">Más información</a></p>
+                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                         
                         

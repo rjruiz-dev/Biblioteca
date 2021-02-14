@@ -265,6 +265,14 @@ function(){
     // traduccion  login-registro-recuperar pass
     Route::get('manyLenguages/edit_credentials/{id}',    'ManyLenguagesController@edit_credentials')->name('admin.manylenguages.edit_credentials');
     Route::put('manyLenguages/update_credentials/{id}',  'ManyLenguagesController@update_credentials')->name('admin.manylenguages.update_credentials');
+
+    // traduccion  front-end
+    Route::get('manyLenguages/edit_front_end/{id}',    'ManyLenguagesController@edit_front_end')->name('admin.manylenguages.edit_front_end');
+    Route::put('manyLenguages/update_front_end/{id}',  'ManyLenguagesController@update_front_end')->name('admin.manylenguages.update_front_end');
+
+    // traduccion  panel_admin
+    Route::get('manyLenguages/edit_panel_admin/{id}',    'ManyLenguagesController@edit_panel_admin')->name('admin.manylenguages.edit_panel_admin');
+    Route::put('manyLenguages/update_panel_admin/{id}',  'ManyLenguagesController@update_panel_admin')->name('admin.manylenguages.update_panel_admin');
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 

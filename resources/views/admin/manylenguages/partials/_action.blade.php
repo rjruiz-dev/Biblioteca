@@ -10,6 +10,10 @@
     <a href="{{ $url_loan_repayment }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Prestamos Devoluciones"><i class="fa fa-retweet text-dark btn-btn-edit-user"></i></a> | 
     <a href="{{ $url_send_letter }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Enviar Reclamos"><i class="fa  fa-envelope text-dark btn-btn-edit-user"></i></a> | 
     <a href="{{ $url_edit_partner }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Socios"><i class="fa fa-users text-dark btn-btn-edit-user"></i></a> | 
+    
+    <a href="{{ $url_edit_panel_admin }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Panel Admin"><i class="fa fa-users text-dark btn-btn-edit-user"></i></a> | 
+
+    <a href="{{ $url_edit_front_end }}" class="modal-show edit" id="btn-btn-edit" title="Editar: Front-End"><i class="fa fa-users text-dark btn-btn-edit-user"></i></a> | 
 
     
 

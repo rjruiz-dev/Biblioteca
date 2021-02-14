@@ -15,6 +15,7 @@ use App\Multimedia;
 use App\Movie;
 use App\Ml_registry;
 use App\Photography;
+use App\ml_front_end;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
@@ -57,6 +58,7 @@ class HomeController extends Controller
         // dd("recientes: ".$recientes);
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_front_end = ml_front_end::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::all();
         $setting = Setting::where('id', 1)->first();
         $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)
@@ -79,7 +81,8 @@ class HomeController extends Controller
             'documentos'  => $documentos,
             'recientes'  => $recientes,
             'reservados'  => $reservados,
-            'CincoMasResevados'  => $CincoMasResevados
+            'CincoMasResevados'  => $CincoMasResevados,
+            'ml_front_end' => $ml_front_end
         ]); 
     }
 
