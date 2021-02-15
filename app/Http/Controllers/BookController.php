@@ -1292,9 +1292,9 @@ class BookController extends Controller
                 if($adaptations_mostrar){
                     $q->where('adequacies_id', '=', $request->get('adaptations'));   
                 }
-                if($idd_mostrar){
-                    $q->where('id', '=', $idd);   
-                }
+                // if($idd_mostrar){
+                //     $q->where('id', '=', $idd);   
+                // }
                 if($indexsolo_mostrar){
                     $q->where('id', '=', $request->get('indexsolo'));  
                 }else{
