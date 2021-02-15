@@ -184,12 +184,12 @@ class UserController extends Controller
 
                 }
                
+                DB::commit();
+
                 $session = session('idiomas');
                 $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
                 return response()->json(['mensaje_exito' => $Ml_partner->mensaje_exito, 'noti_alta_socio' => $Ml_partner->noti_alta_socio]);
 
-          
-                DB::commit();
 
             } catch (Exception $e) {
                 // anula la transacion
