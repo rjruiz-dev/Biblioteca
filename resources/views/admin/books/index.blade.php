@@ -46,7 +46,9 @@ use App\Book;
                 </div>
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->book_btn_buscar}}</button>
+                    @if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')))
                     <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->book_btn_crear}}</a>
+                    @endif
                     <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style="margin-top: -8px; display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
                 
                 </div>        
@@ -142,8 +144,10 @@ use App\Book;
                 // console.log("aaaa: " + $('#idd').val());
                 // console.log('lo trae ?: ' + indexsolo);
             }else{
+                if($("#btn-btn-create").length > 0){
                 document.getElementById('btn-btn-create').style.display = 'block';
-            console.log("trajo none o trajo por alguna razon extraña null");
+                }
+                console.log("trajo none o trajo por alguna razon extraña null");
         }
 
             var dataTable = $('#datatable').DataTable({
