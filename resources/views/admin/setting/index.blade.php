@@ -173,13 +173,13 @@
                         <input type="text" value="{{ $setting->skin }}" name="skin" id="skin" class="form-control" /> 
                         <span class="input-group-addon"><i></i></span>
                     </div> 
-                    <span class="help-block">$ml_library->info_color </span> 
+                    <span class="help-block">{{ $ml_library->info_color }}</span> 
                     {!! Form::label('skin_footer', $ml_library->select_color_fuente ) !!}   
                     <div id="skin_footer" class="input-group colorpicker colorpicker-component"> 
                         <input type="text" value="{{ $setting->skin_footer }}" name="skin_footer" id="skin_footer" class="form-control" /> 
                         <span class="input-group-addon"><i></i></span>
                     </div> 
-                    <span class="help-block">$ml_library->info_color_fuente </span>   
+                    <span class="help-block">{{ $ml_library->info_color_fuente }}</span>   
                 </div>          
             </div>      
         </div> 
@@ -208,11 +208,6 @@
 
     <script>
 $('.colorpicker').colorpicker({});
-
-
-
- 
-
     var checkbox_economica = document.getElementById('group_economica');
     checkbox_economica.addEventListener( 'change', function() {
         if(this.checked) {
@@ -279,11 +274,15 @@ $('#btn-save').click(function (event) {
         processData: false,
         contentType: false,
         success: function (response) {                    
-            $("#logo-img").load(" #logo-img"); 
+            $("#logo-img").load(" #logo-img");
+            
+            var swal_exito_set = response.swal_exito_set;
+            var swal_info_exito_set = response.swal_info_exito_set;
+
             swal({
                 type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
+                title: swal_exito_set,
+                text: swal_info_exito_set
             }).then(function() {
                 window.location.reload(); 
             });

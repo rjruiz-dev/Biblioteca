@@ -208,5 +208,10 @@ class ManyLenguages extends Model
         return $this->hasMany(Swal_letter::class);
     }
 
+    public function swal_setting()
+    {
+        return $this->hasMany(Swal_setting::class);
+    }
+
 }
 

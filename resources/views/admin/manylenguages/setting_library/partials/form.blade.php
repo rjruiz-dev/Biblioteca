@@ -227,6 +227,37 @@
         </div>       
     </div> 
 
+    <!--Swal Cartas-->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">  
+                    <h3 class="box-title">Traducciones Globales Mensajes de Alertas Perfil de la Biblioteca</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-12">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Exito </h3>
+                </div>
+            </div>
+            <div class="box-body">                           
+                <div class="form-group">              
+                    {!! Form::label('swal_exito_set', 'Titulo del mensaje de exito') !!}                    
+                    {!! Form::text('swal_exito_set', $swal_library['swal_exito_set'] ? $swal_library['swal_exito_set'] : null, ['class' => 'form-control', 'id' => 'swal_exito_set', 'placeholder' => 'Titulo del mensaje de exito']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('swal_info_exito_set', 'Mensaje de exito') !!}                    
+                    {!! Form::text('swal_info_exito_set', $swal_library['swal_info_exito_set'] ? $swal_library['swal_info_exito_set'] : null, ['class' => 'form-control', 'id' => 'swal_info_exito_set', 'placeholder' => 'Mensaje de exito']) !!}
+                </div>                    
+            </div>
+        </div>       
+    </div>
+
 
 {!! Form::close() !!}    
 </div>

@@ -44,7 +44,10 @@ use App\Ml_loan_by_date;
 use App\Ml_classroom_loan;
 use App\Ml_database_record;
 use App\Ml_statistic;
+
 use App\Ml_library_profile;
+use App\Swal_setting;
+
 use App\Ml_manual_loan;
 use App\Ml_web_loan;
 use App\Ml_loan_partner;
@@ -508,11 +511,13 @@ class ManyLenguagesController extends Controller
     {
         $idioma = ManyLenguages::findOrFail($id);  
 
-        $ml_library = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
-              
+        $ml_library   = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
+        $swal_library = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
+
         return view('admin.manylenguages.setting_library.partials.form', [          
             'idioma'      => $idioma,           
-            'ml_library'  => $ml_library          
+            'ml_library'  => $ml_library,
+            'swal_library'=> $swal_library                    
            
         ]); 
     }
@@ -1222,7 +1227,7 @@ class ManyLenguagesController extends Controller
                 $idioma->lenguage_description   = $request->get('lenguage_description');             
                 $idioma->save();
                
-                // Prestamo por fecha
+                // Perfil de la bibloteca
                 $ml_library                     = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
                 $ml_library->titulo             = $request->get('titulo');     
                 $ml_library->logo               = $request->get('logo');
@@ -1254,7 +1259,14 @@ class ManyLenguagesController extends Controller
                 $ml_library->info_color         = $request->get('info_color');            
                 $ml_library->select_color_fuente= $request->get('select_color_fuente');    
                 $ml_library->info_color_fuente  = $request->get('info_color_fuente');    
-                $ml_library->save();              
+                $ml_library->btn_guardar        = $request->get('btn_guardar');    
+                $ml_library->save();
+                
+                // Perfil de la bibloteca
+                $swal_library                       = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
+                $swal_library->swal_exito_set       = $request->get('swal_exito_set');     
+                $swal_library->swal_info_exito_set  = $request->get('swal_info_exito_set');               
+                $swal_library->save();
 
                 DB::commit();               
 
