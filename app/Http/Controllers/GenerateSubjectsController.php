@@ -11,6 +11,7 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
 use App\Ml_subjects;
+use App\Swal_subject;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveSubjectRequest;
 
@@ -32,6 +33,7 @@ class GenerateSubjectsController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+        $swal_subject = Swal_subject::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
@@ -40,7 +42,8 @@ class GenerateSubjectsController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_subject'   => $ml_subject
+            'ml_subject'   => $ml_subject,
+            'swal_subject' => $swal_subject
             
         ]);    
     }
@@ -92,6 +95,13 @@ class GenerateSubjectsController extends Controller
                 $subject->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_subject = Swal_subject::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_sub'        => $swal_subject->swal_exito_sub,
+                                            'swal_info_exito_sub'   => $swal_subject->swal_info_exito_sub                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -161,6 +171,13 @@ class GenerateSubjectsController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_subject = Swal_subject::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_sub'        => $swal_subject->swal_exito_sub,
+                                            'swal_info_exito_sub'   => $swal_subject->swal_info_exito_sub                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -177,6 +194,8 @@ class GenerateSubjectsController extends Controller
     public function destroy($id)
     {
         $var_subject = Document::where('generate_subjects_id', $id)->get();
+        $session = session('idiomas');
+        $swal_subject = Swal_subject::where('many_lenguages_id',$session)->first();
       
         if($var_subject->isEmpty())
         {  
@@ -187,7 +206,14 @@ class GenerateSubjectsController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito_sub'            => $swal_subject->swal_exito_sub,
+                                    'swal_eliminar_sub'         => $swal_subject->swal_eliminar_sub,
+                                    'swal_info_eliminar_sub'    => $swal_subject->swal_info_eliminar_sub,       
+                                    'swal_advertencia_sub'      => $swal_subject->swal_advertencia_sub,
+                                    'swal_info_advertencia_sub' => $swal_subject->swal_info_advertencia_sub,
+                                ]);
     }
 
     public function dataTable()

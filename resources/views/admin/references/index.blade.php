@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('header')    
-    <h1>
+    <h1>        
         {{ $ml_reference->titulo_ref }}     
     </h1>
+    {{ Form::hidden('swal_eliminar_ref', $swal_reference->swal_eliminar_ref, ['id' => 'swal_eliminar_ref']) }}
+    
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Referencias</li>

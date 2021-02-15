@@ -17,22 +17,46 @@ use App\ml_cat_edit_movie;
 use App\ml_cat_edit_multimedia;
 use App\ml_cat_edit_fotografia;
 use App\Swal_course;
+
 use App\Ml_reference;
 use App\ml_fines;
+use App\Swal_reference;
+
 use App\Ml_graphic_format;
+use App\Swal_graphic_format;
+
 use App\Ml_language;
+use App\Swal_language;
+
 use App\Ml_periodical_publication;
+use App\Swal_periodical;
+
 use App\Ml_literary_genre;
+use App\Swal_literature;
+
 use App\Ml_musical_genre;
+use App\Swal_musical;
+
 use App\Ml_cinematographic_genre;
+use App\Swal_cinematographic;
+
 use App\Ml_adequacy;
+use App\Swal_adequacy;
+
 use App\Ml_subjects;
+use App\Swal_subject;
+
 use App\Ml_letter;
+use App\Swal_letter;
+
 use App\Ml_loan_by_date;
 use App\Ml_classroom_loan;
 use App\Ml_database_record;
 use App\Ml_statistic;
+
 use App\Ml_library_profile;
+use App\Swal_setting;
+
 use App\Ml_manual_loan;
 use App\Ml_web_loan;
 use App\Ml_loan_partner;
@@ -571,21 +595,40 @@ class ManyLenguagesController extends Controller
 
     public function edit_maintenance($id)
     {
-        $idioma = ManyLenguages::findOrFail($id);  
+        $idioma         = ManyLenguages::findOrFail($id);  
 
-        $ml_course = Ml_course::where('many_lenguages_id', $idioma->id)->first();
-        $swal_course = Swal_course::where('many_lenguages_id', $idioma->id)->first();
+        $ml_course      = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $swal_course    = Swal_course::where('many_lenguages_id', $idioma->id)->first();
 
-        $ml_reference = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
-        $ml_fg = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
-        $ml_lang = Ml_language::where('many_lenguages_id', $idioma->id)->first();
-        $ml_pp = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-        $ml_gl = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-        $ml_gm = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
-        $ml_gc = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
-        $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
-        $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
-        $ml_letter = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+        $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
+        $swal_reference = Swal_reference::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_fg          = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+        $swal_fg        = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_lang        = Ml_language::where('many_lenguages_id', $idioma->id)->first();
+        $swal_lang      = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+
+        $ml_pp          = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
+        $swal_pp        = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_gl          = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gl        = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_gm          = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gm        = Swal_musical::where('many_lenguages_id', $idioma->id)->first();
+        
+        $ml_gc          = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gc        = Swal_cinematographic::where('many_lenguages_id', $idioma->id)->first();
+      
+        $ml_adequacy    = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
+        $swal_adequacy  = Swal_adequacy::where('many_lenguages_id', $idioma->id)->first();
+
+        $ml_subject     = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+        $swal_subject   = Swal_subject::where('many_lenguages_id', $idioma->id)->first();
+
+        $ml_letter      = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+        $swal_letter    = Swal_letter::where('many_lenguages_id', $idioma->id)->first();
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'        => $idioma,
@@ -594,15 +637,35 @@ class ManyLenguagesController extends Controller
             'swal_course'   => $swal_course,
 
             'ml_reference'  => $ml_reference,
+            'swal_reference'=> $swal_reference,
+
             'ml_fg'         => $ml_fg,
+            'swal_fg'       => $swal_fg,
+
             'ml_lang'       => $ml_lang,
+            'swal_lang'     => $swal_lang,
+           
             'ml_pp'         => $ml_pp,
+            'swal_pp'       => $swal_pp,
+
             'ml_gl'         => $ml_gl,
+            'swal_gl'       => $swal_gl,
+
             'ml_gm'         => $ml_gm,
+            'swal_gm'       => $swal_gm,
+
             'ml_gc'         => $ml_gc,
+            'swal_gc'       => $swal_gc,
+            
             'ml_adequacy'   => $ml_adequacy,
+            'swal_adequacy' => $swal_adequacy,
+            
+
             'ml_subject'    => $ml_subject,
-            'ml_letter'     => $ml_letter
+            'swal_subject'  => $swal_subject,
+
+            'ml_letter'     => $ml_letter,
+            'swal_letter'   => $swal_letter
         ]); 
     }
 
@@ -641,11 +704,13 @@ class ManyLenguagesController extends Controller
     {
         $idioma = ManyLenguages::findOrFail($id);  
 
-        $ml_library = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
-              
+        $ml_library   = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
+        $swal_library = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
+
         return view('admin.manylenguages.setting_library.partials.form', [          
             'idioma'      => $idioma,           
-            'ml_library'  => $ml_library          
+            'ml_library'  => $ml_library,
+            'swal_library'=> $swal_library                    
            
         ]); 
     }
@@ -1082,6 +1147,17 @@ class ManyLenguagesController extends Controller
                 $ml_reference->cam_referencia           = $request->get('cam_referencia');                          
                 $ml_reference->save();
 
+                // Swal referencia
+                $swal_reference                         = Swal_reference::where('many_lenguages_id', $idioma->id)->first();
+                $swal_reference->swal_exito_ref         = $request->get('swal_exito_ref');     
+                $swal_reference->swal_info_exito_ref    = $request->get('swal_info_exito_ref');
+                $swal_reference->swal_eliminar_ref      = $request->get('swal_eliminar_ref');  
+                $swal_reference->swal_info_eliminar_ref = $request->get('swal_info_eliminar_ref');                 
+                $swal_reference->swal_advertencia_ref   = $request->get('swal_advertencia_ref');  
+                $swal_reference->swal_info_advertencia_ref  = $request->get('swal_info_advertencia_ref');  
+                $swal_reference->save();
+                
+
                 // Formato Grafico
                 $ml_fg                                  = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
                 $ml_fg->titulo_fg                       = $request->get('titulo_fg');     
@@ -1095,6 +1171,16 @@ class ManyLenguagesController extends Controller
                 $ml_fg->mod_subtitulo_fg                = $request->get('mod_subtitulo_fg');  
                 $ml_fg->cam_fg                          = $request->get('cam_fg');                          
                 $ml_fg->save(); 
+
+                // Swal Formato grafico
+                $swal_fg                                = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+                $swal_fg->swal_exito_gra                = $request->get('swal_exito_gra');     
+                $swal_fg->swal_info_exito_gra           = $request->get('swal_info_exito_gra');
+                $swal_fg->swal_eliminar_gra             = $request->get('swal_eliminar_gra');  
+                $swal_fg->swal_info_eliminar_gra        = $request->get('swal_info_eliminar_gra');                 
+                $swal_fg->swal_advertencia_gra          = $request->get('swal_advertencia_gra');  
+                $swal_fg->swal_info_advertencia_gra     = $request->get('swal_info_advertencia_gra');  
+                $swal_fg->save();
 
                 // Lenguaje
                 $ml_lang                                = Ml_language::where('many_lenguages_id', $idioma->id)->first();
@@ -1110,108 +1196,189 @@ class ManyLenguagesController extends Controller
                 $ml_lang->cam_lang                      = $request->get('cam_lang');                          
                 $ml_lang->save();
 
+                // Swal Lenguaje
+                $swal_lang                              = Swal_language::where('many_lenguages_id', $idioma->id)->first();
+                $swal_lang->swal_exito_lan              = $request->get('swal_exito_lan');     
+                $swal_lang->swal_info_exito_lan         = $request->get('swal_info_exito_lan');
+                $swal_lang->swal_eliminar_lan           = $request->get('swal_eliminar_lan');  
+                $swal_lang->swal_info_eliminar_lan      = $request->get('swal_info_eliminar_lan');                 
+                $swal_lang->swal_advertencia_lan        = $request->get('swal_advertencia_lan');  
+                $swal_lang->swal_info_advertencia_lan   = $request->get('swal_info_advertencia_lan');  
+                $swal_lang->save();
+
                 // Publicacion Periodica
-                $ml_pp                                = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-                $ml_pp->titulo_publ                   = $request->get('titulo_publ');     
-                $ml_pp->subtitulo_publ                = $request->get('subtitulo_publ');
-                $ml_pp->btn_crear_publ                = $request->get('btn_crear_publ');
-                $ml_pp->dt_id_publ                    = $request->get('dt_id_publ');  
-                $ml_pp->dt_publ                       = $request->get('dt_publ');               
-                $ml_pp->dt_agregado_publ              = $request->get('dt_agregado_publ');                 
-                $ml_pp->dt_acciones_publ              = $request->get('dt_acciones_publ');  
-                $ml_pp->mod_titulo_publ               = $request->get('mod_titulo_publ');  
-                $ml_pp->mod_subtitulo_publ            = $request->get('mod_subtitulo_publ');  
-                $ml_pp->cam_publ                      = $request->get('cam_publ');                          
+                $ml_pp                                  = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
+                $ml_pp->titulo_publ                     = $request->get('titulo_publ');     
+                $ml_pp->subtitulo_publ                  = $request->get('subtitulo_publ');
+                $ml_pp->btn_crear_publ                  = $request->get('btn_crear_publ');
+                $ml_pp->dt_id_publ                      = $request->get('dt_id_publ');  
+                $ml_pp->dt_publ                         = $request->get('dt_publ');               
+                $ml_pp->dt_agregado_publ                = $request->get('dt_agregado_publ');                 
+                $ml_pp->dt_acciones_publ                = $request->get('dt_acciones_publ');  
+                $ml_pp->mod_titulo_publ                 = $request->get('mod_titulo_publ');  
+                $ml_pp->mod_subtitulo_publ              = $request->get('mod_subtitulo_publ');  
+                $ml_pp->cam_publ                        = $request->get('cam_publ');                          
                 $ml_pp->save();
 
+                // Swal Publicacion Periodica
+                $swal_pp                                = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
+                $swal_pp->swal_exito_per                = $request->get('swal_exito_per');     
+                $swal_pp->swal_info_exito_per           = $request->get('swal_info_exito_per');
+                $swal_pp->swal_eliminar_per             = $request->get('swal_eliminar_per');  
+                $swal_pp->swal_info_eliminar_per        = $request->get('swal_info_eliminar_per');                 
+                $swal_pp->swal_advertencia_per          = $request->get('swal_advertencia_per');  
+                $swal_pp->swal_info_advertencia_per     = $request->get('swal_info_advertencia_per');  
+                $swal_pp->save();
+
                 // Genero Literario
-                $ml_gl                                = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-                $ml_gl->titulo_gl                     = $request->get('titulo_gl');     
-                $ml_gl->subtitulo_gl                  = $request->get('subtitulo_gl');
-                $ml_gl->btn_crear_gl                  = $request->get('btn_crear_gl');
-                $ml_gl->dt_id_gl                      = $request->get('dt_id_gl');  
-                $ml_gl->dt_gl                         = $request->get('dt_gl');               
-                $ml_gl->dt_agregado_gl                = $request->get('dt_agregado_gl');                 
-                $ml_gl->dt_acciones_gl                = $request->get('dt_acciones_gl');  
-                $ml_gl->mod_titulo_gl                 = $request->get('mod_titulo_gl');  
-                $ml_gl->mod_subtitulo_gl              = $request->get('mod_subtitulo_gl');  
-                $ml_gl->cam_gl                        = $request->get('cam_gl');                          
+                $ml_gl                                  = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
+                $ml_gl->titulo_gl                       = $request->get('titulo_gl');     
+                $ml_gl->subtitulo_gl                    = $request->get('subtitulo_gl');
+                $ml_gl->btn_crear_gl                    = $request->get('btn_crear_gl');
+                $ml_gl->dt_id_gl                        = $request->get('dt_id_gl');  
+                $ml_gl->dt_gl                           = $request->get('dt_gl');               
+                $ml_gl->dt_agregado_gl                  = $request->get('dt_agregado_gl');                 
+                $ml_gl->dt_acciones_gl                  = $request->get('dt_acciones_gl');  
+                $ml_gl->mod_titulo_gl                   = $request->get('mod_titulo_gl');  
+                $ml_gl->mod_subtitulo_gl                = $request->get('mod_subtitulo_gl');  
+                $ml_gl->cam_gl                          = $request->get('cam_gl');                          
                 $ml_gl->save();
 
+                // Swal Genero Literario
+                $swal_gl                                = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
+                $swal_gl->swal_exito_lit                = $request->get('swal_exito_lit');     
+                $swal_gl->swal_info_exito_lit           = $request->get('swal_info_exito_lit');
+                $swal_gl->swal_eliminar_lit             = $request->get('swal_eliminar_lit');  
+                $swal_gl->swal_info_eliminar_lit        = $request->get('swal_info_eliminar_lit');                 
+                $swal_gl->swal_advertencia_lit          = $request->get('swal_advertencia_lit');  
+                $swal_gl->swal_info_advertencia_lit     = $request->get('swal_info_advertencia_lit');  
+                $swal_gl->save();
+
                 // Genero Musical
-                $ml_gm                                = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
-                $ml_gm->titulo_gm                     = $request->get('titulo_gm');     
-                $ml_gm->subtitulo_gm                  = $request->get('subtitulo_gm');
-                $ml_gm->btn_crear_gm                  = $request->get('btn_crear_gm');
-                $ml_gm->dt_id_gm                      = $request->get('dt_id_gm');  
-                $ml_gm->dt_gm                         = $request->get('dt_gm');               
-                $ml_gm->dt_agregado_gm                = $request->get('dt_agregado_gm');                 
-                $ml_gm->dt_acciones_gm                = $request->get('dt_acciones_gm');  
-                $ml_gm->mod_titulo_gm                 = $request->get('mod_titulo_gm');  
-                $ml_gm->mod_subtitulo_gm              = $request->get('mod_subtitulo_gm');  
-                $ml_gm->cam_gm                        = $request->get('cam_gm');                          
+                $ml_gm                                  = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
+                $ml_gm->titulo_gm                       = $request->get('titulo_gm');     
+                $ml_gm->subtitulo_gm                    = $request->get('subtitulo_gm');
+                $ml_gm->btn_crear_gm                    = $request->get('btn_crear_gm');
+                $ml_gm->dt_id_gm                        = $request->get('dt_id_gm');  
+                $ml_gm->dt_gm                           = $request->get('dt_gm');               
+                $ml_gm->dt_agregado_gm                  = $request->get('dt_agregado_gm');                 
+                $ml_gm->dt_acciones_gm                  = $request->get('dt_acciones_gm');  
+                $ml_gm->mod_titulo_gm                   = $request->get('mod_titulo_gm');  
+                $ml_gm->mod_subtitulo_gm                = $request->get('mod_subtitulo_gm');  
+                $ml_gm->cam_gm                          = $request->get('cam_gm');                          
                 $ml_gm->save();
 
+                // Swal Genero Musical
+                $swal_gm                                = Swal_musical::where('many_lenguages_id', $idioma->id)->first();
+                $swal_gm->swal_exito_mus                = $request->get('swal_exito_mus');     
+                $swal_gm->swal_info_exito_mus           = $request->get('swal_info_exito_mus');
+                $swal_gm->swal_eliminar_mus             = $request->get('swal_eliminar_mus');  
+                $swal_gm->swal_info_eliminar_mus        = $request->get('swal_info_eliminar_mus');                 
+                $swal_gm->swal_advertencia_mus          = $request->get('swal_advertencia_mus');  
+                $swal_gm->swal_info_advertencia_mus     = $request->get('swal_info_advertencia_mus');  
+                $swal_gm->save();
+
                 // Genero Cinematografico
-                $ml_gc                                = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
-                $ml_gc->titulo_gc                     = $request->get('titulo_gc');     
-                $ml_gc->subtitulo_gc                  = $request->get('subtitulo_gc');
-                $ml_gc->btn_crear_gc                  = $request->get('btn_crear_gc');
-                $ml_gc->dt_id_gc                      = $request->get('dt_id_gc');  
-                $ml_gc->dt_gc                         = $request->get('dt_gc');               
-                $ml_gc->dt_agregado_gc                = $request->get('dt_agregado_gc');                 
-                $ml_gc->dt_acciones_gc                = $request->get('dt_acciones_gc');  
-                $ml_gc->mod_titulo_gc                 = $request->get('mod_titulo_gc');  
-                $ml_gc->mod_subtitulo_gc              = $request->get('mod_subtitulo_gc');  
-                $ml_gc->cam_gc                        = $request->get('cam_gc');                          
+                $ml_gc                                  = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
+                $ml_gc->titulo_gc                       = $request->get('titulo_gc');     
+                $ml_gc->subtitulo_gc                    = $request->get('subtitulo_gc');
+                $ml_gc->btn_crear_gc                    = $request->get('btn_crear_gc');
+                $ml_gc->dt_id_gc                        = $request->get('dt_id_gc');  
+                $ml_gc->dt_gc                           = $request->get('dt_gc');               
+                $ml_gc->dt_agregado_gc                  = $request->get('dt_agregado_gc');                 
+                $ml_gc->dt_acciones_gc                  = $request->get('dt_acciones_gc');  
+                $ml_gc->mod_titulo_gc                   = $request->get('mod_titulo_gc');  
+                $ml_gc->mod_subtitulo_gc                = $request->get('mod_subtitulo_gc');  
+                $ml_gc->cam_gc                          = $request->get('cam_gc');                          
                 $ml_gc->save();
 
+                // Swal Genero cinematografico
+                $swal_gc                                = Swal_cinematographic::where('many_lenguages_id', $idioma->id)->first();
+                $swal_gc->swal_exito_cin                = $request->get('swal_exito_cin');     
+                $swal_gc->swal_info_exito_cin           = $request->get('swal_info_exito_cin');
+                $swal_gc->swal_eliminar_cin             = $request->get('swal_eliminar_cin');  
+                $swal_gc->swal_info_eliminar_cin        = $request->get('swal_info_eliminar_cin');                 
+                $swal_gc->swal_advertencia_cin          = $request->get('swal_advertencia_cin');  
+                $swal_gc->swal_info_advertencia_cin     = $request->get('swal_info_advertencia_cin');  
+                $swal_gc->save();
+
                 // Genero Adecuaciones
-                $ml_adequacy                          = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
-                $ml_adequacy->titulo_adequacy         = $request->get('titulo_adequacy');     
-                $ml_adequacy->subtitulo_adequacy      = $request->get('subtitulo_adequacy');
-                $ml_adequacy->btn_crear_adequacy      = $request->get('btn_crear_adequacy');
-                $ml_adequacy->dt_id_adequacy          = $request->get('dt_id_adequacy');  
-                $ml_adequacy->dt_adequacy             = $request->get('dt_adequacy');               
-                $ml_adequacy->dt_agregado_adequacy    = $request->get('dt_agregado_adequacy');                 
-                $ml_adequacy->dt_acciones_adequacy    = $request->get('dt_acciones_adequacy');  
-                $ml_adequacy->mod_titulo_adequacy     = $request->get('mod_titulo_adequacy');  
-                $ml_adequacy->mod_subtitulo_adequacy  = $request->get('mod_subtitulo_adequacy');  
-                $ml_adequacy->cam_adequacy            = $request->get('cam_adequacy');                          
+                $ml_adequacy                            = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
+                $ml_adequacy->titulo_adequacy           = $request->get('titulo_adequacy');     
+                $ml_adequacy->subtitulo_adequacy        = $request->get('subtitulo_adequacy');
+                $ml_adequacy->btn_crear_adequacy        = $request->get('btn_crear_adequacy');
+                $ml_adequacy->dt_id_adequacy            = $request->get('dt_id_adequacy');  
+                $ml_adequacy->dt_adequacy               = $request->get('dt_adequacy');               
+                $ml_adequacy->dt_agregado_adequacy      = $request->get('dt_agregado_adequacy');                 
+                $ml_adequacy->dt_acciones_adequacy      = $request->get('dt_acciones_adequacy');  
+                $ml_adequacy->mod_titulo_adequacy       = $request->get('mod_titulo_adequacy');  
+                $ml_adequacy->mod_subtitulo_adequacy    = $request->get('mod_subtitulo_adequacy');  
+                $ml_adequacy->cam_adequacy              = $request->get('cam_adequacy');                          
                 $ml_adequacy->save();
 
-                // Genero Materias
-                $ml_subject                           = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
-                $ml_subject->titulo_subject           = $request->get('titulo_subject');     
-                $ml_subject->subtitulo_subject        = $request->get('subtitulo_subject');
-                $ml_subject->btn_crear_subject        = $request->get('btn_crear_subject');
-                $ml_subject->dt_id_subject            = $request->get('dt_id_subject');  
-                $ml_subject->dt_subject               = $request->get('dt_subject');             
-                $ml_subject->dt_cdu_subject           = $request->get('dt_cdu_subject');               
-                $ml_subject->dt_agregado_subject      = $request->get('dt_agregado_subject');                 
-                $ml_subject->dt_acciones_subject      = $request->get('dt_acciones_subject');  
-                $ml_subject->mod_titulo_subject       = $request->get('mod_titulo_subject');  
-                $ml_subject->mod_subtitulo_subject    = $request->get('mod_subtitulo_subject');  
-                $ml_subject->cam_subject              = $request->get('cam_subject'); 
-                $ml_subject->cam_cdu_subject          = $request->get('cam_cdu_subject');                          
-                $ml_subject->save();     
+                // Swal Genero adecuaciones
+                $swal_adequacy                          = Swal_adequacy::where('many_lenguages_id', $idioma->id)->first();
+                $swal_adequacy->swal_exito_ade          = $request->get('swal_exito_ade');     
+                $swal_adequacy->swal_info_exito_ade     = $request->get('swal_info_exito_ade');
+                $swal_adequacy->swal_eliminar_ade       = $request->get('swal_eliminar_ade');  
+                $swal_adequacy->swal_info_eliminar_ade  = $request->get('swal_info_eliminar_ade');                 
+                $swal_adequacy->swal_advertencia_ade    = $request->get('swal_advertencia_ade');  
+                $swal_adequacy->swal_info_advertencia_ade = $request->get('swal_info_advertencia_ade');  
+                $swal_adequacy->save();
 
-                // Genero Cartas
-                $ml_letter                            = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
-                $ml_letter->titulo_letter             = $request->get('titulo_letter');     
-                $ml_letter->subtitulo_letter          = $request->get('subtitulo_letter');
-                $ml_letter->btn_crear_letter          = $request->get('btn_crear_letter');
-                $ml_letter->dt_id_letter              = $request->get('dt_id_letter');  
-                $ml_letter->dt_titulo_letter          = $request->get('dt_titulo_letter');             
-                $ml_letter->dt_cuerpo_letter          = $request->get('dt_cuerpo_letter');   
-                $ml_letter->dt_despedida_letter       = $request->get('dt_despedida_letter');                           
-                $ml_letter->dt_agregado_letter        = $request->get('dt_agregado_letter');                 
-                $ml_letter->dt_acciones_letter        = $request->get('dt_acciones_letter');              
-                $ml_letter->mod_subtitulo_letter      = $request->get('mod_subtitulo_letter');  
-                $ml_letter->cam_titulo_letter         = $request->get('cam_titulo_letter'); 
-                $ml_letter->cam_cuerpo_letter         = $request->get('cam_cuerpo_letter');   
-                $ml_letter->cam_despedida_letter      = $request->get('cam_despedida_letter'); 
+                // Genero Materias
+                $ml_subject                             = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+                $ml_subject->titulo_subject             = $request->get('titulo_subject');     
+                $ml_subject->subtitulo_subject          = $request->get('subtitulo_subject');
+                $ml_subject->btn_crear_subject          = $request->get('btn_crear_subject');
+                $ml_subject->dt_id_subject              = $request->get('dt_id_subject');  
+                $ml_subject->dt_subject                 = $request->get('dt_subject');             
+                $ml_subject->dt_cdu_subject             = $request->get('dt_cdu_subject');               
+                $ml_subject->dt_agregado_subject        = $request->get('dt_agregado_subject');                 
+                $ml_subject->dt_acciones_subject        = $request->get('dt_acciones_subject');  
+                $ml_subject->mod_titulo_subject         = $request->get('mod_titulo_subject');  
+                $ml_subject->mod_subtitulo_subject      = $request->get('mod_subtitulo_subject');  
+                $ml_subject->cam_subject                = $request->get('cam_subject'); 
+                $ml_subject->cam_cdu_subject            = $request->get('cam_cdu_subject');                          
+                $ml_subject->save();    
+
+                // Swal Genero adecuaciones
+                $swal_subject                           = Swal_subject::where('many_lenguages_id', $idioma->id)->first();
+                $swal_subject->swal_exito_sub           = $request->get('swal_exito_sub');     
+                $swal_subject->swal_info_exito_sub      = $request->get('swal_info_exito_sub');
+                $swal_subject->swal_eliminar_sub        = $request->get('swal_eliminar_sub');  
+                $swal_subject->swal_info_eliminar_sub   = $request->get('swal_info_eliminar_sub');                 
+                $swal_subject->swal_advertencia_sub     = $request->get('swal_advertencia_sub');  
+                $swal_subject->swal_info_advertencia_sub = $request->get('swal_info_advertencia_sub');  
+                $swal_subject->save();
+              
+
+                // Cartas
+                $ml_letter                              = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+                $ml_letter->titulo_letter               = $request->get('titulo_letter');     
+                $ml_letter->subtitulo_letter            = $request->get('subtitulo_letter');
+                $ml_letter->btn_crear_letter            = $request->get('btn_crear_letter');
+                $ml_letter->dt_id_letter                = $request->get('dt_id_letter');  
+                $ml_letter->dt_titulo_letter            = $request->get('dt_titulo_letter');             
+                $ml_letter->dt_cuerpo_letter            = $request->get('dt_cuerpo_letter');   
+                $ml_letter->dt_despedida_letter         = $request->get('dt_despedida_letter');                           
+                $ml_letter->dt_agregado_letter          = $request->get('dt_agregado_letter');                 
+                $ml_letter->dt_acciones_letter          = $request->get('dt_acciones_letter');              
+                $ml_letter->mod_subtitulo_letter        = $request->get('mod_subtitulo_letter');  
+                $ml_letter->cam_titulo_letter           = $request->get('cam_titulo_letter'); 
+                $ml_letter->cam_cuerpo_letter           = $request->get('cam_cuerpo_letter');   
+                $ml_letter->cam_despedida_letter        = $request->get('cam_despedida_letter'); 
                 $ml_letter->save();
+
+                // Swal cartas
+                $swal_letter                            = Swal_letter::where('many_lenguages_id', $idioma->id)->first();
+                $swal_letter->swal_exito_let            = $request->get('swal_exito_let');     
+                $swal_letter->swal_info_exito_let       = $request->get('swal_info_exito_let');
+                $swal_letter->swal_eliminar_let         = $request->get('swal_eliminar_let');  
+                $swal_letter->swal_info_eliminar_let    = $request->get('swal_info_eliminar_let');                 
+                $swal_letter->swal_advertencia_let      = $request->get('swal_advertencia_let');  
+                $swal_letter->swal_info_advertencia_let = $request->get('swal_info_advertencia_let');  
+                $swal_letter->save();
 
                 DB::commit();               
 
@@ -1350,7 +1517,7 @@ class ManyLenguagesController extends Controller
                 $idioma->lenguage_description   = $request->get('lenguage_description');             
                 $idioma->save();
                
-                // Prestamo por fecha
+                // Perfil de la bibloteca
                 $ml_library                     = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
                 $ml_library->titulo             = $request->get('titulo');     
                 $ml_library->logo               = $request->get('logo');
@@ -1382,7 +1549,14 @@ class ManyLenguagesController extends Controller
                 $ml_library->info_color         = $request->get('info_color');            
                 $ml_library->select_color_fuente= $request->get('select_color_fuente');    
                 $ml_library->info_color_fuente  = $request->get('info_color_fuente');    
-                $ml_library->save();              
+                $ml_library->btn_guardar        = $request->get('btn_guardar');    
+                $ml_library->save();
+                
+                // Perfil de la bibloteca
+                $swal_library                       = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
+                $swal_library->swal_exito_set       = $request->get('swal_exito_set');     
+                $swal_library->swal_info_exito_set  = $request->get('swal_info_exito_set');               
+                $swal_library->save();
 
                 DB::commit();               
 

@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_lang->titulo_lang }}  
     </h1>
+    {{ Form::hidden('swal_eliminar_lan', $swal_lang->swal_eliminar_lan, ['id' => 'swal_eliminar_lan']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Idiomas</li>

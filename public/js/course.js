@@ -62,62 +62,6 @@ $('#modal-btn-save').click(function(event) {
     })
 });
 
-
-$('body').on('click', '.btn-delete2', function(event) {
-    event.preventDefault();
-
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title'),
-        csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-    swal({
-        title: '¿Seguro que quieres eliminar a : ' + title + ' ?',
-        text: '¡No podrás revertir esto!',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    '_method': 'DELETE',
-                    '_token': csrf_token
-                },
-                success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
-                    var info = response.data;
-                    if (info == 1) {
-                        swal({
-                            type: 'success',
-                            title: '¡Éxito!',
-                            text: '¡El formato ha sido eliminado!'
-                        });
-
-                    } else {
-                        swal({
-                            type: 'warning',
-                            title: '¡Advertencia!',
-                            text: '¡No puede eliminar este formato, esta siendo utilizado por uno o mas Documentos!'
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    swal({
-                        type: 'error',
-                        title: 'Ups...',
-                        text: '¡Algo salió mal!'
-                    });
-                }
-            });
-        }
-    });
-});
-
 $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja xq es dinamico y puede servir. Rodri salaminnn jajjaj
     event.preventDefault();
 
@@ -126,14 +70,10 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-    // console.log("url:sdfdsf " + url)
-
     if (title == 'Baja') {
         baja_rechazar = $('#swal_baja').val();
-        // title_noti = 'dar de baja';
 
     } else {
-        // title_noti = 'reactivar';
         baja_rechazar = $('#swal_reactivar').val();
     }
 

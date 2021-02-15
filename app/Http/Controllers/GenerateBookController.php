@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Setting;
 use App\Generate_book;
 use App\Ml_literary_genre;
+use App\Swal_literature;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -32,6 +33,7 @@ class GenerateBookController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gl    = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
@@ -39,7 +41,8 @@ class GenerateBookController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_gl'     => $ml_gl
+            'ml_gl'     => $ml_gl,
+            'swal_gl'   => $swal_gl
             
         ]);    
     }
@@ -61,7 +64,7 @@ class GenerateBookController extends Controller
         $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
-        $ml_course  = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.literatures.partials.form', [           
             'literature'    => $literature,
@@ -89,6 +92,13 @@ class GenerateBookController extends Controller
                 $literature->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_gl = Swal_literature::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_lit'        => $swal_gl->swal_exito_lit,
+                                            'swal_info_exito_lit'   => $swal_gl->swal_info_exito_lit                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -126,7 +136,7 @@ class GenerateBookController extends Controller
         $session = session('idiomas'); 
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
-        $ml_course  = Ml_course::where('many_lenguages_id', $idioma->id)->first();
+        $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.literatures.partials.form', [           
             'literature' => $literature,
@@ -156,6 +166,13 @@ class GenerateBookController extends Controller
                 $literature->save();
                  
                 DB::commit();
+                
+                $session = session('idiomas');
+                $swal_gl = Swal_literature::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_lit'        => $swal_gl->swal_exito_lit,
+                                            'swal_info_exito_lit'   => $swal_gl->swal_info_exito_lit                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -173,6 +190,8 @@ class GenerateBookController extends Controller
     public function destroy($id)
     {
         $genre = Book::where('generate_books_id', $id)->get();
+        $session = session('idiomas');
+        $swal_gl = Swal_literature::where('many_lenguages_id',$session)->first();
       
         if($genre->isEmpty())
         {  
@@ -183,7 +202,14 @@ class GenerateBookController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);          
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito_lit'            => $swal_gl->swal_exito_lit,
+                                    'swal_eliminar_lit'         => $swal_gl->swal_eliminar_lit,
+                                    'swal_info_eliminar_lit'    => $swal_gl->swal_info_eliminar_lit,       
+                                    'swal_advertencia_lit'      => $swal_gl->swal_advertencia_lit,
+                                    'swal_info_advertencia_lit' => $swal_gl->swal_info_advertencia_lit,
+                                ]);          
     }
 
     public function dataTable()

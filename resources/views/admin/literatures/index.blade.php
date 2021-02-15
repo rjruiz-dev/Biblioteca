@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_gl->titulo_gl }}
     </h1>
+    {{ Form::hidden('swal_eliminar_lit', $swal_gl->swal_eliminar_lit, ['id' => 'swal_eliminar_lit']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Géneros Literarios</li>

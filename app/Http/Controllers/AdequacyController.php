@@ -12,6 +12,7 @@ use App\Document;
 use App\Setting;
 use App\ManyLenguages;
 use App\Ml_adequacy;
+use App\Swal_adequacy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveAdequacyRequest;
@@ -34,14 +35,16 @@ class AdequacyController extends Controller
 
         $idioma      = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
-        $setting     = Setting::where('id', 1)->first();
-        $idiomas     = ManyLenguages::all();
+        $swal_adequacy  = Swal_adequacy::where('many_lenguages_id', $idioma->id)->first();
+        $setting        = Setting::where('id', 1)->first();
+        $idiomas        = ManyLenguages::all();
 
         return view('admin.adequacies.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_adequacy'   => $ml_adequacy
+            'ml_adequacy'   => $ml_adequacy,
+            'swal_adequacy' => $swal_adequacy
         ]);        
     }
 
@@ -90,6 +93,13 @@ class AdequacyController extends Controller
                 $adequacy->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_adequacy  = Swal_adequacy::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_ade'        => $swal_adequacy->swal_exito_ade,
+                                            'swal_info_exito_ade'   => $swal_adequacy->swal_info_exito_ade                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -158,6 +168,13 @@ class AdequacyController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_adequacy  = Swal_adequacy::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_ade'        => $swal_adequacy->swal_exito_ade,
+                                            'swal_info_exito_ade'   => $swal_adequacy->swal_info_exito_ade                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -174,6 +191,8 @@ class AdequacyController extends Controller
     public function destroy($id)
     {        
         $document = Document::where('adequacies_id', $id)->get();
+        $session = session('idiomas');
+        $swal_adequacy  = Swal_adequacy::where('many_lenguages_id',$session)->first();
       
         if( $document->isEmpty())
         {  
@@ -185,7 +204,14 @@ class AdequacyController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]); 
+        return response()->json([   
+                                    'data' => $bandera,
+                                    'swal_exito_ade'            => $swal_adequacy->swal_exito_ade,
+                                    'swal_eliminar_ade'         => $swal_adequacy->swal_eliminar_ade,
+                                    'swal_info_eliminar_ade'    => $swal_adequacy->swal_info_eliminar_ade,       
+                                    'swal_advertencia_ade'      => $swal_adequacy->swal_advertencia_ade,
+                                    'swal_info_advertencia_ade' => $swal_adequacy->swal_info_advertencia_ade,
+                                ]); 
     }
 
     public function dataTable()

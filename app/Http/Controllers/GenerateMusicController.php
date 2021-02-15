@@ -9,6 +9,7 @@ use App\Music;
 use App\Setting;
 use App\Ml_dashboard;
 use App\Ml_musical_genre;
+use App\Swal_musical;
 use App\ManyLenguages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,7 @@ class GenerateMusicController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_gm      = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gm    = Swal_musical::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
@@ -39,7 +41,8 @@ class GenerateMusicController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_gm'     => $ml_gm
+            'ml_gm'     => $ml_gm,
+            'swal_gm'   => $swal_gm
         ]);    
     }
 
@@ -88,6 +91,13 @@ class GenerateMusicController extends Controller
                 $musical->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_gm = Swal_musical::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_mus'        => $swal_gm->swal_exito_mus,
+                                            'swal_info_exito_mus'   => $swal_gm->swal_info_exito_mus                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -156,6 +166,13 @@ class GenerateMusicController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_gm = Swal_musical::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_mus'        => $swal_gm->swal_exito_mus,
+                                            'swal_info_exito_mus'   => $swal_gm->swal_info_exito_mus                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -172,6 +189,8 @@ class GenerateMusicController extends Controller
     public function destroy($id)
     {
         $genre = Music::where('generate_musics_id', $id)->get();
+        $session = session('idiomas');
+        $swal_gm = Swal_musical::where('many_lenguages_id',$session)->first();
       
         if($genre->isEmpty())
         {  
@@ -182,7 +201,14 @@ class GenerateMusicController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);          
+        return response()->json([
+                                    'data'                      => $bandera,
+                                    'swal_exito_mus'            => $swal_gm->swal_exito_mus,
+                                    'swal_eliminar_mus'         => $swal_gm->swal_eliminar_mus,
+                                    'swal_info_eliminar_mus'    => $swal_gm->swal_info_eliminar_mus,       
+                                    'swal_advertencia_mus'      => $swal_gm->swal_advertencia_mus,
+                                    'swal_info_advertencia_mus' => $swal_gm->swal_info_advertencia_mus,
+                                ]);          
     }
 
     public function dataTable()

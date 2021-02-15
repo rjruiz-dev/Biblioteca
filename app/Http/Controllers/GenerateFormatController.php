@@ -9,6 +9,7 @@ use App\Movies;
 use App\Photography;
 use App\Generate_format;
 use App\Ml_graphic_format;
+use App\Swal_graphic_format;
 use App\Ml_dashboard;
 use App\Setting;
 use App\ManyLenguages;
@@ -33,6 +34,7 @@ class GenerateFormatController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();     
         $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
+        $swal_fg    = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
@@ -40,7 +42,9 @@ class GenerateFormatController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_fg'     => $ml_fg
+            'ml_fg'     => $ml_fg,
+            'swal_fg'   => $swal_fg
+
         ]);
     }
 
@@ -89,6 +93,13 @@ class GenerateFormatController extends Controller
                 $format->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_fg = Swal_graphic_format::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_gra'        => $swal_fg->swal_exito_gra,
+                                            'swal_info_exito_gra'   => $swal_fg->swal_info_exito_gra                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -157,6 +168,13 @@ class GenerateFormatController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_fg = Swal_graphic_format::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_gra'        => $swal_fg->swal_exito_gra,
+                                            'swal_info_exito_gra'   => $swal_fg->swal_info_exito_gra                                     
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -172,9 +190,11 @@ class GenerateFormatController extends Controller
      */
     public function destroy($id)
     {       
-        $format_music = Music::where('generate_formats_id', $id)->get();
-        $format_movie = Movies::where('generate_formats_id', $id)->get();
+        $format_music       = Music::where('generate_formats_id', $id)->get();
+        $format_movie       = Movies::where('generate_formats_id', $id)->get();
         $format_photography = Photography::where('generate_formats_id', $id)->get();
+        $session            = session('idiomas');
+        $swal_fg            = Swal_graphic_format::where('many_lenguages_id',$session)->first();
 
         if($format_music->isEmpty() && $format_movie->isEmpty() &&  $format_photography->isEmpty())        
         {  
@@ -186,7 +206,14 @@ class GenerateFormatController extends Controller
 
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);  
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito_gra'            => $swal_fg->swal_exito_gra,
+                                    'swal_eliminar_gra'         => $swal_fg->swal_eliminar_gra,                                  
+                                    'swal_info_eliminar_gra'    => $swal_fg->swal_info_eliminar_gra,   
+                                    'swal_advertencia_gra'      => $swal_fg->swal_advertencia_gra,
+                                    'swal_info_advertencia_gra' => $swal_fg->swal_info_advertencia_gra,                          
+                                ]);  
     }
 
     public function dataTable()

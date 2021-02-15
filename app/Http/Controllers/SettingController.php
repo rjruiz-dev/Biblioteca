@@ -7,6 +7,7 @@ use App\Ml_dashboard;
 use App\Fine;
 use App\ManyLenguages;
 use App\Ml_library_profile;
+use App\Swal_setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,10 +27,11 @@ class SettingController extends Controller
 
         $session = session('idiomas'); 
 
-        $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $ml_library = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
-        $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();        
+        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_library     = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
+        $swal_library   = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
+        $setting        = Setting::where('id', 1)->first();
+        $idiomas        = ManyLenguages::all();        
           
         $multas = Fine::all(); //obtengo las 2 multas. solo esta la econimica y la suspension de prestamos
         // dd($multas);
@@ -41,6 +43,7 @@ class SettingController extends Controller
             'idiomas'    => $idiomas,
             'setting'    => $setting,
             'ml_library'        => $ml_library,
+            'swal_library'      => $swal_library,
             'multa_economica'   => $multa_economica,
             'multa_suspension'  => $multa_suspension
         ]);
@@ -152,6 +155,13 @@ class SettingController extends Controller
                 $setting->save();
                 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_library = Swal_setting::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_set'        => $swal_library->swal_exito_set,
+                                            'swal_info_exito_set'   => $swal_library->swal_info_exito_set                                      
+                                        ]);
 
             } catch (Exception $e) {
                 // anula la transacion

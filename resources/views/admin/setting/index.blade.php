@@ -208,11 +208,6 @@
 
     <script>
 $('.colorpicker').colorpicker({});
-
-
-
- 
-
     var checkbox_economica = document.getElementById('group_economica');
     checkbox_economica.addEventListener( 'change', function() {
         if(this.checked) {
@@ -279,11 +274,15 @@ $('#btn-save').click(function (event) {
         processData: false,
         contentType: false,
         success: function (response) {                    
-            $("#logo-img").load(" #logo-img"); 
+            $("#logo-img").load(" #logo-img");
+            
+            var swal_exito_set = response.swal_exito_set;
+            var swal_info_exito_set = response.swal_info_exito_set;
+
             swal({
                 type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
+                title: swal_exito_set,
+                text: swal_info_exito_set
             }).then(function() {
                 window.location.reload(); 
             });

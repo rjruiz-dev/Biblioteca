@@ -10,6 +10,7 @@ use App\Setting;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Ml_cinematographic_genre;
+use App\Swal_cinematographic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveFilmRequest;
@@ -32,6 +33,7 @@ class GenerateFilmController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_gc      = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
+        $swal_gc    = Swal_cinematographic::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
     
@@ -39,7 +41,8 @@ class GenerateFilmController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_gc'     => $ml_gc
+            'ml_gc'     => $ml_gc,
+            'swal_gc'   => $swal_gc
 
         ]);  
     }
@@ -89,6 +92,14 @@ class GenerateFilmController extends Controller
                 $film->save();
 
                 DB::commit();
+
+                $session = session('idiomas');
+                $swal_gc = Swal_cinematographic::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_cin'        => $swal_gc->swal_exito_cin,
+                                            'swal_info_exito_cin'   => $swal_gc->swal_info_exito_cin                                      
+                                        ]);
+
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -157,6 +168,13 @@ class GenerateFilmController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_gc = Swal_cinematographic::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_cin'        => $swal_gc->swal_exito_cin,
+                                            'swal_info_exito_cin'   => $swal_gc->swal_info_exito_cin                                      
+                                        ]);
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -173,6 +191,8 @@ class GenerateFilmController extends Controller
     public function destroy($id)
     {
         $genre = Movies::where('generate_films_id', $id)->get();
+        $session = session('idiomas');
+        $swal_gc = Swal_cinematographic::where('many_lenguages_id',$session)->first();
       
         if($genre->isEmpty())
         {  
@@ -183,7 +203,14 @@ class GenerateFilmController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);  
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito_cin'            => $swal_gc->swal_exito_cin,
+                                    'swal_eliminar_cin'         => $swal_gc->swal_eliminar_cin,
+                                    'swal_info_eliminar_cin'    => $swal_gc->swal_info_eliminar_cin,       
+                                    'swal_advertencia_cin'      => $swal_gc->swal_advertencia_cin,
+                                    'swal_info_advertencia_cin' => $swal_gc->swal_info_advertencia_cin,
+                                ]);  
     }
 
     public function dataTable()

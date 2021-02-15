@@ -4,6 +4,7 @@
     <h1>
         {{ $ml_adequacy->titulo_adequacy }}
     </h1>
+    {{ Form::hidden('swal_eliminar_ade', $swal_adequacy->swal_eliminar_ade, ['id' => 'swal_eliminar_ade']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Personas Adecuadas</li>

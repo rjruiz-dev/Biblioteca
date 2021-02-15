@@ -8,6 +8,7 @@ use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Generate_letter;
 use App\Ml_letter;
+use App\Swal_letter;
 use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,7 @@ class GenerateLetterController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
+        $swal_letter= Swal_letter::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
         $idiomas    = ManyLenguages::all();
         
@@ -39,7 +41,8 @@ class GenerateLetterController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
-            'ml_letter' => $ml_letter
+            'ml_letter' => $ml_letter,
+            'swal_letter' => $swal_letter
         ]); 
         
     }
@@ -91,6 +94,14 @@ class GenerateLetterController extends Controller
                 $letter->save();
 
                 DB::commit();
+                
+                $session = session('idiomas');
+                $swal_letter = Swal_letter::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_let'        => $swal_letter->swal_exito_let,
+                                            'swal_info_exito_let'   => $swal_letter->swal_info_exito_let                                      
+                                        ]);
+
 
             } catch (Exception $e) {
                 // anula la transacion
@@ -161,6 +172,14 @@ class GenerateLetterController extends Controller
                  
                 DB::commit();
 
+                $session = session('idiomas');
+                $swal_letter = Swal_letter::where('many_lenguages_id',$session)->first();
+                return response()->json([   
+                                            'swal_exito_let'        => $swal_letter->swal_exito_let,
+                                            'swal_info_exito_let'   => $swal_letter->swal_info_exito_let                                      
+                                        ]);
+
+
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -177,6 +196,8 @@ class GenerateLetterController extends Controller
     public function destroy($id)
     {
         $genre = Generate_letter::where('letters_id', $id)->get();
+        $session = session('idiomas');
+        $swal_letter = Swal_letter::where('many_lenguages_id',$session)->first();
       
         if($genre->isEmpty())
         {  
@@ -187,7 +208,14 @@ class GenerateLetterController extends Controller
         }else{          
             $bandera = 0;            
         }
-        return response()->json(['data' => $bandera]);  
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito_let'            => $swal_letter->swal_exito_let,
+                                    'swal_eliminar_let'         => $swal_letter->swal_eliminar_let,
+                                    'swal_info_eliminar_let'    => $swal_letter->swal_info_eliminar_let,       
+                                    'swal_advertencia_let'      => $swal_letter->swal_advertencia_let,
+                                    'swal_info_advertencia_let' => $swal_letter->swal_info_advertencia_let,
+                                ]);  
     }
 
     public function dataTable()

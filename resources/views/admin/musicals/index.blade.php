@@ -2,8 +2,9 @@
 
 @section('header')    
     <h1>
-        {{ $ml_gm->titulo_gm }}MANTENIMIENTO DE GENEROS       
+        {{ $ml_gm->titulo_gm }}
     </h1>
+    {{ Form::hidden('swal_eliminar_mus', $swal_gm->swal_eliminar_mus, ['id' => 'swal_eliminar_mus']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Géneros Musicales</li>
