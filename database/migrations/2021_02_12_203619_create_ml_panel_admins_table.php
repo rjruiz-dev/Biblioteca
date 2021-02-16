@@ -23,7 +23,7 @@ class CreateMlPanelAdminsTable extends Migration
             $table->string('documentos')->nullable();
             $table->string('documentos_registrados')->nullable();
             $table->string('prestamos')->nullable();
-            $table->string('Prestamos registrados')->nullable();
+            $table->string('prestamos_registrados')->nullable();
             $table->string('prestamos_vencidos')->nullable();
             $table->string('vencidos_registrados')->nullable();
             $table->string('usuarios')->nullable();
