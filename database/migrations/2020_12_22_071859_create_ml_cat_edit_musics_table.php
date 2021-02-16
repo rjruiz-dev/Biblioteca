@@ -22,6 +22,8 @@ class CreateMlCatEditMusicsTable extends Migration
             $table->string('compl_area_de_titulo')->nullable();
             $table->string('compl_area_de_edicion')->nullable();
             $table->string('compl_area_de_contenidos')->nullable();
+            $table->string('compl_btn_cancelar')->nullable();
+            $table->string('compl_btn_guardar')->nullable();
             
             $table->string('cuerpo_tipo_de_musica')->nullable();
             $table->string('cuerpo_titulo_de_la_obra')->nullable();
