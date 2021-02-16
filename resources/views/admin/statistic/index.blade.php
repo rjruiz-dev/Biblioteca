@@ -193,7 +193,6 @@
 </div>
 @stop
 
-@include('admin.fastprocess.partials._modal')
 @stack('script')
 @push('styles')
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
