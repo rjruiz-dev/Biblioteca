@@ -2,9 +2,9 @@
 
 @section('header')    
     <h1>
-        {{ $ml_subject->titulo_subject }}     
+        {{ $ml_subject['titulo_subject'] }}     
     </h1>
-    {{ Form::hidden('swal_eliminar_sub', $swal_subject->swal_eliminar_sub, ['id' => 'swal_eliminar_sub']) }}
+    {{ Form::hidden('swal_eliminar_sub', $swal_subject['swal_eliminar_sub'], ['id' => 'swal_eliminar_sub']) }}
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Materias</li>
@@ -14,9 +14,9 @@
 @section('content')
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-            <h3 class="panel-title">{{ $ml_subject->subtitulo_subject }}
+            <h3 class="panel-title">{{ $ml_subject['subtitulo_subject'] }}
           
-                <a href="{{ route('admin.subjects.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_subject->btn_crear_subject }}"><i class="fa fa-user-plus"></i> {{ $ml_subject->btn_crear_subject }}</a>
+                <a href="{{ route('admin.subjects.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="{{ $ml_subject['btn_crear_subject'] }}"><i class="fa fa-user-plus"></i> {{ $ml_subject['btn_crear_subject'] }}</a>
     
             </h3>
         </div>
@@ -24,11 +24,11 @@
             <table id="datatable" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>{{ $ml_subject->dt_id_subject }}</th>
-                        <th>{{ $ml_subject->dt_subject }}</th>  
-                        <th>{{ $ml_subject->dt_cdu_subject }}</th>                       
-                        <th>{{ $ml_subject->dt_agregado_subject }}</th>                                
-                        <th>{{ $ml_subject->dt_acciones_subject }}</th>
+                        <th>{{ $ml_subject['dt_id_subject'] }}</th>
+                        <th>{{ $ml_subject['dt_subject'] }}</th>  
+                        <th>{{ $ml_subject['dt_cdu_subject'] }}</th>                       
+                        <th>{{ $ml_subject['dt_agregado_subject'] }}</th>                                
+                        <th>{{ $ml_subject['dt_acciones_subject'] }}</th>
                     </tr>
                 </thead>
                 <tbody>
