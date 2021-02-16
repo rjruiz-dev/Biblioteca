@@ -12,7 +12,7 @@ class ml_cat_edit_fotografia extends Model
         'compl_area_de_edicion', 
         'compl_area_de_contenidos',
         'compl_btn_cancelar',
-            'compl_btn_guardar', 
+        'compl_btn_guardar', 
         
             'cuerpo_tipo_de_fotografia',
             'ph_cuerpo_tipo_de_fotografia',
