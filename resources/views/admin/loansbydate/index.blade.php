@@ -68,7 +68,7 @@
     </div> 
 @stop
 
-@include('admin.movies.partials._modal')
+
 
 @push('styles')
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
