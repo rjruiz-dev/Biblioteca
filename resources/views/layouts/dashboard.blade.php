@@ -2,7 +2,7 @@
 
 @section('header')        
     <h1>
-    {{$ml_panel_admin->panel_de_control}} 
+    {{$ml_panel_admin['panel_de_control']}} 
         <small>Version 1.0 </small>
     </h1>
     <ol class="breadcrumb">
@@ -18,7 +18,7 @@
             <div class="inner">
                 @foreach($documentos as $documento)
                     <span class="info-box-text">                          
-                    {{$ml_panel_admin->documentos}} 
+                    {{$ml_panel_admin['documentos']}} 
                     </span>     
                     <h4>
                         <font style="vertical-align: inherit;">
@@ -27,7 +27,7 @@
                         </font>
                         </font>
                     </h4>
-                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> {{$ml_panel_admin->documentos_registrados}} </font></font></p>
+                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> {{$ml_panel_admin['documentos_registrados']}} </font></font></p>
                 @endforeach	
             </div>
             <div class="icon">
@@ -40,7 +40,7 @@
             <div class="inner">
                 @foreach($prestamos as $prestamo)
                     <span class="info-box-text">                          
-                    {{$ml_panel_admin->prestamos}}
+                    {{$ml_panel_admin['prestamos']}}
                     </span>     
                     <h4>
                         <font style="vertical-align: inherit;">
@@ -49,7 +49,7 @@
                         </font>
                         </font>
                     </h4>
-                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$ml_panel_admin->prestamos_registrados}}</font></font></p>
+                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$ml_panel_admin['prestamos_registrados']}}</font></font></p>
                 @endforeach	
             </div>
             <div class="icon">
@@ -62,7 +62,7 @@
             <div class="inner">
                 @foreach($prestamos_vencidos as $vencido)
                     <span class="info-box-text">                          
-                    {{$ml_panel_admin->prestamos_vencidos}}
+                    {{$ml_panel_admin['prestamos_vencidos']}}
                     </span>     
                     <h4>
                         <font style="vertical-align: inherit;">
@@ -71,7 +71,7 @@
                         </font>
                         </font>
                     </h4>
-                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$ml_panel_admin->vencidos_registrados}}</font></font></p>
+                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$ml_panel_admin['vencidos_registrados']}}</font></font></p>
                 @endforeach	
             </div>
             <div class="icon">
@@ -85,7 +85,7 @@
             <div class="inner">
                 @foreach($socios as $socio)
                     <span class="info-box-text">                          
-                    {{$ml_panel_admin->usuarios}}
+                    {{$ml_panel_admin['usuarios']}}
                     </span>     
                     <h4>
                         <font style="vertical-align: inherit;">
@@ -94,7 +94,7 @@
                         </font>
                         </font>
                     </h4>
-                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$ml_panel_admin->usuarios_registrados}}</font></font></p>
+                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$ml_panel_admin['usuarios_registrados']}}</font></font></p>
                 @endforeach	
             </div>
             <div class="icon">
@@ -107,20 +107,20 @@
 
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-        <h3 class="panel-title">{{$ml_panel_admin->ultimos_cinco_prestamos}}</h3>
+        <h3 class="panel-title">{{$ml_panel_admin['ultimos_cinco_prestamos']}}</h3>
     </div>
     <div class="panel-body">
         <table id="datatable" class="table table-hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>{{$ml_panel_admin->pres_id}}</th>                     
-                    <th>{{$ml_panel_admin->pres_prefil}}</th>       
-                    <th>{{$ml_panel_admin->pres_nombre}}</th>                                           
-                    <th>{{$ml_panel_admin->pres_email}}</th>
-                    <th>{{$ml_panel_admin->pres_titulo}}</th>  
-                    <th>{{$ml_panel_admin->pres_fecha_devolucion}}</th>   
-                    <th>{{$ml_panel_admin->pres_n_ejemplar}}</th>
-                    <th>{{$ml_panel_admin->pres_cant_prestamos}}</th>                    
+                    <th>{{$ml_panel_admin['pres_id']}}</th>                     
+                    <th>{{$ml_panel_admin['pres_prefil']}}</th>       
+                    <th>{{$ml_panel_admin['pres_nombre']}}</th>                                           
+                    <th>{{$ml_panel_admin['pres_email']}}</th>
+                    <th>{{$ml_panel_admin['pres_titulo']}}</th>  
+                    <th>{{$ml_panel_admin['pres_fecha_devolucion']}}</th>   
+                    <th>{{$ml_panel_admin['pres_n_ejemplar']}}</th>
+                    <th>{{$ml_panel_admin['pres_cant_prestamos']}}</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -132,20 +132,20 @@
 
 <div class="panel panel-primary" style="border-color: {{ $setting->skin }};"> 
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
-        <h3 class="panel-title">{{$ml_panel_admin->prestamos_vencidos}}</h3>
+        <h3 class="panel-title">{{$ml_panel_admin['prestamos_vencidos']}}</h3>
     </div>
     <div class="panel-body">
         <table id="datatable1" class="table table-hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>{{$ml_panel_admin->venc_id}}</th>                     
-                    <th>{{$ml_panel_admin->venc_perfil}}</th>       
-                    <th>{{$ml_panel_admin->venc_nombre}}</th>                                           
-                    <th>{{$ml_panel_admin->venc_email}}</th>
-                    <th>{{$ml_panel_admin->venc_titulo}}</th>  
-                    <th>{{$ml_panel_admin->venc_fecha_devolucion}}</th>   
-                    <th>{{$ml_panel_admin->venc_n_ejemplar}}</th>
-                    <th>{{$ml_panel_admin->venc_cant_prestamos}}</th>                    
+                    <th>{{$ml_panel_admin['venc_id']}}</th>                     
+                    <th>{{$ml_panel_admin['venc_perfil']}}</th>       
+                    <th>{{$ml_panel_admin['venc_nombre']}}</th>                                           
+                    <th>{{$ml_panel_admin['venc_email']}}</th>
+                    <th>{{$ml_panel_admin['venc_titulo']}}</th>  
+                    <th>{{$ml_panel_admin['venc_fecha_devolucion']}}</th>   
+                    <th>{{$ml_panel_admin['venc_n_ejemplar']}}</th>
+                    <th>{{$ml_panel_admin['venc_cant_prestamos']}}</th>                    
                 </tr>
             </thead>
             <tbody>
