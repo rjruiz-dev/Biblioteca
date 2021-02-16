@@ -24,11 +24,11 @@
                     </div>              
                 </div>
                 <div class="box-body box-profile" id="logo-img">
-                    <div class="text-center">      
+                    <div class="text-center" style="height:320px;">      
                         <img class="img-responsive img-thumbnail"
                             src="/images/{{ $setting->logo }}" 
                             alt="{{ $setting->library_name }}"                           
-                            style="width:300px; height:300px">              
+                            style="width:300px;">              
                     </div>              
                 
                     <h3 class="profile-username text-center"><strong>{{ $setting->library_name }}</strong></h3>  
@@ -203,8 +203,7 @@
 
 @push('scripts')  
     <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>  
-    <!-- <script src="{{ asset('js/setting.js') }}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>    
 
     <script>
 $('.colorpicker').colorpicker({});
