@@ -288,7 +288,7 @@ class VMultimediaController extends Controller
                     '<i class="fa fa-music"></i>'.' '.$multimedia->document['title']."<br>".
                     '<i class="fa fa-user"></i>'.' '.$multimedia->document->creator->creator_name."<br>";         
             })
-            ->addColumn('photo', function ($multimedia){                
+            ->addColumn('photo', function ($multimedia){  
                 if($multimedia->document['photo'] == null){
                     $url=asset("./images/doc-default.jpg");
                 }else{
@@ -298,9 +298,10 @@ class VMultimediaController extends Controller
                         $url=asset("./images/doc-default.jpg");  
                     }
                      
-                }
-                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
-               
+                }              
+    
+                return '<img src='.$url.' style="width: 90px; margin-left: -25px; border: 3px solid #d2d6de; padding: 3px;" class="img-rounded" />';
+                 
             })
             ->addColumn('status', function ($multimedia){
 

@@ -1006,7 +1006,7 @@ class PhotographyController extends Controller
 
                 return  $photograph->document->document_subtype['subtype_name'];              
             })      
-            ->addColumn('photo', function ($photograph){                
+            ->addColumn('photo', function ($photograph){  
                 if($photograph->document['photo'] == null){
                     $url=asset("./images/doc-default.jpg");
                 }else{
@@ -1016,9 +1016,10 @@ class PhotographyController extends Controller
                         $url=asset("./images/doc-default.jpg");  
                     }
                      
-                }
-                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
-               
+                }              
+    
+                return '<img src='.$url.' style="width: 90px; margin-left: -25px; border: 3px solid #d2d6de; padding: 3px;" class="img-rounded" />';
+                
             })      
             ->addColumn('generate_formats_id', function ($photograph){
                 if($photograph->generate_format['genre_format'] == null){

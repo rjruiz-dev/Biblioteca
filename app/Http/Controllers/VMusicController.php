@@ -303,7 +303,7 @@ class VMusicController extends Controller
 
                 return  $musica->document->document_subtype->subtype_name;              
             }) 
-            ->addColumn('photo', function ($musica){                
+            ->addColumn('photo', function ($musica){  
                 if($musica->document['photo'] == null){
                     $url=asset("./images/doc-default.jpg");
                 }else{
@@ -313,9 +313,10 @@ class VMusicController extends Controller
                         $url=asset("./images/doc-default.jpg");  
                     }
                      
-                }
-                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
-               
+                }              
+    
+                return '<img src='.$url.' style="width: 90px; margin-left: -25px; border: 3px solid #d2d6de; padding: 3px;" class="img-rounded" />';
+                
             })
             ->addColumn('generate_musics_id', function ($musica){
                 if($musica->generate_music['genre_music'] == null){

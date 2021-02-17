@@ -326,10 +326,10 @@ class VBooksController extends Controller
                         $url=asset("./images/doc-default.jpg");  
                     }
                      
-                }             
+                }              
     
-                return '<img src='.$url.' border="0" width="80" height="80" class="img-rounded" align="center" />';
-               
+                return '<img src='.$url.' style="width: 90px; margin-left: -25px; border: 3px solid #d2d6de; padding: 3px;" class="img-rounded" />';
+                
             }) 
             ->addColumn('generate_books_id', function ($libros){
                 if($libros->generate_book['genre_book'] == null){
