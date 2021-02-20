@@ -86,8 +86,8 @@
                     {!! Form::text('dt_titulo_ld', $ml_ld['dt_titulo_ld'] ? $ml_ld['dt_titulo_ld'] : null, ['class' => 'form-control', 'id' => 'dt_titulo_ld', 'placeholder' => 'Titulo']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_titpodoc_ld', 'Tipo Documento') !!}                    
-                    {!! Form::text('dt_titpodoc_ld', $ml_ld['dt_titpodoc_ld'] ? $ml_ld['dt_titpodoc_ld'] : null, ['class' => 'form-control', 'id' => 'dt_titpodoc_ld', 'placeholder' => 'Tipo Documento']) !!}
+                    {!! Form::label('dt_tipodoc_ld', 'Tipo Documento') !!}                    
+                    {!! Form::text('dt_tipodoc_ld', $ml_ld['dt_tipodoc_ld'] ? $ml_ld['dt_tipodoc_ld'] : null, ['class' => 'form-control', 'id' => 'dt_tipodoc_ld', 'placeholder' => 'Tipo Documento']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('dt_subtipodoc_ld', 'Subtipo Documento') !!}                    
@@ -181,8 +181,8 @@
                     {!! Form::text('dt_autor_lc', $ml_lc['dt_autor_lc'] ? $ml_lc['dt_autor_lc'] : null, ['class' => 'form-control', 'id' => 'dt_autor_lc', 'placeholder' => 'Autor']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_titpodoc_lc', 'Tipo Documento') !!}                    
-                    {!! Form::text('dt_titpodoc_lc', $ml_lc['dt_titpodoc_lc'] ? $ml_lc['dt_titpodoc_lc'] : null, ['class' => 'form-control', 'id' => 'dt_titpodoc_lc', 'placeholder' => 'Tipo Documento']) !!}
+                    {!! Form::label('dt_tipodoc_lc', 'Tipo Documento') !!}                    
+                    {!! Form::text('dt_tipodoc_lc', $ml_lc['dt_tipodoc_lc'] ? $ml_lc['dt_tipodoc_lc'] : null, ['class' => 'form-control', 'id' => 'dt_tipodoc_lc', 'placeholder' => 'Tipo Documento']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('dt_subtipodoc_lc', 'Subtipo Documento') !!}                    

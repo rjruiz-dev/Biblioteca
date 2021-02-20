@@ -11,8 +11,8 @@
         </div>
         <div class="box-body">
             <div class="form-group">
-                {!! Form::label('genre_music', $ml_gm->mod_subtitulo_gm ) !!}
-                {!! Form::text('genre_music', null, ['class' => 'form-control', 'id' => 'genre_music', 'placeholder' =>  $ml_gm->mod_subtitulo_gm ]) !!}                                      
+                {!! Form::label('genre_music', $ml_gm->cam_gm ) !!}
+                {!! Form::text('genre_music', null, ['class' => 'form-control', 'id' => 'genre_music', 'placeholder' =>  $ml_gm->cam_gm ]) !!}                                      
             </div>
         </div>
     </div>

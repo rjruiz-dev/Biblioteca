@@ -113,7 +113,8 @@
                     }
                 }
                 
-            ],             
+            ],
+                         
             ajax: "{{ route('references.table') }}",        
             columns: [                
                 {data: 'id', name: 'id'},               
