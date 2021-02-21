@@ -1,4 +1,4 @@
-$('body').on('click', '.modal-show', function (event) {
+$('body').on('click', '.modal-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -7,30 +7,30 @@ $('body').on('click', '.modal-show', function (event) {
 
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+        .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
 
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
-            
-     
+
+
             $('#datepicker').datepicker({
                 autoclose: true,
-                todayHighlight: true,  
-                format: 'dd-mm-yyyy',                       
+                todayHighlight: true,
+                format: 'dd-mm-yyyy',
                 language: 'es'
-            });   
-                   
-                 
+            });
+
+
         }
     });
 
     $('#modal').modal('show');
 });
 
-$('#modal-btn-save').click(function (event) {
+$('#modal-btn-save').click(function(event) {
     event.preventDefault();
 
     var form = $('#modal-body form'),
@@ -41,24 +41,24 @@ $('#modal-btn-save').click(function (event) {
     form.find('.form-group').removeClass('has-error');
 
     $.ajax({
-        url : url,
+        url: url,
         method: method,
-        data : form.serialize(),
-        success: function (response) {
+        data: form.serialize(),
+        success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            // $('#datatable').DataTable().ajax.reload();
+            // $('#datatable').DataTable().ajax.reload(null, false);
 
             swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
+                type: 'success',
+                title: '¡Éxito!',
+                text: '¡Se han guardado los datos!'
             });
         },
-        error : function (xhr) {
+        error: function(xhr) {
             var res = xhr.responseJSON;
             if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
+                $.each(res.errors, function(key, value) {
                     $('#' + key)
                         .closest('.form-group')
                         .addClass('has-error')
@@ -85,7 +85,7 @@ $('#modal-btn-save').click(function (event) {
 //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 //         },
 //     });
-    
+
 //     $.ajax({
 //         url : url + '?' + form.serialize(),
 //         method: method,
@@ -96,7 +96,7 @@ $('#modal-btn-save').click(function (event) {
 //         success: function (response) {
 //             form.trigger('reset');
 //             $('#modal').modal('hide');
-//             $('#datatable').DataTable().ajax.reload();
+//             $('#datatable').DataTable().ajax.reload(null, false);
 
 //             swal({
 //                 type : 'success',

@@ -154,11 +154,11 @@ $('#modal-btn-save').click(function(event) {
             var mensaje_exito = response.mensaje_exito;
             var actualizacion_copia = response.actualizacion_copia;
             var alta_copia = response.alta_copia;
-            
-            
+
+
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
             if (bandera == 0) { // si es store 
                 if (data == true) {
                     swal({
@@ -237,7 +237,7 @@ $('body').on('click', '.btn-delete', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: '¡Éxito!',

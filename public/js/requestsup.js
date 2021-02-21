@@ -1,4 +1,4 @@
-$('body').on('click', '.modal-show', function (event) {
+$('body').on('click', '.modal-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -7,23 +7,23 @@ $('body').on('click', '.modal-show', function (event) {
 
     $('#modal-title').text(title);
     $('#modal-btn-save').removeClass('hide')
-    .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
+        .text(me.hasClass('edit') ? 'Actualizar' : 'Crear');
 
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
-            
-          
-                 
+
+
+
         }
     });
 
     $('#modal').modal('show');
 });
 
-$('#modal-btn-save').click(function (event) {
+$('#modal-btn-save').click(function(event) {
     event.preventDefault();
 
     var form = $('#modal-body form'),
@@ -34,25 +34,25 @@ $('#modal-btn-save').click(function (event) {
     form.find('.form-group').removeClass('has-error');
 
     $.ajax({
-        url : url,
+        url: url,
         method: method,
-        data : form.serialize(),
-        success: function (response) {
+        data: form.serialize(),
+        success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            // $('#datatable').DataTable().ajax.reload();
+            // $('#datatable').DataTable().ajax.reload(null, false);
             $("#recargar").load(" #recargar");
 
             swal({
-                type : 'success',
-                title : '¡Éxito!',
-                text : '¡Se han guardado los datos!'
+                type: 'success',
+                title: '¡Éxito!',
+                text: '¡Se han guardado los datos!'
             });
         },
-        error : function (xhr) {
+        error: function(xhr) {
             var res = xhr.responseJSON;
             if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
+                $.each(res.errors, function(key, value) {
                     $('#' + key)
                         .closest('.form-group')
                         .addClass('has-error')
@@ -64,9 +64,9 @@ $('#modal-btn-save').click(function (event) {
 });
 
 
-$('body').on('click', '.btn-desestimar', function (event) {
+$('body').on('click', '.btn-desestimar', function(event) {
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
@@ -89,25 +89,25 @@ $('body').on('click', '.btn-desestimar', function (event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
+                success: function(response) {
                     var info = response.error;
                     $('#modal').modal('hide');
-                    $('#datatable').DataTable().ajax.reload();
-                    if(info == 0){
-                    swal({
-                        type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡La solicitud ha sido rechazada!'
-                    });
-                }else{
-                    swal({
-                        type : 'error',
-                        title : '¡Error!',
-                        text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
-                    });
-                }
+                    $('#datatable').DataTable().ajax.reload(null, false);
+                    if (info == 0) {
+                        swal({
+                            type: 'success',
+                            title: '¡Éxito!',
+                            text: '¡La solicitud ha sido rechazada!'
+                        });
+                    } else {
+                        swal({
+                            type: 'error',
+                            title: '¡Error!',
+                            text: '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
+                        });
+                    }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -119,15 +119,15 @@ $('body').on('click', '.btn-desestimar', function (event) {
     });
 });
 
-$('body').on('click', '.btn-delete', function (event) {
+$('body').on('click', '.btn-delete', function(event) {
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         // title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-        aceptar_socio = $('#preg_aceptar_socio').val();
+    aceptar_socio = $('#preg_aceptar_socio').val();
 
     swal({
         title: aceptar_socio,
@@ -146,19 +146,19 @@ $('body').on('click', '.btn-delete', function (event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
+                success: function(response) {
 
                     var mensaje_exito_solicitud = response.mensaje_exito_solicitud;
                     var resp_aceptar_socio = response.resp_aceptar_socio;
 
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito_solicitud,
                         text: resp_aceptar_socio
                     });
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -170,15 +170,15 @@ $('body').on('click', '.btn-delete', function (event) {
     });
 });
 
-$('body').on('click', '.btn-rechazar', function (event) {
+$('body').on('click', '.btn-rechazar', function(event) {
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-        rechazar_socio = $('#preg_rechazar_socio').val();
+    rechazar_socio = $('#preg_rechazar_socio').val();
 
     swal({
         title: rechazar_socio,
@@ -197,19 +197,19 @@ $('body').on('click', '.btn-rechazar', function (event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
+                success: function(response) {
 
                     var mensaje_exito_solicitud = response.mensaje_exito_solicitud;
                     var resp_rechazar_socio = response.resp_rechazar_socio;
 
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito_solicitud,
                         text: resp_rechazar_socio
                     });
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -221,7 +221,7 @@ $('body').on('click', '.btn-rechazar', function (event) {
     });
 });
 
-$('body').on('click', '.btn-show', function (event) {
+$('body').on('click', '.btn-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -234,7 +234,7 @@ $('body').on('click', '.btn-show', function (event) {
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
         }
     });

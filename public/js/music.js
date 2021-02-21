@@ -185,7 +185,7 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
 
             var id_new_doc = response.data;
             var bandera = response.bandera;
@@ -193,7 +193,7 @@ $('#modal-btn-save').click(function(event) {
             var mensaje_exito = response.mensaje_exito;
             var actualizacion_documento = response.actualizacion_documento;
             var alta_documento = response.alta_documento;
-            
+
 
             console.log("id: " + id_new_doc);
             console.log("bandera: " + bandera);
@@ -236,9 +236,9 @@ $('body').on('click', '.btn-solicitud', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
-        
-        preg_solicitar_documento = $('#preg_solicitar_documento').val();
-    
+
+    preg_solicitar_documento = $('#preg_solicitar_documento').val();
+
     swal({
         title: preg_solicitar_documento,
         // text: '¡No podrás revertir esto!',
@@ -260,9 +260,9 @@ $('body').on('click', '.btn-solicitud', function(event) {
                     var info = response.error;
                     var mensaje_exito = response.mensaje_exito;
                     var resp_solicitar_documento = response.resp_solicitar_documento;
-                    
+
                     $('#modal').modal('hide');
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     if (info == 0) {
                         swal({
                             type: 'success',
@@ -324,7 +324,7 @@ $('body').on('click', '.btn-delete', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
@@ -392,7 +392,7 @@ $('body').on('click', '.btn-desidherata', function(event) {
         csrf_token = $('meta[name="csrf-token"]').attr('content');
     console.log("url: " + url)
     desidherata = $('#preg_desidherata_documento').val();
-    
+
     swal({
 
         title: desidherata,
@@ -415,8 +415,8 @@ $('body').on('click', '.btn-desidherata', function(event) {
 
                     var mensaje_exito = response.mensaje_exito;
                     var resp_desidherata_documento = response.resp_desidherata_documento;
-                   
-                    $('#datatable').DataTable().ajax.reload();
+
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -473,8 +473,8 @@ $('body').on('click', '.btn-baja', function(event) {
 
                     var mensaje_exito = response.mensaje_exito;
                     var baja_rechazar = response.baja_rechazar;
-                    
-                    $('#datatable').DataTable().ajax.reload();
+
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -534,7 +534,7 @@ $('body').on('click', '.btn-reactivar', function(event) {
                     var resp_reactivar_documento = response.resp_reactivar_documento;
 
 
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -669,7 +669,7 @@ function obtenercamposestaticos(accion) {
                 $('#lenguages_id').select2({
                     placeholder: response.ph_cuerpo_idioma,
                 });
-                
+
 
                 // $('#modal-btn-save')
                 document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;
@@ -741,4 +741,3 @@ function yesnoCheck() {
         document.getElementById("din_original_title").style.display = "none";
     }
 }
-

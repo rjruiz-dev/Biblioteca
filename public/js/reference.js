@@ -92,7 +92,6 @@ $('body').on('click', '.btn-delete', function(event) {
                 success: function(response) {
                     $('#datatable').DataTable().ajax.reload(null, false);
 
-
                     var swal_exito_ref = response.swal_exito_ref;
                     var swal_info_eliminar_ref = response.swal_info_eliminar_ref;
                     var swal_advertencia_ref = response.swal_advertencia_ref;

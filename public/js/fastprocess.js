@@ -1,4 +1,4 @@
-$('body').on('click', '.modal-show', function (event) {
+$('body').on('click', '.modal-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -12,30 +12,30 @@ $('body').on('click', '.modal-show', function (event) {
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
-            
-            var date = new Date(); 
-            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
             $('#acquired').datepicker({
                 autoclose: true,
-                todayHighlight: true,  
-                format: 'dd-mm-yyyy',            
+                todayHighlight: true,
+                format: 'dd-mm-yyyy',
                 language: 'es',
-                startDate: today, 
-                endDate:0, 
+                startDate: today,
+                endDate: 0,
                 autoclose: true
             });
-           
-                 
+
+
         }
     });
 
     $('#modal').modal('show');
 });
 
-$('#modal-btn-save').click(function (event) {
+$('#modal-btn-save').click(function(event) {
     event.preventDefault();
 
     var form = $('#modal-body form'),
@@ -46,10 +46,10 @@ $('#modal-btn-save').click(function (event) {
     form.find('.form-group').removeClass('has-error');
 
     $.ajax({
-        url : url,
+        url: url,
         method: method,
-        data : form.serialize(),
-        success: function (response) {
+        data: form.serialize(),
+        success: function(response) {
             var renodev = response.renodev;
             var error = response.error;
 
@@ -59,36 +59,36 @@ $('#modal-btn-save').click(function (event) {
 
             form.trigger('reset');
             $('#modal').modal('hide');
-            // $('#datatable').DataTable().ajax.reload();
+            // $('#datatable').DataTable().ajax.reload(null, false);
             $("#recargar").load(" #recargar");
-            if(error == 0){
-            if(renodev == 3){ //Devolucion
+            if (error == 0) {
+                if (renodev == 3) { //Devolucion
+                    swal({
+                        type: 'success',
+                        title: mensaje_exito_ld,
+                        text: noti_devolucion_ld
+                    });
+                }
+                if (renodev == 2) { //Renovacion
+                    swal({
+                        type: 'success',
+                        title: mensaje_exito_ld,
+                        text: noti_renovacion_ld
+                    });
+                }
+            } else {
                 swal({
-                    type : 'success',
-                    title : mensaje_exito_ld,
-                    text : noti_devolucion_ld
+                    type: 'error',
+                    title: '¡Error!',
+                    text: '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
                 });
             }
-            if(renodev == 2){ //Renovacion
-                swal({
-                    type : 'success',
-                    title : mensaje_exito_ld,
-                    text : noti_renovacion_ld
-                });
-            }
-            }else{
-                swal({
-                    type : 'error',
-                    title : '¡Error!',
-                    text : '¡Hay mas de 1 movimiento con el id copia pasado y con active en 1. Revisar!!'
-                });
-            }
-            
+
         },
-        error : function (xhr) {
+        error: function(xhr) {
             var res = xhr.responseJSON;
             if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
+                $.each(res.errors, function(key, value) {
                     $('#' + key)
                         .closest('.form-group')
                         .addClass('has-error')
@@ -100,9 +100,9 @@ $('#modal-btn-save').click(function (event) {
 });
 
 
-$('body').on('click', '.btn-delete', function (event) {
+$('body').on('click', '.btn-delete', function(event) {
     event.preventDefault();
-   
+
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
@@ -125,15 +125,15 @@ $('body').on('click', '.btn-delete', function (event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
-                success: function (response) {
-                    $('#datatable').DataTable().ajax.reload();
+                success: function(response) {
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
                         text: '¡Los datos han sido eliminados!'
                     });
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     swal({
                         type: 'error',
                         title: 'Ups...',
@@ -145,7 +145,7 @@ $('body').on('click', '.btn-delete', function (event) {
     });
 });
 
-$('body').on('click', '.btn-show', function (event) {
+$('body').on('click', '.btn-show', function(event) {
     event.preventDefault();
 
     var me = $(this),
@@ -158,7 +158,7 @@ $('body').on('click', '.btn-show', function (event) {
     $.ajax({
         url: url,
         dataType: 'html',
-        success: function (response) {
+        success: function(response) {
             $('#modal-body').html(response);
         }
     });

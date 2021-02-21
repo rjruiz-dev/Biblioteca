@@ -37,7 +37,7 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
 
             var swal_exito = response.swal_exito;
             var swal_info_exito = response.swal_info_exito;
@@ -105,7 +105,7 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
 
 
                     if (info == 1) {
-                        $('#datatable').DataTable().ajax.reload();
+                        $('#datatable').DataTable().ajax.reload(null, false);
                         swal({
                             type: 'success',
                             title: swal_exito,

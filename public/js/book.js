@@ -167,7 +167,7 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
 
             var id_new_doc = response.data;
             var bandera = response.bandera;
@@ -218,9 +218,9 @@ $('body').on('click', '.btn-solicitud', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
-        
-        preg_solicitar_documento = $('#preg_solicitar_documento').val();
-    
+
+    preg_solicitar_documento = $('#preg_solicitar_documento').val();
+
     swal({
         title: preg_solicitar_documento,
         // text: '¡No podrás revertir esto!',
@@ -242,9 +242,9 @@ $('body').on('click', '.btn-solicitud', function(event) {
                     var info = response.error;
                     var mensaje_exito = response.mensaje_exito;
                     var resp_solicitar_documento = response.resp_solicitar_documento;
-                    
+
                     $('#modal').modal('hide');
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     if (info == 0) {
                         swal({
                             type: 'success',
@@ -305,7 +305,7 @@ $('body').on('click', '.btn-delete', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
@@ -373,7 +373,7 @@ $('body').on('click', '.btn-desidherata', function(event) {
         csrf_token = $('meta[name="csrf-token"]').attr('content');
     // console.log("url: " + url)
     desidherata = $('#preg_desidherata_documento').val();
-    
+
     swal({
 
         title: desidherata,
@@ -393,11 +393,11 @@ $('body').on('click', '.btn-desidherata', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
 
                     var mensaje_exito = response.mensaje_exito;
                     var resp_desidherata_documento = response.resp_desidherata_documento;
-                    
+
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -424,7 +424,7 @@ $('body').on('click', '.btn-baja', function(event) {
         title = me.attr('title'),
         valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
- 
+
     // console.log("aaaa: " + valor);
     if (valor == 'rechazar') {
         baja_rechazar = $('#preg_rechazar_documento').val();
@@ -454,24 +454,24 @@ $('body').on('click', '.btn-baja', function(event) {
 
                     var mensaje_exito = response.mensaje_exito;
                     var baja_rechazar = response.baja_rechazar;
-                    
 
-                    $('#datatable').DataTable().ajax.reload();
+
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     if (valor != 'rechazar') {
                         swal({
-                        type: 'success',
-                        title: mensaje_exito,
-                        text: baja_rechazar
-                    });
-                    }else{
+                            type: 'success',
+                            title: mensaje_exito,
+                            text: baja_rechazar
+                        });
+                    } else {
                         swal({
-                            type: 'success', 
+                            type: 'success',
                             title: mensaje_exito,
                             text: baja_rechazar
                         }).then(function() {
                             window.location = "/admin/importfromrebeca";
                         });
-                    }   
+                    }
                 },
                 error: function(xhr) {
                     swal({
@@ -526,24 +526,24 @@ $('body').on('click', '.btn-reactivar', function(event) {
                     var resp_reactivar_documento = response.resp_reactivar_documento;
                     var id_doc = response.id_doc;
 
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     if (valor != 'aceptar') {
-                    swal({
-                        type: 'success',
-                        title: mensaje_exito,
-                        text: resp_reactivar_documento
-                    });
-                }else{
-                    swal({
-                        type: 'success',
-                        title: mensaje_exito,
-                        text: resp_aceptar_documento
-                    }).then(function() { 
-                        // window.location = "/admin/importfromrebeca";
-                        window.location = "/admin/genericcopies/copies/" + id_doc + "/i";
-                    });
+                        swal({
+                            type: 'success',
+                            title: mensaje_exito,
+                            text: resp_reactivar_documento
+                        });
+                    } else {
+                        swal({
+                            type: 'success',
+                            title: mensaje_exito,
+                            text: resp_aceptar_documento
+                        }).then(function() {
+                            // window.location = "/admin/importfromrebeca";
+                            window.location = "/admin/genericcopies/copies/" + id_doc + "/i";
+                        });
 
-                }
+                    }
                 },
                 error: function(xhr) {
                     swal({
