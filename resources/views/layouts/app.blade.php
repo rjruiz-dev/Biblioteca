@@ -336,7 +336,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img id="image" src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}" class="img-circle" alt="User Image">
+          <img id="image" src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}" class="img-circle" alt="User Image" style="max-height:42px;">
         </div>
         <div class="pull-left info">
         <p>{{ Auth::user() != null ? Auth::user()->name : $idioma->invitado }}</p>
