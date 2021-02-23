@@ -79,7 +79,7 @@
                                 {!! $var_user !!}
                             </div>
                             <div class="text-center">     
-                                <img id="user_photo" class="profile-user-img img-responsive img-circle" src="">                             
+                                <img id="user_photo" class="profile-user-img img-responsive img-circle" src="" style="max-height:95px;">                             
                             </div>
                             &nbsp;
                             <ul class="list-group list-group-unbordered">                           
