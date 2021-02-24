@@ -140,7 +140,7 @@
                                 <img class="profile-user-img img-responsive img-circle" 
                                                         src="/images/{{ $copie->user['user_photo'] }}" 
                                                         alt="{{ $copie->user['name'] }}"
-                                                        width="100px">
+                                                        width="100px" style="max-height:100px;">
                                                        
                             </div>
                             <div class="col-md-6" style="padding-top: 1rem;">

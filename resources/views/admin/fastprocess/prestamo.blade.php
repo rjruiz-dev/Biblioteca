@@ -23,7 +23,7 @@
                  <img class="profile-user-img img-responsive img-circle" 
                     src="/images/{{ $user->user_photo }}" 
                     alt="{{ $user->name}}"
-                    width="100px">                   
+                    width="100px" style="max-height:100px;">                   
                 </div>  
                 <h3 class="profile-username text-center"><strong>{{ $user->nickname }}</strong></h3>  
         

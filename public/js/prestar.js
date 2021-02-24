@@ -172,7 +172,7 @@ if( $("#bandera").val() == 3){
     function llenarInputs(data) {         
         img_url = '/images/'+ data.partner.user_photo;       
         $("#user_photo").attr("src",img_url);
-        $('#nickname').text(data.partner.nickname);  
+        $('#nickname').text(data.partner.name);  
         $('#surname').text(data.partner.surname);  
         $('#email').text(data.partner.email);    
         $('#loan').text(data.count.count_of_prestamos);

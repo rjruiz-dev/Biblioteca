@@ -157,16 +157,16 @@
                     {!! Form::text('ph_registro', $ml_ml['ph_registro'] ? $ml_ml['ph_registro'] : null, ['class' => 'form-control', 'id' => 'ph_registro', 'placeholder' => 'Selecciona número de copia']) !!}
                 </div>    
                 <div class="form-group">              
-                    {!! Form::label('select_usuario', 'Usuario') !!}                    
-                    {!! Form::text('select_usuario', $ml_ml['select_usuario'] ? $ml_ml['select_usuario'] : null, ['class' => 'form-control', 'id' => 'select_usuario', 'placeholder' => 'Usuario']) !!}
+                    {!! Form::label('select_usuario', 'Usuario (Nickname)') !!}                    
+                    {!! Form::text('select_usuario', $ml_ml['select_usuario'] ? $ml_ml['select_usuario'] : null, ['class' => 'form-control', 'id' => 'select_usuario', 'placeholder' => 'Usuario (Nickname)']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('ph_usuario', 'Selecciona usuario') !!}                    
                     {!! Form::text('ph_usuario', $ml_ml['ph_usuario'] ? $ml_ml['ph_usuario'] : null, ['class' => 'form-control', 'id' => 'ph_usuario', 'placeholder' => 'Selecciona usuario']) !!}
                 </div>    
                 <div class="form-group">              
-                    {!! Form::label('nickname', 'Nickname') !!}                    
-                    {!! Form::text('nickname', $ml_ml['nickname'] ? $ml_ml['nickname'] : null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nickname']) !!}
+                    {!! Form::label('nickname', 'Nombre') !!}                    
+                    {!! Form::text('nickname', $ml_ml['nickname'] ? $ml_ml['nickname'] : null, ['class' => 'form-control', 'id' => 'nickname', 'placeholder' => 'Nombre']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('apellido', 'Apellido') !!}                    
@@ -271,7 +271,7 @@
                     {!! Form::text('dt_id_wl', $ml_wl['dt_id_wl'] ? $ml_wl['dt_id_wl'] : null, ['class' => 'form-control', 'id' => 'dt_id_wl', 'placeholder' => 'Id']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('dt_titulo_wl', 'Título') !!}                    
+                    {!! Form::label('dt_titulo_wl', 'Socio') !!}                    
                     {!! Form::text('dt_titulo_wl', $ml_wl['dt_titulo_wl'] ? $ml_wl['dt_titulo_wl'] : null, ['class' => 'form-control', 'id' => 'dt_titulo_wl', 'placeholder' => 'Título']) !!}
                 </div>
 
