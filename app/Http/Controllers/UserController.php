@@ -299,9 +299,10 @@ class UserController extends Controller
                     $file = $request->file('user_photo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/images/', $name);    
-                }else{
-                    $name = 'user-default.jpg';
-                }        
+                }
+                // else{
+                //     $name = 'user-default.jpg';
+                // }        
 
 
                 // Actualizamos el usuario
@@ -363,12 +364,13 @@ class UserController extends Controller
                 $user->user_photo   = $name;
                 $user->save();
 
+                DB::commit();
+
                 $session = session('idiomas');
                 $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
                 return response()->json(['mensaje_exito' => $Ml_partner->mensaje_exito, 'noti_alta_socio' => $Ml_partner->noti_alta_socio]);
 
-                DB::commit();
-               
+            
             } catch (Exception $e) {
                 // anula la transacion
                 DB::rollBack();
@@ -431,7 +433,7 @@ class UserController extends Controller
                 $user->phone        = $request->get('phone');      
                 $user->birthdate    = Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
                 $user->membership   = $request->get('membership');
-                // $user->user_photo   = $name;
+                $user->user_photo   = $name;
                 $user->save();
                        
                 DB::commit();

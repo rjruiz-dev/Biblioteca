@@ -36,14 +36,14 @@
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">
-                    <li class="list-group-item">
+                    <li class="list-group-item" style="overflow:hidden">
                         <b>{{ $idioma_doc->titulo }}:</b> <a class="pull-right">{{ $book->document->title }}</a>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item" style="overflow:hidden;">
                         <b>{{ $idioma_doc->autor }}:</b> <a class="pull-right">{{ $book->document->creator['creator_name'] }}</a>
                     </li>
                     <!-- Publ. periodica -->
-                    <li id="ls_tema" class="list-group-item">
+                    <li id="ls_tema" class="list-group-item" style="overflow:hidden">
                     @if ( $book->subtitle === NULL )   
                         <b>{{ $idioma_book->tema_de_portada }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_book->tema_de_portada }}</p></a>                                                 
                     @else
@@ -52,7 +52,7 @@
                     </li>
                     <!-- Publ. periodica  aca va el campo: volume_number_date-->
                     
-                    <li class="list-group-item">
+                    <li class="list-group-item" style="overflow:hidden;">
                     @if ( $book->document->document_subtype->subtype_name === NULL )   
                         <b>{{ $idioma_doc->subtipo_de_documento }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_doc->subtipo_de_documento }}</p></a>                                                 
                     @else

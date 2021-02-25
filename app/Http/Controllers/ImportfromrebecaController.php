@@ -425,6 +425,9 @@ class ImportfromrebecaController extends Controller
                             //     }
                             // }
 
+                            $arreglo_materias_salto_linea = array_diff($arreglo_materias_salto_linea, array(""));
+                                // dd($arreglo_materias_salto_linea);
+
                             if(($materias_del_com != null) && count($arreglo_materias_salto_linea) > 0){
                                 // foreach($arreglo_materias_salto_linea as $arre_materias){
                                 //     //inserto las materias que esten delimitadas por saltos de linea en la DB.

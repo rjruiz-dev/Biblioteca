@@ -6,8 +6,8 @@
 
 {{ $modelo->body }}
  
-# Documentos: 
-    @component('mail::table')
+Documentos: 
+@component('mail::table')
     | ID | Documento | Fecha Prestamo | Fecha Devolucion |
     |:---|:------------|:---------------|:-----------------|
     @foreach($prestamos as $prestamo) 

@@ -5,7 +5,7 @@
                 <img class="profile-user-img img-responsive img-circle" 
                     src="/images/{{ $user->user_photo }}" 
                     alt="{{ $user->name}}"
-                    width="100px">
+                    width="100px" style="max-height:90px;">
                     
                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
                 
