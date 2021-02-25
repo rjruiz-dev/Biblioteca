@@ -572,45 +572,65 @@ function obtenercamposestaticos(accion) {
         dataType: 'json',
         success: function(response) {
 
-            if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+            if (accion == 5) {
+
+                // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
                 // console.log("uiuiuiui" + accion);
                 // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
                 // $('#subtitle').attr('placeholder', response.subtítulo);
+
                 $("#creators_id").select2({
+                    dropdownParent: $("#fg_creators_id"),
                     placeholder: response.ph_cuerpo_director,
+                    tags: true
                 });
                 $('#adaptations_id').select2({
+                    dropdownParent: $("#fg_adaptations_id"),
                     placeholder: response.ph_cuerpo_adaptacion,
+                    tags: false
                 });
                 $('#adequacies_id').select2({
-                    placeholder: response.ph_cuerpo_adecuado_para,
+                    dropdownParent: $("#fg_adequacies_id"),
+                    placeholder: response.ph_cuerpo_adecuado_para
                 });
                 $('#generate_films_id').select2({
-                    placeholder: response.ph_cuerpo_genero,
+                    dropdownParent: $("#fg_generate_films_id"),
+                    placeholder: response.ph_cuerpo_genero
                 });
                 $("#generate_subjects_id").select2({
-                    placeholder: response.ph_cuerpo_cdu,
+                    dropdownParent: $("#fg_generate_subjects_id"),
+                    placeholder: response.ph_cuerpo_cdu
                 });
                 $('#status_documents_id').select2({
-                    dropdownParent: response.ph_cuerpo_estado,
+                    dropdownParent: $("#fg_status_documents_id"),
+                    dropdownParent: response.ph_cuerpo_estado
                 });
                 $('#published').select2({
+                    dropdownParent: $("#fg_published"),
                     placeholder: response.ph_cuerpo_nacionalidad,
+                    tags: true
                 });
                 $('#made_by').select2({
+                    dropdownParent: $("#fg_made_by"),
                     placeholder: response.ph_cuerpo_productora,
+                    tags: true
                 });
                 $('#photography_movies_id').select2({
-                    placeholder: response.ph_cuerpo_fotografia,
+                    dropdownParent: $("#fg_photography_movies_id"),
+                    placeholder: response.ph_cuerpo_fotografia
                 });
                 $('#generate_formats_id').select2({
-                    placeholder: response.ph_cuerpo_formato,
+                    dropdownParent: $("#fg_generate_formats_id"),
+                    placeholder: response.ph_cuerpo_formato
                 });
                 $('#distributor').select2({
+                    dropdownParent: $("#fg_distributor"),
                     placeholder: response.ph_cuerpo_distribuidora,
+                    tags: true
                 });
                 $('#lenguages_id').select2({
-                    placeholder: response.ph_cuerpo_idioma,
+                    dropdownParent: $("#fg_lenguages_id"),
+                    placeholder: response.ph_cuerpo_idioma
                 });
                 // $('#modal-btn-save')
                 document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;

@@ -635,38 +635,54 @@ function obtenercamposestaticos(accion) {
         dataType: 'json',
         success: function(response) {
 
-            if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+            if (accion == 5) {
+
+                // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
                 // console.log("uiuiuiui" + accion);
                 // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
                 // $('#subtitle').attr('placeholder', response.subtítulo);
+
                 $('#document_subtypes_id').select2({
-                    placeholder: response.ph_cuerpo_tipo_de_musica,
+                    dropdownParent: $("#fg_document_subtypes_id"),
+                    placeholder: response.ph_cuerpo_tipo_de_musica
                 });
                 $('#adequacies_id').select2({
-                    placeholder: response.ph_cuerpo_adecuado_para,
+                    dropdownParent: $("#fg_adequacies_id"),
+                    placeholder: response.ph_cuerpo_adecuado_para
                 });
                 $('#generate_musics_id').select2({
-                    placeholder: response.ph_cuerpo_genero,
+                    dropdownParent: $("#fg_generate_musics_id"),
+                    placeholder: response.ph_cuerpo_genero
                 });
                 $("#generate_subjects_id").select2({
-                    placeholder: response.ph_cuerpo_cdu,
+                    dropdownParent: $("#fg_generate_subjects_id"),
+                    placeholder: response.ph_cuerpo_cdu
                 });
                 $('#published').select2({
-                    placeholder: response.ph_cuerpo_editado_en,
+                    dropdownParent: $("#fg_published"),
+                    placeholder: response.ph_cuerpo_editado_en
                 });
                 $('#made_by').select2({
+                    dropdownParent: $("#fg_made_by"),
                     placeholder: response.ph_cuerpo_sello_discografico,
+                    tags: true
                 });
                 $('#sound').select2({
+                    dropdownParent: $("#fg_sound"),
                     placeholder: response.ph_cuerpo_fotografia,
+                    tags: true
                 });
                 $('#volume').select2({
+                    dropdownParent: $("#fg_volume"),
                     placeholder: response.ph_cuerpo_volumenes,
+                    tags: true
                 });
                 $('#generate_formats_id').select2({
+                    dropdownParent: $("#fg_generate_formats_id"),
                     placeholder: response.ph_cuerpo_formato,
                 });
                 $('#lenguages_id').select2({
+                    dropdownParent: $("#fg_lenguages_id"),
                     placeholder: response.ph_cuerpo_idioma,
                 });
 

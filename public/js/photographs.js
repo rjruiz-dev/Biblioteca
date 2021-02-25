@@ -582,37 +582,54 @@ function obtenercamposestaticos(accion) {
                 // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
                 // $('#subtitle').attr('placeholder', response.subtítulo);
                 $('#document_subtypes_id').select2({
-                    placeholder: response.ph_cuerpo_tipo_de_fotografia,
+                    dropdownParent: $("#fg_document_subtypes_id"),
+                    placeholder: response.ph_cuerpo_tipo_de_fotografia
                 });
                 $("#creators_id").select2({
+                    dropdownParent: $("#fg_creators_id"),
                     placeholder: response.ph_cuerpo_autor,
+                    tags: true
                 });
                 $("#second_author_id").select2({
+                    dropdownParent: $("#fg_second_author_id"),
                     placeholder: response.ph_cuerpo_segundo_autor,
+                    tags: true,
                 });
                 $("#third_author_id").select2({
+                    dropdownParent: $("#din_third_author_id"),
                     placeholder: response.ph_cuerpo_tercer_autor,
+                    tags: true
                 });
                 $('#adequacies_id').select2({
+                    dropdownParent: $("#fg_adequacies_id"),
                     placeholder: response.ph_cuerpo_adecuado_para,
                 });
                 $("#generate_subjects_id").select2({
-                    placeholder: response.ph_cuerpo_cdu,
+                    dropdownParent: $("#fg_generate_subjects_id"),
+                    placeholder: response.ph_cuerpo_cdu
                 });
                 $('#published').select2({
+                    dropdownParent: $("#fg_published"),
                     placeholder: response.ph_cuerpo_editado_en,
+                    tags: true
                 });
                 $('#made_by').select2({
+                    dropdownParent: $("#fg_made_by"),
                     placeholder: response.ph_cuerpo_sello_discografico,
+                    tags: true
                 });
                 $('#volume').select2({
+                    dropdownParent: $("#fg_volume"),
                     placeholder: response.ph_cuerpo_volumenes,
+                    tags: true
                 });
                 $('#generate_formats_id').select2({
-                    placeholder: response.ph_cuerpo_formato,
+                    dropdownParent: $("#fg_generate_formats_id"),
+                    placeholder: response.ph_cuerpo_formato
                 });
                 $('#lenguages_id').select2({
-                    placeholder: response.ph_cuerpo_idioma,
+                    dropdownParent: $("#fg_lenguages_id"),
+                    placeholder: response.ph_cuerpo_idioma
                 });
                 // $('#modal-btn-save')
                 document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;
