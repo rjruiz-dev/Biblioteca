@@ -421,13 +421,12 @@ class MoviesController extends Controller
                 $movie->documents_id            = $document->id;//guardamos el id del documento 
                 $movie->save();
                 
-                $movie->syncActors($request->get('actors'));
-               
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                $movie->syncActors($request->get('actors'));               
                 
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
 
             } catch (Exception $e) {
@@ -664,13 +663,12 @@ class MoviesController extends Controller
                 $movie->documents_id            = $document->id;//guardamos el id del documento                
                 $movie->save();
                 // dd($request->get('actors'));
-                $movie->syncActors($request->get('actors'));
-                
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                $movie->syncActors($request->get('actors'));               
     
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
 
             } catch (Exception $e) {

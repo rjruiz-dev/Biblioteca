@@ -329,13 +329,11 @@ class MultimediaController extends Controller
                 $multimedia->size       = $request->get('size');             
                 $multimedia->documents_id = $document->id;//guardamos el id del documento               
                 $multimedia->save();
-
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
-                
    
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
 
 
@@ -653,14 +651,12 @@ class MultimediaController extends Controller
                 $multimedia->edition        = $request->get('edition');
                 $multimedia->size           = $request->get('size');             
                 $multimedia->documents_id   = $document->id;//guardamos el id del documento                
-                $multimedia->save();
-   
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
-    
+                $multimedia->save();    
                 
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
 
 

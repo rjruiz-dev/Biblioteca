@@ -203,9 +203,9 @@ class FastPartnerProcessController extends Controller
                 $renodev = 0; // le mando 0 pera que no rompa las bolas pero no sirve para nada
             }
             
-            $session = session('idiomas');
-                    $Ml_loan_generica = Ml_loan_document::where('many_lenguages_id',$session)->first();
-                    return response()->json(['renodev' => $renodev,'error' => $error, 'mensaje_exito_ld' => $Ml_loan_generica->mensaje_exito_ld, 'noti_devolucion_ld' => $Ml_loan_generica->noti_devolucion_ld, 'noti_renovacion_ld' => $Ml_loan_generica->noti_renovacion_ld]);
+                $session = session('idiomas');
+                $Ml_loan_generica = Ml_loan_document::where('many_lenguages_id',$session)->first();
+                return response()->json(['renodev' => $renodev,'error' => $error, 'mensaje_exito_ld' => $Ml_loan_generica->mensaje_exito_ld, 'noti_devolucion_ld' => $Ml_loan_generica->noti_devolucion_ld, 'noti_renovacion_ld' => $Ml_loan_generica->noti_renovacion_ld]);
 
             // return response()->json(array('renodev' => $renodev,'error' => $error));
                 
