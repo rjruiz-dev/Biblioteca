@@ -274,108 +274,27 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
     });
 });
 
-// $('body').on('click', '.btn-delete', function (event) {
-//     event.preventDefault();
 
-//     var me = $(this),
-//         url = me.attr('href'),
-//         title = me.attr('title'),
-//         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-//     swal({
-//         title: '¿Seguro que quieres eliminar a : ' + title + ' ?',
-//         text: '¡No podrás revertir esto!',
-//         type: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Sí, bórralo!'
-//     }).then((result) => {
-//         if (result.value) {
-//             $.ajax({
-//                 url: url,
-//                 type: "POST",
-//                 data: {
-//                     '_method': 'DELETE',
-//                     '_token': csrf_token
-//                 },
-//                 success: function (response) {
-//                     $('#datatable').DataTable().ajax.reload(null, false);
-//                     swal({
-//                         type: 'success',
-//                         title: '¡Éxito!',
-//                         text: '¡Los datos han sido eliminados!'
-//                     });
-//                 },
-//                 error: function (xhr) {
-//                     swal({
-//                         type: 'error',
-//                         title: 'Ups...',
-//                         text: '¡Algo salió mal!'
-//                     });
-//                 }
-//             });
-//         }
-//     });
-// });
-
-$('body').on('click', '.btn-copy', function(event) {
+$('body').on('click', '.btn-deleteManylenguages', function(event) {
     event.preventDefault();
+    console.log('entro ');
 
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: {
-            '_method': 'DELETE',
-            '_token': csrf_token
-        },
-        success: function(response) {
-            var info = response.data;
-            console.log("asdas".info);
-            if (info == 0) {
-                swal({
-                    type: 'warning',
-                    title: '¡Atencion! Este documento esta dado de baja',
-                    text: 'Para ver sus copias, debe estar activo o en desidherata'
-                });
-            } else {
-                window.location = "/admin/genericcopies/copies/" + info;
-            }
 
-        },
-        error: function(xhr) {
-            swal({
-                type: 'error',
-                title: 'Ups...',
-                text: '¡Algo salió mal!'
-            });
-        }
-    });
-
-});
-
-$('body').on('click', '.btn-desidherata', function(event) {
-    event.preventDefault();
-
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title'),
-        csrf_token = $('meta[name="csrf-token"]').attr('content');
-    console.log("url: " + url)
     swal({
-
-        title: '¿Seguro que quieres poner en desidherata el documento ?',
+        title: '¿Seguro que quieres eliminar este idioma ?_',
+        // title: swal_eliminar_lan,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
+        // confirmButtonText: 'Sí, bórralo!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -387,10 +306,13 @@ $('body').on('click', '.btn-desidherata', function(event) {
                 },
                 success: function(response) {
                     $('#datatable').DataTable().ajax.reload(null, false);
+
                     swal({
                         type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡El documento se ha puesto en desidherata!'
+                        // title: swal_exito_lan,
+                        // text: swal_info_eliminar_lan
+                        title: 'Exito_',
+                        text: '¡El idioma ha sido eliminado!_'
                     });
                 },
                 error: function(xhr) {
@@ -405,97 +327,7 @@ $('body').on('click', '.btn-desidherata', function(event) {
     });
 });
 
-$('body').on('click', '.btn-baja', function(event) {
-    event.preventDefault();
 
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title'),
-        csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-    swal({
-
-        title: '¿Seguro que quieres dar de baja el documento ?',
-        // text: '¡No podrás revertir esto!',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    '_method': 'DELETE',
-                    '_token': csrf_token
-                },
-                success: function(response) {
-                    $('#datatable').DataTable().ajax.reload(null, false);
-                    swal({
-                        type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha dado de baja el documento!'
-                    });
-                },
-                error: function(xhr) {
-                    swal({
-                        type: 'error',
-                        title: 'Ups...',
-                        text: '¡Algo salió mal!'
-                    });
-                }
-            });
-        }
-    });
-});
-
-$('body').on('click', '.btn-reactivar', function(event) {
-    event.preventDefault();
-
-    var me = $(this),
-        url = me.attr('href'),
-        title = me.attr('title'),
-        csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-    swal({
-
-        title: '¿Seguro que quieres reactivar el documento ?',
-        // text: '¡No podrás revertir esto!',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí!'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    '_method': 'DELETE',
-                    '_token': csrf_token
-                },
-                success: function(response) {
-                    $('#datatable').DataTable().ajax.reload(null, false);
-                    swal({
-                        type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha reactivado el documento!'
-                    });
-                },
-                error: function(xhr) {
-                    swal({
-                        type: 'error',
-                        title: 'Ups...',
-                        text: '¡Algo salió mal!'
-                    });
-                }
-            });
-        }
-    });
-});
 
 $('body').on('click', '.btn-show', function(event) {
     event.preventDefault();
@@ -534,41 +366,3 @@ $('body').on('click', '.btn-show', function(event) {
 
     $('#modal').modal('show');
 });
-
-
-function yesnoCheck() {
-    if (document.getElementById("document_subtypes_id").value == 4) { //si es publ periodica
-        //CAMBIO DE LABEL
-        document.getElementById("l_subtitle").innerHTML = 'Tema de Portada';
-        document.getElementById("l_generate_books_id").innerHTML = 'Genero';
-        //FORM GROUP MOSTRAR
-        document.getElementById("din_volume_number_date").style.display = "block";
-        document.getElementById("din_periodicities_id").style.display = "block";
-        document.getElementById("din_issn").style.display = "block";
-        //FORM GROUP NO MOSTRAR
-        document.getElementById("din_isbn").style.display = "none";
-        document.getElementById("din_generate_books_id").style.display = "none";
-        document.getElementById("din_third_author_id").style.display = "none";
-
-    } else { //si NOO es publ periodica
-
-        if (document.getElementById("document_subtypes_id").value == 3) { //si es OTROS
-            //CAMBIO DE LABEL
-            document.getElementById("l_generate_books_id").innerHTML = 'Otros';
-        } else {
-            document.getElementById("l_generate_books_id").innerHTML = 'Genero';
-        }
-
-        //CAMBIO DE LABEL
-        document.getElementById("l_subtitle").innerHTML = 'Subtítulo';
-        //FORM GROUP NO MOSTRAR
-        document.getElementById("din_volume_number_date").style.display = "none";
-        document.getElementById("din_periodicities_id").style.display = "none";
-        document.getElementById("din_issn").style.display = "none";
-        //FORM GROUP MOSTRAR
-        document.getElementById("din_isbn").style.display = "block";
-        document.getElementById("din_generate_books_id").style.display = "block";
-        document.getElementById("din_third_author_id").style.display = "block";
-    }
-
-}

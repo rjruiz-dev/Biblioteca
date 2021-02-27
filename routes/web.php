@@ -66,15 +66,15 @@ function(){
 
     // Route::get('books/indexsolo/{id}/{tipo}',                         'BookController@indexsolo')->name('books.indexsolo');
      
-    Route::get('libros/indexsolo/{id}',     'VBooksController@indexsolo')->name('libros.indexsolo');
-    Route::get('cines/indexsolo/{id}',     'VMoviesController@indexsolo')->name('cines.indexsolo');
-    Route::get('musicas/indexsolo/{id}',     'VMusicController@indexsolo')->name('musicas.indexsolo');
-    Route::get('fotografias/indexsolo/{id}',     'VPhotographyController@indexsolo')->name('fotografias.indexsolo');
-    Route::get('multimedias/indexsolo/{id}',     'VMultimediaController@indexsolo')->name('multimedias.indexsolo');
-    // Route::get('vusers/edit/{id}',   'HomeController@edit')->name('vusers.edit');
-    // Route::post('vusers/update/{id}',   'HomeController@update')->name('vusers.update');
-    Route::get('filtrarhome/{cantidad}',             'HomeController@filtrarhome');
-    Route::get('filtrarhome_reservados/{cantidad}',             'HomeController@filtrarhome_reservados');
+    Route::get('libros/indexsolo/{id}',         'VBooksController@indexsolo')->name('libros.indexsolo');
+    Route::get('cines/indexsolo/{id}',          'VMoviesController@indexsolo')->name('cines.indexsolo');
+    Route::get('musicas/indexsolo/{id}',        'VMusicController@indexsolo')->name('musicas.indexsolo');
+    Route::get('fotografias/indexsolo/{id}',    'VPhotographyController@indexsolo')->name('fotografias.indexsolo');
+    Route::get('multimedias/indexsolo/{id}',    'VMultimediaController@indexsolo')->name('multimedias.indexsolo');
+    // Route::get('vusers/edit/{id}',           'HomeController@edit')->name('vusers.edit');
+    // Route::post('vusers/update/{id}',        'HomeController@update')->name('vusers.update');
+    Route::get('filtrarhome/{cantidad}',        'HomeController@filtrarhome');
+    Route::get('filtrarhome_reservados/{cantidad}', 'HomeController@filtrarhome_reservados');
     
 });
 
@@ -119,8 +119,8 @@ function(){
     Route::resource('statistic',            'StatisticController',['as' => 'admin']);
     Route::resource('manylenguages',        'ManyLenguagesController',['as' => 'admin']); 
     Route::resource('setting',              'SettingController',['as' => 'admin']); 
-   
-    
+
+       
     //Print PDF
     Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
     Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
@@ -128,38 +128,38 @@ function(){
     Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
     Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
  
-    Route::get('books/obtener/{id}',                            'BookController@obtener');     
-    Route::get('musics/obtener/{id}',                            'MusicController@obtener');     
-    Route::get('movies/obtener/{id}',                            'MoviesController@obtener');     
-    Route::get('photographs/obtener/{id}',                       'PhotographyController@obtener');     
-    Route::get('multimedias/obtener/{id}',                       'MultimediaController@obtener');     
+    Route::get('books/obtener/{id}',         'BookController@obtener');     
+    Route::get('musics/obtener/{id}',        'MusicController@obtener');     
+    Route::get('movies/obtener/{id}',        'MoviesController@obtener');     
+    Route::get('photographs/obtener/{id}',   'PhotographyController@obtener');     
+    Route::get('multimedias/obtener/{id}',   'MultimediaController@obtener');     
 
 
-    Route::get('books/obtenersweet/{id}',                            'BookController@obtenersweet');     
-    Route::get('musics/obtenersweet/{id}',                            'MusicController@obtenersweet');     
-    Route::get('movies/obtenersweet/{id}',                            'MoviesController@obtenersweet');     
-    Route::get('photographs/obtenersweet/{id}',                       'PhotographyController@obtenersweet');     
-    Route::get('multimedias/obtenersweet/{id}',                       'MultimediaController@obtenersweet');  
+    Route::get('books/obtenersweet/{id}',    'BookController@obtenersweet');     
+    Route::get('musics/obtenersweet/{id}',   'MusicController@obtenersweet');     
+    Route::get('movies/obtenersweet/{id}',   'MoviesController@obtenersweet');     
+    Route::get('photographs/obtenersweet/{id}',  'PhotographyController@obtenersweet');     
+    Route::get('multimedias/obtenersweet/{id}',  'MultimediaController@obtenersweet');  
     
-    // Route::get('books/index/{request}/{idd}',                            'BookController@index');
+    // Route::get('books/index/{request}/{idd}', 'BookController@index');
    
-    Route::get('movies/indexsolo/{id}/{tipo}',                         'MoviesController@indexsolo')->name('movies.indexsolo');
-    Route::get('books/indexsolo/{id}/{tipo}',                         'BookController@indexsolo')->name('books.indexsolo');
-    Route::get('music/indexsolo/{id}/{tipo}',                         'MusicController@indexsolo')->name('music.indexsolo');
-    Route::get('photographs/indexsolo/{id}/{tipo}',                         'PhotographyController@indexsolo')->name('photographs.indexsolo');
-    Route::get('multimedias/indexsolo/{id}/{tipo}',                         'MultimediaController@indexsolo')->name('multimedias.indexsolo'); 
+    Route::get('movies/indexsolo/{id}/{tipo}',      'MoviesController@indexsolo')->name('movies.indexsolo');
+    Route::get('books/indexsolo/{id}/{tipo}',       'BookController@indexsolo')->name('books.indexsolo');
+    Route::get('music/indexsolo/{id}/{tipo}',       'MusicController@indexsolo')->name('music.indexsolo');
+    Route::get('photographs/indexsolo/{id}/{tipo}', 'PhotographyController@indexsolo')->name('photographs.indexsolo');
+    Route::get('multimedias/indexsolo/{id}/{tipo}', 'MultimediaController@indexsolo')->name('multimedias.indexsolo'); 
     
-    Route::get('loanmanual/showPartner/{id}',                   'LoanManualController@showPartner');
-    Route::get('claimloans/filtarPorFecha/{fecha}',             'ClaimLoansController@filtarPorFecha');
-    Route::post('fastprocess/grabar',                           'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
+    Route::get('loanmanual/showPartner/{id}',       'LoanManualController@showPartner');
+    Route::get('claimloans/filtarPorFecha/{fecha}', 'ClaimLoansController@filtarPorFecha');
+    Route::post('fastprocess/grabar',               'FastPartnerProcessController@grabar')->name('fastprocess.grabar');
     Route::get('fastprocess/vista_devo_reno/{id}/{bandera}/{fecha}',    'FastPartnerProcessController@vista_devo_reno')->name('fastprocess.vista_devo_reno');
-    Route::get('fastprocess/edit2/{id}',                        'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
-    Route::get('loanmanual/prestar/{id}',                       'LoanManualController@prestar')->name('loanmanual.prestar');
-    Route::get('genericcopies/copies/{id}/{bandera}',                     'GenericCopiesController@copies')->name('genericcopies.copies');
-    Route::get('/newcopies/{id}',                               'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
-    Route::get('loanmanual/abm_prestamo/{id}/{bandera}/{n_mov}','LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
+    Route::get('fastprocess/edit2/{id}',                                'FastPartnerProcessController@edit2')->name('fastprocess.edit2');
+    Route::get('loanmanual/prestar/{id}',                               'LoanManualController@prestar')->name('loanmanual.prestar');
+    Route::get('genericcopies/copies/{id}/{bandera}',                   'GenericCopiesController@copies')->name('genericcopies.copies');
+    Route::get('/newcopies/{id}',                                       'GenericCopiesController@newcopies')->name('genericcopies.newcopies');
+    Route::get('loanmanual/abm_prestamo/{id}/{bandera}/{n_mov}',        'LoanManualController@abm_prestamo')->name('loanmanual.abm_prestamo');
     
-   //rebeca
+    //rebeca
     Route::delete('importfromrebeca/baja/{id}',       'ImportfromrebecaController@baja')->name('importfromrebeca.baja');    
     Route::delete('importfromrebeca/reactivar/{id}',  'ImportfromrebecaController@reactivar')->name('importfromrebeca.reactivar');
 
@@ -195,84 +195,90 @@ function(){
     Route::delete('multimedias/copy/{id}',       'MultimediaController@copy')->name('multimedias.copy');
 
     //desestimar en request(solicitudes desde la web)
-    Route::delete('requests/desestimar/{id}',  'RequestsController@desestimar')->name('requests.desestimar');
-    Route::delete('requests/solicitud/{id}',   'RequestsController@solicitud')->name('requests.solicitud');
+    Route::delete('requests/desestimar/{id}',               'RequestsController@desestimar')->name('requests.desestimar');
+    Route::delete('requests/solicitud/{id}',                'RequestsController@solicitud')->name('requests.solicitud');
  
-    Route::get('statistic/filtrar/{f_desde}/{f_hasta}', 'StatisticController@filtrar');
+    Route::get('statistic/filtrar/{f_desde}/{f_hasta}',     'StatisticController@filtrar');
     
-    Route::get('users/edit_profile/{id}',      'UserController@edit_profile')->name('users.edit_profile');
-    Route::put('users/update_profile/{id}',    'UserController@update_profile')->name('users.update_profile');
+    Route::get('users/edit_profile/{id}',                   'UserController@edit_profile')->name('users.edit_profile');
+    Route::put('users/update_profile/{id}',                 'UserController@update_profile')->name('users.update_profile');
 
-    Route::delete('requestsup/rechazar/{id}',  'RequestsUpController@rechazar')->name('requestsup.rechazar');
+    Route::delete('requestsup/rechazar/{id}',               'RequestsUpController@rechazar')->name('requestsup.rechazar');
+
+    // Delete Curso    
+    Route::delete('courses/eliminar/{id}',                  'CourseController@deleteCourse')->name('admin.courses.deleteCourse');
+    // Delete Multidioma   
+    Route::delete('manylenguages/eliminar/{id}',            'ManyLenguagesController@deleteManylenguages')->name('admin.manylenguages.deleteManylenguages');
+   
     
     // traduccion mantenimineto
-    Route::get('manyLenguages/edit_maintenance/{id}',    'ManyLenguagesController@edit_maintenance')->name('admin.manylenguages.edit_maintenance');
-    Route::put('manyLenguages/update_maintenance/{id}',  'ManyLenguagesController@update_maintenance')->name('admin.manylenguages.update_maintenance');
+    Route::get('manyLenguages/edit_maintenance/{id}',       'ManyLenguagesController@edit_maintenance')->name('admin.manylenguages.edit_maintenance');
+    Route::put('manyLenguages/update_maintenance/{id}',     'ManyLenguagesController@update_maintenance')->name('admin.manylenguages.update_maintenance');
 
     // traduccion listado
-    Route::get('manyLenguages/edit_list/{id}',    'ManyLenguagesController@edit_list')->name('admin.manylenguages.edit_list');
-    Route::put('manyLenguages/update_list/{id}',  'ManyLenguagesController@update_list')->name('admin.manylenguages.update_list');
+    Route::get('manyLenguages/edit_list/{id}',              'ManyLenguagesController@edit_list')->name('admin.manylenguages.edit_list');
+    Route::put('manyLenguages/update_list/{id}',            'ManyLenguagesController@update_list')->name('admin.manylenguages.update_list');
 
     // traduccion estadistica
-    Route::get('manyLenguages/edit_statistic/{id}',    'ManyLenguagesController@edit_statistic')->name('admin.manylenguages.edit_statistic');
-    Route::put('manyLenguages/update_statistic/{id}',  'ManyLenguagesController@update_statistic')->name('admin.manylenguages.update_statistic');
+    Route::get('manyLenguages/edit_statistic/{id}',         'ManyLenguagesController@edit_statistic')->name('admin.manylenguages.edit_statistic');
+    Route::put('manyLenguages/update_statistic/{id}',       'ManyLenguagesController@update_statistic')->name('admin.manylenguages.update_statistic');
 
     // traduccion perfil bilbioteca
-    Route::get('manyLenguages/edit_library_profile/{id}',    'ManyLenguagesController@edit_library_profile')->name('admin.manylenguages.edit_library_profile');
-    Route::put('manyLenguages/update_library_profile/{id}',  'ManyLenguagesController@update_library_profile')->name('admin.manylenguages.update_library_profile');
+    Route::get('manyLenguages/edit_library_profile/{id}',   'ManyLenguagesController@edit_library_profile')->name('admin.manylenguages.edit_library_profile');
+    Route::put('manyLenguages/update_library_profile/{id}', 'ManyLenguagesController@update_library_profile')->name('admin.manylenguages.update_library_profile');
 
     // traduccion gestion prestamo 
-    Route::get('manyLenguages/edit_loan/{id}',    'ManyLenguagesController@edit_loan')->name('admin.manylenguages.edit_loan');
-    Route::put('manyLenguages/update_loan/{id}',  'ManyLenguagesController@update_loan')->name('admin.manylenguages.update_loan');
+    Route::get('manyLenguages/edit_loan/{id}',              'ManyLenguagesController@edit_loan')->name('admin.manylenguages.edit_loan');
+    Route::put('manyLenguages/update_loan/{id}',            'ManyLenguagesController@update_loan')->name('admin.manylenguages.update_loan');
     
     // traduccion prestamo y devoluciones
     Route::get('manyLenguages/edit_loan_repayment/{id}',    'ManyLenguagesController@edit_loan_repayment')->name('admin.manylenguages.edit_loan_repayment');
     Route::put('manyLenguages/update_loan_repayment/{id}',  'ManyLenguagesController@update_loan_repayment')->name('admin.manylenguages.update_loan_repayment');
 
     // traduccion correspondencia
-    Route::get('manyLenguages/edit_send_letter/{id}',    'ManyLenguagesController@edit_send_letter')->name('admin.manylenguages.edit_send_letter');
-    Route::put('manyLenguages/update_send_letter/{id}',  'ManyLenguagesController@update_send_letter')->name('admin.manylenguages.update_send_letter');
+    Route::get('manyLenguages/edit_send_letter/{id}',       'ManyLenguagesController@edit_send_letter')->name('admin.manylenguages.edit_send_letter');
+    Route::put('manyLenguages/update_send_letter/{id}',     'ManyLenguagesController@update_send_letter')->name('admin.manylenguages.update_send_letter');
 
     // traduccion socio
-    Route::get('manyLenguages/edit_partner/{id}',    'ManyLenguagesController@edit_partner')->name('admin.manylenguages.edit_partner');
-    Route::put('manyLenguages/update_partner/{id}',  'ManyLenguagesController@update_partner')->name('admin.manylenguages.update_partner');
+    Route::get('manyLenguages/edit_partner/{id}',           'ManyLenguagesController@edit_partner')->name('admin.manylenguages.edit_partner');
+    Route::put('manyLenguages/update_partner/{id}',         'ManyLenguagesController@update_partner')->name('admin.manylenguages.update_partner');
 
     // traduccion mantenimineto-book
-    Route::get('manyLenguages/edit_book/{id}',    'ManyLenguagesController@edit_book')->name('admin.manylenguages.edit_book');
-    Route::put('manyLenguages/update_book/{id}',  'ManyLenguagesController@update_book')->name('admin.manylenguages.update_book');
+    Route::get('manyLenguages/edit_book/{id}',              'ManyLenguagesController@edit_book')->name('admin.manylenguages.edit_book');
+    Route::put('manyLenguages/update_book/{id}',            'ManyLenguagesController@update_book')->name('admin.manylenguages.update_book');
 
     // traduccion mantenimineto-music
-    Route::get('manyLenguages/edit_music/{id}',    'ManyLenguagesController@edit_music')->name('admin.manylenguages.edit_music');
-    Route::put('manyLenguages/update_music/{id}',  'ManyLenguagesController@update_music')->name('admin.manylenguages.update_music');
+    Route::get('manyLenguages/edit_music/{id}',             'ManyLenguagesController@edit_music')->name('admin.manylenguages.edit_music');
+    Route::put('manyLenguages/update_music/{id}',           'ManyLenguagesController@update_music')->name('admin.manylenguages.update_music');
 
     // traduccion mantenimineto-movie
-    Route::get('manyLenguages/edit_movie/{id}',    'ManyLenguagesController@edit_movie')->name('admin.manylenguages.edit_movie');
-    Route::put('manyLenguages/update_movie/{id}',  'ManyLenguagesController@update_movie')->name('admin.manylenguages.update_movie');
+    Route::get('manyLenguages/edit_movie/{id}',             'ManyLenguagesController@edit_movie')->name('admin.manylenguages.edit_movie');
+    Route::put('manyLenguages/update_movie/{id}',           'ManyLenguagesController@update_movie')->name('admin.manylenguages.update_movie');
  
     // traduccion mantenimineto-multimedia
-    Route::get('manyLenguages/edit_multimedia/{id}',    'ManyLenguagesController@edit_multimedia')->name('admin.manylenguages.edit_multimedia');
-    Route::put('manyLenguages/update_multimedia/{id}',  'ManyLenguagesController@update_multimedia')->name('admin.manylenguages.update_multimedia');
+    Route::get('manyLenguages/edit_multimedia/{id}',        'ManyLenguagesController@edit_multimedia')->name('admin.manylenguages.edit_multimedia');
+    Route::put('manyLenguages/update_multimedia/{id}',      'ManyLenguagesController@update_multimedia')->name('admin.manylenguages.update_multimedia');
 
      // traduccion mantenimineto-fotografia
-     Route::get('manyLenguages/edit_fotografia/{id}',    'ManyLenguagesController@edit_fotografia')->name('admin.manylenguages.edit_fotografia');
-     Route::put('manyLenguages/update_fotografia/{id}',  'ManyLenguagesController@update_fotografia')->name('admin.manylenguages.update_fotografia');
+     Route::get('manyLenguages/edit_fotografia/{id}',       'ManyLenguagesController@edit_fotografia')->name('admin.manylenguages.edit_fotografia');
+     Route::put('manyLenguages/update_fotografia/{id}',     'ManyLenguagesController@update_fotografia')->name('admin.manylenguages.update_fotografia');
     
      // traduccion mantenimineto-listado
-     Route::get('manyLenguages/edit_listado/{id}',    'ManyLenguagesController@edit_listado')->name('admin.manylenguages.edit_listado');
-     Route::put('manyLenguages/update_listado/{id}',  'ManyLenguagesController@update_listado')->name('admin.manylenguages.update_listado');
+     Route::get('manyLenguages/edit_listado/{id}',          'ManyLenguagesController@edit_listado')->name('admin.manylenguages.edit_listado');
+     Route::put('manyLenguages/update_listado/{id}',        'ManyLenguagesController@update_listado')->name('admin.manylenguages.update_listado');
  
   
     // traduccion  login-registro-recuperar pass
-    Route::get('manyLenguages/edit_credentials/{id}',    'ManyLenguagesController@edit_credentials')->name('admin.manylenguages.edit_credentials');
-    Route::put('manyLenguages/update_credentials/{id}',  'ManyLenguagesController@update_credentials')->name('admin.manylenguages.update_credentials');
+    Route::get('manyLenguages/edit_credentials/{id}',       'ManyLenguagesController@edit_credentials')->name('admin.manylenguages.edit_credentials');
+    Route::put('manyLenguages/update_credentials/{id}',     'ManyLenguagesController@update_credentials')->name('admin.manylenguages.update_credentials');
 
     // traduccion  front-end
-    Route::get('manyLenguages/edit_front_end/{id}',    'ManyLenguagesController@edit_front_end')->name('admin.manylenguages.edit_front_end');
-    Route::put('manyLenguages/update_front_end/{id}',  'ManyLenguagesController@update_front_end')->name('admin.manylenguages.update_front_end');
+    Route::get('manyLenguages/edit_front_end/{id}',         'ManyLenguagesController@edit_front_end')->name('admin.manylenguages.edit_front_end');
+    Route::put('manyLenguages/update_front_end/{id}',       'ManyLenguagesController@update_front_end')->name('admin.manylenguages.update_front_end');
 
     // traduccion  panel_admin
-    Route::get('manyLenguages/edit_panel_admin/{id}',    'ManyLenguagesController@edit_panel_admin')->name('admin.manylenguages.edit_panel_admin');
-    Route::put('manyLenguages/update_panel_admin/{id}',  'ManyLenguagesController@update_panel_admin')->name('admin.manylenguages.update_panel_admin');
+    Route::get('manyLenguages/edit_panel_admin/{id}',       'ManyLenguagesController@edit_panel_admin')->name('admin.manylenguages.edit_panel_admin');
+    Route::put('manyLenguages/update_panel_admin/{id}',     'ManyLenguagesController@update_panel_admin')->name('admin.manylenguages.update_panel_admin');
 });
 
 Route::get('users/table',               'UserController@dataTable')->name('users.table'); 
@@ -306,8 +312,8 @@ Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')-
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
-Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
-Route::get('importfromrebeca/edicion/{id}',                            'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
+Route::get('importfromrebeca/importar', 'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
+Route::get('importfromrebeca/edicion/{id}', 'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');

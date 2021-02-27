@@ -2653,10 +2653,22 @@ public function update_credentials(Request $request, $id)
         }
     }
 
+
+    public function deleteManylenguages($id)
+    {      
+
+        $idioma = ManyLenguages::findOrFail($id);
+        $idioma->baja = 3; // eliminado logicamente
+        $idioma->save(); 
+
+        // return response()->json(['data' => $bandera]);  
+      
+    }
+
     public function dataTable()
     {   
-        $idiomas = ManyLenguages::get();
-        // dd($idiomas);       
+        $idiomas = ManyLenguages::where('baja', '<>', 3)->get();
+    
         return dataTables::of($idiomas)
 
             ->addColumn('created_at', function ($idiomas){
@@ -2673,15 +2685,15 @@ public function update_credentials(Request $request, $id)
             
             ->addColumn('accion', function ($idiomas) {
                 return view('admin.manylenguages.partials._action', [
-                    'idiomas'           => $idiomas,                       
-                    'url_edit'          => route('admin.manylenguages.edit', $idiomas->id),
+                    'idiomas'               => $idiomas,                       
+                    'url_edit'              => route('admin.manylenguages.edit', $idiomas->id),
                     // 'url_edit_course'   => route('admin.manylenguages.edit_course', $idiomas->id),
-                    'url_edit_book'   => route('admin.manylenguages.edit_book', $idiomas->id),
-                    'url_edit_music'   => route('admin.manylenguages.edit_music', $idiomas->id),
-                    'url_edit_movie'   => route('admin.manylenguages.edit_movie', $idiomas->id),
+                    'url_edit_book'         => route('admin.manylenguages.edit_book', $idiomas->id),
+                    'url_edit_music'        => route('admin.manylenguages.edit_music', $idiomas->id),
+                    'url_edit_movie'        => route('admin.manylenguages.edit_movie', $idiomas->id),
                     'url_edit_multimedia'   => route('admin.manylenguages.edit_multimedia', $idiomas->id),
                     'url_edit_fotografia'   => route('admin.manylenguages.edit_fotografia', $idiomas->id),
-                    'url_edit_listado'   => route('admin.manylenguages.edit_listado', $idiomas->id),                         
+                    'url_edit_listado'      => route('admin.manylenguages.edit_listado', $idiomas->id),                         
                     'url_edit_maintenance'  => route('admin.manylenguages.edit_maintenance', $idiomas->id),                  
                     'url_edit_list'         => route('admin.manylenguages.edit_list', $idiomas->id),                    
                     'url_edit_statistic'    => route('admin.manylenguages.edit_statistic', $idiomas->id),                    
@@ -2692,8 +2704,9 @@ public function update_credentials(Request $request, $id)
                     'url_edit_partner'      => route('admin.manylenguages.edit_partner', $idiomas->id),
                     'url_edit_credentials'  => route('admin.manylenguages.edit_credentials', $idiomas->id),                                        
                     'url_edit_panel_admin'  => route('admin.manylenguages.edit_panel_admin', $idiomas->id),                                        
-                    'url_edit_front_end'  => route('admin.manylenguages.edit_front_end', $idiomas->id),                                        
-                    'url_destroy'           => route('admin.manylenguages.destroy', $idiomas->id),   
+                    'url_edit_front_end'    => route('admin.manylenguages.edit_front_end', $idiomas->id),                                        
+                    'url_destroy'           => route('admin.manylenguages.destroy', $idiomas->id), 
+                    'url_deleteManylenguages' => route('admin.manylenguages.deleteManylenguages', $idiomas->id)  
                 ]);
             })           
             ->addIndexColumn()   
