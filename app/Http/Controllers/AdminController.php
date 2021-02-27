@@ -10,8 +10,10 @@ use Carbon\Carbon;
 use App\Document;
 use App\Book_movement;
 use DataTables;
+use App\ml_front_end;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -22,6 +24,9 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian'))){
+
+
         if ($request->session()->has('idiomas')) {
             $existe = 1;
         }else{
@@ -61,6 +66,62 @@ class AdminController extends Controller
             'ml_panel_admin' => $ml_panel_admin
            
         ]);
+
+        }else{
+
+        // $request->session()->put('idiomas', 2);
+        if ($request->session()->has('idiomas')) {
+            $existe = 1;
+        }else{
+            $request->session()->put('idiomas', 1);
+            $existe = 0;
+        }
+        $session = session('idiomas');
+
+        // $request->session()->put('idiomas', 2);
+        if (!$request->session()->has('recientes')) {
+            $request->session()->put('recientes', 5);
+        }
+        $recientes = session('recientes');
+
+        if (!$request->session()->has('reservados')) {
+            $request->session()->put('reservados', 5);
+        }
+        $reservados = session('reservados');
+        
+        // dd("recientes: ".$recientes);
+        //cargo el idioma
+        $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
+        $ml_front_end = ml_front_end::where('many_lenguages_id',$session)->first();
+        $idiomas = ManyLenguages::all();
+        $setting = Setting::where('id', 1)->first();
+        $ml_panel_admin = ml_panel_admin::where('many_lenguages_id',$session)->first();
+        $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)
+                    ->orderBy('id', 'DESC')
+                    ->take($recientes)
+                    ->get();
+
+        $CincoMasResevados =  DB::select('SELECT d.id, d.title, d.document_types_id, d.synopsis,d.photo, COUNT(d.id)                  
+                                FROM book_movements bm                  
+                                LEFT JOIN copies c ON bm.copies_id = c.id 
+                                LEFT JOIN documents d ON c.documents_id = d.id
+                                WHERE bm.movement_types_id = 7
+                                GROUP BY d.id, d.title, d.document_types_id, d.synopsis, d.photo
+                                ORDER BY COUNT(d.id) DESC LIMIT '.$reservados);
+
+        return view('layouts.dashboard', [
+            'idioma'      => $idioma,
+            'idiomas'     => $idiomas,
+            'setting'     => $setting,
+            'documentos'  => $documentos,
+            'recientes'  => $recientes,
+            'reservados'  => $reservados,
+            'ml_panel_admin' => $ml_panel_admin,
+            'CincoMasResevados'  => $CincoMasResevados,
+            'ml_front_end' => $ml_front_end
+        ]);
+        } 
+    
     }
 
 
@@ -239,6 +300,41 @@ class AdminController extends Controller
             
             ->addIndexColumn()   
             ->rawColumns(['user_photo', 'name', 'email', 'title', 'registry_number','date_until', 'prestamos']) 
+            ->make(true);  
+    }
+
+    public function dataTable3()
+    {     
+        // $id_usuario = Auth::user()->id;
+        $id_usuario = 99999999;
+        // dd("id_usuario: ".$id_usuario);
+        $docs_of_user = Book_movement::with('movement_type', 'copy', 'copy.document.creator')
+        ->whereHas('copy', function($q)
+        {
+            $q->where(function ($query) {
+                $query->where('status_copy_id', '=', 1)
+                      ->orWhere('status_copy_id', '=', 2);
+            });
+        })
+        ->where(function ($query) {
+            $query->where('movement_types_id', '=', 1)
+                  ->orWhere('movement_types_id', '=', 2);
+        })
+        ->where('active', 1) 
+        // ->where('users_id', $id_usuario)
+        ->get();
+    
+        return dataTables::of($docs_of_user) 
+            ->addColumn('title', function ($docs_of_user){            
+
+                    return '<span class="label label-danger sm">'.$docs_of_user->copy->document['title'].'</span>';
+                 
+            })
+            ->addColumn('type_document', function ($docs_of_user){
+                return $docs_of_user->copy->document->document_type['document_description'];
+            })   
+            ->addIndexColumn()   
+            ->rawColumns(['title', 'type_document']) 
             ->make(true);  
     }
 }

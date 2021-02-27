@@ -306,6 +306,8 @@ Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')-
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
+Route::get('susprestamos/table',         'AdminController@dataTable3')->name('susprestamos.table');
+
 Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
 Route::get('importfromrebeca/edicion/{id}',                            'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
 

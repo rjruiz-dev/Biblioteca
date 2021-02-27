@@ -1,4 +1,3 @@
-@if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')))
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">{{ $idioma->navegacion }}</li>     
 

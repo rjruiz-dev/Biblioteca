@@ -114,5 +114,8 @@
                 {data: 'accion', name: 'accion'}                          
             ]
         });
+
+        var
+
     </script>
 @endpush

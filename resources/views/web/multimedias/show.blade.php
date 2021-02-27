@@ -38,7 +38,7 @@
                     <li class="list-group-item">
                         <b>{{ $idioma_doc->titulo }}:</b> <a class="pull-right">{{ $multimedia->document->title }}</a>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item" style="overflow:hidden;">
                         <b>{{ $idioma_doc->autor }}:</b> <a class="pull-right">{{ $multimedia->document->creator->creator_name }}</a>
                     </li>
                 </ul>

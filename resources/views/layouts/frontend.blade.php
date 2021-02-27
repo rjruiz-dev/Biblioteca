@@ -19,9 +19,11 @@
                    <br>
                     <br>
                 <!-- </div> -->
-           
-            @foreach($documentos as $doc)
             @php
+            $contador5 = 0;
+            @endphp
+            @foreach($documentos as $doc)
+            @php 
                     if($doc['photo'] == null){
                         $url=asset("images/doc-default.png");
                     }else{
@@ -37,7 +39,7 @@
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 
-                        src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de; width: 100%; height:270px;"> 
+                        src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de; width: 100%;"> 
                     
                     @if ( strlen(trim($doc['title'])) > 25)
                     @php
@@ -84,7 +86,17 @@
                     </div>
                     <!-- /.box-body -->
                 </div> 
-            </div> 
+            </div>
+            @php
+            $contador5 = $contador5 + 1;
+            @endphp
+            @if($contador5 == 5)
+            <div class="col-md-15" style="width: 100%"> 
+            </div>
+            @php
+            $contador5 = 0;
+            @endphp
+            @endif 
             @endforeach	
         </div>
         </div>
