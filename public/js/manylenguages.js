@@ -256,11 +256,26 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
                 },
                 success: function(response) {
                     $('#datatable').DataTable().ajax.reload(null, false);
-                    swal({
-                        type: 'success',
-                        title: '¡Éxito!',
-                        text: '¡Se ha el ' + title_noti_fin + ' el lenguaje!'
-                    });
+                    var info = response.data;
+
+                    if (info != 0) {
+                        swal({
+                            type: 'success',
+                            title: '¡Éxito!',
+                            text: '¡Se ha el ' + title_noti_fin + ' el lenguaje!'
+                        });
+
+                    } else {
+                        swal({
+                            type: 'warning',
+                            // title: swal_advertencia_lan,
+                            // text: swal_info_advertencia_lan
+                            title: '¡Advertencia!_ ',
+                            text: '¡No puede dar de baja este idioma, debe haber al menos un idioma activo en el sistema!_'
+                        });
+                    }
+
+
                 },
                 error: function(xhr) {
                     swal({

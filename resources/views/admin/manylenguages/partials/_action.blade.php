@@ -22,7 +22,9 @@
 
     @if ($idiomas['baja'] == 1)
         <a href="{{ $url_destroy }}" class="btn-delete" title="Reactivar"><i class="fa fa-arrow-up text-green"></i></a> |      
-        <a href="{{ $url_deleteManylenguages }}" class="btn-deleteManylenguages" title="Eliminar"><i class="fa fa-trash text-danger"></i></a> |     
+        @if ($idiomas['id'] != 1)
+            <a href="{{ $url_deleteManylenguages }}" class="btn-deleteManylenguages" title="Eliminar"><i class="fa fa-trash text-danger"></i></a> |     
+        @endif
     @endif
 
     @if ($idiomas['baja'] == 0)
