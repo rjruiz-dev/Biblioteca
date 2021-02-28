@@ -140,11 +140,11 @@ $('body').on('click', '.btn-deleteCourse', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
-    swal_eliminar_lan = $('#swal_eliminar_lan').val();
+    swal_eliminar = $('#swal_eliminar').val();
 
     swal({
-        title: '¿Seguro que quieres eliminar este curso ?_',
-        // title: swal_eliminar_lan,
+        // title: '¿Seguro que quieres eliminar este curso ?_',
+        title: swal_eliminar,
         // text: '¡No podrás revertir esto!',
         type: 'warning',
         showCancelButton: true,
@@ -164,27 +164,27 @@ $('body').on('click', '.btn-deleteCourse', function(event) {
                     $('#datatable').DataTable().ajax.reload(null, false);
 
                     var info = response.data;
-                    // var swal_exito_lan = response.swal_exito_lan;
-                    // var swal_info_eliminar_lan = response.swal_info_eliminar_lan;
-                    // var swal_advertencia_lan = response.swal_advertencia_lan;
-                    // var swal_info_advertencia_lan = response.swal_info_advertencia_lan;
+                    var swal_exito = response.swal_exito;
+                    var swal_info_eliminar = response.swal_info_eliminar;
+                    var swal_advertencia = response.swal_advertencia;
+                    var swal_info_advertencia = response.swal_info_advertencia;
 
                     if (info == 1) {
                         swal({
                             type: 'success',
-                            // title: swal_exito_lan,
-                            // text: swal_info_eliminar_lan
-                            title: 'Exito_',
-                            text: '¡El curso ha sido eliminado!_'
+                            title: swal_exito,
+                            text: swal_info_eliminar
+                                // title: 'Exito_',
+                                // text: '¡El curso ha sido eliminado!_'
                         });
 
                     } else {
                         swal({
                             type: 'warning',
-                            // title: swal_advertencia_lan,
-                            // text: swal_info_advertencia_lan
-                            title: '¡Advertencia!_ ',
-                            text: '¡No puede eliminar este curso, ya que esta en uno o mas prestamos vigente!_'
+                            title: swal_advertencia,
+                            text: swal_info_advertencia
+                                // title: '¡Advertencia!_ ',
+                                // text: '¡No puede eliminar este curso, ya que esta en uno o mas prestamos vigente!_'
                         });
                     }
                 },

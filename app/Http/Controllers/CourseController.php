@@ -242,9 +242,10 @@ class CourseController extends Controller
 
     public function deleteCourse($id)
     {       
-        $document   = Book_movement::where('courses_id', $id)->where('active', 1)->get();
-        // $session    = session('idiomas');
-        // $swal_lang  = Swal_language::where('many_lenguages_id',$session)->first();
+        $document       = Book_movement::where('courses_id', $id)->where('active', 1)->get();
+        $session        = session('idiomas');
+        $swal_course    = Swal_course::where('many_lenguages_id',$session)->first();
+
       
         if( $document->isEmpty())
         {  
@@ -259,11 +260,11 @@ class CourseController extends Controller
         }
         return response()->json([
                                     'data' => $bandera,
-                                    // 'swal_exito_lan'            => $swal_lang->swal_exito_lan,
-                                    // 'swal_eliminar_lan'         => $swal_lang->swal_eliminar_lan,
-                                    // 'swal_info_eliminar_lan'    => $swal_lang->swal_info_eliminar_lan,   
-                                    // 'swal_advertencia_lan'      => $swal_lang->swal_advertencia_lan,
-                                    // 'swal_info_advertencia_lan' => $swal_lang->swal_info_advertencia_lan
+                                    'swal_exito'            => $swal_course->swal_exito,
+                                    'swal_eliminar'         => $swal_course->swal_eliminar,
+                                    'swal_info_eliminar'    => $swal_course->swal_info_eliminar,   
+                                    'swal_advertencia'      => $swal_course->swal_advertencia,
+                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
                                 ]);  
       
     }

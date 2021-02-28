@@ -1123,7 +1123,9 @@ class ManyLenguagesController extends Controller
                 // Swal cursos
                 $swal_course                            = Swal_course::where('many_lenguages_id', $idioma->id)->first();
                 $swal_course->swal_exito                = $request->get('swal_exito');     
-                $swal_course->swal_info_exito           = $request->get('swal_info_exito');               
+                $swal_course->swal_info_exito           = $request->get('swal_info_exito');
+                $swal_course->swal_eliminar             = $request->get('swal_eliminar');  
+                $swal_course->swal_info_eliminar        = $request->get('swal_info_eliminar');                 
                 $swal_course->swal_advertencia          = $request->get('swal_advertencia');  
                 $swal_course->swal_info_advertencia     = $request->get('swal_info_advertencia');  
                 $swal_course->swal_baja                 = $request->get('swal_baja');  
@@ -2648,9 +2650,9 @@ public function update_credentials(Request $request, $id)
             $idioma->save();   
         }else{
 
-            $idioma = ManyLenguages::where('baja', 0)->get();
-            
-            if($idioma->count() > 1){
+            $idiomas_verificacion = ManyLenguages::where('baja', 0)->get();
+           
+            if($idiomas_verificacion->count() > 1){               
                 $bandera = 1;
                 if($idioma->baja == 0){ //si esta activo lo bajo
                     $idioma->baja = 1;
@@ -2659,8 +2661,6 @@ public function update_credentials(Request $request, $id)
             }else{
                 $bandera = 0;         
             }
-
-            
         }
         return response()->json([
             'data' => $bandera            

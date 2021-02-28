@@ -24,6 +24,19 @@
             </div>
         </div>   
     </div>
+    @if($idioma_doc->imagen_de_portada == null)
+    {
+                    $url=asset("./images/doc-default.jpg");
+    }@else{
+        
+        @if(file_exists("./images/". $book->document['photo']))
+        {
+            $url=asset("./images/". $book->document['photo']);
+        }@else{
+            $url=asset("./images/doc-default.jpg");  
+        }
+            
+    }@endif     
     <div class="col-md-6">    
         <div class="box box-primary">
             <div class="box-header with-border">
