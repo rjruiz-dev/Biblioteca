@@ -197,7 +197,9 @@
                    <br>
                     <br>
                 <!-- </div> -->
-           
+            @php
+            $contadorRecientes = 0;
+            @endphp
             @foreach($documentos as $doc)
             @php
                     if($doc['photo'] == null){
@@ -212,6 +214,7 @@
             @endphp
             <div class="col-md-15">   
                 <div class="box box-primary" style="border-top-color: {{ $setting->skin }};">        
+                <!-- style="word-wrap: break-word;" -->
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 
@@ -263,6 +266,16 @@
                     <!-- /.box-body -->
                 </div> 
             </div> 
+            @php
+            $contadorRecientes = $contadorRecientes + 1;
+            @endphp
+            @if($contadorRecientes == 5)
+            <div class="col-md-15" style="width: 100%"> 
+            </div>
+            @php
+            $contadorRecientes = 0;
+            @endphp
+            @endif 
             @endforeach	
         </div>
         </div>
@@ -276,6 +289,9 @@
                    <br>
                     <br>
             <!-- </div> -->
+            @php
+            $contadorReservados = 0;
+            @endphp
             @foreach($CincoMasResevados  as $masreservados)
             @php
                     if($masreservados->photo == null){
@@ -290,6 +306,7 @@
             @endphp
             <div class="col-md-15">   
                 <div class="box box-primary">        
+                <!-- style="word-wrap: break-word;" -->
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 
@@ -340,7 +357,17 @@
                     </div>
                     <!-- /.box-body -->
                 </div> 
-            </div>          
+            </div>
+            @php
+            $contadorReservados = $contadorReservados + 1;
+            @endphp
+            @if($contadorReservados == 5)
+            <div class="col-md-15" style="width: 100%"> 
+            </div>
+            @php
+            $contadorReservados = 0;
+            @endphp
+            @endif           
             @endforeach	
         </div>
         </div>     

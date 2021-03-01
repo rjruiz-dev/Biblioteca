@@ -20,7 +20,7 @@
                     <br>
                 <!-- </div> -->
             @php
-            $contador5 = 0;
+            $contadorRecientes = 0;
             @endphp
             @foreach($documentos as $doc)
             @php 
@@ -34,9 +34,9 @@
                         }    
                     }
             @endphp
-            <div class="col-md-15">   
+            <div class="col-md-15">    
                 <div class="box box-primary" style="border-top-color: {{ $setting->skin }};">        
-                    <div class="box-body box-profile" style="word-wrap: break-word;">            
+                    <div class="box-body box-profile" style="word-wrap: break-word;">             
             
                         <img class="img-responsive img-rounded" 
                         src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de; width: 100%;"> 
@@ -88,13 +88,13 @@
                 </div> 
             </div>
             @php
-            $contador5 = $contador5 + 1;
+            $contadorRecientes = $contadorRecientes + 1;
             @endphp
-            @if($contador5 == 5)
+            @if($contadorRecientes == 5)
             <div class="col-md-15" style="width: 100%"> 
             </div>
             @php
-            $contador5 = 0;
+            $contadorRecientes = 0;
             @endphp
             @endif 
             @endforeach	
@@ -110,6 +110,9 @@
                    <br>
                     <br>
             <!-- </div> -->
+            @php
+            $contadorReservados = 0;
+            @endphp
             @foreach($CincoMasResevados  as $masreservados)
             @php
                     if($masreservados->photo == null){
@@ -124,6 +127,7 @@
             @endphp
             <div class="col-md-15">   
                 <div class="box box-primary">        
+                <!-- style="word-wrap: break-word;" profile-->
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 
@@ -174,15 +178,42 @@
                     </div>
                     <!-- /.box-body -->
                 </div> 
-            </div>          
+            </div> 
+            @php
+            $contadorReservados = $contadorReservados + 1;
+            @endphp
+            @if($contadorReservados == 5)
+            <div class="col-md-15" style="width: 100%"> 
+            </div>
+            @php
+            $contadorReservados = 0;
+            @endphp
+            @endif          
             @endforeach	
         </div>
         </div>     
     <!-- </div> -->
 </section>
 @stop
-
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
+
+
+// $(document).ready(function(){//ACCION CUANDO CARGUE LA PAGINA
+
+// var altura_arr2 = [];//CREAMOS UN ARREGLO VACIO
+// $('.well2').each(function(){//RECORREMOS TODOS LOS CONTENEDORES DE LAS IMAGENES, DEBEN TENER LA MISMA CLASE
+//   var altura = $(this).height(); //LES SACAMOS LA ALTURA
+//   altura_arr2.push(altura);//METEMOS LA ALTURA AL ARREGLO
+// });
+// altura_arr2.sort(function(a, b){return b-a}); //ACOMODAMOS EL ARREGLO EN ORDEN DESCENDENTE
+// $('.well2').each(function(){//RECORREMOS DE NUEVO LOS CONTENEDORES
+//   $(this).css('height',altura_arr2[0]);//LES PONEMOS A TODOS LOS CONTENEDORES EL PRIMERO ELEMENTO DE ALTURA DEL ARREGLO, QUE ES EL MAS GRANDE.
+// });
+
+// });
+
+
         function filtrar() {
             valor_filtro = document.getElementById("filtro").value;
             console.log("ssssss: " + valor_filtro);
@@ -192,13 +223,14 @@
                 dataType: 'json',
                 success: function (response) {
                     console.log("llego a succes: " + response.recientes);
-                $("#recargar").load(" #recargar");
+                $("#recargar").load(" #recargar"); 
+                // document.location.reload();    
                 },
                 error: function () { 
                     // console.log(error);
                     alert('Hubo un error obteniendo el detalle de la Compañía!');
                 }
-            })
+            })  
         }
 
         function filtrar_reservados() {
@@ -218,6 +250,8 @@
                 }
             })
         }
+
+            
 </script>
 
 <style type="text/css">
