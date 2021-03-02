@@ -311,7 +311,7 @@ class UserController extends Controller
                 $user->nickname     = $request->get('nickname');
                 $user->email        = $request->get('email');
 
-                if($request->get('password') != trim('') && (trim($request->get('password') != null))){
+                if( (trim( $request->get('password') ) != '') && ( trim( $request->get('password') ) != null ) ){
                     $user->password     = $request->get('password');
                 }
 
@@ -419,9 +419,11 @@ class UserController extends Controller
                 $user->name         = $request->get('name');
                 $user->surname      = $request->get('surname');
                 $user->nickname     = $request->get('nickname');
-                $user->email        = $request->get('email');        
+                $user->email        = $request->get('email');  
+                
+                // dd($user);
                
-                if($request->get('password') != trim('') && (trim($request->get('password') != null))){
+                if( (trim( $request->get('password') ) != '') && ( trim( $request->get('password') ) != null ) ){
                     $user->password     = $request->get('password');
                 }
                 
