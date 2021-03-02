@@ -140,7 +140,7 @@
         </div>
     </div>
    
-    <div class="col-md-4">        
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -160,7 +160,7 @@
         </div>       
     </div> 
 
-    <div class="col-md-4">        
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -182,7 +182,7 @@
 
     
 
-    <div class="col-md-4">        
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -202,7 +202,7 @@
         </div>       
     </div>   
 
-    <div class="col-md-4">        
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
