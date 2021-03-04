@@ -26,10 +26,10 @@
                     {!! Form::label('group', $Ml_partner->mod_select_tipo) !!}&nbsp;
                 
                     <label>
-                        &nbsp;{!! Form::radio('group', 'Librarian', $rol_lib ? 'checked' : '') !!} {{$Ml_partner->mod_check_biblio}}                               
+                        &nbsp;{!! Form::radio('group', 'Librarian', $rol_lib ? 'checked' : '', ['id' => 'Librarian']) !!} {{$Ml_partner->mod_check_biblio}}                               
                     </label>
                     <label>
-                        &nbsp;{!! Form::radio('group', 'Partner', $rol_part ? 'checked' : '') !!} {{$Ml_partner->mod_check_socio}}                        
+                        &nbsp;{!! Form::radio('group', 'Partner', $rol_part ? 'checked' : '', ['id' => 'Partner']) !!} {{$Ml_partner->mod_check_socio}}                        
                     </label>
                 </div>
                 <div class="form-group" >              
@@ -142,3 +142,17 @@
 
     {!! Form::close() !!}    
 </div>
+@if (!$user->exists) 
+<script>
+    $('input[type=radio][name=group]').change(function() {
+    if (this.value == 'Librarian') {
+        // alert("Librarian");
+        $("#status_id").find("option[value='1']").remove(); 
+    }
+    else if (this.value == 'Partner') {
+        // alert("Partner");
+        $('#status_id').append('<option value="1">Pendiente</option>');
+    }
+    });
+</script>
+@endif

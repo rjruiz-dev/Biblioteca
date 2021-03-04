@@ -1,3 +1,18 @@
+@if($music->document['photo'] == null)
+    @php
+    $url=asset("./images/doc-default.jpg");
+    @endphp
+@else
+    @if(file_exists("./images/". $music->document['photo']))
+        @php
+        $url=asset("./images/". $music->document['photo']);
+        @endphp
+    @else
+        @php
+        $url=asset("./images/doc-default.jpg");  
+        @endphp
+    @endif
+@endif
 <div class="row">
     <div class="container-fluid"> 
         <div class="row col-md-12" >
@@ -29,7 +44,7 @@
               <h3 class="box-title">{{ $idioma_doc->imagen_de_portada }} </h3>
             </div>        
             <div class="box-body box-profile">
-                <img class="img-responsive" src="/images/{{ $music->document->photo }}"  alt="{{ $music->document->title }}">
+                <img class="img-responsive" src="{{$url}}"  alt="{{ $music->document->title }}">
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">

@@ -114,6 +114,24 @@ desired effect
   }
 
 </style>
+    @php
+    $imagen_completa = trim(Auth::user()['user_photo']);
+    @endphp
+    @if(Auth::user() == null)
+      @php
+        $url=asset("./images/doc-default.jpg");
+      @endphp
+    @else
+      @if(file_exists("./images/". $imagen_completa))
+        @php
+        $url=asset("./images/". $imagen_completa);
+        @endphp
+      @else
+        @php
+        $url=asset("./images/doc-default.jpg");
+        @endphp
+      @endif
+    @endif 
 
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -244,7 +262,7 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}"   class="user-image" alt="User Image">
+              <img src="{{ $url }}"   class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span id="rec_nickname" class="hidden-xs">{{ Auth::user() != null  ? Auth::user()->name : 'No logueado' }}</span>
               
@@ -252,7 +270,7 @@ desired effect
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}" class="img-circle" alt="User Image">
+                <img src="{{ $url }}" class="img-circle" alt="User Image">
 
                 <p>
                   {{ Auth::user()->name }} - {{  Auth::user()->getRoleNames() }}
@@ -332,11 +350,11 @@ desired effect
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
+     
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img id="image" src="/images/{{ Auth::user() != null  ? Auth::user()->user_photo : 'user-default.jpg' }}" class="img-circle" alt="User Image" style="max-height:42px;">
+          <img id="image" src="{{ $url }}" class="img-circle" alt="User Image" style="max-height:42px;">
         </div>
         <div class="pull-left info">
         <p>{{ Auth::user() != null ? Auth::user()->name : $idioma->invitado }}</p>

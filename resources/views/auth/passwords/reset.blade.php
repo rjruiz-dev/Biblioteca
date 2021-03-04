@@ -62,7 +62,7 @@
                 </div>
                 <div class="row">        
                     <div class="col-xs-12"> 
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Restablecer contraseñaAAAA</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Restablecer contraseña</button>
                     </div>
                 </div>
             </form>

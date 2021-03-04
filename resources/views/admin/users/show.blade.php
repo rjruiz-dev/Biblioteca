@@ -1,9 +1,25 @@
+
+@if($user['user_photo'] == null)
+    @php
+    $url=asset("./images/user-default.jpg");
+    @endphp
+@else
+    @if(file_exists("./images/". $user['user_photo']))
+        @php
+        $url=asset("./images/". $user['user_photo']);
+        @endphp
+    @else
+        @php
+        $url=asset("./images/user-default.jpg");  
+        @endphp
+    @endif
+@endif
 <div class="row">
     <div class="col-md-6">    
         <div class="box box-primary">        
             <div class="box-body box-profile">            
                 <img class="profile-user-img img-responsive img-circle" 
-                    src="/images/{{ $user->user_photo }}" 
+                    src="{{$url}}" 
                     alt="{{ $user->name}}"
                     width="100px" style="max-height:90px;">
                     

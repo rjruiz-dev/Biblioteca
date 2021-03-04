@@ -1,3 +1,18 @@
+@if($movie->document['photo'] == null)
+    @php
+    $url=asset("./images/doc-default.jpg");
+    @endphp
+@else
+    @if(file_exists("./images/". $movie->document['photo']))
+        @php
+        $url=asset("./images/". $movie->document['photo']);
+        @endphp
+    @else
+        @php
+        $url=asset("./images/doc-default.jpg");  
+        @endphp
+    @endif
+@endif
 <div class="row">
 <div class="container-fluid"> 
         <div class="row col-md-12" >
@@ -30,7 +45,7 @@
             </div>        
             <div class="box-body box-profile">
                                           
-                <img class="img-responsive" src="{{ asset('images/'.$movie->document->photo) }}" >
+                <img class="img-responsive" src="{{$url}}" alt="{{ $movie->document->title }}">
                 &nbsp;
                 &nbsp;
                 <ul class="list-group list-group-unbordered">

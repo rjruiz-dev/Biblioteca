@@ -1,3 +1,18 @@
+@if($book->document['photo'] == null)
+    @php
+    $url=asset("./images/doc-default.jpg");
+    @endphp
+@else
+    @if(file_exists("./images/". $book->document['photo']))
+        @php
+        $url=asset("./images/". $book->document['photo']);
+        @endphp
+    @else
+        @php
+        $url=asset("./images/doc-default.jpg");  
+        @endphp
+    @endif
+@endif
 <div class="row">
        
     <div class="container-fluid"> 
@@ -31,7 +46,7 @@
             </div>        
             <div class="box-body box-profile">
                 <div class="text-center">      
-                    <img class="img-responsive" src="/images/{{ $book->document->photo }}"  alt="{{ $book->document->title }}">              
+                    <img class="img-responsive" src="{{$url}}"  alt="{{ $book->document->title }}">              
                 </div>
                 &nbsp;
                 &nbsp;

@@ -1,3 +1,18 @@
+@if($photograph->document['photo'] == null)
+    @php
+    $url=asset("./images/doc-default.jpg");
+    @endphp
+@else
+    @if(file_exists("./images/". $photograph->document['photo']))
+        @php
+        $url=asset("./images/". $photograph->document['photo']);
+        @endphp
+    @else
+        @php
+        $url=asset("./images/doc-default.jpg");  
+        @endphp
+    @endif
+@endif
 <div class="row">
     <div class="container-fluid">   
         <div class="row col-md-12" >
@@ -29,7 +44,7 @@
               <h3 class="box-title">{{ $idioma_doc->imagen_de_portada }} </h3>
             </div>        
             <div class="box-body box-profile">
-                <img class="img-responsive" src="/images/{{ $photograph->document->photo }}"  alt="{{ $photograph->document->title }}">
+                <img class="img-responsive" src="{{$url}}"  alt="{{ $photograph->document->title }}">
                 
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">

@@ -75,7 +75,7 @@ class UserController extends Controller
         }
 
         $rol_lib = false;
-        $rol_part = false;
+        $rol_part = true; // para que arranque en socios
 
         $session = session('idiomas');
         $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
@@ -515,7 +515,17 @@ class UserController extends Controller
             }) 
           
             ->addColumn('user_photo', function ($usuarios){
-                $url=asset("/images/$usuarios->user_photo"); 
+                if($usuarios['user_photo'] == null){
+                    $url=asset("./images/user-default.jpg");
+                }else{
+                    if(file_exists("./images/". $usuarios['user_photo'])){
+                        $url=asset("./images/". $usuarios['user_photo']);
+                    }else{
+                        $url=asset("./images/user-default.jpg");  
+                    }
+                     
+                }
+                // $url=asset("/images/$usuarios->user_photo"); 
                 return '<img src='.$url.' border="0" width="40" class="img-rounded" align="center" />'; 
             })
             ->addColumn('name', function ($usuarios){

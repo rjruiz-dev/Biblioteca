@@ -177,7 +177,7 @@ class HomeController extends Controller
                 // $user->postcode     = $request->get('postcode');  
                 // $user->city         = $request->get('city');
                 // $user->province     = $request->get('province');
-                // $user->phone        = $request->get('phone');   
+                $user->user_photo        = 'user-default.jpg';   
                 $user->birthdate    =  Carbon::createFromFormat('d-m-Y', $request->get('birthdate'));    
                 // $user->membership   = $request->get('membership');   
                 // $user->status_id    = $request->get('status_id');
