@@ -39,6 +39,23 @@
             </div>
         </div>   
     </div>
+    
+
+    @if($book->document['photo'] == null)
+        @php
+            $url=asset("./images/doc-default.jpg");
+        @endphp
+    @else
+        @if(file_exists("./images/". $book->document['photo']))
+            @php
+                $url=asset("./images/". $book->document['photo']);
+            @endphp
+        @else
+            @php
+                $url=asset("./images/doc-default.jpg");  
+            @endphp           
+    @endif 
+
     <div class="col-md-6">    
         <div class="box box-primary">
             <div class="box-header with-border">

@@ -21,6 +21,9 @@ class CreateSwalCoursesTable extends Migration
             $table->string('swal_exito')->nullable();
             $table->string('swal_info_exito')->nullable();            
 
+            $table->string('swal_eliminar')->nullable();
+            $table->string('swal_info_eliminar')->nullable();
+            
             $table->string('swal_advertencia')->nullable();     
             $table->string('swal_info_advertencia')->nullable(); 
             

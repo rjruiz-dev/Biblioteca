@@ -7,7 +7,8 @@
 
     {{ Form::hidden('swal_baja', $swal_course->swal_baja, ['id' => 'swal_baja']) }}
     {{ Form::hidden('swal_reactivar', $swal_course->swal_reactivar, ['id' => 'swal_reactivar']) }}
-
+    {{ Form::hidden('swal_eliminar', $swal_course->swal_eliminar, ['id' => 'swal_eliminar']) }}
+    
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Cursos</li>

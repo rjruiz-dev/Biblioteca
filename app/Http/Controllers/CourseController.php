@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Course;
+use App\Document;
 use App\Setting;
 use App\Ml_course;
 use App\Ml_dashboard;
@@ -239,10 +240,38 @@ class CourseController extends Controller
                                 ]);              
     }
 
+    public function deleteCourse($id)
+    {       
+        $document       = Book_movement::where('courses_id', $id)->where('active', 1)->get();
+        $session        = session('idiomas');
+        $swal_course    = Swal_course::where('many_lenguages_id',$session)->first();
+
+      
+        if( $document->isEmpty())
+        {  
+            $bandera = 1;
+            $course = Course::findOrFail($id);  
+            $course->baja = 3; // eliminado logicamente
+            $course->save();      
+
+
+        }else{          
+            $bandera = 0;            
+        }
+        return response()->json([
+                                    'data' => $bandera,
+                                    'swal_exito'            => $swal_course->swal_exito,
+                                    'swal_eliminar'         => $swal_course->swal_eliminar,
+                                    'swal_info_eliminar'    => $swal_course->swal_info_eliminar,   
+                                    'swal_advertencia'      => $swal_course->swal_advertencia,
+                                    'swal_info_advertencia' => $swal_course->swal_info_advertencia
+                                ]);  
+      
+    }
+
     public function dataTable()
     {       
-        $cursos = Course::query()      
-        ->get();
+        $cursos = Course::where('baja', '<>', 3)->get();
          
         return dataTables::of($cursos)
            
@@ -270,8 +299,9 @@ class CourseController extends Controller
                 return view('admin.courses.partials._action', [
                     'cursos' => $cursos,
 
-                    'url_edit' => route('admin.courses.edit', $cursos->id),                              
-                    'url_destroy' => route('admin.courses.destroy', $cursos->id)
+                    'url_edit'          => route('admin.courses.edit', $cursos->id),                              
+                    'url_destroy'       => route('admin.courses.destroy', $cursos->id),
+                    'url_deleteCourse'  => route('admin.courses.deleteCourse', $cursos->id)
                 ]);
             })           
             ->addIndexColumn()   

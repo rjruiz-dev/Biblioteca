@@ -100,7 +100,7 @@ $('body').on('click', '.modal-show', function(event) {
                 language: 'es'
             });
 
-           
+
 
             $('#year').datepicker({
                 autoclose: true,
@@ -158,7 +158,7 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
 
             var id_new_doc = response.data;
             var bandera = response.bandera;
@@ -166,7 +166,7 @@ $('#modal-btn-save').click(function(event) {
             var mensaje_exito = response.mensaje_exito;
             var actualizacion_documento = response.actualizacion_documento;
             var alta_documento = response.alta_documento;
-            
+
 
             console.log("id: " + id_new_doc);
             console.log("bandera: " + bandera);
@@ -207,9 +207,9 @@ $('body').on('click', '.btn-solicitud', function(event) {
         url = me.attr('href'),
         title = me.attr('title'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
-        
-        preg_solicitar_documento = $('#preg_solicitar_documento').val();
-    
+
+    preg_solicitar_documento = $('#preg_solicitar_documento').val();
+
     swal({
         title: preg_solicitar_documento,
         // text: '¡No podrás revertir esto!',
@@ -231,9 +231,9 @@ $('body').on('click', '.btn-solicitud', function(event) {
                     var info = response.error;
                     var mensaje_exito = response.mensaje_exito;
                     var resp_solicitar_documento = response.resp_solicitar_documento;
-                    
+
                     $('#modal').modal('hide');
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     if (info == 0) {
                         swal({
                             type: 'success',
@@ -304,7 +304,7 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
                     '_token': csrf_token
                 },
                 success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: '¡Éxito!',
@@ -372,7 +372,7 @@ $('body').on('click', '.btn-desidherata', function(event) {
         csrf_token = $('meta[name="csrf-token"]').attr('content');
     console.log("url: " + url)
     desidherata = $('#preg_desidherata_documento').val();
-    
+
     swal({
 
         title: desidherata,
@@ -395,8 +395,8 @@ $('body').on('click', '.btn-desidherata', function(event) {
 
                     var mensaje_exito = response.mensaje_exito;
                     var resp_desidherata_documento = response.resp_desidherata_documento;
-                    
-                    $('#datatable').DataTable().ajax.reload();
+
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -424,8 +424,8 @@ $('body').on('click', '.btn-baja', function(event) {
         valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-     // console.log("aaaa: " + valor);
-     if (valor == 'rechazar') {
+    // console.log("aaaa: " + valor);
+    if (valor == 'rechazar') {
         baja_rechazar = $('#preg_rechazar_documento').val();
     } else {
         baja_rechazar = $('#preg_baja_documento').val();
@@ -452,8 +452,8 @@ $('body').on('click', '.btn-baja', function(event) {
 
                     var mensaje_exito = response.mensaje_exito;
                     var baja_rechazar = response.baja_rechazar;
-                    
-                    $('#datatable').DataTable().ajax.reload();
+
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -481,11 +481,11 @@ $('body').on('click', '.btn-reactivar', function(event) {
         valor = me.attr('value'),
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-        if (valor == 'aceptar') {
-            reactivar_aceptar = $('#preg_aceptar_documento').val();
-        } else {
-            reactivar_aceptar = $('#preg_reactivar_documento').val();
-        }
+    if (valor == 'aceptar') {
+        reactivar_aceptar = $('#preg_aceptar_documento').val();
+    } else {
+        reactivar_aceptar = $('#preg_reactivar_documento').val();
+    }
     swal({
         title: reactivar_aceptar,
         // text: '¡No podrás revertir esto!',
@@ -508,7 +508,7 @@ $('body').on('click', '.btn-reactivar', function(event) {
                     var mensaje_exito = response.mensaje_exito;
                     var resp_reactivar_documento = response.resp_reactivar_documento;
 
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
                     swal({
                         type: 'success',
                         title: mensaje_exito,
@@ -572,45 +572,65 @@ function obtenercamposestaticos(accion) {
         dataType: 'json',
         success: function(response) {
 
-            if (accion == 5) { // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
+            if (accion == 5) {
+
+                // AQUI VA TODO LO Q SEA ESTATICO DE LA PANTALLA 
                 // console.log("uiuiuiui" + accion);
                 // document.getElementById("l_subtitle").innerHTML = response.subtítulo;
                 // $('#subtitle').attr('placeholder', response.subtítulo);
+
                 $("#creators_id").select2({
+                    dropdownParent: $("#fg_creators_id"),
                     placeholder: response.ph_cuerpo_director,
+                    tags: true
                 });
                 $('#adaptations_id').select2({
+                    dropdownParent: $("#fg_adaptations_id"),
                     placeholder: response.ph_cuerpo_adaptacion,
+                    tags: false
                 });
                 $('#adequacies_id').select2({
-                    placeholder: response.ph_cuerpo_adecuado_para,
+                    dropdownParent: $("#fg_adequacies_id"),
+                    placeholder: response.ph_cuerpo_adecuado_para
                 });
                 $('#generate_films_id').select2({
-                    placeholder: response.ph_cuerpo_genero,
+                    dropdownParent: $("#fg_generate_films_id"),
+                    placeholder: response.ph_cuerpo_genero
                 });
                 $("#generate_subjects_id").select2({
-                    placeholder: response.ph_cuerpo_cdu,
+                    dropdownParent: $("#fg_generate_subjects_id"),
+                    placeholder: response.ph_cuerpo_cdu
                 });
                 $('#status_documents_id').select2({
-                    dropdownParent: response.ph_cuerpo_estado,
+                    dropdownParent: $("#fg_status_documents_id"),
+                    dropdownParent: response.ph_cuerpo_estado
                 });
                 $('#published').select2({
+                    dropdownParent: $("#fg_published"),
                     placeholder: response.ph_cuerpo_nacionalidad,
+                    tags: true
                 });
                 $('#made_by').select2({
+                    dropdownParent: $("#fg_made_by"),
                     placeholder: response.ph_cuerpo_productora,
+                    tags: true
                 });
                 $('#photography_movies_id').select2({
-                    placeholder: response.ph_cuerpo_fotografia,
+                    dropdownParent: $("#fg_photography_movies_id"),
+                    placeholder: response.ph_cuerpo_fotografia
                 });
                 $('#generate_formats_id').select2({
-                    placeholder: response.ph_cuerpo_formato,
+                    dropdownParent: $("#fg_generate_formats_id"),
+                    placeholder: response.ph_cuerpo_formato
                 });
                 $('#distributor').select2({
+                    dropdownParent: $("#fg_distributor"),
                     placeholder: response.ph_cuerpo_distribuidora,
+                    tags: true
                 });
                 $('#lenguages_id').select2({
-                    placeholder: response.ph_cuerpo_idioma,
+                    dropdownParent: $("#fg_lenguages_id"),
+                    placeholder: response.ph_cuerpo_idioma
                 });
                 // $('#modal-btn-save')
                 document.getElementById("modal-btn-save").innerText = response.compl_btn_guardar;

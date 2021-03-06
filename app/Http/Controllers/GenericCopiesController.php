@@ -110,13 +110,12 @@ class GenericCopiesController extends Controller
                 $new_movement->courses_id = 1; //referencia a curso NO CURSO
                 $new_movement->active = 1;
                 $new_movement->save();
-
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 
                 DB::commit();
                  
                 $error = true;
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
 
                 return response()->json(['data' => $error,'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_copia' => $traduccionsweet->alta_copia]); // 0 = store
 
@@ -231,12 +230,12 @@ class GenericCopiesController extends Controller
                 if($error){
                 $copy->registry_number = $request->get('registry_number');
                 $copy->save();
-
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 
                 DB::commit();
                 }
+
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $error,'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_copia' => $traduccionsweet->actualizacion_copia]); // 1 = update
                            
             } catch (Exception $e) {

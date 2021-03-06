@@ -401,11 +401,12 @@ class PhotographyController extends Controller
                 $photograph->documents_id  = $document->id;//guardamos el id del documento                
                 $photograph->save();
                 
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+               
                 
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
 
 
@@ -659,13 +660,12 @@ class PhotographyController extends Controller
                 $photograph->edition               = $request->get('edition');
                 $photograph->generate_formats_id   = $request->get('generate_formats_id');               
                 $photograph->documents_id          = $document->id;//guardamos el id del documento
-                $photograph->save();
-   
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
+                $photograph->save();                
     
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
 
 

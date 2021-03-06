@@ -140,7 +140,7 @@
         </div>
     </div>
    
-    <div class="col-md-4">        
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -158,9 +158,31 @@
                 </div>                    
             </div>
         </div>       
-    </div>    
+    </div> 
 
-    <div class="col-md-4">        
+    <div class="col-md-3">        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="text-center">
+                    <h3 class="box-title">Alertas Eliminación </h3>
+                </div>
+            </div>
+            <div class="box-body">              
+                <div class="form-group">              
+                    {!! Form::label('swal_eliminar', 'Titulo del mensaje de eliminación') !!}                    
+                    {!! Form::text('swal_eliminar', $swal_course['swal_eliminar'] ? $swal_course['swal_eliminar'] : null, ['class' => 'form-control', 'id' => 'swal_eliminar', 'placeholder' => 'Titulo del mensaje de eliminación']) !!}
+                </div>                 
+                <div class="form-group">              
+                    {!! Form::label('swal_info_eliminar', 'Mensaje de eliminación') !!}                    
+                    {!! Form::text('swal_info_eliminar', $swal_course['swal_info_eliminar'] ? $swal_course['swal_info_eliminar'] : null, ['class' => 'form-control', 'id' => 'swal_info_eliminar', 'placeholder' => 'Mensaje de eliminación']) !!}
+                </div>     
+            </div>
+        </div>       
+    </div> 
+
+    
+
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">
@@ -180,7 +202,7 @@
         </div>       
     </div>   
 
-    <div class="col-md-4">        
+    <div class="col-md-3">        
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="text-center">

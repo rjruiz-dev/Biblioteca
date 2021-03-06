@@ -11,8 +11,8 @@
         </div>
         <div class="box-body">
             <div class="form-group">
-                {!! Form::label('genre_book', $ml_gl->mod_subtitulo_gl ) !!}
-                {!! Form::text('genre_book', null, ['class' => 'form-control', 'id' => 'genre_book', 'placeholder' => $ml_gl->mod_subtitulo_gl ]) !!}                                      
+                {!! Form::label('genre_book', $ml_gl->cam_gl ) !!}
+                {!! Form::text('genre_book', null, ['class' => 'form-control', 'id' => 'genre_book', 'placeholder' => $ml_gl->cam_gl ]) !!}                                      
             </div>
         </div>
     </div>

@@ -37,7 +37,7 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
 
             var swal_exito_gra = response.swal_exito_gra;
             var swal_info_exito_gra = response.swal_info_exito_gra;
@@ -90,7 +90,7 @@ $('body').on('click', '.btn-delete', function(event) {
                     '_token': csrf_token
                 },
                 success: function(response) {
-                    $('#datatable').DataTable().ajax.reload();
+                    $('#datatable').DataTable().ajax.reload(null, false);
 
                     var info = response.data;
                     var swal_exito_gra = response.swal_exito_gra;

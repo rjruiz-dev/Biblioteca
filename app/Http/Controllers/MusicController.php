@@ -336,12 +336,11 @@ class MusicController extends Controller
                     $culture->music_id      = $music->id; //guardamos el id del libro
                     $culture->save();
                 }
-
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 1, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'alta_documento' => $traduccionsweet->alta_documento]);
 
             } catch (Exception $e) {
@@ -685,12 +684,11 @@ class MusicController extends Controller
                         $culture->music_id      = $music->id; //guardamos el id del libro
                         $culture->save();
                 }
-
-                $session = session('idiomas');
-                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
     
                 DB::commit();
 
+                $session = session('idiomas');
+                $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
                 return response()->json(['data' => $document->id, 'bandera' => 0, 'mensaje_exito' => $traduccionsweet->mensaje_exito, 'actualizacion_documento' => $traduccionsweet->actualizacion_documento]);
 
             } catch (Exception $e) {

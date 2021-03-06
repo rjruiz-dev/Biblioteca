@@ -37,7 +37,7 @@ $('#modal-btn-save').click(function(event) {
         success: function(response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatable').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload(null, false);
 
             var swal_exito = response.swal_exito;
             var swal_info_exito = response.swal_info_exito;
@@ -105,7 +105,7 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
 
 
                     if (info == 1) {
-                        $('#datatable').DataTable().ajax.reload();
+                        $('#datatable').DataTable().ajax.reload(null, false);
                         swal({
                             type: 'success',
                             title: swal_exito,
@@ -116,6 +116,75 @@ $('body').on('click', '.btn-delete', function(event) { // nose usa pero se deja 
                             type: 'warning',
                             title: swal_advertencia,
                             text: swal_info_advertencia
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Ups...',
+                        text: '¡Algo salió mal!'
+                    });
+                }
+            });
+        }
+    });
+});
+
+
+$('body').on('click', '.btn-deleteCourse', function(event) {
+    event.preventDefault();
+    console.log('entro ');
+
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+    swal_eliminar = $('#swal_eliminar').val();
+
+    swal({
+        // title: '¿Seguro que quieres eliminar este curso ?_',
+        title: swal_eliminar,
+        // text: '¡No podrás revertir esto!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        // confirmButtonText: 'Sí, bórralo!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function(response) {
+                    $('#datatable').DataTable().ajax.reload(null, false);
+
+                    var info = response.data;
+                    var swal_exito = response.swal_exito;
+                    var swal_info_eliminar = response.swal_info_eliminar;
+                    var swal_advertencia = response.swal_advertencia;
+                    var swal_info_advertencia = response.swal_info_advertencia;
+
+                    if (info == 1) {
+                        swal({
+                            type: 'success',
+                            title: swal_exito,
+                            text: swal_info_eliminar
+                                // title: 'Exito_',
+                                // text: '¡El curso ha sido eliminado!_'
+                        });
+
+                    } else {
+                        swal({
+                            type: 'warning',
+                            title: swal_advertencia,
+                            text: swal_info_advertencia
+                                // title: '¡Advertencia!_ ',
+                                // text: '¡No puede eliminar este curso, ya que esta en uno o mas prestamos vigente!_'
                         });
                     }
                 },

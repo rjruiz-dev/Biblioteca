@@ -3,9 +3,11 @@
 
    @if ($cursos['baja'] == 1)
     <a href="{{ $url_destroy }}" class="btn-delete" title="Reactivar"><i class="fa fa-arrow-up text-green"></i></a> |         
-    @endif
+   @endif
 
-    @if ($cursos['baja'] == 0)
+   @if ($cursos['baja'] == 0)
     <a href="{{ $url_destroy }}" class="btn-delete" title="Baja"><i class="fa fa-arrow-down text-danger"></i></a> |       
-    @endif
+   @endif
+
+   <a href="{{ $url_deleteCourse }}" class="btn-deleteCourse" title="Eliminar"><i class="fa fa-trash text-danger"></i></a> |       
 

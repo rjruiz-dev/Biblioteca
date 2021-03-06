@@ -362,7 +362,7 @@ class UserController extends Controller
                 }
                 // $user->status_id    = $status; 
                 $user->user_photo   = $name;
-                $user->save();
+                $user->save();               
 
                 DB::commit();
 
