@@ -218,7 +218,7 @@
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 
-                        src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de; width: 100%; height:270px;"> 
+                        src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de; width: 100%;"> 
                     
                     @if ( strlen(trim($doc['title'])) > 25)
                     @php
@@ -310,7 +310,7 @@
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
                         <img class="img-responsive img-rounded" 
-                        src="{{ $url_d }}" alt="{{ $masreservados->title }}" style="border: 3px solid #d2d6de; width: 100%; height:270px;"> 
+                        src="{{ $url_d }}" alt="{{ $masreservados->title }}" style="border: 3px solid #d2d6de; width: 100%;"> 
                     
                     @if ( strlen(trim($masreservados->title)) > 25)
                     @php

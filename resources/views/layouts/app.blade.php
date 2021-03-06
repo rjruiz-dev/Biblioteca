@@ -173,7 +173,7 @@ desired effect
               <i class="fa fa-globe"></i>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Elija un idiomtddtttdtdtda</li>
+              <li class="header">Elija un idioma</li>
               @foreach($idiomas as $idioma_ind)
               <li class="footer"><a href="{{ route('cambiar', $idioma_ind->id) }}" class="btn-cambiar">{{ $idioma_ind->lenguage_description }}</a></li>
               @endforeach
@@ -751,7 +751,7 @@ $('#modal-btn-save-edicion-perfil').click(function (event) {
 // SIRVE PARA CMABIAR EL IDIOMA 
 $('body').on('click', '.btn-cambiar', function (event) {
     event.preventDefault();
-   
+   console.log("aaadaaa");
     var me = $(this),
         url = me.attr('href'),
         title = me.attr('title'),

@@ -36,29 +36,27 @@ class VBooksController extends Controller
      */
     public function indexsolo(Request $request, $idf)
     {
-        // $request->session()->put('idiomas', 2);
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
-            $request->session()->put('idiomas', 1);
-            $existe = 0;
-        }
-        $session = session('idiomas');
+    // REQUERIDO MULTI-IDIOMA - INICIO
+    if (!$request->session()->has('idiomas')) { // evaluo si existe esa variable de sesion. sino existe
+    $request->session()->put('idiomas', 1); // la creo y le seteo por defecto el idioma 1 predeterminado(español).
+    }
+    $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
+    $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+    // REQUERIDO MULTI-IDIOMA - FIN
 
         //cargo el idioma
         $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_doc     = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
         $setting        = Setting::where('id', 1)->first();        
-        $idiomas        = ManyLenguages::all();
-
+        
         // de esta forma cargo el idioma. en la variable esta el unico registro
         $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
         
 
         return view('web.books.index', [
+            'idiomas'     => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'idioma'     => $idioma,
-            'idiomas'    => $idiomas,
             'idioma_doc' => $idioma_doc,
             'idioma_book'=> $idioma_book,
             'setting'    => $setting,
@@ -76,28 +74,26 @@ class VBooksController extends Controller
     {
         $idf = 'none'; //con esto indico q no tiene q filtrar por un libto solo     
         
-        // $request->session()->put('idiomas', 2);
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
-            $request->session()->put('idiomas', 1);
-            $existe = 0;
+        // REQUERIDO MULTI-IDIOMA - INICIO
+        if (!$request->session()->has('idiomas')) { // evaluo si existe esa variable de sesion. sino existe
+        $request->session()->put('idiomas', 1); // la creo y le seteo por defecto el idioma 1 predeterminado(español).
         }
-        $session = session('idiomas');
+        $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        // REQUERIDO MULTI-IDIOMA - FIN
 
         //cargo el idioma
         $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idioma_doc     = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
         $setting        = Setting::where('id', 1)->first();        
-        $idiomas        = ManyLenguages::all();
         // de esta forma cargo el idioma. en la variable esta el unico registro
         $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
         
 
         return view('web.books.index', [
+            'idiomas'     => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'idioma'     => $idioma,
-            'idiomas'    => $idiomas,
             'idioma_doc' => $idioma_doc,
             'idioma_book'=> $idioma_book,
             'setting'    => $setting,
@@ -140,14 +136,13 @@ class VBooksController extends Controller
      */
     public function show(Request $request, $id)
     {
-         // $request->session()->put('idiomas', 2);
-         if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
-            $request->session()->put('idiomas', 1);
-            $existe = 0;
-        }
-        $session = session('idiomas');
+         // REQUERIDO MULTI-IDIOMA - INICIO
+        if (!$request->session()->has('idiomas')) { // evaluo si existe esa variable de sesion. sino existe
+            $request->session()->put('idiomas', 1); // la creo y le seteo por defecto el idioma 1 predeterminado(español).
+            }
+            $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
+            $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+            // REQUERIDO MULTI-IDIOMA - FIN
 
         //cargo el idioma
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
@@ -184,6 +179,7 @@ class VBooksController extends Controller
         }
 
         return view('web.books.show', compact('book'), [
+            'idiomas'     => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'idioma_doc'    => $idioma_doc,
             'idioma_book'   => $idioma_book,
             'disabled'      => $disabled,
@@ -229,6 +225,14 @@ class VBooksController extends Controller
         //
     }
 
+    // REQUERIDO MULTI-IDIOMAS INICIO
+    public function cambiar(Request $request, $id)
+    {
+        $request->session()->put('idiomas', $id);  // METODO PARA SETEAR EL NUEVO IDIOMA EN LA VARIABLE DE SESSION.
+         
+    }
+    // REQUERIDO MULTI-IDIOMAS FIN
+    
     public function dataTable(Request $request)
     {   
         // $libros = Book::with('document.creator', 'document.document_subtype', 'document','document.lenguage','generate_book') 

@@ -43,7 +43,7 @@ Route::get('/route-clear', function() {
 
 
 Route::get('/', 'HomeController@index')->name('index');
-Route::delete('cambiar{id}', 'HomeController@cambiar')->name('cambiar');
+Route::delete('cambiar/{id}', 'HomeController@cambiar')->name('cambiar');
 
 Route::auth();
 // Route::get('/login', function () {

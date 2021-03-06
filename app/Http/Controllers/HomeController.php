@@ -35,15 +35,14 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        // $request->session()->put('idiomas', 2);
-        if ($request->session()->has('idiomas')) {
-            $existe = 1;
-        }else{
-            $request->session()->put('idiomas', 1);
-            $existe = 0;
+        // REQUERIDO MULTI-IDIOMA - INICIO
+        if (!$request->session()->has('idiomas')) { // evaluo si existe esa variable de sesion. sino existe
+            $request->session()->put('idiomas', 1); // la creo y le seteo por defecto el idioma 1 predeterminado(español).
         }
-        $session = session('idiomas');
-
+        $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        // REQUERIDO MULTI-IDIOMA - FIN
+        
         // $request->session()->put('idiomas', 2);
         if (!$request->session()->has('recientes')) {
             $request->session()->put('recientes', 5);
@@ -59,7 +58,7 @@ class HomeController extends Controller
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_front_end = ml_front_end::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        // dd($ml_front_end);
         $setting = Setting::where('id', 1)->first();
         $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)
                     ->orderBy('id', 'DESC')
@@ -75,8 +74,8 @@ class HomeController extends Controller
                                 ORDER BY COUNT(d.id) DESC LIMIT '.$reservados);
 
         return view('layouts.frontend', [
+            'idiomas'     => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'idioma'      => $idioma,
-            'idiomas'     => $idiomas,
             'setting'     => $setting,
             'documentos'  => $documentos,
             'recientes'  => $recientes,
@@ -102,35 +101,39 @@ class HomeController extends Controller
      
     }
 
-
+    // REQUERIDO MULTI-IDIOMAS INICIO
     public function cambiar(Request $request, $id)
     {
-        $request->session()->put('idiomas', $id);
-        
+        // dd("river de la b");
+        $request->session()->put('idiomas', $id);  // METODO PARA SETEAR EL NUEVO IDIOMA EN LA VARIABLE DE SESSION.
+
     }
+    // REQUERIDO MULTI-IDIOMAS FIN
 
     public function create(Request $request)
     {
         $user = new User();
          
-        if (!$request->session()->has('idiomas')) { 
-            
-            $request->session()->put('idiomas', 1);
+        // REQUERIDO MULTI-IDIOMA - INICIO
+        if (!$request->session()->has('idiomas')) { // evaluo si existe esa variable de sesion. sino existe
+            $request->session()->put('idiomas', 1); // la creo y le seteo por defecto el idioma 1 predeterminado(español).
         }
+        $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        // REQUERIDO MULTI-IDIOMA - FIN 
 
-        $session = session('idiomas'); 
-
-        $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();  
-        $ml_registry    = Ml_registry::where('many_lenguages_id', $idioma->id)->first();
+        $idioma         = Ml_dashboard::where('many_lenguages_id', $session)->first();  
+        $ml_registry    = Ml_registry::where('many_lenguages_id', $session)->first();
                             
         return view('web.users.partials.form', [
+            'idiomas'     => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba). 
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::pluck('state_description', 'id'),           
             'user'          => $user,
             'idioma'        => $idioma,
-            'ml_registry'   => $ml_registry
-        ]); 
+            'ml_registry'   => $ml_registry,
+            ]); 
 
     }
 

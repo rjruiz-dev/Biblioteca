@@ -227,7 +227,50 @@ class ManyLenguagesController extends Controller
                 $ml_dashboard->gestion_multi_idioma    = $request->get('gestion_multi_idioma');
                 $ml_dashboard->many_lenguages_id       = $idioma->id;               
                 $ml_dashboard->save();
+
+                $ml_document = new Ml_document;
+                $ml_document->many_lenguages_id       = $idioma->id;
+                $ml_document->save();
+
+                $ml_abm_book = new ml_abm_book;
+                $ml_abm_book->many_lenguages_id       = $idioma->id;
+                $ml_abm_book->save();
+
+                $ml_abm_book_lit = new ml_abm_book_lit;
+                $ml_abm_book_lit->many_lenguages_id       = $idioma->id;
+                $ml_abm_book_lit->save();
+
+                $Ml_movie                       = new Ml_movie;
+                $Ml_movie->many_lenguages_id       = $idioma->id;
+                $Ml_movie->save();
+
+                $ml_show_doc                       = new ml_show_doc;
+                $ml_show_doc->many_lenguages_id       = $idioma->id;
+                $ml_show_doc->save();
+
+                $ml_show_book                       = new ml_show_book;
+                $ml_show_book->many_lenguages_id       = $idioma->id;
+                $ml_show_book->save();
+
+                $ml_show_movie                       = new ml_show_movie;
+                $ml_show_movie->many_lenguages_id       = $idioma->id;
+                $ml_show_movie->save();
+
+                $ml_show_music                       = new ml_show_music;
+                $ml_show_music->many_lenguages_id       = $idioma->id;
+                $ml_show_music->save();
+
+                $ml_show_fotografia                       = new ml_show_fotografia;
+                $ml_show_fotografia->many_lenguages_id       = $idioma->id;
+                $ml_show_fotografia->save();
+
                 
+                $ml_show_multimedia                       = new ml_show_multimedia;
+                $ml_show_multimedia->many_lenguages_id       = $idioma->id;
+                $ml_show_multimedia->save();
+
+                //------------------------------a esos falta hacer el create eso se puede hacer copiando el update donde estan hechos.-----------------------------------------------
+
                 $Ml_adequacy                       = new Ml_adequacy;
                 $Ml_adequacy->many_lenguages_id       = $idioma->id;
                 $Ml_adequacy->save();
@@ -320,11 +363,6 @@ class ManyLenguagesController extends Controller
                 $Ml_manual_loan->many_lenguages_id       = $idioma->id;
                 $Ml_manual_loan->save();
 
-                        
-                $Ml_movie                       = new Ml_movie;
-                $Ml_movie->many_lenguages_id       = $idioma->id;
-                $Ml_movie->save();
-
                 $Ml_musical_genre                       = new Ml_musical_genre;
                 $Ml_musical_genre->many_lenguages_id       = $idioma->id;
                 $Ml_musical_genre->save();
@@ -351,32 +389,7 @@ class ManyLenguagesController extends Controller
                 $Ml_send_letter->many_lenguages_id       = $idioma->id;
                 $Ml_send_letter->save();
 
-                
-                $ml_show_book                       = new ml_show_book;
-                $ml_show_book->many_lenguages_id       = $idioma->id;
-                $ml_show_book->save();
-
                 // ----------------
-
-                $ml_show_doc                       = new ml_show_doc;
-                $ml_show_doc->many_lenguages_id       = $idioma->id;
-                $ml_show_doc->save();
-
-                $ml_show_fotografia                       = new ml_show_fotografia;
-                $ml_show_fotografia->many_lenguages_id       = $idioma->id;
-                $ml_show_fotografia->save();
-
-                $ml_show_movie                       = new ml_show_movie;
-                $ml_show_movie->many_lenguages_id       = $idioma->id;
-                $ml_show_movie->save();
-
-                $ml_show_multimedia                       = new ml_show_multimedia;
-                $ml_show_multimedia->many_lenguages_id       = $idioma->id;
-                $ml_show_multimedia->save();
-
-                $ml_show_music                       = new ml_show_music;
-                $ml_show_music->many_lenguages_id       = $idioma->id;
-                $ml_show_music->save();
 
                 $Ml_statistic                       = new Ml_statistic;
                 $Ml_statistic->many_lenguages_id       = $idioma->id;
@@ -404,138 +417,6 @@ class ManyLenguagesController extends Controller
                 $Ml_periodical_publication->save();     
                 
                
-               
-
-                
-                
-                //-------------------------------------------------------------------------------------------------------------------------
-
-                // $ml_show_doc                       = new ml_show_doc;
-                // $ml_show_doc->many_lenguages_id    = $idioma->id;
-                 
-                // $ml_show_doc->imagen_de_portada    = $request->get('imagen_de_portada');
-                // $ml_show_doc->idioma               = $request->get('idioma');
-                // $ml_show_doc->disponible_desde     = $request->get('disponible_desde');
-                // $ml_show_doc->adecuado_para        = $request->get('adecuado_para');
-                // $ml_show_doc->ubicacion            = $request->get('ubicacion');
-                // $ml_show_doc->solicitar_prestamo   = $request->get('solicitar_prestamo');
-                // $ml_show_doc->valoracion           = $request->get('valoracion');
-                // $ml_show_doc->anio                 = $request->get('anio');
-                // $ml_show_doc->subtipo_de_documento = $request->get('subtipo_de_documento');
-                // $ml_show_doc->titulo               = $request->get('titulo');
-                // $ml_show_doc->autor                = $request->get('autor');
-                // $ml_show_doc->sinopsis             = $request->get('sinopsis');
-                // $ml_show_doc->titulo_original      = $request->get('titulo_original');
-                // $ml_show_doc->editorial            = $request->get('editorial');
-                // $ml_show_doc->nacionalidad         = $request->get('nacionalidad');
-                // $ml_show_doc->genero               = $request->get('genero');
-                // $ml_show_doc->duracion             = $request->get('duracion');
-                // $ml_show_doc->formato              = $request->get('formato');
-                // $ml_show_doc->save();
-
-
-                // $ml_show_book                      = new ml_show_book;
-                //  $ml_show_book->many_lenguages_id  = $idioma->id;
-                 
-                // $ml_show_book->tema_de_portada     = $request->get('tema_de_portada');
-                // $ml_show_book->sobre_el_documento  = $request->get('sobre_el_documento');
-                // $ml_show_book->subtitulo           = $request->get('subtitulo');
-                // $ml_show_book->otros_autores       = $request->get('otros_autores');
-                // $ml_show_book->publicado_en        = $request->get('publicado_en');
-                // $ml_show_book->detalles_del_documento = $request->get('detalles_del_documento');
-                // $ml_show_book->volumen                = $request->get('volumen');
-                // $ml_show_book->numero_de_paginas      = $request->get('numero_de_paginas');
-                // $ml_show_book->tamanio                = $request->get('tamanio');
-                // $ml_show_book->save();
-
-                // $ml_show_movie                       = new ml_show_movie;
-                // $ml_show_movie->many_lenguages_id    = $idioma->id;
-                 
-                // $ml_show_movie->dirigido_por         = $request->get('dirigido_por');
-                // $ml_show_movie->sobre_la_pelicula    = $request->get('sobre_la_pelicula');
-                // $ml_show_movie->reparto              = $request->get('reparto');
-                // $ml_show_movie->productora           = $request->get('productora');
-                // $ml_show_movie->distribuidora        = $request->get('distribuidora');
-                // $ml_show_movie->detalles_de_la_pelicula  = $request->get('detalles_de_la_pelicula');
-                // $ml_show_movie->fotografia               = $request->get('fotografia');
-                // $ml_show_movie->save();
-
-                // $ml_show_music                       = new ml_show_music;
-                // $ml_show_music->many_lenguages_id    = $idioma->id;
-                 
-                // $ml_show_music->titulo_de_la_obra    = $request->get('titulo_de_la_obra');
-                // $ml_show_music->director             = $request->get('director');
-                // $ml_show_music->sobre_la_musica      = $request->get('sobre_la_musica');
-                // $ml_show_music->compositor           = $request->get('compositor');
-                // $ml_show_music->orquesta             = $request->get('orquesta');
-                // $ml_show_music->editado_en           = $request->get('editado_en');
-                // $ml_show_music->sello_discofrafico   = $request->get('sello_discofrafico');
-                // $ml_show_music->detalles_de_la_musica = $request->get('detalles_de_la_musica');
-                // $ml_show_music->save();
-
-                // $ml_show_fotografia                       = new ml_show_fotografia;
-                // $ml_show_fotografia->many_lenguages_id    = $idioma->id;
-                 
-                // $ml_show_fotografia->detalles_de_la_fotografia  = $request->get('detalles_de_la_fotografia');
-                // $ml_show_fotografia->notas                      = $request->get('notas');
-                // $ml_show_fotografia->observaciones              = $request->get('observaciones');
-                // $ml_show_fotografia->save();
-
-                // $ml_show_multimedia                       = new ml_show_multimedia;
-                // $ml_show_multimedia->many_lenguages_id    = $idioma->id;
-                 
-                // $ml_show_multimedia->sobre_multimedia   = $request->get('sobre_multimedia');
-                // $ml_show_multimedia->detalles_de_multimedia = $request->get('detalles_de_multimedia');
-                // $ml_show_multimedia->paginas                = $request->get('paginas');
-                // $ml_show_multimedia->volumen                = $request->get('volumen');
-                // $ml_show_multimedia->edicion                = $request->get('edicion');
-                // $ml_show_multimedia->save();
-
-                //-------------------------------------------------------------------------------------------------------------------------
-
-                // $ml_document                        = new Ml_document;
-                // $ml_document->cdu                   = $request->get('cdu');
-                // $ml_document->adecuacion            = $request->get('adecuacion');
-                // $ml_document->idioma                = $request->get('idioma');
-                // $ml_document->tipo_doc              = $request->get('tipo_doc');  
-                // $ml_document->subtipo_doc           = $request->get('subtipo_doc');
-                // $ml_document->creador               = $request->get('creador');  
-                // $ml_document->titulo                = $request->get('titulo');  
-                // $ml_document->titulo_original       = $request->get('titulo_original');  
-                // $ml_document->adquirido             = $request->get('adquirido');  
-                // $ml_document->siglas_autor          = $request->get('siglas_autor');  
-                // $ml_document->siglas_titulo         = $request->get('siglas_titulo');  
-                // $ml_document->valoracion            = $request->get('valoracion');                  
-                // $ml_document->desidherata           = $request->get('desidherata');  
-                // $ml_document->publicado             = $request->get('publicado');  
-                // $ml_document->hecho_por             = $request->get('hecho_por');  
-                // $ml_document->año                   = $request->get('año');  
-                // $ml_document->volumen               = $request->get('volumen');  
-                // $ml_document->cant_generica         = $request->get('cant_generica');  
-                // $ml_document->coleccion             = $request->get('coleccion');  
-                // $ml_document->ubicacion             = $request->get('ubicacion');  
-                // $ml_document->observacion           = $request->get('observacion');  
-                // $ml_document->nota                  = $request->get('nota');  
-                // $ml_document->sinopsis              = $request->get('sinopsis');  
-                // $ml_document->foto                  = $request->get('foto');                  
-                // $ml_document->many_lenguages_id     = $idioma->id;
-                // $ml_document->save();
-
-                // $ml_movie = new Ml_movie;
-                // $ml_movie->genero                   = $request->get('genero');
-                // $ml_movie->formato                  = $request->get('formato');
-                // $ml_movie->adaptacion               = $request->get('adaptacion');
-                // $ml_movie->fotografia_tipo          = $request->get('fotografia_tipo');  
-                // $ml_movie->subtitulo                = $request->get('subtitulo');
-                // $ml_movie->guion                    = $request->get('guion');  
-                // $ml_movie->contenido_especifico     = $request->get('contenido_especifico');  
-                // $ml_movie->premios                  = $request->get('premios');  
-                // $ml_movie->distribuidor             = $request->get('distribuidor');                            
-                // $ml_movie->many_lenguages_id        = $idioma->id;
-                // $ml_movie->save();
-
-              
-
                 DB::commit();
 
                 // return response()->json(['data' => $document->id, 'bandera' => 1]);
@@ -1038,45 +919,6 @@ class ManyLenguagesController extends Controller
                $ml_show_multimedia->edicion               = $request->get('edicion');
                $ml_show_multimedia->save();
 
-
-                // $ml_document                        = Ml_document::where('many_lenguages_id', $idioma->id)->first();
-                // $ml_document->cdu                   = $request->get('cdu');
-                // $ml_document->adecuacion            = $request->get('adecuacion');
-                // $ml_document->idioma                = $request->get('idioma');
-                // $ml_document->tipo_doc              = $request->get('tipo_doc');  
-                // $ml_document->subtipo_doc           = $request->get('subtipo_doc');
-                // $ml_document->creador               = $request->get('creador');  
-                // $ml_document->titulo                = $request->get('titulo');  
-                // $ml_document->titulo_original       = $request->get('titulo_original');  
-                // $ml_document->adquirido             = $request->get('adquirido');  
-                // $ml_document->siglas_autor          = $request->get('siglas_autor');  
-                // $ml_document->siglas_titulo         = $request->get('siglas_titulo');  
-                // $ml_document->valoracion            = $request->get('valoracion');                  
-                // $ml_document->desidherata           = $request->get('desidherata');  
-                // $ml_document->publicado             = $request->get('publicado');  
-                // $ml_document->hecho_por             = $request->get('hecho_por');  
-                // $ml_document->año                   = $request->get('año');  
-                // $ml_document->volumen               = $request->get('volumen');  
-                // $ml_document->cant_generica         = $request->get('cant_generica');  
-                // $ml_document->coleccion             = $request->get('coleccion');  
-                // $ml_document->ubicacion             = $request->get('ubicacion');  
-                // $ml_document->observacion           = $request->get('observacion');  
-                // $ml_document->nota                  = $request->get('nota');  
-                // $ml_document->sinopsis              = $request->get('sinopsis'); 
-                // $ml_document->foto                  = $request->get('foto');   
-                // $ml_document->save();
-
-                // $ml_movie                           = Ml_movie::where('many_lenguages_id', $idioma->id)->first();
-                // $ml_movie->genero                   = $request->get('genero');
-                // $ml_movie->formato                  = $request->get('formato');
-                // $ml_movie->adaptacion               = $request->get('adaptacion');
-                // $ml_movie->fotografia_tipo          = $request->get('fotografia_tipo');  
-                // $ml_movie->subtitulo                = $request->get('subtitulo');
-                // $ml_movie->guion                    = $request->get('guion');  
-                // $ml_movie->contenido_especifico     = $request->get('contenido_especifico');  
-                // $ml_movie->premios                  = $request->get('premios');  
-                // $ml_movie->distribuidor             = $request->get('distribuidor'); 
-                // $ml_movie->save(); 
                 
                 DB::commit();
 
