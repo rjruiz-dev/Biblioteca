@@ -135,6 +135,7 @@ class ManyLenguagesController extends Controller
     {
         $idioma = new ManyLenguages; 
         $ml_dashboard = new Ml_dashboard;
+        
         $ml_document = new Ml_document;
         $ml_movie = new Ml_movie;
 
@@ -280,9 +281,28 @@ class ManyLenguagesController extends Controller
                 $Ml_movie->many_lenguages_id            = $idioma->id;
                 $Ml_movie->save();
 
-                $ml_show_doc                            = new ml_show_doc;
-                $ml_show_doc->many_lenguages_id         = $idioma->id;
-                $ml_show_doc->save();
+               $ml_show_doc                            = new ml_show_doc;
+               $ml_show_doc->many_lenguages_id         = $idioma->id;
+               $ml_show_doc->imagen_de_portada               = $request->get('imagen_de_portada');
+               $ml_show_doc->idioma               = $request->get('idioma');
+               $ml_show_doc->disponible_desde               = $request->get('disponible_desde');
+               $ml_show_doc->adecuado_para               = $request->get('adecuado_para');
+               $ml_show_doc->ubicacion               = $request->get('ubicacion');
+               $ml_show_doc->solicitar_prestamo               = $request->get('solicitar_prestamo');
+               $ml_show_doc->valoracion               = $request->get('valoracion');
+               $ml_show_doc->anio               = $request->get('anio');
+               $ml_show_doc->subtipo_de_documento               = $request->get('subtipo_de_documento');
+               $ml_show_doc->titulo               = $request->get('titulo');
+               $ml_show_doc->autor               = $request->get('autor');
+               $ml_show_doc->sinopsis               = $request->get('sinopsis');
+               $ml_show_doc->titulo_original               = $request->get('titulo_original');
+               $ml_show_doc->editorial               = $request->get('editorial');
+               $ml_show_doc->nacionalidad               = $request->get('nacionalidad');
+               $ml_show_doc->genero               = $request->get('genero');
+               $ml_show_doc->duracion               = $request->get('duracion');
+               $ml_show_doc->formato               = $request->get('formato');
+               $ml_show_doc->save();
+
 
                 $ml_show_book                           = new ml_show_book;
                 $ml_show_book->many_lenguages_id        = $idioma->id;
