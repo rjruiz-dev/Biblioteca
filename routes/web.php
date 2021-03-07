@@ -122,27 +122,25 @@ function(){
 
        
     //Print PDF
-    Route::get('books/exportpdf/{id}',      'BookController@exportPdf')->name('libro.pdf');
-    Route::get('movies/exportpdf/{id}',     'MoviesController@exportPdf')->name('cine.pdf');
-    Route::get('music/exportpdf/{id}',      'MusicController@exportPdf')->name('musica.pdf');  
-    Route::get('photographs/exportpdf/{id}','PhotographyController@exportPdf')->name('fotografia.pdf');  
-    Route::get('multimedias/exportpdf/{id}','MultimediaController@exportPdf')->name('multimedia.pdf');        
+    Route::get('books/exportpdf/{id}',          'BookController@exportPdf')->name('libro.pdf');
+    Route::get('movies/exportpdf/{id}',         'MoviesController@exportPdf')->name('cine.pdf');
+    Route::get('music/exportpdf/{id}',          'MusicController@exportPdf')->name('musica.pdf');  
+    Route::get('photographs/exportpdf/{id}',    'PhotographyController@exportPdf')->name('fotografia.pdf');  
+    Route::get('multimedias/exportpdf/{id}',    'MultimediaController@exportPdf')->name('multimedia.pdf');        
  
-    Route::get('books/obtener/{id}',         'BookController@obtener');     
-    Route::get('musics/obtener/{id}',        'MusicController@obtener');     
-    Route::get('movies/obtener/{id}',        'MoviesController@obtener');     
-    Route::get('photographs/obtener/{id}',   'PhotographyController@obtener');     
-    Route::get('multimedias/obtener/{id}',   'MultimediaController@obtener');     
+    Route::get('books/obtener/{id}',            'BookController@obtener');     
+    Route::get('musics/obtener/{id}',           'MusicController@obtener');     
+    Route::get('movies/obtener/{id}',           'MoviesController@obtener');     
+    Route::get('photographs/obtener/{id}',      'PhotographyController@obtener');     
+    Route::get('multimedias/obtener/{id}',      'MultimediaController@obtener');     
 
 
-    Route::get('books/obtenersweet/{id}',    'BookController@obtenersweet');     
-    Route::get('musics/obtenersweet/{id}',   'MusicController@obtenersweet');     
-    Route::get('movies/obtenersweet/{id}',   'MoviesController@obtenersweet');     
-    Route::get('photographs/obtenersweet/{id}',  'PhotographyController@obtenersweet');     
-    Route::get('multimedias/obtenersweet/{id}',  'MultimediaController@obtenersweet');  
-    
-    // Route::get('books/index/{request}/{idd}', 'BookController@index');
-   
+    Route::get('books/obtenersweet/{id}',       'BookController@obtenersweet');     
+    Route::get('musics/obtenersweet/{id}',      'MusicController@obtenersweet');     
+    Route::get('movies/obtenersweet/{id}',      'MoviesController@obtenersweet');     
+    Route::get('photographs/obtenersweet/{id}', 'PhotographyController@obtenersweet');     
+    Route::get('multimedias/obtenersweet/{id}', 'MultimediaController@obtenersweet');  
+       
     Route::get('movies/indexsolo/{id}/{tipo}',      'MoviesController@indexsolo')->name('movies.indexsolo');
     Route::get('books/indexsolo/{id}/{tipo}',       'BookController@indexsolo')->name('books.indexsolo');
     Route::get('music/indexsolo/{id}/{tipo}',       'MusicController@indexsolo')->name('music.indexsolo');
@@ -312,9 +310,9 @@ Route::get('importfromrebeca/table',    'ImportfromrebecaController@dataTable')-
 Route::get('manylenguages/table',       'ManyLenguagesController@dataTable')->name('manylenguages.table');
 Route::get('currentloan/table',         'AdminController@dataTable')->name('currentloan.table');
 Route::get('overdueloan/table',         'AdminController@dataTable2')->name('overdueloan.table');
-Route::get('susprestamos/table',         'AdminController@dataTable3')->name('susprestamos.table');
-Route::get('importfromrebeca/importar',                            'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
-Route::get('importfromrebeca/edicion/{id}',                            'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
+Route::get('susprestamos/table',        'AdminController@dataTable3')->name('susprestamos.table');
+Route::get('importfromrebeca/importar', 'ImportfromrebecaController@importar')->name('importfromrebeca.importar');
+Route::get('importfromrebeca/edicion/{id}', 'ImportfromrebecaController@edicion')->name('importfromrebeca.edicion');
 
 // Route::get('home', function () {
 //     return view('admin.dashboard');
