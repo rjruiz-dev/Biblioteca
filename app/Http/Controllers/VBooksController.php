@@ -148,6 +148,8 @@ class VBooksController extends Controller
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
         
+        $setting    = Setting::where('id', 1)->first();
+        
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad','second_author','third_author')->findOrFail($id);
 
         $id_docu = $book->documents_id;
@@ -183,6 +185,7 @@ class VBooksController extends Controller
             'idioma_doc'    => $idioma_doc,
             'idioma_book'   => $idioma_book,
             'disabled'      => $disabled,
+            'setting' => $setting,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]); 
 
