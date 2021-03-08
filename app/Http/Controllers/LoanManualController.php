@@ -40,7 +40,7 @@ class LoanManualController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
         $Ml_manual_loan     = Ml_manual_loan::where('many_lenguages_id',$session)->first();
        
@@ -179,7 +179,7 @@ class LoanManualController extends Controller
 
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting    = Setting::where('id', 1)->first(); 
         // dd($idioma->navegacion);
         

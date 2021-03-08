@@ -36,7 +36,8 @@ class GenerateFormatController extends Controller
         $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
         $swal_fg    = Swal_graphic_format::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
     
         return view('admin.formats.index', [
             'idioma'    => $idioma,

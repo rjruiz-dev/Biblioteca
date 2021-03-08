@@ -117,7 +117,7 @@ class ManyLenguagesController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         
         return view('admin.manylenguages.index', [
             'idioma'    => $idioma,

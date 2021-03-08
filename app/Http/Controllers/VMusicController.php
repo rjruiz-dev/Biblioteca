@@ -48,7 +48,7 @@ class VMusicController extends Controller
 
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting    = Setting::where('id', 1)->first();  
 
         // de esta forma cargo el idioma. en la variable esta el unico registro
@@ -79,7 +79,7 @@ class VMusicController extends Controller
 
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting    = Setting::where('id', 1)->first();  
 
         // de esta forma cargo el idioma. en la variable esta el unico registro

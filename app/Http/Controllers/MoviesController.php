@@ -70,7 +70,7 @@ class MoviesController extends Controller
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
         $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
         $setting            = Setting::where('id', 1)->first();
-        $idiomas            = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
         $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
         
@@ -123,7 +123,8 @@ class MoviesController extends Controller
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
         $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
         $setting            = Setting::where('id', 1)->first();
-        $idiomas            = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
 
         if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
 

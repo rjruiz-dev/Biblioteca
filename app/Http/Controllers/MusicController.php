@@ -65,7 +65,7 @@ class MusicController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
         // $this->authorize('view', new Music);
 
@@ -109,7 +109,7 @@ class MusicController extends Controller
         $idioma_document    = Ml_document::where('many_lenguages_id',$session)->first();
         $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
         $setting            = Setting::where('id', 1)->first();
-        $idiomas            = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
         if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
 

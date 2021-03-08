@@ -35,7 +35,7 @@ class GenerateBookController extends Controller
         $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
         $swal_gl    = Swal_literature::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
     
         return view('admin.literatures.index', [
             'idioma'    => $idioma,

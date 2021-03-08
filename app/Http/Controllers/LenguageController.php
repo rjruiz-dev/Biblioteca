@@ -35,7 +35,7 @@ class LenguageController extends Controller
         $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
         $swal_lang  = Swal_language::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();        
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
       
         return view('admin.languages.index', [
             'idioma'    => $idioma,

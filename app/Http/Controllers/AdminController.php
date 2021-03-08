@@ -37,7 +37,7 @@ class AdminController extends Controller
         $session        = session('idiomas');
         $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_panel_admin = ml_panel_admin::where('many_lenguages_id',$session)->first();
-        $idiomas        = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting        = Setting::where('id', 1)->first();
         $documentos     = Document::selectRaw('count(*) documents')->get();      
         $prestamos      = Book_movement::selectRaw('count(*) book_movements')                           
@@ -57,7 +57,7 @@ class AdminController extends Controller
         
         return view('layouts.dashboard', [
             'idioma'        => $idioma,
-            'idiomas'       => $idiomas,
+            'idiomas'       => $idiomas,// REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'setting'       => $setting,
             'documentos'    => $documentos,
             'prestamos'     => $prestamos,
@@ -93,7 +93,7 @@ class AdminController extends Controller
         //cargo el idioma
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_front_end = ml_front_end::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting = Setting::where('id', 1)->first();
         $ml_panel_admin = ml_panel_admin::where('many_lenguages_id',$session)->first();
         $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)

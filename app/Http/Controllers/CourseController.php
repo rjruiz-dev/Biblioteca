@@ -37,7 +37,7 @@ class CourseController extends Controller
         $ml_course      = Ml_course::where('many_lenguages_id', $idioma->id)->first();
         $swal_course    = Swal_course::where('many_lenguages_id',$session)->first();
         $setting        = Setting::where('id', 1)->first();
-        $idiomas        = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
      
         return view('admin.courses.index', [
             'idioma'    => $idioma,

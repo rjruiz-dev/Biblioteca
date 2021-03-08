@@ -31,7 +31,7 @@ class LoansbyclassroomController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_lc      = Ml_classroom_loan::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();        
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.        
         $cursos     = Course::pluck('course_name', 'id');
         
         return view('admin.loansbyclassroom.index', [

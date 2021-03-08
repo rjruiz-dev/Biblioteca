@@ -35,7 +35,7 @@ class PeriodicityController extends Controller
         $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
         $swal_pp    = Swal_periodical::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
             
         return view('admin.periodicals.index', [
             'idioma'    => $idioma,

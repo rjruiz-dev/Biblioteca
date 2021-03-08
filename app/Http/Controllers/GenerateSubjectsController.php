@@ -35,7 +35,7 @@ class GenerateSubjectsController extends Controller
         $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
         $swal_subject = Swal_subject::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
     
         
         return view('admin.subjects.index', [

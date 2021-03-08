@@ -31,7 +31,7 @@ class SettingController extends Controller
         $ml_library     = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
         $swal_library   = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
         $setting        = Setting::where('id', 1)->first();
-        $idiomas        = ManyLenguages::all();        
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.        
           
         $multas = Fine::all(); //obtengo las 2 multas. solo esta la econimica y la suspension de prestamos
         // dd($multas);

@@ -34,7 +34,8 @@ class GenerateLetterController extends Controller
         $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
         $swal_letter= Swal_letter::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
         
 
         return view('admin.letters.index', [

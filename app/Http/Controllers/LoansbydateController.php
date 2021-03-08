@@ -30,7 +30,7 @@ class LoansbydateController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_ld      = Ml_loan_by_date::where('many_lenguages_id', $idioma->id)->first();
         $setting    = Setting::where('id', 1)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
         return view('admin.loansbydate.index', [
             'idioma'    => $idioma,

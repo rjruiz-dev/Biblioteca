@@ -45,7 +45,7 @@ class FastPartnerProcessController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         // dd($idioma->navegacion);
         return view('admin.fastprocess.index', [
             'idioma'    => $idioma,
@@ -69,7 +69,7 @@ class FastPartnerProcessController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
         $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
         
@@ -236,7 +236,7 @@ class FastPartnerProcessController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting    = Setting::where('id', 1)->first();
 
         $Ml_loan_partner     = Ml_loan_partner::where('many_lenguages_id',$session)->first();
@@ -290,7 +290,7 @@ class FastPartnerProcessController extends Controller
 
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
-        $idiomas    = ManyLenguages::all();
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting    = Setting::where('id', 1)->first();
         $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
         

@@ -37,11 +37,11 @@ class AdequacyController extends Controller
         $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
         $swal_adequacy  = Swal_adequacy::where('many_lenguages_id', $idioma->id)->first();
         $setting        = Setting::where('id', 1)->first();
-        $idiomas        = ManyLenguages::all();
-
+        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
         return view('admin.adequacies.index', [
             'idioma'    => $idioma,
-            'idiomas'   => $idiomas,
+            'idiomas'   => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'setting'   => $setting,
             'ml_adequacy'   => $ml_adequacy,
             'swal_adequacy' => $swal_adequacy
