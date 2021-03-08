@@ -255,7 +255,7 @@
         </ul>
     </li>
       
-    
+    @endif
 
     @if(Auth::user() != null && Auth::user()->getRoleNames() == 'Partner')
     <!-- aca se cambio web.libros.index -->
