@@ -265,7 +265,7 @@ class PhotographyController extends Controller
         $document = new Document();   
         
         $idioma_cat_edit_fotografia = ml_cat_edit_fotografia::where('many_lenguages_id',$session)->first();
-
+        $setting    = Setting::where('id', 1)->first();
         // $this->authorize('create', $photograph); 
                               
         return view('admin.photographs.partials.form', [
@@ -283,6 +283,7 @@ class PhotographyController extends Controller
             'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
             'photograph'    => $photograph,
             'document'      => $document,
+            'setting' => $setting,
             'idioma_cat_edit_fotografia' => $idioma_cat_edit_fotografia
         ]); 
     }
@@ -439,7 +440,7 @@ class PhotographyController extends Controller
         $idioma_fotografia = ml_show_fotografia::where('many_lenguages_id',$session)->first();
         
         $photograph = Photography::with('document.creator', 'generate_format', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
-      
+        $setting    = Setting::where('id', 1)->first();
         $id_docu = $photograph->documents_id;
 
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
@@ -474,6 +475,7 @@ class PhotographyController extends Controller
             'idioma_doc'        => $idioma_doc,
             'idioma_fotografia' => $idioma_fotografia,
             'disabled'          => $disabled,
+            'setting' => $setting,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
 
@@ -502,7 +504,7 @@ class PhotographyController extends Controller
              
         $idioma_cat_edit_fotografia = ml_cat_edit_fotografia::where('many_lenguages_id',$session)->first();
 
-
+        $setting    = Setting::where('id', 1)->first();
         // $this->authorize('update', $photograph);
         // $id_docum = $document->id;
         // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
@@ -541,6 +543,7 @@ class PhotographyController extends Controller
                     'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
                     'photograph'    => $photograph,
                     'document'      => $document,
+                    'setting' => $setting,
                     'idioma_cat_edit_fotografia' => $idioma_cat_edit_fotografia
                 ]);
         // }

@@ -61,12 +61,13 @@ class GenerateMusicController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_gm      = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.musicals.partials.form', [           
             'musical'  => $musical,
+            'setting' => $setting,
             'idioma'    => $idioma,
             'ml_gm'     => $ml_gm
         ]);  
@@ -136,9 +137,11 @@ class GenerateMusicController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_gm      = Ml_musical_genre::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.musicals.partials.form', [           
             'musical'  => $musical,
+            'setting' => $setting,
             'idioma'    => $idioma,
             'ml_gm'     => $ml_gm
         ]); 

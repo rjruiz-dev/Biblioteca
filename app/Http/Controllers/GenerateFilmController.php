@@ -62,12 +62,13 @@ class GenerateFilmController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_gc      = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.cinematographics.partials.form', [           
             'film'      => $film,
+            'setting' => $setting,
             'idioma'    => $idioma,
             'ml_gc'     => $ml_gc
         ]);  
@@ -135,12 +136,13 @@ class GenerateFilmController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_gc      = Ml_cinematographic_genre::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.cinematographics.partials.form', [           
             'film'      => $film,
+            'setting' => $setting,
             'idioma'    => $idioma,
             'ml_gc'     => $ml_gc
         ]); 

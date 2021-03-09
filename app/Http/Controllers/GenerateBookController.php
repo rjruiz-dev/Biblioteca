@@ -65,9 +65,11 @@ class GenerateBookController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.literatures.partials.form', [           
             'literature'    => $literature,
+            'setting' => $setting,
             'idioma'        => $idioma,
             'ml_gl'         => $ml_gl
         ]);  
@@ -137,9 +139,11 @@ class GenerateBookController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_gl      = Ml_literary_genre::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.literatures.partials.form', [           
             'literature' => $literature,
+            'setting' => $setting,
             'idioma'     => $idioma,
             'ml_gl'      => $ml_gl
         ]); 

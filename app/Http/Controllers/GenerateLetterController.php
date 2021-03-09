@@ -63,13 +63,14 @@ class GenerateLetterController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.letters.partials.form', [           
             'letter'    => $letter,
             'idioma'    => $idioma,            
+            'setting' => $setting,
             'ml_letter' => $ml_letter
         ]);  
     }
@@ -138,13 +139,15 @@ class GenerateLetterController extends Controller
         }
 
         $session = session('idiomas'); 
+        $setting = Setting::where('id', 1)->first();
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_letter  = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
 
         return view('admin.letters.partials.form', [           
             'letter'    => $letter,
-            'idioma'    => $idioma,            
+            'idioma'    => $idioma,
+            'setting' => $setting,            
             'ml_letter' => $ml_letter
         ]);
     }

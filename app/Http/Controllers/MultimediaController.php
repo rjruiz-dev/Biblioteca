@@ -190,7 +190,7 @@ class MultimediaController extends Controller
         $document = new Document();  
 
         $idioma_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();
-
+        $setting = Setting::where('id', 1)->first();
         
         // $this->authorize('create', $multimedia); 
                               
@@ -208,7 +208,8 @@ class MultimediaController extends Controller
             'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
             'multimedia'    => $multimedia,
             'document'      => $document,
-            'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,               
+            'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,  
+            'setting' => $setting             
         ]); 
     }
 
@@ -363,6 +364,8 @@ class MultimediaController extends Controller
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_multimedia = ml_show_multimedia::where('many_lenguages_id',$session)->first();
         
+        $setting = Setting::where('id', 1)->first();
+
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         $id_docu = $multimedia->documents_id;
@@ -399,7 +402,8 @@ class MultimediaController extends Controller
             'idioma_doc'        => $idioma_doc,
             'idioma_multimedia' => $idioma_multimedia,
             'disabled'          => $disabled,
-            'label_copia_no_disponible' => $label_copia_no_disponible 
+            'label_copia_no_disponible' => $label_copia_no_disponible,
+            'setting' => $setting
         ]);
         
         // return view('admin.multimedias.show', compact('multimedia'));
@@ -423,7 +427,9 @@ class MultimediaController extends Controller
 
         // $multimedia = new Multimedia();  
         $multimedia = Multimedia::with('document')->findOrFail($id);
-        $document   = Document::findOrFail($multimedia->documents_id);      
+        $document   = Document::findOrFail($multimedia->documents_id); 
+        
+        $setting = Setting::where('id', 1)->first();
        
         $idioma_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id',$session)->first();
 
@@ -466,6 +472,7 @@ class MultimediaController extends Controller
                     'multimedia'    => $multimedia,
                     'document'      => $document,
                     'idioma_cat_edit_multimedia' => $idioma_cat_edit_multimedia,
+                    'setting' => $setting
                 ]);
         // }  
     }

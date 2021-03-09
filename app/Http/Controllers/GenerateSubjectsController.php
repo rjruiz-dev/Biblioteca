@@ -66,10 +66,12 @@ class GenerateSubjectsController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
+        $setting = Setting::where('id', 1)->first();
                              
         return view('admin.subjects.partials.form', [           
             'subject'       => $subject,
             'idioma'        => $idioma,
+            'setting' => $setting,
             'ml_subject'    => $ml_subject
 
         ]);  
@@ -137,6 +139,7 @@ class GenerateSubjectsController extends Controller
         }
 
         $session = session('idiomas'); 
+        $setting = Setting::where('id', 1)->first();
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_subject = Ml_subjects::where('many_lenguages_id', $idioma->id)->first();
@@ -144,6 +147,7 @@ class GenerateSubjectsController extends Controller
         return view('admin.subjects.partials.form', [           
             'subject'  => $subject,
             'idioma'        => $idioma,
+            'setting' => $setting,
             'ml_subject'    => $ml_subject
         ]);
     }

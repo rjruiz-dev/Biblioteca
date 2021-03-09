@@ -145,6 +145,7 @@ class ManyLenguagesController extends Controller
         $ml_show_music = new ml_show_music;
         $ml_show_fotografia = new ml_show_fotografia;
         $ml_show_multimedia = new ml_show_multimedia;
+        $setting    = Setting::where('id', 1)->first();
 
         return view('admin.manylenguages.partials.form', [          
             'idioma'        => $idioma,
@@ -158,7 +159,8 @@ class ManyLenguagesController extends Controller
             'ml_show_music' => $ml_show_music,
             'ml_show_fotografia' => $ml_show_fotografia,
             'ml_show_multimedia' => $ml_show_multimedia,
-        ]);
+            'setting' => $setting
+            ]);
         
     }
 
@@ -569,7 +571,8 @@ class ManyLenguagesController extends Controller
         $ml_show_music = ml_show_music::where('many_lenguages_id', $idioma->id)->first();
         $ml_show_fotografia = ml_show_fotografia::where('many_lenguages_id', $idioma->id)->first();
         $ml_show_multimedia = ml_show_multimedia::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.partials.form', [          
             'idioma'        => $idioma,
             'ml_dashboard'  => $ml_dashboard,
@@ -582,6 +585,7 @@ class ManyLenguagesController extends Controller
             'ml_show_music' => $ml_show_music,
             'ml_show_fotografia' => $ml_show_fotografia,
             'ml_show_multimedia' => $ml_show_multimedia,
+            'setting' => $setting
         ]); 
     }
 
@@ -621,6 +625,8 @@ class ManyLenguagesController extends Controller
 
         $ml_letter      = Ml_letter::where('many_lenguages_id', $idioma->id)->first();
         $swal_letter    = Swal_letter::where('many_lenguages_id', $idioma->id)->first();
+
+        $setting    = Setting::where('id', 1)->first();
         
         return view('admin.manylenguages.maintenance.partials.form', [          
             'idioma'        => $idioma,
@@ -657,7 +663,8 @@ class ManyLenguagesController extends Controller
             'swal_subject'  => $swal_subject,
 
             'ml_letter'     => $ml_letter,
-            'swal_letter'   => $swal_letter
+            'swal_letter'   => $swal_letter,
+            'setting' => $setting
         ]); 
     }
 
@@ -668,13 +675,14 @@ class ManyLenguagesController extends Controller
         $ml_ld = Ml_loan_by_date::where('many_lenguages_id', $idioma->id)->first();
         $ml_lc = Ml_classroom_loan::where('many_lenguages_id', $idioma->id)->first();
         $ml_dr = Ml_database_record::where('many_lenguages_id', $idioma->id)->first();
-      
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.list.partials.form', [          
             'idioma'    => $idioma,
             'ml_ld'     => $ml_ld,
             'ml_lc'     => $ml_lc,
             'ml_dr'     => $ml_dr,
-           
+           'setting' => $setting
            
         ]); 
     }
@@ -684,11 +692,12 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id);  
 
         $ml_statistic = Ml_statistic::where('many_lenguages_id', $idioma->id)->first();
-              
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.statistic.partials.form', [          
             'idioma'        => $idioma,           
-            'ml_statistic'  => $ml_statistic          
-           
+            'ml_statistic'  => $ml_statistic,
+           'setting' => $setting
         ]); 
     }
 
@@ -698,12 +707,13 @@ class ManyLenguagesController extends Controller
 
         $ml_library   = Ml_library_profile::where('many_lenguages_id', $idioma->id)->first();
         $swal_library = Swal_setting::where('many_lenguages_id', $idioma->id)->first();
+        $setting    = Setting::where('id', 1)->first();
 
         return view('admin.manylenguages.setting_library.partials.form', [          
             'idioma'      => $idioma,           
             'ml_library'  => $ml_library,
-            'swal_library'=> $swal_library                    
-           
+            'swal_library'=> $swal_library,                    
+           'setting' => $setting
         ]); 
     }
 
@@ -713,12 +723,13 @@ class ManyLenguagesController extends Controller
 
         $ml_ml = Ml_manual_loan::where('many_lenguages_id', $idioma->id)->first();
         $ml_wl = Ml_web_loan::where('many_lenguages_id', $idioma->id)->first();
-              
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.management.partials.form', [          
             'idioma' => $idioma,           
             'ml_ml'  => $ml_ml,
-            'ml_wl'  => $ml_wl           
-           
+            'ml_wl'  => $ml_wl,           
+            'setting' => $setting
         ]); 
     }
 
@@ -728,12 +739,13 @@ class ManyLenguagesController extends Controller
 
         $ml_lp = Ml_loan_partner::where('many_lenguages_id', $idioma->id)->first();
         $ml_ld = Ml_loan_document::where('many_lenguages_id', $idioma->id)->first();
-                     
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.loan_repayment.partials.form', [          
             'idioma' => $idioma,           
             'ml_lp'  => $ml_lp,   
-            'ml_ld'  => $ml_ld          
-           
+            'ml_ld'  => $ml_ld,         
+           'setting' => $setting
         ]); 
     }
 
@@ -742,11 +754,12 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id);  
 
         $ml_sl = Ml_send_letter::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.correspondence.partials.form', [          
             'idioma' => $idioma,           
-            'ml_sl'  => $ml_sl        
-           
+            'ml_sl'  => $ml_sl,      
+            'setting' => $setting
         ]); 
     }
 
@@ -756,12 +769,13 @@ class ManyLenguagesController extends Controller
 
         $ml_partner = Ml_partner::where('many_lenguages_id', $idioma->id)->first();
         $ml_wr = Ml_web_request::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.partner.partials.form', [          
             'idioma' => $idioma,           
             'ml_partner'  => $ml_partner,  
-            'ml_wr'  => $ml_wr        
-           
+            'ml_wr'  => $ml_wr,      
+            'setting' => $setting
         ]); 
     }
 
@@ -770,11 +784,13 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id); 
 
         $ml_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.cat_edit_book.partials.form', [          
             'idioma'    => $idioma,
-            'ml_cat_edit_book' => $ml_cat_edit_book
-        ]); 
+            'ml_cat_edit_book' => $ml_cat_edit_book,
+            'setting' => $setting
+            ]); 
     }
 
     public function edit_listado($id)
@@ -784,9 +800,11 @@ class ManyLenguagesController extends Controller
         $ml_catalogos_listado = ml_cat_list_book::where('many_lenguages_id', $idioma->id)->first();
         
         $ml_cat_sweetalert = ml_cat_sweetalert::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.catalogos_listado.partials.form', [          
             'idioma'    => $idioma,
+            'setting' => $setting,
             'ml_catalogos_listado' => $ml_catalogos_listado,
             'ml_cat_sweetalert' => $ml_cat_sweetalert
         ]); 
@@ -797,11 +815,13 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id); 
 
         $ml_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.cat_edit_music.partials.form', [          
             'idioma'    => $idioma,
-            'ml_cat_edit_music' => $ml_cat_edit_music
-        ]); 
+            'ml_cat_edit_music' => $ml_cat_edit_music,
+            'setting' => $setting
+            ]); 
     }
 
     public function edit_movie($id)
@@ -809,9 +829,11 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id); 
 
         $ml_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.cat_edit_movie.partials.form', [          
             'idioma'    => $idioma,
+            'setting' => $setting,
             'ml_cat_edit_movie' => $ml_cat_edit_movie
         ]); 
     }
@@ -821,9 +843,11 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id); 
 
         $ml_cat_edit_multimedia = ml_cat_edit_multimedia::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.cat_edit_multimedia.partials.form', [          
             'idioma'    => $idioma,
+            'setting' => $setting,
             'ml_cat_edit_multimedia' => $ml_cat_edit_multimedia]);
     }
 
@@ -834,9 +858,11 @@ class ManyLenguagesController extends Controller
         $ml_login       = Ml_login::where('many_lenguages_id', $idioma->id)->first();
         $ml_registry    = Ml_registry::where('many_lenguages_id', $idioma->id)->first();
         $ml_password    = Ml_password::where('many_lenguages_id', $idioma->id)->first();
-                                    
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.credentials.partials.form', [          
             'idioma'        => $idioma,           
+            'setting' => $setting,
             'ml_login'      => $ml_login,
             'ml_registry'   => $ml_registry,
             'ml_password'   => $ml_password,
@@ -850,9 +876,11 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id);  
 
         $panel_admin       = ml_panel_admin::where('many_lenguages_id', $idioma->id)->first();
-                                    
+        $setting    = Setting::where('id', 1)->first();
+                            
         return view('admin.manylenguages.panel_admin.partials.form', [          
             'idioma'        => $idioma,           
+            'setting' => $setting,
             'panel_admin'      => $panel_admin   
         ]); 
     }
@@ -862,9 +890,11 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id);  
 
         $front_end       = ml_front_end::where('many_lenguages_id', $idioma->id)->first();
-                                    
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.front_end.partials.form', [          
             'idioma'        => $idioma,           
+            'setting' => $setting,
             'front_end'      => $front_end   
         ]); 
     }
@@ -874,9 +904,11 @@ class ManyLenguagesController extends Controller
         $idioma = ManyLenguages::findOrFail($id); 
 
         $ml_cat_edit_fotografia = ml_cat_edit_fotografia::where('many_lenguages_id', $idioma->id)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.manylenguages.cat_edit_fotografia.partials.form', [          
             'idioma'    => $idioma,
+            'setting' => $setting,
             'ml_cat_edit_fotografia' => $ml_cat_edit_fotografia
         ]); 
     }

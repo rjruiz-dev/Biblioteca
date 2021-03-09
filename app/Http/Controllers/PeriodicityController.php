@@ -64,10 +64,12 @@ class PeriodicityController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.periodicals.partials.form', [           
             'periodical'=> $periodical,
             'idioma'    => $idioma,
+            'setting' => $setting,
             'ml_pp'     => $ml_pp
 
         ]); 
@@ -137,9 +139,11 @@ class PeriodicityController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_pp      = Ml_periodical_publication::where('many_lenguages_id', $idioma->id)->first();
-                                  
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.periodicals.partials.form', [           
             'periodical'    => $periodical,
+            'setting' => $setting,
             'idioma'        => $idioma,
             'ml_pp'         => $ml_pp
         ]);

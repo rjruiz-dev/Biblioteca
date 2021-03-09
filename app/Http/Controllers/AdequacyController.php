@@ -66,10 +66,12 @@ class AdequacyController extends Controller
 
         $idioma      = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
+        $setting = Setting::where('id', 1)->first();
                              
         return view('admin.adequacies.partials.form', [           
             'adequacy'      => $adequacy,
             'idioma'        => $idioma,
+            'setting' => $setting,
             'ml_adequacy'   => $ml_adequacy
         ]);  
     }
@@ -138,9 +140,11 @@ class AdequacyController extends Controller
 
         $idioma      = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_adequacy = Ml_adequacy::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.adequacies.partials.form', [           
             'adequacy'      =>  $adequacy,
+            'setting' => $setting,
             'idioma'        => $idioma,
             'ml_adequacy'   => $ml_adequacy 
         ]); 

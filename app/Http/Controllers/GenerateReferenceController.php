@@ -62,13 +62,14 @@ class GenerateReferenceController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
                 
         return view('admin.references.partials.form', [           
             'reference' => $reference,
-            'idioma'    => $idioma,            
+            'idioma'    => $idioma,  
+            'setting' => $setting,          
             'ml_reference'  => $ml_reference
         ]);  
       
@@ -136,13 +137,14 @@ class GenerateReferenceController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_reference   = Ml_reference::where('many_lenguages_id', $idioma->id)->first();
               
         return view('admin.references.partials.form', [           
             'reference' => $reference,
-            'idioma'    => $idioma,            
+            'idioma'    => $idioma,  
+            'setting' => $setting,          
             'ml_reference'  => $ml_reference
         ]); 
     }

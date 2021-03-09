@@ -412,6 +412,7 @@ class BookController extends Controller
                 
         $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
 
+        $setting    = Setting::where('id', 1)->first();
         // dd($idioma_abm_doc->valoración);
 
         return view('admin.books.partials.form', [           
@@ -435,6 +436,7 @@ class BookController extends Controller
             'idioma_abm_doc' => $idioma_abm_doc,
             'idioma_abm_book' => $idioma_abm_book,
             'idioma_abm_book' => $idioma_abm_book,
+            'setting' => $setting,
             // 'idioma_abm_book_publ_period' => $idioma_abm_book_publ_period,
             'idioma_abm_book_lit' => $idioma_abm_book_lit,
             'idioma_cat_edit_book' => $idioma_cat_edit_book            
@@ -612,6 +614,7 @@ class BookController extends Controller
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_book = ml_show_book::where('many_lenguages_id',$session)->first();
         
+        $setting = Setting::where('id', 1)->first();
 
         $book = Book::with('document.creator', 'generate_book', 'document.adequacy', 'document.lenguage', 'document.subjects', 'document.document_subtype', 'periodical_publication','periodical_publication.periodicidad','second_author','third_author')->findOrFail($id);
      
@@ -648,6 +651,7 @@ class BookController extends Controller
         return view('admin.books.show', compact('book'), [
             'idioma_doc'    => $idioma_doc,
             'idioma_book'   => $idioma_book,
+            'setting' => $setting,
             'disabled'      => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]); 
@@ -686,7 +690,7 @@ class BookController extends Controller
         
         $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
 
-        
+        $setting = Setting::where('id', 1)->first();
 
         //     $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
         // ->whereHas('copy', function($q) use ($id_docum)
@@ -727,6 +731,7 @@ class BookController extends Controller
             'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'), 
             'book'          => $book,
             'document'      => $document,
+            'setting' => $setting,
 
             'idioma_abm_doc'    => $idioma_abm_doc,
             'idioma_abm_book'   => $idioma_abm_book,

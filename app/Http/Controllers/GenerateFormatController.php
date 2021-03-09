@@ -64,13 +64,14 @@ class GenerateFormatController extends Controller
         }
 
         $session = session('idiomas'); 
-
+        $setting = Setting::where('id', 1)->first();
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
                              
         return view('admin.formats.partials.form', [           
             'format'    => $format,
-            'idioma'    => $idioma,            
+            'idioma'    => $idioma,   
+            'setting' => $setting,         
             'ml_fg'     => $ml_fg
         ]);  
     }
@@ -139,10 +140,12 @@ class GenerateFormatController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_fg      = Ml_graphic_format::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.formats.partials.form', [           
             'format'    => $format,
             'idioma'    => $idioma,            
+            'setting' => $setting,
             'ml_fg'     => $ml_fg
         ]); 
     }

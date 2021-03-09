@@ -64,9 +64,11 @@ class LenguageController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.languages.partials.form', [           
             'language'  => $language,
+            'setting' => $setting,
             'idioma'    => $idioma,            
             'ml_lang'   => $ml_lang
         ]);          
@@ -136,9 +138,11 @@ class LenguageController extends Controller
 
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();  
         $ml_lang    = Ml_language::where('many_lenguages_id', $idioma->id)->first();
-                             
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.languages.partials.form', [           
             'language'  => $language,
+            'setting' => $setting,
             'idioma'    => $idioma,
             'ml_lang'   => $ml_lang
         ]); 

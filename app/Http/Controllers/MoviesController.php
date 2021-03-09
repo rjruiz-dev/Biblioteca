@@ -306,7 +306,8 @@ class MoviesController extends Controller
         
         $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
 
-                              
+        $setting = Setting::where('id', 1)->first();
+
         return view('admin.movies.partials.form', [           
             'subtypes'          => Document_subtype::pluck('subtype_name', 'id'),
             'authors'           => Creator::pluck('creator_name', 'id'),
@@ -327,6 +328,7 @@ class MoviesController extends Controller
             'movie'             => $movie,
             'document'          => $document,
             'idioma_cat_edit_movie' => $idioma_cat_edit_movie,
+             'setting' =>  $setting
            
         ]); 
     }
@@ -459,6 +461,8 @@ class MoviesController extends Controller
       
         $movie = Movies::with('document.creator', 'actors', 'photography_movie', 'generate_movie', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
         
+        $setting = Setting::where('id', 1)->first();
+
         $id_docu = $movie->documents_id;
 
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
@@ -493,6 +497,7 @@ class MoviesController extends Controller
         return view('admin.movies.show', compact('movie'), [
             'idioma_doc'    => $idioma_doc,
             'idioma_movie'  => $idioma_movie,
+            'setting' => $setting,
             'disabled'      => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
@@ -530,7 +535,7 @@ class MoviesController extends Controller
         $idioma_abm_book_lit = ml_abm_book_lit::where('many_lenguages_id',$session)->first();
        
         $idioma_cat_edit_movie = ml_cat_edit_movie::where('many_lenguages_id',$session)->first();
-
+        $setting = Setting::where('id', 1)->first();
 
         // $verifi_copies = Book_movement::with('movement_type','copy.document.creator','user')
         // ->whereHas('copy', function($q) use ($id_docum)
@@ -575,6 +580,7 @@ class MoviesController extends Controller
                     'movie'             => $movie,
                     'document'          => $document,
                     'idioma_cat_edit_movie' => $idioma_cat_edit_movie,
+                    'setting' => $setting
                 
                 ]);
         // }

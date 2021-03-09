@@ -199,7 +199,9 @@ class MusicController extends Controller
         $session = session('idiomas');
         
         $music = new Music();    
-        $document = new Document();  
+        $document = new Document(); 
+        
+        $setting    = Setting::where('id', 1)->first();
 
         $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
         
@@ -222,6 +224,7 @@ class MusicController extends Controller
             'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'),
             'music'         => $music,
             'document'      => $document,
+            'setting' => $setting,
             'idioma_cat_edit_music'       => $idioma_cat_edit_music,
   
         ]); 
@@ -437,7 +440,7 @@ class MusicController extends Controller
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
         // dd($idioma_music);
-
+        $setting    = Setting::where('id', 1)->first();
         $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         $id_docu = $music->documents_id;
@@ -474,6 +477,7 @@ class MusicController extends Controller
             'idioma_doc'    => $idioma_doc,
             'idioma_music'  => $idioma_music,
             'disabled'      => $disabled,
+            'setting' => $setting,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
 
@@ -499,7 +503,7 @@ class MusicController extends Controller
         
         $musics = Music::with('document', 'generate_music')->findOrFail($id);
         $document = Document::findOrFail($musics->documents_id);   
-          
+        $setting    = Setting::where('id', 1)->first();  
         $idioma_cat_edit_music = ml_cat_edit_music::where('many_lenguages_id',$session)->first();
         
         // $this->authorize('update', $music);
@@ -543,6 +547,7 @@ class MusicController extends Controller
                     'status_documents' => StatusDocument::where('view_public', 'S')->pluck('name_status', 'id'),
                     'music'         => $musics,
                     'document'      => $document,
+                    'setting' => $setting,
                     'idioma_cat_edit_music'       => $idioma_cat_edit_music,
                 ]);
         // } 
