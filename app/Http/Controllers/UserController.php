@@ -79,12 +79,13 @@ class UserController extends Controller
 
         $session = session('idiomas');
         $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
           
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),   
+            'setting' => $setting,
             'num_socio' => $num_socio,        
             'user'      => $user,
             'rol_lib'      => $rol_lib,
@@ -229,11 +230,12 @@ class UserController extends Controller
         $session = session('idiomas'); // id referencaindo al idioma.
 
         $user = User::with('statu')->findOrFail($id);
-      
+        $setting    = Setting::where('id', 1)->first();
         $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
         
         return view('admin.users.show', compact('user'),[
-            'Ml_partner' => $Ml_partner
+            'Ml_partner' => $Ml_partner,
+            'setting' => $setting
         ]);
     }
 
@@ -266,10 +268,13 @@ class UserController extends Controller
 
         $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
         
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
+            'setting' => $setting,
             'num_socio' => $num_socio,          
             'user'      => $user,
             'rol_lib'   => $rol_lib,
@@ -384,10 +389,12 @@ class UserController extends Controller
         $user = User::with('statu')->findOrFail($id);
         $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
         $num_socio = $sugerido->membership + 1;
-                             
+        $setting    = Setting::where('id', 1)->first();
+
         return view('admin.users.partials.form_profile', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),           
+            'setting' => $setting,
             'num_socio' => $num_socio ,     
             'user'      => $user
         ]);  

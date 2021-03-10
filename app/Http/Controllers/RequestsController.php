@@ -85,10 +85,11 @@ class RequestsController extends Controller
         $session = session('idiomas');
         $prestamo_solicitado = Book_movement::with('movement_type','user','copy.document.document_type','copy.document.document_subtype','course')->findOrFail($id);       
         $Ml_web_loan     = Ml_web_loan::where('many_lenguages_id',$session)->first();
-        
+        $setting    = Setting::where('id', 1)->first(); 
         return view('admin.requests.show', [          
             'prestamo_solicitado'          => $prestamo_solicitado,
-            'Ml_web_loan' => $Ml_web_loan
+            'Ml_web_loan' => $Ml_web_loan,
+            'setting' => $setting
             ]);
     }
 

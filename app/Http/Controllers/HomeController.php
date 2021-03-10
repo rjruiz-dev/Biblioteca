@@ -124,6 +124,8 @@ class HomeController extends Controller
 
         $idioma         = Ml_dashboard::where('many_lenguages_id', $session)->first();  
         $ml_registry    = Ml_registry::where('many_lenguages_id', $session)->first();
+
+        $setting = Setting::where('id', 1)->first();
                             
         return view('web.users.partials.form', [
             'idiomas'     => $idiomas, // REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba). 
@@ -131,6 +133,7 @@ class HomeController extends Controller
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::pluck('state_description', 'id'),           
             'user'          => $user,
+            'setting' => $setting,
             'idioma'        => $idioma,
             'ml_registry'   => $ml_registry,
             ]); 
@@ -205,11 +208,13 @@ class HomeController extends Controller
     public function edit($id)
     {
         $user = User::with('statu')->findOrFail($id);
+        $setting = Setting::where('id', 1)->first();
                              
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::pluck('state_description', 'id'),           
+            'setting' => $setting,
             'user'      => $user
         ]);  
     }

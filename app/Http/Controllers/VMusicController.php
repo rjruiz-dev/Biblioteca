@@ -138,7 +138,7 @@ class VMusicController extends Controller
  
     $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
     $idioma_music = ml_show_music::where('many_lenguages_id',$session)->first();
-    
+    $setting    = Setting::where('id', 1)->first();
     $music = Music::with('document.creator', 'generate_music', 'generate_format','culture', 'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
     $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
@@ -171,6 +171,7 @@ class VMusicController extends Controller
     return view('web.music.show', compact('music'), [
         'idioma_doc'    => $idioma_doc,
         'idioma_music'  => $idioma_music,
+        'setting' => $setting,
         'disabled'      => $disabled,
         'label_copia_no_disponible' => $label_copia_no_disponible
     ]);

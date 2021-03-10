@@ -133,7 +133,7 @@ class VMultimediaController extends Controller
 
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_multimedia = ml_show_multimedia::where('many_lenguages_id',$session)->first();
-        
+        $setting    = Setting::where('id', 1)->first();
         $multimedia = Multimedia::with('document.creator',  'document.adequacy', 'document.lenguage', 'document.subjects')->findOrFail($id);
       
         $copies_disponibles = Book_movement::with('movement_type','copy.document.creator','user')
@@ -165,6 +165,7 @@ class VMultimediaController extends Controller
         return view('web.multimedias.show', compact('multimedia'), [
             'idioma_doc'        => $idioma_doc,
             'idioma_multimedia' => $idioma_multimedia,
+            'setting' => $setting,
             'disabled'          => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible
         ]);

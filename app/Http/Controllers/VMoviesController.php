@@ -140,6 +140,8 @@ class VMoviesController extends Controller
         }
         $session = session('idiomas');
 
+        $setting    = Setting::where('id', 1)->first();
+
         $idioma_doc = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_movie = ml_show_movie::where('many_lenguages_id',$session)->first();
         // dd($idioma_movie);
@@ -175,6 +177,7 @@ class VMoviesController extends Controller
         return view('web.movies.show', compact('movie'), [
             'idioma_doc'    => $idioma_doc,
             'idioma_movie'  => $idioma_movie,
+            'setting' => $setting,
             'disabled'      => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]);
