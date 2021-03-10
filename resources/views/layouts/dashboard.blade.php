@@ -213,7 +213,7 @@
                     }
             @endphp
             <div class="col-md-15">   
-                <div class="box box-primary" style="border-top-color: {{ $setting->skin }};">        
+                <div class="box box-primary" style="border-color: {{ $setting->skin }};" style="border-top-color: {{ $setting->skin }};">        
                 <!-- style="word-wrap: break-word;" -->
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             
@@ -305,7 +305,7 @@
                     }
             @endphp
             <div class="col-md-15">   
-                <div class="box box-primary">        
+                <div class="box box-primary" style="border-color: {{ $setting->skin }};">        
                 <!-- style="word-wrap: break-word;" -->
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             

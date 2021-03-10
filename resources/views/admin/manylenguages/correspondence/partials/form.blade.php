@@ -8,7 +8,7 @@
 {{ csrf_field() }}   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -24,7 +24,7 @@
     </div> 
     <!-- Enviar reclamo-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Enviar Reclamo</h3>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -51,7 +51,7 @@
     </div>    
    
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                      <h3 class="box-title">Sección Reclamo </h3>

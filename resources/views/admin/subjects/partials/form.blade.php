@@ -5,7 +5,7 @@
 ]) !!}
 
 <div class="col-md-12">
-    <div class="box box-primary">
+    <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
             <h3 class="box-title">{{ $ml_subject->mod_subtitulo_subject }}</h3>
         </div>

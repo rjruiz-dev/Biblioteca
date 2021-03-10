@@ -2,7 +2,7 @@
 {!! Form::model($user, ['route' => $user->exists ? ['vusers.update', $user->id] : 'vusers.store', 'method' => $user->exists ? 'PUT' : 'POST', 'enctype' => 'multipart/form-data'])  !!}
 {{ csrf_field() }}
 <div class="col-md-12">
-    <div class="box box-primary">
+    <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="pad margin no-print">
             <div class="callout callout-info" style="margin-bottom: 0!important;">
                 <h4><i class="fa fa-info"></i>{{ $ml_registry->titulo_reg }} </h4>

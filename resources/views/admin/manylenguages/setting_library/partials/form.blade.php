@@ -8,7 +8,7 @@
 {{ csrf_field() }}   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -24,7 +24,7 @@
     </div> 
    
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Perfil de la Biblioteca</h3>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Título </h3>
@@ -50,7 +50,7 @@
 
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Logo </h3>
@@ -65,7 +65,7 @@
         </div>   
     </div>  
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                      <h3 class="box-title">Sección Perfil </h3>
@@ -104,7 +104,7 @@
         </div>   
     </div>  
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Dirección </h3>
@@ -139,7 +139,7 @@
         </div>       
     </div> 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Configuración de Prestamos </h3>
@@ -183,7 +183,7 @@
     </div>  
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Otros Detalles</h3>
@@ -229,7 +229,7 @@
 
     <!--Swal Cartas-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Perfil de la Biblioteca</h3>
@@ -239,7 +239,7 @@
     </div>
    
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>

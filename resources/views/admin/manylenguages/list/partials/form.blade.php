@@ -8,7 +8,7 @@
 {{ csrf_field() }}   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -24,7 +24,7 @@
     </div> 
     <!-- Prestamo por Fecha -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Prestamo por Fecha</h3>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -66,7 +66,7 @@
         </div>   
     </div>     
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -115,7 +115,7 @@
 
     <!-- Prestamo por Aula -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Prestamo por Aula</h3>
@@ -124,7 +124,7 @@
         </div>
     </div>
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -161,7 +161,7 @@
         </div>   
     </div>     
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -214,7 +214,7 @@
 
      <!-- Registro Base de Datos-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Registro Base de Datos</h3>
@@ -223,7 +223,7 @@
         </div>
     </div>
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -241,7 +241,7 @@
         </div>   
     </div>     
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>

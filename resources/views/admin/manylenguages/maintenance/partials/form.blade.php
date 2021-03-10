@@ -8,7 +8,7 @@
 {{ csrf_field() }}   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -25,7 +25,7 @@
 
     <!--Traduccion Cursos -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Curso</h3>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -59,7 +59,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -94,7 +94,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -131,7 +131,7 @@
 
      <!--Swal Cursos -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Curso</h3>
@@ -141,7 +141,7 @@
     </div>
    
     <div class="col-md-3">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -161,7 +161,7 @@
     </div> 
 
     <div class="col-md-3">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -183,7 +183,7 @@
     
 
     <div class="col-md-3">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -203,7 +203,7 @@
     </div>   
 
     <div class="col-md-3">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Baja y Reactivar Curso </h3>
@@ -232,7 +232,7 @@
 
     <!--Traduccion Referencias -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Referencia</h3>
@@ -241,7 +241,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -266,7 +266,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -295,7 +295,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -321,7 +321,7 @@
 
      <!--Swal Referencias -->
      <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Referencias</h3>
@@ -331,7 +331,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -351,7 +351,7 @@
     </div>    
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -371,7 +371,7 @@
     </div> 
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -392,7 +392,7 @@
 
     <!--Traduccion Formatos Graficos  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Formatos Gráficos</h3>
@@ -401,7 +401,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -426,7 +426,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -455,7 +455,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -481,7 +481,7 @@
 
     <!--Swal Formatos Graficos -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Formatos Gráficos</h3>
@@ -491,7 +491,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -511,7 +511,7 @@
     </div> 
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -531,7 +531,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -552,7 +552,7 @@
 
     <!--Traduccion Idiomas  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Idiomas</h3>
@@ -561,7 +561,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -586,7 +586,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -615,7 +615,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -641,7 +641,7 @@
 
     <!--Swal Idiomas -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Lenguajes</h3>
@@ -651,7 +651,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -671,7 +671,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -691,7 +691,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -712,7 +712,7 @@
 
      <!--Traduccion Publicacion Periodica  -->
      <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Publicación Periodica</h3>
@@ -721,7 +721,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -746,7 +746,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -775,7 +775,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -801,7 +801,7 @@
 
     <!--Swal Publicacion periodica -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Publicaciones Periódicas</h3>
@@ -811,7 +811,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -831,7 +831,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -851,7 +851,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -872,7 +872,7 @@
 
      <!--Traduccion Genero Literario  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Género Literario</h3>
@@ -881,7 +881,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -906,7 +906,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -935,7 +935,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -961,7 +961,7 @@
 
     <!--Swal Genero Literario-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Géneros Literarios</h3>
@@ -971,7 +971,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -991,7 +991,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -1011,7 +1011,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -1032,7 +1032,7 @@
 
     <!--Traduccion Genero Musical  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Género Musical</h3>
@@ -1041,7 +1041,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -1066,7 +1066,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -1095,7 +1095,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -1121,7 +1121,7 @@
 
     <!--Swal Genero Musical-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Géneros Musicales</h3>
@@ -1131,7 +1131,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -1151,7 +1151,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -1171,7 +1171,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -1192,7 +1192,7 @@
 
     <!--Traduccion Genero Cinematografico  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Género Cinematográfico</h3>
@@ -1201,7 +1201,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -1226,7 +1226,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -1255,7 +1255,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -1281,7 +1281,7 @@
 
     <!--Swal Genero Musical-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Géneros Cinematográfico</h3>
@@ -1291,7 +1291,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -1311,7 +1311,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -1331,7 +1331,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -1352,7 +1352,7 @@
 
     <!--Traduccion Adecuaciones  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Adecuaciónes</h3>
@@ -1361,7 +1361,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -1386,7 +1386,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -1415,7 +1415,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -1441,7 +1441,7 @@
 
     <!--Swal Genero Adecuaciones-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Adecuaciones</h3>
@@ -1451,7 +1451,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -1471,7 +1471,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -1491,7 +1491,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -1512,7 +1512,7 @@
 
     <!--Traduccion Materias  -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Materias</h3>
@@ -1521,7 +1521,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -1546,7 +1546,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -1580,7 +1580,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -1611,7 +1611,7 @@
 
     <!--Swal Genero Materias-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Materias</h3>
@@ -1621,7 +1621,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -1641,7 +1641,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -1661,7 +1661,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>
@@ -1682,7 +1682,7 @@
 
     <!--Traduccion Cartas -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Modelo de Cartas</h3>
@@ -1691,7 +1691,7 @@
         </div>
     </div>
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -1716,7 +1716,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -1755,7 +1755,7 @@
         </div>       
     </div>   
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Ventana Modal </h3>
@@ -1791,7 +1791,7 @@
 
      <!--Swal Cartas-->
      <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Mensajes de Alertas Modelo de Cartas</h3>
@@ -1801,7 +1801,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Exito </h3>
@@ -1821,7 +1821,7 @@
     </div>  
     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Eliminación </h3>
@@ -1841,7 +1841,7 @@
     </div> 
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Alertas Advertencias </h3>

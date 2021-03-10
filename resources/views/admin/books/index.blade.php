@@ -47,9 +47,9 @@ use App\Book;
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->book_btn_buscar}}</button>
                     @if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')))
-                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->book_btn_crear}}</a>
+                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style=" display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->book_btn_crear}}</a>
                     @endif
-                    <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style="margin-top: -8px; display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
+                    <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style=" display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
                 
                 </div>        
             </div>
@@ -80,11 +80,12 @@ use App\Book;
 @include('admin.books.partials._modal')
 
 @push('styles')
-
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css"> 
     <link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">  
     <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">  
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">    
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">  
+
+  
 @endpush
 
 @push('scripts')  
@@ -242,3 +243,9 @@ use App\Book;
         });    
     </script>
 @endpush
+
+<style>
+       {
+        margin-top: 0px;       
+    }
+    </style> 

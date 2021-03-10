@@ -6,7 +6,7 @@
     ]) !!} 
     {{ csrf_field() }}
     <div class="col-md-4">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Perfil</h3>                
             </div>
@@ -64,7 +64,7 @@
         </div>       
     </div>     
     <div class="col-md-4">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Datos personales</h3>
             </div>
@@ -113,7 +113,7 @@
     </div>
     
     <div class="col-md-4">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Dirección</h3>                
             </div>

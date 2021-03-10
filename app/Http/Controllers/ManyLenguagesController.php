@@ -133,26 +133,26 @@ class ManyLenguagesController extends Controller
      */
     public function create()
     {
-        $idioma = new ManyLenguages; 
-        $ml_dashboard = new Ml_dashboard;
-        $ml_document = new Ml_document;
-        $ml_movie = new Ml_movie;
+        $idioma         = new ManyLenguages; 
+        $ml_dashboard   = new Ml_dashboard;
+        $ml_document    = new Ml_document;
+        $ml_movie       = new Ml_movie;
 
-        $ml_show_doc = new ml_show_doc;
-        $ml_show_book = new ml_show_book;
-        $ml_show_movie = new ml_show_movie;
-        $ml_show_music = new ml_show_music;
+        $ml_show_doc    = new ml_show_doc;
+        $ml_show_book   = new ml_show_book;
+        $ml_show_movie  = new ml_show_movie;
+        $ml_show_music  = new ml_show_music;
         $ml_show_fotografia = new ml_show_fotografia;
         $ml_show_multimedia = new ml_show_multimedia;
 
         return view('admin.manylenguages.partials.form', [          
             'idioma'        => $idioma,
             'ml_dashboard'  => $ml_dashboard,
-             'ml_document'   => $ml_document,
+            'ml_document'   => $ml_document,
             'ml_movie'      => $ml_movie,
 
-            'ml_show_doc' => $ml_show_doc,
-            'ml_show_book' => $ml_show_book,
+            'ml_show_doc'   => $ml_show_doc,
+            'ml_show_book'  => $ml_show_book,
             'ml_show_movie' => $ml_show_movie,
             'ml_show_music' => $ml_show_music,
             'ml_show_fotografia' => $ml_show_fotografia,
