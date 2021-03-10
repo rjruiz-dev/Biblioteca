@@ -14,7 +14,7 @@
     <di></div>   
     <div class="row"> 
         <div class="col-md-6">
-            <div class="box box-primary">
+            <div class="box box-primary" style="border-color: {{ $setting->skin }};">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ $ml_library['logo'] }}</h3>  
                     <div class="box-tools pull-right">
@@ -38,7 +38,7 @@
             </div> 
         </div> 
         <div class="col-md-6">
-            <div class="box box-primary">
+            <div class="box box-primary" style="border-color: {{ $setting->skin }};">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ $ml_library['perfil'] }}</h3>  
                     <div class="box-tools pull-right">
@@ -75,7 +75,7 @@
     </div>  
     <div class="row"> 
         <div class="col-md-4">
-            <div class="box box-primary">
+            <div class="box box-primary" style="border-color: {{ $setting->skin }};">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ $ml_library['direccion'] }}</h3>
                     <div class="box-tools pull-right">
@@ -109,7 +109,7 @@
             </div>       
         </div>
         <div class="col-md-4">
-            <div class="box box-primary">
+            <div class="box box-primary" style="border-color: {{ $setting->skin }};">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ $ml_library['config_prestamo'] }}</h3>          
                     <div class="box-tools pull-right">
@@ -150,7 +150,7 @@
             </div>       
         </div>  
         <div class="col-md-4">
-            <div class="box box-primary">
+            <div class="box box-primary" style="border-color: {{ $setting->skin }};">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ $ml_library['otros_detalles'] }}</h3>  
                     <div class="box-tools pull-right">

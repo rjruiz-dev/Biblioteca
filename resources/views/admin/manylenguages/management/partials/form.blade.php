@@ -8,7 +8,7 @@
 {{ csrf_field() }}   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -24,7 +24,7 @@
     </div> 
     <!--  Préstamo Manual -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Préstamo Manual</h3>
@@ -34,7 +34,7 @@
     </div>
    
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -56,7 +56,7 @@
         </div>   
     </div>     
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -96,7 +96,7 @@
     </div>   
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Préstamos </h3>
@@ -114,7 +114,7 @@
     </div>     
 
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Documento</h3>
@@ -137,7 +137,7 @@
         </div>   
     </div>  
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                      <h3 class="box-title">Sección Préstamo </h3>
@@ -227,7 +227,7 @@
   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Préstamo desde la Web</h3>
@@ -237,7 +237,7 @@
     </div>
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -259,7 +259,7 @@
         </div>   
     </div>     
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -312,7 +312,7 @@
     
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Documento</h3>

@@ -15,7 +15,7 @@
 
 <div class="row" id="recargar">     
     <div class="col-md-6">    
-        <div class="box box-primary"> 
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};"> 
             <div class="box-header with-border">
                 <h3 class="box-title">Documento: <b>{{ $documento->id }}</h3>                
             </div>       
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Datos del prestamo</h3>                
             </div>

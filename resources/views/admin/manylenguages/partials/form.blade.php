@@ -19,7 +19,7 @@
     @endif       
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -34,7 +34,7 @@
         </div>
     </div> 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales(aparecen tanto en front-end como en administrador)</h3>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Menu Lateral </h3>
@@ -215,7 +215,7 @@
         </div>       
     </div>    
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
             <div class="text-center">
                 <h3 class="box-title">Cabecera y Pie</h3>                
@@ -257,7 +257,7 @@
         </div>       
     </div>  
     <!-- <div class="col-md-4">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Pie</h3>                
             </div>
@@ -291,7 +291,7 @@
         </div>       
     </div>   -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Vista de Documentos</h3>
@@ -300,7 +300,7 @@
         </div>
     </div>
     <div class="col-md-12">      
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
                 <div class="text-center">  
                     <h4 class="box-title">Textos propios de un documento</h4>
@@ -395,7 +395,7 @@
     </div>
     </div>
     <div class="col-md-12">    
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
                 <div class="text-center">  
                     <h4 class="box-title">Textos propios de libros</h4>
@@ -448,7 +448,7 @@
         </div>
     </div>
     <div class="col-md-12">    
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
                 <div class="text-center">  
                     <h4 class="box-title">Textos propios de Cine</h4>
@@ -495,7 +495,7 @@
         </div>       
     </div> 
     <div class="col-md-12">    
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
                 <div class="text-center">  
                     <h4 class="box-title">Textos propios de Musica</h4>
@@ -544,7 +544,7 @@
         </div>       
     </div>   
     <div class="col-md-12">    
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
                 <div class="text-center">  
                     <h4 class="box-title">Textos propios de Fotografia</h4>
@@ -573,7 +573,7 @@
         </div>       
     </div> 
     <div class="col-md-12">    
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
         <div class="box-header with-border">
                 <div class="text-center">  
                     <h4 class="box-title">Textos propios de Multimedia</h4>

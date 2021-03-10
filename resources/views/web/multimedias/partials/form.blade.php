@@ -6,7 +6,7 @@
 ]) !!}
 
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Area de Titulo</h3>
             </div>
@@ -115,7 +115,7 @@
         </div>       
     </div>
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Area de Edición</h3>                
             </div>
@@ -206,7 +206,7 @@
         </div>       
     </div> 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Area de Contenidos</h3>                
             </div>

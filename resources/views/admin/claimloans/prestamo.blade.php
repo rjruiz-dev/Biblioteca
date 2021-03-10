@@ -17,7 +17,7 @@
     <div class="col-md-2">
     </div>
     <div class="col-md-8">    
-        <div class="box box-primary">  
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">  
             <div class="box-header with-border">
                 <h3 class="box-title">{{$ml_sl->subtitulo}}</h3>                
             </div>       

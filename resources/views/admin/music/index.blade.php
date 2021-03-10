@@ -47,9 +47,9 @@ use App\Music;
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->music_btn_buscar}}</button>
                     @if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')))
-                    <a href="{{ route('admin.music.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px; display: none;" title="Crear Musica"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->music_btn_crear}}</a>
+                    <a href="{{ route('admin.music.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style=" display: none;" title="Crear Musica"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->music_btn_crear}}</a>
                     @endif
-                    <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style="margin-top: -8px; display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
+                    <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style=" display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
                 </div>        
             </div>
         </div>

@@ -8,7 +8,7 @@
 {{ csrf_field() }}   
 
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Idioma</h3>
@@ -24,7 +24,7 @@
     </div> 
     <!-- Alta manual de socio-->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Alta manual de socio</h3>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -56,7 +56,7 @@
     </div>    
 
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -109,7 +109,7 @@
     </div>   
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Formulario </h3>
@@ -120,7 +120,7 @@
     </div>     
    
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                      <h3 class="box-title">Sección crear usuario </h3>
@@ -182,7 +182,7 @@
     </div>  
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Datos Personales</h3>
@@ -233,7 +233,7 @@
     </div>  
 
     <div class="col-md-4">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Sección Dirección</h3>
@@ -277,7 +277,7 @@
     </div>  
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Show </h3>
@@ -288,7 +288,7 @@
     </div>     
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Detalle usuario</h3>
@@ -330,7 +330,7 @@
     </div>  
 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Botónes </h3>
@@ -340,7 +340,7 @@
         </div>   
     </div>     
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Seccion Botónes</h3>
@@ -363,7 +363,7 @@
         </div>   
     </div> 
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Avisos y Notificaciones</h3>
@@ -400,7 +400,7 @@
 
     <!-- Solcitud desde la web -->
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">  
                     <h3 class="box-title">Traducciones Globales Solicitud desde la web</h3>
@@ -409,7 +409,7 @@
         </div>
     </div>
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Vista Principal </h3>
@@ -432,7 +432,7 @@
     </div>     
    
     <div class="col-md-6">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Columnas Datatable </h3>
@@ -471,7 +471,7 @@
         </div>       
     </div>
     <div class="col-md-12">        
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <div class="text-center">
                     <h3 class="box-title">Avisos y Notificaciones </h3>

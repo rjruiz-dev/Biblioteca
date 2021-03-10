@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">    
-        <div class="box box-primary">        
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">        
             <div class="box-body box-profile"> 
             <div class="text-center">      
                 <img class="img-responsive img-thumbnail" src="{{ asset('images/'.$prestamo_solicitado->copy->document->photo) }}"  width="200" height="200">     

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">    
-        <div class="box box-primary">        
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">        
             <div class="box-body box-profile">            
                 <img class="profile-user-img img-responsive img-circle" 
                     src="/adminlte/img/user4-128x128.jpg" 
@@ -24,7 +24,7 @@
         </div>
     </div>     
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">Datos Personales</h3>
             </div>

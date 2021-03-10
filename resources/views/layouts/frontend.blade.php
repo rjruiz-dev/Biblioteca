@@ -35,8 +35,8 @@
                     }
             @endphp
             <div class="col-md-15">    
-                <div class="box box-primary" style="border-top-color: {{ $setting->skin }};">        
-                    <div class="box-body box-profile" style="word-wrap: break-word;">             
+                <div class="box box-primary" style="border-color: {{ $setting->skin }};">        
+                    <div class="box-body box-profile" >             
             
                         <img class="img-responsive img-rounded" 
                         src="{{ $url }}" alt="{{ $doc['title'] }}" style="border: 3px solid #d2d6de; width: 100%;">  
@@ -126,7 +126,7 @@
                     }
             @endphp
             <div class="col-md-15">   
-                <div class="box box-primary">        
+                <div class="box box-primary" style="border-color: {{ $setting->skin }};">        
                 <!-- style="word-wrap: break-word;" profile-->
                     <div class="box-body box-profile" style="word-wrap: break-word;">            
             

@@ -13,7 +13,7 @@
 @section('content')
 <div class="row" id="recargar">
     <div  class="col-md-12"> 
-            <!-- <div class="box box-primary">  -->
+            <!-- <div class="box box-primary" style="border-color: {{ $setting->skin }};">  -->
                     <!-- <div class="box-header with-border">
                         <h3 class="box-title">Socio:</h3>                
                     </div> -->
@@ -50,7 +50,7 @@
         
       </div>
       <div  class="col-md-12"> 
-        <div class="box box-primary">             
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">             
           <div class="box-header with-border">
             <div  class="col-md-4"> 
               <h2>{{ $ml_statistic->sub_socio }}</h2>                
@@ -89,7 +89,7 @@
         </div>        
     </div>
     <div  class="col-md-12"> 
-      <div class="box box-primary">             
+      <div class="box box-primary" style="border-color: {{ $setting->skin }};">             
         <div class="box-header with-border">
           <div  class="col-md-4"> 
               <h2>{{ $ml_statistic->sub_prestamo }}</h2>                
@@ -139,7 +139,7 @@
       </div>
     </div>
     <div  class="col-md-12"> 
-      <div class="box box-primary">       
+      <div class="box box-primary" style="border-color: {{ $setting->skin }};">       
         <div class="box-header with-border">
           <div  class="col-md-4"> 
               <h2>{{ $ml_statistic->sub_coleccion }}</h2>                

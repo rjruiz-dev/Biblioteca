@@ -14,7 +14,7 @@
 
 <div class="row" id="recargar">     
     <div class="col-md-6">    
-        <div class="box box-primary"> 
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};"> 
             <div class="box-header with-border">
                 <h3 class="box-title">{{$Ml_loan_partner->seccion_socio}}   <b>{{ $user->membership }}</h3>                
             </div>       
@@ -87,7 +87,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-primary" style="border-color: {{ $setting->skin }};">
             <div class="box-header with-border">
                 <h3 class="box-title">{{$Ml_loan_partner->seccion_prestamo}}</h3>                
             </div>
