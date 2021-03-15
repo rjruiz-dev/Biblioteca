@@ -54,6 +54,7 @@
             @php
                 $url=asset("./images/doc-default.jpg");  
             @endphp           
+        @endif
     @endif 
 
     <div class="col-md-6">    

@@ -169,10 +169,10 @@
                     <div class="row col-md-12">
                         <div class="col-md-6">
                             <strong><i class="fa fa-clock-o margin-r-5"></i> {{ $idioma_doc->formato }}:</strong>
-                            @if ( $music->generate_format->genre_format === NULL )                            
+                            @if ( $music->generate_format['genre_format'] === NULL )                            
                                 <p class="tex-muted"><a>Sin {{ $idioma_doc->formato }}</a> </p>
                             @else
-                                <p class="text-muted">{{ $music->generate_format->genre_format }}</p>
+                                <p class="text-muted">{{ $music->generate_format['genre_format'] }}</p>
                             @endif  
                             <hr>
                         </div>
