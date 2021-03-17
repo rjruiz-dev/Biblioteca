@@ -135,8 +135,8 @@ class ManyLenguagesController extends Controller
     {
         $idioma         = new ManyLenguages; 
         $ml_dashboard   = new Ml_dashboard;
-        $ml_document    = new Ml_document;
-        $ml_movie       = new Ml_movie;
+        // $ml_document    = new Ml_document;
+        // $ml_movie       = new Ml_movie;
 
         $ml_show_doc    = new ml_show_doc;
         $ml_show_book   = new ml_show_book;
@@ -149,8 +149,8 @@ class ManyLenguagesController extends Controller
         return view('admin.manylenguages.partials.form', [          
             'idioma'        => $idioma,
             'ml_dashboard'  => $ml_dashboard,
-            'ml_document'   => $ml_document,
-            'ml_movie'      => $ml_movie,
+            // 'ml_document'   => $ml_document,
+            // 'ml_movie'      => $ml_movie,
 
             'ml_show_doc'   => $ml_show_doc,
             'ml_show_book'  => $ml_show_book,
@@ -229,9 +229,9 @@ class ManyLenguagesController extends Controller
                 $ml_dashboard->many_lenguages_id        = $idioma->id;               
                 $ml_dashboard->save();
 
-                $ml_document                            = new Ml_document;
-                $ml_document->many_lenguages_id         = $idioma->id;
-                $ml_document->save();
+                // $ml_document                            = new Ml_document;
+                // $ml_document->many_lenguages_id         = $idioma->id;
+                // $ml_document->save();
 
                 $ml_abm_book                            = new ml_abm_book;
                 $ml_abm_book->many_lenguages_id         = $idioma->id;
@@ -277,9 +277,9 @@ class ManyLenguagesController extends Controller
                 $ml_abm_music_popular->many_lenguages_id = $idioma->id;
                 $ml_abm_music_popular->save();
                 
-                $Ml_movie                               = new Ml_movie;
-                $Ml_movie->many_lenguages_id            = $idioma->id;
-                $Ml_movie->save();
+                // $Ml_movie                               = new Ml_movie;
+                // $Ml_movie->many_lenguages_id            = $idioma->id;
+                // $Ml_movie->save();
 
                 $ml_show_doc                            = new ml_show_doc;
                 $ml_show_doc->many_lenguages_id         = $idioma->id;
@@ -591,8 +591,8 @@ class ManyLenguagesController extends Controller
     {
         $idioma             = ManyLenguages::findOrFail($id); 
         $ml_dashboard       = Ml_dashboard::where('many_lenguages_id', $idioma->id)->first();
-        $ml_document        = Ml_document::where('many_lenguages_id', $idioma->id)->first();
-        $ml_movie           = Ml_movie::where('many_lenguages_id', $idioma->id)->first();
+        // $ml_document        = Ml_document::where('many_lenguages_id', $idioma->id)->first();
+        // $ml_movie           = Ml_movie::where('many_lenguages_id', $idioma->id)->first();
 
         $ml_show_doc        = ml_show_doc::where('many_lenguages_id', $idioma->id)->first();
         $ml_show_book       = ml_show_book::where('many_lenguages_id', $idioma->id)->first();
@@ -605,8 +605,8 @@ class ManyLenguagesController extends Controller
         return view('admin.manylenguages.partials.form', [          
             'idioma'        => $idioma,
             'ml_dashboard'  => $ml_dashboard,
-            'ml_document'   => $ml_document,
-            'ml_movie'      => $ml_movie,
+            // 'ml_document'   => $ml_document,
+            // 'ml_movie'      => $ml_movie,
 
             'ml_show_doc'   => $ml_show_doc,
             'ml_show_book'  => $ml_show_book,

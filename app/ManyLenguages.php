@@ -13,15 +13,15 @@ class ManyLenguages extends Model
         return $this->hasMany(Ml_dashboard::class);
     }
 
-    public function ml_document()
-    {
-        return $this->hasMany(Ml_document::class);
-    }
+    // public function ml_document()
+    // {
+    //     return $this->hasMany(Ml_document::class);
+    // }
 
-    public function ml_movie()
-    {
-        return $this->hasMany(Ml_movie::class);
-    }
+    // public function ml_movie()
+    // {
+    //     return $this->hasMany(Ml_movie::class);
+    // }
 
     public function ml_course()
     {

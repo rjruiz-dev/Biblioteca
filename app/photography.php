@@ -14,10 +14,10 @@ class Photography extends Model
          return $this->belongsTo(Document::class, 'documents_id');
      }
     
-     public function type_photography()
-    {
-        return $this->belongsTo(Type_photography::class);
-    }
+    //  public function type_photography()
+    // {
+    //     return $this->belongsTo(Type_photography::class);
+    // }
 
     public function generate_format()
     {
