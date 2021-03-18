@@ -13,6 +13,8 @@ class Document_TypesTableSeeder extends Seeder
     {
         // factory(App\Document_type::class, 5)->create();
         // {{ route('admin.books.index') }}
+        App\Document_type::unguard();
+
         App\Document_type::create([
             'document_description'      => 'Musica', // 1 
             'route'      => 'admin.music.index'
@@ -32,6 +34,11 @@ class Document_TypesTableSeeder extends Seeder
         App\Document_type::create([
             'document_description'      => 'Fotografia', // 5
             'route'      => 'admin.photographs.index' 
-        ]);     
+        ]);    
+        App\Document_type::create([
+            'id'      => 100,
+            'document_description'      => 'import rebecca', // 100
+            'route'      => 'aaa' 
+        ]); 
     }
 }

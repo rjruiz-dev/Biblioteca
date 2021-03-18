@@ -11,6 +11,12 @@ class SubjectsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Generate_subjects::class, 6)->create();       
+        App\Generate_subjects::unguard();
+
+        App\Generate_subjects::create([
+            'id'      => 100,
+            'subject_name'      => 'Sin CDU desde Rebecca',
+            'cdu'      => 'aaaa',
+            ]);   
     }
 }

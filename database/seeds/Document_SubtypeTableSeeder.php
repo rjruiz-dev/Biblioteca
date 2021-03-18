@@ -12,6 +12,7 @@ class Document_SubtypeTableSeeder extends Seeder
     public function run()
     {
         // factory(App\Document_subtype::class, 3)->create();
+        App\Document_subtype::unguard();
 
         App\Document_subtype::create([
             'subtype_name'      => 'Culta',
@@ -50,8 +51,11 @@ class Document_SubtypeTableSeeder extends Seeder
             'subtype_name'      => 'Negativos',
             'document_types_id'      => 5,
         ]);
+        
         App\Document_subtype::create([
-            'subtype_name'      => 'Sin SubTipo',
+            'id'      => 100,
+            'subtype_name'      => 'Sin SubTipo desde Rebecca',
+            'document_types_id'      => 100,
         ]);
     }
 }

@@ -11,6 +11,11 @@ class PhotographyMoviesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Photography_movie::class, 10)->create();
+        App\Photography_movie::unguard();
+
+        App\Photography_movie::create([
+            'id'      => 100,
+            'photography_movie_name'      => 'import rebecca',
+        ]);
     }
 }

@@ -11,6 +11,17 @@ class PeriodicitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Periodicity::class, 3)->create();
+        App\Periodicity::create([
+            'periodicity_name'      => 'Mensual',
+        ]);
+        App\Periodicity::create([
+            'periodicity_name'      => 'Quincenal',
+        ]);
+        App\Periodicity::create([
+            'periodicity_name'      => 'Semanal',
+        ]);
+        App\Periodicity::create([
+            'periodicity_name'      => 'Anual',
+        ]);
     }
 }

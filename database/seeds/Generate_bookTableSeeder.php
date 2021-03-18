@@ -11,6 +11,11 @@ class Generate_bookTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Generate_book::class, 6)->create();
+        App\Generate_book::unguard();
+
+        App\Generate_book::create([
+            'id'      => 100,
+            'genre_book'      => 'Sin Genero desde Rebecca',
+        ]);
     }
 }

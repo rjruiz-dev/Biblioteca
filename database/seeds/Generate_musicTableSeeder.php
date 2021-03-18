@@ -11,6 +11,11 @@ class Generate_musicTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Generate_music::class, 6)->create();
+        App\Generate_music::unguard();
+
+        App\Generate_music::create([
+            'id'      => 100,
+            'genre_music'      => 'Sin Genero desde Rebecca',
+        ]);
     }
 }

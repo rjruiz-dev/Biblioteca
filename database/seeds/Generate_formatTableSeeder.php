@@ -11,6 +11,11 @@ class Generate_formatTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Generate_format::class, 6)->create();
+        App\Generate_format::unguard();
+
+        App\Generate_format::create([
+            'id'      => 100,
+            'genre_format'      => 'Sin Formato desde Rebecca',
+        ]);
     }
 }
