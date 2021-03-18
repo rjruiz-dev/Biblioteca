@@ -83,8 +83,8 @@ class MoviesController extends Controller
 
         return view('admin.movies.index', [
             'idioma'            => $idioma,
-            'idioma_document'   => $idioma_document,
-            'idioma_movie'      => $idioma_movie,
+            // 'idioma_document'   => $idioma_document,
+            // 'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
             'setting'           => $setting,
             'idd' => $idd, 

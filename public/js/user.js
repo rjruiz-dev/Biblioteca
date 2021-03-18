@@ -83,6 +83,7 @@ $('#modal-btn-save').click(function(event) {
             $('#modal').modal('hide');
             $('#datatable').DataTable().ajax.reload(null, false);
             $("#image").load(" #image");
+            $("#rec_nickname").load(" #rec_nickname");
 
             swal({
                 type: 'success',
