@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Copy;
-use App\Statuscopy;
 use App\Document;
 use App\Book_movement;
 use App\ml_cat_sweetalert;

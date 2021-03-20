@@ -13,8 +13,8 @@ class Fine extends Model
         return $this->hasOne(Setting::class);
     }
 
-    public function variables()
-    { 
-        return $this->hasMany(Variables::class);
-    }
+    // public function variables()
+    // { 
+    //     return $this->hasMany(Variables::class);
+    // }
 }

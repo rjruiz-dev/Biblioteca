@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\ManyLenguages;
 use App\Ml_dashboard;
-use App\Ml_document;
-use App\Ml_movie;
 use App\ml_panel_admin;
 use App\ml_front_end;
 use App\ml_cat_list_book;

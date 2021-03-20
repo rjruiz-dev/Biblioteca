@@ -27,6 +27,8 @@ class SettingTableSeeder extends Seeder
             'adult_age'     => '18',
             'skin'          => '#f1ca19',
             'skin_footer'   => '#f5ca09',
+            'loan_day'   => 3,
+            'loan_limit'   => 3,
         ]);
        
     }

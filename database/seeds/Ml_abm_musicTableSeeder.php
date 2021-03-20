@@ -13,10 +13,10 @@ class Ml_abm_musicTableSeeder extends Seeder
     {
         App\Ml_abm_music::create([
             'many_lenguages_id'      => 1,
-            'crear_musica'      => 'crear_musica',
-            'tipo_de_musica'      => 'tipo_de_musica',
+            'crear_musica'      => 'crear musica',
+            'tipo_de_musica'      => 'tipo de musica',
             'productor'      => 'productor',
-            'siglas_compositor'      => 'siglas_compositor',
+            'siglas_compositor'      => 'siglas compositor',
             'volumenes'      => 'volumenes'
             ]);
     }

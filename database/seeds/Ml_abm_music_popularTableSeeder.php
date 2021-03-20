@@ -16,9 +16,9 @@ class Ml_abm_music_popularTableSeeder extends Seeder
             'titulo'      => 'titulo',
             'subtítulo'      => 'subtítulo',
             'artista'      => 'artista',
-            'otros_artistas'      => 'otros_artistas',
+            'otros_artistas'      => 'otros artistas',
             'musica'      => 'musica',
-            'título_original'      => 'título_original'
+            'título_original'      => 'título original'
             ]);
     }
 }

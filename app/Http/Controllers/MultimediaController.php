@@ -28,8 +28,6 @@ use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_multimedia;
 use App\Copy;
-use App\Ml_document;
-use App\Ml_movie;
 use Illuminate\Support\Facades\Auth;
 
 class MultimediaController extends Controller

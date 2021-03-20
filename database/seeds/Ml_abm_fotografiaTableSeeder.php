@@ -13,13 +13,13 @@ class Ml_abm_fotografiaTableSeeder extends Seeder
     {
         App\Ml_abm_fotografia::create([
             'many_lenguages_id'      => 1,
-            'crear_fotografia'      => 'crear_fotografia',
-            'tipo_de_fotografia'      => 'tipo_de_fotografia',
+            'crear_fotografia'      => 'crear fotografia',
+            'tipo_de_fotografia'      => 'tipo de fotografia',
             'realizador'      => 'realizador',
             'edicion'      => 'edicion',
-            'num_diapositivas'      => 'num_diapositivas',
+            'num_diapositivas'      => 'numero de diapositivas',
             'Observaciones'      => 'Observaciones',
-            'detalles_de_la_fotografia'      => 'detalles_de_la_fotografia'
+            'detalles_de_la_fotografia'      => 'detalles de la fotografia'
             ]);
     }
 }

@@ -16,7 +16,7 @@ class Ml_abm_book_public_periodTableSeeder extends Seeder
             'tema_de_portada'      => 'tema de portada',
             'volumen_numero_y_fecha'      => 'volumen, numero y fecha',
             'periodicidad'      => 'periodicidad',
-            'ph_periodicidad'      => 'ph_periodicidad',
+            'ph_periodicidad'      => 'periodicidad',
             'issn'      => 'issn'
             ]);
     }

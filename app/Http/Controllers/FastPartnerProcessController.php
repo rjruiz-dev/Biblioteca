@@ -13,7 +13,6 @@ use App\Document;
 use Carbon\Carbon;
 use App\Setting;
 use App\ml_fines;
-use App\Sanction;
 use App\Book_movement;
 use App\Document_type;
 use App\Ml_dashboard;

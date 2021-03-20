@@ -38,8 +38,6 @@ use App\ml_abm_book;
 use App\ml_abm_book_otros;
 use App\ml_abm_book_publ_period;
 use App\ml_abm_book_lit;
-use App\Ml_movie;
-use App\Ml_document;
 use App\Copy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;

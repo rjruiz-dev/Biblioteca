@@ -11,6 +11,12 @@ class CreatorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Creator::class, 5)->create();
+        App\Creator::unguard();
+        
+        App\Creator::create([
+            'id'      => 100,
+            'document_types_id'      => 100,
+            'creator_name'      => 'Sin Autor desde Rebecca',
+            ]);
     }
 }

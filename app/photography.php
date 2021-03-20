@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photography extends Model
 {
-    protected $fillable = ['documents_id', 'type_photographies_id', 'generate_formats_id', 'subtitle',
+    protected $fillable = ['documents_id', 'generate_formats_id', 'subtitle',
      'author', 'second_author', 'third_author', 'producer', 'edition'];
     
      public function document()

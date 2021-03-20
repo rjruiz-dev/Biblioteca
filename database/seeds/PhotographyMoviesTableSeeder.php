@@ -15,7 +15,7 @@ class PhotographyMoviesTableSeeder extends Seeder
 
         App\Photography_movie::create([
             'id'      => 100,
-            'photography_movie_name'      => 'import rebecca',
+            'photography_movies_name'      => 'import rebecca',
         ]);
     }
 }

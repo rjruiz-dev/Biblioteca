@@ -28,8 +28,6 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SaveMovieRequest;
 use App\Ml_dashboard;
-use App\Ml_document;
-use App\Ml_movie;
 use App\ml_abm_doc;
 use App\ManyLenguages;
 use App\Setting;

@@ -13,12 +13,12 @@ class Ml_abm_movieTableSeeder extends Seeder
     {
         App\Ml_abm_cine::create([
             'many_lenguages_id'      => 1,
-            'crear_cine'      => 'crear_cine',
+            'crear_cine'      => 'Crear Cine',
             'reparto'      => 'reparto',
             'adaptacion'      => 'adaptacion',
             'guión'      => 'guión',
-            'cont_específico'      => 'cont_específico',
-            'diglas_director'      => 'diglas_director',
+            'cont_específico'      => 'contenido específico',
+            'diglas_director'      => 'siglas director',
             'nacionalidad'      => 'nacionalidad',
             'productora'      => 'productora',
             'distribuidora'      => 'distribuidora',

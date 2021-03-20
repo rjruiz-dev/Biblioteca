@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class ml_cat_edit_book extends Model
 {
     protected $fillable = [
+        'many_lenguages_id',
+
         'cuerpo_desidherata',
         'compl_area_de_titulo',
         'compl_area_de_edicion',

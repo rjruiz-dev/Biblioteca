@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class AdecuaciesTableSeeder extends Seeder
+class Ml_cat_edit_booksSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class AdecuaciesTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory(App\Adequacy::class, 2)->create();
+       
     }
 }

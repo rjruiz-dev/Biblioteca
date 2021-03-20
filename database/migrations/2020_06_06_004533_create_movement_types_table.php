@@ -19,6 +19,7 @@ class CreateMovementTypesTable extends Migration
             $table->string('book_status_priv');
             $table->string('book_status_public');
             $table->integer('view')->nullable();
+            $table->integer('orden')->nullable();
             $table->timestamps();
         });
     }

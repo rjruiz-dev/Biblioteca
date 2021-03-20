@@ -36,5 +36,11 @@ class StatusTableSeeder extends Seeder
                 'view_alta'      => '0', // 1
                 'view_edit'      => '1' // 1 
                 ]);
+        App\Statu::create([
+                'state_description'      => 'Permanente', // 1
+                'color'      => '<span class="label label-success sm">', 
+                'view_alta'      => '0', // 1
+                'view_edit'      => '0' // 1 
+                ]);
     }
 }

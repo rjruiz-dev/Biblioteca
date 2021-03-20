@@ -13,7 +13,7 @@ class Ml_abm_multimediaTableSeeder extends Seeder
     {
         App\Ml_abm_multimedia::create([
             'many_lenguages_id'      => 1,
-            'crear_multimedia'      => 'crear_multimedia'
+            'crear_multimedia'      => 'crear multimedia'
             ]);
     }
 }
