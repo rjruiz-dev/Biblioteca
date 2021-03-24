@@ -10,6 +10,7 @@ use DataTables;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Providers\UserWasCreated;
+use App\Providers\LibraryReport;
 use App\Providers\Requests;
 use App\Providers\LoanClamin;
 use App\Ml_partner;
@@ -166,6 +167,8 @@ class UserController extends Controller
                     if($request->get('status_id') == 1){  //si esta pendiente
 
                         Requests::dispatch($user, $mensaje);
+                        LibraryReport::dispatch($user, $msj, $subject);
+
 
                     }else{
                         $partnerRole = Role::where('id', 3)->first();
@@ -174,6 +177,7 @@ class UserController extends Controller
                         $user->assignRole($partnerRole);
                         $accion = 'alta de socio';
                         UserWasCreated::dispatch($user, $data['password'], $accion);
+                        // por aca el nuevo email
                     }
                 }else{
                     $librarianRole = Role::where('id', 2)->first();

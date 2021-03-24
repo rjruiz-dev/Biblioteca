@@ -12,7 +12,7 @@
 */
 
 Route::get('email', function () {
-    return new App\Mail\AlertClaim(App\User::first());
+    return new App\Mail\AlertReport(App\User::first());
 });
  
 Route::get('/config-cache', function() {$exitCode = Artisan::call('config:cache');      return '<h1>Config Cache</h1>';  });
