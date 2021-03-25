@@ -157,6 +157,7 @@ class UserController extends Controller
 
                 $mov_user->users_id = $user->id;
                 $mov_user->save();
+                $nuevo_usuario = $user;
 
               
       
@@ -167,7 +168,17 @@ class UserController extends Controller
                     if($request->get('status_id') == 1){  //si esta pendiente
 
                         Requests::dispatch($user, $mensaje);
-                        LibraryReport::dispatch($user, $msj, $subject);
+                        
+
+                        // $bibliotecario = User::whereHas('roles', function ($query) {
+                        //     $query->where('name', 'Librarian');
+                        // })->get();
+                    
+                        $bibliotecario  = User::where('id', 1)->first();
+                        $user = $bibliotecario;
+                        $msj = 'El Socio ha sido cargado, pero se encuentra en estado pendiente a ser aprobado';
+                        $subject = 'Informe';
+                        LibraryReport::dispatch($user, $nuevo_usuario, $msj, $subject);
 
 
                     }else{
@@ -177,7 +188,9 @@ class UserController extends Controller
                         $user->assignRole($partnerRole);
                         $accion = 'alta de socio';
                         UserWasCreated::dispatch($user, $data['password'], $accion);
-                        // por aca el nuevo email
+                        $msj = 'El Socio ha sido dado de alta';
+                        $subject = 'Informe';
+                        LibraryReport::dispatch($user, $msj, $subject);
                     }
                 }else{
                     $librarianRole = Role::where('id', 2)->first();
