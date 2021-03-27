@@ -1,8 +1,8 @@
 @component('mail::message')
 # Informe para el Bibliotecario
 
-{{ $mensaje }}
+{{ $msj }}
 
-Thanks,<br>
+Gracias,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -176,9 +176,9 @@ class UserController extends Controller
                     
                         $bibliotecario  = User::where('id', 1)->first();
                         $user = $bibliotecario;
-                        $msj = 'El Socio ha sido cargado, pero se encuentra en estado pendiente a ser aprobado';
+                        $msj = 'El Socio' . $nuevo_usuario->name . ',' . $nuevo_usuario->surnamename.  'ha sido cargado, pero se encuentra en estado pendiente a ser aprobado';
                         $subject = 'Informe';
-                        LibraryReport::dispatch($user, $nuevo_usuario, $msj, $subject);
+                        LibraryReport::dispatch($user, $msj, $subject);
 
 
                     }else{
@@ -188,7 +188,10 @@ class UserController extends Controller
                         $user->assignRole($partnerRole);
                         $accion = 'alta de socio';
                         UserWasCreated::dispatch($user, $data['password'], $accion);
-                        $msj = 'El Socio ha sido dado de alta';
+
+                        $bibliotecario  = User::where('id', 1)->first();
+                        $user = $bibliotecario;
+                        $msj = 'El Socio' . $nuevo_usuario->name . ',' . $nuevo_usuario->surnamename.  'ha sido aprobado como nuevo socio';
                         $subject = 'Informe';
                         LibraryReport::dispatch($user, $msj, $subject);
                     }

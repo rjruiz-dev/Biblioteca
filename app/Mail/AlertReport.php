@@ -16,6 +16,8 @@ class AlertReport extends Mailable
     public $msj;
 
     public $subject;
+
+   
     /**
      * Create a new message instance.
      *
@@ -28,6 +30,8 @@ class AlertReport extends Mailable
         $this->msj = $msj;
 
         $this->subject = $subject;
+
+       
     }
 
     /**
@@ -38,7 +42,7 @@ class AlertReport extends Mailable
     public function build()
     {
         return $this->markdown('emails.alert-report')
-        ->subject('Informe' . config('app.name'));
+        ->subject($subject . config('app.name'));
 
         
     }

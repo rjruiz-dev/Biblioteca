@@ -20,6 +20,7 @@ class LibraryReport
 
     public $subject;
 
+
     /**
      * Create a new event instance.
      *
@@ -32,6 +33,8 @@ class LibraryReport
         $this->msj = $msj;
 
         $this->subject = $subject;
+
+        
     }
 
     /**
