@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Providers\LibraryReport;
 use App\Mail\AlertReport;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

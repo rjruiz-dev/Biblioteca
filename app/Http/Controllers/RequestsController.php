@@ -9,6 +9,7 @@ use App\User;
 use App\Course;
 use DataTables;
 use App\planes;
+use App\Providers\LibraryReport;
 use App\ml_cat_sweetalert;
 use App\Document;
 use Carbon\Carbon;
@@ -168,7 +169,8 @@ class RequestsController extends Controller
 
 
     public function solicitud($id)
-    {           //recibimos como parametro id de documento
+    {   
+        //recibimos como parametro id de documento
                 
         
         DB::beginTransaction();
@@ -210,7 +212,17 @@ class RequestsController extends Controller
             
                     $new_movement->save();
             
-            
+                    // envia informe de solicitud de prestamo al bibliotecario
+                    $bibliotecario = User::whereHas('roles', function ($query) {
+                        $query->where('name', 'Librarian');
+                    })->first();
+                   
+                    // $bibliotecario  = User::where('id', 1)->first();
+                    $user = $bibliotecario;                
+                    $msj = 'El Socio  ' . $new_movement->user['name'] . ',' . $new_movement->user['surname'] . '  con número de socio: ' . $new_movement->user['membership'] . '  ha solicitado el prestamo, del ejemplar  ' .  '<b>' . $copy->document->title . '</b>';
+                    $subject = 'Informe solicitud de prestamos';
+                    LibraryReport::dispatch($user, $msj, $subject);
+
                     DB::commit();
 
                     $error = 0; // error en 0 es error NO osea NO hay ERROR

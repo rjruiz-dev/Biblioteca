@@ -685,7 +685,7 @@ class BookController extends Controller
         return view('admin.books.show', compact('book'), [
             'idioma_doc'    => $idioma_doc,
             'idioma_book'   => $idioma_book,
-            'setting' => $setting,
+            'setting'       => $setting,
             'disabled'      => $disabled,
             'label_copia_no_disponible' => $label_copia_no_disponible 
         ]); 

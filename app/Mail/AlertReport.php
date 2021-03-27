@@ -42,7 +42,7 @@ class AlertReport extends Mailable
     public function build()
     {
         return $this->markdown('emails.alert-report')
-        ->subject($subject . config('app.name'));
+        ->subject($this->subject . config('app.name'));
 
         
     }

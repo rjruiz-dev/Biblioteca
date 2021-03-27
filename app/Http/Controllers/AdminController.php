@@ -111,7 +111,7 @@ class AdminController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_front_end = ml_front_end::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
-        
+        $setting        = Setting::where('id', 1)->first();
         $c_documentos     = Document::selectRaw('count(*) documents')->first();       
         $c_socios         = User::selectRaw('count(*) users')->first();    
         $advertencia = "";
@@ -340,8 +340,8 @@ class AdminController extends Controller
 
     public function dataTable3()
     {     
-        // $id_usuario = Auth::user()->id;
-        $id_usuario = 99999999;
+        $id_usuario = Auth::user()->id;
+        // $id_usuario = 99999999;
         // dd("id_usuario: ".$id_usuario);
         $docs_of_user = Book_movement::with('movement_type', 'copy', 'copy.document.creator')
         ->whereHas('copy', function($q)
@@ -356,7 +356,7 @@ class AdminController extends Controller
                   ->orWhere('movement_types_id', '=', 2);
         })
         ->where('active', 1) 
-        // ->where('users_id', $id_usuario)
+        ->where('users_id', $id_usuario)
         ->get();
     
         return dataTables::of($docs_of_user) 

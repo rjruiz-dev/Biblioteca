@@ -13,6 +13,7 @@ use App\Document;
 use Carbon\Carbon;
 use App\Providers\Requests;
 use App\Providers\UserWasCreated;
+use App\Providers\LibraryReport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SaveUserRequest;
 use Illuminate\Support\Facades\Storage;
@@ -46,33 +47,32 @@ class RequestsUpController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
-        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        $idiomas    = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
-        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
-        $c_socios         = User::selectRaw('count(*) users')->first();    
-        $advertencia = "";
-        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        $c_documentos   = Document::selectRaw('count(*) documents')->first();       
+        $c_socios       = User::selectRaw('count(*) users')->first();    
+        $advertencia    = "";
+        $plan_actual    = planes::where('id', $setting->id_plan)->first();
         if($plan_actual == null){
             $plan_actual = planes::where('id', 1)->first();
         }
         $plan = $plan_actual->nombre_plan;
         if($plan_actual->id == 999){ // 999 es el plan premium
-        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
-            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
-        
+            if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+                $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+            
+            }
         }
-        }
-
         $Ml_web_request     = Ml_web_request::where('many_lenguages_id',$session)->first();
         
         // dd($idioma->navegacion);
         return view('admin.requestsup.index', [
-            'idioma'    => $idioma,
-            'idiomas'   => $idiomas,
-            'advertencia' => $advertencia,
-            'plan' => $plan,
-            'setting'   => $setting,
-            'Ml_web_request' => $Ml_web_request
+            'idioma'        => $idioma,
+            'idiomas'       => $idiomas,
+            'advertencia'   => $advertencia,
+            'plan'          => $plan,
+            'setting'       => $setting,
+            'Ml_web_request'=> $Ml_web_request
         ]);
     }
 
@@ -129,6 +129,15 @@ class RequestsUpController extends Controller
         
         Requests::dispatch($user, $mensaje);
 
+        // Informe para el bibliotecario (indica que el usuario fue rechazado)
+        $bibliotecario = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Librarian');
+        })->first();
+        $user = $bibliotecario;
+        $msj = 'La solicitud de asociamiento de' . $nuevo_usuario->name . ',' . $nuevo_usuario->surnamename.  'ha sido rechazada';
+        $subject = 'Informe';
+        LibraryReport::dispatch($user, $msj, $subject);
+
         $session = session('idiomas');
         $Ml_web_request     = Ml_web_request::where('many_lenguages_id',$session)->first();
         return response()->json(['mensaje_exito_solicitud' => $Ml_web_request->mensaje_exito_solicitud, 'resp_rechazar_socio' => $Ml_web_request->resp_rechazar_socio]);
@@ -155,8 +164,8 @@ class RequestsUpController extends Controller
      */
     public function destroy($id) // DESTROY SE USA PARA ACEPTAR
     {
-        $sugerido = User::select('membership')->orderBy('membership', 'DESC')->first();    
-        $num_socio = $sugerido->membership + 1;     
+        $sugerido   = User::select('membership')->orderBy('membership', 'DESC')->first();    
+        $num_socio  = $sugerido->membership + 1;     
         $data['password'] = str_random(8);
         
 
@@ -165,18 +174,27 @@ class RequestsUpController extends Controller
         $user->membership   =  $num_socio;
         $user->status_id    = 3; // ACEPTADO QUE ES IGUAL A ACTIVO
         $user->password     = $data['password']; 
-        // $user->password     = $password;
+        // $user->password  = $password;
         $user->save();
+        $nuevo_usuario = $user;
 
         $partnerRole = Role::where('id', 3)->first();
 
         $user->assignRole($partnerRole);
 
-        // Enviamos el email
+        // Enviamos el email al usuario aceptado
         $accion = "solicitud aceptada";
         // UserWasCreated::dispatch($user, $password, $accion);
-
         UserWasCreated::dispatch($user, $data['password'], $accion);
+
+        // Informe para el bibliotecario (indica que el usuario fue dado de alta)
+        $bibliotecario = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Librarian');
+        })->first();
+        $user = $bibliotecario;
+        $msj = 'El Socio   ' . $nuevo_usuario->name . ',' . $nuevo_usuario->surname.  'ha sido aprobado como nuevo socio';
+        $subject = 'Informe';
+        LibraryReport::dispatch($user, $msj, $subject);
         
         $session = session('idiomas');
         $Ml_web_request     = Ml_web_request::where('many_lenguages_id',$session)->first();

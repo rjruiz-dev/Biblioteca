@@ -185,16 +185,16 @@ class UserController extends Controller
                      // Enviamos el email
                     if($request->get('status_id') == 1){  //si esta pendiente
 
-                        Requests::dispatch($user, $mensaje);
                         
+                        Requests::dispatch($user, $mensaje);
 
-                        // $bibliotecario = User::whereHas('roles', function ($query) {
-                        //     $query->where('name', 'Librarian');
-                        // })->get();
+                        $bibliotecario = User::whereHas('roles', function ($query) {
+                            $query->where('name', 'Librarian');
+                        })->first();
                     
-                        $bibliotecario  = User::where('id', 1)->first();
+                        // $bibliotecario  = User::where('id', 1)->first();
                         $user = $bibliotecario;
-                        $msj = 'El Socio' . $nuevo_usuario->name . ',' . $nuevo_usuario->surnamename.  'ha sido cargado, pero se encuentra en estado pendiente a ser aprobado';
+                        $msj = 'El Socio  ' . $nuevo_usuario->name . ',' . $nuevo_usuario->surname.  'ha sido cargado, pero se encuentra en estado pendiente a ser aprobado';
                         $subject = 'Informe';
                         LibraryReport::dispatch($user, $msj, $subject);
 
@@ -207,9 +207,11 @@ class UserController extends Controller
                         $accion = 'alta de socio';
                         UserWasCreated::dispatch($user, $data['password'], $accion);
 
-                        $bibliotecario  = User::where('id', 1)->first();
+                        $bibliotecario = User::whereHas('roles', function ($query) {
+                            $query->where('name', 'Librarian');
+                        })->first();
                         $user = $bibliotecario;
-                        $msj = 'El Socio' . $nuevo_usuario->name . ',' . $nuevo_usuario->surnamename.  'ha sido aprobado como nuevo socio';
+                        $msj = 'El Socio  ' . $nuevo_usuario->name . ',' . $nuevo_usuario->surname.  'ha sido aprobado como nuevo socio';
                         $subject = 'Informe';
                         LibraryReport::dispatch($user, $msj, $subject);
                     }
