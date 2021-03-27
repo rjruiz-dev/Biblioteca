@@ -99,12 +99,21 @@ class UserController extends Controller
         $session = session('idiomas');
         $Ml_partner     = Ml_partner::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first();
+
+        $cant_bibliotecarios = User::where('status_id', 3)->whereHas('roles', function ($query) {
+            $query->where('name', 'Librarian');
+        })->get();
+        $mostrar_radio_biblio = true;
+        if($cant_bibliotecarios->count() > 0){
+            $mostrar_radio_biblio = false;
+        }
           
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_alta',1)->pluck('state_description', 'id'),   
             'setting' => $setting,
+            'mostrar_radio_biblio' => $mostrar_radio_biblio,
             'num_socio' => $num_socio,        
             'user'      => $user,
             'rol_lib'      => $rol_lib,
@@ -310,11 +319,20 @@ class UserController extends Controller
         
         $setting    = Setting::where('id', 1)->first();
 
+        $cant_bibliotecarios = User::where('status_id', 3)->whereHas('roles', function ($query) {
+            $query->where('name', 'Librarian');
+        })->get();
+        $mostrar_radio_biblio = true;
+        if($cant_bibliotecarios->count() > 0){
+            $mostrar_radio_biblio = false;
+        }
+
         return view('admin.users.partials.form', [
             'genders'   => User::pluck('gender', 'gender'),
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::where('view_edit',1)->pluck('state_description', 'id'),           
             'setting' => $setting,
+            'mostrar_radio_biblio' => $mostrar_radio_biblio,
             'num_socio' => $num_socio,          
             'user'      => $user,
             'rol_lib'   => $rol_lib,

@@ -24,10 +24,11 @@
                 @endif   
                 <div class="form-group">
                     {!! Form::label('group', $Ml_partner->mod_select_tipo) !!}&nbsp;
-                
+                    @if($mostrar_radio_biblio)
                     <label>
                         &nbsp;{!! Form::radio('group', 'Librarian', $rol_lib ? 'checked' : '', ['id' => 'Librarian']) !!} {{$Ml_partner->mod_check_biblio}}                               
                     </label>
+                    @endif
                     <label>
                         &nbsp;{!! Form::radio('group', 'Partner', $rol_part ? 'checked' : '', ['id' => 'Partner']) !!} {{$Ml_partner->mod_check_socio}}                        
                     </label>
