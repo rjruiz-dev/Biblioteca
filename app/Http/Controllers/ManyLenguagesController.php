@@ -6,6 +6,8 @@ use App\ManyLenguages;
 use App\Ml_dashboard;
 use App\ml_panel_admin;
 use App\ml_front_end;
+use App\planes;
+use App\Document;
 use App\ml_cat_list_book;
 use App\Ml_course;
 use App\ml_cat_sweetalert;
@@ -71,7 +73,6 @@ use Carbon\Carbon;
 use App\Book;
 use App\Creator;
 use App\Adequacy;
-use App\Document;
 use App\Lenguage;
 use App\Periodicity;
 use App\Generate_book;
@@ -86,6 +87,7 @@ use App\ml_show_fotografia;
 use App\ml_show_multimedia;
 
 use App\Generate_subjects;
+use App\User;
 use App\Generate_reference;
 use App\StatusDocument;
 use App\Periodical_publication;
@@ -117,9 +119,26 @@ class ManyLenguagesController extends Controller
         $setting    = Setting::where('id', 1)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         return view('admin.manylenguages.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'setting'   => $setting
         ]); 
     }

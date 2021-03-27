@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Movies;
+use App\planes;
 use App\ml_cat_edit_book;
 use App\ml_cat_list_book;
 use App\ml_cat_sweetalert;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Requests\SaveBookRequest;
 use App\Ml_dashboard;
+use App\User;
 use App\ManyLenguages;
 use App\Setting;
 use App\ml_show_doc;
@@ -100,6 +102,22 @@ class BookController extends Controller
         $setting    = Setting::where('id', 1)->first();
         // $this->authorize('view', new Book); 
         
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
+
         $idioma_cat_edit_book = ml_cat_edit_book::where('many_lenguages_id',$session)->first();
         
         // de esta forma cargo el idioma. en la variable esta el unico registro
@@ -113,6 +131,8 @@ class BookController extends Controller
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'idd'       => $idd,
             'idioma_cat_edit_book'       => $idioma_cat_edit_book,
             'ml_cat_list_book' => $ml_cat_list_book,
@@ -154,6 +174,20 @@ class BookController extends Controller
         $setting            = Setting::where('id', 1)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
 
         if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
 
@@ -366,6 +400,8 @@ class BookController extends Controller
             // 'idioma_document'   => $idioma_document,
             'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
+            'documentos'  => $documentos,
+            'advertencia' => $advertencia,
             'setting'           => $setting,
             'idd'           => $idd,
             'idioma_cat_edit_book'       => $idioma_cat_edit_book,

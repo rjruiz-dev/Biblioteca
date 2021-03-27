@@ -167,6 +167,16 @@ desired effect
     
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
+          @if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')))
+
+          <li class="dropdown messages-menu">
+            <!-- Menu toggle button -->
+            <a title="500 documentos y 10 Socios" class="dropdown-toggle">
+              <p>Plan Actual: {{ $plan.". ".$advertencia }}
+              </p>
+            </a>
+          </li>
+          @endif
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

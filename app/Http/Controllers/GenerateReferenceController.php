@@ -7,12 +7,14 @@ use Carbon\Carbon;
 use App\Document;
 use App\Ml_reference;
 use App\Swal_reference;
+use App\planes;
 use App\Generate_reference;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\User;
 use App\Http\Requests\SaveReferenceRequest;
 
 class GenerateReferenceController extends Controller
@@ -36,11 +38,28 @@ class GenerateReferenceController extends Controller
         $swal_reference = Swal_reference::where('many_lenguages_id', $idioma->id)->first();
         $setting        = Setting::where('id', 1)->first();    
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.   
-    
+        
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         return view('admin.references.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'ml_reference'    => $ml_reference,
             'swal_reference'  => $swal_reference
         ]);       

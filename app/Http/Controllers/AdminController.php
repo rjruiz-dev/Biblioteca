@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
+use App\planes;
 use App\ml_panel_admin;
 use App\User;
 use Carbon\Carbon;
@@ -39,7 +40,7 @@ class AdminController extends Controller
         $ml_panel_admin = ml_panel_admin::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting        = Setting::where('id', 1)->first();
-        $documentos     = Document::selectRaw('count(*) documents')->get();      
+        $documentos     = Document::selectRaw('count(*) documents')->get();
         $prestamos      = Book_movement::selectRaw('count(*) book_movements')                           
                             ->where('movement_types_id', 1) 
                             ->get();  
@@ -52,14 +53,30 @@ class AdminController extends Controller
             ->where('date_until','<', Carbon::now()) 
             ->get();
 
-        $socios         = User::selectRaw('count(*) users')->get();    
+        $socios         = User::selectRaw('count(*) users')->get();
         
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
         
+        }
+        }
+
         return view('layouts.dashboard', [
             'idioma'        => $idioma,
             'idiomas'       => $idiomas,// REQUERIDO MULTI-IDIOMA - variable que carga el idioma en la lista de arriba).
             'setting'       => $setting,
             'documentos'    => $documentos,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'prestamos'     => $prestamos,
             'prestamos_vencidos' => $prestamos_vencidos,
             'socios'        => $socios,
@@ -94,6 +111,22 @@ class AdminController extends Controller
         $idioma = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_front_end = ml_front_end::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+        
         $setting = Setting::where('id', 1)->first();
         $ml_panel_admin = ml_panel_admin::where('many_lenguages_id',$session)->first();
         $documentos = Document::with(['book','music','movie','multimedia','photography'])->where('status_documents_id', '=', 1)
@@ -114,6 +147,8 @@ class AdminController extends Controller
             'idiomas'     => $idiomas,
             'setting'     => $setting,
             'documentos'  => $documentos,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'recientes'  => $recientes,
             'reservados'  => $reservados,
             'ml_panel_admin' => $ml_panel_admin,

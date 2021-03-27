@@ -35,6 +35,7 @@ class CreateSettingsTable extends Migration
            
             $table->integer('loan_day')->nullable();
             $table->integer('loan_limit')->nullable();
+            $table->integer('id_plan');
             $table->timestamps();
 
             $table->foreign('fines_id')->references('id')->on('fines')

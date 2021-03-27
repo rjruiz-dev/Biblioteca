@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Fine;
 use App\Statu;
+use App\planes;
 use App\Ml_loan_partner;
 use App\Ml_loan_document;
 use App\Copy;
@@ -45,11 +46,29 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         // dd($idioma->navegacion);
         return view('admin.fastprocess.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
             'setting'   => $setting,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'Ml_loan_partner' => $Ml_loan_partner,
             'Ml_loan_document' => $Ml_loan_document
         ]);         
@@ -70,12 +89,29 @@ class FastPartnerProcessController extends Controller
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         $Ml_loan_document     = Ml_loan_document::where('many_lenguages_id',$session)->first();
         
         
         return view('admin.fastprocess.index2', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'setting'   => $setting,
             'Ml_loan_document' => $Ml_loan_document
         ]);                 
@@ -236,6 +272,22 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         $setting    = Setting::where('id', 1)->first();
 
         $Ml_loan_partner     = Ml_loan_partner::where('many_lenguages_id',$session)->first();
@@ -269,6 +321,8 @@ class FastPartnerProcessController extends Controller
             'idioma'        => $idioma,
             'idiomas'       => $idiomas,
             'setting'       => $setting,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'multa'         => $multa,
             'traduccion_multa' => $traduccion_multa,
             'Ml_loan_partner' => $Ml_loan_partner,
@@ -290,6 +344,22 @@ class FastPartnerProcessController extends Controller
         //cargo el idioma
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         $setting    = Setting::where('id', 1)->first();
         $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
         
@@ -379,6 +449,8 @@ class FastPartnerProcessController extends Controller
             'copies_solicitadas'    => $copies_solicitadas,
             'copies_mantenimiento'  => $copies_mantenimiento,
             'copies_baja'           => $copies_baja,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'idioma'                => $idioma,
             'idiomas'               => $idiomas,
             'multa'                 => $multa,

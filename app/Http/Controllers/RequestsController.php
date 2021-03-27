@@ -8,6 +8,7 @@ use App\Copy;
 use App\User;
 use App\Course;
 use DataTables;
+use App\planes;
 use App\ml_cat_sweetalert;
 use App\Document;
 use Carbon\Carbon;
@@ -43,11 +44,28 @@ class RequestsController extends Controller
         $setting    = Setting::where('id', 1)->first();     
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         $Ml_web_loan     = Ml_web_loan::where('many_lenguages_id',$session)->first();
         
         return view('admin.requests.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'setting'   => $setting,
             'Ml_web_loan' => $Ml_web_loan
         ]);         

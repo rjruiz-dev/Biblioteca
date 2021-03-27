@@ -145,7 +145,13 @@
                     <div class="form-group">
                         {!! Form::label('days_penalty', $ml_library['dias_sancion']) !!}                
                         {!! Form::text('days_penalty', $multa_suspension['unit'] ? $multa_suspension['unit'] : null, ['class' => 'form-control', 'id' => 'days_penalty', 'placeholder' => $ml_library['dias_sancion'] ]) !!}
-                    </div>                  
+                    </div> 
+                    @if( (Auth::user() != null) && (Auth::user()->getRoleNames() == 'Admin') )
+
+                    <div class="form-group">
+                    {!! Form::select('id_plan', $planes_listado, null, ['class' => 'form-control select2', 'id' => 'id_plan']) !!}   
+                    </div>  
+                    @endif           
                 </div>
             </div>       
         </div>  

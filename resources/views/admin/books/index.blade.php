@@ -19,7 +19,16 @@ use App\Book;
        
        {{ Form::hidden('preg_aceptar_documento', $traduccionsweet->preg_aceptar_documento, ['id' => 'preg_aceptar_documento']) }}
        {{ Form::hidden('preg_reactivar_documento', $traduccionsweet->preg_reactivar_documento, ['id' => 'preg_reactivar_documento']) }}
-            
+
+       @if($advertencia == "")
+        @php 
+        $disabled = '';
+        @endphp 
+    @else
+        @php 
+        $disabled = 'disabled';
+        @endphp
+    @endif  
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$ml_cat_list_book->book_text_inicio}}</a></li>
@@ -47,7 +56,7 @@ use App\Book;
                 <div  class="col-md-4" style="margin-bottom:5px;">
                     <button type="button" name="filter" id="filter" class="btn btn-info">{{$ml_cat_list_book->book_btn_buscar}}</button>
                     @if(Auth::user() != null && ((Auth::user()->getRoleNames() == 'Admin') || (Auth::user()->getRoleNames() == 'Librarian')))
-                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style=" display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->book_btn_crear}}</a>
+                    <a href="{{ route('admin.books.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show {{ $disabled }}" style=" display: none;" title="Crear Libro"><i class="fa fa-user-plus"></i> {{$ml_cat_list_book->book_btn_crear}}</a>
                     @endif
                     <a href="/admin/importfromrebeca/"  id="aref" class="btn btn-success pull-right" style=" display: none;" title="Volver a Importacion de Rebecca"><i class="fa fa-user-plus"></i> Volver a Importacion</a>
                 

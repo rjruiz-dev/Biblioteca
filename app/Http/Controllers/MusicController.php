@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Carbon\Carbon;
 use App\Music;
+use App\planes;
 use App\ml_cat_edit_music;
 use App\Movies;
 use App\Lenguage;
@@ -33,6 +34,7 @@ use App\Setting;
 use App\ml_show_doc;
 use App\ml_show_music;
 use App\Copy;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class MusicController extends Controller
@@ -65,6 +67,21 @@ class MusicController extends Controller
         $setting    = Setting::where('id', 1)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
 
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         // $this->authorize('view', new Music);
 
         return view('admin.music.index', [
@@ -74,6 +91,8 @@ class MusicController extends Controller
             'idd' => $idd,
             'idioma_cat_edit_music'       => $idioma_cat_edit_music,
             'ml_cat_list_book' => $ml_cat_list_book,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'traduccionsweet' => $traduccionsweet,
              // replicar esto INICIO (arriba vas a tener q importar los "use" que correspondan)
              'references' => Generate_reference::pluck('reference_description', 'id'),
@@ -108,6 +127,22 @@ class MusicController extends Controller
         // $idioma_movie       = Ml_movie::where('many_lenguages_id',$session)->first();
         $setting            = Setting::where('id', 1)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+
+
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
 
         if($tipo != 'n'){ // cuando es n es porque se quiere editar pero ya se definio el tipo de doc
 
@@ -165,6 +200,8 @@ class MusicController extends Controller
             'idioma_document'   => $idioma_document,
             'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'setting'           => $setting,
             'idd'           => $idd,
             'idioma_cat_edit_music'       => $idioma_cat_edit_music,

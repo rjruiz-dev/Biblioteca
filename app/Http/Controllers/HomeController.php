@@ -9,6 +9,7 @@ use App\User;
 use App\Statu;
 use App\Copy;
 use App\Document;
+use App\planes;
 use App\Book;
 use App\Music;
 use App\Multimedia;
@@ -41,6 +42,21 @@ class HomeController extends Controller
         }
         $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        $setting = Setting::where('id', 1)->first();
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
         // REQUERIDO MULTI-IDIOMA - FIN
         
         // $request->session()->put('idiomas', 2);
@@ -78,6 +94,8 @@ class HomeController extends Controller
             'idioma'      => $idioma,
             'setting'     => $setting,
             'documentos'  => $documentos,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'recientes'  => $recientes,
             'reservados'  => $reservados,
             'CincoMasResevados'  => $CincoMasResevados,
@@ -120,6 +138,21 @@ class HomeController extends Controller
         }
         $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
         // REQUERIDO MULTI-IDIOMA - FIN 
 
         $idioma         = Ml_dashboard::where('many_lenguages_id', $session)->first();  
@@ -133,6 +166,8 @@ class HomeController extends Controller
             'provinces' => User::pluck('province','province'),
             'status'    => Statu::pluck('state_description', 'id'),           
             'user'          => $user,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'setting' => $setting,
             'idioma'        => $idioma,
             'ml_registry'   => $ml_registry,

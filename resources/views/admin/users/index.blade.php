@@ -7,7 +7,17 @@
     </h1>
     {{ Form::hidden('preg_reactivar_socio', $Ml_partner->preg_reactivar_socio, ['id' => 'preg_reactivar_socio']) }}
     {{ Form::hidden('preg_baja_socio', $Ml_partner->preg_baja_socio, ['id' => 'preg_baja_socio']) }}
-       
+    
+    @if($advertencia == "")
+        @php 
+        $disabled = '';
+        @endphp 
+    @else
+        @php 
+        $disabled = 'disabled';
+        @endphp
+    @endif
+
     <ol class="breadcrumb">
     <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{$idioma->inicio}}</a></li>
     </ol> 
@@ -18,7 +28,7 @@
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">{{$Ml_partner->subtitulo_ams}}     
           
-                <a href="{{ route('admin.users.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show" style="margin-top: -8px;" title="Crear Socio"><i class="fa fa-user-plus"></i> {{$Ml_partner->btn_crear}}</a>
+                <a href="{{ route('admin.users.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show {{ $disabled }}" style="margin-top: -8px;" title="Crear Socio"><i class="fa fa-user-plus"></i> {{$Ml_partner->btn_crear}}</a>
     
             </h3>
         </div>

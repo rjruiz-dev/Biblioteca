@@ -7,6 +7,7 @@ use App\Generate_letter;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Providers\ClaimLoan;
+use App\planes;
 use App\Providers\ReportClaimLoan;
 use App\Book_movement;
 use App\Ml_send_letter;
@@ -40,11 +41,28 @@ class ClaimLoansController extends Controller
         $setting    = Setting::where('id', 1)->first(); 
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
       
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         $ml_sl                          = Ml_send_letter::where('many_lenguages_id', $session)->first();
                 
         return view('admin.claimloans.prestamo', [
             'idioma'    => $idioma,
-            'idiomas'   => $idiomas,     
+            'idiomas'   => $idiomas, 
+            'advertencia' => $advertencia,
+            'plan' => $plan,    
             'setting'   => $setting, 
             'ml_sl' => $ml_sl,
             'model_types' => Generate_letter::pluck('title', 'id') 
@@ -72,7 +90,8 @@ class ClaimLoansController extends Controller
              $query->where('movement_types_id', '=', 1)
                    ->orWhere('movement_types_id', '=', 2);
          })
-         ->where('active', 1)               
+         ->where('active', 1) 
+         ->orderBy('users_id')             
          ->get();
 
         //  DB::raw( 'items_alias.*' )

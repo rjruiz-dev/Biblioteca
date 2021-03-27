@@ -152,10 +152,18 @@
                     var ii = 1;
                     select.options[0] = new Option("Todos", 0);
                 }
+                var user_trans = '';
                 for(var i=0;i<fecha.length;i++){
-                        select.options[ii] = new Option(fecha[i].user.nickname + ' - ' + fecha[i].copy.document.title, fecha[i].user.id);
+
+                    
+                    
+                    if(user_trans != fecha[i].user.id){
+                        select.options[ii] = new Option(fecha[i].user.nickname, fecha[i].user.id);
                         ii = ii + 1;
+                        user_trans = fecha[i].user.id;
                     }
+
+                }
                     $("#send-mail").prop('disabled', false);
             }else{
                 $("#send-mail").prop('disabled', true);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\planes;
+use App\Document;
 use App\Book_movement;
 use App\User_movement;
 use App\User;
@@ -34,6 +36,21 @@ class StatisticController extends Controller
         $setting        = Setting::where('id', 1)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.     
         
+        $c_documentos     = Document::selectRaw('count(*) documents')->first();       
+        $c_socios         = User::selectRaw('count(*) users')->first();    
+        $advertencia = "";
+        $plan_actual = planes::where('id', $setting->id_plan)->first();
+        if($plan_actual == null){
+            $plan_actual = planes::where('id', 1)->first();
+        }
+        $plan = $plan_actual->nombre_plan;
+        if($plan_actual->id == 999){ // 999 es el plan premium
+        if( ($c_documentos >= $plan_actual->cantidad_documentos ) || ($c_socios >= $plan_actual->cantidad_socios ) ){
+            $advertencia = "Por favor actualice a una versión superior, esta llegando al limite de su capacidad";
+        
+        }
+        }
+
         $users = User::all();
         foreach($users as $user){
             // $dif = Carbon\Carbon::parse($docs_of_use->date_until)->diffInDays(Carbon\Carbon::now()); 
@@ -50,6 +67,8 @@ class StatisticController extends Controller
         return view('admin.statistic.index', [
             'idioma'    => $idioma,
             'idiomas'   => $idiomas,
+            'advertencia' => $advertencia,
+            'plan' => $plan,
             'setting'   => $setting,
             'ml_statistic'   => $ml_statistic
         ]);         
