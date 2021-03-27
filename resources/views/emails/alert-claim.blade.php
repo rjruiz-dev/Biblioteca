@@ -4,7 +4,7 @@
 # Número de Socio: {{ $user->membership }} 
 # Socio: {{ $user->name }}
 
-{{ $modelo->body }}
+{!! $modelo->body !!}
  
 Documentos: 
 @component('mail::table')
@@ -17,7 +17,7 @@ Documentos:
     @endforeach
     @endcomponent
 
-{{ $modelo->excerpt }}
+{!! $modelo->excerpt !!}
 
 # Gracias,<br>
 # Administración {{ config('app.name') }}

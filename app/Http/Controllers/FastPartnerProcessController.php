@@ -169,13 +169,13 @@ class FastPartnerProcessController extends Controller
     public function vista_devo_reno($id, $bandera, $fecha)
     {   
         // $setting    = Setting::where('id', 1)->first(); 
-        $setting = Setting::select('loan_day')->first();
+        $setting = Setting::select('loan_day')->first();    
         $dias_de_prestamo = $setting->loan_day;
         return view('admin.fastprocess.partials.form', [         
             'id'        => $id,
             'bandera'   => $bandera,
             'fecha'     => $fecha,
-            // 'setting'   => $setting,
+            'setting'   => $setting,
             'dias_de_prestamo'   => $dias_de_prestamo
         ]); 
     }

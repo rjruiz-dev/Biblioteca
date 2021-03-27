@@ -128,7 +128,7 @@
             columns: [                
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},               
-                {data: 'nickname', name: 'ninckname'},
+                {data: 'nickname', name: 'nickname'},
                 {data: 'email', name: 'email'}, 
                 {data: 'status_id', name: 'status_id'}, 
                 {data: 'created_at', name: 'agregado'},                  

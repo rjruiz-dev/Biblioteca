@@ -34,6 +34,10 @@ class EventServiceProvider extends ServiceProvider
         Requests::class => [         
             SendRequests::class,
         ],
+
+        LibraryReport::class => [         
+            SendReport::class,
+        ],
     ];
 
     /**
