@@ -272,7 +272,7 @@ class FastPartnerProcessController extends Controller
         $idioma     = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $traduccion_multa     = ml_fines::where('many_lenguages_id',$session)->first();
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
-        
+        $setting    = Setting::where('id', 1)->first(); 
         $c_documentos     = Document::selectRaw('count(*) documents')->first();       
         $c_socios         = User::selectRaw('count(*) users')->first();    
         $advertencia = "";

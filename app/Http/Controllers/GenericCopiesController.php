@@ -8,6 +8,7 @@ use App\Document;
 use App\Book_movement;
 use App\ml_cat_sweetalert;
 use App\planes;
+use App\User;
 use App\Movement_type;
 use DataTables;
 use App\Setting;
@@ -81,7 +82,7 @@ class GenericCopiesController extends Controller
     {
         $copy = new Copy();
 
-        
+        $setting    = Setting::where('id', 1)->first();
         $sugerido2 = Copy::select('registry_number')->orderBy('registry_number', 'DESC')->first();
         
         if($sugerido2 != null){
@@ -96,6 +97,7 @@ class GenericCopiesController extends Controller
             'status'    => Movement_type::where('view', 1)->orderBy('orden', 'DESC')->pluck('book_status_priv', 'id'),
             'id_doc'    => $id,
             'copie'     => $copy,
+            'setting' => $setting,
             'sugerido'  => $sugerido
         ]);
     }
