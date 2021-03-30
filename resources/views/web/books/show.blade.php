@@ -58,7 +58,7 @@
                         <b>{{ $idioma_doc->autor }}:</b> <a class="pull-right">{{ $book->document->creator->creator_name }}</a>
                     </li>
                     <!-- Publ. periodica -->
-                    <li id="ls_tema" class="list-group-item">
+                    <li id="ls_tema" class="list-group-item" style="overflow:hidden;">
                     @if ( $book->subtitle === NULL )   
                         <b>{{ $idioma_book->tema_de_portada }}:</b> <a class="pull-right"><p class="tex-muted">Sin {{ $idioma_book->tema_de_portada }}</p></a>                                                 
                     @else

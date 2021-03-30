@@ -263,7 +263,7 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">{{ $idioma->navegacion }}</li> 
         <li class="{{ setActiveRoute('index') }}">
-            <a href="{{ route('index') }}">
+            <a href="{{ route('dashboard') }}">
                 <i class="fa fa-dashboard"></i> <span>{{ $idioma->inicio }}</span>
             </a>
         </li>
