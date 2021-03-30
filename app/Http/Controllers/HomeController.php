@@ -138,7 +138,7 @@ class HomeController extends Controller
         }
         $session = session('idiomas'); // asigno la variable de session a otra variable a la cual consulto siempre que necesite el idioma.
         $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
-        
+        $setting = Setting::where('id', 1)->first();
         $c_documentos     = Document::selectRaw('count(*) documents')->first();       
         $c_socios         = User::selectRaw('count(*) users')->first();    
         $advertencia = "";

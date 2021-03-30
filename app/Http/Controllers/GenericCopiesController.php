@@ -166,7 +166,7 @@ class GenericCopiesController extends Controller
     public function edit($id)
     {
         $copies = Copy::with('movement_type')->findOrFail($id);
-
+        $setting            = Setting::where('id', 1)->first();
         $sugerido2 = Copy::select('registry_number')->orderBy('registry_number', 'DESC')->first();
         // dd($sugerido2);
         $sugerido = $sugerido2->registry_number + 1;
@@ -182,6 +182,7 @@ class GenericCopiesController extends Controller
 
         return view('admin.genericcopies.partials.form', [
             'status'    => $status,
+            'setting' => $setting,
             'id_doc'    => $id,
             'copie'     => $copies,
             'sugerido'  => $sugerido
