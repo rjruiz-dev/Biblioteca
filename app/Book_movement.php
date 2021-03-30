@@ -8,6 +8,8 @@ class Book_movement extends Model
 {
     protected $fillable = ['movement_types_id', 'users_id', 'copies_id', 'courses_id', 'grupo', 'turno', 'date', 'date_until', 'active'];
 
+    protected $dates = ['date', 'date_until'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');

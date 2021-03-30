@@ -19,6 +19,7 @@ use App\Generate_reference;
 use App\Generate_format;
 use App\StatusDocument;
 use App\Book_movement;
+use App\ml_cat_sweetalert;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -68,6 +69,7 @@ class VPhotographyController extends Controller
         $setting    = Setting::where('id', 1)->first();  
          // de esta forma cargo el idioma. en la variable esta el unico registro
          $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+         $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         
         return view('web.photographs.index', [
             'idioma'     => $idioma,
@@ -77,6 +79,7 @@ class VPhotographyController extends Controller
             'plan' => $plan,
             'idf' => $idf,
             'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,   
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
@@ -117,6 +120,7 @@ class VPhotographyController extends Controller
         $setting    = Setting::where('id', 1)->first();  
          // de esta forma cargo el idioma. en la variable esta el unico registro
          $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+         $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         
         return view('web.photographs.index', [
             'idioma'     => $idioma,
@@ -126,6 +130,7 @@ class VPhotographyController extends Controller
             'plan' => $plan,
             'idf' => $idf,
             'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,   
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),

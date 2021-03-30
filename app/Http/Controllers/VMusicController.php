@@ -22,6 +22,7 @@ use App\Document_subtype;
 use App\Generate_format;
 use App\Generate_music;
 use App\StatusDocument;
+use App\ml_cat_sweetalert;
 use Illuminate\Http\Request;
 use App\Ml_dashboard;
 use App\ManyLenguages;
@@ -71,6 +72,7 @@ class VMusicController extends Controller
 
         // de esta forma cargo el idioma. en la variable esta el unico registro
         $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         
         return view('web.music.index', [
             'idioma'    => $idioma,
@@ -80,6 +82,7 @@ class VMusicController extends Controller
             'setting'   => $setting,
             'idf' => $idf,
             'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),    
@@ -120,6 +123,7 @@ class VMusicController extends Controller
 
         // de esta forma cargo el idioma. en la variable esta el unico registro
         $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         
         return view('web.music.index', [
             'idioma'    => $idioma,
@@ -129,6 +133,7 @@ class VMusicController extends Controller
             'setting'   => $setting,
             'idf' => $idf,
             'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),    

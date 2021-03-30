@@ -22,6 +22,7 @@ use App\StatusDocument;
 use App\Book_movement;
 use Illuminate\Http\Request;
 use App\Periodical_publication;
+use App\ml_cat_sweetalert;
 use App\Ml_dashboard;
 use App\ManyLenguages;
 use App\Setting;
@@ -81,7 +82,7 @@ class VBooksController extends Controller
         $idioma_doc     = ml_show_doc::where('many_lenguages_id',$session)->first();
         $idioma_book    = ml_show_book::where('many_lenguages_id',$session)->first();
         $setting        = Setting::where('id', 1)->first();        
-        
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         // de esta forma cargo el idioma. en la variable esta el unico registro
         $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
         
@@ -99,6 +100,7 @@ class VBooksController extends Controller
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),
+            'traduccionsweet' => $traduccionsweet,
             'genders'    => Generate_book::pluck('genre_book', 'id')
         ]); 
     }
@@ -153,6 +155,7 @@ class VBooksController extends Controller
         $setting        = Setting::where('id', 1)->first();        
         // de esta forma cargo el idioma. en la variable esta el unico registro
         $ml_cat_list_book = ml_cat_list_book::where('many_lenguages_id',$session)->first();
+        $traduccionsweet = ml_cat_sweetalert::where('many_lenguages_id',$session)->first();
         
 
         return view('web.books.index', [
@@ -164,7 +167,8 @@ class VBooksController extends Controller
             'plan' => $plan,
             'setting'    => $setting,
             'idf' => $idf,   
-            'ml_cat_list_book' => $ml_cat_list_book,         
+            'ml_cat_list_book' => $ml_cat_list_book,
+            'traduccionsweet' => $traduccionsweet,         
             'references' => Generate_reference::pluck('reference_description', 'id'),
             'subjects'   => Generate_subjects::orderBy('id','ASC')->get()->pluck('name_and_cdu', 'id'), 
             'adaptations'=> Adequacy::pluck('adequacy_description', 'id'),

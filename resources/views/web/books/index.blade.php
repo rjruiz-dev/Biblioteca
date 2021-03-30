@@ -7,6 +7,15 @@ use App\Book;
     
     <h1>
     {{$ml_cat_list_book->book_text_titulo}}
+    {{ Form::hidden('preg_solicitar_documento', $traduccionsweet->preg_solicitar_documento, ['id' => 'preg_solicitar_documento']) }}
+    
+    {{ Form::hidden('preg_desidherata_documento', $traduccionsweet->preg_desidherata_documento, ['id' => 'preg_desidherata_documento']) }}
+    
+    {{ Form::hidden('preg_baja_documento', $traduccionsweet->preg_baja_documento, ['id' => 'preg_baja_documento']) }}
+    {{ Form::hidden('preg_rechazar_documento', $traduccionsweet->preg_rechazar_documento, ['id' => 'preg_rechazar_documento']) }}
+    
+    {{ Form::hidden('preg_aceptar_documento', $traduccionsweet->preg_aceptar_documento, ['id' => 'preg_aceptar_documento']) }}
+    {{ Form::hidden('preg_reactivar_documento', $traduccionsweet->preg_reactivar_documento, ['id' => 'preg_reactivar_documento']) }}
         <small>Listado</small>
     </h1>
     {{ Form::hidden('idf', $idf, ['id' => 'idf']) }}
