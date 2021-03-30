@@ -245,19 +245,19 @@
                         <h3 class="text-center" style="height: 45px;">{{ $titulo }}</h3>
                      <p style="height: 45px;">{!! $sinopsis !!}</p>
                      @if($doc['document_types_id'] == 1)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('musicas.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 2)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('cines.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 3)
                     <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 4)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('multimedias.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 5)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('fotografias.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                         
                         
@@ -337,19 +337,19 @@
                         <h3 class="text-center" style="height: 45px;">{{ $titulo_d }}</h3>
                      <p style="height: 45px;">{!! $sinopsis_d !!}</p>
                      @if($masreservados->document_types_id == 1)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('musicas.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 2)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('cines.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 3)
                     <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 4)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('multimedias.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 5)
-                    <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('fotografias.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                         
                         
