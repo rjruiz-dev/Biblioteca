@@ -38,7 +38,7 @@ class AdminController extends Controller
         $session        = session('idiomas');
         $idioma         = Ml_dashboard::where('many_lenguages_id',$session)->first();
         $ml_panel_admin = ml_panel_admin::where('many_lenguages_id',$session)->first();
-        $idiomas = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
+        $idiomas        = ManyLenguages::where('baja', 0)->get(); // cargo todo el listado de idiomas habilitados.
         $setting        = Setting::where('id', 1)->first();
         $documentos     = Document::selectRaw('count(*) documents')->get();
         $prestamos      = Book_movement::selectRaw('count(*) book_movements')                           
@@ -228,7 +228,7 @@ class AdminController extends Controller
 
     public function dataTable()
     {                    
-        $usuarios =  DB::select('SELECT bm.id, u.name, u.user_photo, u.email, d.title, bm.date_until, c.registry_number,
+        $usuarios =  DB::select('SELECT bm.id, u.name, u.user_photo, u.email, d.title, DATE_FORMAT(bm.date_until,\'%d-%m-%Y\') as date_until, c.registry_number,
                     (select count(bm2.id) from book_movements bm2 
                     WHERE ( bm2.movement_types_id = 1 
                     OR bm2.movement_types_id = 2)
@@ -241,7 +241,7 @@ class AdminController extends Controller
                     LEFT JOIN documents d ON c.documents_id = d.id 
                     WHERE ( bm.movement_types_id = 1 OR bm.movement_types_id = 2) 
                     AND bm.active = 1 
-                    -- AND bm.date_until > NOW()                  
+                    AND bm.date_until > NOW()                  
                     ORDER BY bm.id DESC LIMIT 5');
 
         return dataTables::of($usuarios)
@@ -272,8 +272,9 @@ class AdminController extends Controller
                 return $usuarios->registry_number;
             })                 
             ->addColumn('date_until', function ($usuarios){
-                return $usuarios->date_until;
-            })  
+                return $usuarios->date_until;  
+            }) 
+            
             ->addColumn('prestamos', function ($usuarios){
                 return $usuarios->cantidad;
             })   
@@ -286,7 +287,7 @@ class AdminController extends Controller
 
     public function dataTable2()
     {                    
-        $usuarios =  DB::select('SELECT bm.id, u.name, u.user_photo, u.email, d.title, bm.date_until, c.registry_number,
+        $usuarios =  DB::select('SELECT bm.id, u.name, u.user_photo, u.email, d.title, DATE_FORMAT(bm.date_until,\'%d-%m-%Y\') as date_until, c.registry_number,
                     (select count(bm2.id) from book_movements bm2 
                     WHERE ( bm2.movement_types_id = 1 
                     OR bm2.movement_types_id = 2)
@@ -298,7 +299,7 @@ class AdminController extends Controller
                     LEFT JOIN copies c ON bm.copies_id = c.id 
                     LEFT JOIN documents d ON c.documents_id = d.id 
                     WHERE ( bm.movement_types_id = 1 OR bm.movement_types_id = 2) 
-                    AND bm.active = 1 
+                    AND bm.active = 1                        
                     AND bm.date_until < NOW()                  
                     ORDER BY bm.id DESC LIMIT 5');
 
@@ -328,6 +329,7 @@ class AdminController extends Controller
             ->addColumn('date_until', function ($usuarios){
                 return $usuarios->date_until;
             })  
+           
             ->addColumn('prestamos', function ($usuarios){
                 return $usuarios->cantidad;
             })   
@@ -367,9 +369,17 @@ class AdminController extends Controller
             })
             ->addColumn('type_document', function ($docs_of_user){
                 return $docs_of_user->copy->document->document_type['document_description'];
-            })   
+            })  
+            ->addColumn('date', function ($docs_of_user){
+                return $docs_of_user->date->format('d-m-y');              
+            })  
+
+            ->addColumn('date_until', function ($docs_of_user){
+                return $docs_of_user->date_until->format('d-m-y');              
+            })  
+             
             ->addIndexColumn()   
-            ->rawColumns(['title', 'type_document']) 
+            ->rawColumns(['title', 'type_document', 'date', 'date_until']) 
             ->make(true);  
     }
 }
