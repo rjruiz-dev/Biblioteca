@@ -29,6 +29,7 @@ class SettingTableSeeder extends Seeder
             'skin_footer'   => '#f5ca09',
             'loan_day'   => 3,
             'loan_limit'   => 3,
+            'id_plan'   => 1,
         ]);
        
     }

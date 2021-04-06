@@ -114,9 +114,11 @@ desired effect
   }
 
 </style>
-    @php
-    $imagen_completa = trim(Auth::user()['user_photo']);
-    @endphp
+    @if(Auth::user() != null)
+      @php  
+        $imagen_completa = trim(Auth::user()['user_photo']);
+      @endphp
+    @endif
     @if(Auth::user() == null)
       @php
         $url=asset("./images/doc-default.jpg");
