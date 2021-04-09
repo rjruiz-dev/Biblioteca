@@ -7,7 +7,6 @@ use App\Photography;
 @section('header')    
     <h1>
     {{$ml_cat_list_book->fotografia_text_titulo}}
-    {{ Form::hidden('idd', $idd, ['id' => 'idd']) }}
        
        {{ Form::hidden('preg_solicitar_documento', $traduccionsweet->preg_solicitar_documento, ['id' => 'preg_solicitar_documento']) }}
        
