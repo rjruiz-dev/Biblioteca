@@ -40,7 +40,7 @@
                 {{ csrf_field() }}
                 <div class="form-group" id="fg_document_subtypes_id">
                     {!! Form::label('document_subtypes_id', $idioma_cat_edit_book->cuerpo_tipo_de_libro) !!}
-                    {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'], ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '',  'onchange' => 'yesnoCheck()', 'style' => 'width:100%;']) !!}
+                    {!! Form::select('document_subtypes_id', $subtypes, $book->document['document_subtypes_id'] != null ? $book->document['document_subtypes_id'] : 1, ['class' => 'form-control select2', 'id' => 'document_subtypes_id', 'placeholder' => '',  'onchange' => 'yesnoCheck()', 'style' => 'width:100%;']) !!}
 
                 </div>
                
