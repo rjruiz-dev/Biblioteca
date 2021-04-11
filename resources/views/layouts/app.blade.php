@@ -114,6 +114,9 @@ desired effect
   }
 
 </style>
+      @php  
+      
+      @endphp
     @if(Auth::user() != null)
       @php  
         $imagen_completa = trim(Auth::user()['user_photo']);
