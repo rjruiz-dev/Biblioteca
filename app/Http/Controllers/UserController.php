@@ -200,6 +200,11 @@ class UserController extends Controller
                         $bibliotecario = User::whereHas('roles', function ($query) {
                             $query->where('name', 'Librarian');
                         })->first();
+                        if($bibliotecario == null){ //si no hay bibliotecario lo manda al admin.
+                            $bibliotecario = User::whereHas('roles', function ($query) {
+                                $query->where('name', 'Admin');
+                            })->first();
+                        }
                     
                         // $bibliotecario  = User::where('id', 1)->first();
                         $user = $bibliotecario;
@@ -219,6 +224,11 @@ class UserController extends Controller
                         $bibliotecario = User::whereHas('roles', function ($query) {
                             $query->where('name', 'Librarian');
                         })->first();
+                        if($bibliotecario == null){ //si no hay bibliotecario lo manda al admin.
+                            $bibliotecario = User::whereHas('roles', function ($query) {
+                                $query->where('name', 'Admin');
+                            })->first();
+                        }
                         $user = $bibliotecario;
                         $msj = 'El Socio  ' . $nuevo_usuario->name . ',' . $nuevo_usuario->surname.  'ha sido aprobado como nuevo socio';
                         $subject = 'Informe';

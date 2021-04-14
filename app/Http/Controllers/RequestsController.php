@@ -216,7 +216,11 @@ class RequestsController extends Controller
                     $bibliotecario = User::whereHas('roles', function ($query) {
                         $query->where('name', 'Librarian');
                     })->first();
-                   
+                    if($bibliotecario == null){ //si no hay bibliotecario lo manda al admin.
+                        $bibliotecario = User::whereHas('roles', function ($query) {
+                            $query->where('name', 'Admin');
+                        })->first();
+                    }
                     // $bibliotecario  = User::where('id', 1)->first();
                     $user = $bibliotecario;                
                     $msj = 'El Socio  ' . $new_movement->user['name'] . ',' . $new_movement->user['surname'] . '  con número de socio: ' . $new_movement->user['membership'] . '  ha solicitado el prestamo, del ejemplar  ' .  '<b>' . $copy->document->title . '</b>';

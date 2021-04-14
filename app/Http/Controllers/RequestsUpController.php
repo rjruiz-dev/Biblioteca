@@ -133,6 +133,11 @@ class RequestsUpController extends Controller
         $bibliotecario = User::whereHas('roles', function ($query) {
             $query->where('name', 'Librarian');
         })->first();
+        if($bibliotecario == null){ //si no hay bibliotecario lo manda al admin.
+            $bibliotecario = User::whereHas('roles', function ($query) {
+                $query->where('name', 'Admin');
+            })->first();
+        }
         $user = $bibliotecario;
         $msj = 'La solicitud de asociamiento de' . $nuevo_usuario->name . ',' . $nuevo_usuario->surnamename.  'ha sido rechazada';
         $subject = 'Informe';
@@ -191,6 +196,12 @@ class RequestsUpController extends Controller
         $bibliotecario = User::whereHas('roles', function ($query) {
             $query->where('name', 'Librarian');
         })->first();
+        if($bibliotecario == null){ //si no hay bibliotecario lo manda al admin.
+            $bibliotecario = User::whereHas('roles', function ($query) {
+                $query->where('name', 'Admin');
+            })->first();
+        }
+        // dd($bibliotecario);
         $user = $bibliotecario;
         $msj = 'El Socio   ' . $nuevo_usuario->name . ',' . $nuevo_usuario->surname.  'ha sido aprobado como nuevo socio';
         $subject = 'Informe';
