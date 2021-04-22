@@ -668,6 +668,7 @@ function obtenercamposdinamicos(accion) {
                 document.getElementById("l_generate_books_id").innerHTML = response.cuerpo_otros;
                 $('#generate_books_id').select2({
                     placeholder: response.ph_cuerpo_otros,
+                    tags: true
                     // placeholder: response.plh_otros,
                 });
             }
@@ -676,6 +677,7 @@ function obtenercamposdinamicos(accion) {
                 document.getElementById("l_generate_books_id").innerHTML = response.cuerpo_genero;
                 $('#generate_books_id').select2({
                     placeholder: response.ph_cuerpo_genero,
+                    tags: true
                     // placeholder: response.plh_genero,
                 });
             }

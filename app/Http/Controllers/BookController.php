@@ -600,7 +600,19 @@ class BookController extends Controller
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  
                 $book->isbn             = $request->get('isbn');               
-                $book->generate_books_id= $request->get('generate_books_id');         
+                // $book->generate_books_id= $request->get('generate_books_id');
+                if( is_numeric($request->get('generate_books_id'))) 
+                {               
+                    $book->generate_books_id= $request->get('generate_books_id');    
+                }else{
+
+                    if($request->get('generate_books_id') != null){
+                    $new_generate_book = new Generate_book;
+                    $new_generate_book->genre_book  = $request->get('generate_books_id');
+                    $new_generate_book->save();
+                    $book->generate_books_id = $new_generate_book->id;
+                    }
+                }         
                 $book->documents_id     = $document->id;
                 $book->save();
 
@@ -901,7 +913,19 @@ class BookController extends Controller
                 $book->edition          = $request->get('edition');
                 $book->size             = $request->get('size');  
                 $book->isbn             = $request->get('isbn');               
-                $book->generate_books_id= $request->get('generate_books_id'); 
+                // $book->generate_books_id= $request->get('generate_books_id'); 
+                if( is_numeric($request->get('generate_books_id'))) 
+                {               
+                    $book->generate_books_id= $request->get('generate_books_id');    
+                }else{
+
+                    if($request->get('generate_books_id') != null){
+                    $new_generate_book = new Generate_book;
+                    $new_generate_book->genre_book  = $request->get('generate_books_id');
+                    $new_generate_book->save();
+                    $book->generate_books_id = $new_generate_book->id;
+                    }
+                }
                 $book->documents_id     = $document->id;
                 $book->save();
 

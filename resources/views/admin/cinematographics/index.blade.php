@@ -17,7 +17,7 @@
     <div class="panel-heading" style="background-color: {{ $setting->skin }};">
             <h3 class="panel-title">{{ $ml_gc->subtitulo_gc }}  
           
-                <a href="{{ route('admin.cinematographics.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show"  title="{{ $ml_gc->btn_crear_gc }}"><i class="fa fa-user-plus"></i> {{ $ml_gc->btn_crear_gc }}</a>
+                <a href="{{ route('admin.cinematographics.create') }}"  id="btn-btn-create" class="btn btn-success pull-right modal-show"  style="margin-top: -8px;" title="{{ $ml_gc->btn_crear_gc }}"><i class="fa fa-user-plus"></i> {{ $ml_gc->btn_crear_gc }}</a>
     
             </h3>
         </div>
@@ -115,7 +115,6 @@
             ]
         });
 
-        var
 
     </script>
 @endpush
