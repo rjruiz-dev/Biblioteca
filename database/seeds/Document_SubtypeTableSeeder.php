@@ -51,7 +51,11 @@ class Document_SubtypeTableSeeder extends Seeder
             'subtype_name'      => 'Negativos',
             'document_types_id'      => 5,
         ]);
-        
+        App\Document_subtype::create([
+            'subtype_name'      => 'Sin SubTipo',
+            'document_types_id'      => null,
+        ]);
+
         App\Document_subtype::create([
             'id'      => 100,
             'subtype_name'      => 'Sin SubTipo desde Rebecca',

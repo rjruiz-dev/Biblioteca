@@ -448,7 +448,23 @@ class MoviesController extends Controller
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
                 $movie->generate_films_id       = $request->get('generate_films_id');
                 $movie->adaptations_id          = $request->get('adaptations_id');
-                $movie->photography_movies_id   = $request->get('photography_movies_id');                 
+                
+                
+                
+                // $movie->photography_movies_id   = $request->get('photography_movies_id');                 
+                
+                if( is_numeric($request->get('photography_movies_id'))) 
+                {                
+                    $document->photography_movies_id = $request->get('photography_movies_id');    
+ 
+                }else{
+                    $new_photography_movie = new Photography_movie;
+                    $new_photography_movie->photography_movies_name         = $request->get('photography_movies_id');
+                    $new_photography_movie->save();
+                    $movie->photography_movies_id = $new_photography_movie->id;
+                }
+                
+                
                 $movie->subtitle                = $request->get('subtitle');               
                 $movie->script                  = $request->get('script');
                 $movie->specific_content        = $request->get('specific_content');
@@ -694,7 +710,18 @@ class MoviesController extends Controller
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
                 $movie->generate_films_id       = $request->get('generate_films_id');
                 $movie->adaptations_id          = $request->get('adaptations_id');
-                $movie->photography_movies_id   = $request->get('photography_movies_id'); 
+                // $movie->photography_movies_id   = $request->get('photography_movies_id'); 
+                if( is_numeric($request->get('photography_movies_id'))) 
+                {                
+                    $document->photography_movies_id = $request->get('photography_movies_id');    
+ 
+                }else{
+                    $new_photography_movie = new Photography_movie;
+                    $new_photography_movie->photography_movies_name         = $request->get('photography_movies_id');
+                    $new_photography_movie->save();
+                    $movie->photography_movies_id = $new_photography_movie->id;
+                }
+                
                 $movie->subtitle                = $request->get('subtitle');              
                 $movie->script                  = $request->get('script');
                 $movie->specific_content        = $request->get('specific_content');

@@ -660,7 +660,8 @@ function obtenercamposestaticos(accion) {
                 });
                 $('#published').select2({
                     dropdownParent: $("#fg_published"),
-                    placeholder: response.ph_cuerpo_editado_en
+                    placeholder: response.ph_cuerpo_editado_en,
+                    tags: true
                 });
                 $('#made_by').select2({
                     dropdownParent: $("#fg_made_by"),

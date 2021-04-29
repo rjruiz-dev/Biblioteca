@@ -29,7 +29,8 @@ $('body').on('click', '.modal-show', function(event) {
 
             $('#photography_movies_id').select2({
                 dropdownParent: $("#fg_photography_movies_id"),
-                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia'
+                placeholder: 'Seleccione o Ingrese un Tipo de Fotografia',
+                tags: true
             });
 
             $('#generate_formats_id').select2({
@@ -617,7 +618,8 @@ function obtenercamposestaticos(accion) {
                 });
                 $('#photography_movies_id').select2({
                     dropdownParent: $("#fg_photography_movies_id"),
-                    placeholder: response.ph_cuerpo_fotografia
+                    placeholder: response.ph_cuerpo_fotografia,
+                    tags: true
                 });
                 $('#generate_formats_id').select2({
                     dropdownParent: $("#fg_generate_formats_id"),
