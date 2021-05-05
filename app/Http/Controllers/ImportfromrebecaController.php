@@ -221,7 +221,9 @@ class ImportfromrebecaController extends Controller
                                 $editorial_pre = trim(str_after(reset($arreglo_editorial_salto_linea), ' : '));
                                 $editorial = trim(str_before($editorial_pre, ', '));
                                 $anio = trim(str_after($editorial_pre, ', '));
-                                $anio = str_replace('.', '', $anio);  
+                                $anio = trim(str_after($anio, '. '));
+                                $anio = str_replace('.', '', $anio);
+                                // dd($anio);  
                                 $anio_convertido = date_create($anio."-01-01");
                                 // dd($anio);
                                 // $documento = str_replace($editorial, '', $documento);

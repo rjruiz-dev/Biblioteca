@@ -254,7 +254,7 @@
                     <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 4)
-                    <p class="text-center"><a href="{{ route('multimedias.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('multimediass.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($doc['document_types_id'] == 5)
                     <p class="text-center"><a href="{{ route('fotografias.indexsolo', ['id' => $doc['id']]) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
@@ -346,7 +346,7 @@
                     <p class="text-center"><a href="{{ route('libros.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 4)
-                    <p class="text-center"><a href="{{ route('multimedias.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
+                    <p class="text-center"><a href="{{ route('multimediass.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>
                     @endif
                     @if($masreservados->document_types_id == 5)
                     <p class="text-center"><a href="{{ route('fotografias.indexsolo', ['id' => $masreservados->id] ) }}" class="btn btn-danger">{{$ml_front_end->mas_info}}</a></p>

@@ -40,7 +40,8 @@ $('body').on('click', '.modal-show', function(event) {
 
             $('#generate_films_id').select2({
                 dropdownParent: $("#fg_generate_films_id"),
-                placeholder: 'Seleccione un Género'
+                placeholder: 'Seleccione un Género',
+                tags: true
             });
 
             $('#actors').select2({
@@ -596,7 +597,8 @@ function obtenercamposestaticos(accion) {
                 });
                 $('#generate_films_id').select2({
                     dropdownParent: $("#fg_generate_films_id"),
-                    placeholder: response.ph_cuerpo_genero
+                    placeholder: response.ph_cuerpo_genero,
+                    tags: true
                 });
                 $("#generate_subjects_id").select2({
                     dropdownParent: $("#fg_generate_subjects_id"),

@@ -70,7 +70,7 @@ function(){
     Route::get('cines/indexsolo/{id}',          'VMoviesController@indexsolo')->name('cines.indexsolo');
     Route::get('musicas/indexsolo/{id}',        'VMusicController@indexsolo')->name('musicas.indexsolo');
     Route::get('fotografias/indexsolo/{id}',    'VPhotographyController@indexsolo')->name('fotografias.indexsolo');
-    Route::get('multimedias/indexsolo/{id}',    'VMultimediaController@indexsolo')->name('multimedias.indexsolo');
+    Route::get('multimedias/indexsolo/{id}',    'VMultimediaController@indexsolo')->name('multimediass.indexsolo');
     // Route::get('vusers/edit/{id}',           'HomeController@edit')->name('vusers.edit');
     // Route::post('vusers/update/{id}',        'HomeController@update')->name('vusers.update');
     Route::get('filtrarhome/{cantidad}',        'HomeController@filtrarhome');

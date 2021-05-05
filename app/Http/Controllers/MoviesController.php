@@ -446,7 +446,17 @@ class MoviesController extends Controller
                 // insertamos en la tabla multimedia                
                 $movie = new Movies; 
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
-                $movie->generate_films_id       = $request->get('generate_films_id');
+                // $movie->generate_films_id       = $request->get('generate_films_id');
+
+                if( is_numeric($request->get('generate_films_id'))){                
+                    $movie->generate_films_id  = $request->get('generate_films_id');    
+                }else{
+                    $new_genre_films = new Generate_film;
+                    $new_genre_films->genre_film = $request->get('generate_films_id');
+                    $new_genre_films->save();
+                    $movie->generate_films_id = $new_genre_films->id;
+                }
+
                 $movie->adaptations_id          = $request->get('adaptations_id');
                 
                 
@@ -461,6 +471,7 @@ class MoviesController extends Controller
                     $new_photography_movie = new Photography_movie;
                     $new_photography_movie->photography_movies_name         = $request->get('photography_movies_id');
                     $new_photography_movie->save();
+                    // dd("aaa: ".$new_photography_movie->id);
                     $movie->photography_movies_id = $new_photography_movie->id;
                 }
                 
@@ -708,7 +719,15 @@ class MoviesController extends Controller
 
                 // insertamos en la tabla movies
                 $movie->generate_formats_id     = $request->get('generate_formats_id');
-                $movie->generate_films_id       = $request->get('generate_films_id');
+                // $movie->generate_films_id       = $request->get('generate_films_id');
+                if( is_numeric($request->get('generate_films_id'))){                
+                    $movie->generate_films_id  = $request->get('generate_films_id');    
+                }else{
+                    $new_genre_films = new Generate_film;
+                    $new_genre_films->genre_film = $request->get('generate_films_id');
+                    $new_genre_films->save();
+                    $movie->generate_films_id = $new_genre_films->id;
+                }
                 $movie->adaptations_id          = $request->get('adaptations_id');
                 // $movie->photography_movies_id   = $request->get('photography_movies_id'); 
                 if( is_numeric($request->get('photography_movies_id'))) 
