@@ -398,9 +398,10 @@ class BookController extends Controller
         return view('admin.books.index', [ 
             'idioma'            => $idioma,
             // 'idioma_document'   => $idioma_document,
-            'idioma_movie'      => $idioma_movie,
+            // 'idioma_movie'      => $idioma_movie,
             'idiomas'           => $idiomas,
-            'documentos'  => $documentos,
+            // 'documentos'  => $documentos,
+            'plan'  => $plan,
             'advertencia' => $advertencia,
             'setting'           => $setting,
             'idd'           => $idd,

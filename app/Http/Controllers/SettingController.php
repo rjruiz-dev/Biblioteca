@@ -13,6 +13,7 @@ use App\Swal_setting;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class SettingController extends Controller
 {
@@ -157,7 +158,9 @@ class SettingController extends Controller
                 $setting->skin              = $request->get('skin');
                 $setting->skin_footer       = $request->get('skin_footer');
         
-                $setting->id_plan       = $request->get('id_plan');
+                if(Auth::user()->getRoleNames() == 'Admin'){
+                    $setting->id_plan       = $request->get('id_plan');
+                }
                 
                 
                 $setting->fines_id = $request->get('group');
