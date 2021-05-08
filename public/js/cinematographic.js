@@ -20,8 +20,13 @@ $('body').on('click', '.modal-show', function(event) {
     $('#modal').modal('show');
 });
 
+
+
+
+
 $('#modal-btn-save').click(function(event) {
     event.preventDefault();
+    $("#genre_film").show().focus();
 
     var form = $('#modal-body form'),
         url = form.attr('action'),
@@ -29,6 +34,8 @@ $('#modal-btn-save').click(function(event) {
 
     form.find('.help-block').remove();
     form.find('.form-group').removeClass('has-error');
+
+
 
     $.ajax({
         url: url,
