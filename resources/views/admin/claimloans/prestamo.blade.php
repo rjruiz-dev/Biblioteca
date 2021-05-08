@@ -202,6 +202,16 @@
                 cache: false,  
                 processData: false,
                 contentType: false,
+                beforeSend: function() {
+                    swal.fire({
+                        html: '<h5>Enviando...</h5>',
+                        showConfirmButton: false,
+                        // onRender: function() {
+                        //     // there will only ever be one sweet alert open.
+                        //     $('.swal2-content').prepend(sweet_loader);
+                        // }
+                    });
+                },
                 success: function (response) {
                     var info = response.bandera;
 
