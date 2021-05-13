@@ -240,10 +240,11 @@ class BookController extends Controller
                             $size = $size_del_fin;
                             $datos_pendientes = str_replace($size, '', $datos_pendientes);
                             $datos_pendientes = str_replace('Descripción física:', '', $datos_pendientes);
-                            $datos_pendientes = str_replace(' ; ', '', $datos_pendientes);
+                            // $datos_pendientes = str_replace(' ; ', '', $datos_pendientes);
                         }
                     }
                     // dd($size);
+                    // dd($datos_pendientes);
                     //------------------------------------------ISBN-----------------------------------------------------------------------------------------                
                     $isbn = null;
                     //    if (strpos($documento, 'ISBN:') !== false) {
