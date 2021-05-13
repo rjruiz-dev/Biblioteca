@@ -300,69 +300,72 @@ class BookController extends Controller
                     if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
                         $num_aux = 0;
                         foreach($autores_linea_completa as $autoree){
-                            if($num_aux == 0){
-                                // $autoree = 'Nicklaus Kautzer';
-                                // dd($autoree);                            
-                                // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
-                                $creadores = Creator::where('creator_name', '=', $autoree)->first();
-                                // dd($creadores);
-                                if($creadores != null) 
-                                {
-                                    // dd('entro al iff');
-                                    $edicion_doc->creators_id = $creadores->id;  
-                                    $edicion_doc->let_author = Str::upper(substr($creadores->creator_name, 0, 3)); 
-                                }else{
-                                    // dd('entro al else');
-                                   
-                                    $autoree = str_replace('.','', $autoree);
-                                    // dd($autoree);
-                                    $creator = new Creator;
-                                    $creator->creator_name  = $autoree;
-                                    $creator->document_types_id = 3;
-                                    $creator->save();
-                                    $edicion_doc->creators_id = $creator->id;
-                                    $edicion_doc->let_author = Str::upper(substr($creator->creator_name, 0, 3)); 
+                            if($autoree != null && $autoree != ""){
+                                $autoree = trim($autoree);
+                                if($num_aux == 0){
+                                    // $autoree = 'Nicklaus Kautzer';
+                                    // dd($autoree);                            
+                                    // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
+                                    $creadores = Creator::where('creator_name', '=', $autoree)->first();
+                                    // dd($creadores);
+                                    if($creadores != null) 
+                                    {
+                                        // dd('entro al iff');
+                                        $edicion_doc->creators_id = $creadores->id;  
+                                        $edicion_doc->let_author = Str::upper(substr($creadores->creator_name, 0, 3)); 
+                                    }else{
+                                        // dd('entro al else');
+                                    
+                                        $autoree = str_replace('.','', $autoree);
+                                        // dd($autoree);
+                                        $creator = new Creator;
+                                        $creator->creator_name  = $autoree;
+                                        $creator->document_types_id = 3;
+                                        $creator->save();
+                                        $edicion_doc->creators_id = $creator->id;
+                                        $edicion_doc->let_author = Str::upper(substr($creator->creator_name, 0, 3)); 
+                                    }
                                 }
+                                if($num_aux == 1){
+                                    // $autoree = 'Nicklaus Kautzer';
+                                    // dd($autoree);                            
+                                    // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
+                                    $creadores = Creator::where('creator_name', '=', $autoree)->first();
+                                    // dd($creadores);
+                                    if($creadores != null) 
+                                    {
+                                        // dd('entro al iff');
+                                        $new_book->second_author_id = $creadores->id;  
+                                    }else{
+                                        // dd('entro al else');
+                                        $creator = new Creator;
+                                        $creator->creator_name  = $autoree;
+                                        $creator->document_types_id = 3;
+                                        $creator->save();
+                                        $new_book->second_author_id = $creator->id;
+                                    }  
+                                }
+                                if($num_aux == 2){
+                                    // $autoree = 'Nicklaus Kautzer';
+                                    // dd($autoree);                            
+                                    // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
+                                    $creadores = Creator::where('creator_name', '=', $autoree)->first();
+                                    // dd($creadores);
+                                    if($creadores != null) 
+                                    {
+                                        // dd('entro al iff');
+                                        $new_book->third_author_id = $creadores->id;  
+                                    }else{
+                                        // dd('entro al else');
+                                        $creator = new Creator;
+                                        $creator->creator_name  = $autoree;
+                                        $creator->document_types_id = 3;
+                                        $creator->save();
+                                        $new_book->third_author_id = $creator->id;
+                                    }  
+                                }
+                                $num_aux = $num_aux + 1;
                             }
-                            if($num_aux == 1){
-                                // $autoree = 'Nicklaus Kautzer';
-                                // dd($autoree);                            
-                                // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
-                                $creadores = Creator::where('creator_name', '=', $autoree)->first();
-                                // dd($creadores);
-                                if($creadores != null) 
-                                {
-                                    // dd('entro al iff');
-                                    $new_book->second_author_id = $creadores->id;  
-                                }else{
-                                    // dd('entro al else');
-                                    $creator = new Creator;
-                                    $creator->creator_name  = $autoree;
-                                    $creator->document_types_id = 3;
-                                    $creator->save();
-                                    $new_book->second_author_id = $creator->id;
-                                }  
-                            }
-                            if($num_aux == 2){
-                                // $autoree = 'Nicklaus Kautzer';
-                                // dd($autoree);                            
-                                // $documentos = DB::select('SELECT c. FROM creators c LEFT JOIN documents d ON d.id = c.documents_id');
-                                $creadores = Creator::where('creator_name', '=', $autoree)->first();
-                                // dd($creadores);
-                                if($creadores != null) 
-                                {
-                                    // dd('entro al iff');
-                                    $new_book->third_author_id = $creadores->id;  
-                                }else{
-                                    // dd('entro al else');
-                                    $creator = new Creator;
-                                    $creator->creator_name  = $autoree;
-                                    $creator->document_types_id = 3;
-                                    $creator->save();
-                                    $new_book->third_author_id = $creator->id;
-                                }  
-                            }
-                            $num_aux = $num_aux + 1;
                         }
                     }
 
@@ -536,17 +539,25 @@ class BookController extends Controller
                 $document->note             = $request->get('note');
                 $document->synopsis         = $request->input('synopsis');
               
-                if( is_numeric($request->get('creators_id'))) 
+                $trim_creators_id = $request->get('creators_id');
+                if( is_numeric($trim_creators_id)) 
                 {                
-                    $document->creators_id    = $request->get('creators_id');    
-
+                    $document->creators_id    = $trim_creators_id;
                 }else{
-
-                    $creator = new Creator;
-                    $creator->creator_name      = $request->get('creators_id');
-                    $creator->document_types_id = 3;
-                    $creator->save();
-                    $document->creators_id = $creator->id;
+                    if($trim_creators_id != null && $trim_creators_id != ""){
+                        $consul_creators_id = Creator::where('creator_name', '=', $trim_creators_id)->first();
+                        // dd($consul_creators_id);
+                        if($consul_creators_id != null) 
+                        {
+                            $document->creators_id = $consul_creators_id->id;
+                        }else{
+                            $creator = new Creator;
+                            $creator->creator_name      = $trim_creators_id;
+                            $creator->document_types_id = 3;
+                            $creator->save();
+                            $document->creators_id = $creator->id;
+                        }
+                    }
                 }
                 
                 // $document->photo            = $request->get('photo');
@@ -563,37 +574,46 @@ class BookController extends Controller
                 $book = new Book;   
                 $book->subtitle = $request->get('subtitle');
                 
-                                
-                    if( is_numeric($request->get('second_author_id'))) 
+                    $trim_second_author_id = $request->get('second_author_id');
+                    if( is_numeric($trim_second_author_id)) 
                     {                
-                        $book->second_author_id = $request->get('second_author_id');    
-
+                        $book->second_author_id = $trim_second_author_id;   
                     }else{
-
-                        if( (trim($request->get('second_author_id')) != null)  && (trim($request->get('second_author_id')) != "") ){
-                            
-                            $creator = new Creator;
-                            $creator->creator_name      = $request->get('second_author_id');
-                            $creator->document_types_id = 2;
-                            $creator->save();
-                            $book->second_author_id     = $creator->id;
+                        if($trim_second_author_id != null && $trim_second_author_id != ""){   
+                            $consul_second_author_id = Creator::where('creator_name', '=', $trim_second_author_id)->first();
+                            // dd($consul_second_author_id);
+                            if($consul_second_author_id != null) 
+                            {
+                                $book->second_author_id = $consul_second_author_id->id;
+                            }else{
+                                $creator = new Creator;
+                                $creator->creator_name      = $trim_second_author_id;
+                                $creator->document_types_id = 2;
+                                $creator->save();
+                                $book->second_author_id     = $creator->id;
+                            }
                         }
                     }
               
                 if($request->get('document_subtypes_id') != 4){
-                     
-                    if( is_numeric($request->get('third_author_id'))) 
+                    $trim_third_author_id = $request->get('third_author_id');
+                    if( is_numeric($trim_third_author_id)) 
                     {                 
-                        $book->third_author_id = $request->get('third_author_id');    
-
+                        $book->third_author_id = $trim_third_author_id;   
                     }else{ 
-                        
-                        if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
+                        if($trim_third_author_id != null && $trim_third_author_id != ""){
+                            $consul_third_author_id = Creator::where('creator_name', '=', $trim_third_author_id)->first();
+                            // dd($consul_third_author_id);
+                            if($consul_third_author_id != null) 
+                            {
+                                $book->third_author_id = $consul_third_author_id->id;
+                            }else{
                             $creator = new Creator;
-                            $creator->creator_name      = $request->get('third_author_id');
+                            $creator->creator_name      = $trim_third_author_id;
                             $creator->document_types_id = 2;
                             $creator->save();
                             $book->third_author_id      = $creator->id;
+                            }
                         }
                     }                    
                 }
@@ -811,20 +831,26 @@ class BookController extends Controller
                 
                 // $this->authorize('update', $book); 
                 // Actualizamos el documento   
-                if( is_numeric($request->get('creators_id'))) 
+                $trim_creators_id = $request->get('creators_id');
+                if( is_numeric($trim_creators_id)) 
                 {                
-                    $document->creators_id = $request->get('creators_id');    
-
-                }else
-                {
-                    if($request->get('creators_id') != null){
-                    $creator = new Creator;
-                    $creator->creator_name  = $request->get('creators_id');
-                    $creator->document_types_id = 3;
-                    $creator->save();
-                    $document->creators_id = $creator->id;
+                    $document->creators_id    = $trim_creators_id;
+                }else{
+                    if($trim_creators_id != null && $trim_creators_id != ""){
+                        $consul_creators_id = Creator::where('creator_name', '=', $trim_creators_id)->first();
+                        // dd($consul_creators_id);
+                        if($consul_creators_id != null) 
+                        {
+                            $document->creators_id = $consul_creators_id->id;
+                        }else{
+                            $creator = new Creator;
+                            $creator->creator_name      = $trim_creators_id;
+                            $creator->document_types_id = 3;
+                            $creator->save();
+                            $document->creators_id = $creator->id;
+                        }
                     }
-                }             
+                }            
                 $document->title            = $request->get('title');
                 $document->original_title   = $request->get('original_title');
                 $document->acquired         = Carbon::createFromFormat('d-m-Y', $request->get('acquired'));                    
@@ -874,41 +900,49 @@ class BookController extends Controller
                 $book->subtitle = $request->get('subtitle');
                 
                 
-                        if( is_numeric($request->get('second_author_id'))) 
-                        {                
-                            $book->second_author_id = $request->get('second_author_id');    
-
+                $trim_second_author_id = $request->get('second_author_id');
+                if( is_numeric($trim_second_author_id)) 
+                {                
+                    $book->second_author_id = $trim_second_author_id;   
+                }else{
+                    if($trim_second_author_id != null && $trim_second_author_id != ""){   
+                        $consul_second_author_id = Creator::where('creator_name', '=', $trim_second_author_id)->first();
+                        // dd($consul_second_author_id);
+                        if($consul_second_author_id != null) 
+                        {
+                            $book->second_author_id = $consul_second_author_id->id;
                         }else{
-                            
-                                
-                            if( (trim($request->get('second_author_id')) != null) && (trim($request->get('second_author_id')) != "") ){
-                                $creator = new Creator;
-                                $creator->creator_name      = $request->get('second_author_id');
-                                $creator->document_types_id = 2;
-                                $creator->save();
-                                $book->second_author_id     = $creator->id;
-                            }
+                            $creator = new Creator;
+                            $creator->creator_name      = $trim_second_author_id;
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $book->second_author_id     = $creator->id;
                         }
+                    }
+                }
                 
                // $book->third_author    = $request->get('third_author');
                 if($request->get('document_subtypes_id') != 4){// si es NO ES PUBL PERIODICA
-                    
-                    
-                        if( is_numeric($request->get('third_author_id'))) 
-                        {                
-                            $book->third_author_id  = $request->get('third_author_id');    
-
-                        }else{
-
-                            if( (trim($request->get('third_author_id')) != null)  && (trim($request->get('third_author_id')) != "") ){
-                                $creator = new Creator;
-                                $creator->creator_name = $request->get('third_author_id');
-                                $creator->document_types_id = 2;
-                                $creator->save();
-                                $book->third_author_id = $creator->id;
+                    $trim_third_author_id = $request->get('third_author_id');
+                    if( is_numeric($trim_third_author_id)) 
+                    {                 
+                        $book->third_author_id = $trim_third_author_id;   
+                    }else{ 
+                        if($trim_third_author_id != null && $trim_third_author_id != ""){
+                            $consul_third_author_id = Creator::where('creator_name', '=', $trim_third_author_id)->first();
+                            // dd($consul_third_author_id);
+                            if($consul_third_author_id != null) 
+                            {
+                                $book->third_author_id = $consul_third_author_id->id;
+                            }else{
+                            $creator = new Creator;
+                            $creator->creator_name      = $trim_third_author_id;
+                            $creator->document_types_id = 2;
+                            $creator->save();
+                            $book->third_author_id      = $creator->id;
                             }
-
                         }
+                    }
                 }
                
                 $book->translator       = $request->get('translator');        
