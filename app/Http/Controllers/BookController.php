@@ -300,8 +300,9 @@ class BookController extends Controller
                     if(($autor_del_com != null) && (count($autores_linea_completa) > 0) ){
                         $num_aux = 0;
                         foreach($autores_linea_completa as $autoree){
+                            $autoree = str_replace('.','', $autoree);
+                            $autoree = trim($autoree);
                             if($autoree != null && $autoree != ""){
-                                $autoree = trim($autoree);
                                 if($num_aux == 0){
                                     // $autoree = 'Nicklaus Kautzer';
                                     // dd($autoree);                            
@@ -315,8 +316,6 @@ class BookController extends Controller
                                         $edicion_doc->let_author = Str::upper(substr($creadores->creator_name, 0, 3)); 
                                     }else{
                                         // dd('entro al else');
-                                    
-                                        $autoree = str_replace('.','', $autoree);
                                         // dd($autoree);
                                         $creator = new Creator;
                                         $creator->creator_name  = $autoree;
