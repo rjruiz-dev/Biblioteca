@@ -614,6 +614,13 @@ $('#modal-btn-save-solicitud-registro').click(function (event) {
         cache: false,  
         processData: false,
         contentType: false,
+        beforeSend: function() {
+                    swal.fire({
+                        title: 'Procesando!',
+                        html: '<h5>enviando solicitud...</h5>',
+                        showConfirmButton: false,                      
+                    });
+                },
         success: function (response) {
           // var  info = response.bandera;
             form.trigger('reset');

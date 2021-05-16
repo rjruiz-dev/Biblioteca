@@ -146,6 +146,13 @@ $('body').on('click', '.btn-delete', function(event) {
                     '_method': 'DELETE',
                     '_token': csrf_token
                 },
+                beforeSend: function() {
+                    swal.fire({
+                        title: 'Procesando!',
+                        html: '<h5>aceptando solicitud..</h5>',
+                        showConfirmButton: false,
+                    });
+                },
                 success: function(response) {
 
                     var mensaje_exito_solicitud = response.mensaje_exito_solicitud;
@@ -196,6 +203,13 @@ $('body').on('click', '.btn-rechazar', function(event) {
                 data: {
                     '_method': 'DELETE',
                     '_token': csrf_token
+                },
+                beforeSend: function() {
+                    swal.fire({
+                        title: 'Procesando!',
+                        html: '<h5>rechazado solicitud..</h5>',
+                        showConfirmButton: false,
+                    });
                 },
                 success: function(response) {
 

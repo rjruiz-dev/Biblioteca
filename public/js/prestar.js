@@ -13,6 +13,13 @@ $('#modal-btn-save-prestar').click(function(event) {
         url: url,
         method: method,
         data: form.serialize(),
+        beforeSend: function() {
+            swal.fire({
+                title: 'Procesando!',
+                html: '<h5>préstamo...</h5>',
+                showConfirmButton: false,
+            });
+        },
         success: function(response) {
             var info = response.bandera;
             var info2 = response.id;
@@ -169,17 +176,17 @@ function obtenerDetalleDePartner(id) {
 }
 
 
-function llenarInputs(data) {         
-    img_url = '/images/'+ data.partner.user_photo;       
-    $("#user_photo").attr("src",img_url);
-    $('#nickname').text(data.partner.name);  
-    $('#surname').text(data.partner.surname);  
-    $('#email').text(data.partner.email);    
+function llenarInputs(data) {
+    img_url = '/images/' + data.partner.user_photo;
+    $("#user_photo").attr("src", img_url);
+    $('#nickname').text(data.partner.name);
+    $('#surname').text(data.partner.surname);
+    $('#email').text(data.partner.email);
     $('#loan').text(data.count.count_of_prestamos);
     // console.log("prstamos: " + data.limit.loan_limit);
-    if(data.count.count_of_prestamos > data.limit.loan_limit){
-        $("#modal-btn-save-prestar").prop('disabled', true); 
-    }else{
-        $("#modal-btn-save-prestar").prop('disabled', false); 
-    }                      
+    if (data.count.count_of_prestamos > data.limit.loan_limit) {
+        $("#modal-btn-save-prestar").prop('disabled', true);
+    } else {
+        $("#modal-btn-save-prestar").prop('disabled', false);
+    }
 }

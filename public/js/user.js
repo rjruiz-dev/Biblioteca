@@ -74,6 +74,14 @@ $('#modal-btn-save').click(function(event) {
         cache: false,
         processData: false,
         contentType: false,
+        beforeSend: function() {
+            swal.fire({
+                title: 'Procesando!',
+                html: '<h5>registro de usuario...</h5>',
+                showConfirmButton: false,
+            });
+
+        },
         success: function(response) {
 
             var mensaje_exito = response.mensaje_exito;

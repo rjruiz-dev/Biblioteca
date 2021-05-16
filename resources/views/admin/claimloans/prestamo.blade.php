@@ -204,12 +204,9 @@
                 contentType: false,
                 beforeSend: function() {
                     swal.fire({
-                        html: '<h5>Enviando...</h5>',
-                        showConfirmButton: false,
-                        // onRender: function() {
-                        //     // there will only ever be one sweet alert open.
-                        //     $('.swal2-content').prepend(sweet_loader);
-                        // }
+                        title: 'Procesando!',
+                        html: '<h5>enviando reclamo...</h5>',
+                        showConfirmButton: false,                      
                     });
                 },
                 success: function (response) {
