@@ -423,7 +423,7 @@ desired effect
   <footer class="main-footer">
     <div class="row">
       <div class="text-center col-lg-12 col-md-12 justify-content-center align-items-center d-flex pt-2">       
-        <b>{{ $setting->library_name}}</b> | <b>{{ $setting->street}} {{ $setting->postal_code}} {{ $setting->city}} {{ $setting->province}}</b> | <b>{{ $setting->library_email}}</b> | <b>{{ $setting->library_phone}}</b> 
+        <b>{{ $setting->library_name}}</b> | <b>{{ $setting->street}} </b> | <b> {{ $setting->postal_code}} {{ $setting->city}} {{ $setting->province}}</b> | <b>{{ $setting->library_email}}</b> | <b>{{ $setting->library_phone}}</b> 
       </div>
       <!-- <div class="col-md-2">       
         <b>{{ $setting->library_name}}</b>

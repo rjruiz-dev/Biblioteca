@@ -340,11 +340,11 @@ class LoansbyclassroomController extends Controller
             ->addColumn('curso', function ($prestamos){
                 return $prestamos->course['course_name'];               
             })
-            // ->addColumn('curso', function ($prestamos){
-            //     return $prestamos->course['course_name'];               
-            // })                          
-            ->addColumn('created_at', function ($prestamos){
-                return $prestamos->created_at->format('d-m-y');
+            ->addColumn('date', function ($prestamos){
+                return $prestamos->date->format('d-m-y');               
+            })                          
+            ->addColumn('date_until', function ($prestamos){
+                return $prestamos->date_until->format('d-m-y');
             })                 
             
             // ->addColumn('accion', function ($prestamos) {
@@ -362,7 +362,7 @@ class LoansbyclassroomController extends Controller
 
             // })           
             ->addIndexColumn()   
-            ->rawColumns(['registry_number', 'documento', 'tipo','creador', 'subtipo','membership', 'usuario','curso']) 
+            ->rawColumns(['registry_number', 'documento', 'tipo','creador', 'subtipo','membership', 'usuario','curso','date','date_until']) 
             ->make(true);  
         
     }
