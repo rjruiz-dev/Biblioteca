@@ -124,7 +124,7 @@ class RequestsUpController extends Controller
         $user = User::findOrFail($id);
         $user->status_id = 2; // RECHAZADO VA AQUEDAR EN ESE ESTADO
         $user->save();
-
+        $nuevo_usuario = $user;
         $mensaje = 0;
         
         Requests::dispatch($user, $mensaje);
