@@ -20,11 +20,6 @@ $('body').on('click', '.modal-show', function(event) {
 
     $('#modal').modal('show');
 });
-var bandera_escribir = false;
-$(document).on("change","#genre_film",function(){
-    bandera_escribir = true;
-    // console.log(bandera_escribir);      
-});
 
 
 
