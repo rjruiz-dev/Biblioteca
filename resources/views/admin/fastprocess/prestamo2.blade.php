@@ -119,7 +119,8 @@
                                 @endif
                                     @php
                                     $sancion = $multa->fine_description." ".$multa->label." ".$calculo;
-                                    $disabled_reno = 'disabled';      
+                                    $disabled_reno = 'disabled'; 
+                                    $disabled_reno = '';     
                                     @endphp
                         @endif
 

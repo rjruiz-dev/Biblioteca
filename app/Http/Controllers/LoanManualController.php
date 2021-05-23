@@ -253,11 +253,13 @@ class LoanManualController extends Controller
         // aca tenia seteado el 1 deberia de variar revisar por las dudas.
         $users = User::where('status_id', 3)->get()->pluck('nickname', 'id');
         
-        $courses = Course::all()->pluck('course_name', 'id');
+        $courses = Course::where('baja', 0)->pluck('course_name', 'id');
 
         $hasta_prestamo_parce = Setting::select('loan_day')->first();
         $hastaprestamo = $hasta_prestamo_parce->loan_day;
-
+        //seguir desde aca el hilo para ver si tiene una bandera para enviar el mail sabiendo q todo
+        //parte de una solicitud. hay una bandera q al menos al front se pasa y tmb se pasa prestamo
+        //solicitado.
         return view('admin.loanmanual.prestar', [
             'idioma'        => $idioma,
             'idiomas'       => $idiomas,

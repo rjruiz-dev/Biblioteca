@@ -121,12 +121,12 @@
             </li>  
             <li class="{{ setActiveRoute('importfromrebeca.importar') }}">
                 <a href="{{ route('importfromrebeca.importar') }}"> 
-                    <i class="fa fa-share-square-o"></i> <span>Importar desde Rebecca</span>
+                    <i class="fa fa-share-square-o"></i> <span>{{ $idioma->importar_rebeca }}</span>
                 </a>
             </li>
             <li class="{{ setActiveRoute('admin.importfromrebeca.index') }}">
                 <a href="{{ route('admin.importfromrebeca.index') }}"> 
-                    <i class="fa fa-share-square-o"></i> <span>Importaciones Rebecca</span>
+                    <i class="fa fa-share-square-o"></i> <span>{{ $idioma->importaciones_rebeca }}</span>
                 </a>
             </li>                    
         </ul>

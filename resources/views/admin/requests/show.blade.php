@@ -18,6 +18,7 @@
                     </li>
                     <li class="list-group-item">
                         <b>{{$Ml_web_loan->mod_fecha}}</b> <a class="pull-right">{{ $prestamo_solicitado->date }}</a>
+                        <b>aa{{$prestamo_solicitado->id}}</b>
                     </li>       
                 </ul>
             </div>

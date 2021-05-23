@@ -723,17 +723,20 @@ function obtenercamposestaticos(accion) {
                 $("#creators_id").select2({
                     dropdownParent: $("#fg_creators_id"),
                     placeholder: response.ph_cuerpo_autor,
-                    tags: true
+                    tags: true,
+                    allowClear: true
                 });
                 $("#second_author_id").select2({
                     dropdownParent: $("#fg_second_author_id"),
                     placeholder: response.ph_cuerpo_segundo_autor,
-                    tags: true
+                    tags: true,
+                    allowClear: true
                 });
                 $("#third_author_id").select2({
                     dropdownParent: $("#din_third_author_id"),
                     placeholder: response.ph_cuerpo_tercer_autor,
-                    tags: true
+                    tags: true,
+                    allowClear: true
                 });
                 $('#adequacies_id').select2({
                     dropdownParent: $("#fg_adequacies_id"),

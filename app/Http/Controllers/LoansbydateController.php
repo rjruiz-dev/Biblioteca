@@ -228,14 +228,20 @@ class LoansbydateController extends Controller
                 return $prestamos->user['membership'];               
             })
             ->addColumn('usuario', function ($prestamos){
-                return $prestamos->user['name'];               
+                return $prestamos->user['name'].' '.$prestamos->user['surname'];               
             })
             // ->addColumn('curso', function ($prestamos){
             //     return $prestamos->course['course_name'];               
             // })                          
             ->addColumn('created_at', function ($prestamos){
                 return $prestamos->created_at->format('d-m-y');
-            })                 
+            })        
+            ->addColumn('date', function ($prestamos){
+                return $prestamos->date->format('d-m-y');
+            }) 
+            ->addColumn('date_until', function ($prestamos){
+                return $prestamos->date_until->format('d-m-y');
+            })          
             
             // ->addColumn('accion', function ($prestamos) {
             //     // 'route' => $user->exists ? ['admin.users.update', $user->id] : 'admin.users.store',  

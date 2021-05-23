@@ -224,7 +224,8 @@ class ManyLenguagesController extends Controller
                 $ml_dashboard->socios_alta_manual       = $request->get('socios_alta_manual');                  
                 $ml_dashboard->socios_solicitudes       = $request->get('socios_solicitudes');                  
                 $ml_dashboard->catalogo                 = $request->get('catalogo');                  
-                $ml_dashboard->importar_rebeca          = $request->get('importar_rebeca');                  
+                $ml_dashboard->importar_rebeca          = $request->get('importar_rebeca');
+                $ml_dashboard->importaciones_rebeca          = $request->get('importaciones_rebeca');                  
                 $ml_dashboard->mantenimiento            = $request->get('mantenimiento');                  
                 $ml_dashboard->mant_cursos              = $request->get('mant_cursos');                  
                 $ml_dashboard->mant_maestros            = $request->get('mant_maestros');                  
@@ -1001,7 +1002,8 @@ class ManyLenguagesController extends Controller
                 $ml_dashboard->socios_alta_manual       = $request->get('socios_alta_manual');                  
                 $ml_dashboard->socios_solicitudes       = $request->get('socios_solicitudes');                  
                 $ml_dashboard->catalogo                 = $request->get('catalogo');                  
-                $ml_dashboard->importar_rebeca          = $request->get('importar_rebeca');                  
+                $ml_dashboard->importar_rebeca          = $request->get('importar_rebeca');
+                $ml_dashboard->importaciones_rebeca          = $request->get('importaciones_rebeca');                   
                 $ml_dashboard->mantenimiento            = $request->get('mantenimiento');                  
                 $ml_dashboard->mant_cursos              = $request->get('mant_cursos');                  
                 $ml_dashboard->mant_maestros            = $request->get('mant_maestros');                  

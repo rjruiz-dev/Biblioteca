@@ -43,6 +43,7 @@ class CreateMlDashboardsTable extends Migration
             $table->string('fotografia')->nullable();
             $table->string('multimedia')->nullable();
             $table->string('importar_rebeca')->nullable();
+            $table->string('importaciones_rebeca')->nullable();
             $table->string('mantenimiento')->nullable();
             $table->string('mant_cursos')->nullable();
             $table->string('mant_maestros')->nullable();

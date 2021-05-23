@@ -133,6 +133,7 @@
                                     @php
                                     $sancion = $idioma_multa." ".$multa->label." ".$calculo;
                                     $disabled_reno = 'disabled';
+                                    $disabled_reno = '';
                                     @endphp
                         @endif
 

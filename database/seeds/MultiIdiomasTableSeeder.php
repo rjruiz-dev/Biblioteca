@@ -36,7 +36,8 @@ class MultiIdiomasTableSeeder extends Seeder
             'musica'      => 'musica', // 1 
             'fotografia'      => 'fotografia', // 1 
             'multimedia'      => 'multimedia', // 1 
-            'importar_rebeca'      => 'importar rebeca', // 1 
+            'importar_rebeca'      => 'importar rebeca', // 1
+            'importaciones_rebeca'      => 'importaciones rebeca', // 1 
             'mantenimiento'      => 'mantenimiento', // 1 
             'mant_cursos'      => 'cursos', // 1 
             'mant_maestros'      => 'maestro de referencias', // 1 

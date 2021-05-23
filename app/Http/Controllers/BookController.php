@@ -830,11 +830,12 @@ class BookController extends Controller
                 
                 // $this->authorize('update', $book); 
                 // Actualizamos el documento   
-                $trim_creators_id = $request->get('creators_id');
+                $trim_creators_id = trim($request->get('creators_id'));
                 if( is_numeric($trim_creators_id)) 
                 {                
                     $document->creators_id    = $trim_creators_id;
                 }else{
+                    // dd($request->get('creators_id'));
                     if($trim_creators_id != null && $trim_creators_id != ""){
                         $consul_creators_id = Creator::where('creator_name', '=', $trim_creators_id)->first();
                         // dd($consul_creators_id);
@@ -847,6 +848,10 @@ class BookController extends Controller
                             $creator->document_types_id = 3;
                             $creator->save();
                             $document->creators_id = $creator->id;
+                        }
+                    }else{
+                        if($trim_creators_id == null){
+                            $document->creators_id = null;
                         }
                     }
                 }            
@@ -899,7 +904,7 @@ class BookController extends Controller
                 $book->subtitle = $request->get('subtitle');
                 
                 
-                $trim_second_author_id = $request->get('second_author_id');
+                $trim_second_author_id = trim($request->get('second_author_id'));
                 if( is_numeric($trim_second_author_id)) 
                 {                
                     $book->second_author_id = $trim_second_author_id;   
@@ -917,12 +922,16 @@ class BookController extends Controller
                             $creator->save();
                             $book->second_author_id     = $creator->id;
                         }
+                    }else{
+                        if($trim_second_author_id == null){
+                            $book->second_author_id = null;
+                        }
                     }
                 }
                 
                // $book->third_author    = $request->get('third_author');
                 if($request->get('document_subtypes_id') != 4){// si es NO ES PUBL PERIODICA
-                    $trim_third_author_id = $request->get('third_author_id');
+                    $trim_third_author_id = trim($request->get('third_author_id'));
                     if( is_numeric($trim_third_author_id)) 
                     {                 
                         $book->third_author_id = $trim_third_author_id;   
@@ -939,6 +948,10 @@ class BookController extends Controller
                             $creator->document_types_id = 2;
                             $creator->save();
                             $book->third_author_id      = $creator->id;
+                            }
+                        }else{
+                            if($trim_third_author_id == null){
+                                $book->third_author_id = null;
                             }
                         }
                     }

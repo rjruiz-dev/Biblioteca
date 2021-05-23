@@ -107,11 +107,6 @@
                     {!! Form::text('catalogo', $ml_dashboard['catalogo'] ? $ml_dashboard['catalogo'] : null, ['class' => 'form-control', 'id' => 'catalogo', 'placeholder' => 'Catalogo']) !!}
                 </div>
                 <div class="form-group">              
-                    {!! Form::label('catalogo', 'Catalogo') !!}                    
-                    {!! Form::text('catalogo', $ml_dashboard['catalogo'] ? $ml_dashboard['catalogo'] : null, ['class' => 'form-control', 'id' => 'catalogo', 'placeholder' => 'Catalogo']) !!}
-                </div>
-            
-                <div class="form-group">              
                     {!! Form::label('libros', 'Libros') !!}                    
                     {!! Form::text('libros', $ml_dashboard['libros'] ? $ml_dashboard['libros'] : null, ['class' => 'form-control', 'id' => 'libros', 'placeholder' => 'Libros']) !!}
                 </div>
@@ -134,6 +129,10 @@
                 <div class="form-group">              
                     {!! Form::label('importar_rebeca', 'importar REBECA') !!}                    
                     {!! Form::text('importar_rebeca', $ml_dashboard['importar_rebeca'] ? $ml_dashboard['importar_rebeca'] : null, ['class' => 'form-control', 'id' => 'importar_rebeca', 'placeholder' => 'importar REBECA']) !!}
+                </div>
+                <div class="form-group">              
+                    {!! Form::label('importaciones_rebeca', 'importaciones REBECA') !!}                    
+                    {!! Form::text('importaciones_rebeca', $ml_dashboard['importaciones_rebeca'] ? $ml_dashboard['importaciones_rebeca'] : null, ['class' => 'form-control', 'id' => 'importaciones_rebeca', 'placeholder' => 'importaciones REBECA']) !!}
                 </div>
                 <div class="form-group">              
                     {!! Form::label('mantenimiento', 'Mantenimiento') !!}                    

@@ -157,6 +157,9 @@ class RequestsController extends Controller
                     DB::commit();
 
                     $error = 0; // error en 0 es error NO osea NO hay ERROR
+
+                    //envio del mail.
+                    
                     }else{ 
                         $error = 1; // error en 1 es error Si osea HAY ERROR
                     } 
